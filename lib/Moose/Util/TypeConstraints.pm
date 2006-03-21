@@ -4,80 +4,85 @@ package Moose::Util::TypeConstraints;
 use strict;
 use warnings;
 
-use Sub::Name    'subname';
+use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
+
+use Moose::Meta::TypeConstraint;
+use Moose::Meta::TypeCoercion;
 
 sub import {
 	shift;
 	my $pkg = shift || caller();
-	return if $pkg eq ':no_export';
+	return if $pkg eq '-no-export';
 	no strict 'refs';
-	foreach my $export (qw(
-		type subtype as where
-		)) {
+	foreach my $export (qw(type subtype as where coerce from via find_type_constraint)) {
 		*{"${pkg}::${export}"} = \&{"${export}"};
-	}
-	
-	foreach my $constraint (qw(
-		Any 
-		Value Ref
-		Str Int
-		ScalarRef ArrayRef HashRef CodeRef RegexpRef
-		Object
-		)) {
-		*{"${pkg}::${constraint}"} = \&{"${constraint}"};
 	}	
-	
 }
 
-my %TYPES;
+{
+    my %TYPES;
+    sub find_type_constraint { $TYPES{$_[0]} }
 
-# might need this later
-#sub find_type_constraint { $TYPES{$_[0]} }
+    sub _create_type_constraint { 
+        my ($name, $parent, $check) = @_;
+        (!exists $TYPES{$name})
+            || confess "The type constraint '$name' has already been created"
+                if defined $name;
+        $parent = $TYPES{$parent} if defined $parent;
+        my $constraint = Moose::Meta::TypeConstraint->new(
+            name       => $name || '__ANON__',
+            parent     => $parent,            
+            constraint => $check,           
+        );
+        $TYPES{$name} = $constraint if defined $name;
+        return $constraint;
+    }
+
+    sub _install_type_coercions { 
+        my ($type_name, $coercion_map) = @_;
+        my $type = $TYPES{$type_name};
+        (!$type->has_coercion)
+            || confess "The type coercion for '$type_name' has already been registered";        
+        my $type_coercion = Moose::Meta::TypeCoercion->new(
+            type_coercion_map => $coercion_map,
+            type_constraint   => $type
+        );            
+        $type->coercion($type_coercion);
+    }
+    
+    sub export_type_contstraints_as_functions {
+        my $pkg = caller();
+	    no strict 'refs';
+    	foreach my $constraint (keys %TYPES) {
+    		*{"${pkg}::${constraint}"} = $TYPES{$constraint}->_compiled_type_constraint;
+    	}        
+    }    
+}
+
+# type constructors
 
 sub type ($$) {
 	my ($name, $check) = @_;
-	my $pkg = caller();
-	my $full_name = "${pkg}::${name}";
-	no strict 'refs';
-	*{$full_name} = $TYPES{$name} = subname $full_name => sub { 
-		return $TYPES{$name} unless defined $_[0];
-		local $_ = $_[0];
-		return undef unless $check->($_[0]);
-		$_[0];
-	};
+	_create_type_constraint($name, undef, $check);
 }
 
 sub subtype ($$;$) {
-	my ($name, $parent, $check) = @_;
-	if (defined $check) {
-		my $pkg = caller();
-		my $full_name = "${pkg}::${name}";		
-		no strict 'refs';
-		$parent = $TYPES{$parent} unless $parent && ref($parent) eq 'CODE';
-		*{$full_name} = $TYPES{$name} = subname $full_name => sub { 
-			return $TYPES{$name} unless defined $_[0];			
-			local $_ = $_[0];
-			return undef unless defined $parent->($_[0]) && $check->($_[0]);
-			$_[0];
-		};	
-	}
-	else {
-		($parent, $check) = ($name, $parent);
-		$parent = $TYPES{$parent} unless $parent && ref($parent) eq 'CODE';		
-		return subname((caller() . '::__anon_subtype__') => sub { 
-			return $TYPES{$name} unless defined $_[0];			
-			local $_ = $_[0];
-			return undef unless defined $parent->($_[0]) && $check->($_[0]);
-			$_[0];
-		});		
-	}
+	unshift @_ => undef if scalar @_ == 2;
+	_create_type_constraint(@_);
+}
+
+sub coerce ($@) {
+    my ($type_name, @coercion_map) = @_;   
+    _install_type_coercions($type_name, \@coercion_map);
 }
 
 sub as    ($) { $_[0] }
+sub from  ($) { $_[0] }
 sub where (&) { $_[0] }
+sub via   (&) { $_[0] }
 
 # define some basic types
 
@@ -122,6 +127,10 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
   subtype NaturalLessThanTen 
       => as Natural
       => where { $_ < 10 };
+      
+  coerce Num 
+      => from Str
+        => via { 0+$_ }; 
 
 =head1 DESCRIPTION
 
@@ -129,11 +138,16 @@ This module provides Moose with the ability to create type contraints
 to be are used in both attribute definitions and for method argument 
 validation. 
 
-This is B<NOT> a type system for Perl 5.
+=head2 Important Caveat
 
-The type and subtype constraints are basically functions which will 
-validate their first argument. If called with no arguments, they will 
-return themselves (this is syntactic sugar for Moose attributes).
+This is B<NOT> a type system for Perl 5. These are type constraints, 
+and they are not used by Moose unless you tell it to. No type 
+inference is performed, expression are not typed, etc. etc. etc. 
+
+This is simply a means of creating small constraint functions which 
+can be used to simply your own type-checking code.
+
+=head2 Default Type Constraints
 
 This module also provides a simple hierarchy for Perl 5 types, this 
 could probably use some work, but it works for me at the moment.
@@ -150,49 +164,82 @@ could probably use some work, but it works for me at the moment.
           RegexpRef
           Object	
 
-Suggestions for improvement are welcome.	
+Suggestions for improvement are welcome.
     
 =head1 FUNCTIONS
 
-=head2 Type Constraint Constructors
+=head2 Type Constraint Registry
 
 =over 4
 
-=item B<type>
+=item B<find_type_constraint ($type_name)>
 
-=item B<subtype>
+This function can be used to locate a specific type constraint 
+meta-object. What you do with it from there is up to you :)
 
-=item B<as>
+=item B<export_type_contstraints_as_functions>
 
-=item B<where>
+This will export all the current type constraints as functions 
+into the caller's namespace. Right now, this is mostly used for 
+testing, but it might prove useful to others.
 
 =back
 
-=head2 Built-in Type Constraints
+=head2 Type Constraint Constructors
+
+The following functions are used to create type constraints. 
+They will then register the type constraints in a global store 
+where Moose can get to them if it needs to. 
+
+See the L<SYNOPOSIS> for an example of how to use these.
 
 =over 4
 
-=item B<Any>
+=item B<type ($name, $where_clause)>
 
-=item B<Value>
+This creates a base type, which has no parent. 
 
-=item B<Int>
+=item B<subtype ($name, $parent, $where_clause)>
 
-=item B<Str>
+This creates a named subtype. 
 
-=item B<Ref>
+=item B<subtype ($parent, $where_clause)>
 
-=item B<ArrayRef>
+This creates an unnamed subtype and will return the type 
+constraint meta-object, which will be an instance of 
+L<Moose::Meta::TypeConstraint>. 
 
-=item B<CodeRef>
+=item B<as>
 
-=item B<HashRef>
+This is just sugar for the type constraint construction syntax.
 
-=item B<RegexpRef>
+=item B<where>
 
-=item B<ScalarRef>
+This is just sugar for the type constraint construction syntax.
 
-=item B<Object>
+=back
+
+=head2 Type Coercion Constructors
+
+Type constraints can also contain type coercions as well. In most 
+cases Moose will run the type-coercion code first, followed by the 
+type constraint check. This feature should be used carefully as it 
+is very powerful and could easily take off a limb if you are not 
+careful.
+
+See the L<SYNOPOSIS> for an example of how to use these.
+
+=over 4
+
+=item B<coerce>
+
+=item B<from>
+
+This is just sugar for the type coercion construction syntax.
+
+=item B<via>
+
+This is just sugar for the type coercion construction syntax.
 
 =back
 

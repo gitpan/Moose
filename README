@@ -1,4 +1,4 @@
-Moose version 0.01
+Moose version 0.02
 ===========================
 
 See the individual module documentation for more information
@@ -20,6 +20,7 @@ This module requires these other modules and libraries:
 	Scalar::Util
 	Carp
 	Sub::Name
+	UNIVERSAL::require
 
 COPYRIGHT AND LICENCE
 

@@ -6,11 +6,12 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Moose.pm',
           'PREREQ_PM' => {
                            'Carp' => '0',
-                           'Class::MOP' => '0.21',
+                           'Class::MOP' => '0.22',
                            'Scalar::Util' => '1.18',
                            'Sub::Name' => '0.02',
                            'Test::Exception' => '0.21',
-                           'Test::More' => '0.47'
+                           'Test::More' => '0.47',
+                           'UNIVERSAL::require' => '0'
                          },
           'INSTALLDIRS' => 'site',
           'PL_FILES' => {}

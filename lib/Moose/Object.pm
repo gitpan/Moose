@@ -3,16 +3,14 @@ package Moose::Object;
 
 use strict;
 use warnings;
-
 use metaclass 'Moose::Meta::Class' => (
 	':attribute_metaclass' => 'Moose::Meta::Attribute'
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
-    my $class  = shift;
-	my %params = @_;
+	my ($class, %params) = @_;
 	my $self = $class->meta->new_object(%params);
 	$self->BUILDALL(%params);
 	return $self;
@@ -20,15 +18,15 @@ sub new {
 
 sub BUILDALL {
 	my ($self, %params) = @_;
-	foreach my $method ($self->meta->find_all_methods_by_name('BUILD')) {
-		$method->{method}->($self, %params);
+	foreach my $method (reverse $self->meta->find_all_methods_by_name('BUILD')) {
+		$method->{code}->($self, %params);
 	}
 }
 
 sub DEMOLISHALL {
 	my $self = shift;
 	foreach my $method ($self->meta->find_all_methods_by_name('DEMOLISH')) {
-		$method->{method}->($self);
+		$method->{code}->($self);
 	}	
 }
 
@@ -44,15 +42,24 @@ __END__
 
 Moose::Object - The base object for Moose
 
-=head1 SYNOPSIS 
-
 =head1 DESCRIPTION
+
+This serves as the base object for all Moose classes. Every 
+effort will be made to ensure that all classes which C<use Moose> 
+will inherit from this class. It provides a default constructor 
+and destructor, which run all the BUILD and DEMOLISH methods in 
+the class tree.
+
+You don't actually I<need> to inherit from this in order to 
+use Moose though. It is just here to make life easier.
 
 =head1 METHODS
 
 =over 4
 
 =item B<meta>
+
+This will return the metaclass associated with the given class.
 
 =item B<new>
 
