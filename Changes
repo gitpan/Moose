@@ -1,5 +1,36 @@
 Revision history for Perl extension Moose
 
+0.03 Thurs. March 30, 2006
+    * Moose::Cookbook
+      - added the Moose::Cookbook with 5 recipes, 
+        describing all the stuff Moose can do.
+
+    * Moose
+      - fixed an issue with &extends super class loading
+        it now captures errors and deals with inline 
+        packages correctly (bug found by mst, solution 
+        stolen from alias)
+      - added super/override & inner/augment features
+        - added tests and docs for these
+    
+    * Moose::Object
+      - BUILDALL now takes a reference of the %params 
+        that are passed to &new, and passes that to 
+        each BUILD as well.
+        
+    * Moose::Util::TypeConstraints
+      - Type constraints now survive runtime reloading
+        - added test for this
+
+	* Moose::Meta::Class
+	  - fixed the way attribute defaults are handled 
+	    during instance construction (bug found by chansen)
+
+    * Moose::Meta::Attribute
+      - read-only attributes now actually enforce their
+        read-only-ness (this corrected in Class::MOP as 
+        well)
+
 0.02 Tues. March 21, 2006
     * Moose
       - many more tests, fixing some bugs and  

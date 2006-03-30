@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.02
+version: 0.03
 author:
   - Stevan Little E<lt>stevan@iinteractive.comE<gt>
 abstract: "Moose, it's the new Camel"
@@ -17,13 +17,13 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.02
+    version: 0.03
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.02
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
-    version: 0.02
+    version: 0.03
   Moose::Meta::TypeCoercion:
     file: lib/Moose/Meta/TypeCoercion.pm
     version: 0.01

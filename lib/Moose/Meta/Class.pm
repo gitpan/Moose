@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'weaken';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base 'Class::MOP::Class';
 
@@ -18,10 +18,21 @@ sub construct_instance {
         my $init_arg = $attr->init_arg();
         # try to fetch the init arg from the %params ...
         my $val;        
-        $val = $params{$init_arg} if exists $params{$init_arg};
+        if (exists $params{$init_arg}) {
+            $val = $params{$init_arg};
+        }
+        else {
+            # skip it if it's lazy
+            next if $attr->is_lazy;
+            # and die if it is required            
+            confess "Attribute (" . $attr->name . ") is required" 
+                if $attr->is_required
+        }
         # if nothing was in the %params, we can use the 
         # attribute's default value (if it has one)
-        $val ||= $attr->default($instance) if $attr->has_default; 
+        if (!defined $val && $attr->has_default) {
+            $val = $attr->default($instance); 
+        }
 		if (defined $val) {
 		    if ($attr->has_type_constraint) {
     		    if ($attr->should_coerce && $attr->type_constraint->has_coercion) {

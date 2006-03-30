@@ -8,7 +8,7 @@ use Test::More;
 BEGIN {
     eval "use Regexp::Common; use Locale::US;";
     plan skip_all => "Regexp::Common & Locale::US required for this test" if $@;        
-    plan tests => 70;    
+    plan tests => 81;    
 }
 
 use Test::Exception;
@@ -51,16 +51,16 @@ BEGIN {
     use warnings;
     use Moose;
     
-    has 'name'      => (is => 'rw', isa => 'Str');
+    has 'name'      => (is => 'rw', isa => 'Str', required => 1);
     has 'address'   => (is => 'rw', isa => 'Address'); 
     has 'employees' => (is => 'rw', isa => subtype ArrayRef => where { 
-        ($_->isa('Employee') || return) for @$_; 1 
+        (blessed($_) && $_->isa('Employee') || return) for @$_; 1 
     });    
     
     sub BUILD {
-        my ($self, %params) = @_;
-        if ($params{employees}) {
-            foreach my $employee (@{$params{employees}}) {
+        my ($self, $params) = @_;
+        if ($params->{employees}) {
+            foreach my $employee (@{$params->{employees}}) {
                 $employee->company($self);
             }
         }
@@ -68,13 +68,26 @@ BEGIN {
     
     sub get_employee_count { scalar @{(shift)->employees} }
     
+    after 'employees' => sub {
+        my ($self, $employees) = @_;
+        # if employees is defined, it 
+        # has already been type checked
+        if (defined $employees) {
+            # make sure each gets the 
+            # weak ref to the company
+            foreach my $employee (@{$employees}) {
+                $employee->company($self);
+            }            
+        }
+    };
+    
     package Person;
     use strict;
     use warnings;
     use Moose;
     
-    has 'first_name'     => (is => 'rw', isa => 'Str');
-    has 'last_name'      => (is => 'rw', isa => 'Str');       
+    has 'first_name'     => (is => 'rw', isa => 'Str', required => 1);
+    has 'last_name'      => (is => 'rw', isa => 'Str', required => 1);       
     has 'middle_initial' => (is => 'rw', isa => 'Str', predicate => 'has_middle_initial');  
     has 'address'        => (is => 'rw', isa => 'Address');
     
@@ -92,8 +105,13 @@ BEGIN {
     
     extends 'Person';
     
-    has 'title'   => (is => 'rw', isa => 'Str');
+    has 'title'   => (is => 'rw', isa => 'Str', required => 1);
     has 'company' => (is => 'rw', isa => 'Company', weak_ref => 1);  
+    
+    override 'full_name' => sub {
+        my $self = shift;
+        super() . ', ' . $self->title
+    };
 }
 
 my $ii;
@@ -156,7 +174,7 @@ is($ii->employees->[0]->first_name, 'Jeremy', '... got the right first name');
 is($ii->employees->[0]->last_name, 'Shao', '... got the right last name');
 ok(!$ii->employees->[0]->has_middle_initial, '... no middle initial');
 is($ii->employees->[0]->middle_initial, undef, '... got the right middle initial value');
-is($ii->employees->[0]->full_name, 'Jeremy Shao', '... got the right full name');
+is($ii->employees->[0]->full_name, 'Jeremy Shao, President / Senior Consultant', '... got the right full name');
 is($ii->employees->[0]->title, 'President / Senior Consultant', '... got the right title');
 is($ii->employees->[0]->company, $ii, '... got the right company');
 ok(isweak($ii->employees->[0]->{company}), '... the company is a weak-ref');
@@ -174,7 +192,7 @@ is($ii->employees->[1]->first_name, 'Tommy', '... got the right first name');
 is($ii->employees->[1]->last_name, 'Lee', '... got the right last name');
 ok(!$ii->employees->[1]->has_middle_initial, '... no middle initial');
 is($ii->employees->[1]->middle_initial, undef, '... got the right middle initial value');
-is($ii->employees->[1]->full_name, 'Tommy Lee', '... got the right full name');
+is($ii->employees->[1]->full_name, 'Tommy Lee, Vice President / Senior Developer', '... got the right full name');
 is($ii->employees->[1]->title, 'Vice President / Senior Developer', '... got the right title');
 is($ii->employees->[1]->company, $ii, '... got the right company');
 ok(isweak($ii->employees->[1]->{company}), '... the company is a weak-ref');
@@ -192,7 +210,7 @@ is($ii->employees->[2]->first_name, 'Stevan', '... got the right first name');
 is($ii->employees->[2]->last_name, 'Little', '... got the right last name');
 ok($ii->employees->[2]->has_middle_initial, '... got middle initial');
 is($ii->employees->[2]->middle_initial, 'C', '... got the right middle initial value');
-is($ii->employees->[2]->full_name, 'Stevan C. Little', '... got the right full name');
+is($ii->employees->[2]->full_name, 'Stevan C. Little, Senior Developer', '... got the right full name');
 is($ii->employees->[2]->title, 'Senior Developer', '... got the right title');
 is($ii->employees->[2]->company, $ii, '... got the right company');
 ok(isweak($ii->employees->[2]->{company}), '... the company is a weak-ref');
@@ -210,7 +228,7 @@ is($ii->employees->[3]->first_name, 'Rob', '... got the right first name');
 is($ii->employees->[3]->last_name, 'Kinyon', '... got the right last name');
 ok(!$ii->employees->[3]->has_middle_initial, '... got middle initial');
 is($ii->employees->[3]->middle_initial, undef, '... got the right middle initial value');
-is($ii->employees->[3]->full_name, 'Rob Kinyon', '... got the right full name');
+is($ii->employees->[3]->full_name, 'Rob Kinyon, Developer', '... got the right full name');
 is($ii->employees->[3]->title, 'Developer', '... got the right title');
 is($ii->employees->[3]->company, $ii, '... got the right company');
 ok(isweak($ii->employees->[3]->{company}), '... the company is a weak-ref');
@@ -218,6 +236,22 @@ ok(isweak($ii->employees->[3]->{company}), '... the company is a weak-ref');
 isa_ok($ii->employees->[3]->address, 'Address');
 is($ii->employees->[3]->address->city, 'Marysville', '... got the right city');
 is($ii->employees->[3]->address->state, 'OH', '... got the right state');
+
+# create new company
+
+my $new_company = Company->new(name => 'Infinity Interactive International');
+isa_ok($new_company, 'Company');
+
+my $ii_employees = $ii->employees;
+foreach my $employee (@$ii_employees) {
+    is($employee->company, $ii, '... has the ii company');
+}
+
+$new_company->employees($ii_employees);
+
+foreach my $employee (@{$new_company->employees}) {
+    is($employee->company, $new_company, '... has the different company now');
+}
 
 ## check some error conditions for the subtypes
 
@@ -246,10 +280,18 @@ lives_ok {
 } '... we live correctly with good args';
 
 dies_ok {
-    Company->new(employees => [ Person->new ]),    
+    Company->new(),    
+} '... we die correctly without good args';
+
+lives_ok {
+    Company->new(name => 'Foo'),    
+} '... we live correctly without good args';
+
+dies_ok {
+    Company->new(name => 'Foo', employees => [ Person->new ]),    
 } '... we die correctly with good args';
 
 lives_ok {
-    Company->new(employees => []),    
+    Company->new(name => 'Foo', employees => []),    
 } '... we live correctly with good args';
 

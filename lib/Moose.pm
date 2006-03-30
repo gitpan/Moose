@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
@@ -60,38 +60,14 @@ sub import {
 	
 	# handle superclasses
 	$meta->alias_method('extends' => subname 'Moose::extends' => sub { 
-	    $_->require for @_;
+        _load_all_superclasses(@_);
 	    $meta->superclasses(@_) 
 	});	
 	
 	# handle attributes
 	$meta->alias_method('has' => subname 'Moose::has' => sub { 
 		my ($name, %options) = @_;
-		if (exists $options{is}) {
-			if ($options{is} eq 'ro') {
-				$options{reader} = $name;
-			}
-			elsif ($options{is} eq 'rw') {
-				$options{accessor} = $name;				
-			}			
-		}
-		if (exists $options{isa}) {
-		    # allow for anon-subtypes here ...
-		    if (blessed($options{isa}) && $options{isa}->isa('Moose::Meta::TypeConstraint')) {
-				$options{type_constraint} = $options{isa};
-			}
-			else {
-			    # otherwise assume it is a constraint
-			    my $constraint = find_type_constraint($options{isa});
-			    # if the constraing it not found ....
-			    unless (defined $constraint) {
-			        # assume it is a foreign class, and make 
-			        # an anon constraint for it 
-			        $constraint = subtype Object => where { $_->isa($options{isa}) };
-			    }			    
-                $options{type_constraint} = $constraint;
-			}
-		}
+        _process_has_options($name, \%options);
 		$meta->add_attribute($name, %options) 
 	});
 
@@ -108,6 +84,18 @@ sub import {
 		my $code = pop @_;
 		$meta->add_around_method_modifier($_, $code) for @_;	
 	});	
+	
+	$meta->alias_method('super' => subname 'Moose::super' => sub {});
+	$meta->alias_method('override' => subname 'Moose::override' => sub {
+	    my ($name, $method) = @_;
+	    $meta->add_method($name => _create_override_sub($meta, $name, $method));
+	});		
+	
+	$meta->alias_method('inner' => subname 'Moose::inner' => sub {});
+	$meta->alias_method('augment' => subname 'Moose::augment' => sub {
+	    my ($name, $method) = @_;
+	    $meta->add_method($name => _create_augment_sub($meta, $name, $method));
+	});	
 
 	# make sure they inherit from Moose::Object
 	$meta->superclasses('Moose::Object')
@@ -117,6 +105,87 @@ sub import {
 	# so export them for them
 	$meta->alias_method('confess' => \&Carp::confess);			
 	$meta->alias_method('blessed' => \&Scalar::Util::blessed);				
+}
+
+## Utility functions
+
+sub _process_has_options {
+    my ($attr_name, $options) = @_;
+	if (exists $options->{is}) {
+		if ($options->{is} eq 'ro') {
+			$options->{reader} = $attr_name;
+		}
+		elsif ($options->{is} eq 'rw') {
+			$options->{accessor} = $attr_name;				
+		}			
+	}
+	if (exists $options->{isa}) {
+	    # allow for anon-subtypes here ...
+	    if (blessed($options->{isa}) && $options->{isa}->isa('Moose::Meta::TypeConstraint')) {
+			$options->{type_constraint} = $options->{isa};
+		}
+		else {
+		    # otherwise assume it is a constraint
+		    my $constraint = find_type_constraint($options->{isa});
+		    # if the constraing it not found ....
+		    unless (defined $constraint) {
+		        # assume it is a foreign class, and make 
+		        # an anon constraint for it 
+		        $constraint = subtype Object => where { $_->isa($options->{isa}) };
+		    }			    
+            $options->{type_constraint} = $constraint;
+		}
+	}    
+}
+
+sub _load_all_superclasses {
+    foreach my $super (@_) {
+        # see if this is already 
+        # loaded in the symbol table
+        next if _is_class_already_loaded($super);
+        # otherwise require it ...
+        ($super->require)
+            || confess "Could not load superclass '$super' because : " . $UNIVERSAL::require::ERROR;
+    }    
+}
+
+sub _is_class_already_loaded {
+	my $name = shift;
+	no strict 'refs';
+	return 1 if defined ${"${name}::VERSION"} || defined @{"${name}::ISA"};
+	foreach (keys %{"${name}::"}) {
+		next if substr($_, -2, 2) eq '::';
+		return 1 if defined &{"${name}::$_"};
+	}
+    return 0;
+}
+
+sub _create_override_sub {
+    my ($meta, $name, $method) = @_;
+    my $super = $meta->find_next_method_by_name($name);
+    (defined $super)
+        || confess "You cannot override '$name' because it has no super method";    
+    return sub {
+        my @args = @_;
+        no strict   'refs';
+        no warnings 'redefine';
+        local *{$meta->name . '::super'} = sub { $super->(@args) };
+        return $method->(@args);
+    };
+}
+
+sub _create_augment_sub {
+    my ($meta, $name, $method) = @_;    
+    my $super = $meta->find_next_method_by_name($name);
+    (defined $super)
+        || confess "You cannot augment '$name' because it has no super method";
+    return sub {
+        my @args = @_;
+        no strict   'refs';
+        no warnings 'redefine';
+        local *{$super->package_name . '::inner'} = sub { $method->(@args) };
+        return $super->(@args);
+    };    
 }
 
 1;
@@ -279,6 +348,32 @@ This three items are syntactic sugar for the before, after and around method
 modifier features that L<Class::MOP> provides. More information on these can 
 be found in the L<Class::MOP> documentation for now. 
 
+=item B<super>
+
+The keyword C<super> is a noop when called outside of an C<override> method. In 
+the context of an C<override> method, it will call the next most appropriate 
+superclass method with the same arguments as the original method.
+
+=item B<override ($name, &sub)>
+
+An C<override> method, is a way of explictly saying "I am overriding this 
+method from my superclass". You can call C<super> within this method, and 
+it will work as expected. The same thing I<can> be accomplished with a normal 
+method call and the C<SUPER::> pseudo-package, it is really your choice. 
+
+=item B<inner>
+
+The keyword C<inner>, much like C<super>, is a no-op outside of the context of 
+an C<augment> method. You can think of C<inner> as being the inverse of 
+C<super>, the details of how C<inner> and C<augment> work is best described in 
+the L<Moose::Cookbook>.
+
+=item B<augment ($name, &sub)>
+
+An C<augment> method, is a way of explictly saying "I am augmenting this 
+method from my superclass". Once again, the details of how C<inner> and 
+C<augment> work is best described in the L<Moose::Cookbook>.
+
 =item B<confess>
 
 This is the C<Carp::confess> function, and exported here beause I use it 
@@ -320,6 +415,12 @@ ideas/feature-requests/encouragement
 =item The #moose channel on irc.perl.org
 
 =item L<http://forum2.org/moose/>
+
+=item L<http://www.cs.utah.edu/plt/publications/oopsla04-gff.pdf>
+
+This paper (suggested by lbr on #moose) was what lead to the implementation 
+of the C<super>/C<overrride> and C<inner>/C<augment> features. If you really 
+want to understand this feature, I suggest you read this.
 
 =back
 

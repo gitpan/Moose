@@ -3,115 +3,102 @@
 use strict;
 use warnings;
 
-use Test::More;
-
-BEGIN {
-    eval "use HTTP::Headers; use Params::Coerce; use URI;";
-    plan skip_all => "HTTP::Headers & Params::Coerce & URI required for this test" if $@;        
-    plan no_plan => 1;    
-}
-
+use Test::More tests => 1;
 use Test::Exception;
 
 BEGIN {
     use_ok('Moose');           
 }
 
-{
-	package Request;
-	use strict;
-	use warnings;
-	use Moose;
-	
-	use HTTP::Headers  ();
-	use Params::Coerce ();
-	use URI            ();
+=pod
 
-	subtype Header
-	    => as Object
-	    => where { $_->isa('HTTP::Headers') };
+This test will eventually be for the code shown below. 
+Moose::Role is on the TODO list for 0.04.
 
-	coerce Header
-	    => from ArrayRef
-	        => via { HTTP::Headers->new( @{ $_ } ) }
-	    => from HashRef
-	        => via { HTTP::Headers->new( %{ $_ } ) };
+    package Constraint;
+    use strict;
+    use warnings;
+    use Moose;
 
-	subtype Uri
-	    => as Object
-	    => where { $_->isa('URI') };
+    sub validate      { confess "Abstract method!" }
+    sub error_message { confess "Abstract method!" }
 
-	coerce Uri
-	    => from Object
-	        => via { $_->isa('URI') ? $_ : Params::Coerce::coerce( 'URI', $_ ) }
-	    => from Str
-	        => via { URI->new( $_, 'http' ) };
+    sub validation_value {
+        my ($self, $field) = @_;
+        return $field->value;
+    }
 
-	subtype Protocol
-	    => as Str
-	    => where { /^HTTP\/[0-9]\.[0-9]$/ };
+    package Constraint::AtLeast;
+    use strict;
+    use warnings;
+    use Moose;
 
+    extends 'Constraint';
 
-	has 'base'     => (is => 'rw', isa => 'Uri', coerce  => 1);
-	has 'url'      => (is => 'rw', isa => 'Uri', coerce  => 1);	
-	has 'method'   => (is => 'rw', isa => 'Str');	
-	has 'protocol' => (is => 'rw', isa => 'Protocol');		
-	has 'headers'  => (
-	    is      => 'rw',
-	    isa     => 'Header',
-	    coerce  => 1,
-	    default => sub { HTTP::Headers->new } 
-    );
-}
+    has 'value' => (isa => 'Num', is => 'ro');
 
-my $r = Request->new;
-isa_ok($r, 'Request');
+    sub validate {
+        my ($self, $field) = @_;
+        if ($self->validation_value($field) >= $self->value) {
+            return undef;
+        } 
+        else {
+            return $self->error_message;
+        }
+    }
 
-{
-    my $header = $r->headers;
-    isa_ok($header, 'HTTP::Headers');
+    sub error_message { 'must be at least ' . (shift)->value; }
 
-    is($r->headers->content_type, '', '... got no content type in the header');
+    package Constraint::NoMoreThan;
+    use strict;
+    use warnings;
+    use Moose;
 
-    $r->headers( { content_type => 'text/plain' } );
+    extends 'Constraint';
 
-    my $header2 = $r->headers;
-    isa_ok($header2, 'HTTP::Headers');
-    isnt($header, $header2, '... created a new HTTP::Header object');
+    has 'value' => (isa => 'Num', is => 'ro');
 
-    is($header2->content_type, 'text/plain', '... got the right content type in the header');
+    sub validate {
+        my ($self, $field) = @_;
+        if ($self->validation_value($field) <= $self->value) {
+            return undef;
+        } else {
+            return $self->error_message;
+        }
+    }
 
-    $r->headers( [ content_type => 'text/html' ] );
+    sub error_message { 'must be no more than ' . (shift)->value; }
 
-    my $header3 = $r->headers;
-    isa_ok($header3, 'HTTP::Headers');
-    isnt($header2, $header3, '... created a new HTTP::Header object');
+    package Constraint::OnLength;
+    use strict;
+    use warnings;
+    use Moose::Role;
 
-    is($header3->content_type, 'text/html', '... got the right content type in the header');
-    
-    $r->headers( HTTP::Headers->new(content_type => 'application/pdf') );
-    
-    my $header4 = $r->headers;    
-    isa_ok($header4, 'HTTP::Headers');
-    isnt($header3, $header4, '... created a new HTTP::Header object');
+    has 'units' => (isa => 'Str', is => 'ro');
 
-    is($header4->content_type, 'application/pdf', '... got the right content type in the header');    
-    
-    dies_ok {
-        $r->headers('Foo')
-    } '... dies when it gets bad params';
-}
+    override 'value' => sub {
+        return length(super());
+    };
 
-{
-    is($r->protocol, undef, '... got nothing by default');
+    override 'error_message' => sub {
+        my $self = shift;
+        return super() . ' ' . $self->units;
+    };
 
-    lives_ok {
-        $r->protocol('HTTP/1.0');
-    } '... set the protocol correctly';
-    is($r->protocol, 'HTTP/1.0', '... got nothing by default');
-            
-    dies_ok {
-        $r->protocol('http/1.0');
-    } '... the protocol died with bar params correctly';            
-}
+    package Constraint::LengthNoMoreThan;
+    use strict;
+    use warnings;
+    use Moose;
 
+    extends 'Constraint::NoMoreThan';
+       with 'Constraint::OnLength';
+       
+   package Constraint::LengthAtLeast;
+   use strict;
+   use warnings;
+   use Moose;
+
+   extends 'Constraint::AtLeast';
+      with 'Constraint::OnLength';       
+
+=cut
