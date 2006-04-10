@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.03_01';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
@@ -15,9 +15,9 @@ use UNIVERSAL::require;
 use Class::MOP;
 
 use Moose::Meta::Class;
-use Moose::Meta::Attribute;
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
+use Moose::Meta::Attribute;
 
 use Moose::Object;
 use Moose::Util::TypeConstraints;
@@ -33,14 +33,14 @@ sub import {
 	
 	# make a subtype for each Moose class
     subtype $pkg 
-        => as Object 
+        => as 'Object' 
         => where { $_->isa($pkg) };	
 
 	my $meta;
 	if ($pkg->can('meta')) {
 		$meta = $pkg->meta();
 		(blessed($meta) && $meta->isa('Class::MOP::Class'))
-			|| confess "Whoops, not møøsey enough";
+			|| confess "Whoops, not mÃ¸Ã¸sey enough";
 	}
 	else {
 		$meta = Moose::Meta::Class->initialize($pkg => (
@@ -60,14 +60,20 @@ sub import {
 	
 	# handle superclasses
 	$meta->alias_method('extends' => subname 'Moose::extends' => sub { 
-        _load_all_superclasses(@_);
+        _load_all_classes(@_);
 	    $meta->superclasses(@_) 
+	});	
+	
+	# handle roles
+	$meta->alias_method('with' => subname 'Moose::with' => sub { 
+	    my ($role) = @_;
+        _load_all_classes($role);
+        $role->meta->apply($meta);
 	});	
 	
 	# handle attributes
 	$meta->alias_method('has' => subname 'Moose::has' => sub { 
 		my ($name, %options) = @_;
-        _process_has_options($name, \%options);
 		$meta->add_attribute($name, %options) 
 	});
 
@@ -88,13 +94,13 @@ sub import {
 	$meta->alias_method('super' => subname 'Moose::super' => sub {});
 	$meta->alias_method('override' => subname 'Moose::override' => sub {
 	    my ($name, $method) = @_;
-	    $meta->add_method($name => _create_override_sub($meta, $name, $method));
+	    $meta->add_override_method_modifier($name => $method);
 	});		
 	
 	$meta->alias_method('inner' => subname 'Moose::inner' => sub {});
 	$meta->alias_method('augment' => subname 'Moose::augment' => sub {
 	    my ($name, $method) = @_;
-	    $meta->add_method($name => _create_augment_sub($meta, $name, $method));
+	    $meta->add_augment_method_modifier($name => $method);
 	});	
 
 	# make sure they inherit from Moose::Object
@@ -109,36 +115,7 @@ sub import {
 
 ## Utility functions
 
-sub _process_has_options {
-    my ($attr_name, $options) = @_;
-	if (exists $options->{is}) {
-		if ($options->{is} eq 'ro') {
-			$options->{reader} = $attr_name;
-		}
-		elsif ($options->{is} eq 'rw') {
-			$options->{accessor} = $attr_name;				
-		}			
-	}
-	if (exists $options->{isa}) {
-	    # allow for anon-subtypes here ...
-	    if (blessed($options->{isa}) && $options->{isa}->isa('Moose::Meta::TypeConstraint')) {
-			$options->{type_constraint} = $options->{isa};
-		}
-		else {
-		    # otherwise assume it is a constraint
-		    my $constraint = find_type_constraint($options->{isa});
-		    # if the constraing it not found ....
-		    unless (defined $constraint) {
-		        # assume it is a foreign class, and make 
-		        # an anon constraint for it 
-		        $constraint = subtype Object => where { $_->isa($options->{isa}) };
-		    }			    
-            $options->{type_constraint} = $constraint;
-		}
-	}    
-}
-
-sub _load_all_superclasses {
+sub _load_all_classes {
     foreach my $super (@_) {
         # see if this is already 
         # loaded in the symbol table
@@ -158,34 +135,6 @@ sub _is_class_already_loaded {
 		return 1 if defined &{"${name}::$_"};
 	}
     return 0;
-}
-
-sub _create_override_sub {
-    my ($meta, $name, $method) = @_;
-    my $super = $meta->find_next_method_by_name($name);
-    (defined $super)
-        || confess "You cannot override '$name' because it has no super method";    
-    return sub {
-        my @args = @_;
-        no strict   'refs';
-        no warnings 'redefine';
-        local *{$meta->name . '::super'} = sub { $super->(@args) };
-        return $method->(@args);
-    };
-}
-
-sub _create_augment_sub {
-    my ($meta, $name, $method) = @_;    
-    my $super = $meta->find_next_method_by_name($name);
-    (defined $super)
-        || confess "You cannot augment '$name' because it has no super method";
-    return sub {
-        my @args = @_;
-        no strict   'refs';
-        no warnings 'redefine';
-        local *{$super->package_name . '::inner'} = sub { $method->(@args) };
-        return $super->(@args);
-    };    
 }
 
 1;
@@ -226,7 +175,7 @@ Moose - Moose, it's the new Camel
   
 =head1 CAVEAT
 
-This is a B<very> early release of this module, it still needs 
+This is an early release of this module, it still needs 
 some fine tuning and B<lots> more documentation. I am adopting 
 the I<release early and release often> approach with this module, 
 so keep an eye on your favorite CPAN mirror!
@@ -289,6 +238,8 @@ inherited from L<Moose::Object>, then this includes properly initializing
 all instance slots, setting defaults where approprtiate and performing any 
 type constraint checking or coercion. 
 
+For more details, see the ever expanding L<Moose::Cookbook>.
+
 =head1 EXPORTED FUNCTIONS
 
 Moose will export a number of functions into the class's namespace, which 
@@ -309,6 +260,11 @@ This approach is recommended instead of C<use base>, because C<use base>
 actually C<push>es onto the class's C<@ISA>, whereas C<extends> will 
 replace it. This is important to ensure that classes which do not have 
 superclasses properly inherit from L<Moose::Object>.
+
+=item B<with ($role)>
+
+This will apply a given C<$role> to the local class. Role support is 
+currently very experimental, see L<Moose::Role> for more details.
 
 =item B<has ($name, %options)>
 

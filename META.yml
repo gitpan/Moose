@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.03
+version: 0.03_01
 author:
   - Stevan Little E<lt>stevan@iinteractive.comE<gt>
 abstract: "Moose, it's the new Camel"
@@ -17,23 +17,32 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.03
+    version: 0.03_01
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
-    version: 0.02
+    version: 0.03
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
-    version: 0.03
+    version: 0.04
+  Moose::Meta::Role:
+    file: lib/Moose/Meta/Role.pm
+    version: 0.01
+  Moose::Meta::Role::Method:
+    file: lib/Moose/Meta/Role.pm
+    version: 0.01
   Moose::Meta::TypeCoercion:
     file: lib/Moose/Meta/TypeCoercion.pm
     version: 0.01
   Moose::Meta::TypeConstraint:
     file: lib/Moose/Meta/TypeConstraint.pm
-    version: 0.01
+    version: 0.02
   Moose::Object:
     file: lib/Moose/Object.pm
     version: 0.02
+  Moose::Role:
+    file: lib/Moose/Role.pm
+    version: 0.01
   Moose::Util::TypeConstraints:
     file: lib/Moose/Util/TypeConstraints.pm
-    version: 0.02
+    version: 0.03
 generated_by: Module::Build version 0.2611

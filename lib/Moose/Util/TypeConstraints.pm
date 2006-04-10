@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
@@ -17,7 +17,7 @@ sub import {
 	my $pkg = shift || caller();
 	return if $pkg eq '-no-export';
 	no strict 'refs';
-	foreach my $export (qw(type subtype as where coerce from via find_type_constraint)) {
+	foreach my $export (qw(type subtype as where message coerce from via find_type_constraint)) {
 		*{"${pkg}::${export}"} = \&{"${export}"};
 	}	
 }
@@ -27,7 +27,7 @@ sub import {
     sub find_type_constraint { $TYPES{$_[0]}->[1] }
 
     sub _create_type_constraint { 
-        my ($name, $parent, $check) = @_;
+        my ($name, $parent, $check, $message) = @_;
         my $pkg_defined_in = scalar(caller(1));
         ($TYPES{$name}->[0] eq $pkg_defined_in)
             || confess "The type constraint '$name' has already been created"
@@ -36,7 +36,8 @@ sub import {
         my $constraint = Moose::Meta::TypeConstraint->new(
             name       => $name || '__ANON__',
             parent     => $parent,            
-            constraint => $check,           
+            constraint => $check,       
+            message    => $message,    
         );
         $TYPES{$name} = [ $pkg_defined_in, $constraint ] if defined $name;
         return $constraint;
@@ -70,8 +71,8 @@ sub type ($$) {
 	_create_type_constraint($name, undef, $check);
 }
 
-sub subtype ($$;$) {
-	unshift @_ => undef if scalar @_ == 2;
+sub subtype ($$;$$) {
+	unshift @_ => undef if scalar @_ <= 2;
 	_create_type_constraint(@_);
 }
 
@@ -80,30 +81,31 @@ sub coerce ($@) {
     _install_type_coercions($type_name, \@coercion_map);
 }
 
-sub as    ($) { $_[0] }
-sub from  ($) { $_[0] }
-sub where (&) { $_[0] }
-sub via   (&) { $_[0] }
+sub as      ($) { $_[0] }
+sub from    ($) { $_[0] }
+sub where   (&) { $_[0] }
+sub via     (&) { $_[0] }
+sub message (&) { $_[0] }
 
 # define some basic types
 
-type Any => where { 1 };
+type 'Any' => where { 1 };
 
-type Value => where { !ref($_) };
-type Ref   => where {  ref($_) };
+subtype 'Value' => as 'Any' => where { !ref($_) };
+subtype 'Ref'   => as 'Any' => where {  ref($_) };
 
-subtype Int => as Value => where {  Scalar::Util::looks_like_number($_) };
-subtype Str => as Value => where { !Scalar::Util::looks_like_number($_) };
+subtype 'Int' => as 'Value' => where {  Scalar::Util::looks_like_number($_) };
+subtype 'Str' => as 'Value' => where { !Scalar::Util::looks_like_number($_) };
 
-subtype ScalarRef => as Ref => where { ref($_) eq 'SCALAR' };	
-subtype ArrayRef  => as Ref => where { ref($_) eq 'ARRAY'  };
-subtype HashRef   => as Ref => where { ref($_) eq 'HASH'   };	
-subtype CodeRef   => as Ref => where { ref($_) eq 'CODE'   };
-subtype RegexpRef => as Ref => where { ref($_) eq 'Regexp' };	
+subtype 'ScalarRef' => as 'Ref' => where { ref($_) eq 'SCALAR' };	
+subtype 'ArrayRef'  => as 'Ref' => where { ref($_) eq 'ARRAY'  };
+subtype 'HashRef'   => as 'Ref' => where { ref($_) eq 'HASH'   };	
+subtype 'CodeRef'   => as 'Ref' => where { ref($_) eq 'CODE'   };
+subtype 'RegexpRef' => as 'Ref' => where { ref($_) eq 'Regexp' };	
 
 # NOTE: 
 # blessed(qr/.../) returns true,.. how odd
-subtype Object => as Ref => where { blessed($_) && blessed($_) ne 'Regexp' };
+subtype 'Object' => as 'Ref' => where { blessed($_) && blessed($_) ne 'Regexp' };
 
 1;
 
@@ -127,7 +129,8 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
   
   subtype NaturalLessThanTen 
       => as Natural
-      => where { $_ < 10 };
+      => where { $_ < 10 }
+      => message { "This number ($_) is not less than ten!" };
       
   coerce Num 
       => from Str
@@ -146,7 +149,7 @@ and they are not used by Moose unless you tell it to. No type
 inference is performed, expression are not typed, etc. etc. etc. 
 
 This is simply a means of creating small constraint functions which 
-can be used to simply your own type-checking code.
+can be used to simplify your own type-checking code.
 
 =head2 Default Type Constraints
 
@@ -200,11 +203,11 @@ See the L<SYNOPOSIS> for an example of how to use these.
 
 This creates a base type, which has no parent. 
 
-=item B<subtype ($name, $parent, $where_clause)>
+=item B<subtype ($name, $parent, $where_clause, ?$message)>
 
 This creates a named subtype. 
 
-=item B<subtype ($parent, $where_clause)>
+=item B<subtype ($parent, $where_clause, ?$message)>
 
 This creates an unnamed subtype and will return the type 
 constraint meta-object, which will be an instance of 
@@ -215,6 +218,10 @@ L<Moose::Meta::TypeConstraint>.
 This is just sugar for the type constraint construction syntax.
 
 =item B<where>
+
+This is just sugar for the type constraint construction syntax.
+
+=item B<message>
 
 This is just sugar for the type constraint construction syntax.
 
