@@ -7,10 +7,13 @@ use metaclass 'Moose::Meta::Class' => (
 	':attribute_metaclass' => 'Moose::Meta::Attribute'
 );
 
-our $VERSION = '0.02';
+use Carp 'confess';
+
+our $VERSION = '0.04';
 
 sub new {
-	my ($class, %params) = @_;
+    my $class  = shift;
+    my %params = (scalar @_ == 1) ? %{$_[0]} : @_;
 	my $self = $class->meta->new_object(%params);
 	$self->BUILDALL(\%params);
 	return $self;
@@ -31,6 +34,15 @@ sub DEMOLISHALL {
 }
 
 sub DESTROY { goto &DEMOLISHALL }
+
+# new does() methods will be created 
+# as approiate see Moose::Meta::Role
+sub does {
+    my (undef, $role_name) = @_;
+    (defined $role_name)
+        || confess "You much supply a role name to does()";
+    0;    
+}
 
 1;
 
@@ -73,6 +85,8 @@ and pass it a hash-ref of the the C<%params> passed to C<new>.
 =item B<DEMOLISHALL>
 
 This will call every C<DEMOLISH> method in the inheritance hierarchy.
+
+=item B<does ($role_name)>
 
 =back
 
