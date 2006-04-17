@@ -3,6 +3,8 @@ package Moose::Object;
 
 use strict;
 use warnings;
+
+use Moose::Meta::Class;
 use metaclass 'Moose::Meta::Class' => (
 	':attribute_metaclass' => 'Moose::Meta::Attribute'
 );
@@ -38,10 +40,15 @@ sub DESTROY { goto &DEMOLISHALL }
 # new does() methods will be created 
 # as approiate see Moose::Meta::Role
 sub does {
-    my (undef, $role_name) = @_;
+    my ($self, $role_name) = @_;
     (defined $role_name)
         || confess "You much supply a role name to does()";
-    0;    
+    my $meta = $self->meta;
+    foreach my $class ($meta->class_precedence_list) {
+        return 1 
+            if $meta->initialize($class)->does_role($role_name);            
+    }
+    return 0;   
 }
 
 1;
@@ -87,6 +94,9 @@ and pass it a hash-ref of the the C<%params> passed to C<new>.
 This will call every C<DEMOLISH> method in the inheritance hierarchy.
 
 =item B<does ($role_name)>
+
+This will check if the invocant's class C<does> a given C<$role_name>. 
+This is similar to C<isa> for object, but it checks the roles instead.
 
 =back
 

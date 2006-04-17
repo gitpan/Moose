@@ -4,6 +4,8 @@ package Moose::Meta::Class;
 use strict;
 use warnings;
 
+use Class::MOP;
+
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed';
 
@@ -11,7 +13,7 @@ our $VERSION = '0.04';
 
 use base 'Class::MOP::Class';
 
-__PACKAGE__->meta->add_attribute('@:roles' => (
+__PACKAGE__->meta->add_attribute('roles' => (
     reader  => 'roles',
     default => sub { [] }
 ));
@@ -28,9 +30,19 @@ sub does_role {
     (defined $role_name)
         || confess "You must supply a role name to look for";
     foreach my $role (@{$self->roles}) {
-        return 1 if $role->name eq $role_name;
+        return 1 if $role->does_role($role_name);
     }
     return 0;
+}
+
+sub new_object {
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new_object(%params);
+    foreach my $attr ($class->compute_all_applicable_attributes()) {
+        next unless $params{$attr->name} && $attr->has_trigger;
+        $attr->trigger->($self, $params{$attr->name});
+    }
+    return $self;    
 }
 
 sub construct_instance {
@@ -172,6 +184,10 @@ to the L<Class::MOP::Class> documentation.
 
 =over 4
 
+=item B<new_object>
+
+We override this method to support the C<trigger> attribute option.
+
 =item B<construct_instance>
 
 This provides some Moose specific extensions to this method, you 
@@ -189,13 +205,29 @@ methods.
 
 =item B<add_override_method_modifier ($name, $method)>
 
+This will create an C<override> method modifier for you, and install 
+it in the package.
+
 =item B<add_augment_method_modifier ($name, $method)>
+
+This will create an C<augment> method modifier for you, and install 
+it in the package.
 
 =item B<roles>
 
+This will return an array of C<Moose::Meta::Role> instances which are 
+attached to this class.
+
 =item B<add_role ($role)>
 
+This takes an instance of C<Moose::Meta::Role> in C<$role>, and adds it 
+to the list of associated roles.
+
 =item B<does_role ($role_name)>
+
+This will test if this class C<does> a given C<$role_name>. It will 
+not only check it's local roles, but ask them as well in order to 
+cascade down the role hierarchy.
 
 =back
 

@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
@@ -24,13 +24,22 @@ sub import {
 
 {
     my %TYPES;
-    sub find_type_constraint { $TYPES{$_[0]}->[1] }
-
+    sub find_type_constraint { 
+        return $TYPES{$_[0]}->[1] 
+            if exists $TYPES{$_[0]};
+        return;
+    }
+    
+    sub _dump_type_constraints {
+        require Data::Dumper;        
+        Data::Dumper::Dumper(\%TYPES);
+    }
+    
     sub _create_type_constraint { 
         my ($name, $parent, $check, $message) = @_;
         my $pkg_defined_in = scalar(caller(1));
         ($TYPES{$name}->[0] eq $pkg_defined_in)
-            || confess "The type constraint '$name' has already been created"
+            || confess "The type constraint '$name' has already been created "
                  if defined $name && exists $TYPES{$name};                
         $parent = find_type_constraint($parent) if defined $parent;
         my $constraint = Moose::Meta::TypeConstraint->new(
@@ -107,6 +116,8 @@ subtype 'RegexpRef' => as 'Ref' => where { ref($_) eq 'Regexp' };
 # blessed(qr/.../) returns true,.. how odd
 subtype 'Object' => as 'Ref' => where { blessed($_) && blessed($_) ne 'Regexp' };
 
+subtype 'Role' => as 'Object' => where { $_->can('does') };
+
 1;
 
 __END__
@@ -167,6 +178,7 @@ could probably use some work, but it works for me at the moment.
           CodeRef
           RegexpRef
           Object	
+            Role
 
 Suggestions for improvement are welcome.
     

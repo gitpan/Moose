@@ -8,7 +8,7 @@ use Scalar::Util ();
 use Carp         'confess';
 use Sub::Name    'subname';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Moose::Meta::Role;
 
@@ -18,8 +18,6 @@ sub import {
 	
 	# we should never export to main
 	return if $pkg eq 'main';
-	
-	Moose::Util::TypeConstraints->import($pkg);
 
 	my $meta;
 	if ($pkg->can('meta')) {
@@ -29,7 +27,7 @@ sub import {
 	}
 	else {
 		$meta = Moose::Meta::Role->new(role_name => $pkg);
-		$meta->role_meta->add_method('meta' => sub { $meta })		
+		$meta->_role_meta->add_method('meta' => sub { $meta })		
 	}
 	
 	# NOTE:
@@ -37,47 +35,59 @@ sub import {
 	# will not name it with 
 	
 	# handle superclasses
-	$meta->role_meta->alias_method('extends' => subname 'Moose::Role::extends' => sub { 
+	$meta->alias_method('extends' => subname 'Moose::Role::extends' => sub { 
         confess "Moose::Role does not currently support 'extends'"
 	});	
 	
+	# handle roles
+	$meta->alias_method('with' => subname 'Moose::with' => sub { 
+	    my ($role) = @_;
+        Moose::_load_all_classes($role);
+        $role->meta->apply($meta);
+	});	
+	
+	# required methods
+	$meta->alias_method('requires' => subname 'Moose::requires' => sub { 
+        $meta->add_required_methods(@_);
+	});	
+	
 	# handle attributes
-	$meta->role_meta->alias_method('has' => subname 'Moose::Role::has' => sub { 
+	$meta->alias_method('has' => subname 'Moose::Role::has' => sub { 
 		my ($name, %options) = @_;
 		$meta->add_attribute($name, %options) 
 	});
 
 	# handle method modifers
-	$meta->role_meta->alias_method('before' => subname 'Moose::Role::before' => sub { 
+	$meta->alias_method('before' => subname 'Moose::Role::before' => sub { 
 		my $code = pop @_;
-		$meta->add_method_modifier('before' => $_, $code) for @_;
+		$meta->add_before_method_modifier($_, $code) for @_;
 	});
-	$meta->role_meta->alias_method('after'  => subname 'Moose::Role::after' => sub { 
+	$meta->alias_method('after'  => subname 'Moose::Role::after' => sub { 
 		my $code = pop @_;
-		$meta->add_method_modifier('after' => $_, $code) for @_;
+		$meta->add_after_method_modifier($_, $code) for @_;
 	});	
-	$meta->role_meta->alias_method('around' => subname 'Moose::Role::around' => sub { 
+	$meta->alias_method('around' => subname 'Moose::Role::around' => sub { 
 		my $code = pop @_;
-		$meta->add_method_modifier('around' => $_, $code) for @_;
+		$meta->add_around_method_modifier($_, $code) for @_;
 	});	
 	
-	$meta->role_meta->alias_method('super' => subname 'Moose::Role::super' => sub {});
-	$meta->role_meta->alias_method('override' => subname 'Moose::Role::override' => sub {
+	$meta->alias_method('super' => subname 'Moose::Role::super' => sub {});
+	$meta->alias_method('override' => subname 'Moose::Role::override' => sub {
         my ($name, $code) = @_;
-		$meta->add_method_modifier('override' => $name, $code);
+		$meta->add_override_method_modifier($name, $code);
 	});		
 	
-	$meta->role_meta->alias_method('inner' => subname 'Moose::Role::inner' => sub {
+	$meta->alias_method('inner' => subname 'Moose::Role::inner' => sub {
         confess "Moose::Role does not currently support 'inner'";	    
 	});
-	$meta->role_meta->alias_method('augment' => subname 'Moose::Role::augment' => sub {
+	$meta->alias_method('augment' => subname 'Moose::Role::augment' => sub {
         confess "Moose::Role does not currently support 'augment'";
 	});	
 
 	# we recommend using these things 
 	# so export them for them
-	$meta->role_meta->alias_method('confess' => \&Carp::confess);			
-	$meta->role_meta->alias_method('blessed' => \&Scalar::Util::blessed);    
+	$meta->alias_method('confess' => \&Carp::confess);			
+	$meta->alias_method('blessed' => \&Scalar::Util::blessed);    
 }
 
 1;
@@ -97,7 +107,7 @@ Moose::Role - The Moose Role
   use warnings;
   use Moose::Role;
   
-  sub equal { confess "equal must be implemented" }
+  requires 'equal';
   
   sub no_equal { 
       my ($self, $other) = @_;
@@ -115,46 +125,34 @@ Moose::Role - The Moose Role
   
   sub equal {
       my ($self, $other) = @_;
-      $other->as_float == $other->as_float;
+      $self->as_float == $other->as_float;
   }
 
 =head1 DESCRIPTION
 
 This is currently a very early release of Perl 6 style Roles for 
-Moose, it should be considered experimental and incomplete.
-
-This feature is being actively developed, but $work is currently 
-preventing me from paying as much attention to it as I would like. 
-So I am releasing it in hopes people will help me on this I<hint hint>.
-
-If you are interested in helping, please come to #moose on irc.perl.org
-and we can talk. 
+Moose, it is still incomplete, but getting much closer. If you are 
+interested in helping move this feature along, please come to 
+#moose on irc.perl.org and we can talk. 
 
 =head1 CAVEATS
 
-Currently, the role support has a number of caveats. They are as follows:
+Currently, the role support has a few of caveats. They are as follows:
 
 =over 4
 
 =item *
 
-There is no support for Roles consuming other Roles. The details of this 
-are not totally worked out yet, but it will mostly follow what is set out 
-in the Perl 6 Synopsis 12.
-
-=item *
-
-At this time classes I<can> consume more than one Role, but they are simply 
-applied one after another in the order you ask for them. This is incorrect 
-behavior, the roles should be merged first, and conflicts determined, etc. 
-However, if your roles do not have any conflicts, then things will work just 
-fine.
-
-=item * 
-
-I want to have B<required> methods, which is unlike Perl 6 roles, and more 
-like the original Traits on which roles are based. This would be similar 
-in behavior to L<Class::Trait>. These are not yet implemented or course.
+At this time classes I<cannot> correctly consume more than one role. The 
+role composition process, and it's conflict detection has not been added
+yet. While this should be considered a major feature, it can easily be 
+worked around, and in many cases, is not needed at all.
+ 
+A class can actually consume multiple roles, they are just applied one 
+after another in the order you ask for them. This is incorrect behavior, 
+the roles should be merged first, and conflicts determined, etc. However, 
+if your roles do not have any conflicts, then things will work just 
+fine. This actually tends to be quite sufficient for basic roles.
 
 =item *
 
@@ -164,8 +162,6 @@ really make sense for roles). All other Moose keywords will be I<deferred>
 so that they can be applied to the consuming class. 
 
 =back
-
-Basically thats all I can think of for now, I am sure there are more though.
 
 =head1 BUGS
 

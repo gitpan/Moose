@@ -23,7 +23,7 @@ my $foo_role = Moose::Meta::Role->new(
 );
 isa_ok($foo_role, 'Moose::Meta::Role');
 
-isa_ok($foo_role->role_meta, 'Class::MOP::Class');
+isa_ok($foo_role->_role_meta, 'Class::MOP::Class');
 
 is($foo_role->name, 'FooRole', '... got the right name of FooRole');
 is($foo_role->version, '0.01', '... got the right version of FooRole');
@@ -95,17 +95,15 @@ ok($foo_role->has_attribute('baz'), '... FooRole does still have the baz attribu
 
 # method modifiers
 
-ok(!$foo_role->has_method_modifier('before' => 'boo'), '... no boo:before modifier');
+ok(!$foo_role->has_before_method_modifiers('boo'), '... no boo:before modifier');
 
 my $method = sub { "FooRole::boo:before" };
 lives_ok {
-    $foo_role->add_method_modifier('before' => (
-        'boo' => $method
-    ));
+    $foo_role->add_before_method_modifier('boo' => $method);
 } '... added a method modifier okay';
 
-ok($foo_role->has_method_modifier('before' => 'boo'), '... now we have a boo:before modifier');
-is($foo_role->get_method_modifier('before' => 'boo'), $method, '... got the right method back');
+ok($foo_role->has_before_method_modifiers('boo'), '... now we have a boo:before modifier');
+is(($foo_role->get_before_method_modifiers('boo'))[0], $method, '... got the right method back');
 
 is_deeply(
     [ $foo_role->get_method_modifier_list('before') ],
