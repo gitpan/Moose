@@ -7,9 +7,9 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
-use Moose::Util::TypeConstraints '-no-export';
+use Moose::Util::TypeConstraints ();
 
 use base 'Class::MOP::Attribute';
 
@@ -28,83 +28,173 @@ __PACKAGE__->meta->add_attribute('trigger' => (
 
 sub new {
 	my ($class, $name, %options) = @_;
-	
-	if (exists $options{is}) {
-		if ($options{is} eq 'ro') {
-			$options{reader} = $name;
-			(!exists $options{trigger})
+	$class->_process_options($name, \%options);
+	$class->SUPER::new($name, %options);	
+}
+
+sub clone_and_inherit_options {
+    my ($self, %options) = @_;
+    # you can change default, required and coerce 
+    my %actual_options;
+    foreach my $legal_option (qw(default coerce required)) {
+        if (exists $options{$legal_option}) {
+            $actual_options{$legal_option} = $options{$legal_option};
+            delete $options{$legal_option};
+        }
+    }
+    # isa can be changed, but only if the 
+    # new type is a subtype    
+    if ($options{isa}) {
+        my $type_constraint;
+	    if (blessed($options{isa}) && $options{isa}->isa('Moose::Meta::TypeConstraint')) {
+			$type_constraint = $options{isa};
+		}        
+		else {
+		    $type_constraint = Moose::Util::TypeConstraints::find_type_constraint($options{isa});
+		    (defined $type_constraint)
+		        || confess "Could not find the type constraint '" . $options{isa} . "'";
+		}
+		($type_constraint->is_subtype_of($self->type_constraint->name))
+		    || confess "New type constraint setting must be a subtype of inherited one"
+		        if $self->has_type_constraint;
+		$actual_options{type_constraint} = $type_constraint;
+        delete $options{isa};
+    }
+    (scalar keys %options == 0) 
+        || confess "Illegal inherited options => (" . (join ', ' => keys %options) . ")";
+    $self->clone(%actual_options);
+}
+
+sub _process_options {
+    my ($class, $name, $options) = @_;
+	if (exists $options->{is}) {
+		if ($options->{is} eq 'ro') {
+			$options->{reader} = $name;
+			(!exists $options->{trigger})
 			    || confess "Cannot have a trigger on a read-only attribute";
 		}
-		elsif ($options{is} eq 'rw') {
-			$options{accessor} = $name;				
-			(reftype($options{trigger}) eq 'CODE')
+		elsif ($options->{is} eq 'rw') {
+			$options->{accessor} = $name;				
+			((reftype($options->{trigger}) || '') eq 'CODE')
 			    || confess "A trigger must be a CODE reference"
-			        if exists $options{trigger};			
+			        if exists $options->{trigger};			
 		}			
 	}
 	
-	if (exists $options{isa}) {
+	if (exists $options->{isa}) {
 	    
-	    if (exists $options{does}) {
-	        if (eval { $options{isa}->can('does') }) {
-	            ($options{isa}->does($options{does}))	            
+	    if (exists $options->{does}) {
+	        if (eval { $options->{isa}->can('does') }) {
+	            ($options->{isa}->does($options->{does}))	            
 	                || confess "Cannot have an isa option and a does option if the isa does not do the does";
+	        }
+	        else {
+	            confess "Cannot have an isa option which cannot ->does()";
 	        }
 	    }	    
 	    
 	    # allow for anon-subtypes here ...
-	    if (blessed($options{isa}) && $options{isa}->isa('Moose::Meta::TypeConstraint')) {
-			$options{type_constraint} = $options{isa};
+	    if (blessed($options->{isa}) && $options->{isa}->isa('Moose::Meta::TypeConstraint')) {
+			$options->{type_constraint} = $options->{isa};
 		}
 		else {
-		    # otherwise assume it is a constraint
-		    my $constraint = Moose::Util::TypeConstraints::find_type_constraint($options{isa});	    
-		    # if the constraing it not found ....
-		    unless (defined $constraint) {
-		        # assume it is a foreign class, and make 
-		        # an anon constraint for it 
-		        $constraint = Moose::Util::TypeConstraints::subtype(
-		            'Object', 
-		            Moose::Util::TypeConstraints::where { $_->isa($options{isa}) }
+		    
+		    if ($options->{isa} =~ /\|/) {
+		        my @type_constraints = split /\s*\|\s*/ => $options->{isa};
+		        $options->{type_constraint} = Moose::Util::TypeConstraints::create_type_constraint_union(
+		            @type_constraints
 		        );
-		    }			    
-            $options{type_constraint} = $constraint;
+		    }
+		    else {
+    		    # otherwise assume it is a constraint
+    		    my $constraint = Moose::Util::TypeConstraints::find_type_constraint($options->{isa});	    
+    		    # if the constraing it not found ....
+    		    unless (defined $constraint) {
+    		        # assume it is a foreign class, and make 
+    		        # an anon constraint for it 
+    		        $constraint = Moose::Util::TypeConstraints::subtype(
+    		            'Object', 
+    		            Moose::Util::TypeConstraints::where { $_->isa($options->{isa}) }
+    		        );
+    		    }			    
+                $options->{type_constraint} = $constraint;
+            }
 		}
 	}	
-	elsif (exists $options{does}) {	    
+	elsif (exists $options->{does}) {	    
 	    # allow for anon-subtypes here ...
-	    if (blessed($options{does}) && $options{does}->isa('Moose::Meta::TypeConstraint')) {
-			$options{type_constraint} = $options{isa};
+	    if (blessed($options->{does}) && $options->{does}->isa('Moose::Meta::TypeConstraint')) {
+			$options->{type_constraint} = $options->{isa};
 		}
 		else {
 		    # otherwise assume it is a constraint
-		    my $constraint = Moose::Util::TypeConstraints::find_type_constraint($options{does});	      
+		    my $constraint = Moose::Util::TypeConstraints::find_type_constraint($options->{does});	      
 		    # if the constraing it not found ....
 		    unless (defined $constraint) {	  		        
 		        # assume it is a foreign class, and make 
 		        # an anon constraint for it 
 		        $constraint = Moose::Util::TypeConstraints::subtype(
 		            'Role', 
-		            Moose::Util::TypeConstraints::where { $_->does($options{does}) }
+		            Moose::Util::TypeConstraints::where { $_->does($options->{does}) }
 		        );
 		    }			    
-            $options{type_constraint} = $constraint;
+            $options->{type_constraint} = $constraint;
 		}	    
 	}
 	
-	if (exists $options{coerce} && $options{coerce}) {
-	    (exists $options{type_constraint})
+	if (exists $options->{coerce} && $options->{coerce}) {
+	    (exists $options->{type_constraint})
 	        || confess "You cannot have coercion without specifying a type constraint";
+	    (!$options->{type_constraint}->isa('Moose::Meta::TypeConstraint::Union'))
+	        || confess "You cannot have coercion with a type constraint union";	        
         confess "You cannot have a weak reference to a coerced value"
-            if $options{weak_ref};	        
+            if $options->{weak_ref};	        
 	}	
 	
-	if (exists $options{lazy} && $options{lazy}) {
-	    (exists $options{default})
+	if (exists $options->{lazy} && $options->{lazy}) {
+	    (exists $options->{default})
 	        || confess "You cannot have lazy attribute without specifying a default value for it";	    
+	}    
+}
+
+sub initialize_instance_slot {
+    my ($self, $class, $instance, $params) = @_;
+    my $init_arg = $self->init_arg();
+    # try to fetch the init arg from the %params ...
+    my $val;        
+    if (exists $params->{$init_arg}) {
+        $val = $params->{$init_arg};
+    }
+    else {
+        # skip it if it's lazy
+        return if $self->is_lazy;
+        # and die if it's required and doesn't have a default value
+        confess "Attribute (" . $self->name . ") is required" 
+            if $self->is_required && !$self->has_default;
+    }
+    # if nothing was in the %params, we can use the 
+    # attribute's default value (if it has one)
+    if (!defined $val && $self->has_default) {
+        $val = $self->default($instance); 
+    }
+	if (defined $val) {
+	    if ($self->has_type_constraint) {
+	        my $type_constraint = $self->type_constraint;
+		    if ($self->should_coerce && $type_constraint->has_coercion) {
+		        $val = $type_constraint->coercion->coerce($val);
+		    }	
+            (defined($type_constraint->check($val))) 
+                || confess "Attribute (" . 
+                           $self->name . 
+                           ") does not pass the type contraint (" . 
+                           $type_constraint->name .
+                           ") with '$val'";			
+        }
 	}
-	
-	$class->SUPER::new($name, %options);	
+    $instance->{$self->name} = $val;
+    if (defined $val && $self->is_weak_ref) {
+        weaken($instance->{$self->name});
+    }    
 }
 
 sub generate_accessor_method {
@@ -120,7 +210,7 @@ sub generate_accessor_method {
             : '')
         . ($self->has_type_constraint ? 
             ('(defined $self->type_constraint->check(' . $value_name . '))'
-            	. '|| confess "Attribute ($attr_name) does not pass the type contraint with \'' . $value_name . '\'"'
+            	. '|| confess "Attribute ($attr_name) does not pass the type contraint (" . $self->type_constraint->name . ") with \'' . $value_name . '\'"'
             		. 'if defined ' . $value_name . ';')
             : '')
         . '$_[0]->{$attr_name} = ' . $value_name . ';'
@@ -128,7 +218,7 @@ sub generate_accessor_method {
             'weaken($_[0]->{$attr_name});'
             : '')
         . ($self->has_trigger ?
-            '$self->trigger->($_[0], ' . $value_name . ');'
+            '$self->trigger->($_[0], ' . $value_name . ', $self);'
             : '')            
     . ' }'
     . ($self->is_lazy ? 
@@ -154,7 +244,7 @@ sub generate_writer_method {
         : '')
     . ($self->has_type_constraint ? 
         ('(defined $self->type_constraint->check(' . $value_name . '))'
-        	. '|| confess "Attribute ($attr_name) does not pass the type contraint with \'' . $value_name . '\'"'
+        	. '|| confess "Attribute ($attr_name) does not pass the type contraint (" . $self->type_constraint->name . ") with \'' . $value_name . '\'"'
         		. 'if defined ' . $value_name . ';')
         : '')
     . '$_[0]->{$attr_name} = ' . $value_name . ';'
@@ -162,7 +252,7 @@ sub generate_writer_method {
         'weaken($_[0]->{$attr_name});'
         : '')
     . ($self->has_trigger ?
-        '$self->trigger->($_[0], ' . $value_name . ');'
+        '$self->trigger->($_[0], ' . $value_name . ', $self);'
         : '')        
     . ' }';
     my $sub = eval $code;
@@ -216,6 +306,10 @@ will behave just as L<Class::MOP::Attribute> does.
 =over 4
 
 =item B<new>
+
+=item B<clone_and_inherit_options>
+
+=item B<initialize_instance_slot>
 
 =item B<generate_accessor_method>
 

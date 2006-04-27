@@ -7,19 +7,24 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
 
-sub import {
-	shift;
-	my $pkg = shift || caller();
-	return if $pkg eq '-no-export';
-	no strict 'refs';
-	foreach my $export (qw(type subtype as where message coerce from via find_type_constraint)) {
-		*{"${pkg}::${export}"} = \&{"${export}"};
-	}	
+{
+    require Sub::Exporter;
+    
+    my @exports = qw[type subtype as where message coerce from via find_type_constraint];
+
+    Sub::Exporter->import( 
+        -setup => { 
+            exports => \@exports,
+            groups  => {
+                default => [':all']
+            }
+        }
+    );
 }
 
 {
@@ -64,6 +69,15 @@ sub import {
         $type->coercion($type_coercion);
     }
     
+    sub create_type_constraint_union {
+        my (@type_constraint_names) = @_;
+        return Moose::Meta::TypeConstraint->union(
+            map { 
+                find_type_constraint($_) 
+            } @type_constraint_names
+        );
+    }
+    
     sub export_type_contstraints_as_functions {
         my $pkg = caller();
 	    no strict 'refs';
@@ -98,15 +112,23 @@ sub message (&) { $_[0] }
 
 # define some basic types
 
-type 'Any' => where { 1 };
+type 'Any'  => where { 1 }; # meta-type including all
+type 'Item' => where { 1 }; # base-type 
 
-subtype 'Value' => as 'Any' => where { !ref($_) };
-subtype 'Ref'   => as 'Any' => where {  ref($_) };
+subtype 'Undef'   => as 'Item' => where { !defined($_) };
+subtype 'Defined' => as 'Item' => where {  defined($_) };
 
-subtype 'Int' => as 'Value' => where {  Scalar::Util::looks_like_number($_) };
-subtype 'Str' => as 'Value' => where { !Scalar::Util::looks_like_number($_) };
+subtype 'Bool'  => as 'Item' => where { !defined($_) || $_ eq "" || "$_" eq '1' || "$_" eq '0' };
 
-subtype 'ScalarRef' => as 'Ref' => where { ref($_) eq 'SCALAR' };	
+subtype 'Value' => as 'Defined' => where { !ref($_) };
+subtype 'Ref'   => as 'Defined' => where {  ref($_) };
+
+subtype 'Str' => as 'Value' => where { 1 };
+
+subtype 'Num' => as 'Value' => where { Scalar::Util::looks_like_number($_) };
+subtype 'Int' => as 'Num'   => where { "$_" =~ /^-?[0-9]+$/ };
+
+subtype 'ScalarRef' => as 'Ref' => where { ref($_) eq 'SCALAR' };
 subtype 'ArrayRef'  => as 'Ref' => where { ref($_) eq 'ARRAY'  };
 subtype 'HashRef'   => as 'Ref' => where { ref($_) eq 'HASH'   };	
 subtype 'CodeRef'   => as 'Ref' => where { ref($_) eq 'CODE'   };
@@ -168,17 +190,22 @@ This module also provides a simple hierarchy for Perl 5 types, this
 could probably use some work, but it works for me at the moment.
 
   Any
-      Value
-          Int
-          Str
-      Ref
-          ScalarRef
-          ArrayRef
-          HashRef
-          CodeRef
-          RegexpRef
-          Object	
-            Role
+  Item 
+      Bool
+      Undef
+      Defined
+          Value
+              Num
+                Int
+              Str
+          Ref
+              ScalarRef
+              ArrayRef
+              HashRef
+              CodeRef
+              RegexpRef
+              Object	
+                  Role
 
 Suggestions for improvement are welcome.
     
@@ -192,6 +219,11 @@ Suggestions for improvement are welcome.
 
 This function can be used to locate a specific type constraint 
 meta-object. What you do with it from there is up to you :)
+
+=item B<create_type_constraint_union (@type_constraint_names)>
+
+Given a list of C<@type_constraint_names>, this will return a 
+B<Moose::Meta::TypeConstraint::Union> instance.
 
 =item B<export_type_contstraints_as_functions>
 

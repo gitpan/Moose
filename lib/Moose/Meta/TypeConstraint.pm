@@ -5,10 +5,11 @@ use strict;
 use warnings;
 use metaclass;
 
-use Sub::Name 'subname';
-use Carp      'confess';
+use Sub::Name    'subname';
+use Carp         'confess';
+use Scalar::Util 'blessed';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 __PACKAGE__->meta->add_attribute('name'       => (reader => 'name'      ));
 __PACKAGE__->meta->add_attribute('parent'     => (reader => 'parent'    ));
@@ -34,7 +35,7 @@ sub new {
     return $self;
 }
 
-sub compile_type_constraint () {
+sub compile_type_constraint {
     my $self  = shift;
     my $check = $self->constraint;
     (defined $check)
@@ -46,7 +47,7 @@ sub compile_type_constraint () {
 		$self->_compiled_type_constraint(subname $self->name => sub { 			
 			local $_ = $_[0];
 			return undef unless defined $parent->($_[0]) && $check->($_[0]);
-			$_[0];
+			1;
 		});        
     }
     else {
@@ -54,7 +55,7 @@ sub compile_type_constraint () {
     	$self->_compiled_type_constraint(subname $self->name => sub { 
     		local $_ = $_[0];
     		return undef unless $check->($_[0]);
-    		$_[0];
+    		1;
     	});
     }
 }
@@ -72,9 +73,89 @@ sub validate {
             return $self->message->($value);
         }
         else {
-            return "Validation failed for '" . $self->name . "' failed.";
+            return "Validation failed for '" . $self->name . "' failed";
         }
     }
+}
+
+sub is_subtype_of {
+    my ($self, $type_name) = @_;
+    my $current = $self;
+    while (my $parent = $current->parent) {
+        return 1 if $parent->name eq $type_name;
+        $current = $parent;
+    }
+    return 0;
+}
+
+sub union {
+    my ($class, @type_constraints) = @_;
+    (scalar @type_constraints >= 2)
+        || confess "You must pass in at least 2 Moose::Meta::TypeConstraint instances to make a union";    
+    (blessed($_) && $_->isa('Moose::Meta::TypeConstraint'))
+        || confess "You must pass in only Moose::Meta::TypeConstraint instances to make unions"
+            foreach @type_constraints;
+    return Moose::Meta::TypeConstraint::Union->new(
+        type_constraints => \@type_constraints
+    );
+}
+
+package Moose::Meta::TypeConstraint::Union;
+
+use strict;
+use warnings;
+use metaclass;
+
+our $VERSION = '0.01';
+
+__PACKAGE__->meta->add_attribute('type_constraints' => (
+    accessor  => 'type_constraints',
+    default   => sub { [] }
+));
+
+sub new { 
+    my $class = shift;
+    my $self  = $class->meta->new_object(@_);
+    return $self;
+}
+
+sub name { join ' | ' => map { $_->name } @{$_[0]->type_constraints} }
+
+# NOTE:
+# this should probably never be used
+# but we include it here for completeness
+sub constraint    { 
+    my $self = shift;
+    sub { $self->check($_[0]) }; 
+}
+
+# conform to the TypeConstraint API
+sub parent        { undef  }
+sub coercion      { undef  }
+sub has_coercion  { 0      }
+sub message       { undef  }
+sub has_message   { 0      }
+
+sub check {
+    my $self  = shift;
+    my $value = shift;
+    foreach my $type (@{$self->type_constraints}) {
+        return 1 if $type->check($value);
+    }
+    return undef;
+}
+
+sub validate {
+    my $self  = shift;
+    my $value = shift;
+    my $message;
+    foreach my $type (@{$self->type_constraints}) {
+        my $err = $type->validate($value);
+        return unless defined $err;
+        $message .= ($message ? ' and ' : '') . $err
+            if defined $err;
+    }
+    return ($message . ' in (' . $self->name . ')') ;    
 }
 
 1;
@@ -106,6 +187,8 @@ If you wish to use features at this depth, please come to the
 
 =item B<new>
 
+=item B<is_subtype_of>
+
 =item B<compile_type_constraint>
 
 =item B<check ($value)>
@@ -133,6 +216,12 @@ the C<message> will be used to construct a custom error message.
 =item B<has_coercion>
 
 =item B<coercion>
+
+=back
+
+=over 4
+
+=item B<union (@type_constraints)>
 
 =back
 

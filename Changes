@@ -1,5 +1,45 @@
 Revision history for Perl extension Moose
 
+0.05 Thurs. April 27, 2006
+    * Moose
+      - keywords are now exported with Sub::Exporter
+        thanks to chansen for this commit
+      - has keyword now takes a 'metaclass' option 
+        to support custom attribute meta-classes 
+        on a per-attribute basis
+        - added tests for this  
+      - the 'has' keyword not accepts inherited slot
+        specifications (has '+foo'). This is still an 
+        experimental feature and probably not finished
+        see t/038_attribute_inherited_slot_specs.t for 
+        more details, or ask about it on #moose
+        - added tests for this
+        
+    * Moose::Role
+      - keywords are now exported with Sub::Exporter
+
+    * Moose::Utils::TypeConstraints
+      - reorganized the type constraint hierarchy, thanks
+        to nothingmuch and chansen for his help and advice 
+        on this
+        - added some tests for this
+      - keywords are now exported with Sub::Exporter
+        thanks to chansen for this commit
+
+    * Moose::Meta::Class
+      - due to changes in Class::MOP, we had to change
+        construct_instance (for the better)
+        
+    * Moose::Meta::Attribute
+      - due to changes in Class::MOP, we had to add the 
+        initialize_instance_slot method (it's a good thing)
+        
+    * Moose::Meta::TypeConstraint
+      - added type constraint unions 
+        - added tests for this
+      - added the is_subtype_of predicate method
+        - added tests for this
+
 0.04 Sun. April 16th, 2006
     * Moose::Role
       - Roles can now consume other roles

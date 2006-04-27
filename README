@@ -1,4 +1,4 @@
-Moose version 0.04
+Moose version 0.05
 ===========================
 
 See the individual module documentation for more information
@@ -21,6 +21,7 @@ This module requires these other modules and libraries:
 	Carp
 	Sub::Name
 	UNIVERSAL::require
+	Sub::Exporter
 
 COPYRIGHT AND LICENCE
 

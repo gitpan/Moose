@@ -8,9 +8,10 @@ my $build = Module::Build->new(
     requires => {
         'Scalar::Util'       => '1.18',
         'Carp'               => '0',
-        'Class::MOP'         => '0.22',
+        'Class::MOP'         => '0.26',
         'Sub::Name'          => '0.02',
-        'UNIVERSAL::require' => '0'
+        'UNIVERSAL::require' => '0.10',
+        'Sub::Exporter'      => '0.93',
     },
     optional => {
     },
