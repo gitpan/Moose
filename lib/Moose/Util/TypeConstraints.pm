@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
@@ -15,7 +15,7 @@ use Moose::Meta::TypeCoercion;
 {
     require Sub::Exporter;
     
-    my @exports = qw[type subtype as where message coerce from via find_type_constraint];
+    my @exports = qw[type subtype as where message coerce from via find_type_constraint enum];
 
     Sub::Exporter->import( 
         -setup => { 
@@ -110,6 +110,16 @@ sub where   (&) { $_[0] }
 sub via     (&) { $_[0] }
 sub message (&) { $_[0] }
 
+sub enum {
+    my ($type_name, @values) = @_;
+    my $regexp = join '|' => @values;
+	_create_type_constraint(
+	    $type_name,
+	    'Str',
+	    sub { qr/^$regexp$/i }
+	);    
+}
+
 # define some basic types
 
 type 'Any'  => where { 1 }; # meta-type including all
@@ -168,6 +178,8 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
   coerce Num 
       => from Str
         => via { 0+$_ }; 
+        
+  enum RGBColors => qw(red green blue);
 
 =head1 DESCRIPTION
 
@@ -256,6 +268,8 @@ This creates a named subtype.
 This creates an unnamed subtype and will return the type 
 constraint meta-object, which will be an instance of 
 L<Moose::Meta::TypeConstraint>. 
+
+=item B<enum ($name, @values)>
 
 =item B<as>
 

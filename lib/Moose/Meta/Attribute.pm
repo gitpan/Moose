@@ -7,16 +7,24 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose::Util::TypeConstraints ();
 
 use base 'Class::MOP::Attribute';
 
-__PACKAGE__->meta->add_attribute('required' => (reader => 'is_required'  ));
-__PACKAGE__->meta->add_attribute('lazy'     => (reader => 'is_lazy'      ));
-__PACKAGE__->meta->add_attribute('coerce'   => (reader => 'should_coerce'));
-__PACKAGE__->meta->add_attribute('weak_ref' => (reader => 'is_weak_ref'  ));
+# options which are not directly used
+# but we store them for metadata purposes
+__PACKAGE__->meta->add_attribute('isa'  => (reader    => '_isa_metadata'));
+__PACKAGE__->meta->add_attribute('does' => (reader    => '_does_metadata'));
+__PACKAGE__->meta->add_attribute('is'   => (reader    => '_is_metadata'));
+
+# these are actual options for the attrs
+__PACKAGE__->meta->add_attribute('required'   => (reader => 'is_required'      ));
+__PACKAGE__->meta->add_attribute('lazy'       => (reader => 'is_lazy'          ));
+__PACKAGE__->meta->add_attribute('coerce'     => (reader => 'should_coerce'    ));
+__PACKAGE__->meta->add_attribute('weak_ref'   => (reader => 'is_weak_ref'      ));
+__PACKAGE__->meta->add_attribute('auto_deref' => (reader => 'should_auto_deref'));
 __PACKAGE__->meta->add_attribute('type_constraint' => (
     reader    => 'type_constraint',
     predicate => 'has_type_constraint',
@@ -25,11 +33,15 @@ __PACKAGE__->meta->add_attribute('trigger' => (
     reader    => 'trigger',
     predicate => 'has_trigger',
 ));
+__PACKAGE__->meta->add_attribute('handles' => (
+    reader    => 'handles',
+    predicate => 'has_handles',
+));
 
 sub new {
 	my ($class, $name, %options) = @_;
 	$class->_process_options($name, \%options);
-	$class->SUPER::new($name, %options);	
+	return $class->SUPER::new($name, %options);    
 }
 
 sub clone_and_inherit_options {
@@ -67,6 +79,7 @@ sub clone_and_inherit_options {
 
 sub _process_options {
     my ($class, $name, $options) = @_;
+    
 	if (exists $options->{is}) {
 		if ($options->{is} eq 'ro') {
 			$options->{reader} = $name;
@@ -74,10 +87,13 @@ sub _process_options {
 			    || confess "Cannot have a trigger on a read-only attribute";
 		}
 		elsif ($options->{is} eq 'rw') {
-			$options->{accessor} = $name;				
-			((reftype($options->{trigger}) || '') eq 'CODE')
-			    || confess "A trigger must be a CODE reference"
-			        if exists $options->{trigger};			
+			$options->{accessor} = $name;						
+    	    ((reftype($options->{trigger}) || '') eq 'CODE')
+    	        || confess "Trigger must be a CODE ref"
+    	            if exists $options->{trigger};			
+		}
+		else {
+		    confess "I do not understand this option (is => " . $options->{is} . ")"
 		}			
 	}
 	
@@ -151,6 +167,13 @@ sub _process_options {
             if $options->{weak_ref};	        
 	}	
 	
+	if (exists $options->{auto_deref} && $options->{auto_deref}) {
+	    (exists $options->{type_constraint})
+	        || confess "You cannot auto-dereference without specifying a type constraint";	    
+	    ($options->{type_constraint}->name =~ /^ArrayRef|HashRef$/)
+	        || confess "You cannot auto-dereference anything other than a ArrayRef or HashRef";	        
+	}
+	
 	if (exists $options->{lazy} && $options->{lazy}) {
 	    (exists $options->{default})
 	        || confess "You cannot have lazy attribute without specifying a default value for it";	    
@@ -158,9 +181,10 @@ sub _process_options {
 }
 
 sub initialize_instance_slot {
-    my ($self, $class, $instance, $params) = @_;
+    my ($self, $meta_instance, $instance, $params) = @_;
     my $init_arg = $self->init_arg();
     # try to fetch the init arg from the %params ...
+
     my $val;        
     if (exists $params->{$init_arg}) {
         $val = $params->{$init_arg};
@@ -172,6 +196,7 @@ sub initialize_instance_slot {
         confess "Attribute (" . $self->name . ") is required" 
             if $self->is_required && !$self->has_default;
     }
+
     # if nothing was in the %params, we can use the 
     # attribute's default value (if it has one)
     if (!defined $val && $self->has_default) {
@@ -191,69 +216,117 @@ sub initialize_instance_slot {
                            ") with '$val'";			
         }
 	}
-    $instance->{$self->name} = $val;
-    if (defined $val && $self->is_weak_ref) {
-        weaken($instance->{$self->name});
-    }    
+
+    $meta_instance->set_slot_value($instance, $self->name, $val);
+    $meta_instance->weaken_slot_value($instance, $self->name) 
+        if ref $val && $self->is_weak_ref;
+}
+
+sub _inline_check_constraint {
+	my ($self, $value) = @_;
+	return '' unless $self->has_type_constraint;
+	
+	# FIXME - remove 'unless defined($value) - constraint Undef
+	return sprintf <<'EOF', $value, $value, $value, $value
+defined($attr->type_constraint->check(%s))
+	|| confess "Attribute (" . $attr->name . ") does not pass the type contraint ("
+       . $attr->type_constraint->name . ") with " . (defined(%s) ? "'%s'" : "undef")
+  if defined(%s);
+EOF
+}
+
+sub _inline_store {
+	my ($self, $instance, $value) = @_;
+
+	my $mi = $self->associated_class->get_meta_instance;
+	my $slot_name = sprintf "'%s'", $self->slots;
+
+    my $code = $mi->inline_set_slot_value($instance, $slot_name, $value)    . ";";
+	$code   .= $mi->inline_weaken_slot_value($instance, $slot_name, $value) . ";"
+	    if $self->is_weak_ref;
+    return $code;
+}
+
+sub _inline_trigger {
+	my ($self, $instance, $value) = @_;
+	return '' unless $self->has_trigger;
+	return sprintf('$attr->trigger->(%s, %s, $attr);', $instance, $value);
+}
+
+sub _inline_get {
+	my ($self, $instance) = @_;
+
+	my $mi = $self->associated_class->get_meta_instance;
+	my $slot_name = sprintf "'%s'", $self->slots;
+
+    return $mi->inline_get_slot_value($instance, $slot_name);
+}
+
+sub _inline_auto_deref {
+    my ( $self, $ref_value ) = @_;
+
+    return $ref_value unless $self->should_auto_deref;
+
+    my $type = $self->type_constraint->name;
+
+    my $sigil;
+    if ($type eq "ArrayRef") {
+        $sigil = '@';
+    } 
+    elsif ($type eq 'HashRef') {
+        $sigil = '%';
+    } 
+    else {
+        confess "Can not auto de-reference the type constraint '$type'";
+    }
+
+    "(wantarray() ? $sigil\{ ( $ref_value ) || return } : ( $ref_value ) )";
 }
 
 sub generate_accessor_method {
-    my ($self, $attr_name) = @_;
-    my $value_name = $self->should_coerce ? '$val' : '$_[1]';
+    my ($attr, $attr_name) = @_;
+    my $value_name = $attr->should_coerce ? '$val' : '$_[1]';
+	my $mi = $attr->associated_class->get_meta_instance;
+	my $slot_name = sprintf "'%s'", $attr->slots;
+	my $inv = '$_[0]';
     my $code = 'sub { '
     . 'if (scalar(@_) == 2) {'
-        . ($self->is_required ? 
+        . ($attr->is_required ? 
             'defined($_[1]) || confess "Attribute ($attr_name) is required, so cannot be set to undef";' 
             : '')
-        . ($self->should_coerce ? 
-            'my $val = $self->type_constraint->coercion->coerce($_[1]);'
+        . ($attr->should_coerce ? 
+            'my $val = $attr->type_constraint->coercion->coerce($_[1]);'
             : '')
-        . ($self->has_type_constraint ? 
-            ('(defined $self->type_constraint->check(' . $value_name . '))'
-            	. '|| confess "Attribute ($attr_name) does not pass the type contraint (" . $self->type_constraint->name . ") with \'' . $value_name . '\'"'
-            		. 'if defined ' . $value_name . ';')
-            : '')
-        . '$_[0]->{$attr_name} = ' . $value_name . ';'
-        . ($self->is_weak_ref ?
-            'weaken($_[0]->{$attr_name});'
-            : '')
-        . ($self->has_trigger ?
-            '$self->trigger->($_[0], ' . $value_name . ', $self);'
-            : '')            
+        . $attr->_inline_check_constraint($value_name)
+		. $attr->_inline_store($inv, $value_name)
+		. $attr->_inline_trigger($inv, $value_name)
     . ' }'
-    . ($self->is_lazy ? 
-            '$_[0]->{$attr_name} = ($self->has_default ? $self->default($_[0]) : undef)'
+    . ($attr->is_lazy ? 
+            '$_[0]->{$attr_name} = ($attr->has_default ? $attr->default($_[0]) : undef)'
             . 'unless exists $_[0]->{$attr_name};'
             : '')    
-    . ' $_[0]->{$attr_name};'
+    . 'return ' . $attr->_inline_auto_deref($attr->_inline_get($inv))
     . ' }';
     my $sub = eval $code;
-    confess "Could not create writer for '$attr_name' because $@ \n code: $code" if $@;
+    warn "Could not create accessor for '$attr_name' because $@ \n code: $code" if $@;
+    confess "Could not create accessor for '$attr_name' because $@ \n code: $code" if $@;
     return $sub;    
 }
 
 sub generate_writer_method {
-    my ($self, $attr_name) = @_; 
-    my $value_name = $self->should_coerce ? '$val' : '$_[1]';
+    my ($attr, $attr_name) = @_; 
+    my $value_name = $attr->should_coerce ? '$val' : '$_[1]';
+	my $inv = '$_[0]';
     my $code = 'sub { '
-    . ($self->is_required ? 
+    . ($attr->is_required ? 
         'defined($_[1]) || confess "Attribute ($attr_name) is required, so cannot be set to undef";' 
         : '')
-    . ($self->should_coerce ? 
-        'my $val = $self->type_constraint->coercion->coerce($_[1]);'
+    . ($attr->should_coerce ? 
+        'my $val = $attr->type_constraint->coercion->coerce($_[1]);'
         : '')
-    . ($self->has_type_constraint ? 
-        ('(defined $self->type_constraint->check(' . $value_name . '))'
-        	. '|| confess "Attribute ($attr_name) does not pass the type contraint (" . $self->type_constraint->name . ") with \'' . $value_name . '\'"'
-        		. 'if defined ' . $value_name . ';')
-        : '')
-    . '$_[0]->{$attr_name} = ' . $value_name . ';'
-    . ($self->is_weak_ref ?
-        'weaken($_[0]->{$attr_name});'
-        : '')
-    . ($self->has_trigger ?
-        '$self->trigger->($_[0], ' . $value_name . ', $self);'
-        : '')        
+	. $attr->_inline_check_constraint($value_name)
+	. $attr->_inline_store($inv, $value_name)
+	. $attr->_inline_trigger($inv, $value_name)
     . ' }';
     my $sub = eval $code;
     confess "Could not create writer for '$attr_name' because $@ \n code: $code" if $@;
@@ -261,18 +334,126 @@ sub generate_writer_method {
 }
 
 sub generate_reader_method {
-    my ($self, $attr_name) = @_; 
+    my $self = shift;
+    my $attr_name = $self->slots;
     my $code = 'sub {'
     . 'confess "Cannot assign a value to a read-only accessor" if @_ > 1;'
     . ($self->is_lazy ? 
             '$_[0]->{$attr_name} = ($self->has_default ? $self->default($_[0]) : undef)'
             . 'unless exists $_[0]->{$attr_name};'
             : '')
-    . '$_[0]->{$attr_name};'
+    . 'return ' . $self->_inline_auto_deref( '$_[0]->{$attr_name}' ) . ';'
     . '}';
     my $sub = eval $code;
     confess "Could not create reader for '$attr_name' because $@ \n code: $code" if $@;
     return $sub;
+}
+
+sub install_accessors {
+    my $self = shift;
+    $self->SUPER::install_accessors(@_);   
+    
+    if ($self->has_handles) {
+        
+        # NOTE:
+        # Here we canonicalize the 'handles' option
+        # this will sort out any details and always 
+        # return an hash of methods which we want 
+        # to delagate to, see that method for details
+        my %handles = $self->_canonicalize_handles();
+        
+        # find the name of the accessor for this attribute
+        my $accessor_name = $self->reader || $self->accessor;
+        (defined $accessor_name)
+            || confess "You cannot install delegation without a reader or accessor for the attribute";
+        
+        # make sure we handle HASH accessors correctly
+        ($accessor_name) = keys %{$accessor_name}
+            if ref($accessor_name) eq 'HASH';
+        
+        # install the delegation ...
+        my $associated_class = $self->associated_class;
+        foreach my $handle (keys %handles) {
+            my $method_to_call = $handles{$handle};
+            
+            (!$associated_class->has_method($handle))
+                || confess "You cannot overwrite a locally defined method ($handle) with a delegation";
+            
+            if ((reftype($method_to_call) || '') eq 'CODE') {
+                $associated_class->add_method($handle => $method_to_call);                
+            }
+            else {
+                $associated_class->add_method($handle => sub {
+                    ((shift)->$accessor_name())->$method_to_call(@_);
+                });
+            }
+        }
+    }
+    
+    return;
+}
+
+# private methods to help delegation ...
+
+sub _canonicalize_handles {
+    my $self    = shift;
+    my $handles = $self->handles;
+    if (ref($handles) eq 'HASH') {
+        return %{$handles};
+    }
+    elsif (ref($handles) eq 'ARRAY') {
+        return map { $_ => $_ } @{$handles};
+    }
+    elsif (ref($handles) eq 'Regexp') {
+        ($self->has_type_constraint)
+            || confess "Cannot delegate methods based on a RegExpr without a type constraint (isa)";
+        return map  { ($_ => $_) } 
+               grep {  $handles  } $self->_get_delegate_method_list;
+    }
+    elsif (ref($handles) eq 'CODE') {
+        return $handles->($self, $self->_find_delegate_metaclass);
+    }
+    else {
+        confess "Unable to canonicalize the 'handles' option with $handles";
+    }
+}
+
+sub _find_delegate_metaclass {
+    my $self = shift;
+    if (my $class = $self->_isa_metadata) {
+        # if the class does have 
+        # a meta method, use it
+        return $class->meta if $class->can('meta');
+        # otherwise we might be 
+        # dealing with a non-Moose
+        # class, and need to make 
+        # our own metaclass
+        return Moose::Meta::Class->initialize($class);
+    }
+    elsif (my $role = $self->_does_metadata) {
+        # our role will always have 
+        # a meta method
+        return $role->meta;
+    }
+    else {
+        confess "Cannot find delegate metaclass for attribute " . $self->name;
+    }
+}
+
+sub _get_delegate_method_list {
+    my $self = shift;
+    my $meta = $self->_find_delegate_metaclass;
+    if ($meta->isa('Class::MOP::Class')) {
+        return map  { $_->{name}                     } 
+               grep { $_->{class} ne 'Moose::Object' } 
+                    $meta->compute_all_applicable_methods;
+    }
+    elsif ($meta->isa('Moose::Meta::Role')) {
+        return $meta->get_method_list;        
+    }
+    else {
+        confess "Unable to recognize the delegate metaclass '$meta'";
+    }
 }
 
 1;
@@ -317,6 +498,8 @@ will behave just as L<Class::MOP::Attribute> does.
 
 =item B<generate_reader_method>
 
+=item B<install_accessors>
+
 =back
 
 =head2 Additional Moose features
@@ -336,6 +519,14 @@ A read-only accessor for this meta-attribute's type constraint. For
 more information on what you can do with this, see the documentation 
 for L<Moose::Meta::TypeConstraint>.
 
+=item B<has_handles>
+
+Returns true if this meta-attribute performs delegation.
+
+=item B<handles>
+
+This returns the value which was passed into the handles option.
+
 =item B<is_weak_ref>
 
 Returns true if this meta-attribute produces a weak reference.
@@ -353,6 +544,14 @@ NOTE: lazy attributes, B<must> have a C<default> field set.
 =item B<should_coerce>
 
 Returns true if this meta-attribute should perform type coercion.
+
+=item B<should_auto_deref>
+
+Returns true if this meta-attribute should perform automatic 
+auto-dereferencing. 
+
+NOTE: This can only be done for attributes whose type constraint is 
+either I<ArrayRef> or I<HashRef>.
 
 =item B<has_trigger>
 
@@ -376,6 +575,8 @@ to cpan-RT.
 =head1 AUTHOR
 
 Stevan Little E<lt>stevan@iinteractive.comE<gt>
+
+Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

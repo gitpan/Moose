@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION = '0.05';
+our $VERSION = '0.09_01';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
@@ -19,17 +19,16 @@ use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
 use Moose::Meta::Attribute;
+use Moose::Meta::Instance;
 
 use Moose::Object;
 use Moose::Util::TypeConstraints;
 
 {
-    my ( $CALLER, %METAS );
+    my $CALLER;
 
-    sub _find_meta {
+    sub _init_meta {
         my $class = $CALLER;
-
-        return $METAS{$class} if exists $METAS{$class};
 
         # make a subtype for each Moose class
         subtype $class
@@ -39,11 +38,21 @@ use Moose::Util::TypeConstraints;
 
         my $meta;
         if ($class->can('meta')) {
+            # NOTE:
+            # this is the case where the metaclass pragma 
+            # was used before the 'use Moose' statement to 
+            # override a specific class
             $meta = $class->meta();
             (blessed($meta) && $meta->isa('Moose::Meta::Class'))
                 || confess "Whoops, not møøsey enough";
         }
         else {
+            # NOTE:
+            # this is broken currently, we actually need 
+            # to allow the possiblity of an inherited 
+            # meta, which will not be visible until the 
+            # user 'extends' first. This needs to have 
+            # more intelligence to it 
             $meta = Moose::Meta::Class->initialize($class);
             $meta->add_method('meta' => sub {
                 # re-initialize so it inherits properly
@@ -54,35 +63,85 @@ use Moose::Util::TypeConstraints;
         # make sure they inherit from Moose::Object
         $meta->superclasses('Moose::Object')
            unless $meta->superclasses();
-
-        return $METAS{$class} = $meta;
     }
 
     my %exports = (
         extends => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::extends' => sub {
                 _load_all_classes(@_);
-                $meta->superclasses(@_)
+                my $meta = $class->meta;
+                foreach my $super (@_) {
+                    # don't bother if it does not have a meta.
+                    next unless $super->can('meta');
+                    # if it's meta is a vanilla Moose, 
+                    # then we can safely ignore it.
+                    next if blessed($super->meta) eq 'Moose::Meta::Class';
+                    # but if we have anything else, 
+                    # we need to check it out ...
+                    unless (# see if of our metaclass is incompatible
+                            ($meta->isa(blessed($super->meta)) &&
+                             # and see if our instance metaclass is incompatible
+                             $meta->instance_metaclass->isa($super->meta->instance_metaclass)) &&
+                            # ... and if we are just a vanilla Moose
+                            $meta->isa('Moose::Meta::Class')) {
+                        # re-initialize the meta ...
+                        my $super_meta = $super->meta;
+                        # NOTE:
+                        # We might want to consider actually 
+                        # transfering any attributes from the 
+                        # original meta into this one, but in 
+                        # general you should not have any there
+                        # at this point anyway, so it's very 
+                        # much an obscure edge case anyway
+                        $meta = $super_meta->reinitialize($class => (
+                            ':attribute_metaclass' => $super_meta->attribute_metaclass,                            
+                            ':method_metaclass'    => $super_meta->method_metaclass,
+                            ':instance_metaclass'  => $super_meta->instance_metaclass,
+                        ));
+                    }
+                }
+                $meta->superclasses(@_);
             };
         },
         with => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::with' => sub {
-                my ($role) = @_;
-                _load_all_classes($role);
-                $role->meta->apply($meta);
+                my (@roles) = @_;
+                _load_all_classes(@roles);
+                ($_->can('meta') && $_->meta->isa('Moose::Meta::Role'))
+                    || confess "You can only consume roles, $_ is not a Moose role"
+                        foreach @roles;
+                if (scalar @roles == 1) {
+                    $roles[0]->meta->apply($class->meta);
+                }
+                else {
+                    Moose::Meta::Role->combine(
+                        map { $_->meta } @roles
+                    )->apply($class->meta);
+                }
             };
         },
         has => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::has' => sub {
-                my ($name, %options) = @_;
+                my ($name, %options) = @_;              
+                my $meta = $class->meta;
                 if ($name =~ /^\+(.*)/) {
                     my $inherited_attr = $meta->find_attribute_by_name($1);
                     (defined $inherited_attr)
                         || confess "Could not find an attribute by the name of '$1' to inherit from";
-                    my $new_attr = $inherited_attr->clone_and_inherit_options(%options);
+                    my $new_attr;
+                    if ($inherited_attr->isa('Moose::Meta::Attribute')) {
+                        $new_attr = $inherited_attr->clone_and_inherit_options(%options);
+                    }
+                    else {
+                        # NOTE:
+                        # kind of a kludge to handle Class::MOP::Attributes
+                        $new_attr = Moose::Meta::Attribute::clone_and_inherit_options(
+                            $inherited_attr, %options
+                        );                        
+                    }
                     $meta->add_attribute($new_attr);
                 }
                 else {
@@ -97,46 +156,47 @@ use Moose::Util::TypeConstraints;
             };
         },
         before => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::before' => sub {
                 my $code = pop @_;
+                my $meta = $class->meta;
                 $meta->add_before_method_modifier($_, $code) for @_;
             };
         },
         after => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::after' => sub {
                 my $code = pop @_;
+                my $meta = $class->meta;
                 $meta->add_after_method_modifier($_, $code) for @_;
             };
         },
         around => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;            
             return subname 'Moose::around' => sub {
                 my $code = pop @_;
+                my $meta = $class->meta;
                 $meta->add_around_method_modifier($_, $code) for @_;
             };
         },
         super => sub {
-            my $meta = _find_meta();
             return subname 'Moose::super' => sub {};
         },
         override => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::override' => sub {
                 my ($name, $method) = @_;
-                $meta->add_override_method_modifier($name => $method);
+                $class->meta->add_override_method_modifier($name => $method);
             };
         },
         inner => sub {
-            my $meta = _find_meta();
             return subname 'Moose::inner' => sub {};
         },
         augment => sub {
-            my $meta = _find_meta();
+            my $class = $CALLER;
             return subname 'Moose::augment' => sub {
                 my ($name, $method) = @_;
-                $meta->add_augment_method_modifier($name => $method);
+                $class->meta->add_augment_method_modifier($name => $method);
             };
         },
         confess => sub {
@@ -159,7 +219,9 @@ use Moose::Util::TypeConstraints;
 
         # we should never export to main
         return if $CALLER eq 'main';
-
+    
+        _init_meta();
+        
         goto $exporter;
     }
 }
@@ -499,6 +561,10 @@ to cpan-RT.
 =head1 AUTHOR
 
 Stevan Little E<lt>stevan@iinteractive.comE<gt>
+
+Christian Hansen E<lt>chansen@cpan.orgE<gt>
+
+Yuval Kogman E<lt>nothingmuch@woobling.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

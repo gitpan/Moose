@@ -44,7 +44,7 @@ use Moose::Util::TypeConstraints;
     }
  
 	
-    my %exports = (
+    my %exports = (   
         extends => sub {
             my $meta = _find_meta();
             return subname 'Moose::Role::extends' => sub { 
@@ -54,9 +54,19 @@ use Moose::Util::TypeConstraints;
 	    with => sub {
 	        my $meta = _find_meta();
 	        return subname 'Moose::Role::with' => sub { 
-	            my ($role) = @_;
-                Moose::_load_all_classes($role);
-                $role->meta->apply($meta);
+                my (@roles) = @_;
+                Moose::_load_all_classes(@roles);
+                ($_->can('meta') && $_->meta->isa('Moose::Meta::Role'))
+                    || confess "You can only consume roles, $_ is not a Moose role"
+                        foreach @roles;
+                if (scalar @roles == 1) {
+                    $roles[0]->meta->apply($meta);
+                }
+                else {
+                    Moose::Meta::Role->combine(
+                        map { $_->meta } @roles
+                    )->apply($meta);
+                }
             };
 	    },	
         requires => sub {
@@ -65,6 +75,12 @@ use Moose::Util::TypeConstraints;
                 $meta->add_required_methods(@_);
 	        };
 	    },	
+        excludes => sub {
+            my $meta = _find_meta();
+            return subname 'Moose::Role::excludes' => sub { 
+                $meta->add_excluded_roles(@_);
+	        };
+	    },	    
         has => sub {
             my $meta = _find_meta();
             return subname 'Moose::Role::has' => sub { 
@@ -224,6 +240,8 @@ to cpan-RT.
 =head1 AUTHOR
 
 Stevan Little E<lt>stevan@iinteractive.comE<gt>
+
+Christian Hansen E<lt>chansen@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

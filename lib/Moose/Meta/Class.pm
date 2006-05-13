@@ -7,9 +7,9 @@ use warnings;
 use Class::MOP;
 
 use Carp         'confess';
-use Scalar::Util 'weaken', 'blessed';
+use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use base 'Class::MOP::Class';
 
@@ -23,6 +23,7 @@ sub initialize {
     my $pkg   = shift;
     $class->SUPER::initialize($pkg,
         ':attribute_metaclass' => 'Moose::Meta::Attribute', 
+        ':instance_metaclass'  => 'Moose::Meta::Instance', 
         @_);
 }
 
@@ -37,8 +38,24 @@ sub does_role {
     my ($self, $role_name) = @_;
     (defined $role_name)
         || confess "You must supply a role name to look for";
-    foreach my $role (@{$self->roles}) {
-        return 1 if $role->does_role($role_name);
+    foreach my $class ($self->class_precedence_list) {
+        next unless $class->can('meta');        
+        foreach my $role (@{$class->meta->roles}) {
+            return 1 if $role->does_role($role_name);
+        }
+    }
+    return 0;
+}
+
+sub excludes_role {
+    my ($self, $role_name) = @_;
+    (defined $role_name)
+        || confess "You must supply a role name to look for";
+    foreach my $class ($self->class_precedence_list) {  
+        next unless $class->can('meta');      
+        foreach my $role (@{$class->meta->roles}) {
+            return 1 if $role->excludes_role($role_name);
+        }
     }
     return 0;
 }
@@ -55,9 +72,14 @@ sub new_object {
 
 sub construct_instance {
     my ($class, %params) = @_;
-    my $instance = $params{'__INSTANCE__'} || {};
-    foreach my $attr ($class->compute_all_applicable_attributes()) {
-        $attr->initialize_instance_slot($class, $instance, \%params)
+    my $meta_instance = $class->get_meta_instance;
+    # FIXME:
+    # the code below is almost certainly incorrect
+    # but this is foreign inheritence, so we might
+    # have to kludge it in the end. 
+    my $instance = $params{'__INSTANCE__'} || $meta_instance->create_instance();
+    foreach my $attr ($class->compute_all_applicable_attributes()) { 
+        $attr->initialize_instance_slot($meta_instance, $instance, \%params)
     }
     return $instance;
 }
@@ -77,9 +99,26 @@ sub has_method {
     return $self->SUPER::has_method($method_name);    
 }
 
+sub add_attribute {
+    my $self = shift;
+    my $name = shift;
+    if (scalar @_ == 1 && ref($_[0]) eq 'HASH') {
+        # NOTE:
+        # if it is a HASH ref, we de-ref it.        
+        # this will usually mean that it is 
+        # coming from a role
+        $self->SUPER::add_attribute($name => %{$_[0]});
+    }
+    else {
+        # otherwise we just pass the args
+        $self->SUPER::add_attribute($name => @_);
+    }
+}
 
 sub add_override_method_modifier {
     my ($self, $name, $method, $_super_package) = @_;
+    (!$self->has_method($name))
+        || confess "Cannot add an override method if a local method is already present";
     # need this for roles ...
     $_super_package ||= $self->name;
     my $super = $self->find_next_method_by_name($name);
@@ -96,6 +135,8 @@ sub add_override_method_modifier {
 
 sub add_augment_method_modifier {
     my ($self, $name, $method) = @_;  
+    (!$self->has_method($name))
+        || confess "Cannot add an augment method if a local method is already present";    
     my $super = $self->find_next_method_by_name($name);
     (defined $super)
         || confess "You cannot augment '$name' because it has no super method";    
@@ -209,6 +250,33 @@ This will test if this class C<does> a given C<$role_name>. It will
 not only check it's local roles, but ask them as well in order to 
 cascade down the role hierarchy.
 
+=item B<excludes_role ($role_name)>
+
+This will test if this class C<excludes> a given C<$role_name>. It will 
+not only check it's local roles, but ask them as well in order to 
+cascade down the role hierarchy.
+
+=item B<add_attribute $attr_name, %params>
+
+This method does the same thing as L<Class::MOP::Class/add_attribute>, but adds
+suport for delegation.
+
+=back
+
+=head1 INTERNAL METHODS
+
+=over 4
+
+=item compute_delegation
+
+=item generate_delegation_list
+
+=item generate_delgate_method
+
+=item get_delegatable_methods
+
+=item filter_delegations
+
 =back
 
 =head1 BUGS
@@ -231,3 +299,4 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
+
