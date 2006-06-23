@@ -1,15 +1,15 @@
 ---
 name: Moose
-version: 0.09_02
+version: 0.09_03
 author:
-  - Stevan Little E<lt>stevan@iinteractive.comE<gt>
-  - Christian Hansen E<lt>chansen@cpan.orgE<gt>
-  - Yuval Kogman E<lt>nothingmuch@woobling.orgE<gt>
+  - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
+  - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
+  - 'Yuval Kogman E<lt>nothingmuch@woobling.orgE<gt>'
 abstract: "Moose, it's the new Camel"
 license: perl
 requires:
   Carp: 0
-  Class::MOP: 0.29_01
+  Class::MOP: 0.29_02
   Scalar::Util: 1.18
   Sub::Exporter: 0.954
   Sub::Install: 0.92
@@ -17,29 +17,30 @@ requires:
   UNIVERSAL::require: 0.10
 build_requires:
   Test::Exception: 0.21
-  Test::More: 0.47
+  Test::LongString: 0
+  Test::More: 0.62
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.09_02
+    version: 0.09_03
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.06
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
-    version: 0.06
+    version: 0.07
   Moose::Meta::Instance:
     file: lib/Moose/Meta/Instance.pm
     version: 0.01
   Moose::Meta::Method::Overriden:
     file: lib/Moose/Meta/Class.pm
-    version: 0.06
+    version: 0.07
   Moose::Meta::Role:
     file: lib/Moose/Meta/Role.pm
-    version: 0.03
+    version: 0.04
   Moose::Meta::Role::Method:
     file: lib/Moose/Meta/Role.pm
-    version: 0.03
+    version: 0.04
   Moose::Meta::TypeCoercion:
     file: lib/Moose/Meta/TypeCoercion.pm
     version: 0.01
@@ -54,7 +55,7 @@ provides:
     version: 0.06
   Moose::Role:
     file: lib/Moose/Role.pm
-    version: 0.04
+    version: 0.05
   Moose::Util::TypeConstraints:
     file: lib/Moose/Util/TypeConstraints.pm
     version: 0.07

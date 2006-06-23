@@ -8,7 +8,7 @@ my $build = Module::Build->new(
     requires => {
         'Scalar::Util'       => '1.18',
         'Carp'               => '0',
-        'Class::MOP'         => '0.29_01',
+        'Class::MOP'         => '0.29_02',
         'Sub::Name'          => '0.02',
         'UNIVERSAL::require' => '0.10',
         'Sub::Exporter'      => '0.954',
@@ -17,8 +17,9 @@ my $build = Module::Build->new(
     optional => {
     },
     build_requires => {
-        'Test::More'      => '0.47',
-        'Test::Exception' => '0.21',
+        'Test::More'       => '0.62',
+        'Test::Exception'  => '0.21',
+        'Test::LongString' => '0',
     },
     create_makefile_pl => 'traditional',
     recursive_test_files => 1,
