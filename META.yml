@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.09_03
+version: 0.10
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
   - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
@@ -9,7 +9,7 @@ abstract: "Moose, it's the new Camel"
 license: perl
 requires:
   Carp: 0
-  Class::MOP: 0.29_02
+  Class::MOP: 0.30
   Scalar::Util: 1.18
   Sub::Exporter: 0.954
   Sub::Install: 0.92
@@ -22,7 +22,7 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.09_03
+    version: 0.10
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.06

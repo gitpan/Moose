@@ -6,7 +6,7 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Moose.pm',
           'PREREQ_PM' => {
                            'Carp' => '0',
-                           'Class::MOP' => '0.29_02',
+                           'Class::MOP' => '0.30',
                            'Scalar::Util' => '1.18',
                            'Sub::Exporter' => '0.954',
                            'Sub::Install' => '0.92',

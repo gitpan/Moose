@@ -34,6 +34,12 @@ sub add_role {
     push @{$self->roles} => $role;
 }
 
+sub calculate_all_roles {
+    my $self = shift;
+    my %seen;
+    grep { !$seen{$_->name}++ } map { $_->calculate_all_roles } @{ $self->roles };
+}
+
 sub does_role {
     my ($self, $role_name) = @_;
     (defined $role_name)
@@ -325,6 +331,8 @@ it in the package.
 
 This will create an C<augment> method modifier for you, and install 
 it in the package.
+
+=item B<calculate_all_roles>
 
 =item B<roles>
 

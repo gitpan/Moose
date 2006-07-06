@@ -95,6 +95,12 @@ sub add_role {
     push @{$self->get_roles} => $role;
 }
 
+sub calculate_all_roles {
+    my $self = shift;
+    my %seen;
+    grep { !$seen{$_->name}++ } $self, map { $_->calculate_all_roles } @{ $self->get_roles };
+}
+
 sub does_role {
     my ($self, $role_name) = @_;
     (defined $role_name)
@@ -592,6 +598,8 @@ probably not that much really).
 =item B<get_excluded_roles_list>
 
 =item B<get_excluded_roles_map>
+
+=item B<calculate_all_roles>
 
 =back
 
