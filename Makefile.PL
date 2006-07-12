@@ -5,6 +5,7 @@ WriteMakefile
           'NAME' => 'Moose',
           'VERSION_FROM' => 'lib/Moose.pm',
           'PREREQ_PM' => {
+                           'B' => '0',
                            'Carp' => '0',
                            'Class::MOP' => '0.30',
                            'Scalar::Util' => '1.18',

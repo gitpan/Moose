@@ -1,5 +1,15 @@
 Revision history for Perl extension Moose
 
+0.11 Wed. July 12, 2006
+    * Moose
+      - added an &unimport method to remove all the keywords
+        that Moose will import, simply add 'no Moose' to the 
+        bottom of your class file. 
+        
+    * t/
+      - fixed some test failures caused by a forgotten test 
+        dependency.
+
 0.10 Thurs. July 6, 2006
     * Moose
       - improved error message when loading modules so
@@ -12,7 +22,6 @@ Revision history for Perl extension Moose
     but it does not yet utilize the optimizations 
     it makes available. Stay tuned for that ;)
     
-
 0.09_03 Fri. June 23, 2006
     ++ DEVELOPER RELEASE ++
     * Moose
