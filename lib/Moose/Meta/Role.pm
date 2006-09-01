@@ -13,14 +13,9 @@ use Moose::Meta::Class;
 
 our $VERSION = '0.04';
 
+use base 'Class::MOP::Module';
+
 ## Attributes
-
-## the meta for the role package
-
-__PACKAGE__->meta->add_attribute('_role_meta' => (
-    reader   => '_role_meta',
-    init_arg => ':role_meta'
-));
 
 ## roles
 
@@ -74,17 +69,7 @@ __PACKAGE__->meta->add_attribute('override_method_modifiers' => (
 
 ## Methods 
 
-sub new {
-    my $class   = shift;
-    my %options = @_;
-    $options{':role_meta'} = Moose::Meta::Class->initialize(
-        $options{role_name},
-        ':method_metaclass' => 'Moose::Meta::Role::Method'
-    ) unless defined $options{':role_meta'} && 
-             $options{':role_meta'}->isa('Moose::Meta::Class');
-    my $self = $class->meta->new_object(%options);
-    return $self;
-}
+sub method_metaclass { 'Moose::Meta::Role::Method' }
 
 ## subroles
 
@@ -163,18 +148,15 @@ sub _clean_up_required_methods {
 
 ## methods
 
-# NOTE:
-# we delegate to some role_meta methods for convience here
-# the Moose::Meta::Role is meant to be a read-only interface
-# to the underlying role package, if you want to manipulate 
-# that, just use ->role_meta
+# FIXME:
+# Yes, this is a really really UGLY hack
+# but it works, and until I can figure 
+# out a better way, this is gonna be it. 
 
-sub name    { (shift)->_role_meta->name    }
-sub version { (shift)->_role_meta->version }
-
-sub get_method      { (shift)->_role_meta->get_method(@_)   }
-sub has_method      { (shift)->_role_meta->has_method(@_)   }
-sub alias_method    { (shift)->_role_meta->alias_method(@_) }
+sub get_method          { (shift)->Moose::Meta::Class::get_method(@_)          }
+sub find_method_by_name { (shift)->Moose::Meta::Class::find_method_by_name(@_) }
+sub has_method          { (shift)->Moose::Meta::Class::has_method(@_)          }
+sub alias_method        { (shift)->Moose::Meta::Class::alias_method(@_)        }
 sub get_method_list { 
     my ($self) = @_;
     grep { 
@@ -184,7 +166,7 @@ sub get_method_list {
         # but they do, so we need to switch Moose::Role
         # and Moose to use Sub::Exporter to prevent this
         !/^(meta|has|extends|blessed|confess|augment|inner|override|super|before|after|around|with|requires)$/ 
-    } $self->_role_meta->get_method_list;
+    } $self->Moose::Meta::Class::get_method_list;
 }
 
 # ... however the items in statis (attributes & method modifiers)
@@ -323,7 +305,8 @@ sub _check_required_methods {
     # that maybe those are somehow exempt from 
     # the require methods stuff.  
     foreach my $required_method_name ($self->get_required_method_list) {
-        unless ($other->has_method($required_method_name)) {
+        
+        unless ($other->find_method_by_name($required_method_name)) {
             if ($other->isa('Moose::Meta::Role')) {
                 $other->add_required_methods($required_method_name);
             }
@@ -352,7 +335,7 @@ sub _check_required_methods {
                     || confess "'" . $self->name . "' requires the method '$required_method_name' " . 
                                "to be implemented by '" . $other->name . "', the method is only a method modifier";            
             }
-        }
+        }        
     }    
 }
 
@@ -407,8 +390,8 @@ sub _apply_methods {
                 # is probably fairly safe to assume that 
                 # anon classes will only be used internally
                 # or by people who know what they are doing
-                $other->_role_meta->remove_method($method_name)
-                    if $other->_role_meta->name =~ /__ANON__/;
+                $other->Moose::Meta::Class::remove_method($method_name)
+                    if $other->name =~ /__COMPOSITE_ROLE_SANDBOX__/;
             }
             else {
                 next;
@@ -499,26 +482,33 @@ sub _apply_after_method_modifiers  { (shift)->_apply_method_modifiers('after'  =
 sub apply {
     my ($self, $other) = @_;
     
+    ($other->isa('Moose::Meta::Class') || $other->isa('Moose::Meta::Role'))
+        || confess "You must apply a role to a metaclass, not ($other)";
+    
     $self->_check_excluded_roles($other);
     $self->_check_required_methods($other);  
 
     $self->_apply_attributes($other);         
-    $self->_apply_methods($other);         
-         
+    $self->_apply_methods($other);   
+    
     $self->_apply_override_method_modifiers($other);                  
     $self->_apply_before_method_modifiers($other);                  
     $self->_apply_around_method_modifiers($other);                  
-    $self->_apply_after_method_modifiers($other);                              
-    
+    $self->_apply_after_method_modifiers($other);          
+
     $other->add_role($self);
 }
+
+my $anon_counter = 0;
 
 sub combine {
     my ($class, @roles) = @_;
     
-    my $combined = $class->new(
-        ':role_meta' => Moose::Meta::Class->create_anon_class()
-    );
+    my $pkg_name = __PACKAGE__ . "::__COMPOSITE_ROLE_SANDBOX__::" . $anon_counter++;
+    eval "package " . $pkg_name . "; our \$VERSION = '0.00';";
+    die $@ if $@;
+    
+    my $combined = $class->initialize($pkg_name);
     
     foreach my $role (@roles) {
         $role->apply($combined);
@@ -604,6 +594,10 @@ probably not that much really).
 =back
 
 =over 4
+
+=item B<method_metaclass>
+
+=item B<find_method_by_name>
 
 =item B<get_method>
 

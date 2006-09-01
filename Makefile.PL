@@ -2,22 +2,23 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
+          'PL_FILES' => {},
+          'INSTALLDIRS' => 'site',
           'NAME' => 'Moose',
+          'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/Moose.pm',
           'PREREQ_PM' => {
+                           'Test::LongString' => '0',
+                           'Scalar::Util' => '1.18',
+                           'Test::Exception' => '0.21',
+                           'Class::MOP' => '0.34',
+                           'Sub::Exporter' => '0.954',
+                           'Sub::Name' => '0.02',
                            'B' => '0',
                            'Carp' => '0',
-                           'Class::MOP' => '0.30',
-                           'Scalar::Util' => '1.18',
-                           'Sub::Exporter' => '0.954',
-                           'Sub::Install' => '0.92',
-                           'Sub::Name' => '0.02',
-                           'Test::Exception' => '0.21',
-                           'Test::LongString' => '0',
                            'Test::More' => '0.62',
+                           'Sub::Install' => '0.92',
                            'UNIVERSAL::require' => '0.10'
-                         },
-          'INSTALLDIRS' => 'site',
-          'PL_FILES' => {}
+                         }
         )
 ;

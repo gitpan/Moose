@@ -35,11 +35,11 @@ use Moose::Util::TypeConstraints;
     	if ($role->can('meta')) {
     		$meta = $role->meta();
     		(blessed($meta) && $meta->isa('Moose::Meta::Role'))
-    			|| confess "Whoops, not møøsey enough";
+                || confess "You already have a &meta function, but it does not return a Moose::Meta::Role";
     	}
     	else {
-    		$meta = Moose::Meta::Role->new(role_name => $role);
-    		$meta->_role_meta->add_method('meta' => sub { $meta })		
+    		$meta = Moose::Meta::Role->initialize($role);
+    		$meta->Moose::Meta::Class::add_method('meta' => sub { $meta })		
     	}
 
         return $METAS{$role} = $meta;
@@ -96,8 +96,8 @@ use Moose::Util::TypeConstraints;
         before => sub {
             my $meta = _find_meta();
             return subname 'Moose::Role::before' => sub (@&) { 
-		        my $code = pop @_;
-		        $meta->add_before_method_modifier($_, $code) for @_;
+                my $code = pop @_;
+                $meta->add_before_method_modifier($_, $code) for @_;
 	        };
 	    },
         after => sub {
@@ -122,19 +122,19 @@ use Moose::Util::TypeConstraints;
             my $meta = _find_meta();
             return subname 'Moose::Role::override' => sub ($&) {
                 my ($name, $code) = @_;
-		        $meta->add_override_method_modifier($name, $code);
+                $meta->add_override_method_modifier($name, $code);
 	        };
 	    },		
         inner => sub {
             my $meta = _find_meta();
             return subname 'Moose::Role::inner' => sub {
-                confess "Moose::Role does not currently support 'inner'";	    
+                confess "Moose::Role cannot support 'inner'";
 	        };
 	    },
         augment => sub {
             my $meta = _find_meta();
             return subname 'Moose::Role::augment' => sub {
-                confess "Moose::Role does not currently support 'augment'";
+                confess "Moose::Role cannot support 'augment'";
 	        };
 	    },
         confess => sub {
