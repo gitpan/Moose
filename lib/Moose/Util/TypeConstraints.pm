@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
@@ -142,6 +142,12 @@ subtype 'ArrayRef'  => as 'Ref' => where { ref($_) eq 'ARRAY'  };
 subtype 'HashRef'   => as 'Ref' => where { ref($_) eq 'HASH'   };	
 subtype 'CodeRef'   => as 'Ref' => where { ref($_) eq 'CODE'   };
 subtype 'RegexpRef' => as 'Ref' => where { ref($_) eq 'Regexp' };	
+subtype 'GlobRef'   => as 'Ref' => where { ref($_) eq 'GLOB'   };
+
+# NOTE:
+# scalar filehandles are GLOB refs, 
+# but a GLOB ref is not always a filehandle
+subtype 'FileHandle' => as 'GlobRef' => where { Scalar::Util::openhandle($_) };
 
 # NOTE: 
 # blessed(qr/.../) returns true,.. how odd
@@ -239,6 +245,8 @@ could probably use some work, but it works for me at the moment.
               HashRef
               CodeRef
               RegexpRef
+              GlobRef
+                FileHandle
               Object	
                   Role
 

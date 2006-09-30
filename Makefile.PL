@@ -11,14 +11,13 @@ WriteMakefile
                            'Test::LongString' => '0',
                            'Scalar::Util' => '1.18',
                            'Test::Exception' => '0.21',
-                           'Class::MOP' => '0.34',
+                           'Class::MOP' => '0.35',
                            'Sub::Exporter' => '0.954',
                            'Sub::Name' => '0.02',
                            'B' => '0',
                            'Carp' => '0',
                            'Test::More' => '0.62',
-                           'Sub::Install' => '0.92',
-                           'UNIVERSAL::require' => '0.10'
+                           'Sub::Install' => '0.92'
                          }
         )
 ;

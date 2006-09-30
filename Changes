@@ -1,5 +1,61 @@
 Revision history for Perl extension Moose
 
+0.13 Sat. Sept. 30, 2006
+    ++ NOTE ++
+    This version of Moose *must* have Class::MOP 0.35 in order 
+    to work correctly. A number of small internal tweaks have 
+    been made in order to be compatible with that release.
+
+    * Moose
+      - Removed the use of UNIVERSAL::require to be a better
+        symbol table citizen and remove a dependency 
+        (thanks Adam Kennedy)
+
+      **~~ removed experimental & undocumented feature ~~**
+      - commented out the 'method' and 'self' keywords, see the 
+        comments for more info.
+
+    * Moose::Cookbook
+      - added a FAQ and WTF files to document frequently 
+        asked questions and common problems
+        
+    * Moose::Util::TypeConstraints
+      - added GlobRef and FileHandle type constraint
+        - added tests for this
+        
+    * Moose::Meta::Attribute
+      - if your attribute 'isa' ArrayRef of HashRef, and you have
+        not explicitly set a default, then make the default DWIM.
+        This will also work for subtypes of ArrayRef and HashRef 
+        as well.
+      - you can now auto-deref subtypes of ArrayRef or HashRef too.
+        - new test added for this (thanks to ashley)
+        
+    * Moose::Meta::Role
+      - added basic support for runtime role composition
+        but this is still *highly experimental*, so feedback 
+        is much appreciated :)
+        - added tests for this
+
+    * Moose::Meta::TypeConstraint
+      - the type constraint now handles the coercion process
+        through delegation, this is to support the coercion 
+        of unions
+        
+    * Moose::Meta::TypeConstraint::Union
+      - it is now possible for coercions to be performed 
+        on a type union
+        - added tests for this (thanks to konobi)
+
+    * Moose::Meta::TypeCoercion
+      - properly capturing error when type constraint 
+        is not found
+
+    * Build.PL
+      - Scalar::Util 1.18 is bad on Win32, so temporarily
+        only require version 1.17 for Win32 and cygwin.
+        (thanks Adam Kennedy)        
+
 0.12 Sat. Sept. 1, 2006
     * Moose::Cookbook
       - Recipe5 (subtypes & coercion) has been written

@@ -4,14 +4,13 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
 use Sub::Name    'subname';
 use B            'svref_2object';
 
-use UNIVERSAL::require;
 use Sub::Exporter;
 
 use Class::MOP;
@@ -141,23 +140,29 @@ use Moose::Util::TypeConstraints;
         },
         
         # NOTE:
-        # this is experimental for now ...
-        self => sub {
-            return subname 'Moose::self' => sub {};
-        },        
-        method => sub {
-            my $class = $CALLER;
-            return subname 'Moose::method' => sub {
-                my ($name, $method) = @_;
-                $class->meta->add_method($name, sub {
-                    my $self = shift;
-                    no strict   'refs';
-                    no warnings 'redefine';
-                    local *{$class->meta->name . '::self'} = sub { $self };
-                    $method->(@_);
-                });
-            };
-        },                
+        # this is experimental, but I am not 
+        # happy with it. If you want to try 
+        # it, you will have to uncomment it 
+        # yourself. 
+        # There is a really good chance that 
+        # this will be deprecated, dont get 
+        # too attached
+        # self => sub {
+        #     return subname 'Moose::self' => sub {};
+        # },        
+        # method => sub {
+        #     my $class = $CALLER;
+        #     return subname 'Moose::method' => sub {
+        #         my ($name, $method) = @_;
+        #         $class->meta->add_method($name, sub {
+        #             my $self = shift;
+        #             no strict   'refs';
+        #             no warnings 'redefine';
+        #             local *{$class->meta->name . '::self'} = sub { $self };
+        #             $method->(@_);
+        #         });
+        #     };
+        # },                
         
         confess => sub {
             return \&Carp::confess;
@@ -214,19 +219,18 @@ use Moose::Util::TypeConstraints;
 ## Utility functions
 
 sub _load_all_classes {
-    foreach my $super (@_) {
+    foreach my $class (@_) {
         # see if this is already 
         # loaded in the symbol table
-        next if _is_class_already_loaded($super);
+        next if _is_class_already_loaded($class);
         # otherwise require it ...
-        # NOTE: 
-        # just in case the class we are 
-        # loading has a locally defined
-        # &require, we make sure that we
-        # use the on in UNIVERSAL 
-        ($super->UNIVERSAL::require)
-            || confess "Could not load module '$super' because : " . $UNIVERSAL::require::ERROR;
-    }    
+        my $file = $class . '.pm';
+        $file =~ s{::}{/}g;
+        eval { CORE::require($file) };
+        confess(
+            "Could not load module '$class' because : $@"
+            ) if $@;
+    }
 }
 
 sub _is_class_already_loaded {
@@ -237,7 +241,7 @@ sub _is_class_already_loaded {
 		next if substr($_, -2, 2) eq '::';
 		return 1 if defined &{"${name}::$_"};
 	}
-    return 0;
+	return 0;
 }
 
 1;
@@ -290,9 +294,6 @@ This said, Moose is not yet finished, and should still be considered
 to be evolving. Much of the outer API is stable, but the internals 
 are still subject to change (although not without serious thought 
 given to it).  
-
-For more details, please refer to the L<FUTURE PLANS> section of 
-this document.
 
 =head1 DESCRIPTION
 
@@ -587,6 +588,8 @@ ideas/feature-requests/encouragement
 =item L<Class::MOP> documentation
 
 =item The #moose channel on irc.perl.org
+
+=item The Moose mailing list - moose@perl.org
 
 =item L<http://forum2.org/moose/>
 

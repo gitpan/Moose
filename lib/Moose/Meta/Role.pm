@@ -149,25 +149,28 @@ sub _clean_up_required_methods {
 ## methods
 
 # FIXME:
+# this is an UGLY hack
+sub get_method_map {    
+    my $self = shift;
+    $self->{'%:methods'} ||= {}; 
+    $self->Moose::Meta::Class::get_method_map() 
+}
+
+# FIXME:
 # Yes, this is a really really UGLY hack
 # but it works, and until I can figure 
 # out a better way, this is gonna be it. 
 
 sub get_method          { (shift)->Moose::Meta::Class::get_method(@_)          }
-sub find_method_by_name { (shift)->Moose::Meta::Class::find_method_by_name(@_) }
 sub has_method          { (shift)->Moose::Meta::Class::has_method(@_)          }
 sub alias_method        { (shift)->Moose::Meta::Class::alias_method(@_)        }
-sub get_method_list { 
-    my ($self) = @_;
-    grep { 
-        # NOTE:
-        # this is a kludge for now,... these functions 
-        # should not be showing up in the list at all, 
-        # but they do, so we need to switch Moose::Role
-        # and Moose to use Sub::Exporter to prevent this
-        !/^(meta|has|extends|blessed|confess|augment|inner|override|super|before|after|around|with|requires)$/ 
-    } $self->Moose::Meta::Class::get_method_list;
+sub get_method_list     { 
+    grep {
+        !/^meta$/
+    } (shift)->Moose::Meta::Class::get_method_list(@_)     
 }
+
+sub find_method_by_name { (shift)->has_method(@_) }
 
 # ... however the items in statis (attributes & method modifiers)
 # can be removed and added to through this API
@@ -376,7 +379,7 @@ sub _apply_methods {
         # it if it has one already
         if ($other->has_method($method_name) &&
             # and if they are not the same thing ...
-            $other->get_method($method_name) != $self->get_method($method_name)) {
+            $other->get_method($method_name)->body != $self->get_method($method_name)->body) {
             # see if we are composing into a role
             if ($other->isa('Moose::Meta::Role')) { 
                 # method conflicts between roles result 
@@ -479,18 +482,38 @@ sub _apply_before_method_modifiers { (shift)->_apply_method_modifiers('before' =
 sub _apply_around_method_modifiers { (shift)->_apply_method_modifiers('around' => @_) }
 sub _apply_after_method_modifiers  { (shift)->_apply_method_modifiers('after'  => @_) }
 
+my $anon_counter = 0;
+
 sub apply {
     my ($self, $other) = @_;
     
-    ($other->isa('Moose::Meta::Class') || $other->isa('Moose::Meta::Role'))
-        || confess "You must apply a role to a metaclass, not ($other)";
+    unless ($other->isa('Moose::Meta::Class') || $other->isa('Moose::Meta::Role')) {
+    
+        # Runtime Role mixins
+            
+        # FIXME:
+        # We really should do this better, and 
+        # cache the results of our efforts so 
+        # that we don't need to repeat them.
+        
+        my $pkg_name = __PACKAGE__ . "::__RUNTIME_ROLE_ANON_CLASS__::" . $anon_counter++;
+        eval "package " . $pkg_name . "; our \$VERSION = '0.00';";
+        die $@ if $@;
+
+        my $object = $other;
+
+        $other = Moose::Meta::Class->initialize($pkg_name);
+        $other->superclasses(blessed($object));     
+        
+        bless $object => $pkg_name;
+    }
     
     $self->_check_excluded_roles($other);
     $self->_check_required_methods($other);  
 
     $self->_apply_attributes($other);         
     $self->_apply_methods($other);   
-    
+
     $self->_apply_override_method_modifiers($other);                  
     $self->_apply_before_method_modifiers($other);                  
     $self->_apply_around_method_modifiers($other);                  
@@ -498,8 +521,6 @@ sub apply {
 
     $other->add_role($self);
 }
-
-my $anon_counter = 0;
 
 sub combine {
     my ($class, @roles) = @_;
@@ -606,6 +627,8 @@ probably not that much really).
 =item B<alias_method>
 
 =item B<get_method_list>
+
+=item B<get_method_map>
 
 =back
 

@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 use Moose::Util::TypeConstraints ();
 
@@ -66,9 +66,14 @@ sub clone_and_inherit_options {
 		    (defined $type_constraint)
 		        || confess "Could not find the type constraint '" . $options{isa} . "'";
 		}
+		# NOTE:
+		# check here to see if the new type 
+		# is a subtype of the old one
 		($type_constraint->is_subtype_of($self->type_constraint->name))
 		    || confess "New type constraint setting must be a subtype of inherited one"
+		        # iff we have a type constraint that is ...
 		        if $self->has_type_constraint;
+		# then we use it :)
 		$actual_options{type_constraint} = $type_constraint;
         delete $options{isa};
     }
@@ -161,8 +166,8 @@ sub _process_options {
 	if (exists $options->{coerce} && $options->{coerce}) {
 	    (exists $options->{type_constraint})
 	        || confess "You cannot have coercion without specifying a type constraint";
-	    (!$options->{type_constraint}->isa('Moose::Meta::TypeConstraint::Union'))
-	        || confess "You cannot have coercion with a type constraint union";	        
+	    #(!$options->{type_constraint}->isa('Moose::Meta::TypeConstraint::Union'))
+	    #    || confess "You cannot have coercion with a type constraint union";	        
         confess "You cannot have a weak reference to a coerced value"
             if $options->{weak_ref};	        
 	}	
@@ -170,9 +175,19 @@ sub _process_options {
 	if (exists $options->{auto_deref} && $options->{auto_deref}) {
 	    (exists $options->{type_constraint})
 	        || confess "You cannot auto-dereference without specifying a type constraint";	    
-	    ($options->{type_constraint}->name =~ /^ArrayRef|HashRef$/)
+	    ($options->{type_constraint}->is_a_type_of('ArrayRef') ||
+         $options->{type_constraint}->is_a_type_of('HashRef'))
 	        || confess "You cannot auto-dereference anything other than a ArrayRef or HashRef";	        
 	}
+	
+    if (exists $options->{type_constraint} && 
+               ($options->{type_constraint}->is_a_type_of('ArrayRef') ||
+                $options->{type_constraint}->is_a_type_of('HashRef')  )) { 
+        unless (exists $options->{default}) {
+            $options->{default} = sub { [] } if $options->{type_constraint}->name eq 'ArrayRef';
+            $options->{default} = sub { {} } if $options->{type_constraint}->name eq 'HashRef';            
+        }
+    }
 	
 	if (exists $options->{lazy} && $options->{lazy}) {
 	    (exists $options->{default})
@@ -206,7 +221,7 @@ sub initialize_instance_slot {
 	    if ($self->has_type_constraint) {
 	        my $type_constraint = $self->type_constraint;
 		    if ($self->should_coerce && $type_constraint->has_coercion) {
-		        $val = $type_constraint->coercion->coerce($val);
+		        $val = $type_constraint->coerce($val);
 		    }	
             (defined($type_constraint->check($val))) 
                 || confess "Attribute (" . 
@@ -240,7 +255,7 @@ EOF
 sub _inline_check_coercion {
     my $self = shift;
 	return '' unless $self->should_coerce;
-    return 'my $val = $attr->type_constraint->coercion->coerce($_[1]);'
+    return 'my $val = $attr->type_constraint->coerce($_[1]);'
 }
 
 sub _inline_check_required {
@@ -289,17 +304,17 @@ sub _inline_auto_deref {
 
     return $ref_value unless $self->should_auto_deref;
 
-    my $type = $self->type_constraint->name;
+    my $type_constraint = $self->type_constraint;
 
     my $sigil;
-    if ($type eq "ArrayRef") {
+    if ($type_constraint->is_a_type_of('ArrayRef')) {
         $sigil = '@';
     } 
-    elsif ($type eq 'HashRef') {
+    elsif ($type_constraint->is_a_type_of('HashRef')) {
         $sigil = '%';
     } 
     else {
-        confess "Can not auto de-reference the type constraint '$type'";
+        confess "Can not auto de-reference the type constraint '" . $type_constraint->name . "'";
     }
 
     "(wantarray() ? $sigil\{ ( $ref_value ) || return } : ( $ref_value ) )";
@@ -391,6 +406,10 @@ sub install_accessors {
             }
             else {
                 $associated_class->add_method($handle => sub {
+                    # FIXME
+                    # we should check for lack of 
+                    # a callable return value from 
+                    # the accessor here 
                     ((shift)->$accessor_name())->$method_to_call(@_);
                 });
             }
@@ -451,8 +470,8 @@ sub _get_delegate_method_list {
     my $self = shift;
     my $meta = $self->_find_delegate_metaclass;
     if ($meta->isa('Class::MOP::Class')) {
-        return map  { $_->{name}                     } 
-               grep { $_->{class} ne 'Moose::Object' } 
+        return map  { $_->{name}                     }  # NOTE: !never! delegate &meta
+               grep { $_->{class} ne 'Moose::Object' && $_->{name} ne 'meta' } 
                     $meta->compute_all_applicable_methods;
     }
     elsif ($meta->isa('Moose::Meta::Role')) {
