@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.13
+version: 0.14
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
   - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
@@ -24,10 +24,10 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.13
+    version: 0.14
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
-    version: 0.07
+    version: 0.08
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
     version: 0.07

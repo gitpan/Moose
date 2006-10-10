@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 use Moose::Util::TypeConstraints ();
 
@@ -165,9 +165,7 @@ sub _process_options {
 	
 	if (exists $options->{coerce} && $options->{coerce}) {
 	    (exists $options->{type_constraint})
-	        || confess "You cannot have coercion without specifying a type constraint";
-	    #(!$options->{type_constraint}->isa('Moose::Meta::TypeConstraint::Union'))
-	    #    || confess "You cannot have coercion with a type constraint union";	        
+	        || confess "You cannot have coercion without specifying a type constraint";	        
         confess "You cannot have a weak reference to a coerced value"
             if $options->{weak_ref};	        
 	}	
@@ -179,15 +177,6 @@ sub _process_options {
          $options->{type_constraint}->is_a_type_of('HashRef'))
 	        || confess "You cannot auto-dereference anything other than a ArrayRef or HashRef";	        
 	}
-	
-    if (exists $options->{type_constraint} && 
-               ($options->{type_constraint}->is_a_type_of('ArrayRef') ||
-                $options->{type_constraint}->is_a_type_of('HashRef')  )) { 
-        unless (exists $options->{default}) {
-            $options->{default} = sub { [] } if $options->{type_constraint}->name eq 'ArrayRef';
-            $options->{default} = sub { {} } if $options->{type_constraint}->name eq 'HashRef';            
-        }
-    }
 	
 	if (exists $options->{lazy} && $options->{lazy}) {
 	    (exists $options->{default})
@@ -267,6 +256,24 @@ sub _inline_check_required {
 sub _inline_check_lazy {
     my $self = shift;
 	return '' unless $self->is_lazy;
+	if ($self->has_type_constraint) {
+	    # NOTE:
+	    # this could probably be cleaned 
+	    # up and streamlined a little more
+	    return 'unless (exists $_[0]->{$attr_name}) {' .
+	           '    if ($attr->has_default) {' .
+	           '        my $default = $attr->default($_[0]);' .
+               '        (defined($attr->type_constraint->check($default)))' .
+               '        	|| confess "Attribute (" . $attr->name . ") does not pass the type constraint ("' .
+               '               . $attr->type_constraint->name . ") with " . (defined($default) ? "\'$default\'" : "undef")' .
+               '          if defined($default);' .	                
+	           '        $_[0]->{$attr_name} = $default; ' .
+	           '    }' .
+	           '    else {' .
+               '        $_[0]->{$attr_name} = undef;' .
+	           '    }' .
+	           '}';	    
+	}
     return '$_[0]->{$attr_name} = ($attr->has_default ? $attr->default($_[0]) : undef)'
          . 'unless exists $_[0]->{$attr_name};';
 }
