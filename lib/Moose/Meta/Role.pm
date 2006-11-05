@@ -9,9 +9,10 @@ use Carp         'confess';
 use Scalar::Util 'blessed';
 use B            'svref_2object';
 
-use Moose::Meta::Class;
+our $VERSION = '0.05';
 
-our $VERSION = '0.04';
+use Moose::Meta::Class;
+use Moose::Meta::Role::Method;
 
 use base 'Class::MOP::Module';
 
@@ -326,7 +327,7 @@ sub _check_required_methods {
             my $method = $other->get_method($required_method_name);
             # check if it is an override or a generated accessor ..
             (!$method->isa('Moose::Meta::Method::Overriden') &&
-             !$method->isa('Class::MOP::Attribute::Accessor'))
+             !$method->isa('Class::MOP::Method::Accessor'))
                 || confess "'" . $self->name . "' requires the method '$required_method_name' " . 
                            "to be implemented by '" . $other->name . "', the method is only a method modifier";
             # before/after/around methods are a little trickier
@@ -539,15 +540,6 @@ sub combine {
     
     return $combined;
 }
-
-package Moose::Meta::Role::Method;
-
-use strict;
-use warnings;
-
-our $VERSION = '0.01';
-
-use base 'Class::MOP::Method';
 
 1;
 

@@ -9,7 +9,9 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
+
+use Moose::Meta::Method::Overriden;
 
 use base 'Class::MOP::Class';
 
@@ -23,6 +25,7 @@ sub initialize {
     my $pkg   = shift;
     $class->SUPER::initialize($pkg,
         ':attribute_metaclass' => 'Moose::Meta::Attribute', 
+        ':method_metaclass'    => 'Moose::Meta::Method',
         ':instance_metaclass'  => 'Moose::Meta::Instance', 
         @_);
 }  
@@ -115,7 +118,7 @@ sub get_method_map {
         my $gv = B::svref_2object($code)->GV;
         
         my $pkg = $gv->STASH->NAME;
-        if ($pkg->can('meta') && $pkg->meta->isa('Moose::Meta::Role')) {
+        if ($pkg->can('meta') && $pkg->meta && $pkg->meta->isa('Moose::Meta::Role')) {
             #my $role = $pkg->meta->name;
             #next unless $self->does_role($role);
         }
@@ -312,15 +315,6 @@ sub _process_inherited_attribute {
     }    
     return $new_attr;
 }
-
-package Moose::Meta::Method::Overriden;
-
-use strict;
-use warnings;
-
-our $VERSION = '0.01';
-
-use base 'Class::MOP::Method';
 
 1;
 
