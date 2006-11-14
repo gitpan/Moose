@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.15
+version: 0.16
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
   - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
@@ -24,13 +24,13 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.15
+    version: 0.16
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.08
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
-    version: 0.08
+    version: 0.09
   Moose::Meta::Instance:
     file: lib/Moose/Meta/Instance.pm
     version: 0.01
@@ -39,7 +39,7 @@ provides:
     version: 0.01
   Moose::Meta::Method::Accessor:
     file: lib/Moose/Meta/Method/Accessor.pm
-    version: 0.01
+    version: 0.02
   Moose::Meta::Method::Overriden:
     file: lib/Moose/Meta/Method/Overriden.pm
     version: 0.01
@@ -54,19 +54,19 @@ provides:
     version: 0.02
   Moose::Meta::TypeConstraint:
     file: lib/Moose/Meta/TypeConstraint.pm
-    version: 0.06
+    version: 0.07
   Moose::Meta::TypeConstraint::Union:
     file: lib/Moose/Meta/TypeConstraint/Union.pm
     version: 0.03
   Moose::Object:
     file: lib/Moose/Object.pm
-    version: 0.06
+    version: 0.07
   Moose::Role:
     file: lib/Moose/Role.pm
-    version: 0.05
+    version: 0.06
   Moose::Util::TypeConstraints:
     file: lib/Moose/Util/TypeConstraints.pm
-    version: 0.09
+    version: 0.10
 generated_by: Module::Build version 0.2805
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
