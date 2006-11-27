@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.17
+version: 0.18_001
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
   - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
@@ -24,7 +24,7 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.17
+    version: 0.18_001
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.08
@@ -40,6 +40,12 @@ provides:
   Moose::Meta::Method::Accessor:
     file: lib/Moose/Meta/Method/Accessor.pm
     version: 0.03
+  Moose::Meta::Method::Constructor:
+    file: lib/Moose/Meta/Method/Constructor.pm
+    version: 0.01
+  Moose::Meta::Method::Destructor:
+    file: lib/Moose/Meta/Method/Destructor.pm
+    version: 0.01
   Moose::Meta::Method::Overriden:
     file: lib/Moose/Meta/Method/Overriden.pm
     version: 0.01

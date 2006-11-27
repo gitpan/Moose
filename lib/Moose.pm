@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION = '0.17';
+our $VERSION = '0.18_001';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
@@ -34,7 +34,7 @@ use Moose::Util::TypeConstraints;
         subtype $class
             => as 'Object'
             => where { $_->isa($class) }
-            => optimize_as { blessed($_[0]) && $_[0]->isa($class) }            
+            => optimize_as { blessed($_[0]) && $_[0]->isa($class) }
         unless find_type_constraint($class);
 
         my $meta;
@@ -215,6 +215,8 @@ use Moose::Util::TypeConstraints;
             }
         }
     }
+    
+    
 }
 
 ## Utility functions
@@ -244,6 +246,26 @@ sub _is_class_already_loaded {
 	}
 	return 0;
 }
+
+## make 'em all immutable
+
+$_->meta->make_immutable(
+    inline_constructor => 0,
+    inline_accessors   => 0,    
+) for (
+    'Moose::Meta::Attribute',
+    'Moose::Meta::Class',
+    'Moose::Meta::Instance',
+
+    'Moose::Meta::TypeConstraint',
+    'Moose::Meta::TypeConstraint::Union',
+    'Moose::Meta::TypeCoercion',
+
+    'Moose::Meta::Method',
+    'Moose::Meta::Method::Accessor',
+    'Moose::Meta::Method::Constructor',
+    'Moose::Meta::Method::Overriden',
+);
 
 1;
 
