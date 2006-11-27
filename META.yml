@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.18_001
+version: 0.18_002
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
   - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
@@ -12,7 +12,7 @@ resources:
 requires:
   B: 0
   Carp: 0
-  Class::MOP: 0.36
+  Class::MOP: 0.37_002
   Scalar::Util: 1.18
   Sub::Exporter: 0.954
   Sub::Install: 0.92
@@ -24,7 +24,7 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.18_001
+    version: 0.18_002
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.08
