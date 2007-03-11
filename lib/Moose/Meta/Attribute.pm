@@ -7,7 +7,8 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 
-our $VERSION = '0.08';
+our $VERSION   = '0.09';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
 use Moose::Util::TypeConstraints ();
@@ -549,7 +550,7 @@ Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

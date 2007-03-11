@@ -3,7 +3,8 @@ package Moose::Meta::Method::Overriden;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION   = '0.01';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method';
 
@@ -40,7 +41,7 @@ Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

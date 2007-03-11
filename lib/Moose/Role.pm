@@ -10,7 +10,8 @@ use Sub::Name    'subname';
 
 use Sub::Exporter;
 
-our $VERSION = '0.06';
+our $VERSION   = '0.07';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose ();
 
@@ -59,7 +60,7 @@ use Moose::Util::TypeConstraints;
 	        return subname 'Moose::Role::with' => sub (@) { 
                 my (@roles) = @_;
                 confess "Must specify at least one role" unless @roles;
-                Moose::_load_all_classes(@roles);
+                Class::MOP::load_class($_) for @roles;
                 ($_->can('meta') && $_->meta->isa('Moose::Meta::Role'))
                     || confess "You can only consume roles, $_ is not a Moose role"
                         foreach @roles;
@@ -207,12 +208,13 @@ Moose::Role - The Moose Role
 
 =head1 DESCRIPTION
 
-Role support in Moose is coming along quite well. It's best documentation 
-is still the the test suite, but it is fairly safe to assume Perl 6 style 
-behavior, and then either refer to the test suite, or ask questions on 
-#moose if something doesn't quite do what you expect. More complete 
-documentation is planned and will be included with the next official 
-(non-developer) release.
+Role support in Moose is pretty solid at this point. However, the best 
+documentation is still the the test suite. It is fairly safe to assume 
+Perl 6 style behavior and then either refer to the test suite, or ask 
+questions on #moose if something doesn't quite do what you expect.
+
+We are planning writing some more documentation in the near future, but
+nothing is ready yet, sorry.
 
 =head1 EXPORTED FUNCTIONS
 
@@ -289,7 +291,7 @@ Christian Hansen E<lt>chansen@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

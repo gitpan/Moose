@@ -9,7 +9,8 @@ use Sub::Name    'subname';
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.07';
+our $VERSION   = '0.08';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::TypeConstraint::Union;
 
@@ -247,7 +248,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

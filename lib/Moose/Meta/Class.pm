@@ -9,7 +9,8 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION = '0.09';
+our $VERSION   = '0.10';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
 
@@ -274,7 +275,7 @@ sub _process_attribute {
     }
     else {
         if ($options{metaclass}) {
-            Moose::_load_all_classes($options{metaclass});
+            Class::MOP::load_class($options{metaclass});
             $self->add_attribute($options{metaclass}->new($name, %options));
         }
         else {
@@ -454,7 +455,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

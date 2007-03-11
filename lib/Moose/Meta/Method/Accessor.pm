@@ -6,7 +6,8 @@ use warnings;
 
 use Carp 'confess';
 
-our $VERSION = '0.03';
+our $VERSION   = '0.03';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
          'Class::MOP::Method::Accessor';
@@ -104,7 +105,6 @@ sub _inline_check_constraint {
 	
 	return '' unless $attr->has_type_constraint;
 	
-	# FIXME - remove 'unless defined($value) - constraint Undef
 	return sprintf <<'EOF', $value, $value, $value, $value
 defined($type_constraint->(%s))
 	|| confess "Attribute (" . $attr->name . ") does not pass the type constraint ("
@@ -259,7 +259,7 @@ Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

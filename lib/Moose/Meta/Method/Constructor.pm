@@ -33,7 +33,6 @@ sub new {
     # we don't want this creating 
     # a cycle in the code, if not 
     # needed
-#    weaken($self->{'$!meta_instance'});
     weaken($self->{'$!associated_metaclass'});    
 
     $self->intialize_body;
@@ -237,9 +236,12 @@ __END__
 
 Moose::Meta::Method::Constructor - Method Meta Object for constructors
 
-=head1 SYNOPSIS
-
 =head1 DESCRIPTION
+
+This is a subclass of L<Class::MOP::Method> which handles 
+constructing an approprate Constructor methods. This is primarily 
+used in the making of immutable metaclasses, otherwise it is 
+not particularly useful.
 
 =head1 METHODS
 
@@ -265,7 +267,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

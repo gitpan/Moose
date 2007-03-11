@@ -4,7 +4,8 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION = '0.18_002';
+our $VERSION   = '0.18';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
@@ -71,7 +72,7 @@ use Moose::Util::TypeConstraints;
             my $class = $CALLER;
             return subname 'Moose::extends' => sub (@) {
                 confess "Must derive at least one class" unless @_;
-                _load_all_classes(@_);
+                Class::MOP::load_class($_) for @_;
                 # this checks the metaclass to make sure 
                 # it is correct, sometimes it can get out 
                 # of sync when the classes are being built
@@ -84,7 +85,7 @@ use Moose::Util::TypeConstraints;
             return subname 'Moose::with' => sub (@) {
                 my (@roles) = @_;
                 confess "Must specify at least one role" unless @roles;
-                _load_all_classes(@roles);
+                Class::MOP::load_class($_) for @roles;
                 $class->meta->_apply_all_roles(@roles);
             };
         },
@@ -219,34 +220,6 @@ use Moose::Util::TypeConstraints;
     
 }
 
-## Utility functions
-
-sub _load_all_classes {
-    foreach my $class (@_) {
-        # see if this is already 
-        # loaded in the symbol table
-        next if _is_class_already_loaded($class);
-        # otherwise require it ...
-        my $file = $class . '.pm';
-        $file =~ s{::}{/}g;
-        eval { CORE::require($file) };
-        confess(
-            "Could not load module '$class' because : $@"
-            ) if $@;
-    }
-}
-
-sub _is_class_already_loaded {
-	my $name = shift;
-	no strict 'refs';
-	return 1 if defined ${"${name}::VERSION"} || defined @{"${name}::ISA"};
-	foreach (keys %{"${name}::"}) {
-		next if substr($_, -2, 2) eq '::';
-		return 1 if defined &{"${name}::$_"};
-	}
-	return 0;
-}
-
 ## make 'em all immutable
 
 $_->meta->make_immutable(
@@ -305,18 +278,7 @@ Moose - A complete modern object system for Perl 5
   after 'clear' => sub {
       my $self = shift;
       $self->z(0);
-  };
-  
-=head1 CAVEAT
-
-Moose is a rapidly maturing module, and is already being used by 
-a number of people. It's test suite is growing larger by the day, 
-and the docs should soon follow. 
-
-This said, Moose is not yet finished, and should still be considered 
-to be evolving. Much of the outer API is stable, but the internals 
-are still subject to change (although not without serious thought 
-given to it).  
+  }; 
 
 =head1 DESCRIPTION
 
@@ -335,13 +297,24 @@ for Perl 5. This means that Moose not only makes building normal
 Perl 5 objects better, but it also provides the power of metaclass 
 programming.
 
-=head2 Can I use this in production? Or is this just an experiment?
+=head2 Is this for real? Or is this just an experiment?
 
 Moose is I<based> on the prototypes and experiments I did for the Perl 6
 meta-model; however Moose is B<NOT> an experiment/prototype, it is 
-for B<real>. I will be deploying Moose into production environments later 
-this year, and I have every intentions of using it as my de facto class 
-builder from now on.
+for B<real>. 
+
+=head2 Is this ready for use in production? 
+
+Yes, I believe that it is. 
+
+I have two medium-to-large-ish web applications which use Moose heavily
+and have been in production (without issue) for several months now. At 
+$work, we are re-writing our core offering in it. And several people on 
+#moose have been using it (in production) for several months now as well.
+
+Of course, in the end, you need to make this call yourself. If you have 
+any questions or concerns, please feel free to email me, or even the list 
+or just stop by #moose and ask away.
 
 =head2 Is Moose just Perl 6 in Perl 5?
 
@@ -640,7 +613,7 @@ Yuval Kogman E<lt>nothingmuch@woobling.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006 by Infinity Interactive, Inc.
+Copyright 2006, 2007 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
