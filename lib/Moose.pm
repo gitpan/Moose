@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.18';
+our $VERSION   = '0.19';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
@@ -364,7 +364,7 @@ superclasses still properly inherit from L<Moose::Object>.
 This will apply a given set of C<@roles> to the local class. Role support 
 is currently under heavy development; see L<Moose::Role> for more details.
 
-=item B<has ($name, %options)>
+=item B<has $name =E<gt> %options>
 
 This will install an attribute of a given C<$name> into the current class. 
 The list of C<%options> are the same as those provided by 
@@ -424,6 +424,22 @@ If an attribute is marked as lazy it B<must> have a default supplied.
 This tells the accessor whether to automatically dereference the value returned. 
 This is only legal if your C<isa> option is either an C<ArrayRef> or C<HashRef>.
 
+=item I<metaclass =E<gt> $metaclass_name>
+
+This tells the class to use a custom attribute metaclass for this particular 
+attribute. Custom attribute metaclasses are useful for extending the capabilities 
+of the I<has> keyword, they are the simplest way to extend the MOP, but they are 
+still a fairly advanced topic and too much to cover here. I will try and write a 
+recipe on it soon.
+
+The default behavior here is to just load C<$metaclass_name>, however, we also 
+have a way to alias to a shorter name. This will first look to see if 
+B<Moose::Meta::Attribute::Custom::$metaclass_name> exists, if it does it will 
+then check to see if that has the method C<register_implemenetation> which 
+should return the actual name of the custom attribute metaclass. If there is 
+no C<register_implemenetation> method, it will just default to using 
+B<Moose::Meta::Attribute::Custom::$metaclass_name> as the metaclass name.
+
 =item I<trigger =E<gt> $code>
 
 The trigger option is a CODE reference which will be called after the value of 
@@ -432,10 +448,154 @@ updated value and the attribute meta-object (this is for more advanced fiddling
 and can typically be ignored in most cases). You B<cannot> have a trigger on
 a read-only attribute.
 
-=item I<handles =E<gt> [ @handles ]>
+=item I<handles =E<gt> ARRAY | HASH | REGEXP | CODE>
 
-There is experimental support for attribute delegation using the C<handles> 
-option. More docs to come later.
+The handles option provides Moose classes with automated delegation features. 
+This is a pretty complex and powerful option, it accepts many different option 
+formats, each with it's own benefits and drawbacks. 
+
+B<NOTE:> This features is no longer experimental, but it still may have subtle 
+bugs lurking in the deeper corners. So if you think you have found a bug, you 
+probably have, so please report it to me right away. 
+
+B<NOTE:> The class being delegated to does not need to be a Moose based class. 
+Which is why this feature is especially useful when wrapping non-Moose classes.
+
+All handles option formats share the following traits. 
+
+You cannot override a locally defined method with a delegated method, an 
+exception will be thrown if you try. Meaning, if you define C<foo> in your 
+class, you cannot override it with a delegated C<foo>. This is almost never 
+something you would want to do, and if it is, you should do it by hand and 
+not use Moose.
+
+You cannot override any of the methods found in Moose::Object as well as 
+C<BUILD> or C<DEMOLISH> methods. These will not throw an exception, but will 
+silently move on to the next method in the list. My reasoning for this is that 
+you would almost never want to do this because it usually tends to break your 
+class. And as with overriding locally defined methods, if you do want to do this, 
+you should do it manually and not with Moose.
+
+Below is the documentation for each option format:
+
+=over 4
+
+=item C<ARRAY>
+
+This is the most common usage for handles. You basically pass a list of 
+method names to be delegated, and Moose will install a delegation method 
+for each one in the list.
+
+=item C<HASH>
+
+This is the second most common usage for handles. Instead of a list of 
+method names, you pass a HASH ref where the key is the method name you 
+want installed locally, and the value is the name of the original method 
+in the class being delegated too. 
+
+This can be very useful for recursive classes like trees, here is a 
+quick example (soon to be expanded into a Moose::Cookbook::Recipe):
+
+  pacakge Tree;
+  use Moose;
+  
+  has 'node' => (is => 'rw', isa => 'Any');
+  
+  has 'children' => (
+      is      => 'ro',
+      isa     => 'ArrayRef',
+      default => sub { [] }
+  );
+  
+  has 'parent' => (
+      is          => 'rw',
+      isa         => 'Tree',
+      is_weak_ref => 1,
+      handles     => {
+          parent_node => 'node',
+          siblings    => 'children', 
+      }
+  );
+
+In this example, the Tree package gets the C<parent_node> and C<siblings> methods
+which delegate to the C<node> and C<children> methods of the Tree instance stored 
+in the parent slot. 
+
+=item C<REGEXP>
+
+The regexp option works very similar to the ARRAY option, except that it builds 
+the list of methods for you. It starts by collecting all possible methods of the 
+class being delegated too, then filters that list using the regexp supplied here. 
+
+B<NOTE:> An I<isa> option is required when using the regexp option format. This 
+is so that we can determine (at compile time) the method list from the class. 
+Without an I<isa> this is just not possible.
+
+=item C<CODE>
+
+This is the option to use when you really want to do something funky. You should 
+only use it if you really know what you are doing as it involves manual metaclass
+twiddling.
+
+This takes a code reference, which should expect two arguments. The first is 
+the attribute meta-object this I<handles> is attached too. The second is the metaclass
+of the class being delegated too. It expects you to return a hash (not a HASH ref)
+of the methods you want mapped. 
+
+=back
+
+=back
+
+=item B<has +$name =E<gt> %options>
+
+This is variation on the normal attibute creator C<has>, which allows you to 
+clone and extend an attribute from a superclass. Here is a quick example:
+
+  package Foo;
+  use Moose;
+  
+  has 'message' => (
+      is      => 'rw', 
+      isa     => 'Str',
+      default => 'Hello, I am a Foo'
+  );
+  
+  package My::Foo;
+  use Moose;
+  
+  extends 'Foo';
+  
+  has '+message' => (default => 'Hello I am My::Foo');
+
+What is happening here is that B<My::Foo> is cloning the C<message> attribute 
+from it's parent class B<Foo>, retaining the is =E<gt> 'rw' and isa =E<gt> 'Str'
+characteristics, but changing the value in C<default>.
+
+This feature is restricted somewhat, so as to try and enfore at least I<some>
+sanity into it. You are only allowed to change the following attributes:
+
+=over 4
+
+=item I<default> 
+
+Change the default value of an attribute.
+
+=item I<coerce> 
+
+Change whether the attribute attempts to coerce a value passed to it.
+
+=item I<required> 
+
+Change if the attribute is required to have a value.
+
+=item I<documentation>
+
+Change the documentation string associated with the attribute.
+
+=item I<isa>
+
+You I<are> allowed to change the type, but if and B<only if> the new type is
+a subtype of the old type.  
 
 =back
 
@@ -571,7 +731,7 @@ and it certainly wouldn't have this name ;P
 originally, I just ran with it.
 
 =item Thanks to mst & chansen and the whole #moose poose for all the 
-ideas/feature-requests/encouragement
+ideas/feature-requests/encouragement/bug-finding.
 
 =item Thanks to David "Theory" Wheeler for meta-discussions and spelling fixes.
 

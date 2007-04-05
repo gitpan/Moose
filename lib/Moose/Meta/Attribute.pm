@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 
-our $VERSION   = '0.09';
+our $VERSION   = '0.10';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -39,6 +39,10 @@ __PACKAGE__->meta->add_attribute('handles' => (
     reader    => 'handles',
     predicate => 'has_handles',
 ));
+__PACKAGE__->meta->add_attribute('documentation' => (
+    reader    => 'documentation',
+    predicate => 'has_documentation',
+));
 
 sub new {
 	my ($class, $name, %options) = @_;
@@ -48,9 +52,9 @@ sub new {
 
 sub clone_and_inherit_options {
     my ($self, %options) = @_;
-    # you can change default, required and coerce 
+    # you can change default, required, coerce and documentation 
     my %actual_options;
-    foreach my $legal_option (qw(default coerce required)) {
+    foreach my $legal_option (qw(default coerce required documentation)) {
         if (exists $options{$legal_option}) {
             $actual_options{$legal_option} = $options{$legal_option};
             delete $options{$legal_option};
@@ -341,6 +345,13 @@ sub install_accessors {
             (!$associated_class->has_method($handle))
                 || confess "You cannot overwrite a locally defined method ($handle) with a delegation";
             
+            # NOTE:
+            # handles is not allowed to delegate
+            # any of these methods, as they will 
+            # override the ones in your class, which 
+            # is almost certainly not what you want.
+            next if $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
+            
             if ((reftype($method_to_call) || '') eq 'CODE') {
                 $associated_class->add_method($handle => $method_to_call);                
             }
@@ -374,7 +385,7 @@ sub _canonicalize_handles {
         ($self->has_type_constraint)
             || confess "Cannot delegate methods based on a RegExpr without a type constraint (isa)";
         return map  { ($_ => $_) } 
-               grep {  $handles  } $self->_get_delegate_method_list;
+               grep { /$handles/ } $self->_get_delegate_method_list;
     }
     elsif (ref($handles) eq 'CODE') {
         return $handles->($self, $self->_find_delegate_metaclass);
@@ -533,6 +544,16 @@ This is a CODE reference which will be executed every time the
 value of an attribute is assigned. The CODE ref will get two values, 
 the invocant and the new value. This can be used to handle I<basic> 
 bi-directional relations.
+
+=item B<documentation>
+
+This is a string which contains the documentation for this attribute. 
+It serves no direct purpose right now, but it might in the future
+in some kind of automated documentation system perhaps.
+
+=item B<has_documentation>
+
+Returns true if this meta-attribute has any documentation.
 
 =back
 

@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.18
+version: 0.19
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
   - 'Christian Hansen E<lt>chansen@cpan.orgE<gt>'
@@ -23,13 +23,13 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.18
+    version: 0.19
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
-    version: 0.09
+    version: 0.10
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
-    version: 0.10
+    version: 0.12
   Moose::Meta::Instance:
     file: lib/Moose/Meta/Instance.pm
     version: 0.01
@@ -71,7 +71,7 @@ provides:
     version: 0.07
   Moose::Util::TypeConstraints:
     file: lib/Moose/Util/TypeConstraints.pm
-    version: 0.11
+    version: 0.12
 generated_by: Module::Build version 0.2805
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

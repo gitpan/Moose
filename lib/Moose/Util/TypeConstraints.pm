@@ -9,7 +9,7 @@ use Scalar::Util 'blessed';
 use B            'svref_2object';
 use Sub::Exporter;
 
-our $VERSION   = '0.11';
+our $VERSION   = '0.12';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::TypeConstraint;
@@ -67,14 +67,18 @@ sub unimport {
         
         my ($message, $optimized);
         for (@_) {
-            $message   = $_->{message} if exists $_->{message};
+            $message   = $_->{message}   if exists $_->{message};
             $optimized = $_->{optimized} if exists $_->{optimized};            
         }
 
-        my $pkg_defined_in = scalar(caller(1));
+        my $pkg_defined_in = scalar(caller(0));
+        
         ($TYPES{$name}->[0] eq $pkg_defined_in)
-            || confess "The type constraint '$name' has already been created "
-                 if defined $name && exists $TYPES{$name};                
+            || confess ("The type constraint '$name' has already been created in " 
+                       . $TYPES{$name}->[0] . " and cannot be created again in "
+                       . $pkg_defined_in)
+                 if defined $name && exists $TYPES{$name};   
+                              
         $parent = find_type_constraint($parent) if defined $parent;
         my $constraint = Moose::Meta::TypeConstraint->new(
             name       => $name || '__ANON__',
@@ -114,14 +118,16 @@ sub unimport {
     	foreach my $constraint (keys %TYPES) {
     		*{"${pkg}::${constraint}"} = find_type_constraint($constraint)->_compiled_type_constraint;
     	}        
-    }    
+    } 
+    
+    sub list_all_type_constraints { keys %TYPES }   
 }
 
 # type constructors
 
-sub type ($$) {
-	my ($name, $check) = @_;
-	_create_type_constraint($name, undef, $check);
+sub type ($$;$$) {
+    splice(@_, 1, 0, undef);
+	goto &_create_type_constraint;	
 }
 
 sub subtype ($$;$$$) {
@@ -217,6 +223,11 @@ subtype 'Role'
     => as 'Object' 
     => where { $_->can('does') }
     => optimize_as { blessed($_[0]) && $_[0]->can('does') };
+
+{
+    my @BUILTINS = list_all_type_constraints();
+    sub list_all_builtin_type_constraints { @BUILTINS }
+}
 
 1;
 
@@ -327,7 +338,7 @@ modules work in a similar way, it should be simple to adapt
 them to work with Moose.
 
 For instance, this is how you could use it with 
-L<Declare::Constraint::Simple> to declare a completely new type. 
+L<Declare::Constraints::Simple> to declare a completely new type. 
 
   type 'HashOfArrayOfObjects' 
       => IsHashRef(
@@ -372,6 +383,18 @@ B<Moose::Meta::TypeConstraint::Union> instance.
 This will export all the current type constraints as functions 
 into the caller's namespace. Right now, this is mostly used for 
 testing, but it might prove useful to others.
+
+=item B<list_all_type_constraints>
+
+This will return a list of type constraint names, you can then 
+fetch them using C<find_type_constraint ($type_name)> if you 
+want to.
+
+=item B<list_all_builtin_type_constraints>
+
+This will return a list of builtin type constraints, meaning, 
+those which are defined in this module. See the section 
+labeled L<Default Type Constraints> for a complete list.
 
 =back
 
