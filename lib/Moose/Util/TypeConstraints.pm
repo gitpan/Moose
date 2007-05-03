@@ -112,13 +112,15 @@ sub unimport {
         );
     }
     
-    sub export_type_contstraints_as_functions {
+    sub export_type_constraints_as_functions {
         my $pkg = caller();
 	    no strict 'refs';
     	foreach my $constraint (keys %TYPES) {
     		*{"${pkg}::${constraint}"} = find_type_constraint($constraint)->_compiled_type_constraint;
     	}        
-    } 
+    }
+    
+    *Moose::Util::TypeConstraints::export_type_contstraints_as_functions = \&export_type_constraints_as_functions;
     
     sub list_all_type_constraints { keys %TYPES }   
 }
@@ -378,11 +380,15 @@ meta-object. What you do with it from there is up to you :)
 Given a list of C<@type_constraint_names>, this will return a 
 B<Moose::Meta::TypeConstraint::Union> instance.
 
-=item B<export_type_contstraints_as_functions>
+=item B<export_type_constraints_as_functions>
 
 This will export all the current type constraints as functions 
 into the caller's namespace. Right now, this is mostly used for 
 testing, but it might prove useful to others.
+
+=item B<export_type_contstraints_as_functions>
+
+Alias for the above function.
 
 =item B<list_all_type_constraints>
 
@@ -404,7 +410,7 @@ The following functions are used to create type constraints.
 They will then register the type constraints in a global store 
 where Moose can get to them if it needs to. 
 
-See the L<SYNOPOSIS> for an example of how to use these.
+See the L<SYNOPSIS> for an example of how to use these.
 
 =over 4
 
@@ -464,7 +470,7 @@ code first, followed by the type constraint check. This feature
 should be used carefully as it is very powerful and could easily 
 take off a limb if you are not careful.
 
-See the L<SYNOPOSIS> for an example of how to use these.
+See the L<SYNOPSIS> for an example of how to use these.
 
 =over 4
 

@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 5; #6;
 use Test::Exception;
 
 BEGIN {
@@ -36,6 +36,19 @@ BEGIN {
 	}
 	
 	__PACKAGE__->meta->make_immutable(debug => 0);
+
+    package Bucket;
+    use metaclass 'Class::MOP::Class';
+    
+    __PACKAGE__->meta->add_attribute('squeegee' => (accessor => 'squeegee'));
+    
+    package Old::Bucket::Nose;
+    # see http://www.moosefoundation.org/moose_facts.htm
+    use Moose;
+    
+    extends 'Bucket';
+
+  # XXX FIXME subclassing meta-attrs and immutable-ing the subclass fails
 }
 
 my $foo_moose = Foo::Moose->new();
@@ -44,3 +57,7 @@ isa_ok($foo_moose, 'Elk');
 
 is($foo_moose->no_moose, 'Elk', '... got the right value from the Elk method');
 is($foo_moose->moose, 'Foo', '... got the right value from the Foo::Moose method');
+
+#lives_ok { 
+#    Old::Bucket::Nose->meta->make_immutable(debug => 0); 
+#} 'Immutability on Moose class extending Class::MOP class ok';

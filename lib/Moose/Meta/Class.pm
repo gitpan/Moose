@@ -9,7 +9,7 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION   = '0.12';
+our $VERSION   = '0.13';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
@@ -63,6 +63,12 @@ sub excludes_role {
         || confess "You must supply a role name to look for";
     foreach my $class ($self->class_precedence_list) {  
         next unless $class->can('meta');      
+        # NOTE:
+        # in the pretty rare instance when a Moose metaclass
+        # is itself extended with a role, this check needs to 
+        # be done since some items in the class_precedence_list
+        # might in fact be Class::MOP based still. 
+        next unless $class->meta->can('roles');              
         foreach my $role (@{$class->meta->roles}) {
             return 1 if $role->excludes_role($role_name);
         }
@@ -163,10 +169,14 @@ sub add_override_method_modifier {
         || confess "You cannot override '$name' because it has no super method";    
     $self->add_method($name => Moose::Meta::Method::Overriden->wrap(sub {
         my @args = @_;
-        no strict   'refs';
         no warnings 'redefine';
-        local *{$_super_package . '::super'} = sub { $super->(@args) };
-        return $method->(@args);
+        if ($Moose::SUPER_SLOT{$_super_package}) {
+          local *{$Moose::SUPER_SLOT{$_super_package}}
+            = sub { $super->(@args) };
+          return $method->(@args);
+        } else {
+          confess "Trying to call override modifier'd method without super()";
+        }
     }));
 }
 
@@ -190,10 +200,14 @@ sub add_augment_method_modifier {
     }      
     $self->add_method($name => sub {
         my @args = @_;
-        no strict   'refs';
         no warnings 'redefine';
-        local *{$_super_package . '::inner'} = sub { $method->(@args) };
-        return $super->(@args);
+        if ($Moose::INNER_SLOT{$_super_package}) {
+          local *{$Moose::INNER_SLOT{$_super_package}}
+            = sub { $method->(@args) };
+          return $super->(@args);
+        } else {
+          return $super->(@args);
+        }
     });    
 }
 
