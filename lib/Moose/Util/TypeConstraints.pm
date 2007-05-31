@@ -5,12 +5,32 @@ use strict;
 use warnings;
 
 use Carp         'confess';
-use Scalar::Util 'blessed';
+use Scalar::Util 'blessed', 'reftype';
 use B            'svref_2object';
 use Sub::Exporter;
 
-our $VERSION   = '0.12';
+our $VERSION   = '0.13';
 our $AUTHORITY = 'cpan:STEVAN';
+
+# Prototyped subs must be predeclared because we have a circular dependency
+# with Moose::Meta::Attribute et. al. so in case of us being use'd first the
+# predeclaration ensures the prototypes are in scope when consumers are
+# compiled
+
+sub find_type_constraint ($);
+sub _create_type_constraint ($$$;$$);
+sub _install_type_coercions ($$);
+sub create_type_constraint_union (@);
+sub type ($$;$$);
+sub subtype ($$;$$$);
+sub coerce ($@);
+sub as      ($);
+sub from    ($);
+sub where   (&);
+sub via     (&);
+sub message     (&);
+sub optimize_as (&);
+sub enum ($;@);
 
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeCoercion;
@@ -63,7 +83,7 @@ sub unimport {
     sub _create_type_constraint ($$$;$$) { 
         my $name   = shift;
         my $parent = shift;
-        my $check  = shift;;
+        my $check  = shift || sub { 1 };
         
         my ($message, $optimized);
         for (@_) {
@@ -133,7 +153,16 @@ sub type ($$;$$) {
 }
 
 sub subtype ($$;$$$) {
-	unshift @_ => undef if scalar @_ <= 2;	
+    # NOTE:
+    # this adds an undef for the name
+    # if this is an anon-subtype:
+    #   subtype(Num => where { $_ % 2 == 0 }) # anon 'even' subtype
+    # but if the last arg is not a code
+    # ref then it is a subtype alias:
+    #   subtype(MyNumbers => as Num); # now MyNumbers is the same as Num
+    # ... yeah I know it's ugly code 
+    # - SL
+	unshift @_ => undef if scalar @_ <= 2 && (reftype($_[1]) || '') eq 'CODE';	
 	goto &_create_type_constraint;
 }
 
@@ -225,6 +254,11 @@ subtype 'Role'
     => as 'Object' 
     => where { $_->can('does') }
     => optimize_as { blessed($_[0]) && $_[0]->can('does') };
+    
+subtype 'ClassName' 
+    => as 'Str' 
+    => where { eval { $_->isa('UNIVERSAL') } }
+    => optimize_as { !ref($_[0]) && eval { $_[0]->isa('UNIVERSAL') } };    
 
 {
     my @BUILTINS = list_all_type_constraints();
@@ -314,6 +348,7 @@ could probably use some work, but it works for me at the moment.
               Num
                 Int
               Str
+                ClassName
           Ref
               ScalarRef
               ArrayRef
@@ -329,6 +364,12 @@ Suggestions for improvement are welcome.
 
 B<NOTE:> The C<Undef> type constraint does not work correctly 
 in every occasion, please use it sparringly.
+
+B<NOTE:> The C<ClassName> type constraint is simply a subtype 
+of string which responds true to C<isa('UNIVERSAL')>. This means
+that your class B<must> be loaded for this type constraint to 
+pass. I know this is not ideal for all, but it is a saner 
+restriction then most others. 
 
 =head2 Use with Other Constraint Modules
 

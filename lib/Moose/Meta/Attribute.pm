@@ -93,7 +93,7 @@ sub _process_options {
     
 	if (exists $options->{is}) {
 		if ($options->{is} eq 'ro') {
-			$options->{reader} = $name;
+			$options->{reader} ||= $name;
 			(!exists $options->{trigger})
 			    || confess "Cannot have a trigger on a read-only attribute";
 		}
@@ -212,6 +212,7 @@ sub initialize_instance_slot {
     if (!defined $val && $self->has_default) {
         $val = $self->default($instance); 
     }
+    
 	if (defined $val) {
 	    if ($self->has_type_constraint) {
 	        my $type_constraint = $self->type_constraint;
