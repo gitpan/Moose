@@ -11,7 +11,7 @@ WriteMakefile
                            'Test::LongString' => '0',
                            'Scalar::Util' => '1.18',
                            'Test::Exception' => '0.21',
-                           'Class::MOP' => '0.37',
+                           'Class::MOP' => '0.39',
                            'Sub::Exporter' => '0.972',
                            'Sub::Name' => '0.02',
                            'B' => '0',

@@ -1,6 +1,6 @@
 ---
 name: Moose
-version: 0.22
+version: 0.23
 author:
   - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
 abstract: A complete modern object system for Perl 5
@@ -10,7 +10,7 @@ resources:
 requires:
   B: 0
   Carp: 0
-  Class::MOP: 0.37
+  Class::MOP: 0.39
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
   Sub::Name: 0.02
@@ -21,13 +21,13 @@ build_requires:
 provides:
   Moose:
     file: lib/Moose.pm
-    version: 0.22
+    version: 0.23
   Moose::Meta::Attribute:
     file: lib/Moose/Meta/Attribute.pm
     version: 0.10
   Moose::Meta::Class:
     file: lib/Moose/Meta/Class.pm
-    version: 0.13
+    version: 0.14
   Moose::Meta::Instance:
     file: lib/Moose/Meta/Instance.pm
     version: 0.01
