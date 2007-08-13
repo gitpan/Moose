@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.24';
+our $VERSION   = '0.25';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
@@ -394,7 +394,8 @@ The I<isa> option uses Moose's type constraint facilities to set up runtime
 type checking for this attribute. Moose will perform the checks during class 
 construction, and within any accessors. The C<$type_name> argument must be a 
 string. The string may be either a class name or a type defined using 
-Moose's type definition features.
+Moose's type definition features. (Refer to L<Moose::Util::TypeConstraints>
+for information on how to define a new type).
 
 =item I<coerce =E<gt> (1|0)>
 
@@ -410,9 +411,9 @@ is expected to have consumed.
 
 =item I<required =E<gt> (1|0)>
 
-This marks the attribute as being required. This means a value must be supplied 
-during class construction, and the attribute may never be set to C<undef> with 
-an accessor. 
+This marks the attribute as being required. This means a I<defined> value must be 
+supplied during class construction, and the attribute may never be set to 
+C<undef> with an accessor. 
 
 =item I<weak_ref =E<gt> (1|0)>
 
@@ -786,6 +787,8 @@ Adam (Alias) Kennedy
 
 Anders (Debolaz) Nor Berle
 
+Nathan (kolibre) Gray
+
 Christian (chansen) Hansen
 
 Eric (ewilhelm) Wilhelm
@@ -801,6 +804,8 @@ Robert (phaylon) Sedlacek
 Robert (rlb3) Boone
 
 Scott (konobi) McWhirter
+
+Shlomi (rindolf) Fish
 
 Yuval (nothingmuch) Kogman
 

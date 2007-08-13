@@ -6,6 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
+use overload     ();
 
 our $VERSION   = '0.11';
 our $AUTHORITY = 'cpan:STEVAN';
@@ -207,6 +208,10 @@ sub initialize_instance_slot {
     my $val;        
     if (exists $params->{$init_arg}) {
         $val = $params->{$init_arg};
+        
+        if (!defined $val && $self->is_required) {
+            confess "Attribute (" . $self->name . ") is required and cannot be undef";             
+        }
     }
     else {
         # skip it if it's lazy
@@ -220,9 +225,9 @@ sub initialize_instance_slot {
     # attribute's default value (if it has one)
     if (!defined $val && $self->has_default) {
         $val = $self->default($instance); 
-    }
+    }   
     
-	if (defined $val) {
+	if (defined $val || $self->has_default) {
 	    if ($self->has_type_constraint) {
 	        my $type_constraint = $self->type_constraint;
 		    if ($self->should_coerce && $type_constraint->has_coercion) {
@@ -233,7 +238,13 @@ sub initialize_instance_slot {
                            $self->name . 
                            ") does not pass the type constraint (" . 
                            $type_constraint->name .
-                           ") with '$val'";			
+                           ") with '" . 
+                           (defined $val 
+                               ? (overload::Overloaded($val) 
+                                    ? overload::StrVal($val) 
+                                    : $val) 
+                               : 'undef') . 
+                           "'";			
         }
 	}
 
@@ -263,7 +274,11 @@ sub set_value {
         }
         defined($type_constraint->_compiled_type_constraint->($value))
         	|| confess "Attribute ($attr_name) does not pass the type constraint ("
-               . $type_constraint->name . ") with " . (defined($value) ? ("'" . $value . "'") : "undef")
+               . $type_constraint->name 
+               . ") with " 
+               . (defined($value) 
+                    ? ("'" . (overload::Overloaded($value) ? overload::StrVal($value) : $value) . "'") 
+                    : "undef")
           if defined($value);
     }
     

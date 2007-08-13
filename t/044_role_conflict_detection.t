@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 90;
+use Test::More tests => 90; # it's really 126 with kolibre's tests;
 use Test::Exception;
 
 BEGIN {
@@ -347,3 +347,212 @@ ok(!Role::Reality->meta->does_role('Role::Plot'), '... our role does() the corre
 is(Role::Reality->meta->get_method('twist')->(), 
     'Role::Reality::twist', 
     '... the twist method returns the right value');
+
+=pod
+
+Role conflicts between attributes and methods
+
+[15:23]  <kolibrie> when class defines method and role defines method, class wins
+[15:24]  <kolibrie> when class 'has'   method and role defines method, class wins
+[15:24]  <kolibrie> when class defines method and role 'has'   method, role wins
+[15:24]  <kolibrie> when class 'has'   method and role 'has'   method, role wins
+[15:24]  <kolibrie> which means when class 'has' method and two roles 'has' method, no tiebreak is d
+[15:24]  <kolibrie> etected
+[15:24]  <perigrin> this is with role and has declaration in the exact same order in every case?
+[15:25]  <kolibrie> yes
+[15:25]  <perigrin> interesting
+[15:25]  <kolibrie> that's what I thought
+[15:26]  <kolibrie> does that sound like something I should write a test for?
+[15:27]  <perigrin> stevan, ping?
+[15:27]  <perigrin> I'm not sure what the right answer for composition is.
+[15:27]  <perigrin> who should win
+[15:27]  <perigrin> if I were to guess I'd say the class should always win.
+[15:27]  <kolibrie> that would be my guess, but I thought I would ask to make sure
+[15:29]  <stevan> kolibrie: please write a test
+[15:29]  <stevan> I am not exactly sure who should win either,.. but I suspect it is not working correctly right now
+[15:29]  <stevan> I know exactly why it is doing what it is doing though
+
+Now I have to decide actually what happens, and how to fix it.
+- SL
+
+{
+    package Role::Method;
+    use Moose::Role;
+    
+    sub ghost { 'Role::Method::ghost' }
+
+    package Role::Method2;
+    use Moose::Role;
+    
+    sub ghost { 'Role::Method2::ghost' }
+
+    package Role::Attribute;
+    use Moose::Role;
+    
+    has 'ghost' => (is => 'ro', default => 'Role::Attribute::ghost');
+
+    package Role::Attribute2;
+    use Moose::Role;
+    
+    has 'ghost' => (is => 'ro', default => 'Role::Attribute2::ghost');
+}
+
+{
+    package My::Test15;
+    use Moose;
+
+    ::lives_ok {    
+       with 'Role::Method';
+    } '... composed the method role into the method class';
+
+    sub ghost { 'My::Test15::ghost' }
+
+    package My::Test16;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Method';
+    } '... composed the method role into the attribute class';
+
+    has 'ghost' => (is => 'ro', default => 'My::Test16::ghost');
+
+    package My::Test17;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Attribute';
+    } '... composed the attribute role into the method class';
+
+    sub ghost { 'My::Test17::ghost' }
+
+    package My::Test18;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Attribute';
+    } '... composed the attribute role into the attribute class';
+
+    has 'ghost' => (is => 'ro', default => 'My::Test18::ghost');
+
+    package My::Test19;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Method', 'Role::Method2';
+    } '... composed method roles into class with method tiebreaker';
+
+    sub ghost { 'My::Test19::ghost' }
+
+    package My::Test20;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Method', 'Role::Method2';
+    } '... composed method roles into class with attribute tiebreaker';
+
+    has 'ghost' => (is => 'ro', default => 'My::Test20::ghost');
+
+    package My::Test21;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Attribute', 'Role::Attribute2';
+    } '... composed attribute roles into class with method tiebreaker';
+
+    sub ghost { 'My::Test21::ghost' }
+
+    package My::Test22;
+    use Moose;
+
+    ::lives_ok {
+       with 'Role::Attribute', 'Role::Attribute2';
+    } '... composed attribute roles into class with attribute tiebreaker';
+
+    has 'ghost' => (is => 'ro', default => 'My::Test22::ghost');
+
+    package My::Test23;
+    use Moose;
+
+    ::lives_ok {
+        with 'Role::Method', 'Role::Attribute';
+    } '... composed method and attribute role into class with method tiebreaker';
+
+    sub ghost { 'My::Test23::ghost' }
+
+    package My::Test24;
+    use Moose;
+
+    ::lives_ok {
+        with 'Role::Method', 'Role::Attribute';
+    } '... composed method and attribute role into class with attribute tiebreaker';
+
+    has 'ghost' => (is => 'ro', default => 'My::Test24::ghost');
+
+    package My::Test25;
+    use Moose;
+
+    ::lives_ok {
+        with 'Role::Attribute', 'Role::Method';
+    } '... composed attribute and method role into class with method tiebreaker';
+
+    sub ghost { 'My::Test25::ghost' }
+
+    package My::Test26;
+    use Moose;
+
+    ::lives_ok {
+        with 'Role::Attribute', 'Role::Method';
+    } '... composed attribute and method role into class with attribute tiebreaker';
+
+    has 'ghost' => (is => 'ro', default => 'My::Test26::ghost');
+}
+
+my $test15 = My::Test15->new;
+isa_ok($test15, 'My::Test15');
+is($test15->ghost, 'My::Test15::ghost', '... we access the method from the class and ignore the role method');
+
+my $test16 = My::Test16->new;
+isa_ok($test16, 'My::Test16');
+is($test16->ghost, 'My::Test16::ghost', '... we access the attribute from the class and ignore the role method');
+
+my $test17 = My::Test17->new;
+isa_ok($test17, 'My::Test17');
+is($test17->ghost, 'My::Test17::ghost', '... we access the method from the class and ignore the role attribute');
+
+my $test18 = My::Test18->new;
+isa_ok($test18, 'My::Test18');
+is($test18->ghost, 'My::Test18::ghost', '... we access the attribute from the class and ignore the role attribute');
+
+my $test19 = My::Test19->new;
+isa_ok($test19, 'My::Test19');
+is($test19->ghost, 'My::Test19::ghost', '... we access the method from the class and ignore the role methods');
+
+my $test20 = My::Test20->new;
+isa_ok($test20, 'My::Test20');
+is($test20->ghost, 'My::Test20::ghost', '... we access the attribute from the class and ignore the role methods');
+
+my $test21 = My::Test21->new;
+isa_ok($test21, 'My::Test21');
+is($test21->ghost, 'My::Test21::ghost', '... we access the method from the class and ignore the role attributes');
+
+my $test22 = My::Test22->new;
+isa_ok($test22, 'My::Test22');
+is($test22->ghost, 'My::Test22::ghost', '... we access the attribute from the class and ignore the role attributes');
+
+my $test23 = My::Test23->new;
+isa_ok($test23, 'My::Test23');
+is($test23->ghost, 'My::Test23::ghost', '... we access the method from the class and ignore the role method and attribute');
+
+my $test24 = My::Test24->new;
+isa_ok($test24, 'My::Test24');
+is($test24->ghost, 'My::Test24::ghost', '... we access the attribute from the class and ignore the role method and attribute');
+
+my $test25 = My::Test25->new;
+isa_ok($test25, 'My::Test25');
+is($test25->ghost, 'My::Test25::ghost', '... we access the method from the class and ignore the role attribute and method');
+
+my $test26 = My::Test26->new;
+isa_ok($test26, 'My::Test26');
+is($test26->ghost, 'My::Test26::ghost', '... we access the attribute from the class and ignore the role attribute and method');
+
+=cut

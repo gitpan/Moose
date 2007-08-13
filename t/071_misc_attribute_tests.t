@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 12;
 use Test::Exception;
 
 BEGIN {
@@ -84,3 +84,45 @@ BEGIN {
     can_ok($test, qw(foo bar baz));
     
 }
+
+{
+    {
+        package Test::UndefDefault::Attributes;
+        use Moose;
+
+        has 'foo' => (
+            is      => 'ro',
+            isa     => 'Str',
+            default => sub { return }
+        );
+        
+    }
+
+    dies_ok {
+        Test::UndefDefault::Attributes->new;
+    } '... default must return a value which passes the type constraint';
+    
+}
+
+{
+    {
+        package OverloadedStr;
+        use Moose;
+        use overload '""' => sub { 'this is *not* a string' };
+
+        has 'a_str' => ( isa => 'Str' , is => 'rw' );
+    }
+
+    my $moose_obj = OverloadedStr->new;
+
+    is($moose_obj->a_str( 'foobar' ), 'foobar', 'setter took string');
+    ok($moose_obj, 'this is a *not* a string');
+
+    throws_ok { 
+        $moose_obj->a_str( $moose_obj ) 
+    } qr/Attribute \(a_str\) does not pass the type constraint \(Str\) with OverloadedStr\=HASH\(.*?\)/, '... dies without overloading the string';
+
+}
+
+
+

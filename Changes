@@ -1,5 +1,53 @@
 Revision history for Perl extension Moose
 
+0.25 Mon. Aug. 13, 2007
+    * Moose
+      - Documentation update to reference Moose::Util::TypeConstraints 
+        under 'isa' in 'has' for how to define a new type 
+        (thanks to shlomif).
+
+    * Moose::Meta::Attribute
+      - required attributes now will no longer accept undef 
+        from the constructor, even if there is a default and lazy
+        - added tests for this
+      - default subroutines must return a value which passes the 
+        type constraint
+        - added tests for this
+    
+    * Moose::Meta::Attribute
+    * Moose::Meta::Method::Constructor
+    * Moose::Meta::Method::Accessor        
+      - type-constraint tests now handle overloaded objects correctly
+        in the error message
+        - added tests for this (thanks to EvanCarroll) 
+
+    * Moose::Meta::TypeConstraint::Union
+      - added (has_)hand_optimized_constraint to this class so that 
+        it behaves as the regular Moose::Meta::TypeConstraint does.
+
+    * Moose::Meta::Role
+      - large refactoring of this code
+      - added several more tests 
+        - tests for subtle conflict resolition issues 
+          added, but not currently running
+          (thanks to kolibre)
+
+    * Moose::Cookbook::Recipe7 
+      - added new recipe for augment/inner functionality 
+        (still in progress)
+        - added test for this
+
+    * Moose::Spec::Role
+      - a formal definition of roles (still in progress)
+
+    * Moose::Util
+      - utilities for easier working with Moose classes
+        - added tests for these
+
+    * Test::Moose
+      - This contains Moose specific test functions
+        - added tests for these
+
 0.24 Tues. July 3, 2007
     ~ Some doc updates/cleanup ~
 
