@@ -54,9 +54,7 @@ BEGIN {
     
     has 'name'      => (is => 'rw', isa => 'Str', required => 1);
     has 'address'   => (is => 'rw', isa => 'Address'); 
-    has 'employees' => (is => 'rw', isa => subtype ArrayRef => where { 
-        (blessed($_) && $_->isa('Employee') || return) for @$_; 1 
-    });    
+    has 'employees' => (is => 'rw', isa => 'ArrayRef[Employee]');    
     
     sub BUILD {
         my ($self, $params) = @_;

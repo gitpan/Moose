@@ -1,85 +1,23 @@
----
-name: Moose
-version: 0.25
-author:
-  - 'Stevan Little E<lt>stevan@iinteractive.comE<gt>'
 abstract: A complete modern object system for Perl 5
+author: Stevan Little <stevan@iinteractive.com>
+build_requires: 
+  Test::Exception: 0.21
+  Test::LongString: 0
+  Test::More: 0.62
+distribution_type: module
+generated_by: Module::Install version 0.64
 license: perl
-resources:
-  license: http://dev.perl.org/licenses/
-requires:
+name: Moose
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
   B: 0
   Carp: 0
   Class::MOP: 0.39
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
   Sub::Name: 0.02
-build_requires:
-  Test::Exception: 0.21
-  Test::LongString: 0
-  Test::More: 0.62
-provides:
-  Moose:
-    file: lib/Moose.pm
-    version: 0.25
-  Moose::Meta::Attribute:
-    file: lib/Moose/Meta/Attribute.pm
-    version: 0.11
-  Moose::Meta::Class:
-    file: lib/Moose/Meta/Class.pm
-    version: 0.14
-  Moose::Meta::Instance:
-    file: lib/Moose/Meta/Instance.pm
-    version: 0.01
-  Moose::Meta::Method:
-    file: lib/Moose/Meta/Method.pm
-    version: 0.01
-  Moose::Meta::Method::Accessor:
-    file: lib/Moose/Meta/Method/Accessor.pm
-    version: 0.04
-  Moose::Meta::Method::Constructor:
-    file: lib/Moose/Meta/Method/Constructor.pm
-    version: 0.01
-  Moose::Meta::Method::Destructor:
-    file: lib/Moose/Meta/Method/Destructor.pm
-    version: 0.01
-  Moose::Meta::Method::Overriden:
-    file: lib/Moose/Meta/Method/Overriden.pm
-    version: 0.01
-  Moose::Meta::Role:
-    file: lib/Moose/Meta/Role.pm
-    version: 0.09
-  Moose::Meta::Role::Method:
-    file: lib/Moose/Meta/Role/Method.pm
-    version: 0.01
-  Moose::Meta::Role::Method::Required:
-    file: lib/Moose/Meta/Role/Method/Required.pm
-    version: 0.01
-  Moose::Meta::TypeCoercion:
-    file: lib/Moose/Meta/TypeCoercion.pm
-    version: 0.03
-  Moose::Meta::TypeConstraint:
-    file: lib/Moose/Meta/TypeConstraint.pm
-    version: 0.08
-  Moose::Meta::TypeConstraint::Union:
-    file: lib/Moose/Meta/TypeConstraint/Union.pm
-    version: 0.05
-  Moose::Object:
-    file: lib/Moose/Object.pm
-    version: 0.09
-  Moose::Role:
-    file: lib/Moose/Role.pm
-    version: 0.07
-  Moose::Util:
-    file: lib/Moose/Util.pm
-    version: 0.01
-  Moose::Util::TypeConstraints:
-    file: lib/Moose/Util/TypeConstraints.pm
-    version: 0.13
-  Test::Moose:
-    file: lib/Test/Moose.pm
-    version: 0.01
-generated_by: Module::Build version 0.2805
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+tests: t/*.t t/*/*.t
+version: 0.26

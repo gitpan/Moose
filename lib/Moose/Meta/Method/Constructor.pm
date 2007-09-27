@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method';
@@ -203,7 +203,7 @@ sub _generate_type_constraint_check {
         'defined(' . $type_constraint_name . '->_compiled_type_constraint->(' . $value_name . '))'
     	. "\n\t" . '|| confess "Attribute (' . $attr->name . ') does not pass the type constraint ('
         . $attr->type_constraint->name 
-        . ') with " . (defined(' . $value_name . ') ? (overload::Overloaded(' . $value_name . ') ? overload::StrVal(' . $value_name . ') : ' . $value_name . ') : "undef");'
+        . ') with " . (defined(' . $value_name . ') ? (Scalar::Util::blessed(' . $value_name . ') && overload::Overloaded(' . $value_name . ') ? overload::StrVal(' . $value_name . ') : ' . $value_name . ') : "undef");'
     );    
 }
 
@@ -228,8 +228,6 @@ sub _generate_default_value {
         return $default;
     }    
 }
-
-1;
 
 1;
 

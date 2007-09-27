@@ -40,9 +40,7 @@ Moose::Cookbook::Recipe4 - Subtypes, and modeling a simple B<Company> class hier
   
   has 'name'      => (is => 'rw', isa => 'Str', required => 1);
   has 'address'   => (is => 'rw', isa => 'Address'); 
-  has 'employees' => (is => 'rw', isa => subtype ArrayRef => where { 
-      (blessed($_) && $_->isa('Employee') || return) for @$_; 1 
-  });    
+  has 'employees' => (is => 'rw', isa => 'ArrayRef[Employee]');    
   
   sub BUILD {
       my ($self, $params) = @_;
@@ -170,14 +168,13 @@ will always have a value.
 The next attribute option is not actually new, but a new variant 
 of options we have already introduced:
   
-  has 'employees' => (is => 'rw', isa => subtype ArrayRef => where { 
-      (blessed($_) && $_->isa('Employee') || return) for @$_; 1 
-  });
+  has 'employees' => (is => 'rw', isa => 'ArrayRef[Employee]');
 
-Here, instead of passing a string to the C<isa> option, we are passing 
-an anonymous subtype of the C<ArrayRef> type constraint. This subtype 
-basically checks that all the values in the ARRAY ref are instances of 
-the B<Employee> class. 
+Here, we are passing a more complex string to the C<isa> option, we 
+are passing a container type constraint. Container type constraints 
+can either be C<ArrayRef> or C<HashRef> with a contained type given 
+inside the square brackets. This basically checks that all the values 
+in the ARRAY ref are instances of the B<Employee> class. 
 
 This will ensure that our employees will all be of the correct type. However,
 the B<Employee> object (which we will see in a moment) also maintains a

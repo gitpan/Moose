@@ -8,7 +8,7 @@ use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
 use overload     ();
 
-our $VERSION   = '0.11';
+our $VERSION   = '0.12';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -135,27 +135,12 @@ sub _process_options {
 			$options->{type_constraint} = $options->{isa};
 		}
 		else {
-		    
-		    if ($options->{isa} =~ /\|/) {
-		        my @type_constraints = split /\s*\|\s*/ => $options->{isa};
-		        $options->{type_constraint} = Moose::Util::TypeConstraints::create_type_constraint_union(
-		            @type_constraints
-		        );
-		    }
-		    else {
-    		    # otherwise assume it is a constraint
-    		    my $constraint = Moose::Util::TypeConstraints::find_type_constraint($options->{isa});	    
-    		    # if the constraing it not found ....
-    		    unless (defined $constraint) {
-    		        # assume it is a foreign class, and make 
-    		        # an anon constraint for it 
-    		        $constraint = Moose::Util::TypeConstraints::subtype(
-    		            'Object', 
-    		            Moose::Util::TypeConstraints::where { $_->isa($options->{isa}) }
-    		        );
-    		    }			    
-                $options->{type_constraint} = $constraint;
-            }
+		    $options->{type_constraint} = Moose::Util::TypeConstraints::find_or_create_type_constraint(
+		        $options->{isa} => {
+		            parent     => Moose::Util::TypeConstraints::find_type_constraint('Object'), 
+	                constraint => sub { $_[0]->isa($options->{isa}) }
+	            }		        
+		    );
 		}
 	}	
 	elsif (exists $options->{does}) {	    
@@ -164,18 +149,12 @@ sub _process_options {
 			$options->{type_constraint} = $options->{isa};
 		}
 		else {
-		    # otherwise assume it is a constraint
-		    my $constraint = Moose::Util::TypeConstraints::find_type_constraint($options->{does});	      
-		    # if the constraing it not found ....
-		    unless (defined $constraint) {	  		        
-		        # assume it is a foreign class, and make 
-		        # an anon constraint for it 
-		        $constraint = Moose::Util::TypeConstraints::subtype(
-		            'Role', 
-		            Moose::Util::TypeConstraints::where { $_->does($options->{does}) }
-		        );
-		    }			    
-            $options->{type_constraint} = $constraint;
+		    $options->{type_constraint} = Moose::Util::TypeConstraints::find_or_create_type_constraint(
+		        $options->{does} => {
+		            parent     => Moose::Util::TypeConstraints::find_type_constraint('Role'), 
+	                constraint => sub { $_[0]->does($options->{does}) }
+	            }
+		    );
 		}	    
 	}
 	
@@ -240,7 +219,7 @@ sub initialize_instance_slot {
                            $type_constraint->name .
                            ") with '" . 
                            (defined $val 
-                               ? (overload::Overloaded($val) 
+                               ? (blessed($val) && overload::Overloaded($val) 
                                     ? overload::StrVal($val) 
                                     : $val) 
                                : 'undef') . 
@@ -277,7 +256,11 @@ sub set_value {
                . $type_constraint->name 
                . ") with " 
                . (defined($value) 
-                    ? ("'" . (overload::Overloaded($value) ? overload::StrVal($value) : $value) . "'") 
+                    ? ("'" . 
+                        (blessed($value) && overload::Overloaded($value) 
+                            ? overload::StrVal($value) 
+                            : $value) 
+                        . "'") 
                     : "undef")
           if defined($value);
     }
@@ -517,6 +500,25 @@ will behave just as L<Class::MOP::Attribute> does.
 =item B<get_value>
 
 =item B<set_value>
+
+  eval { $point->meta->get_attribute('x')->set_value($point, 'fourty-two') };
+  if($@) {
+    print "Oops: $@\n";
+  }
+
+I<Attribute (x) does not pass the type constraint (Int) with 'fourty-two'>
+
+Before setting the value, a check is made on the type constraint of
+the attribute, if it has one, to see if the value passes it. If the
+value fails to pass, the set operation dies with a L<Carp/confess>.
+
+Any coercion to convert values is done before checking the type constraint.
+
+To check a value against a type constraint before setting it, fetch the
+attribute instance using L<Moose::Meta::Attribute/find_attribute_by_name>,
+fetch the type_constraint from the attribute using L<Moose::Meta::Attribute/type_constraint>
+and call L<Moose::Meta::TypeConstraint/check>. See L<Moose::Cookbook::RecipeX>
+for an example.
 
 =back
 
