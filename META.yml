@@ -24,4 +24,4 @@ requires:
   Sub::Exporter: 0.972
   Sub::Name: 0.02
 tests: t/*.t t/*/*.t
-version: 0.28
+version: 0.29
