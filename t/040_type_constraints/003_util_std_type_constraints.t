@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 269;
+use Test::More tests => 271;
 use Test::Exception;
 
 use Scalar::Util ();
@@ -303,6 +303,14 @@ ok(!defined ClassName(0),               '... ClassName rejects anything which is
 ok(!defined ClassName(100),             '... ClassName rejects anything which is not a ClassName');
 ok(!defined ClassName(''),              '... ClassName rejects anything which is not a ClassName');
 ok(!defined ClassName('Baz'),           '... ClassName rejects anything which is not a ClassName');
+
+{
+  package Quux::Wibble; # this makes Quux symbol table exist
+
+  sub foo {}
+}
+
+ok(!defined ClassName('Quux'),           '... ClassName rejects anything which is not a ClassName');
 ok(!defined ClassName([]),              '... ClassName rejects anything which is not a ClassName');
 ok(!defined ClassName({}),              '... ClassName rejects anything which is not a ClassName');
 ok(!defined ClassName(sub {}),          '... ClassName rejects anything which is not a ClassName');
@@ -313,6 +321,7 @@ ok(!defined ClassName(qr/../),          '... ClassName rejects anything which is
 ok(!defined ClassName(bless {}, 'Foo'), '... ClassName rejects anything which is not a ClassName');
 ok(!defined ClassName(undef),           '... ClassName rejects anything which is not a ClassName');
 ok(defined ClassName('UNIVERSAL'),      '... ClassName accepts anything which is a ClassName');
+ok(defined ClassName('Quux::Wibble'),      '... ClassName accepts anything which is a ClassName');
 ok(defined ClassName('Moose::Meta::TypeConstraint'), '... ClassName accepts anything which is a ClassName');
 
 close($fh) || die "Could not close the filehandle $0 for test";

@@ -1,15 +1,39 @@
 Revision history for Perl extension Moose
 
-0.29 Tues. Nov. 13, 2007
-    * Moose::Meta::Attribute
-      -Fix error message on missing builder method (groditi)
+0.30 Fri. Nov. 23, 2007
+    * Moose::Meta::Method::Constructor
+      -builder related bug in inlined constructor. (groditi)
 
     * Moose::Meta::Method::Accessor
-      -Fix error message on missing builder method (groditi)
+      - genereate unnecessary calls to predicates and refactor
+        code generation for runtime speed (groditi)
+
+    * Moose::Util::TypeConstraints
+      - fix ClassName constraint to introspect symbol table (mst)
+        - added more tests for this (mst)
+      - fixed it so that subtype 'Foo' => as 'HashRef[Int]' ...
+        with work correctly.
+        - added tests for this
+
+    * Moose::Cookbook
+      - adding the link to Recipie 11 (written by Sartak)
+        - adding test for SYNOPSIS code
 
     * t/ 
-      -Add test to check for the correct error message when
-       builder method is missing (groditi)
+      - New tests for builder bug. Upon instantiation, if an
+        attribute had a builder, no value and was not lazy the
+        builder default was not getting run, oops. (groditi)
+
+0.29 Tues. Nov. 13, 2007
+    * Moose::Meta::Attribute
+      - Fix error message on missing builder method (groditi)
+
+    * Moose::Meta::Method::Accessor
+      - Fix error message on missing builder method (groditi)
+
+    * t/ 
+      - Add test to check for the correct error message when
+        builder method is missing (groditi)
 
 0.28 Tues. Nov. 13, 2007
     - 0.27 packaged incorrectly (groditi)     

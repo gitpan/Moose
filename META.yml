@@ -1,4 +1,3 @@
---- 
 abstract: A complete modern object system for Perl 5
 author: Stevan Little <stevan@iinteractive.com>
 build_requires: 
@@ -6,11 +5,8 @@ build_requires:
   Test::LongString: 0
   Test::More: 0.62
 distribution_type: module
-generated_by: Module::Install version 0.67
+generated_by: Module::Install version 0.64
 license: perl
-meta-spec: 
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
 name: Moose
 no_index: 
   directory: 
@@ -19,9 +15,9 @@ no_index:
 requires: 
   B: 0
   Carp: 0
-  Class::MOP: 0.43
+  Class::MOP: 0.46
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
   Sub::Name: 0.02
 tests: t/*.t t/*/*.t
-version: 0.29
+version: 0.30
