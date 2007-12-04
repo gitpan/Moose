@@ -8,7 +8,7 @@ use metaclass;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::TypeCoercion';
@@ -27,7 +27,7 @@ sub compile_type_coercion {
         # in the union, and check em ...
         foreach my $type (@{$type_constraint->type_constraints}) {
             # if they have a coercion first
-            if ($type->has_coercion) {
+            if ($type->has_coercion) {    
                 # then try to coerce them ...
                 my $temp = $type->coerce($value);
                 # and if they get something 
@@ -38,6 +38,12 @@ sub compile_type_coercion {
         }
         return undef;    
     });
+}
+
+sub has_coercion_for_type { 0 }
+
+sub add_type_coercions {
+    confess "Cannot add additional type coercions to Union types";
 }
 
 1;
@@ -68,6 +74,10 @@ If you wish to use features at this depth, please come to the
 =item B<meta>
 
 =item B<compile_type_coercion>
+
+=item B<has_coercion_for_type>
+
+=item B<add_type_coercions>
 
 =back
 

@@ -12,7 +12,7 @@ use Sub::Name    'subname';
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.09';
+our $VERSION   = '0.10';
 our $AUTHORITY = 'cpan:STEVAN';
 
 __PACKAGE__->meta->add_attribute('name'       => (reader => 'name'));
@@ -21,8 +21,9 @@ __PACKAGE__->meta->add_attribute('parent'     => (
     predicate => 'has_parent',
 ));
 __PACKAGE__->meta->add_attribute('constraint' => (
-    reader => 'constraint',
-    writer => '_set_constraint',
+    reader  => 'constraint',
+    writer  => '_set_constraint',
+    default => sub { sub { 1 } }
 ));
 __PACKAGE__->meta->add_attribute('message'   => (
     accessor  => 'message',
@@ -148,23 +149,23 @@ sub _compile_subtype {
 
     # then we compile them to run without
     # having to recurse as we did before
-        return subname $self->name => sub {
-                local $_ = $_[0];
+    return subname $self->name => sub {
+        local $_ = $_[0];
         foreach my $parent (@parents) {
             return undef unless $parent->($_[0]);
         }
-                return undef unless $check->($_[0]);
-                1;
-        };
+        return undef unless $check->($_[0]);
+        1;
+    };
 }
 
 sub _compile_type {
     my ($self, $check) = @_;
-        return subname $self->name => sub {
-                local $_ = $_[0];
-                return undef unless $check->($_[0]);
-                1;
-        };
+    return subname $self->name => sub {
+        local $_ = $_[0];
+        return undef unless $check->($_[0]);
+        1;
+    };
 }
 
 ## other utils ...
