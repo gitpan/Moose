@@ -10,7 +10,8 @@ use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 our $VERSION   = '0.03';
 our $AUTHORITY = 'cpan:STEVAN';
 
-use base 'Moose::Meta::Method';
+use base 'Moose::Meta::Method',
+         'Class::MOP::Method::Generated';
 
 sub new {
     my $class   = shift;
@@ -123,7 +124,7 @@ sub _generate_slot_initializer {
             push @source => ('my $val = $params{\'' . $attr->init_arg . '\'};');
             if ($is_moose && $attr->has_type_constraint) {
                 push @source => ('my $type_constraint = $attrs->[' . $index . ']->type_constraint;');
-
+            
                 if ($attr->should_coerce && $attr->type_constraint->has_coercion) {
                     push @source => $self->_generate_type_coercion($attr, '$type_constraint', '$val', '$val');
                 }
@@ -131,13 +132,13 @@ sub _generate_slot_initializer {
             }
             push @source => $self->_generate_slot_assignment($attr, '$val');
 
-
         push @source => "} else {";
 
             my $default;
-            if( $attr->has_default ){
+            if ( $attr->has_default ) {
                 $default = $self->_generate_default_value($attr, $index);
-            } else {
+            } 
+            else {
                my $builder = $attr->builder;
                $default = '$instance->' . $builder;
             }

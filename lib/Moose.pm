@@ -4,17 +4,16 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.32';
+our $VERSION   = '0.33';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
 use Sub::Name    'subname';
-use B            'svref_2object';
 
 use Sub::Exporter;
 
-use Class::MOP 0.46;
+use Class::MOP 0.49;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -36,12 +35,12 @@ use Moose::Util::TypeConstraints;
         $metaclass = 'Moose::Meta::Class' unless defined $metaclass;
 
         confess
-          "The Metaclass $metaclass must be a subclass of Moose::Meta::Class."
-          unless $metaclass->isa('Moose::Meta::Class');
+            "The Metaclass $metaclass must be a subclass of Moose::Meta::Class."
+            unless $metaclass->isa('Moose::Meta::Class');
 
         # make a subtype for each Moose class
         subtype $class => as 'Object' => where { $_->isa($class) } =>
-          optimize_as { blessed( $_[0] ) && $_[0]->isa($class) }
+            optimize_as { blessed( $_[0] ) && $_[0]->isa($class) }
         unless find_type_constraint($class);
 
         my $meta;
@@ -213,8 +212,7 @@ use Moose::Util::TypeConstraints;
                 my $keyword = \&{ $class . '::' . $name };
 
                 # make sure it is from Moose
-                my $pkg_name =
-                  eval { svref_2object($keyword)->GV->STASH->NAME };
+                my ($pkg_name) = Class::MOP::get_code_info($keyword);
                 next if $@;
                 next if $pkg_name ne 'Moose';
 
@@ -873,6 +871,8 @@ Jonathan (jrockway) Rockway
 Piotr (dexter) Roszatycki
 
 Sam (mugwump) Vilain
+
+Shawn (sartak) Moore
 
 ... and many other #moose folks
 

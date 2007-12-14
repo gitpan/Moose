@@ -20,11 +20,12 @@ sub generate_accessor_method_inline {
     my $attr_name   = $attr->name;
     my $inv         = '$_[0]';
     my $slot_access = $self->_inline_access($inv, $attr_name);
-    my $value_name  = $attr->should_coerce ? '$val' : '$_[1]';
+    my $value_name  = $self->_value_needs_copy ? '$val' : '$_[1]';
 
     my $code = 'sub { ' . "\n"
     . $self->_inline_pre_body(@_) . "\n"
     . 'if (scalar(@_) == 2) {' . "\n"
+        . $self->_inline_copy_value . "\n"
         . $self->_inline_check_required . "\n"
         . $self->_inline_check_coercion . "\n"
         . $self->_inline_check_constraint($value_name) . "\n"
@@ -53,10 +54,11 @@ sub generate_writer_method_inline {
     my $attr_name   = $attr->name;
     my $inv         = '$_[0]';
     my $slot_access = $self->_inline_get($inv, $attr_name);
-    my $value_name  = $attr->should_coerce ? '$val' : '$_[1]';
+    my $value_name  = $self->_value_needs_copy ? '$val' : '$_[1]';
 
     my $code = 'sub { '
     . $self->_inline_pre_body(@_)
+    . $self->_inline_copy_value
     . $self->_inline_check_required
     . $self->_inline_check_coercion
         . $self->_inline_check_constraint($value_name)
@@ -102,6 +104,16 @@ sub generate_reader_method_inline {
     return $sub;
 }
 
+sub _inline_copy_value {
+    return '' unless shift->_value_needs_copy;
+    return 'my $val = $_[1];'
+}
+
+sub _value_needs_copy {
+    my $attr = (shift)->associated_attribute;
+    return $attr->should_coerce;
+}
+
 sub generate_reader_method { shift->generate_reader_method_inline(@_) }
 sub generate_writer_method { shift->generate_writer_method_inline(@_) }
 sub generate_accessor_method { shift->generate_accessor_method_inline(@_) }
@@ -110,16 +122,16 @@ sub _inline_pre_body  { '' }
 sub _inline_post_body { '' }
 
 sub _inline_check_constraint {
-        my ($self, $value) = @_;
-
-        my $attr = $self->associated_attribute;
-
-        return '' unless $attr->has_type_constraint;
-
-        # FIXME
-        # This sprintf is insanely annoying, we should
-        # fix it someday - SL
-        return sprintf <<'EOF', $value, $value, $value, $value, $value, $value, $value
+    my ($self, $value) = @_;
+    
+    my $attr = $self->associated_attribute;
+    
+    return '' unless $attr->has_type_constraint;
+    
+    # FIXME
+    # This sprintf is insanely annoying, we should
+    # fix it someday - SL
+    return sprintf <<'EOF', $value, $value, $value, $value, $value, $value, $value
 defined($type_constraint->(%s))
         || confess "Attribute (" . $attr->name . ") does not pass the type constraint ("
        . $attr->type_constraint->name . ") with "
@@ -129,16 +141,16 @@ EOF
 }
 
 sub _inline_check_coercion {
-        my $attr = (shift)->associated_attribute;
-
-        return '' unless $attr->should_coerce;
-    return 'my $val = $attr->type_constraint->coerce($_[1]);'
+    my $attr = (shift)->associated_attribute;
+    
+    return '' unless $attr->should_coerce;
+    return '$val = $attr->type_constraint->coerce($_[1]);'
 }
 
 sub _inline_check_required {
-        my $attr = (shift)->associated_attribute;
-
-        return '' unless $attr->is_required;
+    my $attr = (shift)->associated_attribute;
+    
+    return '' unless $attr->is_required;
     return 'defined($_[1]) || confess "Attribute ($attr_name) is required, so cannot be set to undef";'
 }
 
@@ -155,10 +167,11 @@ sub _inline_check_lazy {
 
     my $code = 'unless (' . $slot_exists . ') {' . "\n";
     if ($attr->has_type_constraint) {
-        if($attr->has_default || $attr->has_builder){
-            if($attr->has_default){
+        if ($attr->has_default || $attr->has_builder) {
+            if ($attr->has_default) {
                 $code .= '    my $default = $attr->default(' . $inv . ');'."\n";
-            } elsif($attr->has_builder){
+            } 
+            elsif ($attr->has_builder) {
                 $code .= '    my $default;'."\n".
                          '    if(my $builder = '.$inv.'->can($attr->builder)){ '."\n".
                          '        $default = '.$inv.'->$builder; '. "\n    } else {\n" .
@@ -171,19 +184,22 @@ sub _inline_check_lazy {
                      '           . $attr->type_constraint->name . ") with " . (defined($default) ? (Scalar::Util::blessed($default) && overload::Overloaded($default) ? overload::StrVal($default) : $default) : "undef")' .
                      '          if defined($default);' . "\n" .
                      '        ' . $slot_access . ' = $default; ' . "\n";
-        } else {
+        } 
+        else {
             $code .= '    ' . $slot_access . " = undef; \n";
         }
 
     } else {
-        if($attr->has_default){
+        if ($attr->has_default) {
             $code .= '    '.$slot_access.' = $attr->default(' . $inv . ');'."\n";
-        } elsif($attr->has_builder){
+        } 
+        elsif ($attr->has_builder) {
             $code .= '    if(my $builder = '.$inv.'->can($attr->builder)){ '."\n".
                      '        '.$slot_access.' = '.$inv.'->$builder; '. "\n    } else {\n" .
                      '        confess(Scalar::Util::blessed('.$inv.')." does not support builder method '.
                      '\'".$attr->builder."\' for attribute \'" . $attr->name . "\'");'. "\n    }";
-        } else {
+        } 
+        else {
             $code .= '    ' . $slot_access . " = undef; \n";
         }
     }
@@ -193,51 +209,51 @@ sub _inline_check_lazy {
 
 
 sub _inline_store {
-        my ($self, $instance, $value) = @_;
-        my $attr = $self->associated_attribute;
-
-        my $mi = $attr->associated_class->get_meta_instance;
-        my $slot_name = sprintf "'%s'", $attr->slots;
-
+    my ($self, $instance, $value) = @_;
+    my $attr = $self->associated_attribute;
+    
+    my $mi = $attr->associated_class->get_meta_instance;
+    my $slot_name = sprintf "'%s'", $attr->slots;
+    
     my $code = $mi->inline_set_slot_value($instance, $slot_name, $value)    . ";";
-        $code   .= $mi->inline_weaken_slot_value($instance, $slot_name, $value) . ";"
-            if $attr->is_weak_ref;
+    $code   .= $mi->inline_weaken_slot_value($instance, $slot_name, $value) . ";"
+        if $attr->is_weak_ref;
     return $code;
 }
 
 sub _inline_trigger {
-        my ($self, $instance, $value) = @_;
-        my $attr = $self->associated_attribute;
-        return '' unless $attr->has_trigger;
-        return sprintf('$attr->trigger->(%s, %s, $attr);', $instance, $value);
+    my ($self, $instance, $value) = @_;
+    my $attr = $self->associated_attribute;
+    return '' unless $attr->has_trigger;
+    return sprintf('$attr->trigger->(%s, %s, $attr);', $instance, $value);
 }
 
 sub _inline_get {
-        my ($self, $instance) = @_;
-        my $attr = $self->associated_attribute;
-
-        my $mi = $attr->associated_class->get_meta_instance;
-        my $slot_name = sprintf "'%s'", $attr->slots;
+    my ($self, $instance) = @_;
+    my $attr = $self->associated_attribute;
+    
+    my $mi = $attr->associated_class->get_meta_instance;
+    my $slot_name = sprintf "'%s'", $attr->slots;
 
     return $mi->inline_get_slot_value($instance, $slot_name);
 }
 
 sub _inline_access {
-        my ($self, $instance) = @_;
-        my $attr = $self->associated_attribute;
-
-        my $mi = $attr->associated_class->get_meta_instance;
-        my $slot_name = sprintf "'%s'", $attr->slots;
+    my ($self, $instance) = @_;
+    my $attr = $self->associated_attribute;
+    
+    my $mi = $attr->associated_class->get_meta_instance;
+    my $slot_name = sprintf "'%s'", $attr->slots;
 
     return $mi->inline_slot_access($instance, $slot_name);
 }
 
 sub _inline_has {
-        my ($self, $instance) = @_;
-        my $attr = $self->associated_attribute;
-
-        my $mi = $attr->associated_class->get_meta_instance;
-        my $slot_name = sprintf "'%s'", $attr->slots;
+    my ($self, $instance) = @_;
+    my $attr = $self->associated_attribute;
+    
+    my $mi = $attr->associated_class->get_meta_instance;
+    my $slot_name = sprintf "'%s'", $attr->slots;
 
     return $mi->inline_is_slot_initialized($instance, $slot_name);
 }

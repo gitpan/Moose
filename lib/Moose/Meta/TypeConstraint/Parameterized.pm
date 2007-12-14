@@ -6,8 +6,9 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 use Carp         'confess';
+use Moose::Util::TypeConstraints;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::TypeConstraint';
@@ -29,25 +30,48 @@ sub compile_type_constraint {
         || confess "The type parameter must be a Moose meta type";
     
     my $constraint;
-    
-    my $parent_name = $self->parent->name;
-    
-    if ($parent_name eq 'ArrayRef') {
+    my $name = $self->parent->name;
+
+    my $array_coercion =
+        Moose::Util::TypeConstraints::find_type_constraint('ArrayRef')
+        ->coercion;
+
+    my $hash_coercion =
+        Moose::Util::TypeConstraints::find_type_constraint('HashRef')
+        ->coercion;
+
+    my $array_constraint = sub {
+        foreach my $x (@$_) {
+            ($type_parameter->check($x)) || return
+        } 1;
+    };
+
+    my $hash_constraint = sub {
+        foreach my $x (values %$_) {
+            ($type_parameter->check($x)) || return
+        } 1;
+    };
+
+    if ($self->is_subtype_of('ArrayRef')) {
+        $constraint = $array_constraint;
+    }
+    elsif ($self->is_subtype_of('HashRef')) {
+        $constraint = $hash_constraint;
+    }
+    elsif ($array_coercion && $array_coercion->has_coercion_for_type($name)) {
         $constraint = sub {
-            foreach my $x (@$_) { 
-                ($type_parameter->check($x)) || return 
-            } 1;
+            local $_ = $array_coercion->coerce($_);
+            $array_constraint->(@_);
         };
     }
-    elsif ($parent_name eq 'HashRef') {
+    elsif ($hash_coercion && $hash_coercion->has_coercion_for_type($name)) {
         $constraint = sub {
-            foreach my $x (values %$_) { 
-                ($type_parameter->check($x)) || return 
-            } 1;
-        };          
+            local $_ = $hash_coercion->coerce($_);
+            $hash_constraint->(@_);
+        };
     }
     else {
-        confess "Your isa must be either ArrayRef or HashRef (sorry no subtype support yet)";
+        confess "The " . $self->name . " constraint cannot be used, because " . $name . " doesn't subtype or coerce ArrayRef or HashRef.";
     }
     
     $self->_set_constraint($constraint);
