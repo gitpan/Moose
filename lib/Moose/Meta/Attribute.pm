@@ -6,9 +6,10 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
+use Sub::Name    'subname';
 use overload     ();
 
-our $VERSION   = '0.15';
+our $VERSION   = '0.18';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -247,9 +248,7 @@ sub initialize_instance_slot {
                        $type_constraint->name .
                        ") with '" .
                        (defined $val
-                           ? (blessed($val) && overload::Overloaded($val)
-                                ? overload::StrVal($val)
-                                : $val)
+                           ? overload::StrVal($val)
                            : 'undef') .
                        "'";
     }
@@ -278,16 +277,12 @@ sub set_value {
         if ($self->should_coerce) {
             $value = $type_constraint->coerce($value);
         }
-        defined($type_constraint->_compiled_type_constraint->($value))
+        $type_constraint->_compiled_type_constraint->($value)
                 || confess "Attribute ($attr_name) does not pass the type constraint ("
                . $type_constraint->name
                . ") with "
                . (defined($value)
-                    ? ("'" .
-                        (blessed($value) && overload::Overloaded($value)
-                            ? overload::StrVal($value)
-                            : $value)
-                        . "'")
+                    ? ("'" . overload::StrVal($value) . "'")
                     : "undef")
           if defined($value);
     }
@@ -385,6 +380,8 @@ sub install_accessors {
         my $associated_class = $self->associated_class;
         foreach my $handle (keys %handles) {
             my $method_to_call = $handles{$handle};
+            my $class_name = $associated_class->name;
+            my $name = "${class_name}::${handle}";
 
             (!$associated_class->has_method($handle))
                 || confess "You cannot overwrite a locally defined method ($handle) with a delegation";
@@ -394,20 +391,22 @@ sub install_accessors {
             # any of these methods, as they will
             # override the ones in your class, which
             # is almost certainly not what you want.
-            next if $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
+
+            # FIXME warn when $handle was explicitly specified, but not if the source is a regex or something
+            #cluck("Not delegating method '$handle' because it is a core method") and
+            next if $class_name->isa("Moose::Object") and $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
 
             if ((reftype($method_to_call) || '') eq 'CODE') {
-                $associated_class->add_method($handle => $method_to_call);
+                $associated_class->add_method($handle => subname $name, $method_to_call);
             }
             else {
-                $associated_class->add_method($handle => sub {
-                    # FIXME
-                    # we should check for lack of
-                    # a callable return value from
-                    # the accessor here
+                $associated_class->add_method($handle => subname $name, sub {
                     my $proxy = (shift)->$accessor();
                     @_ = ($proxy, @_);
-                    goto &{ $proxy->can($method_to_call) };
+                    (defined $proxy) 
+                        || confess "Cannot delegate $handle to $method_to_call because " . 
+                                   "the value of " . $self->name . " is not defined";
+                    goto &{ $proxy->can($method_to_call) || return };
                 });
             }
         }
@@ -551,7 +550,7 @@ value fails to pass, the set operation dies with a L<Carp/confess>.
 Any coercion to convert values is done before checking the type constraint.
 
 To check a value against a type constraint before setting it, fetch the
-attribute instance using L<Moose::Meta::Attribute/find_attribute_by_name>,
+attribute instance using L<Class::MOP::Class/find_attribute_by_name>,
 fetch the type_constraint from the attribute using L<Moose::Meta::Attribute/type_constraint>
 and call L<Moose::Meta::TypeConstraint/check>. See L<Moose::Cookbook::RecipeX>
 for an example.
@@ -680,7 +679,7 @@ Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

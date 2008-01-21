@@ -10,7 +10,7 @@ use Carp 'confess';
 use Moose::Meta::Attribute;
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '0.05';
+our $VERSION   = '0.06';
 our $AUTHORITY = 'cpan:STEVAN';
 
 __PACKAGE__->meta->add_attribute('type_coercion_map' => (
@@ -55,7 +55,7 @@ sub compile_type_coercion {
         my $thing = shift;
         foreach my $coercion (@coercions) {
             my ($constraint, $converter) = @$coercion;
-            if (defined $constraint->($thing)) {
+            if ($constraint->($thing)) {
                 local $_ = $thing;                
                 return $converter->($thing);
             }
@@ -147,7 +147,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

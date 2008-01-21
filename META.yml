@@ -1,5 +1,5 @@
 --- 
-abstract: A complete modern object system for Perl 5
+abstract: A postmodern object system for Perl 5
 author: 
   - Stevan Little <stevan@iinteractive.com>
 build_requires: 
@@ -19,10 +19,10 @@ no_index:
     - t
 requires: 
   Carp: 0
-  Class::MOP: 0.49
+  Class::MOP: 0.51
   Filter::Simple: 0
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
   Sub::Name: 0.02
 tests: t/*.t t/*/*.t
-version: 0.33
+version: 0.34

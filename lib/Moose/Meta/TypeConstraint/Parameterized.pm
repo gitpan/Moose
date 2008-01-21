@@ -28,55 +28,18 @@ sub compile_type_constraint {
     
     (blessed $type_parameter && $type_parameter->isa('Moose::Meta::TypeConstraint'))
         || confess "The type parameter must be a Moose meta type";
-    
-    my $constraint;
-    my $name = $self->parent->name;
 
-    my $array_coercion =
-        Moose::Util::TypeConstraints::find_type_constraint('ArrayRef')
-        ->coercion;
-
-    my $hash_coercion =
-        Moose::Util::TypeConstraints::find_type_constraint('HashRef')
-        ->coercion;
-
-    my $array_constraint = sub {
-        foreach my $x (@$_) {
-            ($type_parameter->check($x)) || return
-        } 1;
-    };
-
-    my $hash_constraint = sub {
-        foreach my $x (values %$_) {
-            ($type_parameter->check($x)) || return
-        } 1;
-    };
-
-    if ($self->is_subtype_of('ArrayRef')) {
-        $constraint = $array_constraint;
-    }
-    elsif ($self->is_subtype_of('HashRef')) {
-        $constraint = $hash_constraint;
-    }
-    elsif ($array_coercion && $array_coercion->has_coercion_for_type($name)) {
-        $constraint = sub {
-            local $_ = $array_coercion->coerce($_);
-            $array_constraint->(@_);
-        };
-    }
-    elsif ($hash_coercion && $hash_coercion->has_coercion_for_type($name)) {
-        $constraint = sub {
-            local $_ = $hash_coercion->coerce($_);
-            $hash_constraint->(@_);
-        };
-    }
-    else {
-        confess "The " . $self->name . " constraint cannot be used, because " . $name . " doesn't subtype or coerce ArrayRef or HashRef.";
+    foreach my $type (Moose::Util::TypeConstraints::get_all_parameterizable_types()) {
+        if (my $constraint = $type->generate_constraint_for($self)) {
+            $self->_set_constraint($constraint);
+            return $self->SUPER::compile_type_constraint;            
+        }
     }
     
-    $self->_set_constraint($constraint);
-    
-    $self->SUPER::compile_type_constraint;
+    # if we get here, then we couldn't 
+    # find a way to parameterize this type
+    confess "The " . $self->name . " constraint cannot be used, because " 
+          . $self->parent->name . " doesn't subtype or coerce from a parameterizable type.";
 }
 
 1;
@@ -89,8 +52,6 @@ __END__
 =head1 NAME
 
 Moose::Meta::TypeConstraint::Parameterized - Higher Order type constraints for Moose
-
-=head1 DESCRIPTION
 
 =head1 METHODS
 
@@ -118,7 +79,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

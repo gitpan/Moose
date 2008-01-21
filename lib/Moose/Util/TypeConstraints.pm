@@ -8,7 +8,7 @@ use Carp         'confess';
 use Scalar::Util 'blessed', 'reftype';
 use Sub::Exporter;
 
-our $VERSION   = '0.18';
+our $VERSION   = '0.20';
 our $AUTHORITY = 'cpan:STEVAN';
 
 ## --------------------------------------------------------
@@ -20,13 +20,16 @@ our $AUTHORITY = 'cpan:STEVAN';
 
 # creation and location
 sub find_type_constraint                 ($);
+sub register_type_constraint             ($);
 sub find_or_create_type_constraint       ($;$);
 sub create_type_constraint_union         (@);
 sub create_parameterized_type_constraint ($);
+sub create_class_type_constraint         ($);
 
 # dah sugah!
 sub type        ($$;$$);
 sub subtype     ($$;$$$);
+sub class_type  ($);
 sub coerce      ($@);
 sub as          ($);
 sub from        ($);
@@ -45,15 +48,18 @@ sub _install_type_coercions ($$);
 use Moose::Meta::TypeConstraint;
 use Moose::Meta::TypeConstraint::Union;
 use Moose::Meta::TypeConstraint::Parameterized;
+use Moose::Meta::TypeConstraint::Parameterizable;
 use Moose::Meta::TypeCoercion;
 use Moose::Meta::TypeCoercion::Union;
 use Moose::Meta::TypeConstraint::Registry;
+use Moose::Util::TypeConstraints::OptimizedConstraints;
 
 my @exports = qw/
-    type subtype as where message optimize_as
+    type subtype class_type as where message optimize_as
     coerce from via
     enum
     find_type_constraint
+    register_type_constraint
 /;
 
 Sub::Exporter::setup_exporter({
@@ -93,8 +99,8 @@ sub export_type_constraints_as_functions {
     my $pkg = caller();
     no strict 'refs';
     foreach my $constraint (keys %{$REGISTRY->type_constraints}) {
-        *{"${pkg}::${constraint}"} = $REGISTRY->get_type_constraint($constraint)
-                                              ->_compiled_type_constraint;
+        my $tc = $REGISTRY->get_type_constraint($constraint)->_compiled_type_constraint;
+        *{"${pkg}::${constraint}"} = sub { $tc->($_[0]) ? 1 : undef };
     }
 }
 
@@ -147,6 +153,16 @@ sub create_parameterized_type_constraint ($) {
     );
 }
 
+sub create_class_type_constraint ($) {
+    my $class = shift;
+
+    # too early for this check
+    #find_type_constraint("ClassName")->check($class)
+    #    || confess "Can't create a class type constraint because '$class' is not a class name";
+
+    Moose::Meta::TypeConstraint::Class->new( name => $class );
+}
+
 sub find_or_create_type_constraint ($;$) {
     my ($type_constraint_name, $options_for_anon_type) = @_;
 
@@ -191,6 +207,12 @@ sub find_or_create_type_constraint ($;$) {
 
 sub find_type_constraint ($) { $REGISTRY->get_type_constraint(@_) }
 
+sub register_type_constraint ($) {
+    my $constraint = shift;
+    confess "can't register an unnamed type constraint" unless defined $constraint->name;
+    $REGISTRY->add_type_constraint($constraint);
+}
+
 # type constructors
 
 sub type ($$;$$) {
@@ -210,6 +232,10 @@ sub subtype ($$;$$$) {
     # - SL
     unshift @_ => undef if scalar @_ <= 2 && (reftype($_[1]) || '') eq 'CODE';
     goto &_create_type_constraint;
+}
+
+sub class_type ($) {
+    register_type_constraint( create_class_type_constraint(shift) );
 }
 
 sub coerce ($@) {
@@ -385,54 +411,52 @@ subtype 'Bool'
 subtype 'Value'
     => as 'Defined'
     => where { !ref($_) }
-    => optimize_as { defined($_[0]) && !ref($_[0]) };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Value;
 
 subtype 'Ref'
     => as 'Defined'
     => where {  ref($_) }
-    => optimize_as { ref($_[0]) };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Ref;
 
 subtype 'Str'
     => as 'Value'
     => where { 1 }
-    => optimize_as { defined($_[0]) && !ref($_[0]) };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Str;
 
 subtype 'Num'
     => as 'Value'
     => where { Scalar::Util::looks_like_number($_) }
-    => optimize_as { !ref($_[0]) && Scalar::Util::looks_like_number($_[0]) };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Num;
 
 subtype 'Int'
     => as 'Num'
     => where { "$_" =~ /^-?[0-9]+$/ }
-    => optimize_as { defined($_[0]) && !ref($_[0]) && $_[0] =~ /^-?[0-9]+$/ };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Int;
 
-subtype 'ScalarRef' => as 'Ref' => where { ref($_) eq 'SCALAR' } => optimize_as { ref($_[0]) eq 'SCALAR' };
-subtype 'ArrayRef'  => as 'Ref' => where { ref($_) eq 'ARRAY'  } => optimize_as { ref($_[0]) eq 'ARRAY'  };
-subtype 'HashRef'   => as 'Ref' => where { ref($_) eq 'HASH'   } => optimize_as { ref($_[0]) eq 'HASH'   };
-subtype 'CodeRef'   => as 'Ref' => where { ref($_) eq 'CODE'   } => optimize_as { ref($_[0]) eq 'CODE'   };
-subtype 'RegexpRef' => as 'Ref' => where { ref($_) eq 'Regexp' } => optimize_as { ref($_[0]) eq 'Regexp' };
-subtype 'GlobRef'   => as 'Ref' => where { ref($_) eq 'GLOB'   } => optimize_as { ref($_[0]) eq 'GLOB'   };
+subtype 'ScalarRef' => as 'Ref' => where { ref($_) eq 'SCALAR' } => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::ScalarRef;
+subtype 'CodeRef'   => as 'Ref' => where { ref($_) eq 'CODE'   } => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::CodeRef;
+subtype 'RegexpRef' => as 'Ref' => where { ref($_) eq 'Regexp' } => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::RegexpRef;
+subtype 'GlobRef'   => as 'Ref' => where { ref($_) eq 'GLOB'   } => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::GlobRef;
 
 # NOTE:
 # scalar filehandles are GLOB refs,
 # but a GLOB ref is not always a filehandle
 subtype 'FileHandle'
     => as 'GlobRef'
-    => where { Scalar::Util::openhandle($_) }
-    => optimize_as { ref($_[0]) eq 'GLOB' && Scalar::Util::openhandle($_[0]) };
+    => where { Scalar::Util::openhandle($_) || ( blessed($_) && $_->isa("IO::Handle") ) }
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::FileHandle;
 
 # NOTE:
 # blessed(qr/.../) returns true,.. how odd
 subtype 'Object'
     => as 'Ref'
     => where { blessed($_) && blessed($_) ne 'Regexp' }
-    => optimize_as { blessed($_[0]) && blessed($_[0]) ne 'Regexp' };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Object;
 
 subtype 'Role'
     => as 'Object'
     => where { $_->can('does') }
-    => optimize_as { blessed($_[0]) && $_[0]->can('does') };
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Role;
 
 my $_class_name_checker = sub {
     return if ref($_[0]);
@@ -467,6 +491,73 @@ subtype 'ClassName'
     => as 'Str'
     => $_class_name_checker # where ...
     => { optimize => $_class_name_checker };
+
+## --------------------------------------------------------
+# parameterizable types ...
+
+$REGISTRY->add_type_constraint(
+    Moose::Meta::TypeConstraint::Parameterizable->new(
+        name                 => 'ArrayRef',
+        package_defined_in   => __PACKAGE__,
+        parent               => find_type_constraint('Ref'),
+        constraint           => sub { ref($_) eq 'ARRAY'  },
+        optimized            => \&Moose::Util::TypeConstraints::OptimizedConstraints::ArrayRef,
+        constraint_generator => sub {
+            my $type_parameter = shift;
+            return sub {
+                foreach my $x (@$_) {
+                    ($type_parameter->check($x)) || return
+                } 1;
+            }
+        }
+    )
+);
+
+$REGISTRY->add_type_constraint(
+    Moose::Meta::TypeConstraint::Parameterizable->new(
+        name                 => 'HashRef',
+        package_defined_in   => __PACKAGE__,
+        parent               => find_type_constraint('Ref'),
+        constraint           => sub { ref($_) eq 'HASH'  },
+        optimized            => \&Moose::Util::TypeConstraints::OptimizedConstraints::HashRef,
+        constraint_generator => sub {
+            my $type_parameter = shift;            
+            return sub {
+                foreach my $x (values %$_) {
+                    ($type_parameter->check($x)) || return
+                } 1;
+            }
+        }
+    )
+);
+
+$REGISTRY->add_type_constraint(
+    Moose::Meta::TypeConstraint::Parameterizable->new(
+        name                 => 'Maybe',
+        package_defined_in   => __PACKAGE__,
+        parent               => find_type_constraint('Item'),
+        constraint           => sub { 1 },
+        constraint_generator => sub {
+            my $type_parameter = shift;            
+            return sub {
+                return 1 if not(defined($_)) || $type_parameter->check($_);
+                return;
+            }
+        }
+    )
+);
+
+my @PARAMETERIZABLE_TYPES = map { 
+    $REGISTRY->get_type_constraint($_) 
+} qw[ArrayRef HashRef Maybe];
+
+sub get_all_parameterizable_types { @PARAMETERIZABLE_TYPES }
+sub add_parameterizable_type { 
+    my $type = shift;
+    (blessed $type && $type->isa('Moose::Meta::TypeConstraint::Parameterizable'))
+        || confess "Type must be a Moose::Meta::TypeConstraint::Parameterizable not $type";
+    push @PARAMETERIZABLE_TYPES => $type;
+}    
 
 ## --------------------------------------------------------
 # end of built-in types ...
@@ -554,6 +645,7 @@ could probably use some work, but it works for me at the moment.
   Any
   Item
       Bool
+      Maybe[`a]
       Undef
       Defined
           Value
@@ -563,8 +655,8 @@ could probably use some work, but it works for me at the moment.
                 ClassName
           Ref
               ScalarRef
-              ArrayRef
-              HashRef
+              ArrayRef[`a]
+              HashRef[`a]
               CodeRef
               RegexpRef
               GlobRef
@@ -574,14 +666,21 @@ could probably use some work, but it works for me at the moment.
 
 Suggestions for improvement are welcome.
 
-B<NOTE:> The C<Undef> type constraint does not work correctly
-in every occasion, please use it sparringly.
+B<NOTE:> Any type followed by a type parameter C<[`a]> can be 
+parameterized, this means you can say:
 
-B<NOTE:> The C<ClassName> type constraint is simply a subtype
-of string which responds true to C<isa('UNIVERSAL')>. This means
-that your class B<must> be loaded for this type constraint to
-pass. I know this is not ideal for all, but it is a saner
-restriction than most others.
+  ArrayRef[Int]    # an array of intergers
+  HashRef[CodeRef] # a hash of str to CODE ref mappings
+  Maybe[Str]       # value may be a string, may be undefined
+
+B<NOTE:> The C<Undef> type constraint for the most part works 
+correctly now, but edge cases may still exist, please use it 
+sparringly.
+
+B<NOTE:> The C<ClassName> type constraint does a complex package
+existence check. This means that your class B<must> be loaded for 
+this type constraint to pass. I know this is not ideal for all, 
+but it is a saner restriction than most others.
 
 =head2 Use with Other Constraint Modules
 
@@ -635,7 +734,12 @@ Given a C<$type_name> in the form of:
   BaseType[ContainerType]
 
 this will extract the base type and container type and build an instance of
-L<Moose::Meta::TypeConstraint::Parameterized> for it.
+L<Moose::Meta::TypeConstraint::Parameterized> for it. 
+
+=item B<create_class_type_constraint ($class)>
+
+Given a class name it will create a new L<Moose::Meta::TypeConstraint::Class>
+object for that class name.
 
 =item B<find_or_create_type_constraint ($type_name, ?$options_for_anon_type)>
 
@@ -652,6 +756,10 @@ return.
 This function can be used to locate a specific type constraint
 meta-object, of the class L<Moose::Meta::TypeConstraint> or a
 derivative. What you do with it from there is up to you :)
+
+=item B<register_type_constraint ($type_object)>
+
+This function will register a named type constraint with the type registry.
 
 =item B<get_type_constraint_registry>
 
@@ -675,6 +783,14 @@ labeled L<Default Type Constraints> for a complete list.
 This will export all the current type constraints as functions
 into the caller's namespace. Right now, this is mostly used for
 testing, but it might prove useful to others.
+
+=item B<get_all_parameterizable_types>
+
+This returns all the parameterizable types that have been registered.
+
+=item B<add_parameterizable_type ($type)>
+
+Adds C<$type> to the list of parameterizable types
 
 =back
 
@@ -701,6 +817,11 @@ This creates a named subtype.
 This creates an unnamed subtype and will return the type
 constraint meta-object, which will be an instance of
 L<Moose::Meta::TypeConstraint>.
+
+=item B<class_type ($class)>
+
+Creates a type constraint with the name C<$class> and the metaclass
+L<Moose::Meta::TypeConstraint::Class>.
 
 =item B<enum ($name, @values)>
 
@@ -783,7 +904,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

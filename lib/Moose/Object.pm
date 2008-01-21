@@ -4,12 +4,12 @@ package Moose::Object;
 use strict;
 use warnings;
 
-use Moose::Meta::Class;
-use metaclass 'Moose::Meta::Class';
+use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
+use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
 use Carp 'confess';
 
-our $VERSION   = '0.09';
+our $VERSION   = '0.10';
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
@@ -25,31 +25,31 @@ sub new {
     else {
         %params = @_;
     }
-	my $self = $class->meta->new_object(%params);
-	$self->BUILDALL(\%params);
-	return $self;
+    my $self = $class->meta->new_object(%params);
+    $self->BUILDALL(\%params);
+    return $self;
 }
 
 sub BUILDALL {
     # NOTE: we ask Perl if we even 
     # need to do this first, to avoid
     # extra meta level calls
-	return unless $_[0]->can('BUILD');    
-	my ($self, $params) = @_;
-	foreach my $method (reverse $self->meta->find_all_methods_by_name('BUILD')) {
-		$method->{code}->($self, $params);
-	}
+    return unless $_[0]->can('BUILD');    
+    my ($self, $params) = @_;
+    foreach my $method (reverse $self->meta->find_all_methods_by_name('BUILD')) {
+        $method->{code}->($self, $params);
+    }
 }
 
 sub DEMOLISHALL {
     # NOTE: we ask Perl if we even 
     # need to do this first, to avoid
     # extra meta level calls    
-	return unless $_[0]->can('DEMOLISH');    
-	my $self = shift;	
-	foreach my $method ($self->meta->find_all_methods_by_name('DEMOLISH')) {
-		$method->{code}->($self);
-	}	
+    return unless $_[0]->can('DEMOLISH');    
+    my $self = shift;    
+    foreach my $method ($self->meta->find_all_methods_by_name('DEMOLISH')) {
+        $method->{code}->($self);
+    }    
 }
 
 sub DESTROY { goto &DEMOLISHALL }
@@ -154,7 +154,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

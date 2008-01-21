@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.33';
+our $VERSION   = '0.34';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
@@ -13,10 +13,11 @@ use Sub::Name    'subname';
 
 use Sub::Exporter;
 
-use Class::MOP 0.49;
+use Class::MOP 0.51;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
+use Moose::Meta::TypeConstraint::Class;
 use Moose::Meta::TypeCoercion;
 use Moose::Meta::Attribute;
 use Moose::Meta::Instance;
@@ -25,6 +26,7 @@ use Moose::Meta::Role;
 
 use Moose::Object;
 use Moose::Util::TypeConstraints;
+use Moose::Util ();
 
 {
     my $CALLER;
@@ -39,9 +41,8 @@ use Moose::Util::TypeConstraints;
             unless $metaclass->isa('Moose::Meta::Class');
 
         # make a subtype for each Moose class
-        subtype $class => as 'Object' => where { $_->isa($class) } =>
-            optimize_as { blessed( $_[0] ) && $_[0]->isa($class) }
-        unless find_type_constraint($class);
+        class_type($class)
+            unless find_type_constraint($class);
 
         my $meta;
         if ( $class->can('meta') ) {
@@ -63,7 +64,6 @@ use Moose::Util::TypeConstraints;
             $meta = $metaclass->initialize($class);
             $meta->add_method(
                 'meta' => sub {
-
                     # re-initialize so it inherits properly
                     $metaclass->initialize( blessed( $_[0] ) || $_[0] );
                 }
@@ -92,10 +92,7 @@ use Moose::Util::TypeConstraints;
         with => sub {
             my $class = $CALLER;
             return subname 'Moose::with' => sub (@) {
-                my (@roles) = @_;
-                confess "Must specify at least one role" unless @roles;
-                Class::MOP::load_class($_) for @roles;
-                $class->meta->_apply_all_roles(@roles);
+                Moose::Util::apply_all_roles($class->meta, @_)
             };
         },
         has => sub {
@@ -103,7 +100,7 @@ use Moose::Util::TypeConstraints;
             return subname 'Moose::has' => sub ($;%) {
                 my ( $name, %options ) = @_;
                 my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
-                $class->meta->_process_attribute( $_, %options ) for @$attrs;
+                $class->meta->add_attribute( $_, %options ) for @$attrs;
             };
         },
         before => sub {
@@ -259,7 +256,7 @@ __END__
 
 =head1 NAME
 
-Moose - A complete modern object system for Perl 5
+Moose - A postmodern object system for Perl 5
 
 =head1 SYNOPSIS
 
@@ -315,7 +312,7 @@ Yes, I believe that it is.
 
 Moose has been used successfully in production environemnts by several people
 and companies (including the one I work for). There are Moose applications
-which have been in production with little or no issue now for over a year.
+which have been in production with little or no issue now for well over a year.
 I consider it highly stable and we are commited to keeping it stable.
 
 Of course, in the end, you need to make this call yourself. If you have
@@ -328,6 +325,19 @@ No. While Moose is very much inspired by Perl 6, it is not itself Perl 6.
 Instead, it is an OO system for Perl 5. I built Moose because I was tired of
 writing the same old boring Perl 5 OO code, and drooling over Perl 6 OO. So
 instead of switching to Ruby, I wrote Moose :)
+
+=head2 Wait, I<post> modern, I thought it was just I<modern>?
+
+So I was reading Larry Wall's talk from the 1999 Linux World entitled 
+"Perl, the first postmodern computer language" in which he talks about how 
+he picked the features for Perl because he thought they were cool and he 
+threw out the ones that he thought sucked. This got me thinking about how 
+we have done the same thing in Moose. For Moose, we have "borrowed" features 
+from Perl 6, CLOS (LISP), Smalltalk, Java, BETA, OCaml, Ruby and more, and 
+the bits we didn't like (cause they sucked) we tossed aside. So for this 
+reason (and a few others) I have re-dubbed Moose a I<postmodern> object system.
+
+Nuff Said. 
 
 =head2 Moose Extensions
 
@@ -449,9 +459,9 @@ try and write a recipe on them soon.
 The default behavior here is to just load C<$metaclass_name>; however, we also
 have a way to alias to a shorter name. This will first look to see if
 B<Moose::Meta::Attribute::Custom::$metaclass_name> exists. If it does, Moose
-will then check to see if that has the method C<register_implemenetation>, which
+will then check to see if that has the method C<register_implementation>, which
 should return the actual name of the custom attribute metaclass. If there is no
-C<register_implemenetation> method, it will fall back to using
+C<register_implementation> method, it will fall back to using
 B<Moose::Meta::Attribute::Custom::$metaclass_name> as the metaclass name.
 
 =item I<trigger =E<gt> $code>
@@ -529,7 +539,7 @@ quick example (soon to be expanded into a Moose::Cookbook::Recipe):
   has 'parent' => (
       is          => 'rw',
       isa         => 'Tree',
-      is_weak_ref => 1,
+      weak_ref => 1,
       handles     => {
           parent_node => 'node',
           siblings    => 'children',
@@ -878,7 +888,7 @@ Shawn (sartak) Moore
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

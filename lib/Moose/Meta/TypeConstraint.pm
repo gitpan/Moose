@@ -12,7 +12,7 @@ use Sub::Name    'subname';
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.10';
+our $VERSION   = '0.11';
 our $AUTHORITY = 'cpan:STEVAN';
 
 __PACKAGE__->meta->add_attribute('name'       => (reader => 'name'));
@@ -58,7 +58,7 @@ sub new {
 }
 
 sub coerce   { ((shift)->coercion || confess "Cannot coerce without a type coercion")->coerce(@_) }
-sub check    { $_[0]->_compiled_type_constraint->($_[1]) }
+sub check    { $_[0]->_compiled_type_constraint->($_[1]) ? 1 : undef }
 sub validate {
     my ($self, $value) = @_;
     if ($self->_compiled_type_constraint->($value)) {
@@ -124,11 +124,9 @@ sub _compile_hand_optimized_type_constraint {
 
     my $type_constraint = $self->hand_optimized_type_constraint;
 
-    return sub {
-        confess unless ref $type_constraint;
-        return undef unless $type_constraint->($_[0]);
-        return 1;
-    };
+    confess unless ref $type_constraint;
+
+    return $type_constraint;
 }
 
 sub _compile_subtype {
@@ -284,7 +282,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006, 2007 by Infinity Interactive, Inc.
+Copyright 2006-2008 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
