@@ -9,7 +9,7 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION   = '0.18';
+our $VERSION   = '0.19';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
@@ -158,7 +158,11 @@ sub get_method_map {
 
 sub add_attribute {
     my $self = shift;
-    $self->SUPER::add_attribute($self->_process_attribute(@_));
+    $self->SUPER::add_attribute(
+        (blessed $_[0] && $_[0]->isa('Class::MOP::Attribute')
+            ? $_[0] 
+            : $self->_process_attribute(@_))    
+    );
 }
 
 sub add_override_method_modifier {
