@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.36';
+our $VERSION   = '0.37';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
@@ -33,8 +33,8 @@ use Moose::Util ();
 
     sub init_meta {
         my ( $class, $base_class, $metaclass ) = @_;
-        $base_class = $class unless defined $base_class;
-        $metaclass = 'Moose::Meta::Class' unless defined $metaclass;
+        $base_class = 'Moose::Object'      unless defined $base_class;
+        $metaclass  = 'Moose::Meta::Class' unless defined $metaclass;
 
         confess
             "The Metaclass $metaclass must be a subclass of Moose::Meta::Class."
@@ -73,6 +73,8 @@ use Moose::Util ();
         # make sure they inherit from Moose::Object
         $meta->superclasses($base_class)
           unless $meta->superclasses();
+         
+        return $meta;
     }
 
     my %exports = (
@@ -98,7 +100,9 @@ use Moose::Util ();
         has => sub {
             my $class = $CALLER;
             return subname 'Moose::has' => sub ($;%) {
-                my ( $name, %options ) = @_;
+                my $name    = shift;
+                die 'Usage: has \'name\' => ( key => value, ... )' if @_ == 1;
+                my %options = @_;
                 my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
                 $class->meta->add_attribute( $_, %options ) for @$attrs;
             };
@@ -157,6 +161,12 @@ use Moose::Util ();
                 $class->meta->add_augment_method_modifier( $name => $method );
             };
         },
+        make_immutable => sub {
+            my $class = $CALLER;
+            return subname 'Moose::make_immutable' => sub {
+                $class->meta->make_immutable(@_)
+            };            
+        },        
         confess => sub {
             return \&Carp::confess;
         },
@@ -185,6 +195,11 @@ use Moose::Util ();
 
     sub import {
         $CALLER = _get_caller(@_);
+
+        # this works because both pragmas set $^H (see perldoc perlvar)
+        # which affects the current compilation - i.e. the file who use'd
+        # us - which is why we don't need to do anything special to make
+        # it affect that file rather than this one (which is already compiled)
 
         strict->import;
         warnings->import;

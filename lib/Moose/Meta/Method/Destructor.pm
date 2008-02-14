@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -63,7 +63,7 @@ sub intialize_body {
         push @DEMOLISH_calls => '$_[0]->' . $method->{class} . '::DEMOLISH()';    
     }
     
-    $source .= join "\n" => @DEMOLISH_calls;
+    $source .= join ";\n" => @DEMOLISH_calls;
 
     $source .= ";\n" . '}'; 
     warn $source if $self->options->{debug};    

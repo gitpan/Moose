@@ -9,7 +9,7 @@ use Carp         'confess';
 use Sub::Name    'subname';
 use overload     ();
 
-our $VERSION   = '0.19';
+our $VERSION   = '0.20';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -195,8 +195,12 @@ sub _process_options {
     }
 
     if (exists $options->{lazy} && $options->{lazy}) {
-        (exists $options->{default} || exists $options->{builder} )
+        (exists $options->{default} || defined $options->{builder} )
             || confess "You cannot have lazy attribute without specifying a default value for it";
+    }
+
+    if ( $options->{required} && !( ( !exists $options->{init_arg} || defined $options->{init_arg} ) || exists $options->{default} || defined $options->{builder} ) ) {
+        confess "You cannot have a required attribute without a default, builder, or an init_arg";
     }
 
 }
@@ -208,7 +212,7 @@ sub initialize_instance_slot {
 
     my $val;
     my $value_is_set;
-    if (exists $params->{$init_arg}) {
+    if ( defined($init_arg) and exists $params->{$init_arg}) {
         $val = $params->{$init_arg};
         $value_is_set = 1;    
     }
@@ -243,19 +247,14 @@ sub initialize_instance_slot {
         if ($self->should_coerce && $type_constraint->has_coercion) {
             $val = $type_constraint->coerce($val);
         }
-        (defined($type_constraint->check($val)))
-            || confess "Attribute (" .
-                       $self->name .
-                       ") does not pass the type constraint (" .
-                       $type_constraint->name .
-                       ") with '" .
-                       (defined $val
-                           ? overload::StrVal($val)
-                           : 'undef') .
-                       "'";
+        $type_constraint->check($val)
+            || confess "Attribute (" 
+                     . $self->name 
+                     . ") does not pass the type constraint because: " 
+                     . $type_constraint->get_message($val);
     }
 
-    $meta_instance->set_slot_value($instance, $self->name, $val);
+    $self->set_initial_value($instance, $val);
     $meta_instance->weaken_slot_value($instance, $self->name)
         if ref $val && $self->is_weak_ref;
 }
@@ -278,15 +277,12 @@ sub set_value {
 
         if ($self->should_coerce) {
             $value = $type_constraint->coerce($value);
-        }
+        }        
         $type_constraint->_compiled_type_constraint->($value)
-                || confess "Attribute ($attr_name) does not pass the type constraint ("
-               . $type_constraint->name
-               . ") with "
-               . (defined($value)
-                    ? ("'" . overload::StrVal($value) . "'")
-                    : "undef")
-          if defined($value);
+            || confess "Attribute (" 
+                     . $self->name 
+                     . ") does not pass the type constraint because " 
+                     . $type_constraint->get_message($value);
     }
 
     my $meta_instance = Class::MOP::Class->initialize(blessed($instance))
@@ -310,11 +306,11 @@ sub get_value {
         unless ($self->has_value($instance)) {
             if ($self->has_default) {
                 my $default = $self->default($instance);
-                $self->set_value($instance, $default);
+                $self->set_initial_value($instance, $default);
             }
             if ( $self->has_builder ){
                 if (my $builder = $instance->can($self->builder)){
-                    $self->set_value($instance, $instance->$builder);
+                    $self->set_initial_value($instance, $instance->$builder);
                 } 
                 else {
                     confess(blessed($instance) 
@@ -326,7 +322,7 @@ sub get_value {
                 }
             } 
             else {
-                $self->set_value($instance, undef);
+                $self->set_initial_value($instance, undef);
             }
         }
     }

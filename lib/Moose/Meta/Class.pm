@@ -9,7 +9,7 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION   = '0.19';
+our $VERSION   = '0.20';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
@@ -80,12 +80,11 @@ sub new_object {
     my ($class, %params) = @_;
     my $self = $class->SUPER::new_object(%params);
     foreach my $attr ($class->compute_all_applicable_attributes()) {
-        # FIXME:
-        # this does not accept undefined
-        # values, nor does it accept false
-        # values to be passed into the init-arg
-        next unless $params{$attr->init_arg} && $attr->can('has_trigger') && $attr->has_trigger;
-        $attr->trigger->($self, $params{$attr->init_arg}, $attr);
+        if ( defined( my $init_arg = $attr->init_arg ) ) {
+            if ( exists($params{$init_arg}) && $attr->can('has_trigger') && $attr->has_trigger ) {
+                $attr->trigger->($self, $params{$init_arg}, $attr);
+            }
+        }
     }
     return $self;
 }
