@@ -1,5 +1,66 @@
 Revision history for Perl extension Moose
 
+0.39 Fri. March 14, 2008
+    * Moose
+      - documenting the use of '+name' with attributes 
+        that come from recently composed roles. It makes
+        sense, people are using it, and so why not just 
+        officially support it.
+      - fixing the 'extends' keyword so that it will not 
+        trigger Ovid's bug (http://use.perl.org/~Ovid/journal/35763)
+      
+    * oose
+      - added the perl -Moose=+Class::Name feature to allow 
+        monkeypatching of classes in one liners
+      
+    * Moose::Util
+      - fixing the 'apply_all_roles' keyword so that it will not 
+        trigger Ovid's bug (http://use.perl.org/~Ovid/journal/35763)    
+    
+    * Moose::Meta::Class
+      - added ->create method which now supports roles (thanks to jrockway)
+        - added tests for this
+      - added ->create_anon_class which now supports roles and caching of 
+        the results (thanks to jrockway)
+        - added tests for this
+      - made ->does_role a little more forgiving when it is
+        checking a Class::MOP era metaclasses.
+    
+    * Moose::Meta::Role::Application::ToInstance
+      - it is now possible to pass extra params to be used when 
+        a role is applied to an the instance (rebless_params)
+        - added tests for this
+    
+    * Moose::Util::TypeConstraints
+      - class_type now accepts an optional second argument for a
+        custom message. POD anotated accordingly (groditi)
+        - added tests for this 
+      - it is now possible to make anon-enums by passing 'enum' an 
+        ARRAY ref instead of the $name => @values. Everything else 
+        works as before.
+        - added tests for this
+    
+    * t/
+      - making test for using '+name' on attributes consumed 
+        from a role, it works and makes sense too.    
+
+    * Moose::Meta::Attribute 
+      - fix handles so that it doesn't return nothing 
+        when the method cannot be found, not sure why 
+        it ever did this originally, this means we now
+        have slightly better support for AUTOLOADed 
+        objects
+        - added more delegation tests
+      - adding ->does method to this so as to better 
+        support traits and their introspection.
+        - added tests for this
+    
+    * Moose::Object
+      - localizing the Data::Dumper configurations so 
+        that it does not pollute others (RT #33509)
+      - made ->does a little more forgiving when it is
+        passed Class::MOP era metaclasses.
+
 0.38 Fri. Feb. 15, 2008
     * Moose::Meta::Attribute 
       - fixed initializer to correctly do 

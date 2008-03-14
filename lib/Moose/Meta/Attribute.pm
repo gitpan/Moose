@@ -9,7 +9,7 @@ use Carp         'confess';
 use Sub::Name    'subname';
 use overload     ();
 
-our $VERSION   = '0.21';
+our $VERSION   = '0.22';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -47,6 +47,14 @@ __PACKAGE__->meta->add_attribute('documentation' => (
     predicate => 'has_documentation',
 ));
 
+# NOTE:
+# we need to have a ->does method in here to 
+# more easily support traits, and the introspection 
+# of those traits. So in order to do this we 
+# just alias Moose::Object's version of it.
+# - SL
+*does = \&Moose::Object::does;
+
 sub new {
     my ($class, $name, %options) = @_;
     $class->_process_options($name, \%options);
@@ -71,6 +79,14 @@ sub clone_and_inherit_options {
         $actual_options{handles} = $options{handles};
         delete $options{handles};
     }
+    
+    # handles can only be added, not changed
+    if ($options{builder}) {
+        confess "You can only add the 'builder' option, you cannot change it"
+            if $self->has_builder;
+        $actual_options{builder} = $options{builder};
+        delete $options{builder};
+    }    
 
     # isa can be changed, but only if the
     # new type is a subtype
@@ -437,13 +453,22 @@ sub install_accessors {
                 $associated_class->add_method($handle => subname $name, $method_to_call);
             }
             else {
+                # NOTE:
+                # we used to do a goto here, but the
+                # goto didn't handle failure correctly
+                # (it just returned nothing), so I took 
+                # that out. However, the more I thought
+                # about it, the less I liked it doing 
+                # the goto, and I prefered the act of 
+                # delegation being actually represented
+                # in the stack trace. 
+                # - SL
                 $associated_class->add_method($handle => subname $name, sub {
                     my $proxy = (shift)->$accessor();
-                    @_ = ($proxy, @_);
                     (defined $proxy) 
                         || confess "Cannot delegate $handle to $method_to_call because " . 
                                    "the value of " . $self->name . " is not defined";
-                    goto &{ $proxy->can($method_to_call) || return };
+                    $proxy->$method_to_call(@_);
                 });
             }
         }

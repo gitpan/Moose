@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.38';
+our $VERSION   = '0.39';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
@@ -82,13 +82,17 @@ use Moose::Util ();
             my $class = $CALLER;
             return subname 'Moose::extends' => sub (@) {
                 confess "Must derive at least one class" unless @_;
-                Class::MOP::load_class($_) for @_;
+        
+                my @supers = @_;
+                foreach my $super (@supers) {
+                    Class::MOP::load_class($super);
+                }
 
                 # this checks the metaclass to make sure
                 # it is correct, sometimes it can get out
                 # of sync when the classes are being built
-                my $meta = $class->meta->_fix_metaclass_incompatability(@_);
-                $meta->superclasses(@_);
+                my $meta = $class->meta->_fix_metaclass_incompatability(@supers);
+                $meta->superclasses(@supers);
             };
         },
         with => sub {
@@ -164,7 +168,7 @@ use Moose::Util ();
         make_immutable => sub {
             my $class = $CALLER;
             return subname 'Moose::make_immutable' => sub {
-                $class->meta->make_immutable(@_)
+                $class->meta->make_immutable(@_);
             };            
         },        
         confess => sub {
@@ -601,7 +605,8 @@ a HASH ref) of the methods you want mapped.
 =item B<has +$name =E<gt> %options>
 
 This is variation on the normal attibute creator C<has> which allows you to
-clone and extend an attribute from a superclass. Here is a quick example:
+clone and extend an attribute from a superclass or from a role. Here is an 
+example of the superclass usage:
 
   package Foo;
   use Moose;
@@ -623,8 +628,31 @@ What is happening here is that B<My::Foo> is cloning the C<message> attribute
 from its parent class B<Foo>, retaining the C<is =E<gt> 'rw'> and C<isa =E<gt>
 'Str'> characteristics, but changing the value in C<default>.
 
-This feature is restricted somewhat, so as to try and force at least I<some>
-sanity into it. You are only allowed to change the following attributes:
+Here is another example, but within the context of a role:
+
+  package Foo::Role;
+  use Moose::Role;
+  
+  has 'message' => (
+      is      => 'rw',
+      isa     => 'Str',
+      default => 'Hello, I am a Foo'
+  );
+  
+  package My::Foo;
+  use Moose;
+  
+  with 'Foo::Role';
+  
+  has '+message' => (default => 'Hello I am My::Foo');
+
+In this case, we are basically taking the attribute which the role supplied 
+and altering it within the bounds of this feature. 
+
+Aside from where the attributes come from (one from superclass, the other 
+from a role), this feature works exactly the same. This feature is restricted 
+somewhat, so as to try and force at least I<some> sanity into it. You are only 
+allowed to change the following attributes:
 
 =over 4
 
@@ -656,6 +684,11 @@ subtype of the old type.
 =item I<handles>
 
 You are allowed to B<add> a new C<handles> definition, but you are B<not>
+allowed to I<change> one.
+
+=item I<builder>
+
+You are allowed to B<add> a new C<builder> definition, but you are B<not>
 allowed to I<change> one.
 
 =back
