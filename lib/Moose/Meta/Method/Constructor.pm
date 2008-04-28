@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.08';
+our $VERSION   = '0.09';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -36,7 +36,7 @@ sub new {
     # needed
     weaken($self->{'$!associated_metaclass'});
 
-    $self->intialize_body;
+    $self->initialize_body;
 
     return $self;
 }
@@ -51,7 +51,7 @@ sub associated_metaclass { (shift)->{'$!associated_metaclass'} }
 
 ## method
 
-sub intialize_body {
+sub initialize_body {
     my $self = shift;
     # TODO:
     # the %options should also include a both
@@ -170,7 +170,7 @@ sub _generate_slot_initializer {
                $default = '$instance->' . $builder;
             }
             
-            push @source => '{'; # wrap this to avoid my $val overrite warnings
+            push @source => '{'; # wrap this to avoid my $val overwrite warnings
             push @source => ('my $val = ' . $default . ';');
             push @source => $self->_generate_type_constraint_check(
                 $attr,
@@ -178,7 +178,8 @@ sub _generate_slot_initializer {
                 ('$type_constraints[' . $index . ']'),                
                 '$val'
             ) if ($is_moose && $attr->has_type_constraint);
-            push @source => $self->_generate_slot_assignment($attr, $default, $index);
+            
+            push @source => $self->_generate_slot_assignment($attr, '$val', $index);
             push @source => '}'; # close - wrap this to avoid my $val overrite warnings           
 
         push @source => "}" if defined $attr->init_arg;
@@ -314,7 +315,7 @@ not particularly useful.
 
 =item B<options>
 
-=item B<intialize_body>
+=item B<initialize_body>
 
 =item B<associated_metaclass>
 

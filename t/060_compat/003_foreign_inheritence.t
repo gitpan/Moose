@@ -35,7 +35,7 @@ BEGIN {
 		return $class->meta->new_object('__INSTANCE__' => $super, @_);
 	}
 	
-	make_immutable(debug => 0);
+	__PACKAGE__->meta->make_immutable(debug => 0);
 
     package Bucket;
     use metaclass 'Class::MOP::Class';
@@ -80,12 +80,8 @@ is($foo_moose->moose, 'Foo', '... got the right value from the Foo::Moose method
 lives_ok { 
     Old::Bucket::Nose->meta->make_immutable(debug => 0); 
 } 'Immutability on Moose class extending Class::MOP class ok';
-
-TODO: {
-    local $TODO = 'Needs MRO::Compat support' if $] < 5.009_005;
     
-    lives_ok {
-      SubClass2::extends('MyBase');
-    } 'Can subclass the same non-Moose class twice with different metaclasses';
+lives_ok {
+  SubClass2->meta->superclasses([ 'MyBase' ]);
+} 'Can subclass the same non-Moose class twice with different metaclasses';
 
-}
