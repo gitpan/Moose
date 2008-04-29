@@ -19,10 +19,10 @@ no_index:
     - t
 requires: 
   Carp: 0
-  Class::MOP: 0.53
+  Class::MOP: 0.55
   Filter::Simple: 0
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
   Sub::Name: 0.02
 tests: t/*.t t/*/*.t
-version: 0.41
+version: 0.42
