@@ -9,7 +9,7 @@ use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
 use Carp 'confess';
 
-our $VERSION   = '0.12';
+our $VERSION   = '0.13';
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
@@ -37,25 +37,34 @@ sub BUILDALL {
     return unless $_[0]->can('BUILD');    
     my ($self, $params) = @_;
     foreach my $method (reverse $self->meta->find_all_methods_by_name('BUILD')) {
-        $method->{code}->($self, $params);
+        $method->{code}->body->($self, $params);
     }
 }
 
 sub DEMOLISHALL {
+    my $self = shift;    
+    foreach my $method ($self->meta->find_all_methods_by_name('DEMOLISH')) {
+        $method->{code}->body->($self);
+    }
+}
+
+sub DESTROY { 
     # NOTE: we ask Perl if we even 
     # need to do this first, to avoid
     # extra meta level calls    
-    return unless $_[0]->can('DEMOLISH');    
-    my $self = shift;    
-    {
+    return unless $_[0]->can('DEMOLISH');
+    # if we have an exception here ...
+    if ($@) {
+        # localize the $@ ...
         local $@;
-        foreach my $method ($self->meta->find_all_methods_by_name('DEMOLISH')) {
-            $method->{code}->($self);
-        }
-    }    
+        # run DEMOLISHALL ourselves, ...
+        $_[0]->DEMOLISHALL;
+        # and return ...
+        return;
+    }
+    # otherwise it is normal destruction
+    goto &DEMOLISHALL;
 }
-
-sub DESTROY { goto &DEMOLISHALL }
 
 # new does() methods will be created 
 # as approiate see Moose::Meta::Role

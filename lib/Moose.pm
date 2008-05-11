@@ -4,11 +4,11 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.43';
+our $VERSION   = '0.44';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed', 'reftype';
-use Carp         'confess', 'croak';
+use Carp         'confess', 'croak', 'cluck';
 use Sub::Name    'subname';
 
 use Sub::Exporter;
@@ -174,8 +174,8 @@ use Moose::Util ();
         make_immutable => sub {
             my $class = $CALLER;
             return subname 'Moose::make_immutable' => sub {
-                warn "The make_immutable keyword has been deprecated, " . 
-                     "please go back to __PACKAGE__->meta->make_immutable\n";
+                cluck "The make_immutable keyword has been deprecated, " . 
+                      "please go back to __PACKAGE__->meta->make_immutable\n";
                 $class->meta->make_immutable(@_);
             };            
         },        
@@ -318,7 +318,7 @@ Moose is an extension of the Perl 5 object system.
 =head2 Another object system!?!?
 
 Yes, I know there has been an explosion recently of new ways to
-build object's in Perl 5, most of them based on inside-out objects
+build objects in Perl 5, most of them based on inside-out objects
 and other such things. Moose is different because it is not a new
 object system for Perl 5, but instead an extension of the existing
 object system.
