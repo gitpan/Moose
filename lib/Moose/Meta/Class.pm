@@ -4,12 +4,12 @@ package Moose::Meta::Class;
 use strict;
 use warnings;
 
-use Class::MOP;
+use Class::MOP 0.56;
 
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed', 'reftype';
 
-our $VERSION   = '0.21';
+our $VERSION   = '0.22';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
@@ -201,12 +201,26 @@ sub get_method_map {
             #next unless $self->does_role($role);
         }
         else {
-            next if ($pkg  || '') ne $class_name &&
-                    ($name || '') ne '__ANON__';
+            
+            # NOTE:
+            # in 5.10 constant.pm the constants show up 
+            # as being in the right package, but in pre-5.10
+            # they show up as constant::__ANON__ so we 
+            # make an exception here to be sure that things
+            # work as expected in both.
+            # - SL
+            unless ($pkg eq 'constant' && $name eq '__ANON__') {
+                next if ($pkg  || '') ne $class_name ||
+                        (($name || '') ne '__ANON__' && ($pkg  || '') ne $class_name);
+            }
 
         }
 
-        $map->{$symbol} = $method_metaclass->wrap($code);
+        $map->{$symbol} = $method_metaclass->wrap(
+            $code,
+            package_name => $class_name,
+            name         => $symbol
+        );
     }
 
     return $map;
@@ -359,7 +373,6 @@ sub create_immutable_transformer {
            remove_method
            add_attribute
            remove_attribute
-           add_package_symbol
            remove_package_symbol
            add_role
        /],
@@ -370,7 +383,19 @@ sub create_immutable_transformer {
            get_method_map                    => 'SCALAR',
            # maybe ....
            calculate_all_roles               => 'ARRAY',
-       }
+       },
+       # NOTE:
+       # this is ugly, but so are typeglobs, 
+       # so whattayahgonnadoboutit
+       # - SL
+       wrapped => { 
+           add_package_symbol => sub {
+               my $original = shift;
+               confess "Cannot add package symbols to an immutable metaclass" 
+                   unless (caller(2))[3] eq 'Class::MOP::Package::get_package_symbol'; 
+               goto $original->body;
+           },
+       },       
     });
     return $class;
 }

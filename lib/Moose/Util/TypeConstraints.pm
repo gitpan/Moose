@@ -8,7 +8,7 @@ use Carp         'confess';
 use Scalar::Util 'blessed', 'reftype';
 use Sub::Exporter;
 
-our $VERSION   = '0.22';
+our $VERSION   = '0.23';
 our $AUTHORITY = 'cpan:STEVAN';
 
 ## --------------------------------------------------------
@@ -383,9 +383,15 @@ sub _create_type_constraint ($$$;$$) {
                  if defined $type;
     }
 
-    $parent = find_or_parse_type_constraint($parent) if defined $parent;
+    my $class = "Moose::Meta::TypeConstraint";
 
-    my $constraint = Moose::Meta::TypeConstraint->new(
+    # FIXME should probably not be a special case
+    if ( defined $parent and $parent = find_or_parse_type_constraint($parent) ) {
+        $class = "Moose::Meta::TypeConstraint::Parameterizable" 
+            if $parent->isa("Moose::Meta::TypeConstraint::Parameterizable");
+    }
+
+    my $constraint = $class->new(
         name               => $name || '__ANON__',
         package_defined_in => $pkg_defined_in,
 

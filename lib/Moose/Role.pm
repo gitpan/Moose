@@ -5,13 +5,12 @@ use strict;
 use warnings;
 
 use Scalar::Util 'blessed';
-use Carp         'confess';
-use Sub::Name    'subname';
+use Carp         'confess', 'croak';
 
 use Data::OptList;
 use Sub::Exporter;
 
-our $VERSION   = '0.08';
+our $VERSION   = '0.09';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose       ();
@@ -49,83 +48,103 @@ use Moose::Util::TypeConstraints;
     my %exports = (
         extends => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::extends' => sub {
-                confess "Moose::Role does not currently support 'extends'"
-            };
+            return Class::MOP::subname('Moose::Role::extends' => sub {
+                croak "Moose::Role does not currently support 'extends'"
+            });
         },
         with => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::with' => sub (@) {
+            return Class::MOP::subname('Moose::Role::with' => sub (@) {
                 Moose::Util::apply_all_roles($meta, @_)
-            };
+            });
         },
         requires => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::requires' => sub (@) {
-                confess "Must specify at least one method" unless @_;
+            return Class::MOP::subname('Moose::Role::requires' => sub (@) {
+                croak "Must specify at least one method" unless @_;
                 $meta->add_required_methods(@_);
-            };
+            });
         },
         excludes => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::excludes' => sub (@) {
-                confess "Must specify at least one role" unless @_;
+            return Class::MOP::subname('Moose::Role::excludes' => sub (@) {
+                croak "Must specify at least one role" unless @_;
                 $meta->add_excluded_roles(@_);
-            };
+            });
         },
         has => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::has' => sub ($;%) {
-                my ($name, %options) = @_;
-                $meta->add_attribute($name, %options)
-            };
+            return Class::MOP::subname('Moose::Role::has' => sub ($;%) {
+                my $name = shift;
+                croak 'Usage: has \'name\' => ( key => value, ... )' if @_ == 1;
+                my %options = @_;
+                my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
+                $meta->add_attribute( $_, %options ) for @$attrs;
+            });
         },
         before => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::before' => sub (@&) {
+            return Class::MOP::subname('Moose::Role::before' => sub (@&) {
                 my $code = pop @_;
-                $meta->add_before_method_modifier($_, $code) for @_;
-            };
+                do {
+                    croak "Moose::Role do not currently support " 
+                          . ref($_) 
+                          . " references for before method modifiers" 
+                    if ref $_;
+                    $meta->add_before_method_modifier($_, $code) 
+                } for @_;
+            });
         },
         after => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::after' => sub (@&) {
+            return Class::MOP::subname('Moose::Role::after' => sub (@&) {
                 my $code = pop @_;
-                $meta->add_after_method_modifier($_, $code) for @_;
-            };
+                do {
+                    croak "Moose::Role do not currently support " 
+                          . ref($_) 
+                          . " references for after method modifiers" 
+                    if ref $_;                
+                    $meta->add_after_method_modifier($_, $code) 
+                } for @_;
+            });
         },
         around => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::around' => sub (@&) {
+            return Class::MOP::subname('Moose::Role::around' => sub (@&) {
                 my $code = pop @_;
-                $meta->add_around_method_modifier($_, $code) for @_;
-            };
+                do {
+                    croak "Moose::Role do not currently support " 
+                          . ref($_) 
+                          . " references for around method modifiers" 
+                    if ref $_;                
+                    $meta->add_around_method_modifier($_, $code) 
+                } for @_;  
+            });
         },
         # see Moose.pm for discussion
         super => sub {
-            return subname 'Moose::Role::super' => sub { return unless $Moose::SUPER_BODY; $Moose::SUPER_BODY->(@Moose::SUPER_ARGS) }
+            return Class::MOP::subname('Moose::Role::super' => sub { 
+                return unless $Moose::SUPER_BODY; $Moose::SUPER_BODY->(@Moose::SUPER_ARGS) 
+            });
         },
-        #next => sub {
-        #    return subname 'Moose::Role::next' => sub { @_ = @Moose::SUPER_ARGS; goto \&next::method };
-        #},
         override => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::override' => sub ($&) {
+            return Class::MOP::subname('Moose::Role::override' => sub ($&) {
                 my ($name, $code) = @_;
                 $meta->add_override_method_modifier($name, $code);
-            };
+            });
         },
         inner => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::inner' => sub {
-                confess "Moose::Role cannot support 'inner'";
-            };
+            return Class::MOP::subname('Moose::Role::inner' => sub {
+                croak "Moose::Role cannot support 'inner'";
+            });
         },
         augment => sub {
             my $meta = _find_meta();
-            return subname 'Moose::Role::augment' => sub {
-                confess "Moose::Role cannot support 'augment'";
-            };
+            return Class::MOP::subname('Moose::Role::augment' => sub {
+                croak "Moose::Role cannot support 'augment'";
+            });
         },
         confess => sub {
             return \&Carp::confess;

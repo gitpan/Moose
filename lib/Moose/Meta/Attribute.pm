@@ -6,10 +6,9 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'reftype';
 use Carp         'confess';
-use Sub::Name    'subname';
 use overload     ();
 
-our $VERSION   = '0.23';
+our $VERSION   = '0.24';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -210,14 +209,9 @@ sub _process_options {
     if (exists $options->{is}) {
         if ($options->{is} eq 'ro') {
             $options->{reader} ||= $name;
-            (!exists $options->{trigger})
-                || confess "Cannot have a trigger on a read-only attribute $name";
         }
         elsif ($options->{is} eq 'rw') {
             $options->{accessor} = $name;
-            ((reftype($options->{trigger}) || '') eq 'CODE')
-                || confess "Trigger must be a CODE ref"
-                    if exists $options->{trigger};
         }
         else {
             confess "I do not understand this option (is => " . $options->{is} . ") on attribute $name"
@@ -258,6 +252,11 @@ sub _process_options {
             || confess "You cannot have coercion without specifying a type constraint on attribute $name";
         confess "You cannot have a weak reference to a coerced value on attribute $name"
             if $options->{weak_ref};
+    }
+
+    if (exists $options->{trigger}) {
+        (reftype($options->{trigger}) || '') eq 'CODE'
+            || confess "Trigger must be a CODE ref";
     }
 
     if (exists $options->{auto_deref} && $options->{auto_deref}) {
@@ -524,7 +523,7 @@ sub install_accessors {
             next if $class_name->isa("Moose::Object") and $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
 
             if ((reftype($method_to_call) || '') eq 'CODE') {
-                $associated_class->add_method($handle => subname $name, $method_to_call);
+                $associated_class->add_method($handle => Class::MOP::subname($name, $method_to_call));
             }
             else {
                 # NOTE:
@@ -537,13 +536,13 @@ sub install_accessors {
                 # delegation being actually represented
                 # in the stack trace. 
                 # - SL
-                $associated_class->add_method($handle => subname $name, sub {
+                $associated_class->add_method($handle => Class::MOP::subname($name, sub {
                     my $proxy = (shift)->$accessor();
                     (defined $proxy) 
                         || confess "Cannot delegate $handle to $method_to_call because " . 
                                    "the value of " . $self->name . " is not defined";
                     $proxy->$method_to_call(@_);
-                });
+                }));
             }
         }
     }

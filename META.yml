@@ -19,10 +19,9 @@ no_index:
     - t
 requires: 
   Carp: 0
-  Class::MOP: 0.55
+  Class::MOP: 0.56
   Filter::Simple: 0
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
-  Sub::Name: 0.02
 tests: t/*.t t/000_recipes/*.t t/010_basics/*.t t/020_attributes/*.t t/030_roles/*.t t/040_type_constraints/*.t t/050_metaclasses/*.t t/060_compat/*.t t/100_bugs/*.t t/200_examples/*.t t/300_immutable/*.t t/400_moose_util/*.t t/500_test_moose/*.t
-version: 0.44
+version: 0.45

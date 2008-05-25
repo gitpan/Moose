@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.09';
+our $VERSION   = '0.10';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -20,9 +20,14 @@ sub new {
     (exists $options{options} && ref $options{options} eq 'HASH')
         || confess "You must pass a hash of options";
 
+    ($options{package_name} && $options{name})
+        || confess "You must supply the package_name and name parameters";
+
     my $self = bless {
         # from our superclass
-        '&!body'          => undef,
+        '&!body'          => undef, 
+        '$!package_name'  => $options{package_name},
+        '$!name'          => $options{name},
         # specific to this subclass
         '%!options'       => $options{options},
         '$!meta_instance' => $options{metaclass}->get_meta_instance,
@@ -51,6 +56,10 @@ sub associated_metaclass { (shift)->{'$!associated_metaclass'} }
 
 ## method
 
+# this was changed in 0.41, but broke MooseX::Singleton, so try to catch
+# any other code using the original broken spelling
+sub intialize_body { confess "Please correct the spelling of 'intialize_body' to 'initialize_body'" }
+
 sub initialize_body {
     my $self = shift;
     # TODO:
@@ -74,6 +83,7 @@ sub initialize_body {
         $self->_generate_slot_initializer($_)
     } 0 .. (@{$self->attributes} - 1));
 
+    $source .= ";\n" . $self->_generate_triggers();    
     $source .= ";\n" . $self->_generate_BUILDALL();
 
     $source .= ";\n" . 'return $instance';
@@ -117,6 +127,32 @@ sub _generate_BUILDALL {
         push @BUILD_calls => '$instance->' . $method->{class} . '::BUILD(\%params)';
     }
     return join ";\n" => @BUILD_calls;
+}
+
+sub _generate_triggers {
+    my $self = shift;
+    my @trigger_calls;
+    foreach my $i (0 .. $#{ $self->attributes }) {
+        my $attr = $self->attributes->[$i];
+        if ($attr->can('has_trigger') && $attr->has_trigger) {
+            if (defined(my $init_arg = $attr->init_arg)) {
+                push @trigger_calls => (
+                    '(exists $params{\'' . $init_arg . '\'}) && do {' . "\n    "
+                    .   '$attrs->[' . $i . ']->trigger->('
+                    .       '$instance, ' 
+                    .        $self->meta_instance->inline_get_slot_value(
+                                 '$instance',
+                                 ("'" . $attr->name . "'")
+                             ) 
+                             . ', '
+                    .        '$attrs->[' . $i . ']'
+                    .   ');'
+                    ."\n}"
+                );
+            } 
+        }
+    }
+    return join ";\n" => @trigger_calls;    
 }
 
 sub _generate_slot_initializer {

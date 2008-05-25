@@ -12,8 +12,7 @@ my $win32 = !! ( $^O eq 'Win32' or $^O eq 'cygwin' );
 # prereqs
 requires 'Scalar::Util' => $win32 ? '1.17' : '1.18';
 requires 'Carp';
-requires 'Class::MOP'    => '0.55';
-requires 'Sub::Name'     => '0.02';
+requires 'Class::MOP'    => '0.56';
 requires 'Sub::Exporter' => '0.972';
 
 # only used by oose.pm, not Moose.pm :P
