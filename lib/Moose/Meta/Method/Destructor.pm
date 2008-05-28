@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.03';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -21,7 +21,7 @@ sub new {
         || confess "You must pass a hash of options";    
         
     ($options{package_name} && $options{name})
-        || confess "You must supply the package_name and name parameters";        
+        || confess "You must supply the package_name and name parameters $Class::MOP::Method::UPGRADE_ERROR_TEXT";        
     
     my $self = bless {
         # from our superclass
@@ -50,7 +50,17 @@ sub associated_metaclass { (shift)->{'$!associated_metaclass'} }
 
 ## method
 
-sub is_needed { defined $_[0]->{'&!body'} ? 1 : 0 }
+sub is_needed { 
+    my $self = shift;
+    # if called as a class method
+    # then must pass in a class name
+    unless (blessed $self) {
+        (blessed $_[0] && $_[0]->isa('Class::MOP::Class')) 
+            || confess "When calling is_needed as a class method you must pass a class name";
+        return $_[0]->meta->can('DEMOLISH');
+    }
+    defined $self->{'&!body'} ? 1 : 0 
+}
 
 sub initialize_body {
     my $self = shift;
@@ -61,10 +71,15 @@ sub initialize_body {
     # of the possible use cases (even if it 
     # requires some adaption on the part of 
     # the author, after all, nothing is free)
+    
+    my @DEMOLISH_methods = $self->associated_metaclass->find_all_methods_by_name('DEMOLISH');
+    
+    return unless @DEMOLISH_methods;
+    
     my $source = 'sub {';
 
     my @DEMOLISH_calls;
-    foreach my $method ($self->associated_metaclass->find_all_methods_by_name('DEMOLISH')) {
+    foreach my $method (@DEMOLISH_methods) {
         push @DEMOLISH_calls => '$_[0]->' . $method->{class} . '::DEMOLISH()';    
     }
     
