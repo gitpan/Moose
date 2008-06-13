@@ -1,5 +1,42 @@
 Revision history for Perl extension Moose
 
+0.49 Thurs. Jun 11, 2008
+    * Moose::Meta::Attribute
+      - fixed how the is => (ro|rw) works with 
+        custom defined reader, writer and accessor
+        options. 
+        - added docs for this (TODO).
+        - added tests for this (Thanks to Penfold)
+      - added the custom attribute alias for regular
+        Moose attributes which is "Moose"
+      - fix builder and default both being used
+        (groditi)
+
+    * Moose
+      Moose::Meta::Class
+      Moose::Meta::Attribute
+      Moose::Meta::Role
+      Moose::Meta::Role::Composite
+      Moose::Util::TypeConstraints
+      - switched usage of reftype to ref because 
+        it is much faster
+        
+    * Moose::Meta::Role
+      - changing add_package_symbol to use the new
+        HASH ref form
+    
+    * Moose::Object
+      - fixed how DEMOLISHALL is called so that it 
+        can be overrided in subclasses (thanks to Sartak)
+        - added test for this (thanks to Sartak)
+
+    * Moose::Util::TypeConstraints
+      - move the ClassName type check code to
+        Class::MOP::is_class_loaded (thanks to Sartak)
+
+    * Moose::Cookbook::Recipe11
+      - add tests for this (thanks to tokuhirom)
+
 0.48 Thurs. May 29, 2008
     (early morning release engineering)--
 
