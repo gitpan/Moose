@@ -10,7 +10,7 @@ use Carp         'confess', 'croak';
 use Data::OptList;
 use Sub::Exporter;
 
-our $VERSION   = '0.50';
+our $VERSION   = '0.51';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose       ();
@@ -49,7 +49,7 @@ use Moose::Util::TypeConstraints;
         extends => sub {
             my $meta = _find_meta();
             return Class::MOP::subname('Moose::Role::extends' => sub {
-                croak "Moose::Role does not currently support 'extends'"
+                croak "Roles do not currently support 'extends'"
             });
         },
         with => sub {
@@ -182,6 +182,26 @@ use Moose::Util::TypeConstraints;
         goto $exporter;
     };
 
+    sub unimport {
+        no strict 'refs';
+        my $class = Moose::_get_caller(@_);
+
+        # loop through the exports ...
+        foreach my $name ( keys %exports ) {
+
+            # if we find one ...
+            if ( defined &{ $class . '::' . $name } ) {
+                my $keyword = \&{ $class . '::' . $name };
+
+                # make sure it is from Moose::Role
+                my ($pkg_name) = Class::MOP::get_code_info($keyword);
+                next if $pkg_name ne 'Moose::Role';
+
+                # and if it is from Moose::Role then undef the slot
+                delete ${ $class . '::' }{$name};
+            }
+        }
+    }
 }
 
 1;
@@ -250,6 +270,12 @@ with these C<@role_names>". This is a feature which should not be used
 lightly.
 
 =back
+
+=head2 B<unimport>
+
+Moose::Role offers a way to remove the keywords it exports, through the
+C<unimport> method. You simply have to say C<no Moose::Role> at the bottom of
+your code for this to work.
 
 =head1 CAVEATS
 

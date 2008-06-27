@@ -1,5 +1,45 @@
 Revision history for Perl extension Moose
 
+0.51 Thurs. Jun 26, 2008
+    * Moose::Role
+      - add unimport so "no Moose::Role" actually does
+        something (sartak)
+
+    * Moose::Meta::Role::Application::ToRole
+      - when RoleA did RoleB, and RoleA aliased a method from RoleB in
+        order to provide its own implementation, that method still got
+        added to the list of required methods for consumers of
+        RoleB. Now an aliased method is only added to the list of
+        required methods if the role doing the aliasing does not
+        provide its own implementation. See Recipe 11 for an example
+        of all this. (Dave Rolsky)
+        - added tests for this
+
+    * Moose::Meta::Method::Constructor
+      - when a single argument that wasn't a hashref was provided to
+        an immutabilized constructor, the error message was very
+        unhelpful, as opposed to the non-immutable error. Reported by
+        dew. (Dave Rolsky)
+        - added test for this (Dave Rolsky)
+
+    * Moose::Meta::Attribute
+      - added support for meta_attr->does("ShortAlias") (sartak)
+        - added tests for this (sartak)
+      - moved the bulk of the `handles` handling to the new
+        install_delegation method (Stevan)
+
+    * Moose::Object
+      - Added BUILDARGS, a new step in new()
+
+    * Moose::Meta::Role::Application::RoleSummation
+      - fix typos no one ever sees (sartak)
+
+    * Moose::Util::TypeConstraints
+    * Moose::Meta::TypeConstraint
+    * Moose::Meta::TypeCoercion
+      - Attempt to work around the ??{ } vs. threads issue
+      - Some null_constraint optimizations
+
 0.50 Thurs. Jun 11, 2008
     - Fixed a version number issue by bumping all modules
       to 0.50.

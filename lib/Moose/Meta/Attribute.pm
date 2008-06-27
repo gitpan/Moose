@@ -8,7 +8,7 @@ use Scalar::Util 'blessed', 'weaken';
 use Carp         'confess';
 use overload     ();
 
-our $VERSION   = '0.50';
+our $VERSION   = '0.51';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -51,13 +51,18 @@ __PACKAGE__->meta->add_attribute('traits' => (
     predicate => 'has_applied_traits',
 ));
 
-# NOTE:
 # we need to have a ->does method in here to 
 # more easily support traits, and the introspection 
-# of those traits. So in order to do this we 
-# just alias Moose::Object's version of it.
-# - SL
-*does = \&Moose::Object::does;
+# of those traits. We extend the does check to look
+# for metatrait aliases.
+sub does {
+    my ($self, $role_name) = @_;
+    my $name = eval {
+        Moose::Util::resolve_metatrait_alias(Attribute => $role_name)
+    };
+    return 0 if !defined($name); # failed to load class
+    return Moose::Object::does($self, $name);
+}
 
 sub new {
     my ($class, $name, %options) = @_;
@@ -208,14 +213,12 @@ sub _process_options {
 
     if (exists $options->{is}) {
 
-=pod
-
-is => ro, writer => _foo    # turns into (reader => foo, writer => _foo) as before
-is => rw, writer => _foo    # turns into (reader => foo, writer => _foo)
-is => rw, accessor => _foo  # turns into (accessor => _foo)
-is => ro, accessor => _foo  # error, accesor is rw
-
-=cut        
+        ### -------------------------
+        ## is => ro, writer => _foo    # turns into (reader => foo, writer => _foo) as before
+        ## is => rw, writer => _foo    # turns into (reader => foo, writer => _foo)
+        ## is => rw, accessor => _foo  # turns into (accessor => _foo)
+        ## is => ro, accessor => _foo  # error, accesor is rw
+        ### -------------------------
         
         if ($options->{is} eq 'ro') {
             confess "Cannot define an accessor name on a read-only attribute, accessors are read/write"
@@ -503,67 +506,68 @@ sub accessor_metaclass { 'Moose::Meta::Method::Accessor' }
 sub install_accessors {
     my $self = shift;
     $self->SUPER::install_accessors(@_);
+    $self->install_delegation if $self->has_handles;
+    return;
+}
 
-    if ($self->has_handles) {
+sub install_delegation {
+    my $self = shift;
+
+    # NOTE:
+    # Here we canonicalize the 'handles' option
+    # this will sort out any details and always
+    # return an hash of methods which we want
+    # to delagate to, see that method for details
+    my %handles = $self->_canonicalize_handles();
+
+    # find the accessor method for this attribute
+    my $accessor = $self->get_read_method_ref;
+    # then unpack it if we need too ...
+    $accessor = $accessor->body if blessed $accessor;
+
+    # install the delegation ...
+    my $associated_class = $self->associated_class;
+    foreach my $handle (keys %handles) {
+        my $method_to_call = $handles{$handle};
+        my $class_name = $associated_class->name;
+        my $name = "${class_name}::${handle}";
+
+        (!$associated_class->has_method($handle))
+            || confess "You cannot overwrite a locally defined method ($handle) with a delegation";
 
         # NOTE:
-        # Here we canonicalize the 'handles' option
-        # this will sort out any details and always
-        # return an hash of methods which we want
-        # to delagate to, see that method for details
-        my %handles = $self->_canonicalize_handles();
+        # handles is not allowed to delegate
+        # any of these methods, as they will
+        # override the ones in your class, which
+        # is almost certainly not what you want.
 
-        # find the accessor method for this attribute
-        my $accessor = $self->get_read_method_ref;
-        # then unpack it if we need too ...
-        $accessor = $accessor->body if blessed $accessor;
+        # FIXME warn when $handle was explicitly specified, but not if the source is a regex or something
+        #cluck("Not delegating method '$handle' because it is a core method") and
+        next if $class_name->isa("Moose::Object") and $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
 
-        # install the delegation ...
-        my $associated_class = $self->associated_class;
-        foreach my $handle (keys %handles) {
-            my $method_to_call = $handles{$handle};
-            my $class_name = $associated_class->name;
-            my $name = "${class_name}::${handle}";
-
-            (!$associated_class->has_method($handle))
-                || confess "You cannot overwrite a locally defined method ($handle) with a delegation";
-
-            # NOTE:
-            # handles is not allowed to delegate
-            # any of these methods, as they will
-            # override the ones in your class, which
-            # is almost certainly not what you want.
-
-            # FIXME warn when $handle was explicitly specified, but not if the source is a regex or something
-            #cluck("Not delegating method '$handle' because it is a core method") and
-            next if $class_name->isa("Moose::Object") and $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
-
-            if ('CODE' eq ref($method_to_call)) {
-                $associated_class->add_method($handle => Class::MOP::subname($name, $method_to_call));
-            }
-            else {
-                # NOTE:
-                # we used to do a goto here, but the
-                # goto didn't handle failure correctly
-                # (it just returned nothing), so I took 
-                # that out. However, the more I thought
-                # about it, the less I liked it doing 
-                # the goto, and I prefered the act of 
-                # delegation being actually represented
-                # in the stack trace. 
-                # - SL
-                $associated_class->add_method($handle => Class::MOP::subname($name, sub {
-                    my $proxy = (shift)->$accessor();
-                    (defined $proxy) 
-                        || confess "Cannot delegate $handle to $method_to_call because " . 
-                                   "the value of " . $self->name . " is not defined";
-                    $proxy->$method_to_call(@_);
-                }));
-            }
+        if ('CODE' eq ref($method_to_call)) {
+            $associated_class->add_method($handle => Class::MOP::subname($name, $method_to_call));
         }
-    }
-
-    return;
+        else {
+            # NOTE:
+            # we used to do a goto here, but the
+            # goto didn't handle failure correctly
+            # (it just returned nothing), so I took 
+            # that out. However, the more I thought
+            # about it, the less I liked it doing 
+            # the goto, and I prefered the act of 
+            # delegation being actually represented
+            # in the stack trace. 
+            # - SL
+            $associated_class->add_method($handle => Class::MOP::subname($name, sub {
+                my $proxy = (shift)->$accessor();
+                (defined $proxy) 
+                    || confess "Cannot delegate $handle to $method_to_call because " . 
+                               "the value of " . $self->name . " is not defined";
+                $proxy->$method_to_call(@_);
+            }));
+        }
+    }    
 }
 
 # private methods to help delegation ...
@@ -687,6 +691,8 @@ will behave just as L<Class::MOP::Attribute> does.
 =item B<initialize_instance_slot>
 
 =item B<install_accessors>
+
+=item B<install_delegation>
 
 =item B<accessor_metaclass>
 

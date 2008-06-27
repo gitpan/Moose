@@ -9,25 +9,32 @@ use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
 use Carp 'confess';
 
-our $VERSION   = '0.50';
+our $VERSION   = '0.51';
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
     my $class = shift;
-    my %params;
+    my $params = $class->BUILDARGS(@_);
+    my $self = $class->meta->new_object(%$params);
+    $self->BUILDALL($params);
+    return $self;
+}
+
+sub BUILDARGS {
+    my $class = shift;
+
     if (scalar @_ == 1) {
         if (defined $_[0]) {
+            no warnings 'uninitialized';
             (ref($_[0]) eq 'HASH')
                 || confess "Single parameters to new() must be a HASH ref";
-            %params = %{$_[0]};
+            return {%{$_[0]}};
+        } else {
+            return {}; # FIXME this is compat behavior, but is it correct?
         }
+    } else {
+        return {@_};
     }
-    else {
-        %params = @_;
-    }
-    my $self = $class->meta->new_object(%params);
-    $self->BUILDALL(\%params);
-    return $self;
 }
 
 sub BUILDALL {
@@ -71,7 +78,7 @@ sub DESTROY {
 sub does {
     my ($self, $role_name) = @_;
     (defined $role_name)
-        || confess "You much supply a role name to does()";
+        || confess "You must supply a role name to does()";
     my $meta = $self->meta;
     foreach my $class ($meta->class_precedence_list) {
         my $m = $meta->initialize($class);
@@ -128,7 +135,12 @@ This will return the metaclass associated with the given class.
 
 =item B<new>
 
-This will create a new instance and call C<BUILDALL>.
+This will call C<BUILDARGS>, create a new instance and call C<BUILDALL>.
+
+=item B<BUILDARGS>
+
+This method processes an argument list into a hash reference. It is used by
+C<new>.
 
 =item B<BUILDALL>
 
