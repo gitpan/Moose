@@ -9,7 +9,7 @@ use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
 use Carp 'confess';
 
-our $VERSION   = '0.51';
+our $VERSION   = '0.52';
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
@@ -22,17 +22,17 @@ sub new {
 
 sub BUILDARGS {
     my $class = shift;
-
     if (scalar @_ == 1) {
         if (defined $_[0]) {
-            no warnings 'uninitialized';
             (ref($_[0]) eq 'HASH')
                 || confess "Single parameters to new() must be a HASH ref";
             return {%{$_[0]}};
-        } else {
+        } 
+        else {
             return {}; # FIXME this is compat behavior, but is it correct?
         }
-    } else {
+    } 
+    else {
         return {@_};
     }
 }
@@ -71,6 +71,17 @@ sub DESTROY {
     }
     # otherwise it is normal destruction
     $_[0]->DEMOLISHALL;
+}
+
+# support for UNIVERSAL::DOES ...
+sub DOES {
+    my ( $self, $class_or_role_name ) = @_;
+    if (my $DOES = __PACKAGE__->meta->find_next_method_by_name('DOES')) {
+        return $DOES->body->($self, $class_or_role_name) 
+            || $self->does($class_or_role_name);
+    }
+    return $self->isa($class_or_role_name) 
+        || $self->does($class_or_role_name);
 }
 
 # new does() methods will be created 
@@ -155,6 +166,12 @@ This will call every C<DEMOLISH> method in the inheritance hierarchy.
 
 This will check if the invocant's class C<does> a given C<$role_name>. 
 This is similar to C<isa> for object, but it checks the roles instead.
+
+=item B<DOES ($class_or_role_name)>
+
+A Moose Role aware implementation of L<UNIVERSAL/DOES>.
+
+C<DOES> is equivalent to C<isa> or C<does>.
 
 =item B<dump ($maxdepth)>
 

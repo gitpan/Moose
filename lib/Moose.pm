@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.51';
+our $VERSION   = '0.52';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed';
@@ -84,7 +84,13 @@ use Moose::Util ();
                 my @supers = @_;
                 foreach my $super (@supers) {
                     Class::MOP::load_class($super);
+                    croak "You cannot inherit from a Moose Role ($super)"
+                        if $super->can('meta')  && 
+                           blessed $super->meta &&
+                           $super->meta->isa('Moose::Meta::Role')
                 }
+
+
 
                 # this checks the metaclass to make sure
                 # it is correct, sometimes it can get out
@@ -973,6 +979,15 @@ All complex software has bugs lurking in it, and this module is no
 exception. If you find a bug please either email me, or add the bug
 to cpan-RT.
 
+=head1 FEATURE REQUESTS
+
+We are very strict about what features we add to the Moose core, especially 
+the user-visible features. Instead we have made sure that the underlying 
+meta-system of Moose is as extensible as possible so that you can add your 
+own features easily. That said, occasionally there is a feature needed in the 
+meta-system to support your planned extension, in which case you should 
+either email the mailing list or join us on irc at #moose to discuss.
+
 =head1 AUTHOR
 
 Stevan Little E<lt>stevan@iinteractive.comE<gt>
@@ -1010,6 +1025,8 @@ Shlomi (rindolf) Fish
 Yuval (nothingmuch) Kogman
 
 Chris (perigrin) Prather
+
+Wallace (wreis) Reis
 
 Jonathan (jrockway) Rockway
 

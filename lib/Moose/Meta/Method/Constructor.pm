@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.51';
+our $VERSION   = '0.52';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -128,7 +128,6 @@ sub _generate_BUILDARGS {
     if ( $args eq '@_' and ( !$buildargs or $buildargs->body == \&Moose::Object::BUILDARGS ) ) {
         return join("\n",
             'do {',
-            'no warnings "uninitialized";',
             'confess "Single parameters to new() must be a HASH ref"',
             '    if scalar @_ == 1 && defined $_[0] && ref($_[0]) ne q{HASH};',
             '(scalar @_ == 1) ? {%{$_[0]}} : {@_};',

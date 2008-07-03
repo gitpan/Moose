@@ -8,7 +8,7 @@ use Scalar::Util 'blessed', 'weaken';
 use Carp         'confess';
 use overload     ();
 
-our $VERSION   = '0.51';
+our $VERSION   = '0.52';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -116,12 +116,17 @@ sub interpolate_class {
     return ( wantarray ? ( $class, @traits ) : $class );
 }
 
+# you can change default, required, coerce, documentation, lazy, handles, builder, type_constraint (explicitly or using isa/does), metaclass and traits
+sub legal_options_for_inheritance {
+  return qw(default coerce required documentation lazy handles builder
+    type_constraint);
+}
+
 sub clone_and_inherit_options {
     my ($self, %options) = @_;
     my %copy = %options;
-    # you can change default, required, coerce, documentation, lazy, handles, builder, type_constraint (explicitly or using isa/does), metaclass and traits
     my %actual_options;
-    foreach my $legal_option (qw(default coerce required documentation lazy handles builder type_constraint)) {
+    foreach my $legal_option ($self->legal_options_for_inheritance) {
         if (exists $options{$legal_option}) {
             $actual_options{$legal_option} = $options{$legal_option};
             delete $options{$legal_option};
@@ -234,7 +239,7 @@ sub _process_options {
             }
         }
         else {
-            confess "I do not understand this option (is => " . $options->{is} . ") on attribute $name"
+            confess "I do not understand this option (is => " . $options->{is} . ") on attribute ($name)"
         }
     }
 
@@ -242,10 +247,10 @@ sub _process_options {
         if (exists $options->{does}) {
             if (eval { $options->{isa}->can('does') }) {
                 ($options->{isa}->does($options->{does}))
-                    || confess "Cannot have an isa option and a does option if the isa does not do the does on attribute $name";
+                    || confess "Cannot have an isa option and a does option if the isa does not do the does on attribute ($name)";
             }
             else {
-                confess "Cannot have an isa option which cannot ->does() on attribute $name";
+                confess "Cannot have an isa option which cannot ->does() on attribute ($name)";
             }
         }
 
@@ -269,26 +274,26 @@ sub _process_options {
 
     if (exists $options->{coerce} && $options->{coerce}) {
         (exists $options->{type_constraint})
-            || confess "You cannot have coercion without specifying a type constraint on attribute $name";
-        confess "You cannot have a weak reference to a coerced value on attribute $name"
+            || confess "You cannot have coercion without specifying a type constraint on attribute ($name)";
+        confess "You cannot have a weak reference to a coerced value on attribute ($name)"
             if $options->{weak_ref};
     }
 
     if (exists $options->{trigger}) {
         ('CODE' eq ref $options->{trigger})
-            || confess "Trigger must be a CODE ref";
+            || confess "Trigger must be a CODE ref on attribute ($name)";
     }
 
     if (exists $options->{auto_deref} && $options->{auto_deref}) {
         (exists $options->{type_constraint})
-            || confess "You cannot auto-dereference without specifying a type constraint on attribute $name";
+            || confess "You cannot auto-dereference without specifying a type constraint on attribute ($name)";
         ($options->{type_constraint}->is_a_type_of('ArrayRef') ||
          $options->{type_constraint}->is_a_type_of('HashRef'))
-            || confess "You cannot auto-dereference anything other than a ArrayRef or HashRef on attribute $name";
+            || confess "You cannot auto-dereference anything other than a ArrayRef or HashRef on attribute ($name)";
     }
 
     if (exists $options->{lazy_build} && $options->{lazy_build} == 1) {
-        confess("You can not use lazy_build and default for the same attribute $name")
+        confess("You can not use lazy_build and default for the same attribute ($name)")
             if exists $options->{default};
         $options->{lazy}      = 1;
         $options->{required}  = 1;
@@ -740,6 +745,11 @@ C<traits> options.
 This is to support the C<has '+foo'> feature, it clones an attribute
 from a superclass and allows a very specific set of changes to be made
 to the attribute.
+
+=item B<legal_options_for_inheritance>
+
+Whitelist with options you can change. You can overload it in your custom
+metaclass to allow your options be inheritable.
 
 =item B<has_type_constraint>
 
