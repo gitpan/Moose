@@ -7,7 +7,7 @@ use metaclass;
 
 use Moose::Meta::TypeCoercion::Union;
 
-our $VERSION   = '0.54';
+our $VERSION   = '0.55';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::TypeConstraint';
@@ -111,7 +111,7 @@ Moose::Meta::TypeConstraint::Union - A union of Moose type constraints
 =head1 DESCRIPTION
 
 This metaclass represents a union of Moose type constraints. More 
-details to be explained later (possibly in a Cookbook::Recipe).
+details to be explained later (possibly in a Cookbook recipe).
 
 This actually used to be part of Moose::Meta::TypeConstraint, but it 
 is now better off in it's own file. 

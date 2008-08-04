@@ -8,7 +8,7 @@ use Carp         'confess';
 use Scalar::Util 'blessed';
 use Sub::Exporter;
 
-our $VERSION   = '0.54';
+our $VERSION   = '0.55';
 our $AUTHORITY = 'cpan:STEVAN';
 
 ## --------------------------------------------------------
@@ -424,7 +424,7 @@ sub _create_type_constraint ($$$;$$) {
 
 sub _install_type_coercions ($$) {
     my ($type_name, $coercion_map) = @_;
-    my $type = $REGISTRY->get_type_constraint($type_name);
+    my $type = find_type_constraint($type_name);
     (defined $type)
         || confess "Cannot find type '$type_name', perhaps you forgot to load it.";
     if ($type->has_coercion) {

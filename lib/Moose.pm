@@ -4,7 +4,7 @@ package Moose;
 use strict;
 use warnings;
 
-our $VERSION   = '0.54';
+our $VERSION   = '0.55';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed';
@@ -12,7 +12,7 @@ use Carp         'confess', 'croak', 'cluck';
 
 use Sub::Exporter;
 
-use Class::MOP;
+use Class::MOP 0.64;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -28,52 +28,6 @@ use Moose::Util ();
 
 {
     my $CALLER;
-
-    sub init_meta {
-        my ( $class, $base_class, $metaclass ) = @_;
-        $base_class = 'Moose::Object'      unless defined $base_class;
-        $metaclass  = 'Moose::Meta::Class' unless defined $metaclass;
-
-        confess
-            "The Metaclass $metaclass must be a subclass of Moose::Meta::Class."
-            unless $metaclass->isa('Moose::Meta::Class');
-
-        # make a subtype for each Moose class
-        class_type($class)
-            unless find_type_constraint($class);
-
-        my $meta;
-        if ( $class->can('meta') ) {
-            # NOTE:
-            # this is the case where the metaclass pragma
-            # was used before the 'use Moose' statement to
-            # override a specific class
-            $meta = $class->meta();
-            ( blessed($meta) && $meta->isa('Moose::Meta::Class') )
-              || confess "You already have a &meta function, but it does not return a Moose::Meta::Class";
-        }
-        else {
-            # NOTE:
-            # this is broken currently, we actually need
-            # to allow the possiblity of an inherited
-            # meta, which will not be visible until the
-            # user 'extends' first. This needs to have
-            # more intelligence to it
-            $meta = $metaclass->initialize($class);
-            $meta->add_method(
-                'meta' => sub {
-                    # re-initialize so it inherits properly
-                    $metaclass->initialize( blessed( $_[0] ) || $_[0] );
-                }
-            );
-        }
-
-        # make sure they inherit from Moose::Object
-        $meta->superclasses($base_class)
-          unless $meta->superclasses();
-         
-        return $meta;
-    }
 
     my %exports = (
         extends => sub {
@@ -258,6 +212,52 @@ use Moose::Util ();
 
 }
 
+sub init_meta {
+    my ( $class, $base_class, $metaclass ) = @_;
+    $base_class = 'Moose::Object'      unless defined $base_class;
+    $metaclass  = 'Moose::Meta::Class' unless defined $metaclass;
+
+    confess
+        "The Metaclass $metaclass must be a subclass of Moose::Meta::Class."
+        unless $metaclass->isa('Moose::Meta::Class');
+
+    # make a subtype for each Moose class
+    class_type($class)
+        unless find_type_constraint($class);
+
+    my $meta;
+    if ( $class->can('meta') ) {
+        # NOTE:
+        # this is the case where the metaclass pragma
+        # was used before the 'use Moose' statement to
+        # override a specific class
+        $meta = $class->meta();
+        ( blessed($meta) && $meta->isa('Moose::Meta::Class') )
+          || confess "You already have a &meta function, but it does not return a Moose::Meta::Class";
+    }
+    else {
+        # NOTE:
+        # this is broken currently, we actually need
+        # to allow the possiblity of an inherited
+        # meta, which will not be visible until the
+        # user 'extends' first. This needs to have
+        # more intelligence to it
+        $meta = $metaclass->initialize($class);
+        $meta->add_method(
+            'meta' => sub {
+                # re-initialize so it inherits properly
+                $metaclass->initialize( blessed( $_[0] ) || $_[0] );
+            }
+        );
+    }
+
+    # make sure they inherit from Moose::Object
+    $meta->superclasses($base_class)
+      unless $meta->superclasses();
+
+    return $meta;
+}
+
 ## make 'em all immutable
 
 $_->meta->make_immutable(
@@ -336,11 +336,11 @@ metaclass programming as well.
 
 =head2 Moose Extensions
 
-The L<MooseX::> namespace is the official place to find Moose extensions.
-There are a number of these modules out on CPAN right now the best way to
-find them is to search for MooseX:: on search.cpan.org or to look at the 
-latest version of L<Task::Moose> which aims to keep an up to date, easily 
-installable list of these extensions. 
+The C<MooseX::> namespace is the official place to find Moose extensions.
+These extensions can be found on the CPAN.  The easiest way to find them
+is to search for them (L<http://search.cpan.org/search?query=MooseX::>),
+or to examine L<Task::Moose> which aims to keep an up-to-date, easily
+installable list of Moose extensions.
 
 =head1 BUILDING CLASSES WITH MOOSE
 
@@ -424,7 +424,7 @@ for information on how to define a new type, and how to retrieve type meta-data)
 
 This will attempt to use coercion with the supplied type constraint to change
 the value passed into any accessors or constructors. You B<must> have supplied
-a type constraint in order for this to work. See L<Moose::Cookbook::Recipe5>
+a type constraint in order for this to work. See L<Moose::Cookbook::Basics::Recipe5>
 for an example.
 
 =item I<does =E<gt> $role_name>
@@ -509,7 +509,7 @@ want installed locally, and its value is the name of the original method
 in the class being delegated to.
 
 This can be very useful for recursive classes like trees. Here is a
-quick example (soon to be expanded into a Moose::Cookbook::Recipe):
+quick example (soon to be expanded into a Moose::Cookbook recipe):
 
   package Tree;
   use Moose;
@@ -573,7 +573,7 @@ This tells the class to use a custom attribute metaclass for this particular
 attribute. Custom attribute metaclasses are useful for extending the
 capabilities of the I<has> keyword: they are the simplest way to extend the MOP,
 but they are still a fairly advanced topic and too much to cover here, see 
-L<Moose::Cookbook::Recipe11> for more information.
+L<Moose::Cookbook::Meta::Recipe1> for more information.
 
 The default behavior here is to just load C<$metaclass_name>; however, we also
 have a way to alias to a shorter name. This will first look to see if
@@ -630,18 +630,18 @@ Here is another example, but within the context of a role:
 
   package Foo::Role;
   use Moose::Role;
-  
+
   has 'message' => (
       is      => 'rw',
       isa     => 'Str',
       default => 'Hello, I am a Foo'
   );
-  
+
   package My::Foo;
   use Moose;
-  
+
   with 'Foo::Role';
-  
+
   has '+message' => (default => 'Hello I am My::Foo');
 
 In this case, we are basically taking the attribute which the role supplied 
@@ -735,13 +735,13 @@ method call and the C<SUPER::> pseudo-package; it is really your choice.
 The keyword C<inner>, much like C<super>, is a no-op outside of the context of
 an C<augment> method. You can think of C<inner> as being the inverse of
 C<super>; the details of how C<inner> and C<augment> work is best described in
-the L<Moose::Cookbook::Recipe6>.
+the L<Moose::Cookbook::Basics::Recipe6>.
 
 =item B<augment ($name, &sub)>
 
 An C<augment> method, is a way of explicitly saying "I am augmenting this
 method from my superclass". Once again, the details of how C<inner> and
-C<augment> work is best described in the L<Moose::Cookbook::Recipe6>.
+C<augment> work is best described in the L<Moose::Cookbook::Basics::Recipe6>.
 
 =item B<confess>
 
@@ -815,6 +815,8 @@ and then injects a C<meta> accessor into your class to retrieve it. Then it
 sets your baseclass to Moose::Object or the value you pass in unless you already
 have one. This is all done via C<init_meta> which takes the name of your class
 and optionally a baseclass and a metaclass as arguments.
+
+For more detail on this topic, see L<Moose::Cookbook::Extending::Recipe2>.
 
 =head1 CAVEATS
 
@@ -938,6 +940,14 @@ This is the official web home of Moose, it contains links to our public SVN repo
 as well as links to a number of talks and articles on Moose and Moose related
 technologies.
 
+=item L<Moose::Cookbook> - How to cook a Moose
+
+=item The Moose is flying, a tutorial by Randal Schwartz
+
+Part 1 - L<http://www.stonehenge.com/merlyn/LinuxMag/col94.html>
+
+Part 2 - L<http://www.stonehenge.com/merlyn/LinuxMag/col95.html>
+
 =item L<Class::MOP> documentation
 
 =item The #moose channel on irc.perl.org
@@ -946,7 +956,9 @@ technologies.
 
 =item Moose stats on ohloh.net - L<http://www.ohloh.net/projects/moose>
 
-=item Several Moose extension modules in the L<MooseX::> namespace.
+=item Several Moose extension modules in the C<MooseX::> namespace.
+
+See L<http://search.cpan.org/search?query=MooseX::> for extensions.
 
 =back
 

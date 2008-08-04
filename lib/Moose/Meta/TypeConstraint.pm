@@ -11,7 +11,7 @@ use overload '""'     => sub { shift->name },   # stringify to tc name
 use Carp         'confess';
 use Scalar::Util qw(blessed refaddr);
 
-our $VERSION   = '0.54';
+our $VERSION   = '0.55';
 our $AUTHORITY = 'cpan:STEVAN';
 
 __PACKAGE__->meta->add_attribute('name'       => (reader => 'name'));
@@ -77,12 +77,12 @@ sub validate {
 
 sub get_message {
     my ($self, $value) = @_;
-    $value = (defined $value ? overload::StrVal($value) : 'undef');
     if (my $msg = $self->message) {
         local $_ = $value;
         return $msg->($value);
     }
     else {
+        $value = (defined $value ? overload::StrVal($value) : 'undef');        
         return "Validation failed for '" . $self->name . "' failed with value $value";
     }    
 }

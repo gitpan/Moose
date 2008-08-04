@@ -8,7 +8,7 @@ use Scalar::Util 'blessed', 'weaken';
 use Carp         'confess';
 use overload     ();
 
-our $VERSION   = '0.54';
+our $VERSION   = '0.55';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -555,12 +555,10 @@ sub install_delegation {
     # this will sort out any details and always
     # return an hash of methods which we want
     # to delagate to, see that method for details
-    my %handles = $self->_canonicalize_handles();
+    my %handles = $self->_canonicalize_handles;
 
     # find the accessor method for this attribute
-    my $accessor = $self->get_read_method_ref;
-    # then unpack it if we need too ...
-    $accessor = $accessor->body if blessed $accessor;
+    my $accessor = $self->_get_delegate_accessor;
 
     # install the delegation ...
     my $associated_class = $self->associated_class;
@@ -608,6 +606,16 @@ sub install_delegation {
 }
 
 # private methods to help delegation ...
+
+sub _get_delegate_accessor {
+    my $self = shift;
+    # find the accessor method for this attribute
+    my $accessor = $self->get_read_method_ref;
+    # then unpack it if we need too ...
+    $accessor = $accessor->body if blessed $accessor;    
+    # return the accessor
+    return $accessor;
+}
 
 sub _canonicalize_handles {
     my $self    = shift;
@@ -753,7 +761,7 @@ Any coercion to convert values is done before checking the type constraint.
 To check a value against a type constraint before setting it, fetch the
 attribute instance using L<Class::MOP::Class/find_attribute_by_name>,
 fetch the type_constraint from the attribute using L<Moose::Meta::Attribute/type_constraint>
-and call L<Moose::Meta::TypeConstraint/check>. See L<Moose::Cookbook::RecipeX>
+and call L<Moose::Meta::TypeConstraint/check>. See L<Moose::Cookbook::Basics::Recipe4>
 for an example.
 
 =back
@@ -825,14 +833,14 @@ and predicate options for you using the following convention.
    #If your attribute name starts with an underscore:
    has '_foo' => (lazy_build => 1);
    #is the same as
-   has '_foo' => (lazy => 1, required => 1, predicate => '_has_foo', clearer => '_clear_foo', builder => '_build__foo);
+   has '_foo' => (lazy => 1, required => 1, predicate => '_has_foo', clearer => '_clear_foo', builder => '_build__foo');
    # or
    has '_foo' => (lazy => 1, required => 1, predicate => '_has_foo', clearer => '_clear_foo', default => sub{shift->_build__foo});
 
    #If your attribute name does not start with an underscore:
    has 'foo' => (lazy_build => 1);
    #is the same as
-   has 'foo' => (lazy => 1, required => 1, predicate => 'has_foo', clearer => 'clear_foo', builder => '_build_foo);
+   has 'foo' => (lazy => 1, required => 1, predicate => 'has_foo', clearer => 'clear_foo', builder => '_build_foo');
    # or
    has 'foo' => (lazy => 1, required => 1, predicate => 'has_foo', clearer => 'clear_foo', default => sub{shift->_build_foo});
 

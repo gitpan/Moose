@@ -1,26 +1,26 @@
----
-abstract: 'A postmodern object system for Perl 5'
-author:
-  - 'Stevan Little <stevan@iinteractive.com>'
-build_requires:
+--- 
+abstract: A postmodern object system for Perl 5
+author: Stevan Little <stevan@iinteractive.com>
+build_requires: 
   Test::Exception: 0.21
   Test::LongString: 0
   Test::More: 0.62
 distribution_type: module
-generated_by: 'Module::Install version 0.75'
+generated_by: Module::Install version 0.67
 license: perl
-meta-spec:
+meta-spec: 
   url: http://module-build.sourceforge.net/META-spec-v1.3.html
   version: 1.3
 name: Moose
-no_index:
-  directory:
+no_index: 
+  directory: 
     - inc
     - t
-requires:
+requires: 
   Carp: 0
-  Class::MOP: 0.59
+  Class::MOP: 0.64
   Filter::Simple: 0
   Scalar::Util: 1.18
   Sub::Exporter: 0.972
-version: 0.54
+tests: t/*.t t/000_recipes/basics/*.t t/000_recipes/meta/*.t t/000_recipes/roles/*.t t/010_basics/*.t t/020_attributes/*.t t/030_roles/*.t t/040_type_constraints/*.t t/050_metaclasses/*.t t/060_compat/*.t t/100_bugs/*.t t/200_examples/*.t t/300_immutable/*.t t/400_moose_util/*.t t/500_test_moose/*.t t/600_todo_tests/*.t
+version: 0.55

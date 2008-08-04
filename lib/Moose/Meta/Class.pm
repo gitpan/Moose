@@ -9,7 +9,7 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.54';
+our $VERSION   = '0.55';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
@@ -282,6 +282,7 @@ sub _fix_metaclass_incompatability {
     foreach my $super (@superclasses) {
         # don't bother if it does not have a meta.
         next unless $super->can('meta');
+        next unless $super->meta->isa("Class::MOP::Class");
         # get the name, make sure we take
         # immutable classes into account
         my $super_meta_name = ($super->meta->is_immutable
