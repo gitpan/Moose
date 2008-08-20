@@ -8,7 +8,8 @@ use Scalar::Util 'blessed';
 use Carp         'confess';
 use Class::MOP   0.56;
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.55_01';
+$VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 my @exports = qw[
@@ -71,33 +72,38 @@ sub search_class_by_role {
 
 sub apply_all_roles {
     my $applicant = shift;
-    
-    confess "Must specify at least one role to apply to $applicant" unless @_;
-    
-    my $roles = Data::OptList::mkopt([ @_ ]);
-    
-    #use Data::Dumper;
-    #warn Dumper $roles;
-    
-    my $meta = (blessed $applicant ? $applicant : find_meta($applicant));
-    
-    foreach my $role_spec (@$roles) {
-        Class::MOP::load_class($role_spec->[0]);
-    }
-    
-    ($_->[0]->can('meta') && $_->[0]->meta->isa('Moose::Meta::Role'))
-        || confess "You can only consume roles, " . $_->[0] . " is not a Moose role"
-            foreach @$roles;
 
-    if (scalar @$roles == 1) {
-        my ($role, $params) = @{$roles->[0]};
-        $role->meta->apply($meta, (defined $params ? %$params : ()));
+    apply_all_roles_with_method( $applicant, 'apply', [@_] );
+}
+
+sub apply_all_roles_with_method {
+    my ( $applicant, $apply_method, $role_list ) = @_;
+
+    confess "Must specify at least one role to apply to $applicant"
+        unless @$role_list;
+
+    my $roles = Data::OptList::mkopt($role_list);
+
+    my $meta = ( blessed $applicant ? $applicant : find_meta($applicant) );
+
+    foreach my $role_spec (@$roles) {
+        Class::MOP::load_class( $role_spec->[0] );
+    }
+
+    ( $_->[0]->can('meta') && $_->[0]->meta->isa('Moose::Meta::Role') )
+        || confess "You can only consume roles, "
+        . $_->[0]
+        . " is not a Moose role"
+        foreach @$roles;
+
+    if ( scalar @$roles == 1 ) {
+        my ( $role, $params ) = @{ $roles->[0] };
+        $role->meta->$apply_method( $meta,
+            ( defined $params ? %$params : () ) );
     }
     else {
-        Moose::Meta::Role->combine(
-            @$roles
-        )->apply($meta);
-    }    
+        Moose::Meta::Role->combine( @$roles )->$apply_method($meta);
+    }
 }
 
 # instance deconstruction ...
@@ -151,10 +157,10 @@ sub add_method_modifier {
     my $add_modifier_method = 'add_' . $modifier_name . '_method_modifier';
     if ( my $method_modifier_type = ref( @{$args}[0] ) ) {
         if ( $method_modifier_type eq 'Regexp' ) {
-            my @all_methods = $meta->compute_all_applicable_methods;
+            my @all_methods = $meta->get_all_methods;
             my @matched_methods
-                = grep { $_->{name} =~ @{$args}[0] } @all_methods;
-            $meta->$add_modifier_method( $_->{name}, $code )
+                = grep { $_->name =~ @{$args}[0] } @all_methods;
+            $meta->$add_modifier_method( $_->name, $code )
                 for @matched_methods;
         }
     }
@@ -222,6 +228,13 @@ right thing to apply the C<@roles> to the C<$applicant>. This is
 actually used internally by both L<Moose> and L<Moose::Role>, and the
 C<@roles> will be pre-processed through L<Data::OptList::mkopt>
 to allow for the additional arguments to be passed. 
+
+=item B<apply_all_roles_with_method ($applicant, $method, @roles)>
+
+This function works just like C<apply_all_roles()>, except it allows
+you to specify what method will be called on the role metaclass when
+applying it to the C<$applicant>. This exists primarily so one can use
+the C<< Moose::Meta::Role->apply_to_metaclass_instance() >> method.
 
 =item B<get_all_attribute_values($meta, $instance)>
 

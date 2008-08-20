@@ -9,13 +9,14 @@ use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
 use Carp 'confess';
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.55_01';
+$VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
     my $class = shift;
     my $params = $class->BUILDARGS(@_);
-    my $self = $class->meta->new_object(%$params);
+    my $self = $class->meta->new_object($params);
     $self->BUILDALL($params);
     return $self;
 }

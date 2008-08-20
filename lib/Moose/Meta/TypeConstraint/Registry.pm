@@ -8,7 +8,8 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Carp         'confess';
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.55_01';
+$VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Class::MOP::Object';
@@ -26,7 +27,7 @@ __PACKAGE__->meta->add_attribute('type_constraints' => (
 
 sub new { 
     my $class = shift;
-    my $self  = $class->meta->new_object(@_);
+    my $self  = $class->_new(@_);
     return $self;
 }
 

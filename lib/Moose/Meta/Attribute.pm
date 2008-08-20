@@ -8,7 +8,7 @@ use Scalar::Util 'blessed', 'weaken';
 use Carp         'confess';
 use overload     ();
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.57';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -489,12 +489,12 @@ sub get_value {
 
     if ($self->is_lazy) {
         unless ($self->has_value($instance)) {
+            my $value;
             if ($self->has_default) {
-                my $default = $self->default($instance);
-                $self->set_initial_value($instance, $default);
+                $value = $self->default($instance);
             } elsif ( $self->has_builder ) {
                 if (my $builder = $instance->can($self->builder)){
-                    $self->set_initial_value($instance, $instance->$builder);
+                    $value = $instance->$builder;
                 }
                 else {
                     confess(blessed($instance) 
@@ -505,9 +505,16 @@ sub get_value {
                           . "'");
                 }
             } 
-            else {
-                $self->set_initial_value($instance, undef);
+            if ($self->has_type_constraint) {
+                my $type_constraint = $self->type_constraint;
+                $value = $type_constraint->coerce($value)
+                    if ($self->should_coerce);
+                $type_constraint->check($value) 
+                  || confess "Attribute (" . $self->name
+                      . "') does not pass the type constraint because: "
+                      . $type_constraint->get_message($value);
             }
+            $self->set_initial_value($instance, $value);
         }
     }
 
@@ -682,9 +689,9 @@ sub _get_delegate_method_list {
     my $self = shift;
     my $meta = $self->_find_delegate_metaclass;
     if ($meta->isa('Class::MOP::Class')) {
-        return map  { $_->{name}                     }  # NOTE: !never! delegate &meta
-               grep { $_->{class} ne 'Moose::Object' && $_->{name} ne 'meta' }
-                    $meta->compute_all_applicable_methods;
+        return map  { $_->name }  # NOTE: !never! delegate &meta
+               grep { $_->package_name ne 'Moose::Object' && $_->name ne 'meta' }
+                    $meta->get_all_methods;
     }
     elsif ($meta->isa('Moose::Meta::Role')) {
         return $meta->get_method_list;

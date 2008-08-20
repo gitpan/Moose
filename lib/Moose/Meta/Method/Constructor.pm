@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.57';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -25,21 +25,21 @@ sub new {
 
     my $self = bless {
         # from our superclass
-        '&!body'          => undef, 
-        '$!package_name'  => $options{package_name},
-        '$!name'          => $options{name},
+        'body'          => undef, 
+        'package_name'  => $options{package_name},
+        'name'          => $options{name},
         # specific to this subclass
-        '%!options'       => $options{options},
-        '$!meta_instance' => $options{metaclass}->get_meta_instance,
-        '@!attributes'    => [ $options{metaclass}->compute_all_applicable_attributes ],
+        'options'       => $options{options},
+        'meta_instance' => $options{metaclass}->get_meta_instance,
+        'attributes'    => [ $options{metaclass}->compute_all_applicable_attributes ],
         # ...
-        '$!associated_metaclass' => $options{metaclass},
+        'associated_metaclass' => $options{metaclass},
     } => $class;
 
     # we don't want this creating
     # a cycle in the code, if not
     # needed
-    weaken($self->{'$!associated_metaclass'});
+    weaken($self->{'associated_metaclass'});
 
     $self->initialize_body;
 
@@ -48,11 +48,11 @@ sub new {
 
 ## accessors
 
-sub options       { (shift)->{'%!options'}       }
-sub meta_instance { (shift)->{'$!meta_instance'} }
-sub attributes    { (shift)->{'@!attributes'}    }
+sub options       { (shift)->{'options'}       }
+sub meta_instance { (shift)->{'meta_instance'} }
+sub attributes    { (shift)->{'attributes'}    }
 
-sub associated_metaclass { (shift)->{'$!associated_metaclass'} }
+sub associated_metaclass { (shift)->{'associated_metaclass'} }
 
 ## method
 
@@ -117,7 +117,7 @@ sub initialize_body {
         $code = eval $source;
         confess "Could not eval the constructor :\n\n$source\n\nbecause :\n\n$@" if $@;
     }
-    $self->{'&!body'} = $code;
+    $self->{'body'} = $code;
 }
 
 sub _generate_BUILDARGS {
@@ -192,27 +192,10 @@ sub _generate_slot_initializer {
 
         if ( defined( my $init_arg = $attr->init_arg ) ) {
             push @source => 'if (exists $params->{\'' . $init_arg . '\'}) {';
-
-                push @source => ('my $val = $params->{\'' . $init_arg . '\'};');
-
-                if ($is_moose && $attr->has_type_constraint) {
-                    if ($attr->should_coerce && $attr->type_constraint->has_coercion) {
-                        push @source => $self->_generate_type_coercion(
-                            $attr, 
-                            '$type_constraints[' . $index . ']', 
-                            '$val', 
-                            '$val'
-                        );
-                    }
-                    push @source => $self->_generate_type_constraint_check(
-                        $attr, 
-                        '$type_constraint_bodies[' . $index . ']', 
-                        '$type_constraints[' . $index . ']',                         
-                        '$val'
-                    );
-                }
-                push @source => $self->_generate_slot_assignment($attr, '$val', $index);
-
+            push @source => ('my $val = $params->{\'' . $init_arg . '\'};');
+            push @source => $self->_generate_type_constraint_and_coercion($attr, $index)
+                if $is_moose;
+            push @source => $self->_generate_slot_assignment($attr, '$val', $index);
             push @source => "} else {";
         }
             my $default;
@@ -226,13 +209,8 @@ sub _generate_slot_initializer {
             
             push @source => '{'; # wrap this to avoid my $val overwrite warnings
             push @source => ('my $val = ' . $default . ';');
-            push @source => $self->_generate_type_constraint_check(
-                $attr,
-                ('$type_constraint_bodies[' . $index . ']'),
-                ('$type_constraints[' . $index . ']'),                
-                '$val'
-            ) if ($is_moose && $attr->has_type_constraint);
-            
+            push @source => $self->_generate_type_constraint_and_coercion($attr, $index)
+                if $is_moose; 
             push @source => $self->_generate_slot_assignment($attr, '$val', $index);
             push @source => '}'; # close - wrap this to avoid my $val overrite warnings           
 
@@ -300,6 +278,29 @@ sub _generate_slot_assignment {
     }
 
     return $source;
+}
+
+sub _generate_type_constraint_and_coercion {
+    my ($self, $attr, $index) = @_;
+    
+    return unless $attr->has_type_constraint;
+    
+    my @source;
+    if ($attr->should_coerce && $attr->type_constraint->has_coercion) {
+        push @source => $self->_generate_type_coercion(
+            $attr,
+            '$type_constraints[' . $index . ']',
+            '$val',
+            '$val'
+        );
+    }
+    push @source => $self->_generate_type_constraint_check(
+        $attr,
+        ('$type_constraint_bodies[' . $index . ']'),
+        ('$type_constraints[' . $index . ']'),            
+        '$val'
+    );
+    return @source;
 }
 
 sub _generate_type_coercion {

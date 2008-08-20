@@ -3,50 +3,46 @@
 use strict;
 use warnings;
 
-use Test::More tests => 34;
+use Test::More tests => 33;
 use Test::Exception;
 
 use Scalar::Util 'isweak';
-
-BEGIN {
-    use_ok('Moose');           
-}
 
 {
     package BinaryTree;
     use Moose;
 
-    has 'node' => (is => 'rw', isa => 'Any');
+    has 'node' => ( is => 'rw', isa => 'Any' );
 
     has 'parent' => (
-		is        => 'rw',
-		isa       => 'BinaryTree',	
+        is        => 'rw',
+        isa       => 'BinaryTree',
         predicate => 'has_parent',
-		weak_ref  => 1,
+        weak_ref  => 1,
     );
 
     has 'left' => (
-		is        => 'rw',	
-		isa       => 'BinaryTree',		
-        predicate => 'has_left',  
+        is        => 'rw',
+        isa       => 'BinaryTree',
+        predicate => 'has_left',
         lazy      => 1,
-        default   => sub { BinaryTree->new(parent => $_[0]) },       
+        default   => sub { BinaryTree->new( parent => $_[0] ) },
     );
 
     has 'right' => (
-		is        => 'rw',	
-		isa       => 'BinaryTree',		
-        predicate => 'has_right',   
-        lazy      => 1,       
-        default   => sub { BinaryTree->new(parent => $_[0]) },       
+        is        => 'rw',
+        isa       => 'BinaryTree',
+        predicate => 'has_right',
+        lazy      => 1,
+        default   => sub { BinaryTree->new( parent => $_[0] ) },
     );
 
     before 'right', 'left' => sub {
-        my ($self, $tree) = @_;
-	    $tree->parent($self) if defined $tree;   
-	};
-	
-    __PACKAGE__->meta->make_immutable(debug => 0);	
+        my ( $self, $tree ) = @_;
+        $tree->parent($self) if defined $tree;
+    };
+
+    __PACKAGE__->meta->make_immutable( debug => 0 );
 }
 
 my $root = BinaryTree->new(node => 'root');

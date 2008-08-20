@@ -6,9 +6,10 @@ use warnings;
 
 use Carp         'confess';
 use Scalar::Util 'blessed';
-use Sub::Exporter;
+use Moose::Exporter;
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.55_01';
+$VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 ## --------------------------------------------------------
@@ -62,38 +63,17 @@ use Moose::Meta::TypeCoercion::Union;
 use Moose::Meta::TypeConstraint::Registry;
 use Moose::Util::TypeConstraints::OptimizedConstraints;
 
-my @exports = qw/
-    type subtype class_type role_type as where message optimize_as
-    coerce from via
-    enum
-    find_type_constraint
-    register_type_constraint
-/;
-
-Sub::Exporter::setup_exporter({
-    exports => \@exports,
-    groups  => { default => [':all'] }
-});
-
-sub unimport {
-    no strict 'refs';
-    my $class = caller();
-    # loop through the exports ...
-    foreach my $name (@exports) {
-        # if we find one ...
-        if (defined &{$class . '::' . $name}) {
-            my $keyword = \&{$class . '::' . $name};
-
-            # make sure it is from Moose
-            my ($pkg_name) = Class::MOP::get_code_info($keyword);
-            next if $@;
-            next if $pkg_name ne 'Moose::Util::TypeConstraints';
-
-            # and if it is from Moose then undef the slot
-            delete ${$class . '::'}{$name};
-        }
-    }
-}
+Moose::Exporter->setup_import_methods(
+    as_is => [
+        qw(
+            type subtype class_type role_type as where message optimize_as
+            coerce from via
+            enum
+            find_type_constraint
+            register_type_constraint )
+    ],
+    _export_to_main => 1,
+);
 
 ## --------------------------------------------------------
 ## type registry and some useful functions for it

@@ -9,7 +9,8 @@ use Class::MOP;
 use Carp         'confess';
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.55_01';
+$VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overriden;
@@ -121,15 +122,16 @@ sub excludes_role {
 }
 
 sub new_object {
-    my ($class, %params) = @_;
-    my $self = $class->SUPER::new_object(%params);
+    my $class = shift;
+    my $params = @_ == 1 ? $_[0] : {@_};
+    my $self = $class->SUPER::new_object($params);
     foreach my $attr ($class->compute_all_applicable_attributes()) {
         # if we have a trigger, then ...
         if ($attr->can('has_trigger') && $attr->has_trigger) {
             # make sure we have an init-arg ...
             if (defined(my $init_arg = $attr->init_arg)) {
                 # now make sure an init-arg was passes ...
-                if (exists $params{$init_arg}) {
+                if (exists $params->{$init_arg}) {
                     # and if get here, fire the trigger
                     $attr->trigger->(
                         $self, 
@@ -140,7 +142,7 @@ sub new_object {
                             ? $attr->get_read_method_ref->($self)
                             # otherwise, just get the value from
                             # the constructor params
-                            : $params{$init_arg}), 
+                            : $params->{$init_arg}), 
                         $attr
                     );
                 }
@@ -151,15 +153,16 @@ sub new_object {
 }
 
 sub construct_instance {
-    my ($class, %params) = @_;
+    my $class = shift;
+    my $params = @_ == 1 ? $_[0] : {@_};
     my $meta_instance = $class->get_meta_instance;
     # FIXME:
     # the code below is almost certainly incorrect
     # but this is foreign inheritence, so we might
     # have to kludge it in the end.
-    my $instance = $params{'__INSTANCE__'} || $meta_instance->create_instance();
+    my $instance = $params->{'__INSTANCE__'} || $meta_instance->create_instance();
     foreach my $attr ($class->compute_all_applicable_attributes()) {
-        $attr->initialize_instance_slot($meta_instance, $instance, \%params);
+        $attr->initialize_instance_slot($meta_instance, $instance, $params);
     }
     return $instance;
 }
@@ -169,12 +172,15 @@ sub construct_instance {
 sub get_method_map {
     my $self = shift;
 
-    if (defined $self->{'$!_package_cache_flag'} &&
-                $self->{'$!_package_cache_flag'} == Class::MOP::check_package_cache_flag($self->meta->name)) {
-        return $self->{'%!methods'};
+    my $current = Class::MOP::check_package_cache_flag($self->name);
+
+    if (defined $self->{'_package_cache_flag'} && $self->{'_package_cache_flag'} == $current) {
+        return $self->{'methods'};
     }
 
-    my $map  = $self->{'%!methods'};
+    $self->{_package_cache_flag} = $current;
+
+    my $map  = $self->{'methods'};
 
     my $class_name       = $self->name;
     my $method_metaclass = $self->method_metaclass;
@@ -281,38 +287,46 @@ sub _fix_metaclass_incompatability {
     my ($self, @superclasses) = @_;
     foreach my $super (@superclasses) {
         # don't bother if it does not have a meta.
-        next unless $super->can('meta');
-        next unless $super->meta->isa("Class::MOP::Class");
+        my $meta = Class::MOP::Class->initialize($super) or next;
+        next unless $meta->isa("Class::MOP::Class");
+
         # get the name, make sure we take
         # immutable classes into account
-        my $super_meta_name = ($super->meta->is_immutable
-                                ? $super->meta->get_mutable_metaclass_name
-                                : blessed($super->meta));
-        # if it's meta is a vanilla Moose,
-        # then we can safely ignore it.
-        next if $super_meta_name eq 'Moose::Meta::Class';
+        my $super_meta_name = ($meta->is_immutable
+            ? $meta->get_mutable_metaclass_name
+            : ref($meta));
+
         # but if we have anything else,
         # we need to check it out ...
         unless (# see if of our metaclass is incompatible
-                ($self->isa($super_meta_name) &&
-                 # and see if our instance metaclass is incompatible
-                 $self->instance_metaclass->isa($super->meta->instance_metaclass)) &&
-                # ... and if we are just a vanilla Moose
-                $self->isa('Moose::Meta::Class')) {
-            # re-initialize the meta ...
-            my $super_meta = $super->meta;
-            # NOTE:
-            # We might want to consider actually
-            # transfering any attributes from the
-            # original meta into this one, but in
-            # general you should not have any there
-            # at this point anyway, so it's very
-            # much an obscure edge case anyway
-            $self = $super_meta->reinitialize($self->name => (
-                'attribute_metaclass' => $super_meta->attribute_metaclass,
-                'method_metaclass'    => $super_meta->method_metaclass,
-                'instance_metaclass'  => $super_meta->instance_metaclass,
-            ));
+            $self->isa($super_meta_name)
+                and
+            # and see if our instance metaclass is incompatible
+            $self->instance_metaclass->isa($meta->instance_metaclass)
+        ) {
+            if ( $meta->isa(ref($self)) ) {
+                unless ( $self->is_pristine ) {
+                    confess "Not reinitializing metaclass for " . $self->name . ", it isn't pristine";
+                }
+                # also check values %{ $self->get_method_map } for any generated methods
+
+                # NOTE:
+                # We might want to consider actually
+                # transfering any attributes from the
+                # original meta into this one, but in
+                # general you should not have any there
+                # at this point anyway, so it's very
+                # much an obscure edge case anyway
+                $self = $meta->reinitialize(
+                    $self->name,
+                    attribute_metaclass => $meta->attribute_metaclass,
+                    method_metaclass    => $meta->method_metaclass,
+                    instance_metaclass  => $meta->instance_metaclass,
+                );
+            } else {
+                # this will be called soon enough, for now we let it slide
+                # $self->check_metaclass_compatability()
+            }
         }
     }
     return $self;
@@ -382,10 +396,12 @@ sub create_immutable_transformer {
        /],
        memoize     => {
            class_precedence_list             => 'ARRAY',
+           linearized_isa                    => 'ARRAY', # FIXME perl 5.10 memoizes this on its own, no need?
+           get_all_methods                   => 'ARRAY',
+           #get_all_attributes               => 'ARRAY', # it's an alias, no need, but maybe in the future
            compute_all_applicable_attributes => 'ARRAY',
            get_meta_instance                 => 'SCALAR',
            get_method_map                    => 'SCALAR',
-           # maybe ....
            calculate_all_roles               => 'ARRAY',
        },
        # NOTE:

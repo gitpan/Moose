@@ -8,7 +8,8 @@ use metaclass;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.55';
+our $VERSION   = '0.55_01';
+$VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Class;
@@ -240,6 +241,14 @@ sub get_method_modifier_list {
     keys %{$self->$accessor};
 }
 
+sub reset_package_cache_flag  { (shift)->{'_package_cache_flag'} = undef }
+sub update_package_cache_flag {
+    my $self = shift;
+    $self->{'_package_cache_flag'} = Class::MOP::check_package_cache_flag($self->name);
+}
+
+
+
 ## ------------------------------------------------------------------
 ## subroles
 
@@ -285,7 +294,16 @@ sub method_metaclass { 'Moose::Meta::Role::Method' }
 
 sub get_method_map {
     my $self = shift;
-    my $map  = {};
+
+    my $current = Class::MOP::check_package_cache_flag($self->name);
+
+    if (defined $self->{'_package_cache_flag'} && $self->{'_package_cache_flag'} == $current) {
+        return $self->{'methods'} ||= {};
+    }
+
+    $self->{_package_cache_flag} = $current;
+
+    my $map  = $self->{'methods'} ||= {};
 
     my $role_name        = $self->name;
     my $method_metaclass = $self->method_metaclass;
@@ -294,6 +312,10 @@ sub get_method_map {
 
     foreach my $symbol (keys %all_code) {
         my $code = $all_code{$symbol};
+
+        next if exists  $map->{$symbol} &&
+                defined $map->{$symbol} &&
+                        $map->{$symbol}->body == $code;
 
         my ($pkg, $name) = Class::MOP::get_code_info($code);
 
@@ -305,7 +327,7 @@ sub get_method_map {
             # loudly (in the case of Curses.pm) so we
             # just be a little overly cautious here.
             # - SL
-            && eval { no warnings; blessed($pkg->meta) }
+            && eval { no warnings; blessed($pkg->meta) } # FIXME calls meta
             && $pkg->meta->isa('Moose::Meta::Role')) {
             my $role = $pkg->meta->name;
             next unless $self->does_role($role);
@@ -342,6 +364,59 @@ sub get_method {
 sub has_method {
     my ($self, $name) = @_;
     exists $self->get_method_map->{$name} ? 1 : 0
+}
+
+# FIXME this is copypasated from Class::MOP::Class
+# refactor to inherit from some common base
+sub wrap_method_body {
+    my ( $self, %args ) = @_;
+
+    my $body = delete $args{body}; # delete is for compat
+
+    ('CODE' eq ref($body))
+        || confess "Your code block must be a CODE reference";
+
+    $self->method_metaclass->wrap( $body => (
+        package_name => $self->name,
+        %args,
+    ));
+}
+
+sub add_method {
+    my ($self, $method_name, $method) = @_;
+    (defined $method_name && $method_name)
+    || confess "You must define a method name";
+
+    my $body;
+    if (blessed($method)) {
+        $body = $method->body;
+        if ($method->package_name ne $self->name &&
+            $method->name         ne $method_name) {
+            warn "Hello there, got something for you."
+            . " Method says " . $method->package_name . " " . $method->name
+            . " Class says " . $self->name . " " . $method_name;
+            $method = $method->clone(
+                package_name => $self->name,
+                name         => $method_name
+            ) if $method->can('clone');
+        }
+    }
+    else {
+        $body = $method;
+        $method = $self->wrap_method_body( body => $body, name => $method_name );
+    }
+
+    $method->attach_to_class($self);
+
+    $self->get_method_map->{$method_name} = $method;
+
+    my $full_method_name = ($self->name . '::' . $method_name);
+    $self->add_package_symbol(
+        { sigil => '&', type => 'CODE', name => $method_name },
+        Class::MOP::subname($full_method_name => $body)
+    );
+
+    $self->update_package_cache_flag; # still valid, since we just added the method to the map, and if it was invalid before that then get_method_map updated it
 }
 
 sub find_method_by_name { (shift)->get_method(@_) }
@@ -388,6 +463,16 @@ sub apply {
         require Moose::Meta::Role::Application::ToInstance;
         return Moose::Meta::Role::Application::ToInstance->new(@args)->apply($self, $other);        
     }  
+}
+
+sub apply_to_metaclass_instance {
+    my ($self, $meta, @args) = @_;
+
+    $meta->isa('Moose::Meta::Class') || $meta->isa('Moose::Meta::Role')
+        || confess "You must pass in a Moose::Meta::Class or Moose::Meta::Role instance";
+
+    require Moose::Meta::Role::Application::ToMetaclassInstance;
+    return Moose::Meta::Role::Application::ToMetaclassInstance->new(@args)->apply($self, $meta);
 }
 
 sub combine {
@@ -560,6 +645,8 @@ probably not that much really).
 
 =item B<apply>
 
+=item B<apply_to_metaclass_instance>
+
 =item B<combine>
 
 =back
@@ -607,6 +694,10 @@ probably not that much really).
 =item B<get_method>
 
 =item B<has_method>
+
+=item B<add_method>
+
+=item B<wrap_method_body>
 
 =item B<alias_method>
 
