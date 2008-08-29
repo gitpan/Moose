@@ -8,7 +8,7 @@ use metaclass;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.55_01';
+our $VERSION   = '0.55_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -262,6 +262,7 @@ sub add_role {
     (blessed($role) && $role->isa('Moose::Meta::Role'))
         || confess "Roles must be instances of Moose::Meta::Role";
     push @{$self->get_roles} => $role;
+    $self->reset_package_cache_flag;
 }
 
 sub calculate_all_roles {
