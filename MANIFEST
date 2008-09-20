@@ -35,6 +35,9 @@ lib/Moose/Cookbook/Snack/Keywords.pod
 lib/Moose/Cookbook/Snack/Types.pod
 lib/Moose/Cookbook/Style.pod
 lib/Moose/Cookbook/WTF.pod
+lib/Moose/Error/Confess.pm
+lib/Moose/Error/Croak.pm
+lib/Moose/Error/Default.pm
 lib/Moose/Exporter.pm
 lib/Moose/Intro.pod
 lib/Moose/Meta/Attribute.pm
@@ -44,6 +47,7 @@ lib/Moose/Meta/Method.pm
 lib/Moose/Meta/Method/Accessor.pm
 lib/Moose/Meta/Method/Augmented.pm
 lib/Moose/Meta/Method/Constructor.pm
+lib/Moose/Meta/Method/Delegation.pm
 lib/Moose/Meta/Method/Destructor.pm
 lib/Moose/Meta/Method/Overriden.pm
 lib/Moose/Meta/Role.pm
@@ -110,6 +114,7 @@ t/010_basics/013_create.t
 t/010_basics/014_create_anon.t
 t/010_basics/015_buildargs.t
 t/010_basics/016_load_into_main.t
+t/010_basics/017_error_handling.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -132,6 +137,7 @@ t/020_attributes/019_attribute_lazy_initializer.t
 t/020_attributes/020_trigger_and_coerce.t
 t/020_attributes/021_method_generation_rules.t
 t/020_attributes/022_legal_options_for_inheritance.t
+t/020_attributes/023_attribute_names.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -160,6 +166,7 @@ t/030_roles/025_role_composition_override.t
 t/030_roles/026_role_composition_method_mods.t
 t/030_roles/030_role_parameterized.t
 t/030_roles/031_roles_applied_in_create.t
+t/030_roles/032_roles_and_method_cloning.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t
@@ -185,6 +192,8 @@ t/040_type_constraints/022_custom_type_errors.t
 t/040_type_constraints/023_types_and_undef.t
 t/040_type_constraints/024_role_type_constraint.t
 t/040_type_constraints/025_type_coersion_on_lazy_attributes.t
+t/040_type_constraints/026_normalize_type_name.t
+t/040_type_constraints/027_parameterize_from.t
 t/050_metaclasses/001_custom_attr_meta_with_roles.t
 t/050_metaclasses/002_custom_attr_meta_as_role.t
 t/050_metaclasses/003_moose_w_metaclass.t
@@ -196,6 +205,8 @@ t/050_metaclasses/013_metaclass_traits.t
 t/050_metaclasses/014_goto_moose_import.t
 t/050_metaclasses/015_metarole.t
 t/050_metaclasses/016_metarole_w_metaclass_pm.t
+t/050_metaclasses/017_use_base_of_moose.t
+t/050_metaclasses/018_throw_error.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t

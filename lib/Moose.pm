@@ -6,7 +6,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.57';
+our $VERSION   = '0.58';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -36,6 +36,12 @@ use Moose::Meta::Role::Application::ToInstance;
 use Moose::Util::TypeConstraints;
 use Moose::Util ();
 
+sub throw_error {
+    # FIXME This 
+    shift;
+    goto \&confess
+}
+
 sub extends {
     my $class = shift;
 
@@ -55,7 +61,7 @@ sub extends {
     # this checks the metaclass to make sure
     # it is correct, sometimes it can get out
     # of sync when the classes are being built
-    my $meta = Moose::Meta::Class->initialize($class)->_fix_metaclass_incompatability(@supers);
+    my $meta = Moose::Meta::Class->initialize($class);
     $meta->superclasses(@supers);
 }
 
@@ -151,12 +157,11 @@ sub init_meta {
     my %args = @_;
 
     my $class = $args{for_class}
-        or confess "Cannot call init_meta without specifying a for_class";
+        or Moose->throw_error("Cannot call init_meta without specifying a for_class");
     my $base_class = $args{base_class} || 'Moose::Object';
     my $metaclass  = $args{metaclass}  || 'Moose::Meta::Class';
 
-    confess
-        "The Metaclass $metaclass must be a subclass of Moose::Meta::Class."
+    Moose->throw_error("The Metaclass $metaclass must be a subclass of Moose::Meta::Class.")
         unless $metaclass->isa('Moose::Meta::Class');
 
     # make a subtype for each Moose class
@@ -167,7 +172,7 @@ sub init_meta {
 
     if ( $meta = Class::MOP::get_metaclass_by_name($class) ) {
         unless ( $meta->isa("Moose::Meta::Class") ) {
-            confess "$class already has a metaclass, but it does not inherit $metaclass ($meta)";
+            Moose->throw_error("$class already has a metaclass, but it does not inherit $metaclass ($meta)");
         }
     } else {
         # no metaclass, no 'meta' method
@@ -183,7 +188,7 @@ sub init_meta {
                 : ref($ancestor_meta));
 
             # if we have an ancestor metaclass that inherits $metaclass, we use
-            # that. This is like _fix_metaclass_incompatability, but we can do it now.
+            # that. This is like _fix_metaclass_incompatibility, but we can do it now.
 
             # the case of having an ancestry is not very common, but arises in
             # e.g. Reaction
@@ -209,7 +214,7 @@ sub init_meta {
         my $method_meta = $class->meta;
 
         ( blessed($method_meta) && $method_meta->isa('Moose::Meta::Class') )
-            || confess "$class already has a &meta function, but it does not return a Moose::Meta::Class ($meta)";
+            || Moose->throw_error("$class already has a &meta function, but it does not return a Moose::Meta::Class ($meta)");
 
         $meta = $method_meta;
     }
@@ -812,11 +817,10 @@ to work. Here is an example:
 
 =head1 EXTENDING AND EMBEDDING MOOSE
 
-Moose also offers some options for extending or embedding it into your
-own framework. To learn more about extending Moose, we recommend
-checking out the "Extending" recipes in the L<Moose::Cookbook>,
-starting with L<Moose::Cookbook::Extending::Recipe1>, which provides
-an overview of all the different ways you might extend Moose.
+To learn more about extending Moose, we recommend checking out the
+"Extending" recipes in the L<Moose::Cookbook>, starting with
+L<Moose::Cookbook::Extending::Recipe1>, which provides an overview of
+all the different ways you might extend Moose.
 
 =head2 B<< Moose->init_meta(for_class => $class, base_class => $baseclass, metaclass => $metaclass) >>
 
@@ -842,6 +846,50 @@ B<NOTE>: Doing this is more or less deprecated. Use L<Moose::Exporter>
 instead, which lets you stack multiple C<Moose.pm>-alike modules
 sanely. It handles getting the exported functions into the right place
 for you.
+
+=head2 B<throw_error>
+
+An alias for C<confess>, used by internally by Moose.
+
+=head1 METACLASS COMPATIBILITY AND MOOSE
+
+Metaclass compatibility is a thorny subject. You should start by
+reading the "About Metaclass compatibility" section in the
+C<Class::MOP> docs.
+
+Moose will attempt to resolve a few cases of metaclass incompatibility
+when you set the superclasses for a class, unlike C<Class::MOP>, which
+simply dies if the metaclasses are incompatible.
+
+In actuality, Moose fixes incompatibility for I<all> of a class's
+metaclasses, not just the class metaclass. That includes the instance
+metaclass, attribute metaclass, as well as its constructor class and
+destructor class. However, for simplicity this discussion will just
+refer to "metaclass", meaning the class metaclass, most of the time.
+
+Moose has two algorithms for fixing metaclass incompatibility.
+
+The first algorithm is very simple. If all the metaclass for the
+parent is a I<subclass> of the child's metaclass, then we simply
+replace the child's metaclass with the parent's.
+
+The second algorithm is more complicated. It tries to determine if the
+metaclasses only "differ by roles". This means that the parent and
+child's metaclass share a common ancestor in their respective
+hierarchies, and that the subclasses under the common ancestor are
+only different because of role applications. This case is actually
+fairly common when you mix and match various C<MooseX::*> modules,
+many of which apply roles to the metaclass.
+
+If the parent and child do differ by roles, Moose replaces the
+metaclass in the child with a newly created metaclass. This metaclass
+is a subclass of the parent's metaclass, does all of the roles that
+the child's metaclass did before being replaced. Effectively, this
+means the new metaclass does all of the roles done by both the
+parent's and child's original metaclasses.
+
+Ultimately, this is all transparent to you except in the case of an
+unresolvable conflict.
 
 =head1 CAVEATS
 

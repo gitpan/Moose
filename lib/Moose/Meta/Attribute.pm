@@ -5,13 +5,13 @@ use strict;
 use warnings;
 
 use Scalar::Util 'blessed', 'weaken';
-use Carp         'confess';
 use overload     ();
 
 our $VERSION   = '0.57';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
+use Moose::Meta::Method::Delegation;
 use Moose::Util ();
 use Moose::Util::TypeConstraints ();
 
@@ -62,6 +62,16 @@ sub does {
     };
     return 0 if !defined($name); # failed to load class
     return Moose::Object::does($self, $name);
+}
+
+sub throw_error {
+    my $self = shift;
+    my $class = ( ref $self && $self->associated_class ) || "Moose::Meta::Class";
+    unshift @_, "message" if @_ % 2 == 1;
+    unshift @_, attr => $self if ref $self;
+    unshift @_, $class;
+    my $handler = $class->can("throw_error"); # to avoid incrementing depth by 1
+    goto $handler;
 }
 
 sub new {
@@ -173,7 +183,7 @@ sub clone_and_inherit_options {
         else {
             $type_constraint = Moose::Util::TypeConstraints::find_or_create_isa_type_constraint($options{isa});
             (defined $type_constraint)
-                || confess "Could not find the type constraint '" . $options{isa} . "'";
+                || $self->throw_error("Could not find the type constraint '" . $options{isa} . "'", data => $options{isa});
         }
 
         $actual_options{type_constraint} = $type_constraint;
@@ -188,7 +198,7 @@ sub clone_and_inherit_options {
         else {
             $type_constraint = Moose::Util::TypeConstraints::find_or_create_does_type_constraint($options{does});
             (defined $type_constraint)
-                || confess "Could not find the type constraint '" . $options{does} . "'";
+                || $self->throw_error("Could not find the type constraint '" . $options{does} . "'", data => $options{does});
         }
 
         $actual_options{type_constraint} = $type_constraint;
@@ -210,7 +220,7 @@ sub clone_and_inherit_options {
     }
 
     (scalar keys %options == 0)
-        || confess "Illegal inherited options => (" . (join ', ' => keys %options) . ")";
+        || $self->throw_error("Illegal inherited options => (" . (join ', ' => keys %options) . ")", data => \%options);
 
 
     $self->clone(%actual_options);
@@ -258,7 +268,7 @@ sub _process_options {
         ### -------------------------
         
         if ($options->{is} eq 'ro') {
-            confess "Cannot define an accessor name on a read-only attribute, accessors are read/write"
+            $class->throw_error("Cannot define an accessor name on a read-only attribute, accessors are read/write", data => $options)
                 if exists $options->{accessor};
             $options->{reader} ||= $name;
         }
@@ -271,7 +281,7 @@ sub _process_options {
             }
         }
         else {
-            confess "I do not understand this option (is => " . $options->{is} . ") on attribute ($name)"
+            $class->throw_error("I do not understand this option (is => " . $options->{is} . ") on attribute ($name)", data => $options->{is});
         }
     }
 
@@ -279,10 +289,10 @@ sub _process_options {
         if (exists $options->{does}) {
             if (eval { $options->{isa}->can('does') }) {
                 ($options->{isa}->does($options->{does}))
-                    || confess "Cannot have an isa option and a does option if the isa does not do the does on attribute ($name)";
+                    || $class->throw_error("Cannot have an isa option and a does option if the isa does not do the does on attribute ($name)", data => $options);
             }
             else {
-                confess "Cannot have an isa option which cannot ->does() on attribute ($name)";
+                $class->throw_error("Cannot have an isa option which cannot ->does() on attribute ($name)", data => $options);
             }
         }
 
@@ -306,26 +316,26 @@ sub _process_options {
 
     if (exists $options->{coerce} && $options->{coerce}) {
         (exists $options->{type_constraint})
-            || confess "You cannot have coercion without specifying a type constraint on attribute ($name)";
-        confess "You cannot have a weak reference to a coerced value on attribute ($name)"
+            || $class->throw_error("You cannot have coercion without specifying a type constraint on attribute ($name)", data => $options);
+        $class->throw_error("You cannot have a weak reference to a coerced value on attribute ($name)", data => $options)
             if $options->{weak_ref};
     }
 
     if (exists $options->{trigger}) {
         ('CODE' eq ref $options->{trigger})
-            || confess "Trigger must be a CODE ref on attribute ($name)";
+            || $class->throw_error("Trigger must be a CODE ref on attribute ($name)", data => $options->{trigger});
     }
 
     if (exists $options->{auto_deref} && $options->{auto_deref}) {
         (exists $options->{type_constraint})
-            || confess "You cannot auto-dereference without specifying a type constraint on attribute ($name)";
+            || $class->throw_error("You cannot auto-dereference without specifying a type constraint on attribute ($name)", data => $options);
         ($options->{type_constraint}->is_a_type_of('ArrayRef') ||
          $options->{type_constraint}->is_a_type_of('HashRef'))
-            || confess "You cannot auto-dereference anything other than a ArrayRef or HashRef on attribute ($name)";
+            || $class->throw_error("You cannot auto-dereference anything other than a ArrayRef or HashRef on attribute ($name)", data => $options);
     }
 
     if (exists $options->{lazy_build} && $options->{lazy_build} == 1) {
-        confess("You can not use lazy_build and default for the same attribute ($name)")
+        $class->throw_error("You can not use lazy_build and default for the same attribute ($name)", data => $options)
             if exists $options->{default};
         $options->{lazy}      = 1;
         $options->{required}  = 1;
@@ -342,11 +352,11 @@ sub _process_options {
 
     if (exists $options->{lazy} && $options->{lazy}) {
         (exists $options->{default} || defined $options->{builder} )
-            || confess "You cannot have lazy attribute ($name) without specifying a default value for it";
+            || $class->throw_error("You cannot have lazy attribute ($name) without specifying a default value for it", data => $options);
     }
 
     if ( $options->{required} && !( ( !exists $options->{init_arg} || defined $options->{init_arg} ) || exists $options->{default} || defined $options->{builder} ) ) {
-        confess "You cannot have a required attribute ($name) without a default, builder, or an init_arg";
+        $class->throw_error("You cannot have a required attribute ($name) without a default, builder, or an init_arg", data => $options);
     }
 
 }
@@ -366,7 +376,7 @@ sub initialize_instance_slot {
         # skip it if it's lazy
         return if $self->is_lazy;
         # and die if it's required and doesn't have a default value
-        confess "Attribute (" . $self->name . ") is required"
+        $self->throw_error("Attribute (" . $self->name . ") is required", object => $instance, data => $params)
             if $self->is_required && !$self->has_default && !$self->has_builder;
 
         # if nothing was in the %params, we can use the
@@ -389,10 +399,10 @@ sub initialize_instance_slot {
             $val = $type_constraint->coerce($val);
         }
         $type_constraint->check($val)
-            || confess "Attribute (" 
+            || $self->throw_error("Attribute (" 
                      . $self->name 
                      . ") does not pass the type constraint because: " 
-                     . $type_constraint->get_message($val);
+                     . $type_constraint->get_message($val), data => $val, object => $instance);
     }
 
     $self->set_initial_value($instance, $val);
@@ -408,12 +418,14 @@ sub _call_builder {
     return $instance->$builder()
         if $instance->can( $self->builder );
 
-    confess(  blessed($instance)
+    $self->throw_error(  blessed($instance)
             . " does not support builder method '"
             . $self->builder
             . "' for attribute '"
             . $self->name
-            . "'" );
+            . "'",
+            object => $instance,
+     );
 }
 
 ## Slot management
@@ -443,10 +455,10 @@ sub _set_initial_slot_value {
             $val = $type_constraint->coerce($val)
                 if $can_coerce;
             $type_constraint->check($val)
-                || confess "Attribute (" 
+                || $self->throw_error("Attribute (" 
                          . $slot_name 
                          . ") does not pass the type constraint because: " 
-                         . $type_constraint->get_message($val);            
+                         . $type_constraint->get_message($val), data => $val, object => $instance);
         }
         $meta_instance->set_slot_value($instance, $slot_name, $val);
     };
@@ -464,7 +476,7 @@ sub set_value {
     my $attr_name = $self->name;
 
     if ($self->is_required and not @args) {
-        confess "Attribute ($attr_name) is required";
+        $self->throw_error("Attribute ($attr_name) is required", object => $instance);
     }
 
     if ($self->has_type_constraint) {
@@ -475,10 +487,10 @@ sub set_value {
             $value = $type_constraint->coerce($value);
         }        
         $type_constraint->_compiled_type_constraint->($value)
-            || confess "Attribute (" 
+            || $self->throw_error("Attribute (" 
                      . $self->name 
                      . ") does not pass the type constraint because " 
-                     . $type_constraint->get_message($value);
+                     . $type_constraint->get_message($value), object => $instance, data => $value);
     }
 
     my $meta_instance = Class::MOP::Class->initialize(blessed($instance))
@@ -511,9 +523,9 @@ sub get_value {
                 $value = $type_constraint->coerce($value)
                     if ($self->should_coerce);
                 $type_constraint->check($value) 
-                  || confess "Attribute (" . $self->name
+                  || c$self->throw_error("Attribute (" . $self->name
                       . ") does not pass the type constraint because: "
-                      . $type_constraint->get_message($value);
+                      . $type_constraint->get_message($value), type_constraint => $type_constraint, data => $value);
             }
             $self->set_initial_value($instance, $value);
         }
@@ -534,7 +546,7 @@ sub get_value {
             return wantarray ? %{ $rv } : $rv;
         }
         else {
-            confess "Can not auto de-reference the type constraint '" . $type_constraint->name . "'";
+            $self->throw_error("Can not auto de-reference the type constraint '" . $type_constraint->name . "'", object => $instance, type_constraint => $type_constraint);
         }
 
     }
@@ -565,8 +577,6 @@ sub install_delegation {
     # to delagate to, see that method for details
     my %handles = $self->_canonicalize_handles;
 
-    # find the accessor method for this attribute
-    my $accessor = $self->_get_delegate_accessor;
 
     # install the delegation ...
     my $associated_class = $self->associated_class;
@@ -575,8 +585,8 @@ sub install_delegation {
         my $class_name = $associated_class->name;
         my $name = "${class_name}::${handle}";
 
-        (!$associated_class->has_method($handle))
-            || confess "You cannot overwrite a locally defined method ($handle) with a delegation";
+            (!$associated_class->has_method($handle))
+                || $self->throw_error("You cannot overwrite a locally defined method ($handle) with a delegation", method_name => $handle);
 
         # NOTE:
         # handles is not allowed to delegate
@@ -588,42 +598,13 @@ sub install_delegation {
         #cluck("Not delegating method '$handle' because it is a core method") and
         next if $class_name->isa("Moose::Object") and $handle =~ /^BUILD|DEMOLISH$/ || Moose::Object->can($handle);
 
-        if ('CODE' eq ref($method_to_call)) {
-            $associated_class->add_method($handle => Class::MOP::subname($name, $method_to_call));
-        }
-        else {
-            # NOTE:
-            # we used to do a goto here, but the
-            # goto didn't handle failure correctly
-            # (it just returned nothing), so I took 
-            # that out. However, the more I thought
-            # about it, the less I liked it doing 
-            # the goto, and I prefered the act of 
-            # delegation being actually represented
-            # in the stack trace. 
-            # - SL
-            $associated_class->add_method($handle => Class::MOP::subname($name, sub {
-                my $proxy = (shift)->$accessor();
-                (defined $proxy) 
-                    || confess "Cannot delegate $handle to $method_to_call because " . 
-                               "the value of " . $self->name . " is not defined";
-                $proxy->$method_to_call(@_);
-            }));
-        }
+        my $method = $self->_make_delegation_method($handle, $method_to_call);
+
+        $self->associated_class->add_method($method->name, $method);
     }    
 }
 
 # private methods to help delegation ...
-
-sub _get_delegate_accessor {
-    my $self = shift;
-    # find the accessor method for this attribute
-    my $accessor = $self->get_read_method_ref;
-    # then unpack it if we need too ...
-    $accessor = $accessor->body if blessed $accessor;    
-    # return the accessor
-    return $accessor;
-}
 
 sub _canonicalize_handles {
     my $self    = shift;
@@ -637,7 +618,7 @@ sub _canonicalize_handles {
         }
         elsif ($handle_type eq 'Regexp') {
             ($self->has_type_constraint)
-                || confess "Cannot delegate methods based on a RegExpr without a type constraint (isa)";
+                || $self->throw_error("Cannot delegate methods based on a RegExpr without a type constraint (isa)", data => $handles);
             return map  { ($_ => $_) }
                    grep { /$handles/ } $self->_get_delegate_method_list;
         }
@@ -645,17 +626,17 @@ sub _canonicalize_handles {
             return $handles->($self, $self->_find_delegate_metaclass);
         }
         else {
-            confess "Unable to canonicalize the 'handles' option with $handles";
+            $self->throw_error("Unable to canonicalize the 'handles' option with $handles", data => $handles);
         }
     }
     else {
         my $role_meta = eval { $handles->meta };
         if ($@) {
-            confess "Unable to canonicalize the 'handles' option with $handles because : $@";
+            $self->throw_error("Unable to canonicalize the 'handles' option with $handles because : $@", data => $handles, error => $@);
         }
 
         (blessed $role_meta && $role_meta->isa('Moose::Meta::Role'))
-            || confess "Unable to canonicalize the 'handles' option with $handles because ->meta is not a Moose::Meta::Role";
+            || $self->throw_error("Unable to canonicalize the 'handles' option with $handles because ->meta is not a Moose::Meta::Role", data => $handles);
 
         return map { $_ => $_ } (
             $role_meta->get_method_list,
@@ -682,7 +663,7 @@ sub _find_delegate_metaclass {
         return $role->meta;
     }
     else {
-        confess "Cannot find delegate metaclass for attribute " . $self->name;
+        $self->throw_error("Cannot find delegate metaclass for attribute " . $self->name);
     }
 }
 
@@ -698,8 +679,24 @@ sub _get_delegate_method_list {
         return $meta->get_method_list;
     }
     else {
-        confess "Unable to recognize the delegate metaclass '$meta'";
+        $self->throw_error("Unable to recognize the delegate metaclass '$meta'", data => $meta);
     }
+}
+
+sub _make_delegation_method {
+    my ( $self, $handle_name, $method_to_call ) = @_;
+
+    my $method_body;
+
+    $method_body = $method_to_call
+        if 'CODE' eq ref($method_to_call);
+
+    return Moose::Meta::Method::Delegation->new(
+        name               => $handle_name,
+        package_name       => $self->associated_class->name,
+        attribute          => $self,
+        delegate_to_method => $method_to_call,
+    );
 }
 
 package Moose::Meta::Attribute::Custom::Moose;
@@ -762,7 +759,7 @@ I<Attribute (x) does not pass the type constraint (Int) with 'fourty-two'>
 
 Before setting the value, a check is made on the type constraint of
 the attribute, if it has one, to see if the value passes it. If the
-value fails to pass, the set operation dies with a L<Carp/confess>.
+value fails to pass, the set operation dies with a L<throw_error>.
 
 Any coercion to convert values is done before checking the type constraint.
 
@@ -780,6 +777,10 @@ Moose attributes support type-constraint checking, weak reference
 creation and type coercion.
 
 =over 4
+
+=item B<throw_error>
+
+Delegates to C<associated_class> or C<Moose::Meta::Class> if there is none.
 
 =item B<interpolate_class_and_new>
 
