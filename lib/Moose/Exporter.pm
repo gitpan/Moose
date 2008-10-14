@@ -72,7 +72,7 @@ sub build_import_methods {
     sub _follow_also_real {
         my $exporting_package = shift;
 
-        die "Package in also ($exporting_package) does not seem to use MooseX::Exporter"
+        die "Package in also ($exporting_package) does not seem to use Moose::Exporter"
             unless exists $EXPORT_SPEC{$exporting_package};
 
         my $also = $EXPORT_SPEC{$exporting_package}{also};
@@ -83,7 +83,7 @@ sub build_import_methods {
 
         for my $package (@also)
         {
-            die "Circular reference in also parameter to MooseX::Exporter between $exporting_package and $package"
+            die "Circular reference in also parameter to Moose::Exporter between $exporting_package and $package"
                 if $seen->{$package};
 
             $seen->{$package} = 1;
@@ -369,10 +369,18 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
   use Moose::Exporter;
 
   Moose::Exporter->setup_import_methods(
-      with_caller => [ 'sugar1', 'sugar2' ],
+      with_caller => [ 'has_rw', 'sugar2' ],
       as_is       => [ 'sugar3', \&Some::Random::thing ],
       also        => 'Moose',
   );
+
+  sub has_rw {
+      my ($caller, $name, %options) = @_;
+      Class::MOP::Class->initialize($caller)->add_attribute($name,
+          is => 'rw',
+          %options,
+      );
+  }
 
   # then later ...
   package MyApp::User;
@@ -380,7 +388,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
   use MyApp::Moose;
 
   has 'name';
-  sugar1 'do your thing';
+  has_rw 'size';
   thing;
 
   no MyApp::Moose;

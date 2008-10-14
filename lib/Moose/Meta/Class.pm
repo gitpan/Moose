@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.57';
+our $VERSION   = '0.59';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -60,11 +60,12 @@ sub create {
     (ref $options{roles} eq 'ARRAY')
         || $self->throw_error("You must pass an ARRAY ref of roles", data => $options{roles})
             if exists $options{roles};
+    my $roles = delete $options{roles};
 
     my $class = $self->SUPER::create($package_name, %options);
 
-    if (exists $options{roles}) {
-        Moose::Util::apply_all_roles($class, @{$options{roles}});
+    if ($roles) {
+        Moose::Util::apply_all_roles( $class, @$roles );
     }
     
     return $class;
@@ -151,33 +152,31 @@ sub excludes_role {
 }
 
 sub new_object {
-    my $class = shift;
+    my $class  = shift;
     my $params = @_ == 1 ? $_[0] : {@_};
-    my $self = $class->SUPER::new_object($params);
-    foreach my $attr ($class->compute_all_applicable_attributes()) {
-        # if we have a trigger, then ...
-        if ($attr->can('has_trigger') && $attr->has_trigger) {
-            # make sure we have an init-arg ...
-            if (defined(my $init_arg = $attr->init_arg)) {
-                # now make sure an init-arg was passes ...
-                if (exists $params->{$init_arg}) {
-                    # and if get here, fire the trigger
-                    $attr->trigger->(
-                        $self, 
-                        # check if there is a coercion
-                        ($attr->should_coerce
-                            # and if so, we need to grab the 
-                            # value that is actually been stored
-                            ? $attr->get_read_method_ref->($self)
-                            # otherwise, just get the value from
-                            # the constructor params
-                            : $params->{$init_arg}), 
-                        $attr
-                    );
-                }
-            }       
-        }
+    my $self   = $class->SUPER::new_object($params);
+
+    foreach my $attr ( $class->compute_all_applicable_attributes() ) {
+
+        next unless $attr->can('has_trigger') && $attr->has_trigger;
+
+        my $init_arg = $attr->init_arg;
+
+        next unless defined $init_arg;
+
+        next unless exists $params->{$init_arg};
+
+        $attr->trigger->(
+            $self,
+            (
+                  $attr->should_coerce
+                ? $attr->get_read_method_ref->($self)
+                : $params->{$init_arg}
+            ),
+            $attr
+        );
     }
+
     return $self;
 }
 

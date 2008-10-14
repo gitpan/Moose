@@ -5,10 +5,11 @@ use strict;
 use warnings;
 
 use Carp ();
+use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.57';
+our $VERSION   = '0.59';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -19,31 +20,11 @@ our $AUTHORITY = 'cpan:STEVAN';
 # ensures the prototypes are in scope when consumers are
 # compiled.
 
-# creation and location
-sub find_type_constraint                 ($);
-sub register_type_constraint             ($);
-sub find_or_create_type_constraint       ($;$);
-sub find_or_parse_type_constraint        ($);
-sub find_or_create_isa_type_constraint   ($);
-sub find_or_create_does_type_constraint  ($);
-sub create_type_constraint_union         (@);
-sub create_parameterized_type_constraint ($);
-sub create_class_type_constraint         ($;$);
-sub create_role_type_constraint          ($;$);
-sub create_enum_type_constraint          ($$);
-
 # dah sugah!
-sub type        ($$;$$);
-sub subtype     ($$;$$$);
-sub class_type  ($;$);
-sub coerce      ($@);
-sub as          ($);
-sub from        ($);
 sub where       (&);
 sub via         (&);
 sub message     (&);
 sub optimize_as (&);
-sub enum        ($;@);
 
 ## private stuff ...
 sub _create_type_constraint ($$$;$$);
@@ -92,7 +73,7 @@ sub export_type_constraints_as_functions {
     }
 }
 
-sub create_type_constraint_union (@) {
+sub create_type_constraint_union {
     my @type_constraint_names;
 
     if (scalar @_ == 1 && _detect_type_constraint_union($_[0])) {
@@ -105,51 +86,41 @@ sub create_type_constraint_union (@) {
     (scalar @type_constraint_names >= 2)
         || Moose->throw_error("You must pass in at least 2 type names to make a union");
 
-    my @type_constraints = sort {$a->name cmp $b->name} map {
+    my @type_constraints = map {
         find_or_parse_type_constraint($_) ||
          Moose->throw_error("Could not locate type constraint ($_) for the union");
     } @type_constraint_names;
-    
+
     return Moose::Meta::TypeConstraint::Union->new(
         type_constraints => \@type_constraints
     );
 }
 
-sub create_parameterized_type_constraint ($) {
+sub create_parameterized_type_constraint {
     my $type_constraint_name = shift;
     my ($base_type, $type_parameter) = _parse_parameterized_type_constraint($type_constraint_name);
 
     (defined $base_type && defined $type_parameter)
         || Moose->throw_error("Could not parse type name ($type_constraint_name) correctly");
 
-    if ($REGISTRY->has_type_constraint($base_type)) {
-        my $base_type_tc = $REGISTRY->get_type_constraint($base_type);
-        return _create_parameterized_type_constraint(
-            $base_type_tc,
-            $type_parameter,
-        );
-    } else {
-        Moose->throw_error("Could not locate the base type ($base_type)");
-    }
-}
+    # We need to get the relevant type constraints and use them to
+    # create the name to ensure that we end up with the fully
+    # normalized name, because the user could've passed something like
+    # HashRef[Str|Int] and we want to make that HashRef[Int|Str].
+    my $base_type_tc = $REGISTRY->get_type_constraint($base_type)
+        || Moose->throw_error("Could not locate the base type ($base_type)");
+    my $parameter_tc = find_or_create_isa_type_constraint($type_parameter)
+        || Moose->throw_error("Could not locate the parameter type ($type_parameter)");
 
-sub _create_parameterized_type_constraint {
-    my ( $base_type_tc, $type_parameter ) = @_;
-    if ( $base_type_tc->can('parameterize') ) {
-        return $base_type_tc->parameterize($type_parameter);
-    }
-    else {
-        return Moose::Meta::TypeConstraint::Parameterized->new(
-            name   => $base_type_tc->name . '[' . $type_parameter . ']',
-            parent => $base_type_tc,
-            type_parameter =>
-                find_or_create_isa_type_constraint($type_parameter),
-        );
-    }
+    return Moose::Meta::TypeConstraint::Parameterized->new(
+        name           => $base_type_tc->name . '[' . $parameter_tc->name . ']',
+        parent         => $base_type_tc,
+        type_parameter => $parameter_tc,
+    );
 }
 
 #should we also support optimized checks?
-sub create_class_type_constraint ($;$) {
+sub create_class_type_constraint {
     my ( $class, $options ) = @_;
 
     # too early for this check
@@ -167,7 +138,7 @@ sub create_class_type_constraint ($;$) {
     Moose::Meta::TypeConstraint::Class->new( %options );
 }
 
-sub create_role_type_constraint ($;$) {
+sub create_role_type_constraint {
     my ( $role, $options ) = @_;
 
     # too early for this check
@@ -186,7 +157,7 @@ sub create_role_type_constraint ($;$) {
 }
 
 
-sub find_or_create_type_constraint ($;$) {
+sub find_or_create_type_constraint {
     my ( $type_constraint_name, $options_for_anon_type ) = @_;
 
     if ( my $constraint = find_or_parse_type_constraint($type_constraint_name) ) {
@@ -213,17 +184,17 @@ sub find_or_create_type_constraint ($;$) {
     return;
 }
 
-sub find_or_create_isa_type_constraint ($) {
+sub find_or_create_isa_type_constraint {
     my $type_constraint_name = shift;
     find_or_parse_type_constraint($type_constraint_name) || create_class_type_constraint($type_constraint_name)
 }
 
-sub find_or_create_does_type_constraint ($) {
+sub find_or_create_does_type_constraint {
     my $type_constraint_name = shift;
     find_or_parse_type_constraint($type_constraint_name) || create_role_type_constraint($type_constraint_name)
 }
 
-sub find_or_parse_type_constraint ($) {
+sub find_or_parse_type_constraint {
     my $type_constraint_name = normalize_type_constraint_name(shift);
     my $constraint;
     
@@ -242,16 +213,23 @@ sub find_or_parse_type_constraint ($) {
 }
 
 sub normalize_type_constraint_name {
-    my $type_constraint_name = shift @_;
+    my $type_constraint_name = shift;
     $type_constraint_name =~ s/\s//g;
     return $type_constraint_name;
+}
+
+sub _confess {
+    my $error = shift;
+
+    local $Carp::CarpLevel = $Carp::CarpLevel + 1;
+    Carp::confess($error);
 }
 
 ## --------------------------------------------------------
 ## exported functions ...
 ## --------------------------------------------------------
 
-sub find_type_constraint ($) {
+sub find_type_constraint {
     my $type = shift;
 
     if ( blessed $type and $type->isa("Moose::Meta::TypeConstraint") ) {
@@ -263,7 +241,7 @@ sub find_type_constraint ($) {
     }
 }
 
-sub register_type_constraint ($) {
+sub register_type_constraint {
     my $constraint = shift;
     Moose->throw_error("can't register an unnamed type constraint") unless defined $constraint->name;
     $REGISTRY->add_type_constraint($constraint);
@@ -272,26 +250,32 @@ sub register_type_constraint ($) {
 
 # type constructors
 
-sub type ($$;$$) {
+sub type {
     splice(@_, 1, 0, undef);
     goto &_create_type_constraint;
 }
 
-sub subtype ($$;$$$) {
+sub subtype {
     # NOTE:
     # this adds an undef for the name
     # if this is an anon-subtype:
     #   subtype(Num => where { $_ % 2 == 0 }) # anon 'even' subtype
-    # but if the last arg is not a code
-    # ref then it is a subtype alias:
+    #     or
+    #   subtype(Num => where { $_ % 2 == 0 }) message { "$_ must be an even number" }
+    #
+    # but if the last arg is not a code ref then it is a subtype
+    # alias:
+    #
     #   subtype(MyNumbers => as Num); # now MyNumbers is the same as Num
     # ... yeah I know it's ugly code
     # - SL
-    unshift @_ => undef if scalar @_ <= 2 && ('CODE' eq ref($_[1]));
+    unshift @_ => undef if scalar @_ == 2 && ( 'CODE' eq ref( $_[-1] ) );
+    unshift @_ => undef
+        if scalar @_ == 3 && all { ref($_) =~ /^(?:CODE|HASH)$/ } @_[ 1, 2 ];
     goto &_create_type_constraint;
 }
 
-sub class_type ($;$) {
+sub class_type {
     register_type_constraint(
         create_class_type_constraint(
             $_[0],
@@ -309,20 +293,20 @@ sub role_type ($;$) {
     );
 }
 
-sub coerce ($@) {
+sub coerce {
     my ($type_name, @coercion_map) = @_;
     _install_type_coercions($type_name, \@coercion_map);
 }
 
-sub as      ($) { $_[0] }
-sub from    ($) { $_[0] }
+sub as          { @_ }
+sub from        { @_ }
 sub where   (&) { $_[0] }
 sub via     (&) { $_[0] }
 
 sub message     (&) { +{ message   => $_[0] } }
 sub optimize_as (&) { +{ optimized => $_[0] } }
 
-sub enum ($;@) {
+sub enum {
     my ($type_name, @values) = @_;
     # NOTE:
     # if only an array-ref is passed then
@@ -344,7 +328,7 @@ sub enum ($;@) {
     );
 }
 
-sub create_enum_type_constraint ($$) {
+sub create_enum_type_constraint {
     my ( $type_name, $values ) = @_;
 
     Moose::Meta::TypeConstraint::Enum->new(
@@ -373,11 +357,13 @@ sub _create_type_constraint ($$$;$$) {
     if (defined $name) {
         my $type = $REGISTRY->get_type_constraint($name);
 
-        ($type->_package_defined_in eq $pkg_defined_in)
-            || confess ("The type constraint '$name' has already been created in "
-                       . $type->_package_defined_in . " and cannot be created again in "
-                       . $pkg_defined_in)
-                 if defined $type;
+        ( $type->_package_defined_in eq $pkg_defined_in )
+            || _confess(
+                  "The type constraint '$name' has already been created in "
+                . $type->_package_defined_in
+                . " and cannot be created again in "
+                . $pkg_defined_in )
+            if defined $type;
     }
 
     my $class = "Moose::Meta::TypeConstraint";
@@ -454,26 +440,19 @@ sub _install_type_coercions ($$) {
 
     my $any;
 
-    my $type                = qr{  $valid_chars+  (?: \[  \s* (??{$any}) \s* \] )? }x;
+    my $type                = qr{  $valid_chars+  (?: \[ \s* (??{$any})   \s* \] )? }x;
     my $type_capture_parts  = qr{ ($valid_chars+) (?: \[ \s* ((??{$any})) \s* \] )? }x;
-    my $type_with_parameter = qr{  $valid_chars+      \[ \s* (??{$any}) \s* \]    }x;
+    my $type_with_parameter = qr{  $valid_chars+      \[ \s* (??{$any})   \s* \]    }x;
 
     my $op_union = qr{ \s* \| \s* }x;
     my $union    = qr{ $type (?: $op_union $type )+ }x;
 
-    ## New Stuff for structured types.
-    my $comma = qr{,};
-    my $indirection = qr{=>};
-    my $divider_ops = qr{ $comma | $indirection }x;
-    my $structure_divider = qr{\s* $divider_ops \s*}x;    
-    my $structure_elements = qr{ ($type $structure_divider*)+ }x;
-
-    $any = qr{ $type | $union | $structure_elements }x;
+    $any = qr{ $type | $union }x;
 
     sub _parse_parameterized_type_constraint {
         { no warnings 'void'; $any; } # force capture of interpolated lexical
-        my($base, $elements) = ($_[0] =~ m{ $type_capture_parts }x);
-        return ($base,$elements);
+        $_[0] =~ m{ $type_capture_parts }x;
+        return ($1, $2);
     }
 
     sub _detect_parameterized_type_constraint {
@@ -755,7 +734,7 @@ that hierarchy represented visually.
 B<NOTE:> Any type followed by a type parameter C<[`a]> can be
 parameterized, this means you can say:
 
-  ArrayRef[Int]    # an array of intergers
+  ArrayRef[Int]    # an array of integers
   HashRef[CodeRef] # a hash of str to CODE ref mappings
   Maybe[Str]       # value may be a string, may be undefined
 
@@ -1031,17 +1010,6 @@ This returns all the parameterizable types that have been registered.
 =item B<add_parameterizable_type ($type)>
 
 Adds C<$type> to the list of parameterizable types
-
-=back
-
-=head1 Error Management
-
-=over 4
-
-=item B<confess>
-
-If the caller is a Moose metaclass, use its L<Moose::Meta::Class/throw_error>
-routine, otherwise use L<Carp/confess>.
 
 =back
 

@@ -6,7 +6,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.58';
+our $VERSION   = '0.59';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -15,7 +15,7 @@ use Carp         'confess', 'croak', 'cluck';
 
 use Moose::Exporter;
 
-use Class::MOP 0.65;
+use Class::MOP 0.67;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -402,12 +402,13 @@ superclasses still properly inherit from L<Moose::Object>.
 
 This will apply a given set of C<@roles> to the local class. 
 
-=item B<has $name =E<gt> %options>
+=item B<has $name|@$names =E<gt> %options>
 
-This will install an attribute of a given C<$name> into the current class.
-The C<%options> are the same as those provided by
-L<Class::MOP::Attribute>, in addition to the list below which are provided
-by Moose (L<Moose::Meta::Attribute> to be more specific):
+This will install an attribute of a given C<$name> into the current class. If
+the first parameter is an array reference, it will create an attribute for
+every C<$name> in the list. The C<%options> are the same as those provided by
+L<Class::MOP::Attribute>, in addition to the list below which are provided by
+Moose (L<Moose::Meta::Attribute> to be more specific):
 
 =over 4
 
@@ -417,10 +418,12 @@ The I<is> option accepts either I<rw> (for read/write) or I<ro> (for read
 only). These will create either a read/write accessor or a read-only
 accessor respectively, using the same name as the C<$name> of the attribute.
 
-If you need more control over how your accessors are named, you can use the
-I<reader>, I<writer> and I<accessor> options inherited from
-L<Class::MOP::Attribute>, however if you use those, you won't need the I<is> 
-option.
+If you need more control over how your accessors are named, you can
+use the L<reader|Class::MOP::Attribute/reader>,
+L<writer|Class::MOP::Attribute/writer> and
+L<accessor|Class::MOP::Attribute/accessor> options inherited from
+L<Class::MOP::Attribute>, however if you use those, you won't need the
+I<is> option.
 
 =item I<isa =E<gt> $type_name>
 
@@ -471,7 +474,11 @@ The I<trigger> option is a CODE reference which will be called after the value o
 the attribute is set. The CODE ref will be passed the instance itself, the
 updated value and the attribute meta-object (this is for more advanced fiddling
 and can typically be ignored). You B<cannot> have a trigger on a read-only
-attribute.
+attribute. 
+
+B<NOTE:> Triggers will only fire when you B<assign> to the attribute,
+either in the constructor, or using the writer. Default and built values will
+B<not> cause the trigger to be fired.
 
 =item I<handles =E<gt> ARRAY | HASH | REGEXP | ROLE | CODE>
 
@@ -605,6 +612,47 @@ resolved to a class name.
 
 Also see L<Moose::Cookbook::Meta::Recipe3> for a metaclass trait
 example.
+
+=item I<builder>
+
+The value of this key is the name of the method that will be called to
+obtain the value used to initialize the attribute. See the L<builder
+option docs in Class::MOP::Attribute|Class::MOP::Attribute/builder>
+for more information.
+
+=item I<default>
+
+The value of this key is the default value which will initialize the attribute.
+
+NOTE: If the value is a simple scalar (string or number), then it can
+be just passed as is.  However, if you wish to initialize it with a
+HASH or ARRAY ref, then you need to wrap that inside a CODE reference.
+See the L<default option docs in
+Class::MOP::Attribute|Class::MOP::Attribute/default> for more
+information.
+
+=item I<initializer>
+
+This may be a method name (referring to a method on the class with
+this attribute) or a CODE ref.  The initializer is used to set the
+attribute value on an instance when the attribute is set during
+instance initialization (but not when the value is being assigned
+to). See the L<initializer option docs in
+Class::MOP::Attribute|Class::MOP::Attribute/initializer> for more
+information.
+
+=item I<clearer>
+
+Allows you to clear the value, see the L<clearer option docs in
+Class::MOP::Attribute|Class::MOP::Attribute/clearer> for more
+information.
+
+=item I<predicate>
+
+Basic test to see if a value has been set in the attribute, see the
+L<predicate option docs in
+Class::MOP::Attribute|Class::MOP::Attribute/predicate> for more
+information.
 
 =back
 
@@ -891,6 +939,16 @@ parent's and child's original metaclasses.
 Ultimately, this is all transparent to you except in the case of an
 unresolvable conflict.
 
+=head2 The MooseX:: namespace
+
+Generally if you're writing an extension I<for> Moose itself you'll want 
+to put your extension in the C<MooseX::> namespace. This namespace is 
+specifically for extensions that make Moose better or different in some 
+fundamental way. It is traditionally B<not> for a package that just happens 
+to use Moose. This namespace follows from the examples of the C<LWPx::> 
+and C<DBIx::> namespaces that perform the same function for C<LWP> and C<DBI>
+respectively.
+
 =head1 CAVEATS
 
 =over 4
@@ -1006,9 +1064,26 @@ either email the mailing list or join us on irc at #moose to discuss.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Moose is an open project, there are at this point dozens of people who have 
+contributed, and can contribute. If you have added anything to the Moose 
+project you have a commit bit on this file and can add your name to the list.
 
-B<with contributions from:>
+=head2 CABAL
+
+However there are only a few people with the rights to release a new version 
+of Moose. The Moose Cabal are the people to go to with questions regarding
+the wider purview of Moose, and help out maintaining not just the code
+but the community as well.
+
+Stevan (stevan) Little E<lt>stevan@iinteractive.comE<gt>
+
+Yuval (nothingmuch) Kogman
+
+Shawn (sartak) Moore
+
+Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
+
+=head2 OTHER CONTRIBUTORS
 
 Aankhen
 
@@ -1038,21 +1113,15 @@ Scott (konobi) McWhirter
 
 Shlomi (rindolf) Fish
 
-Yuval (nothingmuch) Kogman
-
 Chris (perigrin) Prather
 
 Wallace (wreis) Reis
 
 Jonathan (jrockway) Rockway
 
-Dave (autarch) Rolsky
-
 Piotr (dexter) Roszatycki
 
 Sam (mugwump) Vilain
-
-Shawn (sartak) Moore
 
 ... and many other #moose folks
 

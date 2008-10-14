@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken';
 use overload     ();
 
-our $VERSION   = '0.57';
+our $VERSION   = '0.59';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -523,7 +523,7 @@ sub get_value {
                 $value = $type_constraint->coerce($value)
                     if ($self->should_coerce);
                 $type_constraint->check($value) 
-                  || c$self->throw_error("Attribute (" . $self->name
+                  || $self->throw_error("Attribute (" . $self->name
                       . ") does not pass the type constraint because: "
                       . $type_constraint->get_message($value), type_constraint => $type_constraint, data => $value);
             }

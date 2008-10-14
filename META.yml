@@ -1,7 +1,7 @@
 ---
 abstract: 'A postmodern object system for Perl 5'
 author:
-  - 'Stevan Little <stevan@iinteractive.com>'
+  - 'Moose is an open project, there are at this point dozens of people who have '
 build_requires:
   Test::Exception: 0.21
   Test::LongString: 0
@@ -19,7 +19,7 @@ no_index:
     - t
 requires:
   Carp: 0
-  Class::MOP: 0.66
+  Class::MOP: 0.67
   Filter::Simple: 0
   List::MoreUtils: 0
   Scalar::Util: 1.18
@@ -27,4 +27,4 @@ requires:
   perl: 5.008
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.58
+version: 0.59

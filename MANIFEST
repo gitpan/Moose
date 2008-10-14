@@ -193,7 +193,7 @@ t/040_type_constraints/023_types_and_undef.t
 t/040_type_constraints/024_role_type_constraint.t
 t/040_type_constraints/025_type_coersion_on_lazy_attributes.t
 t/040_type_constraints/026_normalize_type_name.t
-t/040_type_constraints/027_parameterize_from.t
+t/040_type_constraints/029_define_type_twice_throws.t
 t/050_metaclasses/001_custom_attr_meta_with_roles.t
 t/050_metaclasses/002_custom_attr_meta_as_role.t
 t/050_metaclasses/003_moose_w_metaclass.t
@@ -207,6 +207,7 @@ t/050_metaclasses/015_metarole.t
 t/050_metaclasses/016_metarole_w_metaclass_pm.t
 t/050_metaclasses/017_use_base_of_moose.t
 t/050_metaclasses/018_throw_error.t
+t/050_metaclasses/019_create_anon_with_required_attr.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
