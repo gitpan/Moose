@@ -6,7 +6,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.59';
+our $VERSION   = '0.60';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -15,7 +15,7 @@ use Carp         'confess', 'croak', 'cluck';
 
 use Moose::Exporter;
 
-use Class::MOP 0.67;
+use Class::MOP 0.68;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -658,7 +658,7 @@ information.
 
 =item B<has +$name =E<gt> %options>
 
-This is variation on the normal attibute creator C<has> which allows you to
+This is variation on the normal attribute creator C<has> which allows you to
 clone and extend an attribute from a superclass or from a role. Here is an 
 example of the superclass usage:
 
@@ -737,7 +737,7 @@ You I<are> allowed to change the type without restriction.
 It is recommended that you use this freedom with caution. We used to 
 only allow for extension only if the type was a subtype of the parent's 
 type, but we felt that was too restrictive and is better left as a 
-policy descision. 
+policy decision. 
 
 =item I<handles>
 

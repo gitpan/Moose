@@ -12,7 +12,7 @@ use Scalar::Util qw(blessed refaddr);
 
 use base qw(Class::MOP::Object);
 
-our $VERSION   = '0.59';
+our $VERSION   = '0.60';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -246,6 +246,12 @@ sub _collect_all_parents {
     return @parents;
 }
 
+sub create_child_type {
+    my ($self, %opts) = @_;
+    my $class = ref $self;
+    return $class->new(%opts, parent => $self);
+}
+
 ## this should get deprecated actually ...
 
 sub union { Carp::croak "DEPRECATED" }
@@ -346,6 +352,8 @@ Returns true if this type has a parent type.
 =item B<hand_optimized_type_constraint>
 
 =item B<has_hand_optimized_type_constraint>
+
+=item B<create_child_type>
 
 =back
 

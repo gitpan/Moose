@@ -1,5 +1,47 @@
 Revision history for Perl extension Moose
 
+0.60 Fri October 25, 2008
+    * Moose::Exporter
+      - Passing "-traits" when loading Moose caused the Moose.pm
+        exports to be broken. Reported by t0m. (Dave Rolsky)
+        - Tests for this bug. (t0m)
+    
+    * Moose::Util
+      - Change resolve_metaclass alias to use the new
+        load_first_existing_class function. This makes it a lot
+        simpler, and also around 5 times faster. (t0m)
+      - Add caching to resolve_metaclass_alias, which gives an order
+        of magnitude speedup to things which repeatedly call the
+        Moose::Meta::Attribute->does method, notably MooseX::Storage
+        (t0m)
+
+    * Moose::Exporter
+      - Passing "-traits" when loading Moose caused the Moose.pm
+        exports to be broken. Reported by t0m. (Dave Rolsky)
+        - Tests for this bug. (t0m)
+
+    * Moose::Util::TypeConstraint
+      - Put back the changes for parameterized constraints that
+        shouldn't have been removed in 0.59. We still cannot parse
+        them, but MooseX modules can create them in some other
+        way. See the 0.58 changes for more details. (jnapiorkowski)
+      - Changed the way subtypes are created so that the job is
+        delegated to a type constraint parent.  This clears up some
+        hardcoded checking and should allow correct subtypes of
+        Moose::Meta::Type::Constraint. Don't rely on this new API too
+        much (create_child_type) because it may go away in the
+        future. (jnapiorkowski)
+
+    * Moose::Meta::TypeConstraint::Union
+      - Type constraint names are sorted as strings, not numbers.
+        (jnapiorkowski)
+      
+    * Moose::Meta::TypeConstraint::Parameterizable
+      - New parameterize method. This can be used as a factory method
+        to make a new type constraint with a given parameterized
+        type. (jnapiorkowski)
+        - added tests (jnapiorkowski)
+
 0.59 Tue October 14, 2008
     * Moose
       - Add abridged documentation for builder/default/initializer/

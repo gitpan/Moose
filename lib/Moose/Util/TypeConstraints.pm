@@ -9,7 +9,7 @@ use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.59';
+our $VERSION   = '0.60';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -103,21 +103,29 @@ sub create_parameterized_type_constraint {
     (defined $base_type && defined $type_parameter)
         || Moose->throw_error("Could not parse type name ($type_constraint_name) correctly");
 
-    # We need to get the relevant type constraints and use them to
-    # create the name to ensure that we end up with the fully
-    # normalized name, because the user could've passed something like
-    # HashRef[Str|Int] and we want to make that HashRef[Int|Str].
-    my $base_type_tc = $REGISTRY->get_type_constraint($base_type)
-        || Moose->throw_error("Could not locate the base type ($base_type)");
-    my $parameter_tc = find_or_create_isa_type_constraint($type_parameter)
-        || Moose->throw_error("Could not locate the parameter type ($type_parameter)");
-
-    return Moose::Meta::TypeConstraint::Parameterized->new(
-        name           => $base_type_tc->name . '[' . $parameter_tc->name . ']',
-        parent         => $base_type_tc,
-        type_parameter => $parameter_tc,
-    );
+    if ($REGISTRY->has_type_constraint($base_type)) {
+        my $base_type_tc = $REGISTRY->get_type_constraint($base_type);
+        return _create_parameterized_type_constraint(
+            $base_type_tc,
+            $type_parameter
+        );
+    } else {
+        Moose->throw_error("Could not locate the base type ($base_type)");
+    }
 }
+
+sub _create_parameterized_type_constraint {
+    my ( $base_type_tc, $type_parameter ) = @_;
+    if ( $base_type_tc->can('parameterize') ) {
+        return $base_type_tc->parameterize($type_parameter);
+    } else {
+        return Moose::Meta::TypeConstraint::Parameterized->new(
+            name => $base_type_tc->name . '[' . $type_parameter . ']',
+            parent => $base_type_tc,
+            type_parameter => find_or_create_isa_type_constraint($type_parameter),
+        );
+    }
+}                                       
 
 #should we also support optimized checks?
 sub create_class_type_constraint {
@@ -346,15 +354,15 @@ sub _create_type_constraint ($$$;$$) {
     my $parent = shift;
     my $check  = shift;
 
-    my ($message, $optimized);
+    my ( $message, $optimized );
     for (@_) {
         $message   = $_->{message}   if exists $_->{message};
         $optimized = $_->{optimized} if exists $_->{optimized};
     }
 
-    my $pkg_defined_in = scalar(caller(0));
+    my $pkg_defined_in = scalar( caller(0) );
 
-    if (defined $name) {
+    if ( defined $name ) {
         my $type = $REGISTRY->get_type_constraint($name);
 
         ( $type->_package_defined_in eq $pkg_defined_in )
@@ -366,37 +374,24 @@ sub _create_type_constraint ($$$;$$) {
             if defined $type;
     }
 
-    my $class = "Moose::Meta::TypeConstraint";
-
-    # FIXME should probably not be a special case
-    if ( defined $parent and $parent = find_or_parse_type_constraint($parent) ) {
-        $class = "Moose::Meta::TypeConstraint::Parameterizable"
-            if $parent->isa("Moose::Meta::TypeConstraint::Parameterizable");
-    }
-
-    my $constraint = $class->new(
-        name               => $name || '__ANON__',
+    my %opts = (
+        name => $name || '__ANON__',
         package_defined_in => $pkg_defined_in,
 
-        ($parent    ? (parent     => $parent )   : ()),
-        ($check     ? (constraint => $check)     : ()),
-        ($message   ? (message    => $message)   : ()),
-        ($optimized ? (optimized  => $optimized) : ()),
+        ( $check     ? ( constraint => $check )     : () ),
+        ( $message   ? ( message    => $message )   : () ),
+        ( $optimized ? ( optimized  => $optimized ) : () ),
     );
 
-    # NOTE:
-    # if we have a type constraint union, and no
-    # type check, this means we are just aliasing
-    # the union constraint, which means we need to
-    # handle this differently.
-    # - SL
-    if (not(defined $check)
-        && $parent->isa('Moose::Meta::TypeConstraint::Union')
-        && $parent->has_coercion
-        ){
-        $constraint->coercion(Moose::Meta::TypeCoercion::Union->new(
-            type_constraint => $parent
-        ));
+    my $constraint;
+    if ( defined $parent
+        and $parent
+        = blessed $parent ? $parent : find_or_parse_type_constraint($parent) )
+    {
+        $constraint = $parent->create_child_type(%opts);
+    }
+    else {
+        $constraint = Moose::Meta::TypeConstraint->new(%opts);
     }
 
     $REGISTRY->add_type_constraint($constraint)

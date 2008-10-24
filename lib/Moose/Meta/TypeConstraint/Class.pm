@@ -7,7 +7,7 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '0.59';
+our $VERSION   = '0.60';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -97,6 +97,15 @@ sub is_subtype_of {
     }
 }
 
+# This is a bit counter-intuitive, but a child type of a Class type
+# constraint is not itself a Class type constraint (it has no class
+# attribute). This whole create_child_type thing needs some changing
+# though, probably making MMC->new a factory or something.
+sub create_child_type {
+    my ($self, %opts) = @_;
+    return Moose::Meta::TypeConstraint->new(%opts, parent => $self);
+}
+
 1;
 
 __END__
@@ -130,6 +139,8 @@ Moose::Meta::TypeConstraint::Class - Class/TypeConstraint parallel hierarchy
 Return all the parent types, corresponding to the parent classes.
 
 =item B<meta>
+
+=item B<create_child_type>
 
 =back
 
