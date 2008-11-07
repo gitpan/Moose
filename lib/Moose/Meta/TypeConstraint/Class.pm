@@ -7,7 +7,7 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '0.60';
+our $VERSION   = '0.61';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -102,8 +102,8 @@ sub is_subtype_of {
 # attribute). This whole create_child_type thing needs some changing
 # though, probably making MMC->new a factory or something.
 sub create_child_type {
-    my ($self, %opts) = @_;
-    return Moose::Meta::TypeConstraint->new(%opts, parent => $self);
+    my ($self, @args) = @_;
+    return Moose::Meta::TypeConstraint->new(@args, parent => $self);
 }
 
 1;

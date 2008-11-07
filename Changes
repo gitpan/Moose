@@ -1,6 +1,29 @@
 Revision history for Perl extension Moose
 
-0.60 Fri October 25, 2008
+0.61 Fri November 7, 2008
+    * Moose::Meta::Attribute
+      - When passing a role to handles, it will be loaded if necessary
+        (perigrin)
+
+    * Moose::Meta::Class
+      - Method objects returned by get_method (and other methods)
+        Could end up being returned without an associated_metaclass
+        attribute. Removing get_method_map, which is provided by
+        Class::MOP::Class, fixed this. The Moose version did nothing
+        different from its parent except introduce a bug. (Dave Rolsky)
+        - added tests for this (jdv79)
+
+    * Various
+      - Added a $VERSION to all .pm files which didn't have one. Fixes
+        RT #40049, reported by Adam Kennedy. (Dave Rolsky)
+
+    * Moose::Cookbook::Basics::Recipe4
+    * Moose::Cookbook::Basics::Recipe6
+      - These files had spaces on the first line of the SYNOPSIS, as
+        opposed to a totally empty line. According to RT #40432, this
+        confuses POD parsers. (Dave Rolsky)
+
+0.60 Fri October 24, 2008
     * Moose::Exporter
       - Passing "-traits" when loading Moose caused the Moose.pm
         exports to be broken. Reported by t0m. (Dave Rolsky)
@@ -14,11 +37,6 @@ Revision history for Perl extension Moose
         of magnitude speedup to things which repeatedly call the
         Moose::Meta::Attribute->does method, notably MooseX::Storage
         (t0m)
-
-    * Moose::Exporter
-      - Passing "-traits" when loading Moose caused the Moose.pm
-        exports to be broken. Reported by t0m. (Dave Rolsky)
-        - Tests for this bug. (t0m)
 
     * Moose::Util::TypeConstraint
       - Put back the changes for parameterized constraints that

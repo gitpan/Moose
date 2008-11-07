@@ -9,7 +9,7 @@ use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.60';
+our $VERSION   = '0.61';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -375,7 +375,7 @@ sub _create_type_constraint ($$$;$$) {
     }
 
     my %opts = (
-        name => $name || '__ANON__',
+        name => $name,
         package_defined_in => $pkg_defined_in,
 
         ( $check     ? ( constraint => $check )     : () ),
