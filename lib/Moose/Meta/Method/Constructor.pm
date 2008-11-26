@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.61';
+our $VERSION   = '0.62';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -336,11 +336,8 @@ sub _generate_default_value {
     else {
         my $default = $attr->default;
         # make sure to quote strings ...
-        unless (looks_like_number($default)) {
-            $default = "'$default'";
-        }
-
-        return $default;
+        return "'$default'";
+        
     }
 }
 

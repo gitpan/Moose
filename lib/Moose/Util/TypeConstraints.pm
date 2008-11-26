@@ -9,7 +9,7 @@ use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.61';
+our $VERSION   = '0.62';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -959,7 +959,7 @@ C<find_or_create_does_type_constraint>.
 
 =item B<find_or_create_does_type_constraint ($type_name)>
 
-Attempts to parse the type name using L<find_or_parse_type_constraint> and if
+Attempts to parse the type name using C<find_or_parse_type_constraint> and if
 no appropriate constraint is found will create a new anonymous one.
 
 The C<isa> variant will use C<create_class_type_constraint> and the C<does>

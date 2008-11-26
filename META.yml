@@ -19,12 +19,13 @@ no_index:
     - t
 requires:
   Carp: 0
-  Class::MOP: 0.68
+  Class::MOP: 0.71
   Filter::Simple: 0
   List::MoreUtils: 0
   Scalar::Util: 1.19
   Sub::Exporter: 0.972
+  Task::Weaken: 0
   perl: 5.008
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.61
+version: 0.62

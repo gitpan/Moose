@@ -6,8 +6,9 @@ use warnings;
 use metaclass;
 
 use Scalar::Util 'blessed';
+use Carp         'confess';
 
-our $VERSION   = '0.61';
+our $VERSION   = '0.62';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -368,7 +369,7 @@ sub has_method {
     exists $self->get_method_map->{$name} ? 1 : 0
 }
 
-# FIXME this is copypasated from Class::MOP::Class
+# FIXME this is copy-pasted from Class::MOP::Class
 # refactor to inherit from some common base
 sub wrap_method_body {
     my ( $self, %args ) = @_;
@@ -472,6 +473,119 @@ sub combine {
     )->apply($c);
     
     return $c;
+}
+
+sub create {
+    my ( $role, $package_name, %options ) = @_;
+
+    $options{package} = $package_name;
+
+    (ref $options{attributes} eq 'HASH')
+        || confess "You must pass a HASH ref of attributes"
+            if exists $options{attributes};
+
+    (ref $options{methods} eq 'HASH')
+        || confess "You must pass a HASH ref of methods"
+            if exists $options{methods};
+
+    $role->SUPER::create(%options);
+
+    my (%initialize_options) = %options;
+    delete @initialize_options{qw(
+        package
+        attributes
+        methods
+        version
+        authority
+    )};
+
+    my $meta = $role->initialize( $package_name => %initialize_options );
+
+    # FIXME totally lame
+    $meta->add_method('meta' => sub {
+        $role->initialize(ref($_[0]) || $_[0]);
+    });
+
+    if (exists $options{attributes}) {
+        foreach my $attribute_name (keys %{$options{attributes}}) {
+            my $attr = $options{attributes}->{$attribute_name};
+            $meta->add_attribute($attribute_name => $attr);
+        }
+    }
+
+    if (exists $options{methods}) {
+        foreach my $method_name (keys %{$options{methods}}) {
+            $meta->add_method($method_name, $options{methods}->{$method_name});
+        }
+    }
+
+    Class::MOP::weaken_metaclass($meta->name)
+        if $meta->is_anon_role;
+
+    return $meta;
+}
+
+# anonymous roles. most of it is copied straight out of Class::MOP::Class.
+# an intrepid hacker might find great riches if he unifies this code with that
+# code in Class::MOP::Module or Class::MOP::Package
+{
+    # NOTE:
+    # this should be sufficient, if you have a
+    # use case where it is not, write a test and
+    # I will change it.
+    my $ANON_ROLE_SERIAL = 0;
+
+    # NOTE:
+    # we need a sufficiently annoying prefix
+    # this should suffice for now, this is
+    # used in a couple of places below, so
+    # need to put it up here for now.
+    my $ANON_ROLE_PREFIX = 'Moose::Meta::Role::__ANON__::SERIAL::';
+
+    sub is_anon_role {
+        my $self = shift;
+        no warnings 'uninitialized';
+        $self->name =~ /^$ANON_ROLE_PREFIX/;
+    }
+
+    sub create_anon_role {
+        my ($role, %options) = @_;
+        my $package_name = $ANON_ROLE_PREFIX . ++$ANON_ROLE_SERIAL;
+        return $role->create($package_name, %options);
+    }
+
+    # NOTE:
+    # this will only get called for
+    # anon-roles, all other calls
+    # are assumed to occur during
+    # global destruction and so don't
+    # really need to be handled explicitly
+    sub DESTROY {
+        my $self = shift;
+
+        return if Class::MOP::in_global_destruction(); # it'll happen soon anyway and this just makes things more complicated
+
+        no warnings 'uninitialized';
+        return unless $self->name =~ /^$ANON_ROLE_PREFIX/;
+
+        # XXX: is this necessary for us? I don't understand what it's doing
+        # -sartak
+
+        # Moose does a weird thing where it replaces the metaclass for
+        # class when fixing metaclass incompatibility. In that case,
+        # we don't want to clean out the namespace now. We can detect
+        # that because Moose will explicitly update the singleton
+        # cache in Class::MOP.
+        #my $current_meta = Class::MOP::get_metaclass_by_name($self->name);
+        #return if $current_meta ne $self;
+
+        my ($serial_id) = ($self->name =~ /^$ANON_ROLE_PREFIX(\d+)/);
+        no strict 'refs';
+        foreach my $key (keys %{$ANON_ROLE_PREFIX . $serial_id}) {
+            delete ${$ANON_ROLE_PREFIX . $serial_id}{$key};
+        }
+        delete ${'main::' . $ANON_ROLE_PREFIX}{$serial_id . '::'};
+    }
 }
 
 #####################################################################
@@ -765,6 +879,16 @@ probably not that much really).
 =item B<get_before_method_modifiers_map>
 
 =item B<get_override_method_modifiers_map>
+
+=back
+
+=over 4
+
+=item B<create>
+
+=item B<create_anon_role>
+
+=item B<is_anon_role>
 
 =back
 
