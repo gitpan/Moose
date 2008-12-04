@@ -1,5 +1,15 @@
 Revision history for Perl extension Moose
 
+0.62_01 Wed, December 3, 2008
+    * Moose::Object
+      - use the method->execute API for BUILDALL
+        and DEMOLISHALL (Sartak)
+
+    * Moose::Util::TypeConstraints
+      - We now make all the type constraint meta classes immutable
+        before creating the default types provided by Moose. This
+        should make loading Moose a little faster. (Dave Rolsky)
+
 0.62 Wed November 26, 2008
     * Moose::Meta::Role::Application::ToClass
       Moose::Meta::Role::Application::ToRole

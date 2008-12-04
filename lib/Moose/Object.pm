@@ -7,7 +7,7 @@ use warnings;
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
-our $VERSION   = '0.62';
+our $VERSION   = '0.62_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -43,14 +43,14 @@ sub BUILDALL {
     return unless $_[0]->can('BUILD');    
     my ($self, $params) = @_;
     foreach my $method (reverse $self->meta->find_all_methods_by_name('BUILD')) {
-        $method->{code}->body->($self, $params);
+        $method->{code}->execute($self, $params);
     }
 }
 
 sub DEMOLISHALL {
     my $self = shift;    
     foreach my $method ($self->meta->find_all_methods_by_name('DEMOLISH')) {
-        $method->{code}->body->($self);
+        $method->{code}->execute($self);
     }
 }
 
