@@ -12,8 +12,8 @@ license 'perl';
 requires 'perl'             => '5.008';
 requires 'Scalar::Util'     => '1.19';
 requires 'Carp';
-requires 'Class::MOP'       => '0.71_01';
-requires 'List::MoreUtils';
+requires 'Class::MOP'       => '0.71_02';
+requires 'List::MoreUtils'  => '0.12';
 requires 'Sub::Exporter'    => '0.972';
 requires 'Task::Weaken'     => '0';
 
@@ -34,9 +34,9 @@ WriteAll();
 # before a release.
 sub check_conflicts {
     my %conflicts = (
-        'MooseX::Singleton'        => '0.11',
+        'MooseX::Singleton'        => '0.12',
         'MooseX::Params::Validate' => '0.05',
-        'Fey::ORM'                 => '0.10',
+        'Fey::ORM'                 => '0.12',
     );
 
     my $found = 0;

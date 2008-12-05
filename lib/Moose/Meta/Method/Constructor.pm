@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.62_01';
+our $VERSION   = '0.62_02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -45,6 +45,64 @@ sub new {
     $self->initialize_body;
 
     return $self;
+}
+
+sub can_be_inlined {
+    my $self      = shift;
+    my $metaclass = $self->associated_metaclass;
+
+    my $expected_class = $self->_expected_constructor_class;
+
+    # If any of our parents have been made immutable, we are okay to
+    # inline our own new method. The assumption is that an inlined new
+    # method provided by a parent does not actually get used by
+    # children anyway.
+    for my $meta (
+        grep { $_->is_immutable }
+        map  { ( ref $metaclass )->initialize($_) }
+        grep { $_ ne $expected_class }
+        $metaclass->linearized_isa
+        ) {
+        my $transformer = $meta->get_immutable_transformer;
+
+        # This is actually a false positive if we're in a subclass of
+        # this class, _and_ the expected class is not overridden (but
+        # should be), and the real expected class is actually
+        # immutable itself (see Fey::Object::Table for an example of
+        # how this can happen). I'm not sure how to actually handle
+        # that case, since it's effectively a bug in the subclass (for
+        # not overriding _expected_constructor_class).
+        return 1 if $transformer->inlined_constructor;
+    }
+
+    if ( my $constructor = $metaclass->find_method_by_name( $self->name ) ) {
+        my $class = $self->associated_metaclass->name;
+
+        if ( $constructor->body != $expected_class->can('new') ) {
+            my $warning
+                = "Not inlining a constructor for $class since it is not"
+                . " inheriting the default $expected_class constructor\n";
+
+            $warning .= " (constructor has method modifiers which would be lost if it were inlined)\n"
+                if $constructor->isa('Class::MOP::Method::Wrapped');
+
+            warn $warning;
+
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+
+    # This would be a rather weird case where we have no constructor
+    # in the inheritance chain.
+    return 1;
+}
+
+# This is here so can_be_inlined can be inherited by MooseX modules.
+sub _expected_constructor_class {
+    return 'Moose::Object';
 }
 
 ## accessors
@@ -334,10 +392,7 @@ sub _generate_default_value {
         return '$attrs->[' . $index . ']->default($instance)';
     }
     else {
-        my $default = $attr->default;
-        # make sure to quote strings ...
-        return "'$default'";
-        
+        return q{"} . quotemeta( $attr->default ) . q{"};
     }
 }
 
@@ -373,6 +428,8 @@ not particularly useful.
 =item B<initialize_body>
 
 =item B<associated_metaclass>
+
+=item B<can_be_inlined>
 
 =back
 
