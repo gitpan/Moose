@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.62_02';
+our $VERSION   = '0.63';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -418,6 +418,8 @@ not particularly useful.
 =over 4
 
 =item B<new>
+
+=item B<can_be_inlined>
 
 =item B<attributes>
 
