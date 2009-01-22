@@ -9,7 +9,7 @@ use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.64';
+our $VERSION   = '0.65';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -47,7 +47,8 @@ use Moose::Util::TypeConstraints::OptimizedConstraints;
 Moose::Exporter->setup_import_methods(
     as_is => [
         qw(
-            type subtype class_type role_type as where message optimize_as
+            type subtype class_type role_type maybe_type
+            as where message optimize_as
             coerce from via
             enum
             find_type_constraint
@@ -298,6 +299,14 @@ sub role_type ($;$) {
             $_[0],
             ( defined($_[1]) ? $_[1] : () ),
         )
+    );
+}
+
+sub maybe_type {
+    my ($type_parameter) = @_;
+
+    register_type_constraint(
+        $REGISTRY->get_type_constraint('Maybe')->parameterize($type_parameter)
     );
 }
 
@@ -844,6 +853,11 @@ L<Moose::Meta::TypeConstraint::Class>.
 
 Creates a type constraint with the name C<$role> and the metaclass
 L<Moose::Meta::TypeConstraint::Role>.
+
+=item B<maybe_type ($type)>
+
+Creates a type constraint for either C<undef> or something of the
+given type.
 
 =item B<enum ($name, @values)>
 

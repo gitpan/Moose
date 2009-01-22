@@ -4,7 +4,6 @@ author:
   - 'Moose is an open project, there are at this point dozens of people who have '
 build_requires:
   Test::Exception: 0.21
-  Test::LongString: 0
   Test::More: 0.77
 distribution_type: module
 generated_by: 'Module::Install version 0.77'
@@ -19,13 +18,13 @@ no_index:
     - t
 requires:
   Carp: 0
-  Class::MOP: 0.75
+  Class::MOP: 0.76
   Filter::Simple: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
   Sub::Exporter: 0.972
   Task::Weaken: 0
-  perl: 5.008
+  perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.64
+version: 0.65
