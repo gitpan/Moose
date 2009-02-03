@@ -10,13 +10,14 @@ use Carp         'croak';
 use Data::OptList;
 use Sub::Exporter;
 
-our $VERSION   = '0.65';
+our $VERSION   = '0.66';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose       ();
 use Moose::Util ();
 
+use Moose::Exporter;
 use Moose::Meta::Role;
 use Moose::Util::TypeConstraints;
 
@@ -107,7 +108,7 @@ sub augment {
     croak "Roles cannot support 'augment'";
 }
 
-my $exporter = Moose::Exporter->setup_import_methods(
+Moose::Exporter->setup_import_methods(
     with_caller => [
         qw( with requires excludes has before after around override make_immutable )
     ],
@@ -285,7 +286,7 @@ Christian Hansen E<lt>chansen@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2008 by Infinity Interactive, Inc.
+Copyright 2006-2009 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

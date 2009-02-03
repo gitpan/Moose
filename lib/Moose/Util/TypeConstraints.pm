@@ -9,7 +9,7 @@ use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.65';
+our $VERSION   = '0.66';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -85,11 +85,11 @@ sub create_type_constraint_union {
     }
     
     (scalar @type_constraint_names >= 2)
-        || Moose->throw_error("You must pass in at least 2 type names to make a union");
+        || __PACKAGE__->_throw_error("You must pass in at least 2 type names to make a union");
 
     my @type_constraints = map {
         find_or_parse_type_constraint($_) ||
-         Moose->throw_error("Could not locate type constraint ($_) for the union");
+         __PACKAGE__->_throw_error("Could not locate type constraint ($_) for the union");
     } @type_constraint_names;
 
     return Moose::Meta::TypeConstraint::Union->new(
@@ -102,7 +102,7 @@ sub create_parameterized_type_constraint {
     my ($base_type, $type_parameter) = _parse_parameterized_type_constraint($type_constraint_name);
 
     (defined $base_type && defined $type_parameter)
-        || Moose->throw_error("Could not parse type name ($type_constraint_name) correctly");
+        || __PACKAGE__->_throw_error("Could not parse type name ($type_constraint_name) correctly");
 
     if ($REGISTRY->has_type_constraint($base_type)) {
         my $base_type_tc = $REGISTRY->get_type_constraint($base_type);
@@ -111,7 +111,7 @@ sub create_parameterized_type_constraint {
             $type_parameter
         );
     } else {
-        Moose->throw_error("Could not locate the base type ($base_type)");
+        __PACKAGE__->_throw_error("Could not locate the base type ($base_type)");
     }
 }
 
@@ -134,7 +134,7 @@ sub create_class_type_constraint {
 
     # too early for this check
     #find_type_constraint("ClassName")->check($class)
-    #    || Moose->throw_error("Can't create a class type constraint because '$class' is not a class name");
+    #    || __PACKAGE__->_throw_error("Can't create a class type constraint because '$class' is not a class name");
 
     my %options = (
         class => $class,
@@ -152,7 +152,7 @@ sub create_role_type_constraint {
 
     # too early for this check
     #find_type_constraint("ClassName")->check($class)
-    #    || Moose->throw_error("Can't create a class type constraint because '$class' is not a class name");
+    #    || __PACKAGE__->_throw_error("Can't create a class type constraint because '$class' is not a class name");
 
     my %options = (
         role => $role,
@@ -252,7 +252,7 @@ sub find_type_constraint {
 
 sub register_type_constraint {
     my $constraint = shift;
-    Moose->throw_error("can't register an unnamed type constraint") unless defined $constraint->name;
+    __PACKAGE__->_throw_error("can't register an unnamed type constraint") unless defined $constraint->name;
     $REGISTRY->add_type_constraint($constraint);
     return $constraint;
 }
@@ -334,7 +334,7 @@ sub enum {
         $type_name = undef;
     }
     (scalar @values >= 2)
-        || Moose->throw_error("You must have at least two values to enumerate through");
+        || __PACKAGE__->_throw_error("You must have at least two values to enumerate through");
     my %valid = map { $_ => 1 } @values;
 
     register_type_constraint(
@@ -381,6 +381,10 @@ sub _create_type_constraint ($$$;$$) {
                 . " and cannot be created again in "
                 . $pkg_defined_in )
             if defined $type;
+
+        $name =~ /^[\w:\.]+$/
+            or die qq{$name contains invalid characters for a type name.}
+            . qq{Names can contain alphanumeric character, ":", and "."\n};
     }
 
     my %opts = (
@@ -395,7 +399,7 @@ sub _create_type_constraint ($$$;$$) {
     my $constraint;
     if ( defined $parent
         and $parent
-        = blessed $parent ? $parent : find_or_parse_type_constraint($parent) )
+        = blessed $parent ? $parent : find_or_create_isa_type_constraint($parent) )
     {
         $constraint = $parent->create_child_type(%opts);
     }
@@ -413,7 +417,7 @@ sub _install_type_coercions ($$) {
     my ($type_name, $coercion_map) = @_;
     my $type = find_type_constraint($type_name);
     (defined $type)
-        || Moose->throw_error("Cannot find type '$type_name', perhaps you forgot to load it.");
+        || __PACKAGE__->_throw_error("Cannot find type '$type_name', perhaps you forgot to load it.");
     if ($type->has_coercion) {
         $type->coercion->add_type_coercions(@$coercion_map);
     }
@@ -439,7 +443,7 @@ sub _install_type_coercions ($$) {
 
     use re "eval";
 
-    my $valid_chars = qr{[\w:]};
+    my $valid_chars = qr{[\w:\.]};
     my $type_atom   = qr{ $valid_chars+ };
 
     my $any;
@@ -472,7 +476,7 @@ sub _install_type_coercions ($$) {
             push @rv => $1;
         }
         (pos($given) eq length($given))
-            || Moose->throw_error("'$given' didn't parse (parse-pos="
+            || __PACKAGE__->_throw_error("'$given' didn't parse (parse-pos="
                      . pos($given)
                      . " and str-length="
                      . length($given)
@@ -645,7 +649,7 @@ sub get_all_parameterizable_types { @PARAMETERIZABLE_TYPES }
 sub add_parameterizable_type {
     my $type = shift;
     (blessed $type && $type->isa('Moose::Meta::TypeConstraint::Parameterizable'))
-        || Moose->throw_error("Type must be a Moose::Meta::TypeConstraint::Parameterizable not $type");
+        || __PACKAGE__->_throw_error("Type must be a Moose::Meta::TypeConstraint::Parameterizable not $type");
     push @PARAMETERIZABLE_TYPES => $type;
 }
 
@@ -656,6 +660,12 @@ sub add_parameterizable_type {
 {
     my @BUILTINS = list_all_type_constraints();
     sub list_all_builtin_type_constraints { @BUILTINS }
+}
+
+sub _throw_error {
+    require Moose;
+    unshift @_, 'Moose';
+    goto &Moose::throw_error;
 }
 
 1;
@@ -754,7 +764,7 @@ that hierarchy represented visually.
               GlobRef
                 FileHandle
               Object
-                  Role
+                Role
 
 B<NOTE:> Any type followed by a type parameter C<[`a]> can be
 parameterized, this means you can say:
@@ -762,6 +772,10 @@ parameterized, this means you can say:
   ArrayRef[Int]    # an array of integers
   HashRef[CodeRef] # a hash of str to CODE ref mappings
   Maybe[Str]       # value may be a string, may be undefined
+
+If Moose finds a name in brackets that it does not recognize as an
+existing type, it assumes that this is a class name, for example
+C<ArrayRef[DateTime]>.
 
 B<NOTE:> Unless you parameterize a type, then it is invalid to
 include the square brackets. I.e. C<ArrayRef[]> will be
@@ -778,10 +792,13 @@ but it is a saner restriction than most others.
 
 =head2 Type Constraint Naming
 
+Type name declared via this module can only contain alphanumeric
+characters, colons (:), and periods (.).
+
 Since the types created by this module are global, it is suggested
 that you namespace your types just as you would namespace your
 modules. So instead of creating a I<Color> type for your B<My::Graphics>
-module, you would call the type I<My::Graphics::Color> instead.
+module, you would call the type I<My.Graphics.Color> instead.
 
 =head2 Use with Other Constraint Modules
 
@@ -837,6 +854,9 @@ This creates a base type, which has no parent.
 =item B<subtype ($name, $parent, $where_clause, ?$message)>
 
 This creates a named subtype.
+
+If you provide a parent that Moose does not recognize, it will
+automatically create a new class type constraint for this name.
 
 =item B<subtype ($parent, $where_clause, ?$message)>
 
@@ -1066,7 +1086,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2008 by Infinity Interactive, Inc.
+Copyright 2006-2009 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

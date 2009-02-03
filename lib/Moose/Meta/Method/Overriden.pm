@@ -3,7 +3,7 @@ package Moose::Meta::Method::Overriden;
 use strict;
 use warnings;
 
-our $VERSION   = '0.65';
+our $VERSION   = '0.66';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -84,7 +84,7 @@ Yuval Kogman E<lt>nothingmuch@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2008 by Infinity Interactive, Inc.
+Copyright 2006-2009 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

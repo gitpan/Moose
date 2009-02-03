@@ -3,7 +3,7 @@ package Moose::Util::MetaRole;
 use strict;
 use warnings;
 
-our $VERSION   = '0.65';
+our $VERSION   = '0.66';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -259,7 +259,7 @@ Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008 by Infinity Interactive, Inc.
+Copyright 2009 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
