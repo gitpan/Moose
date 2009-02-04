@@ -2,14 +2,14 @@
 
 =head1 NAME
 
-Moose::Manual::Classes - Object construction (and destruction) with Moose
+Moose::Manual::Construction - Object construction (and destruction) with Moose
 
 =head1 WHERE'S THE CONSTRUCTOR?
 
 B<You do not need to define a C<new()> method for your classes!>
 
 When you C<use Moose> in your class, you will become a subclass of
-C<Moose::Object>, which provides a C<new> method for you. If you
+L<Moose::Object>, which provides a C<new> method for you. If you
 follow our recommendations in L<Moose::Manual::BestPractices> and make
 your class immutable, then you actually get a class-specific C<new>
 method "inlined" in your class.
@@ -41,14 +41,14 @@ reference. This hash reference will be used to construct the object,
 so it should contain keys matching your attributes' names (well,
 C<init_arg>s).
 
-One common use for C<BUILDARGS> is to accomodate a non-hash(ref)
+One common use for C<BUILDARGS> is to accommodate a non-hash(ref)
 calling style. For example, we might want to allow our Person class to
 be called with a single argument of a social security number, C<<
 Person->new($ssn) >>.
 
 Without a C<BUILDARGS> method, Moose will complain, because it expects
 a hash or hash reference. We can use the C<BUILDARGS> method to
-accomodate this calling style:
+accommodate this calling style:
 
   sub BUILDARGS {
       my $class = shift;
@@ -62,7 +62,7 @@ accomodate this calling style:
   }
 
 Note the call to C<SUPER::BUILDARGS>. This will call the default
-C<BUILDARGS> in C<Moose::Object>. This method handles distinguishing
+C<BUILDARGS> in L<Moose::Object>. This method handles distinguishing
 between a hash reference and a plain hash for you.
 
 =head2 BUILD
@@ -91,7 +91,7 @@ object creation.
       debug( 'Made a new person - SSN = ', $self->ssn, );
   }
 
-=head3 BUILD and Parent Classes
+=head3 BUILD and parent classes
 
 The interaction between multiple C<BUILD> methods in an inheritance
 hierarchy is different from normal Perl methods. B<You should never
