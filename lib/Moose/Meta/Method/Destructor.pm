@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -110,7 +110,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 =head1 DESCRIPTION
 
 This is a subclass of L<Class::MOP::Method> which handles 
-constructing an approprate Destructor method. This is primarily 
+constructing an appropriate Destructor method. This is primarily 
 used in the making of immutable metaclasses, otherwise it is 
 not particularly useful.
 

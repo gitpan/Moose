@@ -8,7 +8,7 @@ use Test::Exception;
 
 =pod
 
-Check for repeated inheritence causing 
+Check for repeated inheritance causing 
 a method conflict (which is not really 
 a conflict)
 
@@ -47,7 +47,7 @@ is(My::Test::Class1->foo, 'Role::Base::foo', '... got the right value from metho
 
 =pod
 
-Check for repeated inheritence causing 
+Check for repeated inheritance causing 
 a method conflict with method modifiers 
 (which is not really a conflict)
 
@@ -88,7 +88,7 @@ ok(Role::Base2->meta->has_override_method_modifier('foo'), '... have the method 
 ok(Role::Derived3->meta->has_override_method_modifier('foo'), '... have the method foo as expected');
 ok(Role::Derived4->meta->has_override_method_modifier('foo'), '... have the method foo as expected');
 ok(My::Test::Class2->meta->has_method('foo'), '... have the method foo as expected');
-isa_ok(My::Test::Class2->meta->get_method('foo'), 'Moose::Meta::Method::Overriden');
+isa_ok(My::Test::Class2->meta->get_method('foo'), 'Moose::Meta::Method::Overridden');
 ok(My::Test::Class2::Base->meta->has_method('foo'), '... have the method foo as expected');
 isa_ok(My::Test::Class2::Base->meta->get_method('foo'), 'Class::MOP::Method');
 
@@ -97,7 +97,7 @@ is(My::Test::Class2->foo, 'My::Test::Class2::Base -> Role::Base::foo', '... got 
 
 =pod
 
-Check for repeated inheritence of the 
+Check for repeated inheritance of the 
 same code. There are no conflicts with 
 before/around/after method modifiers.
 
@@ -150,7 +150,7 @@ is(My::Test::Class3->foo, 'Role::Base::foo(My::Test::Class3::Base)', '... got th
 
 =pod
 
-Check for repeated inheritence causing 
+Check for repeated inheritance causing 
 a attr conflict (which is not really 
 a conflict)
 

@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -409,7 +409,7 @@ Moose::Meta::Method::Constructor - Method Meta Object for constructors
 =head1 DESCRIPTION
 
 This is a subclass of L<Class::MOP::Method> which handles
-constructing an approprate Constructor methods. This is primarily
+constructing an appropriate Constructor methods. This is primarily
 used in the making of immutable metaclasses, otherwise it is
 not particularly useful.
 

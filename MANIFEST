@@ -61,7 +61,7 @@ lib/Moose/Meta/Method/Augmented.pm
 lib/Moose/Meta/Method/Constructor.pm
 lib/Moose/Meta/Method/Delegation.pm
 lib/Moose/Meta/Method/Destructor.pm
-lib/Moose/Meta/Method/Overriden.pm
+lib/Moose/Meta/Method/Overridden.pm
 lib/Moose/Meta/Role.pm
 lib/Moose/Meta/Role/Application.pm
 lib/Moose/Meta/Role/Application/RoleSummation.pm
@@ -299,5 +299,6 @@ t/lib/MyMooseObject.pm
 t/lib/Role/Child.pm
 t/lib/Role/Interface.pm
 t/lib/Role/Parent.pm
-t/pod.t
-t/pod_coverage.t
+xt/pod.t
+xt/pod_coverage.t
+xt/pod_spell.t

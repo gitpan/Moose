@@ -3,7 +3,7 @@ package Moose::Meta::Method::Augmented;
 use strict;
 use warnings;
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -25,8 +25,8 @@ sub new {
         || $meta->throw_error("You cannot augment '$name' because it has no super method", data => $name);
 
     my $_super_package = $super->package_name;
-    # BUT!,... if this is an overriden method ....
-    if ($super->isa('Moose::Meta::Method::Overriden')) {
+    # BUT!,... if this is an overridden method ....
+    if ($super->isa('Moose::Meta::Method::Overridden')) {
         # we need to be sure that we actually
         # find the next method, which is not
         # an 'override' method, the reason is

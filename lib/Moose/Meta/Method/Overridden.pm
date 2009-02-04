@@ -1,9 +1,9 @@
-package Moose::Meta::Method::Overriden;
+package Moose::Meta::Method::Overridden;
 
 use strict;
 use warnings;
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -55,7 +55,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Method::Overriden - A Moose Method metaclass for overriden methods
+Moose::Meta::Method::Overridden - A Moose Method metaclass for overridden methods
 
 =head1 DESCRIPTION
 

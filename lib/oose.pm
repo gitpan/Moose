@@ -5,7 +5,7 @@ use warnings;
 
 use Class::MOP;
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -45,7 +45,7 @@ oose - syntactic sugar to make Moose one-liners easier
 
 oose.pm is a simple source filter that adds C<package $name; use Moose;> 
 to the beginning of your script and was entirely created because typing 
-perl -e'package Foo; use Moose; ...' was annoying me.
+C<perl -e'package Foo; use Moose; ...'> was annoying me.
 
 =head1 INTERFACE 
 

@@ -11,11 +11,11 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-use Moose::Meta::Method::Overriden;
+use Moose::Meta::Method::Overridden;
 use Moose::Meta::Method::Augmented;
 use Moose::Error::Default;
 
@@ -186,7 +186,7 @@ sub construct_instance {
     my $meta_instance = $class->get_meta_instance;
     # FIXME:
     # the code below is almost certainly incorrect
-    # but this is foreign inheritence, so we might
+    # but this is foreign inheritance, so we might
     # have to kludge it in the end.
     my $instance = $params->{'__INSTANCE__'} || $meta_instance->create_instance();
     foreach my $attr ($class->compute_all_applicable_attributes()) {
@@ -212,7 +212,7 @@ sub add_override_method_modifier {
     (!$self->has_method($name))
         || $self->throw_error("Cannot add an override method if a local method is already present");
 
-    $self->add_method($name => Moose::Meta::Method::Overriden->new(
+    $self->add_method($name => Moose::Meta::Method::Overridden->new(
         method  => $method,
         class   => $self,
         package => $_super_package, # need this for roles
@@ -238,7 +238,7 @@ sub _find_next_method_by_name_which_is_not_overridden {
     my ($self, $name) = @_;
     foreach my $method ($self->find_all_methods_by_name($name)) {
         return $method->{code}
-            if blessed($method->{code}) && !$method->{code}->isa('Moose::Meta::Method::Overriden');
+            if blessed($method->{code}) && !$method->{code}->isa('Moose::Meta::Method::Overridden');
     }
     return undef;
 }

@@ -7,7 +7,7 @@ use metaclass;
 use Moose::Util  'english_list';
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -108,7 +108,7 @@ sub apply_methods {
                 next;
             }
             else {
-                # add it, although it could be overriden
+                # add it, although it could be overridden
                 $class->add_method(
                     $method_name,
                     $role->get_method($method_name)

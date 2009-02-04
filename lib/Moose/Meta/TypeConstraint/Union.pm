@@ -7,7 +7,7 @@ use metaclass;
 
 use Moose::Meta::TypeCoercion::Union;
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -166,7 +166,7 @@ but it does provide the same API
 
 =back
 
-=head2 Overriden methods 
+=head2 Overridden methods 
 
 =over 4
 

@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -127,7 +127,7 @@ these options are:
 =item I<attribute>
 
 This must be an instance of C<Moose::Meta::Attribute> which this
-accessor is being generated for. This paramter is B<required>.
+accessor is being generated for. This parameter is B<required>.
 
 =item I<delegate_to_method>
 

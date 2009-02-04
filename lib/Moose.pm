@@ -6,7 +6,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -270,7 +270,7 @@ $_->make_immutable(
     Moose::Meta::Method::Accessor
     Moose::Meta::Method::Constructor
     Moose::Meta::Method::Destructor
-    Moose::Meta::Method::Overriden
+    Moose::Meta::Method::Overridden
     Moose::Meta::Method::Augmented
 
     Moose::Meta::Role
@@ -762,7 +762,7 @@ B<not> allowed to I<change> one.
 =item I<traits>
 
 You are allowed to B<add> additional traits to the C<traits> definition.
-These traits will be composed into the attribute, but pre-existing traits
+These traits will be composed into the attribute, but preexisting traits
 B<are not> overridden, or removed.
 
 =back
@@ -1015,7 +1015,7 @@ early ideas/feature-requests/encouragement/bug-finding.
 
 =item L<http://www.iinteractive.com/moose>
 
-This is the official web home of Moose, it contains links to our public SVN repo
+This is the official web home of Moose, it contains links to our public SVN repository
 as well as links to a number of talks and articles on Moose and Moose related
 technologies.
 
@@ -1100,7 +1100,7 @@ Adam (Alias) Kennedy
 
 Anders (Debolaz) Nor Berle
 
-Nathan (kolibre) Gray
+Nathan (kolibrie) Gray
 
 Christian (chansen) Hansen
 
