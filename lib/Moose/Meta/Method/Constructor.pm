@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.68';
+our $VERSION   = '0.69';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -430,8 +430,6 @@ not particularly useful.
 =item B<initialize_body>
 
 =item B<associated_metaclass>
-
-=item B<can_be_inlined>
 
 =back
 

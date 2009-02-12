@@ -182,9 +182,8 @@ C<MooseX::InsideOut>.
 
 =head1 CONCLUSION
 
-This recipe demonstrates some basic Moose concepts. The next recipe
-will build upon the basics shown here with more complex attributes and
-methods. Please read on :)
+This recipe demonstrates some basic Moose concepts, attributes,
+subclassing, and a simple method modifier.
 
 =head1 FOOTNOTES
 
@@ -224,9 +223,11 @@ L<http://www.gigamonkeys.com/book/object-reorientation-generic-functions.html>
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
 Stevan Little E<lt>stevan@iinteractive.comE<gt>
+
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

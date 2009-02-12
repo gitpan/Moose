@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.68';
+our $VERSION   = '0.69';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -72,6 +72,10 @@ sub _initialize_body {
     # out. However, the more I thought about it, the less I liked it
     # doing the goto, and I prefered the act of delegation being
     # actually represented in the stack trace.  - SL
+    # not inlining this, since it won't really speed things up at
+    # all... the only thing that would end up different would be
+    # interpolating in $method_to_call, and a bunch of things in the
+    # error handling that mostly never gets called - doy
     $self->{body} = sub {
         my $instance = shift;
         my $proxy    = $instance->$accessor();
@@ -79,7 +83,7 @@ sub _initialize_body {
             || $self->throw_error(
             "Cannot delegate $handle_name to $method_to_call because "
                 . "the value of "
-                . $self->name
+                . $self->associated_attribute->name
                 . " is not defined",
             method_name => $method_to_call,
             object      => $instance

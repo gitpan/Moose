@@ -19,7 +19,6 @@ no_index:
 requires:
   Carp: 0
   Class::MOP: 0.76
-  Filter::Simple: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
   Sub::Exporter: 0.972
@@ -27,4 +26,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.68
+version: 0.69
