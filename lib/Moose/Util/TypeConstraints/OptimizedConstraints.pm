@@ -5,7 +5,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'looks_like_number';
 
-our $VERSION   = '0.69';
+our $VERSION   = '0.70';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -58,6 +58,11 @@ sub ClassName {
 
     # fail
     return 0;
+}
+
+sub RoleName {
+    ClassName($_[0]) 
+        && (($_[0]->can('meta') || return)->($_[0]) || return)->isa('Moose::Meta::Role')
 }
 
 # NOTE:
@@ -114,6 +119,8 @@ no user serviceable parts inside.
 =item C<Role>
 
 =item C<ClassName>
+
+=item C<RoleName>
 
 =back
 

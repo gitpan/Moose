@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken';
 use overload     ();
 
-our $VERSION   = '0.69';
+our $VERSION   = '0.70';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -509,7 +509,7 @@ sub set_value {
     }
 
     if ($self->has_trigger) {
-        $self->trigger->($instance, $value, $self);
+        $self->trigger->($instance, $value);
     }
 }
 

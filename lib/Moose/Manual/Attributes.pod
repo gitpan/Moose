@@ -152,7 +152,7 @@ provided at object construction time. If you want to make an attribute
 required, simply set the C<required> option to true:
 
   has 'name' => (
-      is       => 'rw',
+      is       => 'ro',
       required => 1,
   );
 
@@ -181,7 +181,7 @@ In the simplest form, you simply provide a non-reference scalar value
 for the C<default> option:
 
   has 'size' => (
-      is        => 'rw',
+      is        => 'ro',
       default   => 'medium',
       predicate => 'has_size',
   );
@@ -197,7 +197,7 @@ You can also provide a subroutine reference for C<default>. This
 reference will be called as a method on the object.
 
   has 'size' => (
-      is => 'rw',
+      is => 'ro',
       default =>
           sub { ( 'small', 'medium', 'large' )[ int( rand 3 ) ] },
       predicate => 'has_size',
@@ -206,10 +206,22 @@ reference will be called as a method on the object.
 This is dumb example, but it illustrates the point that the subroutine
 will be called for every new object created.
 
-Of course, if it's called during object construction, it may be called
-before other attributes have been set. If your default is dependent on
-other parts of the object's state, you can make the attribute
-C<lazy>. Laziness is covered in the next section.
+When you provide a C<default> subroutine reference, it is called as a
+method on the object, with no additional parameters:
+
+  has 'size' => (
+      is => 'ro',
+      default => sub {
+          my $self = shift;
+
+          return $self->height > 200 ? 'big' : 'average';
+      },
+  );
+
+When the C<default> is called during object construction, it may be
+called before other attributes have been set. If your default is
+dependent on other parts of the object's state, you can make the
+attribute C<lazy>. Laziness is covered in the next section.
 
 If you want to use a reference of any sort as the default value, you
 must return it from a subroutine. This is necessary because otherwise
@@ -217,7 +229,7 @@ Perl would instantiate the reference exactly once, and it would be
 shared by all objects:
 
   has 'mapping' => (
-      is      => 'rw',
+      is      => 'ro',
       default => {}, # wrong!
   );
 
@@ -229,7 +241,7 @@ end up shared across many objects. Instead, wrap it in a subroutine
 reference:
 
   has 'mapping' => (
-      is      => 'rw',
+      is      => 'ro',
       default => sub { {} }, # right!
   );
 
@@ -239,7 +251,7 @@ As an alternative to using a subroutine reference, you can instead
 supply a C<builder> method for your attribute:
 
   has 'size' => (
-      is        => 'rw',
+      is        => 'ro',
       builder   => '_build_size',
       predicate => 'has_size',
   );
@@ -254,6 +266,9 @@ organization.
 
 We strongly recommend that you use a C<builder> instead of a
 C<default> for anything beyond the most trivial default.
+
+A C<builder>, just like a C<default>, is called as a method on the
+object with no additional parameters.
 
 =head3 Builders allow subclassing
 
@@ -302,7 +317,7 @@ Moose lets you defer attribute population by making an attribute
 C<lazy>:
 
   has 'size' => (
-      is      => 'rw',
+      is      => 'ro',
       lazy    => 1,
       builder => '_build_size',
   );
@@ -329,14 +344,14 @@ To facilitate this, you can simply specify the C<lazy_build> attribute
 option. This bundles up a number of options together:
 
   has 'size' => (
-      is         => 'rw',
+      is         => 'ro',
       lazy_build => 1,
   );
 
 This is the same as specifying all of these options:
 
   has 'size' => (
-      is        => 'rw',
+      is        => 'ro',
       lazy      => 1,
       builder   => '_build_size',
       clearer   => 'clear_size',
@@ -347,14 +362,14 @@ If your attribute name starts with an underscore (C<_>), then the clearer
 and predicate will as well:
 
   has '_size' => (
-      is         => 'rw',
+      is         => 'ro',
       lazy_build => 1,
   );
 
 becomes:
 
   has '_size' => (
-      is        => 'rw',
+      is        => 'ro',
       lazy      => 1,
       builder   => '_build__size',
       clearer   => '_clear_size',
@@ -369,7 +384,7 @@ If you don't like the names that C<lazy_build> generates, you can
 always provide your own:
 
   has 'size' => (
-      is         => 'rw',
+      is         => 'ro',
       lazy_build => 1,
       clearer    => '_clear_size',
   );
@@ -387,7 +402,7 @@ unsettable via the constructor.
 Both of these goals can be accomplished with the C<init_arg> option:
 
   has 'bigness' => (
-      is       => 'rw',
+      is       => 'ro',
       init_arg => 'size',
   );
 
@@ -398,7 +413,7 @@ Even more useful is the ability to disable setting an attribute via
 the constructor. This is particularly handy for private attributes:
 
   has '_genetic_code' => (
-      is         => 'rw',
+      is         => 'ro',
       lazy_build => 1,
       init_arg   => undef,
   );
@@ -444,15 +459,19 @@ is called I<after> the value is set.
 
 This differs from an after method modifier in two ways. First, a
 trigger is only called when the attribute is set, as opposed to
-whenever the accessor is called. Second, it is also called if the
-attribute is set via a lazy default or builder.
+whenever the accessor method is called (for reading or
+writing). Second, it is also called if the when an attribute's value
+is passed to the constructor.
+
+However, triggers are I<not> called when an attribute is populated
+from a C<default> or C<builder>
 
 =head2 Attribute types
 
 Attributes can be restricted to only accept certain types:
 
   has 'first_name' => (
-      is  => 'rw',
+      is  => 'ro',
       isa => 'Str',
   );
 
@@ -474,7 +493,7 @@ discussion of Moose's type system.
 Attributes can define methods which simply delegate to their values:
 
   has 'hair_color' => (
-      is      => 'rw',
+      is      => 'ro',
       isa     => 'Graphics::Color::RGB',
       handles => { hair_color_hex => 'as_hex_string' },
   );
@@ -510,7 +529,7 @@ You can also apply one or more traits to an attribute:
   use MooseX::MetaDescription;
 
   has 'size' => (
-      is          => 'rw',
+      is          => 'ro',
       traits      => ['MooseX::MetaDescription::Meta::Trait'],
       description => {
           html_widget  => 'text_input',

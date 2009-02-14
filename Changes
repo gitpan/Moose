@@ -1,5 +1,41 @@
 Revision history for Perl extension Moose
 
+0.70 Sat, February 14, 2009
+    * Moose::Util::TypeConstraints
+      - Added the RoleName type (stevan)
+        - added tests for this (stevan)
+        
+    * Moose::Cookbook::Basics::Recipe3
+      - Updated the before qw[left right] sub to be a little more
+        defensive about what it accepts (stevan)
+        - added more tests to t/000_recipies/basics/003_binary_tree.t
+          (stevan)
+
+    * Moose::Object
+      - We now always call DEMOLISHALL, even if a class does not
+        define DEMOLISH. This makes sure that method modifiers on
+        DEMOLISHALL work as expected. (doy)
+        - added tests for this (EvanCarroll)
+
+    * Moose::Util::MetaRole
+      - Accept roles for the wrapped_method_metaclass (rafl)
+        - added tests for this (rafl)
+
+    * Moose::Meta::Attribute
+      - We no longer pass the meta-attribute object as a final
+        argument to triggers. This actually changed for inlined code a
+        while back, but the non-inlined version and the docs were
+        still out of date.
+
+    * Tests
+      - Some tests tried to use Test::Warn 0.10, which had bugs. Now
+        they require 0.11. (Dave Rolsky)
+
+    * Documentation  
+      - Lots of small changes to the manual, cookbook, and
+        elsewhere. These were based on feedback from various
+        users, too many to list here. (Dave Rolsky)
+
 0.69 Thu, February 12, 2009
     * Moose
       - Make some keyword errors use throw_error instead of croak

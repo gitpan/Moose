@@ -6,7 +6,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.69';
+our $VERSION   = '0.70';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -15,7 +15,7 @@ use Carp         'confess';
 
 use Moose::Exporter;
 
-use Class::MOP 0.76;
+use Class::MOP 0.77;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -474,11 +474,10 @@ This is only legal if your C<isa> option is either C<ArrayRef> or C<HashRef>.
 
 =item I<trigger =E<gt> $code>
 
-The I<trigger> option is a CODE reference which will be called after the value of
-the attribute is set. The CODE ref will be passed the instance itself, the
-updated value and the attribute meta-object (this is for more advanced fiddling
-and can typically be ignored). You B<cannot> have a trigger on a read-only
-attribute. 
+The I<trigger> option is a CODE reference which will be called after
+the value of the attribute is set. The CODE ref will be passed the
+instance itself and the updated value. You B<cannot> have a trigger on
+a read-only attribute.
 
 B<NOTE:> Triggers will only fire when you B<assign> to the attribute,
 either in the constructor, or using the writer. Default and built values will
@@ -885,7 +884,7 @@ specified by C<for_class>. This method injects a a C<meta> accessor
 into the class so you can get at this object. It also sets the class's
 superclass to C<base_class>, with L<Moose::Object> as the default.
 
-You can specify an alternate metaclass with the C<metaclass> parameter.
+You can specify an alternate metaclass with the C<metaclass> option.
 
 For more detail on this topic, see L<Moose::Cookbook::Extending::Recipe2>.
 

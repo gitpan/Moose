@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 33;
+use Test::More tests => 41;
 use Test::Exception;
 
 use Scalar::Util 'isweak';
@@ -27,6 +27,7 @@ use Scalar::Util 'isweak';
         predicate => 'has_left',
         lazy      => 1,
         default   => sub { BinaryTree->new( parent => $_[0] ) },
+        trigger   => \&_set_parent_for_child
     );
 
     has 'right' => (
@@ -35,14 +36,17 @@ use Scalar::Util 'isweak';
         predicate => 'has_right',
         lazy      => 1,
         default   => sub { BinaryTree->new( parent => $_[0] ) },
+        trigger   => \&_set_parent_for_child
     );
 
-    before 'right', 'left' => sub {
-        my ( $self, $tree ) = @_;
-        $tree->parent($self) if defined $tree;
-    };
+    sub _set_parent_for_child {
+        my ( $self, $child ) = @_;
 
-    __PACKAGE__->meta->make_immutable( debug => 0 );
+        confess "You cannot insert a tree which already has a parent"
+            if $child->has_parent;
+
+        $child->parent($self);
+    }
 }
 
 my $root = BinaryTree->new(node => 'root');
@@ -104,6 +108,8 @@ is($right->parent, $root, '... rights parent is the root');
 
 ok(isweak($right->{parent}), '... parent is a weakened ref');
 
+# make a left node of the left node
+
 my $left_left = $left->left;
 isa_ok($left_left, 'BinaryTree');
 
@@ -114,4 +120,27 @@ ok($left->has_left, '... we have a left node now');
 is($left->left, $left_left, '... got a left node (and it is $left_left)');
 
 ok(isweak($left_left->{parent}), '... parent is a weakened ref');
+
+# make a right node of the left node
+
+my $left_right = BinaryTree->new;
+isa_ok($left_right, 'BinaryTree');
+
+lives_ok {
+    $left->right($left_right)
+} '... assign to rights node';
+
+ok($left_right->has_parent, '... left does have a parent');
+
+is($left_right->parent, $left, '... got a parent node (and it is $left)');
+ok($left->has_right, '... we have a left node now');
+is($left->right, $left_right, '... got a left node (and it is $left_left)');
+
+ok(isweak($left_right->{parent}), '... parent is a weakened ref');
+
+# and check the error
+
+dies_ok {
+    $left_right->right($left_left)
+} '... cant assign a node which already has a parent';
 

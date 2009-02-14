@@ -9,7 +9,7 @@ use List::MoreUtils qw( all );
 use Scalar::Util 'blessed';
 use Moose::Exporter;
 
-our $VERSION   = '0.69';
+our $VERSION   = '0.70';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -575,13 +575,17 @@ subtype 'Role'
     => where { $_->can('does') }
     => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Role;
 
-my $_class_name_checker = sub {
-};
+my $_class_name_checker = sub {};
 
 subtype 'ClassName'
     => as 'Str'
     => where { Class::MOP::is_class_loaded($_) }
     => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::ClassName;
+
+subtype 'RoleName'
+    => as 'ClassName'
+    => where { (($_->can('meta') || return)->($_) || return)->isa('Moose::Meta::Role') }
+    => optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::RoleName;    ;
 
 ## --------------------------------------------------------
 # parameterizable types ...
@@ -755,6 +759,7 @@ that hierarchy represented visually.
                 Int
               Str
                 ClassName
+                RoleName
           Ref
               ScalarRef
               ArrayRef[`a]
@@ -789,6 +794,10 @@ B<NOTE:> The C<ClassName> type constraint does a complex package
 existence check. This means that your class B<must> be loaded for
 this type constraint to pass. I know this is not ideal for all,
 but it is a saner restriction than most others.
+
+B<NOTE:> The C<RoleName> constraint checks a string is I<package name>
+which is a role, like C<'MyApp::Role::Comparable'>. The C<Role>
+constraint checks that an I<object> does the named role.
 
 =head2 Type Constraint Naming
 
@@ -866,13 +875,13 @@ L<Moose::Meta::TypeConstraint>.
 
 =item B<class_type ($class, ?$options)>
 
-Creates a type constraint with the name C<$class> and the metaclass
-L<Moose::Meta::TypeConstraint::Class>.
+Creates a new subtype of C<Object> with the name C<$class> and the
+metaclass L<Moose::Meta::TypeConstraint::Class>.
 
 =item B<role_type ($role, ?$options)>
 
-Creates a type constraint with the name C<$role> and the metaclass
-L<Moose::Meta::TypeConstraint::Role>.
+Creates a C<Role> type constraint with the name C<$role> and the
+metaclass L<Moose::Meta::TypeConstraint::Role>.
 
 =item B<maybe_type ($type)>
 
