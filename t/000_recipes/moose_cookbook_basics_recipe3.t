@@ -1,53 +1,60 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 use strict;
-use warnings;
-
-use Test::More tests => 41;
+use Test::More 'no_plan';
 use Test::Exception;
+$| = 1;
 
-use Scalar::Util 'isweak';
 
+
+# =begin testing SETUP
 {
-    package BinaryTree;
-    use Moose;
 
-    has 'node' => ( is => 'rw', isa => 'Any' );
+  package BinaryTree;
+  use Moose;
 
-    has 'parent' => (
-        is        => 'rw',
-        isa       => 'BinaryTree',
-        predicate => 'has_parent',
-        weak_ref  => 1,
-    );
+  has 'node' => ( is => 'rw', isa => 'Any' );
 
-    has 'left' => (
-        is        => 'rw',
-        isa       => 'BinaryTree',
-        predicate => 'has_left',
-        lazy      => 1,
-        default   => sub { BinaryTree->new( parent => $_[0] ) },
-        trigger   => \&_set_parent_for_child
-    );
+  has 'parent' => (
+      is        => 'rw',
+      isa       => 'BinaryTree',
+      predicate => 'has_parent',
+      weak_ref  => 1,
+  );
 
-    has 'right' => (
-        is        => 'rw',
-        isa       => 'BinaryTree',
-        predicate => 'has_right',
-        lazy      => 1,
-        default   => sub { BinaryTree->new( parent => $_[0] ) },
-        trigger   => \&_set_parent_for_child
-    );
+  has 'left' => (
+      is        => 'rw',
+      isa       => 'BinaryTree',
+      predicate => 'has_left',
+      lazy      => 1,
+      default   => sub { BinaryTree->new( parent => $_[0] ) },
+      trigger   => \&_set_parent_for_child
+  );
 
-    sub _set_parent_for_child {
-        my ( $self, $child ) = @_;
+  has 'right' => (
+      is        => 'rw',
+      isa       => 'BinaryTree',
+      predicate => 'has_right',
+      lazy      => 1,
+      default   => sub { BinaryTree->new( parent => $_[0] ) },
+      trigger   => \&_set_parent_for_child
+  );
 
-        confess "You cannot insert a tree which already has a parent"
-            if $child->has_parent;
+  sub _set_parent_for_child {
+      my ( $self, $child ) = @_;
 
-        $child->parent($self);
-    }
+      confess "You cannot insert a tree which already has a parent"
+          if $child->has_parent;
+
+      $child->parent($self);
+  }
 }
+
+
+
+# =begin testing
+{
+use Scalar::Util 'isweak';
 
 my $root = BinaryTree->new(node => 'root');
 isa_ok($root, 'BinaryTree');
@@ -143,4 +150,9 @@ ok(isweak($left_right->{parent}), '... parent is a weakened ref');
 dies_ok {
     $left_right->right($left_left)
 } '... cant assign a node which already has a parent';
+}
 
+
+
+
+1;

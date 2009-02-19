@@ -1,5 +1,29 @@
 Revision history for Perl extension Moose
 
+0.71 Thu, February 19, 2009
+    * Moose::Cookbook::Basics::Recipe11
+      - A new recipe which demonstrates the use of BUILDARGS and
+        BUILD. (Dave Rolsky)
+
+    * Moose::Cookbook::Roles::Recipe3
+      - A new recipe, applying a role to an object instance. (Dave
+        Rolsky)
+
+    * Moose::Util::TypeConstraints::Optimized
+      - Just use Class::MOP for the optimized ClassName check. (Dave
+        Rolsky)
+
+    * Moose::Exporter
+      - Allow overriding specific keywords from "also" packages. (doy)
+
+    * Tests
+      - Replace hardcoded cookbook tests with Test::Inline POD
+        to ensure they don't get out of sync. (Dave Rolsky)
+
+    * Moose::Cookbook
+      - Working on the above turned up a number of little bugs in the
+        recipe code. (Dave Rolsky)
+
 0.70 Sat, February 14, 2009
     * Moose::Util::TypeConstraints
       - Added the RoleName type (stevan)

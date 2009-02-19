@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION   = '0.70';
+our $VERSION   = '0.71';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -40,7 +40,7 @@ sub build_import_methods {
 
     my ( $exports, $is_removable )
         = $class->_make_sub_exporter_params(
-        [ $exporting_package, @exports_from ], $export_recorder );
+        [ @exports_from, $exporting_package ], $export_recorder );
 
     my $exporter = Sub::Exporter::build_exporter(
         {
@@ -459,6 +459,9 @@ themselves, and therefore wants to keep it.
 This is a list of modules which contain functions that the caller
 wants to export. These modules must also use C<Moose::Exporter>. The
 most common use case will be to export the functions from C<Moose.pm>.
+Functions specified by C<with_caller> or C<as_is> take precedence over
+functions exported by modules specified by C<also>, so that a module
+can selectively override functions exported by another module.
 
 C<Moose::Exporter> also makes sure all these functions get removed
 when C<unimport> is called.
