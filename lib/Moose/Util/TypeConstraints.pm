@@ -5,11 +5,11 @@ use strict;
 use warnings;
 
 use Carp ();
-use List::MoreUtils qw( all );
-use Scalar::Util 'blessed';
+use List::MoreUtils qw( all any );
+use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
 
-our $VERSION   = '0.71';
+our $VERSION   = '0.71_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -25,10 +25,6 @@ sub where       (&);
 sub via         (&);
 sub message     (&);
 sub optimize_as (&);
-
-## private stuff ...
-sub _create_type_constraint ($$$;$$);
-sub _install_type_coercions ($$);
 
 ## --------------------------------------------------------
 
@@ -260,28 +256,51 @@ sub register_type_constraint {
 # type constructors
 
 sub type {
-    splice(@_, 1, 0, undef);
-    goto &_create_type_constraint;
+    # back-compat version, called without sugar
+    if ( ! any { ( reftype($_) || '' ) eq 'HASH' } @_ ) {
+        return _create_type_constraint( $_[0], undef, $_[1] );
+    }
+
+    my $name = shift;
+
+    my %p = map { %{$_} } @_;
+
+    return _create_type_constraint( $name, undef, $p{where}, $p{message}, $p{optimize_as} );
 }
 
 sub subtype {
-    # NOTE:
-    # this adds an undef for the name
-    # if this is an anon-subtype:
-    #   subtype(Num => where { $_ % 2 == 0 }) # anon 'even' subtype
-    #     or
-    #   subtype(Num => where { $_ % 2 == 0 }) message { "$_ must be an even number" }
+    # crazy back-compat code for being called without sugar ...
     #
-    # but if the last arg is not a code ref then it is a subtype
-    # alias:
-    #
-    #   subtype(MyNumbers => as Num); # now MyNumbers is the same as Num
-    # ... yeah I know it's ugly code
-    # - SL
-    unshift @_ => undef if scalar @_ == 2 && ( 'CODE' eq ref( $_[-1] ) );
-    unshift @_ => undef
-        if scalar @_ == 3 && all { ref($_) =~ /^(?:CODE|HASH)$/ } @_[ 1, 2 ];
-    goto &_create_type_constraint;
+    # subtype 'Parent', sub { where };
+    if ( scalar @_ == 2 && ( reftype( $_[1] ) || '' ) eq 'CODE' ) {
+        return _create_type_constraint( undef, @_ );
+    }
+
+    # subtype 'Parent', sub { where }, sub { message };
+    # subtype 'Parent', sub { where }, sub { message }, sub { optimized };
+    if ( scalar @_ >= 3 && all { ( reftype($_) || '' ) eq 'CODE' }
+         @_[ 1 .. $#_ ] ) {
+        return _create_type_constraint( undef, @_ );
+    }
+
+    # subtype 'Name', 'Parent', ...
+    if ( scalar @_ >= 2 && all { !ref } @_[ 0, 1 ] ) {
+        return _create_type_constraint(@_);
+    }
+
+    # The blessed check is mostly to accommodate MooseX::Types, which
+    # uses an object which overloads stringification as a type name.
+    my $name = ref $_[0] && ! blessed $_[0] ? undef : shift;
+
+    my %p = map { %{$_} } @_;
+
+    # subtype Str => where { ... };
+    if ( ! exists $p{as} ) {
+        $p{as} = $name;
+        $name = undef;
+    }
+
+    return _create_type_constraint( $name, $p{as}, $p{where}, $p{message}, $p{optimize_as} );
 }
 
 sub class_type {
@@ -315,13 +334,26 @@ sub coerce {
     _install_type_coercions($type_name, \@coercion_map);
 }
 
-sub as          { @_ }
-sub from        { @_ }
-sub where   (&) { $_[0] }
-sub via     (&) { $_[0] }
+# The trick of returning @_ lets us avoid having to specify a
+# prototype. Perl will parse this:
+#
+# subtype 'Foo'
+#     => as 'Str'
+#     => where { ... }
+#
+# as this:
+#
+# subtype( 'Foo', as( 'Str', where { ... } ) );
+#
+# If as() returns all it's extra arguments, this just works, and
+# preserves backwards compatibility.
+sub as              { { as          => shift }, @_ }
+sub where (&)       { { where       => $_[0] } }
+sub message (&)     { { message     => $_[0] } }
+sub optimize_as (&) { { optimize_as => $_[0] } }
 
-sub message     (&) { +{ message   => $_[0] } }
-sub optimize_as (&) { +{ optimized => $_[0] } }
+sub from    {@_}
+sub via (&) { $_[0] }
 
 sub enum {
     my ($type_name, @values) = @_;
@@ -359,17 +391,13 @@ sub create_enum_type_constraint {
 ## --------------------------------------------------------
 
 sub _create_type_constraint ($$$;$$) {
-    my $name   = shift;
-    my $parent = shift;
-    my $check  = shift;
+    my $name      = shift;
+    my $parent    = shift;
+    my $check     = shift;
+    my $message   = shift;
+    my $optimized = shift;
 
-    my ( $message, $optimized );
-    for (@_) {
-        $message   = $_->{message}   if exists $_->{message};
-        $optimized = $_->{optimized} if exists $_->{optimized};
-    }
-
-    my $pkg_defined_in = scalar( caller(0) );
+    my $pkg_defined_in = scalar( caller(1) );
 
     if ( defined $name ) {
         my $type = $REGISTRY->get_type_constraint($name);
@@ -384,11 +412,11 @@ sub _create_type_constraint ($$$;$$) {
 
         $name =~ /^[\w:\.]+$/
             or die qq{$name contains invalid characters for a type name.}
-            . qq{Names can contain alphanumeric character, ":", and "."\n};
+            . qq{ Names can contain alphanumeric character, ":", and "."\n};
     }
 
     my %opts = (
-        name => $name,
+        name               => $name,
         package_defined_in => $pkg_defined_in,
 
         ( $check     ? ( constraint => $check )     : () ),
@@ -667,6 +695,7 @@ sub add_parameterizable_type {
 }
 
 sub _throw_error {
+    shift;
     require Moose;
     unshift @_, 'Moose';
     goto &Moose::throw_error;
@@ -821,10 +850,13 @@ them to work with Moose.
 For instance, this is how you could use it with
 L<Declare::Constraints::Simple> to declare a completely new type.
 
-  type 'HashOfArrayOfObjects'
-      => IsHashRef(
+  type 'HashOfArrayOfObjects',
+      {
+      where => IsHashRef(
           -keys   => HasLength,
-          -values => IsArrayRef( IsObject ));
+          -values => IsArrayRef(IsObject)
+      )
+  };
 
 For more examples see the F<t/200_examples/204_example_w_DCS.t>
 test file.
@@ -856,22 +888,45 @@ See the L<SYNOPSIS> for an example of how to use these.
 
 =over 4
 
-=item B<type ($name, $where_clause)>
+=item B<type 'Name' => where { } ... >
 
 This creates a base type, which has no parent.
 
-=item B<subtype ($name, $parent, $where_clause, ?$message)>
+The C<type> function should either be called with the sugar helpers
+(C<where>, C<message>, etc), or with a name and a hashref of
+parameters:
+
+  type( 'Foo', { where => ..., message => ... } );
+
+The valid hashref keys are C<where>, C<message>, and C<optimize_as>.
+
+=item B<subtype 'Name' => as 'Parent' => where { } ...>
 
 This creates a named subtype.
 
 If you provide a parent that Moose does not recognize, it will
 automatically create a new class type constraint for this name.
 
-=item B<subtype ($parent, $where_clause, ?$message)>
+When creating a named type, the C<subtype> function should either be
+called with the sugar helpers (C<where>, C<message>, etc), or with a
+name and a hashref of parameters:
+
+ subtype( 'Foo', { where => ..., message => ... } );
+
+The valid hashref keys are C<as> (the parent), C<where>, C<message>,
+and C<optimize_as>.
+
+=item B<subtype as 'Parent' => where { } ...>
 
 This creates an unnamed subtype and will return the type
 constraint meta-object, which will be an instance of
 L<Moose::Meta::TypeConstraint>.
+
+When creating an anonymous type, the C<subtype> function should either
+be called with the sugar helpers (C<where>, C<message>, etc), or with
+just a hashref of parameters:
+
+ subtype( { where => ..., message => ... } );
 
 =item B<class_type ($class, ?$options)>
 

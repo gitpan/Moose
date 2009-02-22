@@ -7,7 +7,7 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.71';
+our $VERSION   = '0.71_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -43,6 +43,7 @@ sub compile_type_coercion {
 sub has_coercion_for_type { 0 }
 
 sub add_type_coercions {
+    require Moose;
     Moose->throw_error("Cannot add additional type coercions to Union types");
 }
 

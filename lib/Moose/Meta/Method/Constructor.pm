@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.71';
+our $VERSION   = '0.71_01';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -117,7 +117,7 @@ sub associated_metaclass { (shift)->{'associated_metaclass'} }
 
 # this was changed in 0.41, but broke MooseX::Singleton, so try to catch
 # any other code using the original broken spelling
-sub intialize_body { Moose->throw_error("Please correct the spelling of 'intialize_body' to 'initialize_body'") }
+sub intialize_body { $_[0]->throw_error("Please correct the spelling of 'intialize_body' to 'initialize_body'") }
 
 sub initialize_body {
     my $self = shift;
@@ -221,7 +221,7 @@ sub _generate_triggers {
                     .       '$instance, ' 
                     .        $self->meta_instance->inline_get_slot_value(
                                  '$instance',
-                                 ("'" . $attr->name . "'")
+                                 $attr->name,
                              ) 
                              . ', '
                     .        '$attrs->[' . $i . ']'
@@ -319,7 +319,7 @@ sub _generate_slot_assignment {
         $source = (
             $self->meta_instance->inline_set_slot_value(
                 '$instance',
-                ("'" . $attr->name . "'"),
+                $attr->name,
                 $value
             ) . ';'
         );        
@@ -332,7 +332,7 @@ sub _generate_slot_assignment {
             "\n" .
             $self->meta_instance->inline_weaken_slot_value(
                 '$instance',
-                ("'" . $attr->name . "'")
+                $attr->name
             ) .
             ' if ref ' . $value . ';'
         );

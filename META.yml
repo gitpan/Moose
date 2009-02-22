@@ -6,7 +6,7 @@ build_requires:
   Test::Exception: 0.21
   Test::More: 0.77
 distribution_type: module
-generated_by: 'Module::Install version 0.77'
+generated_by: 'Module::Install version 0.79'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -18,7 +18,7 @@ no_index:
     - t
 requires:
   Carp: 0
-  Class::MOP: 0.77
+  Class::MOP: 0.77_01
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
   Sub::Exporter: 0.972
@@ -26,4 +26,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.71
+version: 0.71_01
