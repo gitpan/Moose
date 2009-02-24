@@ -7,7 +7,7 @@ use warnings;
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
-our $VERSION   = '0.71_01';
+our $VERSION   = '0.72';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -21,16 +21,14 @@ sub new {
 
 sub BUILDARGS {
     my $class = shift;
-    if (scalar @_ == 1) {
-        if (defined $_[0]) {
-            (ref($_[0]) eq 'HASH')
-                || $class->meta->throw_error("Single parameters to new() must be a HASH ref", data => $_[0]);
-            return {%{$_[0]}};
-        } 
-        else {
-            return {}; # FIXME this is compat behavior, but is it correct?
+    if ( scalar @_ == 1 ) {
+        unless ( defined $_[0] && ref $_[0] eq 'HASH' ) {
+            $class->meta->throw_error(
+                "Single parameters to new() must be a HASH ref",
+                data => $_[0] );
         }
-    } 
+        return { %{ $_[0] } };
+    }
     else {
         return {@_};
     }

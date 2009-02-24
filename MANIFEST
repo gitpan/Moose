@@ -156,6 +156,7 @@ t/020_attributes/021_method_generation_rules.t
 t/020_attributes/022_legal_options_for_inheritance.t
 t/020_attributes/023_attribute_names.t
 t/020_attributes/024_attribute_traits_parameterized.t
+t/020_attributes/025_chained_coercion.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -246,7 +247,6 @@ t/100_bugs/004_subclass_use_base_bug.t
 t/100_bugs/005_inline_reader_bug.t
 t/100_bugs/006_handles_foreign_class_bug.t
 t/100_bugs/007_reader_precedence_bug.t
-t/100_bugs/008_new_w_undef.t
 t/100_bugs/009_augment_recursion_bug.t
 t/100_bugs/010_immutable_n_default_x2.t
 t/100_bugs/011_DEMOLISH_eats_exceptions.t

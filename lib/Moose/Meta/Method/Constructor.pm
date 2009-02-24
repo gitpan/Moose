@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number';
 
-our $VERSION   = '0.71_01';
+our $VERSION   = '0.72';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -177,7 +177,7 @@ sub initialize_body {
             '@type_constraint_bodies' => \@type_constraint_bodies,
         },
     ) or $self->throw_error("Could not eval the constructor :\n\n$source\n\nbecause :\n\n$@", error => $@, data => $source );
-
+    
     $self->{'body'} = $code;
 }
 
@@ -190,7 +190,7 @@ sub _generate_BUILDARGS {
         return join("\n",
             'do {',
             $self->_inline_throw_error('"Single parameters to new() must be a HASH ref"', 'data => $_[0]'),
-            '    if scalar @_ == 1 && defined $_[0] && ref($_[0]) ne q{HASH};',
+            '    if scalar @_ == 1 && !( defined $_[0] && ref $_[0] eq q{HASH} );',
             '(scalar @_ == 1) ? {%{$_[0]}} : {@_};',
             '}',
         );
