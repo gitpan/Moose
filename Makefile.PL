@@ -12,10 +12,11 @@ license 'perl';
 
 requires 'Scalar::Util'     => '1.19';
 requires 'Carp';
-requires 'Class::MOP'       => '0.77_01';
+requires 'Class::MOP'       => '0.78_02';
 requires 'List::MoreUtils'  => '0.12';
 requires 'Sub::Exporter'    => '0.972';
 requires 'Task::Weaken'     => '0';
+requires 'Data::OptList'    => '0';
 
 test_requires 'Test::More'      => '0.77';
 test_requires 'Test::Exception' => '0.21';
@@ -36,6 +37,7 @@ sub check_conflicts {
         'MooseX::Singleton'        => '0.12',
         'MooseX::Params::Validate' => '0.05',
         'Fey::ORM'                 => '0.12',
+        'MooseX::AttributeHelpers' => '0.14',
     );
 
     my $found = 0;

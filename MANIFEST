@@ -31,6 +31,7 @@ lib/Moose/Cookbook/Meta/Recipe2.pod
 lib/Moose/Cookbook/Meta/Recipe3.pod
 lib/Moose/Cookbook/Meta/Recipe4.pod
 lib/Moose/Cookbook/Meta/Recipe5.pod
+lib/Moose/Cookbook/Meta/Recipe7.pod
 lib/Moose/Cookbook/Roles/Recipe1.pod
 lib/Moose/Cookbook/Roles/Recipe2.pod
 lib/Moose/Cookbook/Roles/Recipe3.pod
@@ -49,7 +50,9 @@ lib/Moose/Manual/BestPractices.pod
 lib/Moose/Manual/Classes.pod
 lib/Moose/Manual/Concepts.pod
 lib/Moose/Manual/Construction.pod
+lib/Moose/Manual/Contributing.pod
 lib/Moose/Manual/Delegation.pod
+lib/Moose/Manual/Delta.pod
 lib/Moose/Manual/MethodModifiers.pod
 lib/Moose/Manual/MooseX.pod
 lib/Moose/Manual/MOP.pod
@@ -111,6 +114,7 @@ t/000_recipes/moose_cookbook_extending_recipe3.t
 t/000_recipes/moose_cookbook_extending_recipe4.t
 t/000_recipes/moose_cookbook_meta_recipe2.t
 t/000_recipes/moose_cookbook_meta_recipe3.t
+t/000_recipes/moose_cookbook_meta_recipe7.t
 t/000_recipes/moose_cookbook_roles_recipe1.t
 t/000_recipes/moose_cookbook_roles_recipe2.t
 t/000_recipes/moose_cookbook_roles_recipe3.t
@@ -237,6 +241,7 @@ t/050_metaclasses/017_use_base_of_moose.t
 t/050_metaclasses/018_throw_error.t
 t/050_metaclasses/019_create_anon_with_required_attr.t
 t/050_metaclasses/020_metaclass_parameterized_traits.t
+t/050_metaclasses/021_export_with_prototype.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
@@ -259,6 +264,7 @@ t/100_bugs/018_immutable_metaclass_does_role.t
 t/100_bugs/019_moose_octal_defaults.t
 t/100_bugs/020_super_recursion.t
 t/100_bugs/021_DEMOLISHALL_shortcutted.t
+t/100_bugs/022_role_caller.t
 t/200_examples/001_example.t
 t/200_examples/002_example_Moose_POOP.t
 t/200_examples/003_example.t
@@ -297,6 +303,7 @@ t/lib/Moose/Meta/Attribute/Custom/Bar.pm
 t/lib/Moose/Meta/Attribute/Custom/Foo.pm
 t/lib/Moose/Meta/Attribute/Custom/Trait/Bar.pm
 t/lib/Moose/Meta/Attribute/Custom/Trait/Foo.pm
+t/lib/MyExporter.pm
 t/lib/MyMetaclassRole.pm
 t/lib/MyMooseA.pm
 t/lib/MyMooseB.pm

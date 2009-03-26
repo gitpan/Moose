@@ -18,7 +18,8 @@ no_index:
     - t
 requires:
   Carp: 0
-  Class::MOP: 0.77_01
+  Class::MOP: 0.78_02
+  Data::OptList: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
   Sub::Exporter: 0.972
@@ -26,4 +27,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.72
+version: 0.72_01

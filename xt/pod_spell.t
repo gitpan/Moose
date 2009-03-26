@@ -1,10 +1,15 @@
+use strict;
+use warnings;
+
 use Test::Spelling;
+
 my @stopwords;
 for (<DATA>) {
     chomp;
     push @stopwords, $_
-      unless /\A (?: \# | \s* \z)/msx;    # skip comments, whitespace
-};
+        unless /\A (?: \# | \s* \z)/msx;    # skip comments, whitespace
+}
+
 add_stopwords(@stopwords);
 set_spell_cmd('aspell list -l en');
 all_pod_files_spelling_ok;
@@ -44,6 +49,7 @@ Rockway
 Roditi
 Rolsky
 Roszatycki
+Roszatycki's
 sartak
 Sedlacek
 Shlomi
@@ -90,6 +96,7 @@ mixins
 MooseX
 Num
 oose
+OtherName
 PosInt
 PositiveInt
 ro
@@ -101,15 +108,19 @@ TypeContraints
 API
 APIs
 Baz
+Changelog
+compat
 datetimes
 definedness
 destructor
 destructors
+dev
 DWIM
 hashrefs
 immutabilize
 immutabilized
 inline
+inlines
 invocant
 invocant's
 irc
@@ -120,17 +131,22 @@ namespace
 namespaced
 namespaces
 namespacing
+# as in required-ness
+ness
 OO
 OOP
 ORM
 overridable
 parameterizable
+parameterization
 parameterize
 parameterized
 parameterizes
 pluggable
 prechecking
 prepends
+refactored
+refactoring
 runtime
 stacktrace
 subclassable
@@ -142,6 +158,7 @@ UNIMPORTING
 Unported
 unsets
 unsettable
+whitelist
 Whitelist
 
 ## other jargon
@@ -152,7 +169,6 @@ gey
 breakability
 delegatee
 hackery
-ungloriously
 wrappee
 
 ## compound
@@ -166,6 +182,7 @@ kool
 pre
 # vice versa
 versa
+lookup
 
 ## slang
 C'mon

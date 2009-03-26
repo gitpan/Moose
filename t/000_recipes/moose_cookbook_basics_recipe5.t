@@ -30,17 +30,17 @@ BEGIN {
   use Params::Coerce ();
   use URI            ();
 
-  subtype 'My.HTTP::Headers' => as class_type('HTTP::Headers');
+  subtype 'My::Types::HTTP::Headers' => as class_type('HTTP::Headers');
 
-  coerce 'My.HTTP::Headers'
+  coerce 'My::Types::HTTP::Headers'
       => from 'ArrayRef'
           => via { HTTP::Headers->new( @{$_} ) }
       => from 'HashRef'
           => via { HTTP::Headers->new( %{$_} ) };
 
-  subtype 'My.URI' => as class_type('HTTP::Headers');
+  subtype 'My::Types::URI' => as class_type('URI');
 
-  coerce 'My.URI'
+  coerce 'My::Types::URI'
       => from 'Object'
           => via { $_->isa('URI')
                    ? $_
@@ -52,13 +52,13 @@ BEGIN {
       => as 'Str'
       => where { /^HTTP\/[0-9]\.[0-9]$/ };
 
-  has 'base' => ( is => 'rw', isa => 'My.URI', coerce => 1 );
-  has 'uri'  => ( is => 'rw', isa => 'My.URI', coerce => 1 );
+  has 'base' => ( is => 'rw', isa => 'My::Types::URI', coerce => 1 );
+  has 'uri'  => ( is => 'rw', isa => 'My::Types::URI', coerce => 1 );
   has 'method'   => ( is => 'rw', isa => 'Str' );
   has 'protocol' => ( is => 'rw', isa => 'Protocol' );
   has 'headers'  => (
       is      => 'rw',
-      isa     => 'My.HTTP::Headers',
+      isa     => 'My::Types::HTTP::Headers',
       coerce  => 1,
       default => sub { HTTP::Headers->new }
   );
@@ -124,6 +124,14 @@ isa_ok( $r, 'Request' );
         $r->protocol('http/1.0');
     }
     '... the protocol died with bar params correctly';
+}
+
+{
+    $r->base('http://localhost/');
+    isa_ok( $r->base, 'URI' );
+
+    $r->uri('http://localhost/');
+    isa_ok( $r->uri, 'URI' );
 }
 }
 
