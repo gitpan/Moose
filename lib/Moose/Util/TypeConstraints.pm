@@ -9,7 +9,7 @@ use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
 
-our $VERSION   = '0.72_01';
+our $VERSION   = '0.73';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -1093,6 +1093,11 @@ L<Moose::Meta::TypeConstraint::Role> object for that role name.
 
 The C<$options> is a hash reference that will be passed to the
 L<Moose::Meta::TypeConstraint::Role> constructor (as a hash).
+
+=item B<create_enum_type_constraint($name, $values)>
+
+Given a enum name this function will create a new
+L<Moose::Meta::TypeConstraint::Enum> object for that enum name.
 
 =item B<find_or_parse_type_constraint($type_name)>
 
