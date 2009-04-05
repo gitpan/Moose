@@ -8,7 +8,7 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Carp         'confess';
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -256,7 +256,7 @@ sub update_package_cache_flag {
 ## ------------------------------------------------------------------
 ## subroles
 
-__PACKAGE__->meta->add_attribute('roles' => (
+$META->add_attribute('roles' => (
     reader  => 'get_roles',
     default => sub { [] }
 ));
@@ -323,18 +323,10 @@ sub get_method_map {
                         $map->{$symbol}->body == $code;
 
         my ($pkg, $name) = Class::MOP::get_code_info($code);
+        my $meta = Class::MOP::class_of($pkg);
 
-        if ($pkg->can('meta')
-            # NOTE:
-            # we don't know what ->meta we are calling
-            # here, so we need to be careful cause it
-            # just might blow up at us, or just complain
-            # loudly (in the case of Curses.pm) so we
-            # just be a little overly cautious here.
-            # - SL
-            && eval { no warnings; blessed($pkg->meta) } # FIXME calls meta
-            && $pkg->meta->isa('Moose::Meta::Role')) {
-            my $role = $pkg->meta->name;
+        if ($meta && $meta->isa('Moose::Meta::Role')) {
+            my $role = $meta->name;
             next unless $self->does_role($role);
         }
         else {
@@ -426,6 +418,8 @@ sub get_method_list {
 }
 
 sub alias_method {
+    warn "The alias_method method is deprecated. Use add_method instead.\n";
+
     my $self = shift;
 
     $self->add_method(@_);
@@ -464,7 +458,7 @@ sub combine {
     my (@roles, %role_params);
     while (@role_specs) {
         my ($role, $params) = @{ splice @role_specs, 0, 1 };
-        push @roles => $role->meta;
+        push @roles => Class::MOP::class_of($role);
         next unless defined $params;
         $role_params{$role} = $params; 
     }
@@ -490,8 +484,6 @@ sub create {
         || confess "You must pass a HASH ref of methods"
             if exists $options{methods};
 
-    $role->SUPER::create(%options);
-
     my (%initialize_options) = %options;
     delete @initialize_options{qw(
         package
@@ -502,6 +494,8 @@ sub create {
     )};
 
     my $meta = $role->initialize( $package_name => %initialize_options );
+
+    $meta->_instantiate_module( $options{version}, $options{authority} );
 
     # FIXME totally lame
     $meta->add_method('meta' => sub {

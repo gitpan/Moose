@@ -14,6 +14,7 @@ lib/Moose/Cookbook.pod
 lib/Moose/Cookbook/Basics/Recipe1.pod
 lib/Moose/Cookbook/Basics/Recipe10.pod
 lib/Moose/Cookbook/Basics/Recipe11.pod
+lib/Moose/Cookbook/Basics/Recipe12.pod
 lib/Moose/Cookbook/Basics/Recipe2.pod
 lib/Moose/Cookbook/Basics/Recipe3.pod
 lib/Moose/Cookbook/Basics/Recipe4.pod
@@ -31,6 +32,7 @@ lib/Moose/Cookbook/Meta/Recipe2.pod
 lib/Moose/Cookbook/Meta/Recipe3.pod
 lib/Moose/Cookbook/Meta/Recipe4.pod
 lib/Moose/Cookbook/Meta/Recipe5.pod
+lib/Moose/Cookbook/Meta/Recipe6.pod
 lib/Moose/Cookbook/Meta/Recipe7.pod
 lib/Moose/Cookbook/Roles/Recipe1.pod
 lib/Moose/Cookbook/Roles/Recipe2.pod
@@ -105,6 +107,7 @@ README
 t/000_load.t
 t/000_recipes/basics-recipe10.t
 t/000_recipes/moose_cookbook_basics_recipe1.t
+t/000_recipes/moose_cookbook_basics_recipe12.t
 t/000_recipes/moose_cookbook_basics_recipe2.t
 t/000_recipes/moose_cookbook_basics_recipe3.t
 t/000_recipes/moose_cookbook_basics_recipe4.t
@@ -114,6 +117,7 @@ t/000_recipes/moose_cookbook_extending_recipe3.t
 t/000_recipes/moose_cookbook_extending_recipe4.t
 t/000_recipes/moose_cookbook_meta_recipe2.t
 t/000_recipes/moose_cookbook_meta_recipe3.t
+t/000_recipes/moose_cookbook_meta_recipe6.t
 t/000_recipes/moose_cookbook_meta_recipe7.t
 t/000_recipes/moose_cookbook_roles_recipe1.t
 t/000_recipes/moose_cookbook_roles_recipe2.t
@@ -226,6 +230,7 @@ t/040_type_constraints/030_class_subtypes.t
 t/040_type_constraints/031_subtype_auto_vivify_parent.t
 t/040_type_constraints/032_throw_error.t
 t/040_type_constraints/033_type_names.t
+t/040_type_constraints/034_duck_types.t
 t/050_metaclasses/001_custom_attr_meta_with_roles.t
 t/050_metaclasses/002_custom_attr_meta_as_role.t
 t/050_metaclasses/003_moose_w_metaclass.t

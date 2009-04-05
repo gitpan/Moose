@@ -18,16 +18,15 @@ explains Moose concepts without being too code-heavy.
 
 =head2 Basic Moose
 
-These recipes will give you a good idea of what Moose is capable,
-starting with simple attribute declaration, and moving on to more
-powerful features like laziness, types, type coercion, method
-modifiers, and more.
+These recipes will give you a good overview of Moose's capabilities, starting
+with simple attribute declaration, and moving on to more powerful features like
+laziness, types, type coercion, method modifiers, and more.
 
 =over 4
 
 =item L<Moose::Cookbook::Basics::Recipe1> - The (always classic) B<Point> example
 
-A simple Moose-based class. Demonstrated Moose attributes and subclassing.
+A simple Moose-based class. Demonstrates Moose attributes and subclassing.
 
 =item L<Moose::Cookbook::Basics::Recipe2> - A simple B<BankAccount> example
 
@@ -80,6 +79,11 @@ model how eye color is determined during reproduction.
 This recipe demonstrates the use of C<BUILDARGS> and C<BUILD> to hook
 into object construction.
 
+=item L<Moose::Cookbook::Basics::Recipe12> - Extending a non-Moose base class
+
+In this recipe, we make a Moose-based subclass of L<DateTime>, a
+module which does not use Moose itself.
+
 =back
 
 =head2 Moose Roles
@@ -97,7 +101,7 @@ subclassing.
 =item L<Moose::Cookbook::Roles::Recipe2> - Advanced Role Composition - method exclusion and aliasing
 
 Sometimes you just want to include part of a role in your
-class. Sometimes you want the whole role but one if its methods
+class. Sometimes you want the whole role but one of its methods
 conflicts with one in your class. With method exclusion and aliasing,
 you can work around these problems.
 
@@ -110,7 +114,7 @@ In this recipe, we apply a role to an existing object instance.
 =head2 Meta Moose
 
 These recipes show you how to write your own meta classes, which lets
-you extend the object system provide by Moose.
+you extend the object system provided by Moose.
 
 =over 4
 
@@ -142,10 +146,21 @@ L<Moose::Cookbook::Extending::Recipe2> as well.
 
 =item L<Moose::Cookbook::Meta::Recipe5> - The "table" attribute implemented as a metaclass trait
 
-This example takes the class metaclass we saw in the previous recipe
+This recipe takes the class metaclass we saw in the previous recipe
 and reimplements it as a metaclass trait.
 
-=item L<Moose::Cookbook::Meta::Recipe6> - Hooking into the immutabilization system (TODO)
+=item L<Moose::Cookbook::Meta::Recipe6> - A method metaclass for marking methods public or private
+
+This recipe shows a custom method metaclass that implements making a
+method private.
+
+=item L<Moose::Cookbook::Meta::Recipe7> - Using a blessed array reference as an object instance
+
+This recipe shows an example of how you create your own meta-instance
+class. The meta-instance determines the internal structure of object
+instances and provide access to attribute slots.
+
+=item L<Moose::Cookbook::Meta::Recipe8> - Hooking into immutabilization (TODO)
 
 Moose has a feature known as "immutabilization". By calling C<<
 __PACKAGE__->meta()->make_immutable() >> after defining your class
@@ -160,12 +175,6 @@ meta-instance class as well.
 This recipe shows you how to write extensions which immutabilize
 properly.
 
-=item L<Moose::Cookbook::Meta::Recipe7> - Using a blessed array reference as an object instance
-
-This recipe shows an example of how you create your own meta-instance
-class. The meta-instance determines the internal structure of object
-instances and provide access to attribute slots.
-
 =back
 
 =head2 Extending Moose
@@ -177,9 +186,9 @@ if you plan to write your own C<MooseX> module.
 
 =item L<Moose::Cookbook::Extending::Recipe1> - Moose extension overview
 
-There are quite a number of ways to extend Moose. This recipe explains
-provides an overview of each method, and provides recommendations for
-when each is appropriate.
+There are quite a few ways to extend Moose. This recipe provides an
+overview of each method, and provides recommendations for when each is
+appropriate.
 
 =item L<Moose::Cookbook::Extending::Recipe2> - Providing a base object class role
 

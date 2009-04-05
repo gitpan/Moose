@@ -6,7 +6,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -56,11 +56,9 @@ sub extends {
 
     my @supers = @_;
     foreach my $super (@supers) {
-        Class::MOP::load_class($super);
+        my $meta = Class::MOP::load_class($super);
         Moose->throw_error("You cannot inherit from a Moose Role ($super)")
-            if $super->can('meta')  && 
-               blessed $super->meta &&
-               $super->meta->isa('Moose::Meta::Role')
+            if $meta && $meta->isa('Moose::Meta::Role')
     }
 
 
@@ -883,6 +881,8 @@ The C<init_meta> method sets up the metaclass object for the class
 specified by C<for_class>. This method injects a a C<meta> accessor
 into the class so you can get at this object. It also sets the class's
 superclass to C<base_class>, with L<Moose::Object> as the default.
+
+C<init_meta> returns the metaclass object for C<$class>.
 
 You can specify an alternate metaclass with the C<metaclass> option.
 

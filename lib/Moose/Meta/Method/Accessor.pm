@@ -4,7 +4,7 @@ package Moose::Meta::Method::Accessor;
 use strict;
 use warnings;
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -39,7 +39,7 @@ sub _eval_code {
         or $self->throw_error("Could not create writer for '${\$self->associated_attribute->name}' because $@ \n code: $code", error => $@, data => $code );
 }
 
-sub generate_accessor_method_inline {
+sub _generate_accessor_method_inline {
     my $self        = $_[0];
     my $attr        = $self->associated_attribute;
     my $attr_name   = $attr->name;
@@ -52,7 +52,7 @@ sub generate_accessor_method_inline {
     . 'if (scalar(@_) >= 2) {' . "\n"
         . $self->_inline_copy_value . "\n"
         . $self->_inline_check_required . "\n"
-        . $self->_inline_check_coercion . "\n"
+        . $self->_inline_check_coercion($value_name) . "\n"
         . $self->_inline_check_constraint($value_name) . "\n"
         . $self->_inline_store($inv, $value_name) . "\n"
         . $self->_inline_trigger($inv, $value_name) . "\n"
@@ -63,7 +63,7 @@ sub generate_accessor_method_inline {
     . ' }');
 }
 
-sub generate_writer_method_inline {
+sub _generate_writer_method_inline {
     my $self        = $_[0];
     my $attr        = $self->associated_attribute;
     my $attr_name   = $attr->name;
@@ -75,7 +75,7 @@ sub generate_writer_method_inline {
     . $self->_inline_pre_body(@_)
     . $self->_inline_copy_value
     . $self->_inline_check_required
-    . $self->_inline_check_coercion
+    . $self->_inline_check_coercion($value_name)
     . $self->_inline_check_constraint($value_name)
     . $self->_inline_store($inv, $value_name)
     . $self->_inline_post_body(@_)
@@ -83,7 +83,7 @@ sub generate_writer_method_inline {
     . ' }');
 }
 
-sub generate_reader_method_inline {
+sub _generate_reader_method_inline {
     my $self        = $_[0];
     my $attr        = $self->associated_attribute;
     my $attr_name   = $attr->name;
@@ -109,11 +109,11 @@ sub _value_needs_copy {
     return $attr->should_coerce;
 }
 
-sub generate_reader_method { shift->generate_reader_method_inline(@_) }
-sub generate_writer_method { shift->generate_writer_method_inline(@_) }
-sub generate_accessor_method { shift->generate_accessor_method_inline(@_) }
-sub generate_predicate_method { shift->generate_predicate_method_inline(@_) }
-sub generate_clearer_method { shift->generate_clearer_method_inline(@_) }
+sub _generate_reader_method { shift->_generate_reader_method_inline(@_) }
+sub _generate_writer_method { shift->_generate_writer_method_inline(@_) }
+sub _generate_accessor_method { shift->_generate_accessor_method_inline(@_) }
+sub _generate_predicate_method { shift->_generate_predicate_method_inline(@_) }
+sub _generate_clearer_method { shift->_generate_clearer_method_inline(@_) }
 
 sub _inline_pre_body  { '' }
 sub _inline_post_body { '' }
@@ -132,10 +132,12 @@ sub _inline_check_constraint {
 }
 
 sub _inline_check_coercion {
-    my $attr = (shift)->associated_attribute;
+    my ($self, $value) = @_;
+
+    my $attr = $self->associated_attribute;
     
     return '' unless $attr->should_coerce;
-    return '$val = $attr->type_constraint->coerce($_[1]);'
+    return "$value = \$attr->type_constraint->coerce($value);";
 }
 
 sub _inline_check_required {
@@ -172,11 +174,8 @@ sub _inline_check_lazy {
                          '        ' . $self->_inline_throw_error(q{sprintf "%s does not support builder method '%s' for attribute '%s'", ref(} . $instance . ') || '.$instance.', $attr->builder, $attr->name') .
                          ';'. "\n    }";
             }
-            $code .= '    $default = $type_constraint_obj->coerce($default);'."\n"  if $attr->should_coerce;
-            $code .= '    ($type_constraint->($default))' .
-                     '            || ' . $self->_inline_throw_error('"Attribute (" . $attr_name . ") does not pass the type constraint ("' .
-                     '           . $type_constraint_name . ") with " . (defined($default) ? overload::StrVal($default) : "undef")' ) . ';' 
-                     . "\n";
+            $code .= $self->_inline_check_coercion('$default') . "\n";
+            $code .= $self->_inline_check_constraint('$default') . "\n";
             $code .= '    ' . $self->_inline_init_slot($attr, $instance, $slot_access, '$default') . "\n";
         } 
         else {

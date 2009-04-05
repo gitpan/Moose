@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -57,7 +57,7 @@ sub is_needed {
         || $self->throw_error(
         "The is_needed method expected a metaclass object as its arugment");
 
-    return $metaclass->meta->can('DEMOLISH');
+    return Class::MOP::class_of($metaclass)->can('DEMOLISH');
 }
 
 sub initialize_body {

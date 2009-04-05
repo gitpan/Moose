@@ -7,7 +7,7 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -52,7 +52,7 @@ sub parents {
             Moose::Util::TypeConstraints::find_type_constraint($_) 
                 || 
             __PACKAGE__->new( class => $_, name => "__ANON__" )
-        } $self->class->meta->superclasses,
+        } Class::MOP::class_of($self->class)->superclasses,
     );
 }
 

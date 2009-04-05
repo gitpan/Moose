@@ -8,7 +8,7 @@ use metaclass;
 use Moose::Meta::Attribute;
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -31,7 +31,7 @@ __PACKAGE__->meta->add_attribute('compiled_type_coercion' => (
 
 sub new { 
     my $class = shift;
-    my $self  = $class->meta->new_object(@_);
+    my $self  = Class::MOP::class_of($class)->new_object(@_);
     $self->compile_type_coercion;
     return $self;
 }

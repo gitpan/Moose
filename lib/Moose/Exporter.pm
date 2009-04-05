@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -298,7 +298,7 @@ sub _apply_meta_traits {
 
     return unless @{$traits};
 
-    my $meta = $class->meta();
+    my $meta = Class::MOP::class_of($class);
 
     my $type = ( split /::/, ref $meta )[-1]
         or Moose->throw_error(

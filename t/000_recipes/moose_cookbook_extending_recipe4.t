@@ -25,7 +25,7 @@ $| = 1;
 
   sub init_meta {
       shift;
-      Moose->init_meta( @_, metaclass => 'MyApp::Meta::Class' );
+      return Moose->init_meta( @_, metaclass => 'MyApp::Meta::Class' );
   }
 
   sub has_table {

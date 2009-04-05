@@ -1,4 +1,78 @@
-Revision history for Perl extension Moose
+Also see Moose::Manual::Delta for more details of, and workarounds
+for, noteworthy changes.
+
+0.73_01
+    * Moose::*
+      - Call user_class->meta in fewer places, with the eventual goal
+        of allowing the user to rename or exclude ->meta
+        altogether. Instead uses Class::MOP::class_of. (Sartak)
+
+    * Moose::Meta::Method::Accessor
+      - If an attribute had a lazy default, and that value did not
+        pass the attribute's type constraint, it did not get the
+        message from the type constraint, instead using a generic
+        message. Test provided by perigrin.
+
+    * Moose::Util::TypeConstraints
+      - Add duck_type keyword. It's sugar over making sure an object
+        can() a list of methods. This is easier than jrockway's
+        suggestion to fork all of CPAN. (perigrin)
+        - add tests and documentation (perigrin)
+
+    * Moose
+      - Document the fact that init_meta() returns the target class's
+        metaclass object. (hdp)
+
+    * Moose::Cookbook::Extending::Recipe1
+    * Moose::Cookbook::Extending::Recipe2
+    * Moose::Cookbook::Extending::Recipe3
+    * Moose::Cookbook::Extending::Recipe4
+      - Make init_meta() examples explicitly return the metaclass and
+        point out this fact. (hdp)
+
+    * Moose::Cookbook::Meta::Recipe6
+      - A new recipe, creating a custom meta-method class.
+
+    * Moose::Meta::Class
+    * Moose::Meta::Method::Constructor
+      - Attribute triggers no longer receive the meta-attribute object
+        as an argument in any circumstance. Previously, triggers
+        called during instance construction were passed the
+        meta-attribute, but triggers called by normal accessors were
+        not. Fixes RT#44429, reported by Mark Swayne. (hdp)
+    
+    * Moose::Manual::Attributes
+      - Remove references to triggers receving the meta-attribute object as an
+        argument. (hdp)
+
+    * Moose::Cookbook::FAQ
+      - Remove recommendation for deprecated Moose::Policy and
+        Moose::Policy::FollowPBP; recommend MooseX::FollowPBP
+        instead. (hdp)
+
+    * Many methods have been renamed with a leading underscore, and a
+      few have been deprecated entirely. The methods with a leading
+      underscore are consider "internals only". People writing
+      subclasses or extensions to Moose should feel free to override
+      them, but they are not for "public" use.
+
+      - Moose::Meta::Class
+        - check_metaclass_compatibility => _check_metaclass_compatibility
+
+      - Moose::Meta::Method::Accessor
+        - initialize_body => _initialize_body (this is always called
+          when an object is constructed)
+        - /(generate_.*_method(?:_inline)?)/ => '_' . $1
+
+      - Moose::Meta::Method::Constructor
+        - initialize_body => _initialize_body (this is always called
+          when an object is constructed)
+        - /(generate_constructor_method(?:_inline)?)/ => '_' . $1
+        - attributes => _attributes (now inherited from parent)
+        - meta_instance => _meta_instance (now inherited from parent)
+
+      - Moose::Meta::Role
+        - alias_method is deprecated. Use add_method
 
 0.73 Fri, March 29, 2009
     * No changes from 0.72_01.
@@ -32,7 +106,7 @@ Revision history for Perl extension Moose
 
     * Moose::Meta::Attribute
       - Allow a subclass to set lazy_build for an inherited
-        attribute. (Dieter Pearcey)
+        attribute. (hdp)
 
     * Makefile.PL
       - Explicitly depend on Data::OptList. We already had this dependency
@@ -387,7 +461,7 @@ Revision history for Perl extension Moose
         them, but MooseX modules can create them in some other
         way. See the 0.58 changes for more details. (jnapiorkowski)
       - Changed the way subtypes are created so that the job is
-        delegated to a type constraint parent.  This clears up some
+        delegated to a type constraint parent. This clears up some
         hardcoded checking and should allow correct subtypes of
         Moose::Meta::Type::Constraint. Don't rely on this new API too
         much (create_child_type) because it may go away in the
@@ -482,7 +556,7 @@ Revision history for Perl extension Moose
 
     * Moose::Meta::TypeConstraint::Parameterizable
       - Added a new method 'parameterize' which is basically a factory
-        for the containing constraint.  This makes it easier to create
+        for the containing constraint. This makes it easier to create
         new types of parameterized constraints. (jnapiorkowski)
 
     * Moose::Meta::TypeConstraint::Union
@@ -501,7 +575,7 @@ Revision history for Perl extension Moose
         all whitespace differences. (jnapiorkowski)
       - Changed the way we parse type constraint strings so that we now
         match TC[Int,Int,...] and TC[name=>Str] as parameterized type
-        constraints.  This lays the foundation for more flexible type
+        constraints. This lays the foundation for more flexible type
         constraint implementations.
 
     * Tests and docs for all the above. (jnapiorkowski)
@@ -1186,7 +1260,7 @@ Revision history for Perl extension Moose
     
     * t/
       - making test for using '+name' on attributes consumed 
-        from a role, it works and makes sense too.    
+        from a role, it works and makes sense too.
 
     * Moose::Meta::Attribute 
       - fix handles so that it doesn't return nothing 

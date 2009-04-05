@@ -39,7 +39,7 @@ BEGIN {
 
   sub init_meta {
       shift;
-      Moose->init_meta( @_, base_class => 'MyApp::Base' );
+      return Moose->init_meta( @_, base_class => 'MyApp::Base' );
   }
 }
 

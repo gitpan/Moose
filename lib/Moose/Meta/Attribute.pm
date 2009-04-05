@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken';
 use overload     ();
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -248,7 +248,7 @@ sub clone {
 
     my ( @init, @non_init );
 
-    foreach my $attr ( grep { $_->has_value($self) } $self->meta->compute_all_applicable_attributes ) {
+    foreach my $attr ( grep { $_->has_value($self) } Class::MOP::class_of($self)->get_all_attributes ) {
         push @{ $attr->has_init_arg ? \@init : \@non_init }, $attr;
     }
 
@@ -403,13 +403,7 @@ sub initialize_instance_slot {
 
     return unless $value_is_set;
 
-    if ($self->has_type_constraint) {
-        my $type_constraint = $self->type_constraint;
-        if ($self->should_coerce && $type_constraint->has_coercion) {
-            $val = $type_constraint->coerce($val);
-        }
-        $self->verify_against_type_constraint($val, instance => $instance);
-    }
+    $val = $self->_coerce_and_verify( $val, $instance );
 
     $self->set_initial_value($instance, $val);
     $meta_instance->weaken_slot_value($instance, $self->name)
@@ -456,12 +450,8 @@ sub _set_initial_slot_value {
     }
 
     my $callback = sub {
-        my $val = shift;
-        if ($type_constraint) {
-            $val = $type_constraint->coerce($val)
-                if $can_coerce;
-            $self->verify_against_type_constraint($val, object => $instance);
-        }
+        my $val = $self->_coerce_and_verify( shift, $instance );;
+
         $meta_instance->set_slot_value($instance, $slot_name, $val);
     };
     
@@ -481,19 +471,7 @@ sub set_value {
         $self->throw_error("Attribute ($attr_name) is required", object => $instance);
     }
 
-    if ($self->has_type_constraint) {
-
-        my $type_constraint = $self->type_constraint;
-
-        if ($self->should_coerce) {
-            $value = $type_constraint->coerce($value);
-        }        
-        $type_constraint->_compiled_type_constraint->($value)
-            || $self->throw_error("Attribute (" 
-                     . $self->name 
-                     . ") does not pass the type constraint because " 
-                     . $type_constraint->get_message($value), object => $instance, data => $value);
-    }
+    $value = $self->_coerce_and_verify( $value, $instance );
 
     my $meta_instance = Class::MOP::Class->initialize(blessed($instance))
                                          ->get_meta_instance;
@@ -520,12 +498,9 @@ sub get_value {
             } elsif ( $self->has_builder ) {
                 $value = $self->_call_builder($instance);
             }
-            if ($self->has_type_constraint) {
-                my $type_constraint = $self->type_constraint;
-                $value = $type_constraint->coerce($value)
-                    if ($self->should_coerce);
-                $self->verify_against_type_constraint($value);
-            }
+
+            $value = $self->_coerce_and_verify( $value, $instance );
+
             $self->set_initial_value($instance, $value);
         }
     }
@@ -645,16 +620,10 @@ sub _canonicalize_handles {
         }
     }
     else {
-        Class::MOP::load_class($handles) 
-            unless Class::MOP::is_class_loaded($handles);
-            
-        my $role_meta = eval { $handles->meta };
-        if ($@) {
-            $self->throw_error("Unable to canonicalize the 'handles' option with $handles because : $@", data => $handles, error => $@);
-        }
+        my $role_meta = Class::MOP::load_class($handles);
 
         (blessed $role_meta && $role_meta->isa('Moose::Meta::Role'))
-            || $self->throw_error("Unable to canonicalize the 'handles' option with $handles because ->meta is not a Moose::Meta::Role", data => $handles);
+            || $self->throw_error("Unable to canonicalize the 'handles' option with $handles because its metaclass is not a Moose::Meta::Role", data => $handles);
             
         return map { $_ => $_ } (
             $role_meta->get_method_list,
@@ -666,19 +635,13 @@ sub _canonicalize_handles {
 sub _find_delegate_metaclass {
     my $self = shift;
     if (my $class = $self->_isa_metadata) {
-        # if the class does have
-        # a meta method, use it
-        return $class->meta if $class->can('meta');
-        # otherwise we might be
-        # dealing with a non-Moose
-        # class, and need to make
-        # our own metaclass
+        # we might be dealing with a non-Moose class,
+        # and need to make our own metaclass. if there's
+        # already a metaclass, it will be returned
         return Moose::Meta::Class->initialize($class);
     }
     elsif (my $role = $self->_does_metadata) {
-        # our role will always have
-        # a meta method
-        return $role->meta;
+        return Class::MOP::class_of($role);
     }
     else {
         $self->throw_error("Cannot find delegate metaclass for attribute " . $self->name);
@@ -717,6 +680,23 @@ sub _make_delegation_method {
         attribute          => $self,
         delegate_to_method => $method_to_call,
     );
+}
+
+sub _coerce_and_verify {
+    my $self     = shift;
+    my $val      = shift;
+    my $instance = shift;
+
+    return $val unless $self->has_type_constraint;
+
+    my $type_constraint = $self->type_constraint;
+    if ($self->should_coerce && $type_constraint->has_coercion) {
+        $val = $type_constraint->coerce($val);
+    }
+
+    $self->verify_against_type_constraint($val, instance => $instance);
+
+    return $val;
 }
 
 sub verify_against_type_constraint {

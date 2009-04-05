@@ -7,7 +7,7 @@ use Sub::Exporter;
 use Scalar::Util 'blessed';
 use Class::MOP   0.60;
 
-our $VERSION   = '0.73';
+our $VERSION   = '0.73_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -31,10 +31,7 @@ Sub::Exporter::setup_exporter({
 
 ## some utils for the utils ...
 
-sub find_meta { 
-    return unless $_[0];
-    return Class::MOP::get_metaclass_by_name(blessed($_[0]) || $_[0]);
-}
+sub find_meta { Class::MOP::class_of(@_) }
 
 ## the functions ...
 
@@ -80,16 +77,10 @@ sub apply_all_roles {
 
     my $roles = Data::OptList::mkopt( [@_] );
 
-    my $meta = ( blessed $applicant ? $applicant : find_meta($applicant) );
-
-    foreach my $role_spec (@$roles) {
-        Class::MOP::load_class( $role_spec->[0] );
-    }
-
     foreach my $role (@$roles) {
-        unless ( $role->[0]->can('meta')
-            && $role->[0]->meta->isa('Moose::Meta::Role') ) {
+        my $meta = Class::MOP::load_class( $role->[0] );
 
+        unless ($meta->isa('Moose::Meta::Role') ) {
             require Moose;
             Moose->throw_error( "You can only consume roles, "
                     . $role->[0]
@@ -97,9 +88,12 @@ sub apply_all_roles {
         }
     }
 
+    my $meta = ( blessed $applicant ? $applicant : find_meta($applicant) );
+
     if ( scalar @$roles == 1 ) {
         my ( $role, $params ) = @{ $roles->[0] };
-        $role->meta->apply( $meta, ( defined $params ? %$params : () ) );
+        my $role_meta = Class::MOP::class_of($role);
+        $role_meta->apply( $meta, ( defined $params ? %$params : () ) );
     }
     else {
         Moose::Meta::Role->combine( @$roles )->apply($meta);
@@ -113,7 +107,7 @@ sub get_all_attribute_values {
     return +{
         map { $_->name => $_->get_value($instance) }
             grep { $_->has_value($instance) }
-                $class->compute_all_applicable_attributes
+                $class->get_all_attributes
     };
 }
 
@@ -123,7 +117,7 @@ sub get_all_init_args {
         map { $_->init_arg => $_->get_value($instance) }
             grep { $_->has_value($instance) }
                 grep { defined($_->init_arg) } 
-                    $class->compute_all_applicable_attributes
+                    $class->get_all_attributes
     };
 }
 
