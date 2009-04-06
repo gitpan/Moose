@@ -270,6 +270,7 @@ t/100_bugs/019_moose_octal_defaults.t
 t/100_bugs/020_super_recursion.t
 t/100_bugs/021_DEMOLISHALL_shortcutted.t
 t/100_bugs/022_role_caller.t
+t/100_bugs/023_DEMOLISH_fails_without_metaclass.t
 t/200_examples/001_example.t
 t/200_examples/002_example_Moose_POOP.t
 t/200_examples/003_example.t

@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '0.73_01';
+our $VERSION   = '0.73_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -38,7 +38,7 @@ sub new {
     # needed
     weaken($self->{'associated_metaclass'});    
 
-    $self->initialize_body;
+    $self->_initialize_body;
 
     return $self;    
 }
@@ -57,10 +57,16 @@ sub is_needed {
         || $self->throw_error(
         "The is_needed method expected a metaclass object as its arugment");
 
-    return Class::MOP::class_of($metaclass)->can('DEMOLISH');
+    return $metaclass->find_method_by_name('DEMOLISH');
 }
 
 sub initialize_body {
+    warn 'The initialize_body method has been made private.'
+        . " The public version is deprecated and will be removed in a future release.\n";
+    shift->_initialize_body;
+}
+
+sub _initialize_body {
     my $self = shift;
     # TODO:
     # the %options should also include a both 
