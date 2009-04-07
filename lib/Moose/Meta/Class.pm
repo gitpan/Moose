@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.73_02';
+our $VERSION   = '0.74';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -488,14 +488,6 @@ sub _reconcile_role_differences {
     );
 
     return $self;
-}
-
-# NOTE:
-# this was crap anyway, see
-# Moose::Util::apply_all_roles
-# instead
-sub _apply_all_roles { 
-    Carp::croak 'DEPRECATED: use Moose::Util::apply_all_roles($meta, @roles) instead' 
 }
 
 sub _process_attribute {
