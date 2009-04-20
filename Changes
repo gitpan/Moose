@@ -1,6 +1,24 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.75 Mon, April 20, 2009
+    * Moose
+    * Moose::Meta::Class
+      - Move validation of not inheriting from roles from Moose::extends to
+        Moose::Meta::Class::superclasses (doy)
+
+    * Moose::Util
+      - add ensure_all_roles() function to encapsulate the common "apply this
+        role unless the object already does it" pattern (hdp)
+
+    * Moose::Exporter
+      - Users can now select a different metaclass with the "-metaclass"
+        option to import, for classes and roles (Sartak)
+
+    * Moose::Meta::Role
+      - Make method_metaclass an attr so that it can accept a metarole
+        application.  (jdv)
+
 0.74 Tue, April 7, 2009
     * Moose::Meta::Role
     * Moose::Meta::Method::Destructor
@@ -10,7 +28,7 @@ for, noteworthy changes.
     * Moose::Meta::Class
       - Removed the long-deprecated _apply_all_roles method.
 
-    * Moose::Meta::TypeContsraint
+    * Moose::Meta::TypeConstraint
       - Removed the long-deprecated union method.
 
 
@@ -58,6 +76,9 @@ for, noteworthy changes.
     * Moose::Cookbook::Extending::Recipe4
       - Make init_meta() examples explicitly return the metaclass and
         point out this fact. (hdp)
+
+    * Moose::Cookbook::Basics::Recipe12
+      - A new recipe, creating a custom meta-method class.        
 
     * Moose::Cookbook::Meta::Recipe6
       - A new recipe, creating a custom meta-method class.

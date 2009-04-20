@@ -8,7 +8,7 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Carp         'confess';
 
-our $VERSION   = '0.74';
+our $VERSION   = '0.75';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -116,6 +116,12 @@ foreach my $action (
         delete $self->$attr_reader->{$_} foreach @values;
     }) if exists $methods->{remove};
 }
+
+$META->add_attribute(
+    'method_metaclass',
+    reader  => 'method_metaclass',
+    default => 'Moose::Meta::Role::Method',
+);
 
 ## some things don't always fit, so they go here ...
 
@@ -285,8 +291,6 @@ sub does_role {
 
 ## ------------------------------------------------------------------
 ## methods
-
-sub method_metaclass { 'Moose::Meta::Role::Method' }
 
 sub get_method_map {
     my $self = shift;
@@ -766,6 +770,10 @@ L<Moose::Meta::Role>, object, a L<Moose::Meta::Class> object, or a
 
 The options are passed directly to the constructor for the appropriate
 L<Moose::Meta::Role::Application> subclass.
+
+Note that this will apply the role even if the C<$thing> in question already
+C<does> this role.  L<Moose::Util/does_role> is a convenient wrapper for
+finding out if role application is necessary.
 
 =back
 

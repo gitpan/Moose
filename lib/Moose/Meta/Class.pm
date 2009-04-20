@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.74';
+our $VERSION   = '0.75';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -200,6 +200,17 @@ sub _construct_instance {
         $attr->initialize_instance_slot($meta_instance, $instance, $params);
     }
     return $instance;
+}
+
+sub superclasses {
+    my $self = shift;
+    my @supers = @_;
+    foreach my $super (@supers) {
+        my $meta = Class::MOP::load_class($super);
+        Moose->throw_error("You cannot inherit from a Moose Role ($super)")
+            if $meta && $meta->isa('Moose::Meta::Role')
+    }
+    return $self->SUPER::superclasses(@supers);
 }
 
 ### ---------------------------------------------
