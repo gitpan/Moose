@@ -12,7 +12,7 @@ license 'perl';
 
 requires 'Scalar::Util'     => '1.19';
 requires 'Carp';
-requires 'Class::MOP'       => '0.81';
+requires 'Class::MOP'       => '0.82_01';
 requires 'List::MoreUtils'  => '0.12';
 requires 'Sub::Exporter'    => '0.972';
 requires 'Task::Weaken'     => '0';
@@ -20,6 +20,7 @@ requires 'Data::OptList'    => '0';
 
 test_requires 'Test::More'      => '0.77';
 test_requires 'Test::Exception' => '0.21';
+test_requires 'Test::Output'    => '0.09';
 
 if ( -d '.svn' || -d '.git' || $ENV{IS_MAINTAINER} ) {
     system( $^X, 'author/extract-inline-tests' );

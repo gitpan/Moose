@@ -1,6 +1,18 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.75_01 Thu, April 23, 2009
+    * Moose::Meta::Role::Application::ToClass
+      - Moose now warns about each class overriding methods from roles it
+        consumes (Sartak)
+
+    * Tests
+      - Warnings tests have standardized on Test::Output which is now an
+        unconditionally dependency (Sartak)
+
+    * Moose::Meta::Class
+      - Changes to immutabilization to work with Class::MOP 0.82_01+.
+
 0.75 Mon, April 20, 2009
     * Moose
     * Moose::Meta::Class
@@ -47,6 +59,9 @@ for, noteworthy changes.
       - Destructor inlining was totally broken by the change to the
         is_needed method in 0.72_01. Now there is a test for this
         feature, and it works again.
+
+    * Moose::Util
+      - Bold the word 'not' in the POD for find_meta (t0m)
 
 0.73_01 Sun, April 5, 2009
     * Moose::*

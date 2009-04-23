@@ -7,7 +7,7 @@ use Sub::Exporter;
 use Scalar::Util 'blessed';
 use Class::MOP   0.60;
 
-our $VERSION   = '0.75';
+our $VERSION   = '0.75_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -241,7 +241,7 @@ some of them may be useful for use in your own code.
 =item B<find_meta($class_or_obj)>
 
 This method takes a class name or object and attempts to find a
-metaclass for the class, if one exists. It will not create one if it
+metaclass for the class, if one exists. It will B<not> create one if it
 does not yet exist.
 
 =item B<does_role($class_or_obj, $role_name)>

@@ -62,6 +62,7 @@ lib/Moose/Manual/Roles.pod
 lib/Moose/Manual/Types.pod
 lib/Moose/Meta/Attribute.pm
 lib/Moose/Meta/Class.pm
+lib/Moose/Meta/Class/Immutable/Trait.pm
 lib/Moose/Meta/Instance.pm
 lib/Moose/Meta/Method.pm
 lib/Moose/Meta/Method/Accessor.pm
@@ -306,6 +307,9 @@ t/600_todo_tests/001_exception_reflects_failed_constraint.t
 t/600_todo_tests/002_various_role_shit.t
 t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/005_moose_and_threads.t
+t/600_todo_tests/006_moose_nonmoose_metatrait_init_order.t
+t/600_todo_tests/007_moose_nonmoose_moose_chain_init_meta.t
+t/600_todo_tests/008_moose_nonmoose_moose_chain_extends.t
 t/lib/Bar.pm
 t/lib/Foo.pm
 t/lib/Moose/Meta/Attribute/Custom/Bar.pm

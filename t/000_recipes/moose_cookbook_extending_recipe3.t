@@ -9,12 +9,7 @@ $| = 1;
 
 # =begin testing SETUP
 BEGIN {
-    eval 'use Test::Warn 0.11;';
-    if ($@) {
-        diag 'Test::Warn 0.11+ is required for this test';
-        ok(1);
-        exit 0;
-    }
+    use Test::Output;
 }
 
 
@@ -60,9 +55,9 @@ ok( Foo->isa('MyApp::Base'), 'Foo isa MyApp::Base' );
 ok( Foo->can('size'), 'Foo has a size method' );
 
 my $foo;
-warning_is(
+stderr_like(
     sub { $foo = Foo->new( size => 2 ) },
-    'Making a new Foo',
+    qr/^Making a new Foo/,
     'got expected warning when calling Foo->new'
 );
 

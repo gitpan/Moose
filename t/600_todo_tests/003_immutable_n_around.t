@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More 'no_plan';
+use Test::More tests => 20;
 
 # if make_immutable is removed from the following code the tests pass
 
@@ -42,7 +42,6 @@ tests: {
  TODO: {
     is( Foo->new->foo, undef, "base class (" . (Foo->meta->is_immutable ? "immutable" : "mutable") . ")" );
     is( Bar->new->foo, 42, "around new called on Bar->new (" . (Bar->meta->is_immutable ? "immutable" : "mutable") . ")"  );
-    local $TODO = 'these tests fail once Gorch is immutable' if Gorch->meta->is_immutable;
     is( Gorch->new->foo, 42, "around new called on Gorch->new (" . (Gorch->meta->is_immutable ? "immutable" : "mutable") . ")"  );
     is( Zoink->new->foo, 42, "around new called Zoink->new (" . (Zoink->meta->is_immutable ? "immutable" : "mutable") . ")"  );
     }
