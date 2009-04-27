@@ -1,7 +1,7 @@
 ---
 abstract: 'A postmodern object system for Perl 5'
 author:
-  - 'Moose is an open project, there are at this point dozens of people who have '
+  - 'Moose is an open project, there are at this point dozens of people who have'
 build_requires:
   ExtUtils::MakeMaker: 6.42
   Test::Exception: 0.21
@@ -31,4 +31,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.75_01
+version: 0.76
