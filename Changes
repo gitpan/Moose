@@ -1,6 +1,26 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.77 Sat, May 2, 2009
+    * Moose::Meta::Role
+      - Add explicit use of Devel::GlobalDestruction and Sub::Name
+        (perigrin)
+
+    * Moose::Object
+      - Pass a boolean to DEMOLISHALL and DEMOLISH indicating whether
+        or not we are currently in global destruction (doy)
+      - Add explicit use of Devel::GlobalDestruction and Sub::Name
+        (perigrin)
+
+    * Moose::Cookbook::FAQ
+      - Reworked much of the existing content to be more useful to
+        modern Moose hackers (Sartak)
+
+    * Makefile.PL
+      - Depend on Class::MOP 0.83 instead of 0.82_01. It seems that if
+        we use a dev version number there CPAN.pm will not follow the
+        dependency.
+
 0.76 Mon, April 27, 2009
     * Moose::Meta::TypeConstraint
       - Do not run coercions in coerce() if the value already passes the type
@@ -14,6 +34,10 @@ for, noteworthy changes.
     * Moose::Meta::Role::Application::ToClass
       - Revert the class-overrides-role warning in favor of a solution outside
         of the Moose core (Sartak)
+
+    * Tests
+      - Make Test::Output optional again, since it's only used in a few files
+        (Sartak)
 
 0.75_01 Thu, April 23, 2009
     * Moose::Meta::Role::Application::ToClass

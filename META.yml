@@ -22,13 +22,14 @@ no_index:
     - t
 requires:
   Carp: 0
-  Class::MOP: 0.82_01
+  Class::MOP: 0.83
   Data::OptList: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
   Sub::Exporter: 0.972
+  Sub::Name: 0
   Task::Weaken: 0
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.76
+version: 0.77

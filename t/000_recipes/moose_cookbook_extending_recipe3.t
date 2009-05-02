@@ -9,7 +9,12 @@ $| = 1;
 
 # =begin testing SETUP
 BEGIN {
-    use Test::Output;
+    eval 'use Test::Output;';
+    if ($@) {
+        diag 'Test::Output is required for this test';
+        ok(1);
+        exit 0;
+    }
 }
 
 

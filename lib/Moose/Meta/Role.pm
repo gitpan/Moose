@@ -7,8 +7,10 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 use Carp         'confess';
+use Sub::Name    'subname';
+use Devel::GlobalDestruction 'in_global_destruction';
 
-our $VERSION   = '0.76';
+our $VERSION   = '0.77';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -399,7 +401,7 @@ sub add_method {
     my $full_method_name = ($self->name . '::' . $method_name);
     $self->add_package_symbol(
         { sigil => '&', type => 'CODE', name => $method_name },
-        Class::MOP::subname($full_method_name => $body)
+        subname($full_method_name => $body)
     );
 
     $self->update_package_cache_flag; # still valid, since we just added the method to the map, and if it was invalid before that then get_method_map updated it
@@ -554,7 +556,7 @@ sub create {
     sub DESTROY {
         my $self = shift;
 
-        return if Class::MOP::in_global_destruction(); # it'll happen soon anyway and this just makes things more complicated
+        return if in_global_destruction(); # it'll happen soon anyway and this just makes things more complicated
 
         no warnings 'uninitialized';
         return unless $self->name =~ /^$ANON_ROLE_PREFIX/;
