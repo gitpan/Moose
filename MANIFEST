@@ -4,6 +4,7 @@ doap.rdf
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
+inc/Module/Install/ExtraTests.pm
 inc/Module/Install/Fetch.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
@@ -14,19 +15,18 @@ lib/Moose/Cookbook.pod
 lib/Moose/Cookbook/Basics/Recipe1.pod
 lib/Moose/Cookbook/Basics/Recipe10.pod
 lib/Moose/Cookbook/Basics/Recipe11.pod
-lib/Moose/Cookbook/Basics/Recipe12.pod
 lib/Moose/Cookbook/Basics/Recipe2.pod
 lib/Moose/Cookbook/Basics/Recipe3.pod
 lib/Moose/Cookbook/Basics/Recipe4.pod
 lib/Moose/Cookbook/Basics/Recipe5.pod
 lib/Moose/Cookbook/Basics/Recipe6.pod
 lib/Moose/Cookbook/Basics/Recipe7.pod
+lib/Moose/Cookbook/Basics/Recipe8.pod
 lib/Moose/Cookbook/Basics/Recipe9.pod
 lib/Moose/Cookbook/Extending/Recipe1.pod
 lib/Moose/Cookbook/Extending/Recipe2.pod
 lib/Moose/Cookbook/Extending/Recipe3.pod
 lib/Moose/Cookbook/Extending/Recipe4.pod
-lib/Moose/Cookbook/FAQ.pod
 lib/Moose/Cookbook/Meta/Recipe1.pod
 lib/Moose/Cookbook/Meta/Recipe2.pod
 lib/Moose/Cookbook/Meta/Recipe3.pod
@@ -40,7 +40,6 @@ lib/Moose/Cookbook/Roles/Recipe3.pod
 lib/Moose/Cookbook/Snack/Keywords.pod
 lib/Moose/Cookbook/Snack/Types.pod
 lib/Moose/Cookbook/Style.pod
-lib/Moose/Cookbook/WTF.pod
 lib/Moose/Error/Confess.pm
 lib/Moose/Error/Croak.pm
 lib/Moose/Error/Default.pm
@@ -55,11 +54,13 @@ lib/Moose/Manual/Construction.pod
 lib/Moose/Manual/Contributing.pod
 lib/Moose/Manual/Delegation.pod
 lib/Moose/Manual/Delta.pod
+lib/Moose/Manual/FAQ.pod
 lib/Moose/Manual/MethodModifiers.pod
 lib/Moose/Manual/MooseX.pod
 lib/Moose/Manual/MOP.pod
 lib/Moose/Manual/Roles.pod
 lib/Moose/Manual/Types.pod
+lib/Moose/Manual/Unsweetened.pod
 lib/Moose/Meta/Attribute.pm
 lib/Moose/Meta/Class.pm
 lib/Moose/Meta/Class/Immutable/Trait.pm
@@ -141,6 +142,8 @@ t/010_basics/015_buildargs.t
 t/010_basics/016_load_into_main.t
 t/010_basics/017_error_handling.t
 t/010_basics/018_methods.t
+t/010_basics/019-destruction.t
+t/010_basics/020-global-destruction.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -200,6 +203,8 @@ t/030_roles/035_anonymous_roles.t
 t/030_roles/036_free_anonymous_roles.t
 t/030_roles/037_create_role_subclass.t
 t/030_roles/038_new_meta_role.t
+t/030_roles/039_application_toclass.t
+t/030_roles/040_role_for_combination.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t
@@ -253,6 +258,7 @@ t/050_metaclasses/022_new_metaclass.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
+t/060_compat/004_extends_nonmoose_that_isa_moose_with_metarole.t
 t/100_bugs/001_subtype_quote_bug.t
 t/100_bugs/002_subtype_conflict_bug.t
 t/100_bugs/003_Moose_Object_error.t
@@ -309,7 +315,6 @@ t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/005_moose_and_threads.t
 t/600_todo_tests/006_moose_nonmoose_metatrait_init_order.t
 t/600_todo_tests/007_moose_nonmoose_moose_chain_init_meta.t
-t/600_todo_tests/008_moose_nonmoose_moose_chain_extends.t
 t/lib/Bar.pm
 t/lib/Foo.pm
 t/lib/Moose/Meta/Attribute/Custom/Bar.pm
@@ -324,7 +329,7 @@ t/lib/MyMooseObject.pm
 t/lib/Role/Child.pm
 t/lib/Role/Interface.pm
 t/lib/Role/Parent.pm
-xt/pod.t
-xt/pod_coverage.t
-xt/pod_spell.t
-xt/version_numbers.t
+xt/author/pod.t
+xt/author/pod_coverage.t
+xt/author/pod_spell.t
+xt/author/version_numbers.t

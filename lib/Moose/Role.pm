@@ -1,15 +1,12 @@
 
 package Moose::Role;
 
-use strict;
-use warnings;
-
 use Scalar::Util 'blessed';
 use Carp         'croak';
 
 use Sub::Exporter;
 
-our $VERSION   = '0.77';
+our $VERSION   = '0.78';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -49,43 +46,26 @@ sub has {
     $meta->add_attribute( $_, %options ) for @$attrs;
 }
 
-sub before {
+sub _add_method_modifier {
+    my $type = shift;
     my $meta = Moose::Meta::Role->initialize(shift);
     my $code = pop @_;
 
     for (@_) {
         croak "Roles do not currently support "
             . ref($_)
-            . " references for before method modifiers"
+            . " references for $type method modifiers"
             if ref $_;
-        $meta->add_before_method_modifier( $_, $code );
+        my $add_method = "add_${type}_method_modifier";
+        $meta->$add_method( $_, $code );
     }
 }
 
-sub after {
-    my $meta = Moose::Meta::Role->initialize(shift);
+sub before { _add_method_modifier('before', @_) }
 
-    my $code = pop @_;
-    for (@_) {
-        croak "Roles do not currently support "
-            . ref($_)
-            . " references for after method modifiers"
-            if ref $_;
-        $meta->add_after_method_modifier( $_, $code );
-    }
-}
+sub after  { _add_method_modifier('after',  @_) }
 
-sub around {
-    my $meta = Moose::Meta::Role->initialize(shift);
-    my $code = pop @_;
-    for (@_) {
-        croak "Roles do not currently support "
-            . ref($_)
-            . " references for around method modifiers"
-            if ref $_;
-        $meta->add_around_method_modifier( $_, $code );
-    }
-}
+sub around { _add_method_modifier('around', @_) }
 
 # see Moose.pm for discussion
 sub super {

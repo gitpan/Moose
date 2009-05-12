@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION   = '0.77';
+our $VERSION   = '0.78';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -386,6 +386,11 @@ sub _remove_keywords {
     }
 }
 
+sub import {
+    strict->import;
+    warnings->import;
+}
+
 1;
 
 __END__
@@ -397,9 +402,6 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 =head1 SYNOPSIS
 
   package MyApp::Moose;
-
-  use strict;
-  use warnings;
 
   use Moose ();
   use Moose::Exporter;
@@ -431,13 +433,17 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 DESCRIPTION
 
-This module encapsulates the logic to export sugar functions like
-C<Moose.pm>. It does this by building custom C<import> and C<unimport>
-methods for your module, based on a spec your provide.
+This module encapsulates the exporting of sugar functions in a
+C<Moose.pm>-like manner. It does this by building custom C<import> and
+C<unimport> methods for your module, based on a spec you provide.
 
-It also lets your "stack" Moose-alike modules so you can export
+It also lets you "stack" Moose-alike modules so you can export
 Moose's sugar as well as your own, along with sugar from any random
 C<MooseX> module, as long as they all use C<Moose::Exporter>.
+
+To simplify writing exporter modules, C<Moose::Exporter> also imports
+C<strict> and C<warnings> into your exporter module, as well as into
+modules that use it.
 
 =head1 METHODS
 

@@ -8,10 +8,10 @@ use Class::MOP;
 
 use Carp ();
 use List::Util qw( first );
-use List::MoreUtils qw( any all uniq );
+use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.77';
+our $VERSION   = '0.78';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -29,6 +29,10 @@ __PACKAGE__->meta->add_attribute('roles' => (
     default => sub { [] }
 ));
 
+__PACKAGE__->meta->add_attribute('role_applications' => (
+    reader  => '_get_role_applications',
+    default => sub { [] }
+));
 
 __PACKAGE__->meta->add_attribute(
     Class::MOP::Attribute->new('immutable_trait' => (
@@ -136,6 +140,19 @@ sub add_role {
     push @{$self->roles} => $role;
 }
 
+sub role_applications {
+    my ($self) = @_;
+
+    return @{$self->_get_role_applications};
+}
+
+sub add_role_application {
+    my ($self, $application) = @_;
+    (blessed($application) && $application->isa('Moose::Meta::Role::Application::ToClass'))
+        || $self->throw_error("Role applications must be instances of Moose::Meta::Role::Application::ToClass", data => $application);
+    push @{$self->_get_role_applications} => $application;
+}
+
 sub calculate_all_roles {
     my $self = shift;
     my %seen;
@@ -229,7 +246,8 @@ sub superclasses {
     my $self = shift;
     my @supers = @_;
     foreach my $super (@supers) {
-        my $meta = Class::MOP::load_class($super);
+        Class::MOP::load_class($super);
+        my $meta = Class::MOP::class_of($super);
         Moose->throw_error("You cannot inherit from a Moose Role ($super)")
             if $meta && $meta->isa('Moose::Meta::Role')
     }
@@ -288,24 +306,47 @@ sub _fix_metaclass_incompatibility {
     my ($self, @superclasses) = @_;
 
     foreach my $super (@superclasses) {
-        next if $self->_superclass_meta_is_compatible($super);
+        my $meta = Class::MOP::Class->initialize($super);
 
-        unless ( $self->is_pristine ) {
-            $self->throw_error(
-                      "Cannot attempt to reinitialize metaclass for "
-                    . $self->name
-                    . ", it isn't pristine" );
+        my @all_supers = $meta->linearized_isa;
+        shift @all_supers;
+
+        my @super_metas_to_fix = ($meta);
+
+        # We need to check & fix the immediate superclass. If its @ISA
+        # contains a class without a metaclass instance, followed by a
+        # class _with_ a metaclass instance, init a metaclass instance
+        # for classes without one and fix compat up to and including
+        # the class which was already initialized.
+        my $idx = first_index { Class::MOP::class_of($_) } @all_supers;
+
+        push @super_metas_to_fix,
+            map { Class::MOP::Class->initialize($_) } @all_supers[ 0 .. $idx ]
+            if $idx >= 0;
+
+        foreach my $super_meta (@super_metas_to_fix) {
+            $self->_fix_one_incompatible_metaclass($super_meta);
         }
-
-        $self->_reconcile_with_superclass_meta($super);
     }
 }
 
-sub _superclass_meta_is_compatible {
-    my ($self, $super) = @_;
+sub _fix_one_incompatible_metaclass {
+    my ($self, $meta) = @_;
 
-    my $super_meta = Class::MOP::Class->initialize($super)
-        or return 1;
+    return if $self->_superclass_meta_is_compatible($meta);
+
+    unless ( $self->is_pristine ) {
+        $self->throw_error(
+              "Cannot attempt to reinitialize metaclass for "
+            . $self->name
+            . ", it isn't pristine" );
+    }
+
+    $self->_reconcile_with_superclass_meta($meta);
+}
+
+sub _superclass_meta_is_compatible {
+    my ($self, $super_meta) = @_;
 
     next unless $super_meta->isa("Class::MOP::Class");
 
@@ -331,9 +372,7 @@ my @MetaClassTypes =
         error_class );
 
 sub _reconcile_with_superclass_meta {
-    my ($self, $super) = @_;
-
-    my $super_meta = Class::MOP::class_of($super);
+    my ($self, $super_meta) = @_;
 
     my $super_meta_name
         = $super_meta->is_immutable
@@ -694,6 +733,18 @@ which are attached to this class.
 
 This takes a L<Moose::Meta::Role> object, and adds it to the class's
 list of roles. This I<does not> actually apply the role to the class.
+
+=item B<< $metaclass->role_applications >>
+
+Returns a list of L<Moose::Meta::Role::Application::ToClass>
+objects, which contain the arguments to role application.
+
+=item B<< $metaclass->add_role_application($application) >>
+
+This takes a L<Moose::Meta::Role::Application::ToClass> object, and
+adds it to the class's list of role applications. This I<does not>
+actually apply any role to the class; it is only for tracking role
+applications.
 
 =item B<< $metaclass->does_role($role_name) >>
 

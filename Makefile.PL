@@ -20,13 +20,13 @@ requires 'Data::OptList'    => '0';
 requires 'Sub::Name'        => '0';
 
 test_requires 'Test::More'      => '0.77';
-test_requires 'Test::Exception' => '0.21';
-test_requires 'Test::Output'    => '0.09';
+test_requires 'Test::Exception' => '0.27';
 
 if ( -d '.svn' || -d '.git' || $ENV{IS_MAINTAINER} ) {
     system( $^X, 'author/extract-inline-tests' );
 }
 
+extra_tests();
 tests_recursive();
 
 WriteAll();

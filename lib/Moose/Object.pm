@@ -10,7 +10,7 @@ use Devel::GlobalDestruction qw(in_global_destruction);
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
-our $VERSION   = '0.77';
+our $VERSION   = '0.78';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -71,8 +71,14 @@ sub DEMOLISHALL {
     my $meta = Class::MOP::class_of($self)
         || Moose::Meta::Class->initialize( ref $self );
 
-    foreach my $method ( $meta->find_all_methods_by_name('DEMOLISH') ) {
-        $method->{code}->execute($self, $in_global_destruction);
+    # can't just use find_all_methods_by_name here because during global
+    # destruction, the method meta-object may have already been
+    # destroyed
+    foreach my $class ( $meta->linearized_isa ) {
+        no strict 'refs';
+        my $demolish = *{"${class}::DEMOLISH"}{CODE};
+        $self->$demolish($in_global_destruction)
+            if defined $demolish;
     }
 }
 

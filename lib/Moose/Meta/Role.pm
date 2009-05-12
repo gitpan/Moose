@@ -10,7 +10,7 @@ use Carp         'confess';
 use Sub::Name    'subname';
 use Devel::GlobalDestruction 'in_global_destruction';
 
-our $VERSION   = '0.77';
+our $VERSION   = '0.78';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -454,10 +454,14 @@ sub combine {
 
     my (@roles, %role_params);
     while (@role_specs) {
-        my ($role, $params) = @{ splice @role_specs, 0, 1 };
-        push @roles => Class::MOP::class_of($role);
+        my ($role_name, $params) = @{ splice @role_specs, 0, 1 };
+        my $requested_role = Class::MOP::class_of($role_name);
+
+        my $actual_role = $requested_role->_role_for_combination($params);
+        push @roles => $actual_role;
+
         next unless defined $params;
-        $role_params{$role} = $params;
+        $role_params{$actual_role->name} = $params;
     }
 
     my $c = Moose::Meta::Role::Composite->new(roles => \@roles);
@@ -466,6 +470,11 @@ sub combine {
     )->apply($c);
 
     return $c;
+}
+
+sub _role_for_combination {
+    my ($self, $params) = @_;
+    return $self;
 }
 
 sub create {

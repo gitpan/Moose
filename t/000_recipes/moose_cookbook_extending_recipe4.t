@@ -12,9 +12,6 @@ $| = 1;
 
   package MyApp::Mooseish;
 
-  use strict;
-  use warnings;
-
   use Moose ();
   use Moose::Exporter;
 

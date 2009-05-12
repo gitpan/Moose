@@ -4,13 +4,12 @@ author:
   - 'Moose is an open project, there are at this point dozens of people who have'
 build_requires:
   ExtUtils::MakeMaker: 6.42
-  Test::Exception: 0.21
+  Test::Exception: 0.27
   Test::More: 0.77
-  Test::Output: 0.09
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.84'
+generated_by: 'Module::Install version 0.87'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -20,6 +19,7 @@ no_index:
   directory:
     - inc
     - t
+    - xt
 requires:
   Carp: 0
   Class::MOP: 0.83
@@ -32,4 +32,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.77
+version: 0.78

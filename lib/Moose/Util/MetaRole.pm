@@ -3,7 +3,7 @@ package Moose::Util::MetaRole;
 use strict;
 use warnings;
 
-our $VERSION   = '0.77';
+our $VERSION   = '0.78';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -119,9 +119,6 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
 =head1 SYNOPSIS
 
   package MyApp::Moose;
-
-  use strict;
-  use warnings;
 
   use Moose ();
   use Moose::Exporter;
