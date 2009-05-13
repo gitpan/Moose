@@ -143,6 +143,7 @@ t/010_basics/016_load_into_main.t
 t/010_basics/017_error_handling.t
 t/010_basics/018_methods.t
 t/010_basics/019-destruction.t
+t/010_basics/020-global-destruction-helper.pl
 t/010_basics/020-global-destruction.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
