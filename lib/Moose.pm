@@ -3,7 +3,7 @@ package Moose;
 
 use 5.008;
 
-our $VERSION   = '0.79';
+our $VERSION   = '0.80';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -67,7 +67,7 @@ sub has {
     my $name  = shift;
 
     Moose->throw_error('Usage: has \'name\' => ( key => value, ... )')
-        if @_ == 1;
+        if @_ % 2 == 1;
 
     my %options = ( definition_context => _caller_info(), @_ );
     my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
@@ -209,7 +209,7 @@ sub init_meta {
         my $method_meta = $class->meta;
 
         ( blessed($method_meta) && $method_meta->isa('Moose::Meta::Class') )
-            || Moose->throw_error("$class already has a &meta function, but it does not return a Moose::Meta::Class ($meta)");
+            || Moose->throw_error("$class already has a &meta function, but it does not return a Moose::Meta::Class ($method_meta)");
 
         $meta = $method_meta;
     }
@@ -264,6 +264,7 @@ $_->make_immutable(
     Moose::Meta::Role
     Moose::Meta::Role::Method
     Moose::Meta::Role::Method::Required
+    Moose::Meta::Role::Method::Conflicting
 
     Moose::Meta::Role::Composite
 
@@ -437,9 +438,10 @@ is expected to have consumed.
 
 =item I<required =E<gt> (1|0)>
 
-This marks the attribute as being required. This means a I<defined> value must be
-supplied during class construction, and the attribute may never be set to
-C<undef> with an accessor.
+This marks the attribute as being required. This means a value must be
+supplied during class construction, I<or> the attribute must be lazy
+and have either a default or a builder. Note that c<required> does not
+say anything about the attribute's value, which can be C<undef>.
 
 =item I<weak_ref =E<gt> (1|0)>
 

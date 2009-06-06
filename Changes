@@ -1,6 +1,38 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.80 Sat, Jun 6, 2009
+    * Moose::Manual::FAQ 
+      - Add FAQ about the coercion change from 0.76 because it came up
+        three times today (perigrin)
+        - Win doy $10 dollars because Sartak didn't think anybody
+          would document this fast enough (perigrin)
+
+    * Moose::Meta::Method::Destructor
+      - Inline a DESTROY method even if there are no DEMOLISH methods
+        to prevent unnecessary introspection in
+        Moose::Object::DEMOLISHALL
+
+    * Moose::*
+      - A role's required methods are now represented by
+        Moose::Meta::Role::Method::Required objects. Conflicts are now
+        represented by Moose::Meta::Role::Method::Conflicting
+        objects. The benefit for end-users in that unresolved
+        conflicts generate different, more instructive, errors,
+        resolving Ovid's #44895. (Sartak)
+
+    * Moose::Role
+      - Improve the error message of "extends" as suggested by Adam
+        Kennedy and confound (Sartak)
+      - Link to Moose::Manual::Roles from Moose::Role as we now have
+        excellent documentation (Adam Kennedy)
+
+    * Tests
+      - Update test suite for subname change in Class::MOP
+        (nothingmuch)
+      - Add TODO test for infinite recursion in Moose::Meta::Class
+        (groditi)
+
 0.79 Wed, May 13, 2009
     * Tests
       - More fixes for Win32 problems. Reported by Robert Krimen.
@@ -10,6 +42,14 @@ for, noteworthy changes.
         during global destruction. This method has been made more
         resilient in the face of global destruction's random garbage
         collection order.
+
+    * Moose::Exporter
+      - If you "also" a module that isn't loaded, the error message
+        now acknowledges that (Sartak)
+
+    * Moose
+      - When your ->meta method does not return a Moose::Meta::Class,
+        the error message gave the wrong output (Sartak)
 
 0.78 Tue, May 12, 2009
     * Moose::Cookbook::FAQ and Moose::Cookbook::WTF

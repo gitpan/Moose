@@ -215,7 +215,6 @@ use Test::Exception;
     my $_foo_attr = $meta->get_attribute("_foo");
 
     ok($foo_attr->is_lazy, "foo is lazy");
-    ok($foo_attr->is_required, "foo is required");
     ok($foo_attr->is_lazy_build, "foo is lazy_build");
 
     ok($foo_attr->has_clearer, "foo has clearer");
@@ -228,7 +227,7 @@ use Test::Exception;
     is($foo_attr->predicate, "has_foo",  ".. and it's named has_foo");
 
     ok($_foo_attr->is_lazy, "_foo is lazy");
-    ok($_foo_attr->is_required, "_foo is required");
+    ok(!$_foo_attr->is_required, "lazy_build attributes are no longer automatically required");
     ok($_foo_attr->is_lazy_build, "_foo is lazy_build");
 
     ok($_foo_attr->has_clearer, "_foo has clearer");
@@ -262,3 +261,15 @@ lives_ok { OutOfClassTest->can('has')->('bar'); } 'create attr via can';
 
 ok(OutOfClassTest->meta->get_attribute('foo'), 'attr created from sub call');
 ok(OutOfClassTest->meta->get_attribute('bar'), 'attr created from can');
+
+
+{
+    {
+        package Foo;
+        use Moose;
+
+        ::throws_ok { has 'foo' => ( 'ro', isa => 'Str' ) }
+            qr/^Usage/, 'has throws error with odd number of attribute options';
+    }
+
+}

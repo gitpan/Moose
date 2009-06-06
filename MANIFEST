@@ -80,6 +80,7 @@ lib/Moose/Meta/Role/Application/ToInstance.pm
 lib/Moose/Meta/Role/Application/ToRole.pm
 lib/Moose/Meta/Role/Composite.pm
 lib/Moose/Meta/Role/Method.pm
+lib/Moose/Meta/Role/Method/Conflicting.pm
 lib/Moose/Meta/Role/Method/Required.pm
 lib/Moose/Meta/TypeCoercion.pm
 lib/Moose/Meta/TypeCoercion/Union.pm
@@ -281,6 +282,9 @@ t/100_bugs/020_super_recursion.t
 t/100_bugs/021_DEMOLISHALL_shortcutted.t
 t/100_bugs/022_role_caller.t
 t/100_bugs/023_DEMOLISH_fails_without_metaclass.t
+t/100_bugs/024_anon_method_metaclass.t
+t/100_bugs/025_universal_methods_wrappable.t
+t/100_bugs/026_create_anon_recursion.t
 t/200_examples/001_example.t
 t/200_examples/002_example_Moose_POOP.t
 t/200_examples/003_example.t
@@ -301,6 +305,7 @@ t/300_immutable/010_constructor_is_not_moose.t
 t/300_immutable/011_constructor_is_wrapped.t
 t/300_immutable/012_default_values.t
 t/300_immutable/013_immutable_roundtrip.t
+t/300_immutable/014_immutable_metaclass_with_traits.t
 t/400_moose_util/001_moose_util.t
 t/400_moose_util/002_moose_util_does_role.t
 t/400_moose_util/003_moose_util_search_class_by_role.t
@@ -311,7 +316,7 @@ t/500_test_moose/002_test_moose_does_ok.t
 t/500_test_moose/003_test_moose_has_attribute_ok.t
 t/500_test_moose/004_test_moose_meta_ok.t
 t/600_todo_tests/001_exception_reflects_failed_constraint.t
-t/600_todo_tests/002_various_role_shit.t
+t/600_todo_tests/002_various_role_features.t
 t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/005_moose_and_threads.t
 t/600_todo_tests/006_moose_nonmoose_metatrait_init_order.t

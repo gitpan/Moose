@@ -3,7 +3,7 @@ package Moose::Util::MetaRole;
 use strict;
 use warnings;
 
-our $VERSION   = '0.79';
+our $VERSION   = '0.80';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -151,9 +151,6 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
   }
 
 =head1 DESCRIPTION
-
-B<The whole concept behind this module is still considered
-experimental, and it could go away in the future!>
 
 This utility module is designed to help authors of Moose extensions
 write extensions that are able to cooperate with other Moose

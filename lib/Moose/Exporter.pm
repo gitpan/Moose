@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION   = '0.79';
+our $VERSION   = '0.80';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -76,8 +76,13 @@ sub build_import_methods {
     sub _follow_also_real {
         my $exporting_package = shift;
 
-        die "Package in also ($exporting_package) does not seem to use Moose::Exporter"
-            unless exists $EXPORT_SPEC{$exporting_package};
+        if (!exists $EXPORT_SPEC{$exporting_package}) {
+            my $loaded = Class::MOP::is_class_loaded($exporting_package);
+
+            die "Package in also ($exporting_package) does not seem to "
+              . "use Moose::Exporter"
+              . ($loaded ? "" : " (is it loaded?)");
+        }
 
         my $also = $EXPORT_SPEC{$exporting_package}{also};
 
@@ -182,7 +187,7 @@ sub _make_wrapped_sub {
     return sub {
         my $caller = $CALLER;
 
-        my $wrapper = $self->_make_wrapper($caller, $sub, $fq_name);
+        my $wrapper = $self->_curry_wrapper($sub, $fq_name, $caller);
 
         my $sub = subname($fq_name => $wrapper);
 
@@ -192,16 +197,16 @@ sub _make_wrapped_sub {
     };
 }
 
-sub _make_wrapper {
+sub _curry_wrapper {
     my $class   = shift;
-    my $caller  = shift;
     my $sub     = shift;
     my $fq_name = shift;
+    my @extra   = @_;
 
-    my $wrapper = sub { $sub->($caller, @_) };
+    my $wrapper = sub { $sub->(@extra, @_) };
     if (my $proto = prototype $sub) {
         # XXX - Perl's prototype sucks. Use & to make set_prototype
-        # ignore the fact that we're passing a "provate variable"
+        # ignore the fact that we're passing "private variables"
         &Scalar::Util::set_prototype($wrapper, $proto);
     }
     return $wrapper;
@@ -414,7 +419,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
   sub has_rw {
       my ($caller, $name, %options) = @_;
-      Class::MOP::Class->initialize($caller)->add_attribute($name,
+      Class::MOP::class_of($caller)->add_attribute($name,
           is => 'rw',
           %options,
       );
