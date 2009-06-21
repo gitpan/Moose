@@ -306,6 +306,7 @@ t/300_immutable/011_constructor_is_wrapped.t
 t/300_immutable/012_default_values.t
 t/300_immutable/013_immutable_roundtrip.t
 t/300_immutable/014_immutable_metaclass_with_traits.t
+t/300_immutable/015_immutable_destroy.t
 t/400_moose_util/001_moose_util.t
 t/400_moose_util/002_moose_util_does_role.t
 t/400_moose_util/003_moose_util_search_class_by_role.t

@@ -1,9 +1,8 @@
-
 package Moose;
 
 use 5.008;
 
-our $VERSION   = '0.81';
+our $VERSION   = '0.82';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -12,7 +11,7 @@ use Carp         'confess';
 
 use Moose::Exporter;
 
-use Class::MOP 0.85;
+use Class::MOP 0.87;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -463,7 +462,7 @@ This is only legal if your C<isa> option is either C<ArrayRef> or C<HashRef>.
 
 The I<trigger> option is a CODE reference which will be called after
 the value of the attribute is set. The CODE ref will be passed the
-instance itself and the updated value. You B<cannot> have a trigger on
+instance itself and the updated value. You B<can> have a trigger on
 a read-only attribute.
 
 B<NOTE:> Triggers will only fire when you B<assign> to the attribute,
@@ -648,6 +647,13 @@ to). See the L<initializer option docs in
 Class::MOP::Attribute|Class::MOP::Attribute/initializer> for more
 information.
 
+=item I<documentation> => $string
+
+An arbitrary string that can be retrieved later by calling C<<
+$attr->documentation >>.
+
+
+
 =back
 
 =item B<has +$name =E<gt> %options>
@@ -696,6 +702,10 @@ Here is another example, but within the context of a role:
 
 In this case, we are basically taking the attribute which the role supplied
 and altering it within the bounds of this feature.
+
+Note that you can only extend an attribute from either a superclass or a role,
+you cannot extend an attribute in a role that composes over an attribute from
+another role.
 
 Aside from where the attributes come from (one from superclass, the other
 from a role), this feature works exactly the same. This feature is restricted
@@ -1134,6 +1144,8 @@ Piotr (dexter) Roszatycki
 Sam (mugwump) Vilain
 
 Cory (gphat) Watson
+
+Dylan Hardison (doc fixes)
 
 ... and many other #moose folks
 

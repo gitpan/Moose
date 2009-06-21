@@ -12,7 +12,7 @@ license 'perl';
 
 requires 'Scalar::Util'     => '1.19';
 requires 'Carp';
-requires 'Class::MOP'       => '0.85';
+requires 'Class::MOP'       => '0.87';
 requires 'List::MoreUtils'  => '0.12';
 requires 'Sub::Exporter'    => '0.972';
 requires 'Task::Weaken'     => '0';
@@ -37,7 +37,7 @@ WriteAll();
 sub check_conflicts {
     my %conflicts = (
         'MooseX::ClassAttribute'    => '0.07',
-        'MooseX::Singleton'         => '0.15',
+        'MooseX::Singleton'         => '0.17',
         'MooseX::StrictConstructor' => '0.07',
         'MooseX::Params::Validate'  => '0.05',
         'Fey::ORM'                  => '0.23',
