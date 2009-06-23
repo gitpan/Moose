@@ -22,7 +22,7 @@ no_index:
     - xt
 requires:
   Carp: 0
-  Class::MOP: 0.87
+  Class::MOP: 0.88
   Data::OptList: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
@@ -32,4 +32,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.82
+version: 0.83

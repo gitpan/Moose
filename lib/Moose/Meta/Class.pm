@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.82';
+our $VERSION   = '0.83';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -225,21 +225,6 @@ sub new_object {
     }
 
     return $self;
-}
-
-sub _construct_instance {
-    my $class = shift;
-    my $params = @_ == 1 ? $_[0] : {@_};
-    my $meta_instance = $class->get_meta_instance;
-    # FIXME:
-    # the code below is almost certainly incorrect
-    # but this is foreign inheritance, so we might
-    # have to kludge it in the end.
-    my $instance = $params->{'__INSTANCE__'} || $meta_instance->create_instance();
-    foreach my $attr ($class->get_all_attributes()) {
-        $attr->initialize_instance_slot($meta_instance, $instance, $params);
-    }
-    return $instance;
 }
 
 sub superclasses {

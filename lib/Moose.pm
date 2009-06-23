@@ -2,7 +2,7 @@ package Moose;
 
 use 5.008;
 
-our $VERSION   = '0.82';
+our $VERSION   = '0.83';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -11,7 +11,7 @@ use Carp         'confess';
 
 use Moose::Exporter;
 
-use Class::MOP 0.87;
+use Class::MOP 0.88;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
