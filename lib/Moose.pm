@@ -1,8 +1,10 @@
 package Moose;
+use strict;
+use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.84';
+our $VERSION   = '0.85';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 

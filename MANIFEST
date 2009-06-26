@@ -345,4 +345,5 @@ t/lib/Role/Parent.pm
 xt/author/pod.t
 xt/author/pod_coverage.t
 xt/author/pod_spell.t
+xt/author/tabs.t
 xt/author/version_numbers.t

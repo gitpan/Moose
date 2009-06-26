@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken';
 use overload     ();
 
-our $VERSION   = '0.84';
+our $VERSION   = '0.85';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -557,17 +557,23 @@ sub install_accessors {
     my $self = shift;
     $self->SUPER::install_accessors(@_);
     $self->install_delegation if $self->has_handles;
+    return;
+}
+
+sub _check_associated_methods {
+    my $self = shift;
     unless (
         @{ $self->associated_methods }
         || ($self->_is_metadata || '') eq 'bare'
     ) {
         Carp::cluck(
-            'Attribute (' . $self->name . ') has no associated methods'
+            'Attribute (' . $self->name . ') of class '
+            . $self->associated_class->name
+            . ' has no associated methods'
             . ' (did you mean to provide an "is" argument?)'
             . "\n"
         )
     }
-    return;
 }
 
 sub _process_accessors {
