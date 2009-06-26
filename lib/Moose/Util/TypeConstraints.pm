@@ -6,7 +6,7 @@ use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
 
-our $VERSION = '0.83';
+our $VERSION = '0.84';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -32,6 +32,7 @@ use Moose::Meta::TypeConstraint::Parameterizable;
 use Moose::Meta::TypeConstraint::Class;
 use Moose::Meta::TypeConstraint::Role;
 use Moose::Meta::TypeConstraint::Enum;
+use Moose::Meta::TypeConstraint::DuckType;
 use Moose::Meta::TypeCoercion;
 use Moose::Meta::TypeCoercion::Union;
 use Moose::Meta::TypeConstraint::Registry;
@@ -366,23 +367,9 @@ sub duck_type {
     }
 
     register_type_constraint(
-        _create_type_constraint(
+        create_duck_type_constraint(
             $type_name,
-            'Object',
-            sub {
-                my $obj = $_;
-                my $class = blessed($obj) || return;
-                return if $class eq 'Regexp';
-                return 0 unless all { $obj->can($_) } @methods;
-                return 1;
-            },
-            sub {
-                my $obj = $_;
-                my $class = blessed($obj);
-                my @missing_methods = grep { !$obj->can($_) } @methods;
-                return
-                    "$class is missing methods '@missing_methods'";
-            },
+            \@methods,
         )
     );
 }
@@ -443,6 +430,15 @@ sub create_enum_type_constraint {
     Moose::Meta::TypeConstraint::Enum->new(
         name => $type_name || '__ANON__',
         values => $values,
+    );
+}
+
+sub create_duck_type_constraint {
+    my ( $type_name, $methods ) = @_;
+
+    Moose::Meta::TypeConstraint::DuckType->new(
+        name => $type_name || '__ANON__',
+        methods => $methods,
     );
 }
 
@@ -607,6 +603,7 @@ $_->make_immutable(
     Moose::Meta::TypeConstraint::Class
     Moose::Meta::TypeConstraint::Role
     Moose::Meta::TypeConstraint::Enum
+    Moose::Meta::TypeConstraint::DuckType
     Moose::Meta::TypeConstraint::Registry
 );
 
@@ -660,6 +657,7 @@ subtype 'Object' => as 'Ref' =>
     where { blessed($_) && blessed($_) ne 'Regexp' } =>
     optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Object;
 
+# This type is deprecated.
 subtype 'Role' => as 'Object' => where { $_->can('does') } =>
     optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Role;
 
@@ -851,10 +849,10 @@ that hierarchy represented visually.
       Defined
           Value
               Num
-                Int
+                  Int
               Str
-                ClassName
-                RoleName
+                  ClassName
+                  RoleName
           Ref
               ScalarRef
               ArrayRef[`a]
@@ -862,9 +860,8 @@ that hierarchy represented visually.
               CodeRef
               RegexpRef
               GlobRef
-                FileHandle
+                  FileHandle
               Object
-                Role
 
 B<NOTE:> Any type followed by a type parameter C<[`a]> can be
 parameterized, this means you can say:
@@ -890,8 +887,7 @@ existence check. This means that your class B<must> be loaded for this
 type constraint to pass.
 
 B<NOTE:> The C<RoleName> constraint checks a string is a I<package
-name> which is a role, like C<'MyApp::Role::Comparable'>. The C<Role>
-constraint checks that an I<object does> the named role.
+name> which is a role, like C<'MyApp::Role::Comparable'>.
 
 =head2 Type Constraint Naming
 
@@ -1180,6 +1176,11 @@ L<Moose::Meta::TypeConstraint::Role> constructor (as a hash).
 
 Given a enum name this function will create a new
 L<Moose::Meta::TypeConstraint::Enum> object for that enum name.
+
+=item B<create_duck_type_constraint($name, $methods)>
+
+Given a duck type name this function will create a new
+L<Moose::Meta::TypeConstraint::DuckType> object for that enum name.
 
 =item B<find_or_parse_type_constraint($type_name)>
 

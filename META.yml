@@ -26,10 +26,10 @@ requires:
   Data::OptList: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
-  Sub::Exporter: 0.972
+  Sub::Exporter: 0.980
   Sub::Name: 0
   Task::Weaken: 0
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.83
+version: 0.84

@@ -86,6 +86,7 @@ lib/Moose/Meta/TypeCoercion.pm
 lib/Moose/Meta/TypeCoercion/Union.pm
 lib/Moose/Meta/TypeConstraint.pm
 lib/Moose/Meta/TypeConstraint/Class.pm
+lib/Moose/Meta/TypeConstraint/DuckType.pm
 lib/Moose/Meta/TypeConstraint/Enum.pm
 lib/Moose/Meta/TypeConstraint/Parameterizable.pm
 lib/Moose/Meta/TypeConstraint/Parameterized.pm
@@ -146,6 +147,7 @@ t/010_basics/018_methods.t
 t/010_basics/019-destruction.t
 t/010_basics/020-global-destruction-helper.pl
 t/010_basics/020-global-destruction.t
+t/010_basics/022_moose_exporter_groups.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -171,6 +173,8 @@ t/020_attributes/022_legal_options_for_inheritance.t
 t/020_attributes/023_attribute_names.t
 t/020_attributes/024_attribute_traits_parameterized.t
 t/020_attributes/025_chained_coercion.t
+t/020_attributes/026_attribute_without_any_methods.t
+t/020_attributes/027_accessor_override_method.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -207,6 +211,7 @@ t/030_roles/037_create_role_subclass.t
 t/030_roles/038_new_meta_role.t
 t/030_roles/039_application_toclass.t
 t/030_roles/040_role_for_combination.t
+t/030_roles/041_empty_method_modifiers_meta_bug.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t
@@ -240,6 +245,7 @@ t/040_type_constraints/031_subtype_auto_vivify_parent.t
 t/040_type_constraints/032_throw_error.t
 t/040_type_constraints/033_type_names.t
 t/040_type_constraints/034_duck_types.t
+t/040_type_constraints/035_duck_type_handles.t
 t/050_metaclasses/001_custom_attr_meta_with_roles.t
 t/050_metaclasses/002_custom_attr_meta_as_role.t
 t/050_metaclasses/003_moose_w_metaclass.t
