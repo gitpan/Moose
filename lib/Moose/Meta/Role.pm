@@ -10,7 +10,7 @@ use Carp         'confess';
 use Sub::Name    'subname';
 use Devel::GlobalDestruction 'in_global_destruction';
 
-our $VERSION   = '0.87';
+our $VERSION   = '0.88';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -140,6 +140,24 @@ $META->add_attribute(
     'conflicting_method_metaclass',
     reader  => 'conflicting_method_metaclass',
     default => 'Moose::Meta::Role::Method::Conflicting',
+);
+
+$META->add_attribute(
+    'application_to_class_class',
+    reader  => 'application_to_class_class',
+    default => 'Moose::Meta::Role::Application::ToClass',
+);
+
+$META->add_attribute(
+    'application_to_role_class',
+    reader  => 'application_to_role_class',
+    default => 'Moose::Meta::Role::Application::ToRole',
+);
+
+$META->add_attribute(
+    'application_to_instance_class',
+    reader  => 'application_to_instance_class',
+    default => 'Moose::Meta::Role::Application::ToInstance',
 );
 
 ## some things don't always fit, so they go here ...
@@ -478,18 +496,19 @@ sub apply {
     (blessed($other))
         || Moose->throw_error("You must pass in an blessed instance");
 
+    my $application_class;
     if ($other->isa('Moose::Meta::Role')) {
-        require Moose::Meta::Role::Application::ToRole;
-        return Moose::Meta::Role::Application::ToRole->new(@args)->apply($self, $other);
+        $application_class = $self->application_to_role_class;
     }
     elsif ($other->isa('Moose::Meta::Class')) {
-        require Moose::Meta::Role::Application::ToClass;
-        return Moose::Meta::Role::Application::ToClass->new(@args)->apply($self, $other);
+        $application_class = $self->application_to_class_class;
     }
     else {
-        require Moose::Meta::Role::Application::ToInstance;
-        return Moose::Meta::Role::Application::ToInstance->new(@args)->apply($self, $other);
+        $application_class = $self->application_to_instance_class;
     }
+
+    Class::MOP::load_class($application_class);
+    return $application_class->new(@args)->apply($self, $other);
 }
 
 sub combine {
@@ -793,7 +812,7 @@ This method creates a new role object with the provided name.
 
 This method accepts a list of array references. Each array reference
 should contain a role name as its first element. The second element is
-an optional hash reference. The hash reference can contain C<exclude>
+an optional hash reference. The hash reference can contain C<excludes>
 and C<alias> keys to control how methods are composed from the role.
 
 The return value is a new L<Moose::Meta::Role::Composite> that

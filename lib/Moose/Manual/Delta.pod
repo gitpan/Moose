@@ -18,6 +18,28 @@ send us a patch.
 
 =head1 Version 0.84
 
+When an attribute generates I<no> accessors, we now warn. This is to help
+users who forget the C<is> option. If you really do not want any accessors,
+you can use C<< is => 'bare' >>. You can maintain back compat with older
+versions of Moose by using something like:
+
+    ($Moose::VERSION >= 0.84 ? is => 'bare' : ())
+
+When an accessor overwrites an existing method, we now warn. To work around
+this warning (if you really must have this behavior), you can explicitly
+remove the method before creating it as an accessor:
+
+    sub foo {}
+
+    __PACKAGE__->meta->remove_method('foo');
+
+    has foo => (
+        is => 'ro',
+    );
+
+When an unknown option is passed to C<has>, we now warn. You can silence
+the warning by fixing your code. :)
+
 The C<Role> type has been deprecated. On its own, it was useless,
 since it just checked C<< $object->can('does') >>. If you were using
 it as a parent type, just call C<role_type('Role::Name')> to create an
@@ -189,7 +211,7 @@ just the first missing method.
 Moose will no longer inline a constructor for your class unless it
 inherits its constructor from Moose::Object, and will warn when it
 doesn't inline. If you want to force inlining anyway, pass
-C<< "replace_constructor => 1 >> to C<make_immutable>.
+C<< replace_constructor => 1 >> to C<make_immutable>.
 
 If you want to get rid of the warning, pass C<< inline_constructor =>
 0 >>.

@@ -175,6 +175,7 @@ t/020_attributes/024_attribute_traits_parameterized.t
 t/020_attributes/025_chained_coercion.t
 t/020_attributes/026_attribute_without_any_methods.t
 t/020_attributes/027_accessor_override_method.t
+t/020_attributes/028_no_slot_access.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -212,6 +213,7 @@ t/030_roles/038_new_meta_role.t
 t/030_roles/039_application_toclass.t
 t/030_roles/040_role_for_combination.t
 t/030_roles/041_empty_method_modifiers_meta_bug.t
+t/030_roles/042_compose_overloading.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t

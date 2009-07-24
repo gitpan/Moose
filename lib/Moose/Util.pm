@@ -8,7 +8,7 @@ use Sub::Exporter;
 use Scalar::Util 'blessed';
 use Class::MOP   0.60;
 
-our $VERSION   = '0.87';
+our $VERSION   = '0.88';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -79,7 +79,7 @@ sub ensure_all_roles {
 
 sub apply_all_roles {
     my $applicant = shift;
-    _apply_all_roles($applicant, sub { 1 }, @_);
+    _apply_all_roles($applicant, undef, @_);
 }
 
 sub _apply_all_roles {
@@ -105,7 +105,9 @@ sub _apply_all_roles {
         }
     }
 
-    @$roles = grep { local $_ = $_->[0]; $role_filter->() } @$roles;
+    if ( defined $role_filter ) {
+        @$roles = grep { local $_ = $_->[0]; $role_filter->() } @$roles;
+    }
 
     return unless @$roles;
 
@@ -274,7 +276,7 @@ applicant can be a role name, class name, or object.
 The C<$applicant> must already have a metaclass object.
 
 The list of C<@roles> should be a list of names, each of which can be
-followed by an optional hash reference of options (C<exclude> and
+followed by an optional hash reference of options (C<excludes> and
 C<alias>).
 
 =item B<ensure_all_roles($applicant, @roles)>
