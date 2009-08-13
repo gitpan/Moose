@@ -214,6 +214,7 @@ t/030_roles/039_application_toclass.t
 t/030_roles/040_role_for_combination.t
 t/030_roles/041_empty_method_modifiers_meta_bug.t
 t/030_roles/042_compose_overloading.t
+t/030_roles/043_conflict_many_methods.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t
@@ -293,6 +294,7 @@ t/100_bugs/023_DEMOLISH_fails_without_metaclass.t
 t/100_bugs/024_anon_method_metaclass.t
 t/100_bugs/025_universal_methods_wrappable.t
 t/100_bugs/026_create_anon_recursion.t
+t/100_bugs/027_constructor_object_overload.t
 t/200_examples/001_example.t
 t/200_examples/002_example_Moose_POOP.t
 t/200_examples/003_example.t
@@ -320,6 +322,7 @@ t/400_moose_util/002_moose_util_does_role.t
 t/400_moose_util/003_moose_util_search_class_by_role.t
 t/400_moose_util/004_resolve_alias.t
 t/400_moose_util/005_ensure_all_roles.t
+t/400_moose_util/006_create_alias.t
 t/500_test_moose/001_test_moose.t
 t/500_test_moose/002_test_moose_does_ok.t
 t/500_test_moose/003_test_moose_has_attribute_ok.t

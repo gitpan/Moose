@@ -94,6 +94,7 @@ metadata
 MetaObject
 metaprogrammer
 metarole
+metatraits
 mixins
 MooseX
 Num
@@ -171,6 +172,7 @@ UNIMPORTING
 Unported
 unsets
 unsettable
+utils
 whitelist
 Whitelist
 workflow
