@@ -14,13 +14,17 @@ my @modules = all_modules();
 plan tests => scalar @modules;
 
 my %trustme = (
-    'Moose'                  => ['make_immutable'],
     'Moose::Meta::Attribute' => [
         qw( interpolate_class
             throw_error
             attach_to_class
             )
     ],
+    'Moose::Meta::Attribute::Native::MethodProvider::Array'   => ['.+'],
+    'Moose::Meta::Attribute::Native::MethodProvider::Bool'    => ['.+'],
+    'Moose::Meta::Attribute::Native::MethodProvider::Counter' => ['.+'],
+    'Moose::Meta::Attribute::Native::MethodProvider::Hash'    => ['.+'],
+    'Moose::Meta::Attribute::Native::MethodProvider::String'  => ['.+'],
     'Moose::Meta::Class'     => [
         qw( check_metaclass_compatibility
             construct_instance
@@ -68,7 +72,6 @@ my %trustme = (
             extends
             has
             inner
-            make_immutable
             override
             super
             with )

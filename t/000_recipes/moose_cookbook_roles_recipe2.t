@@ -29,7 +29,7 @@ $| = 1;
   use Moose::Role;
 
   with 'Restartable' => {
-      alias => {
+      -alias => {
           stop  => '_stop',
           start => '_start'
       }
@@ -54,7 +54,7 @@ $| = 1;
   package Restartable::ButBroken;
   use Moose::Role;
 
-  with 'Restartable' => { excludes => [ 'stop', 'start' ] };
+  with 'Restartable' => { -excludes => [ 'stop', 'start' ] };
 
   sub stop {
       my $self = shift;

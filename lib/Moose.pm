@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.89';
+our $VERSION   = '0.89_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -33,6 +33,8 @@ use Moose::Meta::Role::Application::ToInstance;
 
 use Moose::Util::TypeConstraints;
 use Moose::Util ();
+
+use Moose::Meta::Attribute::Native;
 
 sub throw_error {
     # FIXME This
@@ -540,6 +542,18 @@ In this example, the Tree package gets C<parent_node> and C<siblings> methods,
 which delegate to the C<node> and C<children> methods (respectively) of the Tree
 instance stored in the C<parent> slot.
 
+You may also use an array reference to curry arguments to the original method.
+
+  has 'thing' => (
+      ...
+      handles => { set_foo => [ set => 'foo' ] },
+  );
+
+  # $self->set_foo(...) calls $self->thing->set('foo', ...)
+
+The first element of the array reference is the original method name, and the
+rest is a list of curried arguments.
+
 =item C<REGEXP>
 
 The regexp option works very similar to the ARRAY option, except that it builds
@@ -607,7 +621,7 @@ example.
 The value of this key is the name of the method that will be called to
 obtain the value used to initialize the attribute. See the L<builder
 option docs in Class::MOP::Attribute|Class::MOP::Attribute/builder>
- and/or L<Moose::Cookbook::Basics::Recipe9> for more information.
+ and/or L<Moose::Cookbook::Basics::Recipe8> for more information.
 
 =item I<default> => SCALAR | CODE
 
