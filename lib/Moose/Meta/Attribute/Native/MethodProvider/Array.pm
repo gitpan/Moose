@@ -1,7 +1,10 @@
 package Moose::Meta::Attribute::Native::MethodProvider::Array;
 use Moose::Role;
 
-our $VERSION = '0.89_01';
+use List::Util;
+use List::MoreUtils;
+
+our $VERSION = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -23,11 +26,7 @@ sub first : method {
     my ( $attr, $reader, $writer ) = @_;
     return sub {
         my ( $instance, $predicate ) = @_;
-        foreach my $val ( @{ $reader->($instance) } ) {
-            local $_ = $val;
-            return $val if $predicate->();
-        }
-        return;
+        &List::Util::first($predicate, @{ $reader->($instance) });
     };
 }
 
@@ -36,6 +35,15 @@ sub map : method {
     return sub {
         my ( $instance, $f ) = @_;
         CORE::map { $f->() } @{ $reader->($instance) };
+    };
+}
+
+sub reduce : method {
+    my ( $attr, $reader, $writer ) = @_;
+    return sub {
+        my ( $instance, $f ) = @_;
+        our ($a, $b);
+        List::Util::reduce { $f->($a, $b) } @{ $reader->($instance) };
     };
 }
 
@@ -62,11 +70,27 @@ sub sort : method {
     };
 }
 
+sub shuffle : method {
+    my ( $attr, $reader, $writer ) = @_;
+    return sub {
+        my ( $instance ) = @_;
+        List::Util::shuffle @{ $reader->($instance) };
+    };
+}
+
 sub grep : method {
     my ( $attr, $reader, $writer ) = @_;
     return sub {
         my ( $instance, $predicate ) = @_;
         CORE::grep { $predicate->() } @{ $reader->($instance) };
+    };
+}
+
+sub uniq : method {
+    my ( $attr, $reader, $writer ) = @_;
+    return sub {
+        my ( $instance ) = @_;
+        List::MoreUtils::uniq @{ $reader->($instance) };
     };
 }
 
@@ -317,6 +341,20 @@ sub sort_in_place : method {
     };
 }
 
+sub natatime : method {
+    my ( $attr, $reader, $writer ) = @_;
+    return sub {
+        my ( $instance, $n, $f ) = @_;
+        my $it = List::MoreUtils::natatime($n, @{ $reader->($instance) });
+        if ($f) {
+            while (my @vals = $it->()) {
+                $f->(@vals);
+            }
+        }
+        $it;
+    };
+}
+
 1;
 
 __END__
@@ -330,7 +368,7 @@ Moose::Meta::Attribute::Native::MethodProvider::Array
 =head1 DESCRIPTION
 
 This is a role which provides the method generators for
-L<Moose::Meta::Attribute::Trait::Native::Array>. Please check there for
+L<Moose::Meta::Attribute::Native::Trait::Array>. Please check there for
 documentation on what methods are provided.
 
 =head1 METHODS

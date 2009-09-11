@@ -16,8 +16,8 @@ $| = 1;
   use Moose::Exporter;
 
   Moose::Exporter->setup_import_methods(
-      with_caller => ['has_table'],
-      also        => 'Moose',
+      with_meta => ['has_table'],
+      also      => 'Moose',
   );
 
   sub init_meta {
@@ -26,8 +26,8 @@ $| = 1;
   }
 
   sub has_table {
-      my $caller = shift;
-      $caller->meta->table(shift);
+      my $meta = shift;
+      $meta->table(shift);
   }
 
   package MyApp::Meta::Class;

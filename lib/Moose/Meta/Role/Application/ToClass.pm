@@ -7,7 +7,7 @@ use metaclass;
 use Moose::Util  'english_list';
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.89_01';
+our $VERSION   = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -73,6 +73,7 @@ sub check_required_methods {
 
     my $error = '';
 
+    @missing = sort { $a->name cmp $b->name } @missing;
     my @conflicts = grep { $_->isa('Moose::Meta::Role::Method::Conflicting') } @missing;
 
     if (@conflicts) {

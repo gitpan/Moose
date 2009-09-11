@@ -3,7 +3,7 @@ package Moose::Util::MetaRole;
 use strict;
 use warnings;
 
-our $VERSION   = '0.89_01';
+our $VERSION   = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -178,8 +178,8 @@ this when your module is imported, the caller should not have any
 attributes defined yet.
 
 The easiest way to ensure that this happens is to use
-L<Moose::Exporter> and provide an C<init_meta> method that will be
-called when imported.
+L<Moose::Exporter>, which can generate the appropriate C<init_meta>
+method for you, and make sure it is called when imported.
 
 =head1 FUNCTIONS
 

@@ -1,6 +1,6 @@
 package Moose::Meta::Attribute::Native;
 
-our $VERSION   = '0.89_01';
+our $VERSION   = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -51,7 +51,7 @@ Moose::Meta::Attribute::Native - Extend your attribute interfaces
           ids_in_mapping    => 'keys',
           get_mapping       => 'get',
           set_mapping       => 'set',
-          set_quantity      => [ set => [ 'quantity' ] ],
+          set_quantity      => [ set => 'quantity' ],
       },
   );
 

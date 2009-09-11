@@ -1,6 +1,38 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.89_02 Thu, Sep 10, 2009
+    * Moose::Meta::Attribute::Native
+      - Fix Hash, which still had 'empty' instead of 'is_empty'. (hdp)
+
+    * Moose::Meta::Attribute::Native::Trait::Array
+      - Added a number of functions from List::Util and List::MoreUtils,
+        including reduce, shuffle, uniq, and natatime. (doy)
+
+    * Moose::Exporter
+      - This module will now generate an init_meta method for your exporting
+        class if you pass it options for
+        Moose::Util::MetaRole::apply_metaclass_roles or
+        apply_base_class_roles. This eliminates a lot of repetitive
+        boilerplate for typical MooseX modules. (doy).
+      - Documented the with_meta feature, which is a replacement for
+        with_caller. This feature was added by josh a while ago.
+      - The with_caller feature is now deprecated, but will not issue a
+        warning yet. (Dave Rolsky)
+      - If you try to wrap/export a subroutine which doesn't actually exist,
+        Moose::Exporter will warn you about this. (doy)
+
+    * Moose::Meta::Class
+      - Warn when calling make_immutable on a class with mutable ancestors.
+        (doy)
+
+    * Moose::Meta::Role::Application::ToRole
+      - When a role aliased a method from another role, it was only getting
+        the new (aliased) name, not the original name. This differed from what
+        happens when a class aliases a role's methods. If you _only_ want the
+        aliased name, make sure to also exclue the original name. (Dave
+        Rolsky)
+
 0.89_01 Wed Sep 2, 2009
     * Moose::Meta::Attribute
       - Added the currying syntax for delegation from AttributeHelpers to the
@@ -21,6 +53,11 @@ for, noteworthy changes.
 
     * Moose
       - Correct POD for builder to point to Recipe8, not 9. (gphat)
+
+    * Moose::Exporter
+      - When a nonexistent sub name is passed to as_is, with_caller, or
+        with_meta, throw a warning and skip the exporting, rather than
+        installing a broken sub. (doy)
 
 0.89 Thu Aug 13, 2009
     * Moose::Manual::Attributes

@@ -160,7 +160,6 @@ t/010_basics/018_methods.t
 t/010_basics/019-destruction.t
 t/010_basics/020-global-destruction-helper.pl
 t/010_basics/020-global-destruction.t
-t/010_basics/022_moose_exporter_groups.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -280,6 +279,7 @@ t/050_metaclasses/019_create_anon_with_required_attr.t
 t/050_metaclasses/020_metaclass_parameterized_traits.t
 t/050_metaclasses/021_export_with_prototype.t
 t/050_metaclasses/022_new_metaclass.t
+t/050_metaclasses/023_easy_init_meta.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
@@ -343,6 +343,7 @@ t/300_immutable/012_default_values.t
 t/300_immutable/013_immutable_roundtrip.t
 t/300_immutable/014_immutable_metaclass_with_traits.t
 t/300_immutable/015_immutable_destroy.t
+t/300_immutable/016_immutable_with_mutable_ancestors.t
 t/400_moose_util/001_moose_util.t
 t/400_moose_util/002_moose_util_does_role.t
 t/400_moose_util/003_moose_util_search_class_by_role.t
@@ -370,6 +371,8 @@ t/lib/MyMetaclassRole.pm
 t/lib/MyMooseA.pm
 t/lib/MyMooseB.pm
 t/lib/MyMooseObject.pm
+t/lib/Recursive/Child.pm
+t/lib/Recursive/Parent.pm
 t/lib/Role/Child.pm
 t/lib/Role/Interface.pm
 t/lib/Role/Parent.pm

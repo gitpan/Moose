@@ -2,7 +2,7 @@
 package Moose::Meta::Attribute::Native::Trait::Array;
 use Moose::Role;
 
-our $VERSION   = '0.89_01';
+our $VERSION   = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -43,12 +43,14 @@ Moose::Meta::Attribute::Native::Trait::Array
        default    => sub { [] },
        handles    => {
            all_options    => 'elements',
+           add_option     => 'push',
            map_options    => 'map',
            filter_options => 'grep',
            find_option    => 'first',
            get_option     => 'get',
            join_options   => 'join',
            count_options  => 'count',
+           has_options    => 'count',
            has_no_options => 'is_empty',
            sorted_options => 'sort',
        },
@@ -81,7 +83,7 @@ Returns the number of elements in the array.
 
 =item B<is_empty>
 
-Returns a boolean value indicating whether or not the array has any elements.
+Returns a boolean value that is true when the array has no elements.
 
    $stuff->has_no_options ? die "No options!\n" : print "Good boy.\n";
 
@@ -102,11 +104,11 @@ numbers, just as with Perl's core array handling.
 
 =item B<pop>
 
-=item B<push($value)>
+=item B<push($value1, $value2, value3 ...)>
 
 =item B<shift>
 
-=item B<unshift($value)>
+=item B<unshift($value1, $value2, value3 ...)>
 
 =item B<splice($offset, $length, @values)>
 
@@ -114,10 +116,10 @@ These methods are all equivalent to the Perl core functions of the same name.
 
 =item B<first( sub { ... } )>
 
-This method returns the first item matching item in the array. The matching is
-done with a subroutine reference you pass to this method. The reference will
-be called against each element in the array until one matches or all elements
-have been checked.
+This method returns the first item matching item in the array, just like
+L<List::Util>'s C<first> function. The matching is done with a subroutine
+reference you pass to this method. The reference will be called against each
+element in the array until one matches or all elements have been checked.
 
    my $found = $stuff->find_option( sub { /^b/ } );
    print "$found\n"; # prints "bar"
@@ -139,6 +141,16 @@ implements the transformation.
 
    my @mod_options = $stuff->map_options( sub { $_ . "-tag" } );
    print "@mod_options\n"; # prints "foo-tag bar-tag baz-tag boo-tag"
+
+=item B<reduce( sub { ... } )>
+
+This method condenses an array into a single value, by passing a function the
+value so far and the next value in the array, just like L<List::Util>'s
+C<reduce> function. The reducing is done with a subroutine reference you pass
+to this method.
+
+   my $found = $stuff->reduce_options( sub { $_[0] . $_[1] } );
+   print "$found\n"; # prints "foobarbazboo"
 
 =item B<sort( sub { ... } )>
 
@@ -162,6 +174,16 @@ Sorts the array I<in place>, modifying the value of the attribute.
 You can provide an optional subroutine reference to sort with (as you can with
 Perl's core C<sort> function). However, instead of using C<$a> and C<$b>, you
 will need to use C<$_[0]> and C<$_[1]> instead.
+
+=item B<shuffle>
+
+Returns the array, with indices in random order, like C<shuffle> from
+L<List::Util>.
+
+=item B<uniq>
+
+Returns the array, with all duplicate elements removed, like C<uniq> from
+L<List::MoreUtils>.
 
 =item B<join($str)>
 
@@ -192,6 +214,13 @@ Empties the entire array, like C<@array = ()>.
 This method provides a get/set accessor for the array, based on array indexes.
 If passed one argument, it returns the value at the specified index.  If
 passed two arguments, it sets the value of the specified index.
+
+=item B<natatime($n, $code)>
+
+This method returns an iterator which, on each call, returns C<$n> more items
+from the array, in order, like C<natatime> from L<List::MoreUtils>. A coderef
+can optionally be provided; it will be called on each group of C<$n> elements
+in the array.
 
 =back
 

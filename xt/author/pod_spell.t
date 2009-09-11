@@ -63,6 +63,7 @@ Shlomi
 SL
 stevan
 Stevan
+tozt
 Vilain
 wreis
 Yuval
@@ -161,6 +162,7 @@ parameterization
 parameterize
 parameterized
 parameterizes
+params
 pluggable
 prechecking
 prepends
@@ -168,6 +170,7 @@ pu
 rebase
 rebased
 rebasing
+reblesses
 refactored
 refactoring
 runtime
@@ -224,6 +227,7 @@ declaratively
 everybody's
 everyone's
 human's
+indices
 initializers
 newfound
 reimplements
@@ -232,3 +236,5 @@ specializer
 
 ## misspelt on purpose
 emali
+uniq
+

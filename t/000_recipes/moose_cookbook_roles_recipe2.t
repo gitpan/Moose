@@ -32,7 +32,8 @@ $| = 1;
       -alias => {
           stop  => '_stop',
           start => '_start'
-      }
+      },
+      -excludes => [ 'stop', 'start' ],
   };
 
   sub stop {

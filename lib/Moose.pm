@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.89_01';
+our $VERSION   = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -13,7 +13,7 @@ use Carp         'confess';
 
 use Moose::Exporter;
 
-use Class::MOP 0.92;
+use Class::MOP 0.92_01;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -43,46 +43,42 @@ sub throw_error {
 }
 
 sub extends {
-    my $class = shift;
+    my $meta = shift;
 
     Moose->throw_error("Must derive at least one class") unless @_;
 
     # this checks the metaclass to make sure
     # it is correct, sometimes it can get out
     # of sync when the classes are being built
-    Moose::Meta::Class->initialize($class)->superclasses(@_);
+    $meta->superclasses(@_);
 }
 
 sub with {
-    my $class = shift;
-    Moose::Util::apply_all_roles(Class::MOP::Class->initialize($class), @_);
+    Moose::Util::apply_all_roles(shift, @_);
 }
 
 sub has {
-    my $class = shift;
-    my $name  = shift;
+    my $meta = shift;
+    my $name = shift;
 
     Moose->throw_error('Usage: has \'name\' => ( key => value, ... )')
         if @_ % 2 == 1;
 
     my %options = ( definition_context => Moose::Util::_caller_info(), @_ );
     my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
-    Class::MOP::Class->initialize($class)->add_attribute( $_, %options ) for @$attrs;
+    $meta->add_attribute( $_, %options ) for @$attrs;
 }
 
 sub before {
-    my $class = shift;
-    Moose::Util::add_method_modifier($class, 'before', \@_);
+    Moose::Util::add_method_modifier(shift, 'before', \@_);
 }
 
 sub after {
-    my $class = shift;
-    Moose::Util::add_method_modifier($class, 'after', \@_);
+    Moose::Util::add_method_modifier(shift, 'after', \@_);
 }
 
 sub around {
-    my $class = shift;
-    Moose::Util::add_method_modifier($class, 'around', \@_);
+    Moose::Util::add_method_modifier(shift, 'around', \@_);
 }
 
 our $SUPER_PACKAGE;
@@ -97,9 +93,9 @@ sub super {
 }
 
 sub override {
-    my $class = shift;
+    my $meta = shift;
     my ( $name, $method ) = @_;
-    Class::MOP::Class->initialize($class)->add_override_method_modifier( $name => $method );
+    $meta->add_override_method_modifier( $name => $method );
 }
 
 sub inner {
@@ -117,13 +113,13 @@ sub inner {
 }
 
 sub augment {
-    my $class = shift;
+    my $meta = shift;
     my ( $name, $method ) = @_;
-    Class::MOP::Class->initialize($class)->add_augment_method_modifier( $name => $method );
+    $meta->add_augment_method_modifier( $name => $method );
 }
 
 Moose::Exporter->setup_import_methods(
-    with_caller => [
+    with_meta => [
         qw( extends with has before after around override augment)
     ],
     as_is => [
@@ -175,7 +171,7 @@ sub init_meta {
             my $ancestor_meta = Class::MOP::get_metaclass_by_name($ancestor) || next;
 
             my $ancestor_meta_class = ($ancestor_meta->is_immutable
-                ? $ancestor_meta->get_mutable_metaclass_name
+                ? $ancestor_meta->_get_mutable_metaclass_name
                 : ref($ancestor_meta));
 
             # if we have an ancestor metaclass that inherits $metaclass, we use
@@ -1121,6 +1117,10 @@ Shawn (sartak) Moore E<lt>sartak@bestpractical.comE<gt>
 
 Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
 
+Jesse (doy) Luehrs E<lt>doy at tozt dot netE<gt>
+
+Hans Dieter (confound) Pearcey E<lt>hdp@pobox.comE<gt>
+
 =head2 OTHER CONTRIBUTORS
 
 Aankhen
@@ -1132,8 +1132,6 @@ Anders (Debolaz) Nor Berle
 Nathan (kolibrie) Gray
 
 Christian (chansen) Hansen
-
-Hans Dieter (confound) Pearcey
 
 Eric (ewilhelm) Wilhelm
 

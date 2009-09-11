@@ -4,12 +4,13 @@ use strict;
 use warnings;
 use metaclass;
 
+use Scalar::Util 'blessed';
 use List::MoreUtils qw(all);
 use Moose::Util 'english_list';
 
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '0.89_01';
+our $VERSION   = '0.89_02';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
