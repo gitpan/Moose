@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.89_02';
+our $VERSION   = '0.90';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -72,7 +72,6 @@ sub _immutable_options {
     my ( $self, @args ) = @_;
 
     $self->SUPER::_immutable_options(
-        allow_mutable_ancestors => 0,
         inline_destructor => 1,
 
         # Moose always does this when an attribute is created
@@ -139,36 +138,6 @@ sub add_role {
     (blessed($role) && $role->isa('Moose::Meta::Role'))
         || $self->throw_error("Roles must be instances of Moose::Meta::Role", data => $role);
     push @{$self->roles} => $role;
-}
-
-sub make_immutable {
-    my $self = shift;
-    my %args = @_;
-
-    # we do this for metaclasses way too often to do this check for them
-    if ( !$args{allow_mutable_ancestors}
-      && !$self->name->isa('Class::MOP::Object') ) {
-        my @superclasses = grep { $_ ne 'Moose::Object' && $_ ne $self->name }
-            $self->linearized_isa;
-
-        for my $superclass (@superclasses) {
-            my $meta = Class::MOP::class_of($superclass);
-
-            next unless $meta && $meta->isa('Moose::Meta::Class');
-            next unless $meta->is_mutable;
-            # This can happen when a base class role is applied via
-            # Moose::Util::MetaRole::apply_base_class_roles. The parent is an
-            # anon class and is still mutable, but that's okay.
-            next if $meta->is_anon_class;
-
-            Carp::cluck( "Calling make_immutable on "
-                    . $self->name
-                    . ", which has a mutable ancestor ($superclass)" );
-            last;
-        }
-    }
-
-    $self->SUPER::make_immutable(@_);
 }
 
 sub role_applications {
@@ -733,10 +702,6 @@ enables inlining the destructor.
 
 Also, since Moose always inlines attributes, it sets the
 C<inline_accessors> option to false.
-
-It also accepts the additional C<allow_mutable_ancestors> option, to
-silence the warning you get when trying to make a class with mutable
-ancestors immutable.
 
 =item B<< $metaclass->new_object(%params) >>
 

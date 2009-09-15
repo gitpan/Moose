@@ -1,30 +1,16 @@
-
-package Moose::Meta::Attribute::Native::MethodProvider::Bool;
+package Moose::Meta::Attribute::Native::MethodProvider::Code;
 use Moose::Role;
 
 our $VERSION   = '0.90';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-sub set : method {
+sub execute : method {
     my ( $attr, $reader, $writer ) = @_;
-    return sub { $writer->( $_[0], 1 ) };
+    return sub { $reader->(@_)->(@_) };
 }
 
-sub unset : method {
-    my ( $attr, $reader, $writer ) = @_;
-    return sub { $writer->( $_[0], 0 ) };
-}
-
-sub toggle : method {
-    my ( $attr, $reader, $writer ) = @_;
-    return sub { $writer->( $_[0], !$reader->( $_[0] ) ) };
-}
-
-sub not : method {
-    my ( $attr, $reader, $writer ) = @_;
-    return sub { !$reader->( $_[0] ) };
-}
+no Moose::Role;
 
 1;
 
@@ -34,12 +20,12 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::MethodProvider::Bool
+Moose::Meta::Attribute::Native::MethodProvider::Code
 
 =head1 DESCRIPTION
 
 This is a role which provides the method generators for
-L<Moose::Meta::Attribute::Native::Trait::Bool>. Please check there for
+L<Moose::Meta::Attribute::Native::Trait::Code>. Please check there for
 documentation on what methods are provided.
 
 =head1 METHODS
@@ -58,7 +44,7 @@ to cpan-RT.
 
 =head1 AUTHOR
 
-Jason May E<lt>jason.a.may@gmail.comE<gt>
+  Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 

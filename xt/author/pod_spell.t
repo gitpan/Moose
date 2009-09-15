@@ -111,6 +111,7 @@ PosInt
 PositiveInt
 ro
 rw
+RoleSummation
 Str
 TypeContraints
 
@@ -173,6 +174,7 @@ rebasing
 reblesses
 refactored
 refactoring
+rethrows
 runtime
 stacktrace
 subclassable

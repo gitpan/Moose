@@ -65,12 +65,14 @@ lib/Moose/Meta/Attribute.pm
 lib/Moose/Meta/Attribute/Native.pm
 lib/Moose/Meta/Attribute/Native/MethodProvider/Array.pm
 lib/Moose/Meta/Attribute/Native/MethodProvider/Bool.pm
+lib/Moose/Meta/Attribute/Native/MethodProvider/Code.pm
 lib/Moose/Meta/Attribute/Native/MethodProvider/Counter.pm
 lib/Moose/Meta/Attribute/Native/MethodProvider/Hash.pm
 lib/Moose/Meta/Attribute/Native/MethodProvider/String.pm
 lib/Moose/Meta/Attribute/Native/Trait.pm
 lib/Moose/Meta/Attribute/Native/Trait/Array.pm
 lib/Moose/Meta/Attribute/Native/Trait/Bool.pm
+lib/Moose/Meta/Attribute/Native/Trait/Code.pm
 lib/Moose/Meta/Attribute/Native/Trait/Counter.pm
 lib/Moose/Meta/Attribute/Native/Trait/Hash.pm
 lib/Moose/Meta/Attribute/Native/Trait/Number.pm
@@ -160,6 +162,7 @@ t/010_basics/018_methods.t
 t/010_basics/019-destruction.t
 t/010_basics/020-global-destruction-helper.pl
 t/010_basics/020-global-destruction.t
+t/010_basics/021-instance-new.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -189,6 +192,8 @@ t/020_attributes/026_attribute_without_any_methods.t
 t/020_attributes/027_accessor_override_method.t
 t/020_attributes/028_no_slot_access.t
 t/020_attributes/029_accessor_context.t
+t/020_attributes/030_non_alpha_attr_names.t
+t/020_attributes/031_delegation_and_modifiers.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -280,13 +285,13 @@ t/050_metaclasses/020_metaclass_parameterized_traits.t
 t/050_metaclasses/021_export_with_prototype.t
 t/050_metaclasses/022_new_metaclass.t
 t/050_metaclasses/023_easy_init_meta.t
+t/050_metaclasses/030_metarole_combination.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
 t/060_compat/004_extends_nonmoose_that_isa_moose_with_metarole.t
 t/070_native_traits/000_load.t
 t/070_native_traits/010_array_from_role.t
-t/070_native_traits/011_counter_with_defaults.t
 t/070_native_traits/020_remove_attribute.t
 t/070_native_traits/100_collection_with_roles.t
 t/070_native_traits/201_trait_counter.t
@@ -296,6 +301,7 @@ t/070_native_traits/204_trait_number.t
 t/070_native_traits/205_trait_list.t
 t/070_native_traits/207_trait_string.t
 t/070_native_traits/208_trait_bool.t
+t/070_native_traits/209_trait_code.t
 t/100_bugs/001_subtype_quote_bug.t
 t/100_bugs/002_subtype_conflict_bug.t
 t/100_bugs/003_Moose_Object_error.t
@@ -343,7 +349,6 @@ t/300_immutable/012_default_values.t
 t/300_immutable/013_immutable_roundtrip.t
 t/300_immutable/014_immutable_metaclass_with_traits.t
 t/300_immutable/015_immutable_destroy.t
-t/300_immutable/016_immutable_with_mutable_ancestors.t
 t/400_moose_util/001_moose_util.t
 t/400_moose_util/002_moose_util_does_role.t
 t/400_moose_util/003_moose_util_search_class_by_role.t
@@ -371,8 +376,6 @@ t/lib/MyMetaclassRole.pm
 t/lib/MyMooseA.pm
 t/lib/MyMooseB.pm
 t/lib/MyMooseObject.pm
-t/lib/Recursive/Child.pm
-t/lib/Recursive/Parent.pm
 t/lib/Role/Child.pm
 t/lib/Role/Interface.pm
 t/lib/Role/Parent.pm

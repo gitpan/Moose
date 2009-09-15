@@ -2,7 +2,7 @@
 package Moose::Meta::Attribute::Native::Trait::Array;
 use Moose::Role;
 
-our $VERSION   = '0.89_02';
+our $VERSION   = '0.90';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -29,7 +29,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::Trait::Array
+Moose::Meta::Attribute::Native::Trait::Array - Helper trait for ArrayRef attributes
 
 =head1 SYNOPSIS
 

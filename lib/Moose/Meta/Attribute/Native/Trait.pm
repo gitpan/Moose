@@ -3,7 +3,7 @@ package Moose::Meta::Attribute::Native::Trait;
 use Moose::Role;
 use Moose::Util::TypeConstraints;
 
-our $VERSION   = '0.89_02';
+our $VERSION   = '0.90';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -138,7 +138,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::Trait - base role for helpers
+Moose::Meta::Attribute::Native::Trait - Base role for helpers
 
 =head1 BUGS
 

@@ -7,7 +7,7 @@ use warnings;
 use Scalar::Util 'blessed', 'weaken';
 use overload     ();
 
-our $VERSION   = '0.89_02';
+our $VERSION   = '0.90';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -687,10 +687,11 @@ sub _canonicalize_handles {
         (blessed $role_meta && $role_meta->isa('Moose::Meta::Role'))
             || $self->throw_error("Unable to canonicalize the 'handles' option with $handles because its metaclass is not a Moose::Meta::Role", data => $handles);
 
-        return map { $_ => $_ } (
+        return map { $_ => $_ }
+            grep { $_ ne 'meta' } (
             $role_meta->get_method_list,
             map { $_->name } $role_meta->get_required_method_list,
-        );
+            );
     }
 }
 

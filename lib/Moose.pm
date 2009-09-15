@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.89_02';
+our $VERSION   = '0.90';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -13,7 +13,7 @@ use Carp         'confess';
 
 use Moose::Exporter;
 
-use Class::MOP 0.92_01;
+use Class::MOP 0.93;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -120,7 +120,7 @@ sub augment {
 
 Moose::Exporter->setup_import_methods(
     with_meta => [
-        qw( extends with has before after around override augment)
+        qw( extends with has before after around override augment )
     ],
     as_is => [
         qw( super inner ),
@@ -334,6 +334,16 @@ These extensions can be found on the CPAN.  The easiest way to find them
 is to search for them (L<http://search.cpan.org/search?query=MooseX::>),
 or to examine L<Task::Moose> which aims to keep an up-to-date, easily
 installable list of Moose extensions.
+
+=head1 TRANSLATIONS
+
+Much of the Moose documentation has been translated into other languages.
+
+=over 4
+
+=item L<http://github.com/jpa/Moose-Doc-JA>
+
+=back
 
 =head1 BUILDING CLASSES WITH MOOSE
 

@@ -1,6 +1,45 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.90 Tue, Sep 15, 2009
+    * Moose::Meta::Attribute::Native::Trait::Counter
+    * Moose::Meta::Attribute::Native::Trait::String
+      - For these two traits, an attribute which did not explicitly provide
+        methods to handles magically ended up delegating *all* the helper
+        methods. This has been removed. You must be explicit in your handles
+        declaration for all Native Traits. (Dave Rolsky)
+
+    * Moose::Object
+      - DEMOLISHALL behavior has changed. If any DEMOLISH method dies, we make
+        sure to rethrow its error message. However, we also localize $@ before
+        this so that if all the DEMOLISH methods success, the value of $@ will
+        be preserved. (nothingmuch and Dave Rolsky)
+      - We now also localize $? during object destruction. (nothingmuch and
+        Dave Rolsky)
+      - The handling of DEMOLISH methods was broken for immutablized classes,
+        which were not receiving the value of
+        Devel::GlobalDestruction::in_global_destruction.
+      - These two fixes address some of RT #48271, reported by Zefram.
+      - This is all now documented in Moose::Manual::Construction.
+      - Calling $object->new() is now deprecated. A warning will be
+        issued. (perigrin)
+
+    * Moose::Meta::Role
+      - Added more hooks to customize how roles are applied. The role
+        summation class, used to create composite roles, can now be changed
+        and/or have meta-roles applied to it. (rafl)
+
+    * Moose::Meta::Method::Delegation
+      - fixed delegated methods to make sure that any modifiers attached to
+        the accessor being delegated on will be called (Stevan)
+        - added tests for this (Stevan)
+
+    * Moose::Meta::Class
+      - Moose no longer warns when a class that is being made immutable has
+        mutable ancestors. While in theory this is a good thing to warn about,
+        we found so many exceptions to this that doing this properly became
+        quite problematic.
+
 0.89_02 Thu, Sep 10, 2009
     * Moose::Meta::Attribute::Native
       - Fix Hash, which still had 'empty' instead of 'is_empty'. (hdp)
@@ -21,10 +60,6 @@ for, noteworthy changes.
         warning yet. (Dave Rolsky)
       - If you try to wrap/export a subroutine which doesn't actually exist,
         Moose::Exporter will warn you about this. (doy)
-
-    * Moose::Meta::Class
-      - Warn when calling make_immutable on a class with mutable ancestors.
-        (doy)
 
     * Moose::Meta::Role::Application::ToRole
       - When a role aliased a method from another role, it was only getting
@@ -58,6 +93,10 @@ for, noteworthy changes.
       - When a nonexistent sub name is passed to as_is, with_caller, or
         with_meta, throw a warning and skip the exporting, rather than
         installing a broken sub. (doy)
+
+    * Moose::Meta::Class
+      - Moose now warns if you call C<make_immutable> for a class with mutable
+        ancestors. (doy)
 
 0.89 Thu Aug 13, 2009
     * Moose::Manual::Attributes
@@ -198,7 +237,7 @@ for, noteworthy changes.
       that's what we need.
 
 0.80 Sat, Jun 6, 2009
-    * Moose::Manual::FAQ 
+    * Moose::Manual::FAQ
       - Add FAQ about the coercion change from 0.76 because it came up
         three times today (perigrin)
         - Win doy $10 dollars because Sartak didn't think anybody

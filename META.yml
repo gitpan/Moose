@@ -5,7 +5,7 @@ author:
 build_requires:
   ExtUtils::MakeMaker: 6.42
   Test::Exception: 0.27
-  Test::More: 0.77
+  Test::More: 0.88
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -22,14 +22,15 @@ no_index:
     - xt
 requires:
   Carp: 0
-  Class::MOP: 0.92_01
+  Class::MOP: 0.93
   Data::OptList: 0
   List::MoreUtils: 0.12
   Scalar::Util: 1.19
   Sub::Exporter: 0.980
   Sub::Name: 0
   Task::Weaken: 0
+  Try::Tiny: 0.02
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.89_02
+version: 0.90

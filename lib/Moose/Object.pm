@@ -6,23 +6,25 @@ use warnings;
 
 use Devel::GlobalDestruction qw(in_global_destruction);
 use MRO::Compat;
-use Scalar::Util;
+use Scalar::Util qw( blessed );
+use Try::Tiny;
 
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
-our $VERSION   = '0.89_02';
+our $VERSION   = '0.90';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
     my $class = shift;
 
+    Carp::cluck 'Calling new() on an instance is deprecated,'
+      . ' please use (blessed $obj)->new' if blessed($class);
+
     my $params = $class->BUILDARGS(@_);
 
-    # We want to support passing $self->new, but initialize
-    # takes only an unblessed class name
-    my $real_class = Scalar::Util::blessed($class) || $class;
+    my $real_class = blessed($class) || $class;
     my $self = Class::MOP::Class->initialize($real_class)->new_object($params);
 
     $self->BUILDALL($params);
@@ -86,17 +88,21 @@ sub DEMOLISHALL {
 }
 
 sub DESTROY {
-    # if we have an exception here ...
-    if ($@) {
-        # localize the $@ ...
-        local $@;
-        # run DEMOLISHALL ourselves, ...
-        $_[0]->DEMOLISHALL(in_global_destruction);
-        # and return ...
-        return;
+    my $self = shift;
+
+    local $?;
+
+    try {
+        $self->DEMOLISHALL(in_global_destruction);
     }
-    # otherwise it is normal destruction
-    $_[0]->DEMOLISHALL(in_global_destruction);
+    catch {
+        # Without this, Perl will warn "\t(in cleanup)$@" because of some
+        # bizarre fucked-up logic deep in the internals.
+        no warnings 'misc';
+        die $_;
+    };
+
+    return;
 }
 
 # support for UNIVERSAL::DOES ...
