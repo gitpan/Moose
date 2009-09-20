@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number', 'refaddr';
 
-our $VERSION   = '0.90';
+our $VERSION   = '0.91';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -58,7 +58,7 @@ sub _initialize_body {
     $source .= "\n" . 'my $_instance = shift;';
 
     $source .= "\n" . q{Carp::cluck 'Calling new() on an instance is deprecated,'
-                        . ' please use (blessed $obj)->new' if blessed $_instance;};
+                        . ' please use (blessed $obj)->new' if Scalar::Util::blessed($_instance);};
 
     $source .= "\n" . 'my $class = Scalar::Util::blessed($_instance) || $_instance;';
 

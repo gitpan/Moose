@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.90';
+our $VERSION   = '0.91';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -1131,6 +1131,10 @@ Jesse (doy) Luehrs E<lt>doy at tozt dot netE<gt>
 
 Hans Dieter (confound) Pearcey E<lt>hdp@pobox.comE<gt>
 
+Chris (perigrin) Prather
+
+Florian Ragwitz E<lt>rafl@debian.orgE<gt>
+
 =head2 OTHER CONTRIBUTORS
 
 Aankhen
@@ -1158,8 +1162,6 @@ Robert (rlb3) Boone
 Scott (konobi) McWhirter
 
 Shlomi (rindolf) Fish
-
-Chris (perigrin) Prather
 
 Wallace (wreis) Reis
 
