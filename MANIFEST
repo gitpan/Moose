@@ -267,6 +267,7 @@ t/040_type_constraints/032_throw_error.t
 t/040_type_constraints/033_type_names.t
 t/040_type_constraints/034_duck_types.t
 t/040_type_constraints/035_duck_type_handles.t
+t/040_type_constraints/036_match_type_operator.t
 t/050_metaclasses/001_custom_attr_meta_with_roles.t
 t/050_metaclasses/002_custom_attr_meta_as_role.t
 t/050_metaclasses/003_moose_w_metaclass.t
@@ -286,6 +287,8 @@ t/050_metaclasses/021_export_with_prototype.t
 t/050_metaclasses/022_new_metaclass.t
 t/050_metaclasses/023_easy_init_meta.t
 t/050_metaclasses/030_metarole_combination.t
+t/050_metaclasses/040_moose_nonmoose_metatrait_init_order.t
+t/050_metaclasses/041_moose_nonmoose_moose_chain_init_meta.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
@@ -363,8 +366,6 @@ t/600_todo_tests/001_exception_reflects_failed_constraint.t
 t/600_todo_tests/002_various_role_features.t
 t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/005_moose_and_threads.t
-t/600_todo_tests/006_moose_nonmoose_metatrait_init_order.t
-t/600_todo_tests/007_moose_nonmoose_moose_chain_init_meta.t
 t/lib/Bar.pm
 t/lib/Foo.pm
 t/lib/Moose/Meta/Attribute/Custom/Bar.pm

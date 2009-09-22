@@ -6,7 +6,7 @@ use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
 
-our $VERSION = '0.91';
+our $VERSION = '0.92';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -46,7 +46,8 @@ Moose::Exporter->setup_import_methods(
             coerce from via
             enum
             find_type_constraint
-            register_type_constraint )
+            register_type_constraint
+            match_on_type )
     ],
     _export_to_main => 1,
 );
@@ -441,6 +442,39 @@ sub create_duck_type_constraint {
         methods => $methods,
     );
 }
+
+sub match_on_type {
+    my ($to_match, @cases) = @_;
+    my $default;
+    if (@cases % 2 != 0) {
+        $default = pop @cases;
+        (ref $default eq 'CODE')
+            || __PACKAGE__->_throw_error("Default case must be a CODE ref, not $default");
+    }
+    while (@cases) {
+        my ($type, $action) = splice @cases, 0, 2;
+
+        unless (blessed $type && $type->isa('Moose::Meta::TypeConstraint')) {
+            $type = find_or_parse_type_constraint($type)
+                 || __PACKAGE__->_throw_error("Cannot find or parse the type '$type'")
+        }
+
+        (ref $action eq 'CODE')
+            || __PACKAGE__->_throw_error("Match action must be a CODE ref, not $action");
+
+        if ($type->check($to_match)) {
+            local $_ = $to_match;
+            return $action->($to_match);
+        }
+    }
+    (defined $default)
+        || __PACKAGE__->_throw_error("No cases matched for $to_match");
+    {
+        local $_ = $to_match;
+        return $default->($to_match);
+    }
+}
+
 
 ## --------------------------------------------------------
 ## desugaring functions ...
@@ -1078,6 +1112,78 @@ parameters:
   type( 'Foo', { where => ..., message => ... } );
 
 The valid hashref keys are C<where>, C<message>, and C<optimize_as>.
+
+=back
+
+=head2 Type Constraint Utilities
+
+=over 4
+
+=item B<< match_on_type $value => ( $type => \&action, ... ?\&default ) >>
+
+This is a utility function for doing simple type based dispatching similar to
+match/case in O'Caml and case/of in Haskell. It is not as featureful as those
+languages, nor does not it support any kind of automatic destructuring
+bind. Here is a simple Perl pretty printer dispatching over the core Moose
+types.
+
+  sub ppprint {
+      my $x = shift;
+      match_on_type $x => (
+          HashRef => sub {
+              my $hash = shift;
+              '{ '
+                  . (
+                  join ", " => map { $_ . ' => ' . ppprint( $hash->{$_} ) }
+                      sort keys %$hash
+                  ) . ' }';
+          },
+          ArrayRef => sub {
+              my $array = shift;
+              '[ ' . ( join ", " => map { ppprint($_) } @$array ) . ' ]';
+          },
+          CodeRef   => sub {'sub { ... }'},
+          RegexpRef => sub { 'qr/' . $_ . '/' },
+          GlobRef   => sub { '*' . B::svref_2object($_)->NAME },
+          Object    => sub { $_->can('to_string') ? $_->to_string : $_ },
+          ScalarRef => sub { '\\' . ppprint( ${$_} ) },
+          Num       => sub {$_},
+          Str       => sub { '"' . $_ . '"' },
+          Undef     => sub {'undef'},
+          => sub { die "I don't know what $_ is" }
+      );
+  }
+
+Or a simple JSON serializer:
+
+  sub to_json {
+      my $x = shift;
+      match_on_type $x => (
+          HashRef => sub {
+              my $hash = shift;
+              '{ '
+                  . (
+                  join ", " =>
+                      map { '"' . $_ . '" : ' . to_json( $hash->{$_} ) }
+                      sort keys %$hash
+                  ) . ' }';
+          },
+          ArrayRef => sub {
+              my $array = shift;
+              '[ ' . ( join ", " => map { to_json($_) } @$array ) . ' ]';
+          },
+          Num   => sub {$_},
+          Str   => sub { '"' . $_ . '"' },
+          Undef => sub {'null'},
+          => sub { die "$_ is not acceptable json type" }
+      );
+  }
+
+The matcher is done by mapping a C<$type> to an C<\&action>. The C<$type> can
+be either a string type or a L<Moose::Meta::TypeConstraint> object, and
+C<\&action> is a subroutine reference. This function will dispatch on the
+first match for C<$value>. It is possible to have a catch-all by providing an
+additional subroutine reference as the final argument to C<match_on_type>.
 
 =back
 
