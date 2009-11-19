@@ -4,7 +4,7 @@ use Moose::Role;
 use List::Util;
 use List::MoreUtils;
 
-our $VERSION = '0.92';
+our $VERSION = '0.93';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -26,7 +26,7 @@ sub first : method {
     my ( $attr, $reader, $writer ) = @_;
     return sub {
         my ( $instance, $predicate ) = @_;
-        &List::Util::first($predicate, @{ $reader->($instance) });
+        List::Util::first { $predicate->() } @{ $reader->($instance) };
     };
 }
 

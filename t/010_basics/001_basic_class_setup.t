@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 30;
+use Test::More tests => 29;
 use Test::Exception;
 
 
@@ -22,10 +22,6 @@ ok(Foo->isa('Moose::Object'), '... Foo is automagically a Moose::Object');
 
 dies_ok {
    Foo->meta->has_method()
-} '... has_method requires an arg';
-
-dies_ok {
-   Foo->meta->has_method('')
 } '... has_method requires an arg';
 
 can_ok('Foo', 'does');

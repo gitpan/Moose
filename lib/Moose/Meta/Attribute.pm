@@ -5,9 +5,11 @@ use strict;
 use warnings;
 
 use Scalar::Util 'blessed', 'weaken';
+use List::MoreUtils 'any';
+use Try::Tiny;
 use overload     ();
 
-our $VERSION   = '0.92';
+our $VERSION   = '0.93';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -58,7 +60,7 @@ __PACKAGE__->meta->add_attribute('traits' => (
 # for metatrait aliases.
 sub does {
     my ($self, $role_name) = @_;
-    my $name = eval {
+    my $name = try {
         Moose::Util::resolve_metatrait_alias(Attribute => $role_name)
     };
     return 0 if !defined($name); # failed to load class
@@ -318,7 +320,7 @@ sub _process_options {
 
     if (exists $options->{isa}) {
         if (exists $options->{does}) {
-            if (eval { $options->{isa}->can('does') }) {
+            if (try { $options->{isa}->can('does') }) {
                 ($options->{isa}->does($options->{does}))
                     || $class->throw_error("Cannot have an isa option and a does option if the isa does not do the does on attribute ($name)", data => $options);
             }
@@ -656,6 +658,9 @@ sub remove_delegation {
     my %handles = $self->_canonicalize_handles;
     my $associated_class = $self->associated_class;
     foreach my $handle (keys %handles) {
+        next unless any { $handle eq $_ }
+                    map { $_->name }
+                    @{ $self->associated_methods };
         $self->associated_class->remove_method($handle);
     }
 }
@@ -739,11 +744,6 @@ sub delegation_metaclass { 'Moose::Meta::Method::Delegation' }
 
 sub _make_delegation_method {
     my ( $self, $handle_name, $method_to_call ) = @_;
-
-    my $method_body;
-
-    $method_body = $method_to_call
-        if 'CODE' eq ref($method_to_call);
 
     my @curried_arguments;
 

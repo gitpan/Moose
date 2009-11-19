@@ -1,6 +1,41 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.93 Thu, Nov 19, 2009
+    * Moose::Object
+      - Calling $object->new() is no longer deprecated, and no longer
+        warns. (doy)
+
+    * Moose::Meta::Role
+      - The get_attribute_map method is now deprecated. (Dave Rolsky)
+
+    * Moose::Meta::Method::Delegation
+      - Preserve variable aliasing in @_ for delegated methods, so that
+        altering @_ affects the passed value. (doy)
+
+    * Moose::Util::TypeConstraints
+      - Allow array refs for non-anonymous form of enum and duck_type, not
+        just anonymous. The non-arrayref forms may be removed in the
+        future. (doy)
+      - Changed Str constraint to not accept globs (*STDIN or *FOO). (chansen)
+      - Properly document Int being a subtype of Str. (doy)
+
+    * Moose::Exporter
+      - Moose::Exporter using modules can now export their functions to the
+        main package. This applied to Moose and Moose::Role, among
+        others. (nothingmuch)
+
+    * Moose::Meta::Attribute
+      - Don't remove attribute accessors we never installed, during
+        remove_accessors. (doy)
+
+    * Moose::Meta::Attribute::Native::Trait::Array
+      - Don't bypass prototype checking when calling List::Util::first, to
+        avoid a segfault when it is called with a non-code argument. (doy)
+
+    * Moose::Meta::Attribute::Native::Trait::Code
+      - Fix passing arguments to code execute helpers. (doy)
+
 0.92 Tue, Sep 22, 2009
     * Moose::Util::TypeConstraints
       - added the match_on_type operator (Stevan)
@@ -52,6 +87,9 @@ for, noteworthy changes.
       - Added more hooks to customize how roles are applied. The role
         summation class, used to create composite roles, can now be changed
         and/or have meta-roles applied to it. (rafl)
+      - The get_method_list method no longer explicitly excludes the "meta"
+        method. This was a hack that has been replaced by better hacks. (Dave
+        Rolsky)
 
     * Moose::Meta::Method::Delegation
       - fixed delegated methods to make sure that any modifiers attached to

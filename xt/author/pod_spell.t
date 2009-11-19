@@ -118,6 +118,7 @@ TypeContraints
 ## computerese
 API
 APIs
+arrayrefs
 arity
 Baz
 Changelog
@@ -206,6 +207,7 @@ delegatee
 featureful
 hackery
 hacktern
+undeprecate
 wrappee
 
 ## compound

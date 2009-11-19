@@ -162,7 +162,6 @@ t/010_basics/018_methods.t
 t/010_basics/019-destruction.t
 t/010_basics/020-global-destruction-helper.pl
 t/010_basics/020-global-destruction.t
-t/010_basics/021-instance-new.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -194,6 +193,7 @@ t/020_attributes/028_no_slot_access.t
 t/020_attributes/029_accessor_context.t
 t/020_attributes/030_non_alpha_attr_names.t
 t/020_attributes/031_delegation_and_modifiers.t
+t/020_attributes/032_delegation_arg_aliasing.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t

@@ -41,18 +41,19 @@ $| = 1;
   sub dump {
       my $self = shift;
 
+      my $meta = $self->meta;
+
       my $dump = '';
 
-      my %attributes = %{ $self->meta->get_attribute_map };
-      for my $name ( sort keys %attributes ) {
-          my $attribute = $attributes{$name};
+      for my $attribute ( map { $meta->get_attribute($_) }
+          sort $meta->get_attribute_list ) {
 
           if (   $attribute->isa('MyApp::Meta::Attribute::Labeled')
               && $attribute->has_label ) {
               $dump .= $attribute->label;
           }
           else {
-              $dump .= $name;
+              $dump .= $attribute->name;
           }
 
           my $reader = $attribute->get_read_method;

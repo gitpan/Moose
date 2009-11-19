@@ -12,15 +12,12 @@ use Try::Tiny ();
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
-our $VERSION   = '0.92';
+our $VERSION   = '0.93';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
     my $class = shift;
-
-    Carp::cluck 'Calling new() on an instance is deprecated,'
-      . ' please use (blessed $obj)->new' if Scalar::Util::blessed($class);
 
     my $params = $class->BUILDARGS(@_);
 
@@ -121,7 +118,7 @@ sub does {
     my ($self, $role_name) = @_;
     my $meta = Class::MOP::class_of($self);
     (defined $role_name)
-        || $meta->throw_error("You much supply a role name to does()");
+        || $meta->throw_error("You must supply a role name to does()");
     foreach my $class ($meta->class_precedence_list) {
         my $m = $meta->initialize($class);
         return 1
