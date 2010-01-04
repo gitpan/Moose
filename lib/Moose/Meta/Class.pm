@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -66,6 +66,32 @@ sub initialize {
                 'instance_metaclass'  => 'Moose::Meta::Instance',
                 @_
             );
+}
+
+sub reinitialize {
+    my $self = shift;
+    my $pkg  = shift;
+
+    my $meta = blessed $pkg ? $pkg : Class::MOP::class_of($pkg);
+
+    my %existing_classes;
+    if ($meta) {
+        %existing_classes = map { $_ => $meta->$_() } qw(
+            attribute_metaclass
+            method_metaclass
+            wrapped_method_metaclass
+            instance_metaclass
+            constructor_class
+            destructor_class
+            error_class
+        );
+    }
+
+    return $self->SUPER::reinitialize(
+        $pkg,
+        %existing_classes,
+        @_,
+    );
 }
 
 sub _immutable_options {
@@ -755,9 +781,7 @@ Throws the error created by C<create_error> using C<raise_error>
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
@@ -765,7 +789,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

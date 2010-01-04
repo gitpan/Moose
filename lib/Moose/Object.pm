@@ -12,7 +12,7 @@ use Try::Tiny ();
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -217,9 +217,7 @@ the maximum depth is 1, to avoid making a mess.
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
@@ -227,7 +225,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

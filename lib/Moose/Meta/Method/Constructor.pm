@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number', 'refaddr';
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
@@ -372,13 +372,17 @@ L<Class::MOP::Class::Constructor> documentation as well.
 C<Moose::Meta::Method::Constructor> is a subclass of
 L<Moose::Meta::Method> I<and> L<Class::MOP::Method::Constructor>.
 
+=head1 BUGS
+
+See L<Moose/BUGS> for details on reporting bugs.
+
 =head1 AUTHORS
 
 Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

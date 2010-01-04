@@ -2,6 +2,7 @@ author/extract-inline-tests
 Changes
 doap.rdf
 inc/Module/Install.pm
+inc/Module/Install/AuthorRequires.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
 inc/Module/Install/ExtraTests.pm
@@ -87,12 +88,14 @@ lib/Moose/Meta/Method/Constructor.pm
 lib/Moose/Meta/Method/Delegation.pm
 lib/Moose/Meta/Method/Destructor.pm
 lib/Moose/Meta/Method/Overridden.pm
+lib/Moose/Meta/Mixin/AttributeCore.pm
 lib/Moose/Meta/Role.pm
 lib/Moose/Meta/Role/Application.pm
 lib/Moose/Meta/Role/Application/RoleSummation.pm
 lib/Moose/Meta/Role/Application/ToClass.pm
 lib/Moose/Meta/Role/Application/ToInstance.pm
 lib/Moose/Meta/Role/Application/ToRole.pm
+lib/Moose/Meta/Role/Attribute.pm
 lib/Moose/Meta/Role/Composite.pm
 lib/Moose/Meta/Role/Method.pm
 lib/Moose/Meta/Role/Method/Conflicting.pm
@@ -122,6 +125,8 @@ Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
 META.yml
+Moose.xs
+ppport.h
 README
 t/000_load.t
 t/000_recipes/basics-recipe10.t
@@ -132,6 +137,7 @@ t/000_recipes/moose_cookbook_basics_recipe3.t
 t/000_recipes/moose_cookbook_basics_recipe4.t
 t/000_recipes/moose_cookbook_basics_recipe5.t
 t/000_recipes/moose_cookbook_basics_recipe6.t
+t/000_recipes/moose_cookbook_extending_recipe2.t
 t/000_recipes/moose_cookbook_extending_recipe3.t
 t/000_recipes/moose_cookbook_extending_recipe4.t
 t/000_recipes/moose_cookbook_meta_recipe2.t
@@ -233,6 +239,7 @@ t/030_roles/040_role_for_combination.t
 t/030_roles/041_empty_method_modifiers_meta_bug.t
 t/030_roles/042_compose_overloading.t
 t/030_roles/043_conflict_many_methods.t
+t/030_roles/044_role_attrs.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t
@@ -289,6 +296,7 @@ t/050_metaclasses/023_easy_init_meta.t
 t/050_metaclasses/030_metarole_combination.t
 t/050_metaclasses/040_moose_nonmoose_metatrait_init_order.t
 t/050_metaclasses/041_moose_nonmoose_moose_chain_init_meta.t
+t/050_metaclasses/050_metarole_backcompat.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
@@ -362,6 +370,7 @@ t/500_test_moose/001_test_moose.t
 t/500_test_moose/002_test_moose_does_ok.t
 t/500_test_moose/003_test_moose_has_attribute_ok.t
 t/500_test_moose/004_test_moose_meta_ok.t
+t/500_test_moose/005_with_immutable.t
 t/600_todo_tests/001_exception_reflects_failed_constraint.t
 t/600_todo_tests/002_various_role_features.t
 t/600_todo_tests/003_immutable_n_around.t
@@ -384,4 +393,5 @@ xt/author/pod.t
 xt/author/pod_coverage.t
 xt/author/pod_spell.t
 xt/author/tabs.t
+xt/author/test-my-dependents.t
 xt/author/version_numbers.t

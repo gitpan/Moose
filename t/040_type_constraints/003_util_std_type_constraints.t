@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 297;
+use Test::More;
 use Test::Exception;
 
 use Scalar::Util ();
@@ -11,6 +11,8 @@ use Scalar::Util ();
 BEGIN {
     use_ok('Moose::Util::TypeConstraints');
 }
+
+my $STRING     = "foo";
 
 my $SCALAR_REF = \(my $var);
 
@@ -133,20 +135,20 @@ ok(!defined Ref(undef),           '... Ref rejects anything which is not a Ref')
 
 ok(defined Int(0),                 '... Int accepts anything which is an Int');
 ok(defined Int(100),               '... Int accepts anything which is an Int');
-ok(!defined Int(0.5),              '... Int accepts anything which is not a Int');
-ok(!defined Int(100.01),           '... Int accepts anything which is not a Int');
-ok(!defined Int(''),               '... Int rejects anything which is not a Int');
-ok(!defined Int('Foo'),            '... Int rejects anything which is not a Int');
-ok(!defined Int([]),               '... Int rejects anything which is not a Int');
-ok(!defined Int({}),               '... Int rejects anything which is not a Int');
-ok(!defined Int(sub {}),           '... Int rejects anything which is not a Int');
-ok(!defined Int($SCALAR_REF),      '... Int rejects anything which is not a Int');
-ok(!defined Int($GLOB),            '... Int rejects anything which is not a Int');
-ok(!defined Int($GLOB_REF),        '... Int rejects anything which is not a Int');
-ok(!defined Int($fh),              '... Int rejects anything which is not a Int');
-ok(!defined Int(qr/../),           '... Int rejects anything which is not a Int');
-ok(!defined Int(bless {}, 'Foo'),  '... Int rejects anything which is not a Int');
-ok(!defined Int(undef),            '... Int rejects anything which is not a Int');
+ok(!defined Int(0.5),              '... Int accepts anything which is not an Int');
+ok(!defined Int(100.01),           '... Int accepts anything which is not an Int');
+ok(!defined Int(''),               '... Int rejects anything which is not an Int');
+ok(!defined Int('Foo'),            '... Int rejects anything which is not an Int');
+ok(!defined Int([]),               '... Int rejects anything which is not an Int');
+ok(!defined Int({}),               '... Int rejects anything which is not an Int');
+ok(!defined Int(sub {}),           '... Int rejects anything which is not an Int');
+ok(!defined Int($SCALAR_REF),      '... Int rejects anything which is not an Int');
+ok(!defined Int($GLOB),            '... Int rejects anything which is not an Int');
+ok(!defined Int($GLOB_REF),        '... Int rejects anything which is not an Int');
+ok(!defined Int($fh),              '... Int rejects anything which is not an Int');
+ok(!defined Int(qr/../),           '... Int rejects anything which is not an Int');
+ok(!defined Int(bless {}, 'Foo'),  '... Int rejects anything which is not an Int');
+ok(!defined Int(undef),            '... Int rejects anything which is not an Int');
 
 ok(defined Num(0),                 '... Num accepts anything which is an Num');
 ok(defined Num(100),               '... Num accepts anything which is an Num');
@@ -169,6 +171,7 @@ ok(defined Str(0),                 '... Str accepts anything which is a Str');
 ok(defined Str(100),               '... Str accepts anything which is a Str');
 ok(defined Str(''),                '... Str accepts anything which is a Str');
 ok(defined Str('Foo'),             '... Str accepts anything which is a Str');
+ok(defined Str(substr($STRING,0,1)),'... Str accepts anything which is a Str');
 ok(!defined Str([]),               '... Str rejects anything which is not a Str');
 ok(!defined Str({}),               '... Str rejects anything which is not a Str');
 ok(!defined Str(sub {}),           '... Str rejects anything which is not a Str');
@@ -356,3 +359,5 @@ ok(!defined RoleName('Moose::Meta::TypeConstraint'),  '... RoleName accepts anyt
 ok(defined RoleName('Quux::Wibble::Role'),      '... RoleName accepts anything which is a RoleName');
 
 close($fh) || die "Could not close the filehandle $0 for test";
+
+done_testing;

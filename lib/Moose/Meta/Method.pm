@@ -3,7 +3,7 @@ package Moose::Meta::Method;
 use strict;
 use warnings;
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -53,9 +53,7 @@ C<Moose::Meta::Method> is a subclass of L<Class::MOP::Method>.
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
@@ -63,7 +61,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

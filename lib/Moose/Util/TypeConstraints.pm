@@ -6,7 +6,7 @@ use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
 
-our $VERSION = '0.93';
+our $VERSION = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -49,7 +49,6 @@ Moose::Exporter->setup_import_methods(
             register_type_constraint
             match_on_type )
     ],
-    _export_to_main => 1,
 );
 
 ## --------------------------------------------------------
@@ -573,18 +572,19 @@ sub _install_type_coercions ($$) {
     use re "eval";
 
     my $valid_chars = qr{[\w:\.]};
-    my $type_atom   = qr{ $valid_chars+ };
+    my $type_atom   = qr{ (?>$valid_chars+) }x;
+    my $ws   = qr{ (?>\s*) }x;
 
     my $any;
 
-    my $type = qr{  $valid_chars+  (?: \[ \s* (??{$any})   \s* \] )? }x;
+    my $type = qr{  $type_atom  (?: \[ $ws (??{$any})   $ws \] )? }x;
     my $type_capture_parts
-        = qr{ ($valid_chars+) (?: \[ \s* ((??{$any})) \s* \] )? }x;
+        = qr{ ($type_atom) (?: \[ $ws ((??{$any})) $ws \] )? }x;
     my $type_with_parameter
-        = qr{  $valid_chars+      \[ \s* (??{$any})   \s* \]    }x;
+        = qr{  $type_atom      \[ $ws (??{$any})   $ws \]    }x;
 
-    my $op_union = qr{ \s* \| \s* }x;
-    my $union    = qr{ $type (?: $op_union $type )+ }x;
+    my $op_union = qr{ $ws \| $ws }x;
+    my $union    = qr{ $type (?> (?: $op_union $type )+ ) }x;
 
     $any = qr{ $type | $union }x;
 
@@ -1356,9 +1356,7 @@ Adds C<$type> to the list of parameterizable types
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
@@ -1366,7 +1364,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

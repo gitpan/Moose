@@ -6,7 +6,7 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -30,6 +30,14 @@ sub apply {
     }
     else {
         my $obj_meta = Class::MOP::class_of($object) || 'Moose::Meta::Class';
+
+        # This is a special case to handle the case where the object's
+        # metaclass is a Class::MOP::Class, but _not_ a Moose::Meta::Class
+        # (for example, when applying a role to a Moose::Meta::Attribute
+        # object).
+        $obj_meta = 'Moose::Meta::Class'
+            unless $obj_meta->isa('Moose::Meta::Class');
+
         $class = $obj_meta->create_anon_class(
             superclasses => [ blessed($object) ]
         );
@@ -68,9 +76,7 @@ Moose::Meta::Role::Application::ToInstance - Compose a role into an instance
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
@@ -78,7 +84,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

@@ -6,9 +6,10 @@ use warnings;
 use Sub::Exporter;
 use Test::Builder;
 
+use List::MoreUtils 'all';
 use Moose::Util 'does_role', 'find_meta';
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -16,6 +17,7 @@ my @exports = qw[
     meta_ok
     does_ok
     has_attribute_ok
+    with_immutable
 ];
 
 Sub::Exporter::setup_exporter({
@@ -70,6 +72,16 @@ sub has_attribute_ok ($$;$) {
     }
 }
 
+sub with_immutable (&@) {
+    my $block = shift;
+    my $before = $Test->current_test;
+    $block->();
+    $_->meta->make_immutable for @_;
+    $block->();
+    my $num_tests = $Test->current_test - $before;
+    return all { $_ } ($Test->summary)[-$num_tests..-1];
+}
+
 1;
 
 __END__
@@ -112,6 +124,11 @@ does for the C<isa> method.
 Tests if a class or object has a certain attribute, similar to what C<can_ok>
 does for the methods.
 
+=item B<with_immutable { CODE } @class_names>
+
+Runs B<CODE> (which should contain normal tests) twice, and make each
+class in C<@class_names> immutable in between the two runs.
+
 =back
 
 =head1 TODO
@@ -146,9 +163,7 @@ does for the methods.
 
 =head1 BUGS
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 

@@ -224,7 +224,8 @@ defend your change.
     git checkout stable
     git merge master # must be a fast forward
     git push both
-    # ship & tag
+    shipit # does not ship the tarball, but does everything else
+    cpan-upload ~/shipit-dist/Moose-X.YZ.tar.gz
 
 Development releases are made without merging into the stable branch.
 
@@ -241,7 +242,7 @@ of effort into supporting older 5.8.x releases.
 
 For major releases which include an API change or deprecation, you should run
 the F<cpan-stable-smolder> script from the L<moose-dev-utils
-repository|gitmo@jules.scsys.co.uk:moose-dev-utils.git>. This script tests a
+repository|gitmo@git.moose.perl.org:moose-dev-utils.git>. This script tests a
 long list of MooseX and other Moose-using modules from CPAN. In order to run
 this script, you must arrange to have the new version of Moose and/or
 Class::MOP in Perl's include path. You can install the module, or fiddle with

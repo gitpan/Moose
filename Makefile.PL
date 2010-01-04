@@ -1,6 +1,8 @@
 use strict;
 use warnings;
-use inc::Module::Install;
+use inc::Module::Install 0.91;
+use Module::Install::ExtraTests;
+use Module::Install::AuthorRequires;
 use 5.008001;
 
 check_conflicts();
@@ -23,7 +25,11 @@ requires 'Try::Tiny'        => '0.02';
 test_requires 'Test::More'      => '0.88';
 test_requires 'Test::Exception' => '0.27';
 
-if ( -d '.svn' || -d '.git' || $ENV{IS_MAINTAINER} ) {
+author_requires 'Test::Inline';
+author_requires 'File::Find::Rule';
+author_requires 'Module::Info';
+
+if ( $Module::Install::AUTHOR || $ENV{IS_MAINTAINER} ) {
     system( $^X, 'author/extract-inline-tests' );
 }
 
@@ -38,11 +44,13 @@ WriteAll();
 sub check_conflicts {
     my %conflicts = (
         'Fey::ORM'                  => '0.23',
-        'MooseX::AttributeHelpers'  => '0.21',
+        'MooseX::Aliases'           => '0.07',
+        'MooseX::AttributeHelpers'  => '0.22',
         'MooseX::ClassAttribute'    => '0.09',
-        'MooseX::MethodAttributes'  => '0.15',
+        'MooseX::MethodAttributes'  => '0.18',
         'MooseX::NonMoose'          => '0.05',
         'MooseX::Params::Validate'  => '0.05',
+        'MooseX::Role::Cmd'         => '0.06',
         'MooseX::Singleton'         => '0.19',
         'MooseX::StrictConstructor' => '0.07',
         'MooseX::Types'             => '0.19',

@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '0.93';
+our $VERSION   = '0.93_01';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -159,7 +159,12 @@ sub init_meta {
 
     if ( $meta = Class::MOP::get_metaclass_by_name($class) ) {
         unless ( $meta->isa("Moose::Meta::Class") ) {
-            Moose->throw_error("$class already has a metaclass, but it does not inherit $metaclass ($meta)");
+            my $error_message = "$class already has a metaclass, but it does not inherit $metaclass ($meta).";
+            if ( $meta->isa('Moose::Meta::Role') ) {
+                Moose->throw_error($error_message . ' You cannot make the same thing a role and a class. Remove either Moose or Moose::Role.');
+            } else {
+                Moose->throw_error($error_message);
+            }
         }
     } else {
         # no metaclass, no 'meta' method
@@ -254,6 +259,7 @@ $_->make_immutable(
     Moose::Meta::Method::Augmented
 
     Moose::Meta::Role
+    Moose::Meta::Role::Attribute
     Moose::Meta::Role::Method
     Moose::Meta::Role::Method::Required
     Moose::Meta::Role::Method::Conflicting
@@ -265,6 +271,11 @@ $_->make_immutable(
     Moose::Meta::Role::Application::ToClass
     Moose::Meta::Role::Application::ToRole
     Moose::Meta::Role::Application::ToInstance
+);
+
+Moose::Meta::Mixin::AttributeCore->meta->make_immutable(
+    inline_constructor => 0,
+    constructor_name   => undef,
 );
 
 1;
@@ -341,7 +352,9 @@ Much of the Moose documentation has been translated into other languages.
 
 =over 4
 
-=item L<http://github.com/jpa/Moose-Doc-JA>
+=item Japanese
+
+Japanese docs can be found at L<http://perldoc.perlassociation.org/pod/Moose-Doc-JA/index.html>. The source POD files can be found in GitHub: L<http://github.com/jpa/Moose-Doc-JA>
 
 =back
 
@@ -458,8 +471,13 @@ If an attribute is marked as lazy it B<must> have a default supplied.
 
 =item I<auto_deref =E<gt> (1|0)>
 
-This tells the accessor whether to automatically dereference the value returned.
-This is only legal if your C<isa> option is either C<ArrayRef> or C<HashRef>.
+This tells the accessor to automatically dereference the value of this
+attribute when called in list context.  The accessor will still return a
+reference when called in scalar context.  If this behavior isn't desirable,
+L<Moose::Meta::Attribute::Native::Trait::Array/elements> or
+L<Moose::Meta::Attribute::Native::Trait::Hash/elements> may be a better
+choice.  The I<auto_deref> option is only legal if your I<isa> option is
+either C<ArrayRef> or C<HashRef>.
 
 =item I<trigger =E<gt> $code>
 
@@ -1012,9 +1030,9 @@ The mailing list is L<moose@perl.org>. You must be subscribed to send
 a message. To subscribe, send an empty message to
 L<moose-subscribe@perl.org>
 
-You can also visit us at L<#moose on
-irc.perl.org|irc://irc.perl.org/#moose>. This channel is quite active,
-and questions at all levels (on Moose-related topics ;) are welcome.
+You can also visit us at C<#moose> on L<irc://irc.perl.org/#moose>
+This channel is quite active, and questions at all levels (on Moose-related
+topics ;) are welcome.
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -1092,6 +1110,9 @@ exception.
 Please report any bugs to C<bug-moose@rt.cpan.org>, or through the web
 interface at L<http://rt.cpan.org>.
 
+You can also discuss feature requests or possible bugs on the Moose mailing
+list (moose@perl.org) or on IRC at L<irc://irc.perl.org/#moose>.
+
 =head1 FEATURE REQUESTS
 
 We are very strict about what features we add to the Moose core, especially
@@ -1121,19 +1142,19 @@ but the community as well.
 
 Stevan (stevan) Little E<lt>stevan@iinteractive.comE<gt>
 
+Jesse (doy) Luehrs E<lt>doy at tozt dot netE<gt>
+
 Yuval (nothingmuch) Kogman
 
 Shawn (sartak) Moore E<lt>sartak@bestpractical.comE<gt>
-
-Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
-
-Jesse (doy) Luehrs E<lt>doy at tozt dot netE<gt>
 
 Hans Dieter (confound) Pearcey E<lt>hdp@pobox.comE<gt>
 
 Chris (perigrin) Prather
 
 Florian Ragwitz E<lt>rafl@debian.orgE<gt>
+
+Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head2 OTHER CONTRIBUTORS
 
@@ -1179,7 +1200,7 @@ Dylan Hardison (doc fixes)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2009 by Infinity Interactive, Inc.
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
