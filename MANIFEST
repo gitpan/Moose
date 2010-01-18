@@ -366,6 +366,7 @@ t/400_moose_util/003_moose_util_search_class_by_role.t
 t/400_moose_util/004_resolve_alias.t
 t/400_moose_util/005_ensure_all_roles.t
 t/400_moose_util/006_create_alias.t
+t/400_moose_util/007_apply_roles.t
 t/500_test_moose/001_test_moose.t
 t/500_test_moose/002_test_moose_does_ok.t
 t/500_test_moose/003_test_moose_has_attribute_ok.t

@@ -11,7 +11,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '0.93_03';
+our $VERSION   = '0.94';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -743,10 +743,11 @@ adds it to the class's list of role applications. This I<does not>
 actually apply any role to the class; it is only for tracking role
 applications.
 
-=item B<< $metaclass->does_role($role_name) >>
+=item B<< $metaclass->does_role($role) >>
 
-This returns a boolean indicating whether or not the class does the
-specified role. This tests both the class and its parents.
+This returns a boolean indicating whether or not the class does the specified
+role. The role provided can be either a role name or a L<Moose::Meta::Role>
+object. This tests both the class and its parents.
 
 =item B<< $metaclass->excludes_role($role_name) >>
 

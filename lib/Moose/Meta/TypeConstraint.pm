@@ -13,7 +13,7 @@ use Sub::Name qw(subname);
 
 use base qw(Class::MOP::Object);
 
-our $VERSION   = '0.93_03';
+our $VERSION   = '0.94';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -311,7 +311,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 =head1 DESCRIPTION
 
 This class represents a single type constraint. Moose's built-in type
-constraints, as well as constraints you define, are all store in a
+constraints, as well as constraints you define, are all stored in a
 L<Moose::Meta::TypeConstraint::Registry> object as objects of this
 class.
 
