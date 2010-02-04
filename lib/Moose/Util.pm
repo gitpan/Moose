@@ -8,7 +8,7 @@ use Sub::Exporter;
 use Scalar::Util 'blessed';
 use Class::MOP   0.60;
 
-our $VERSION   = '0.94';
+our $VERSION   = '0.95';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -211,6 +211,18 @@ sub add_method_modifier {
                 = grep { $_->name =~ @{$args}[0] } @all_methods;
             $meta->$add_modifier_method( $_->name, $code )
                 for @matched_methods;
+        }
+        elsif ($method_modifier_type eq 'ARRAY') {
+            $meta->$add_modifier_method( $_, $code ) for @{$args->[0]};
+        }
+        else {
+            $meta->throw_error(
+                sprintf(
+                    "Methods passed to %s must be provided as a list, arrayref or regex, not %s",
+                    $modifier_name,
+                    $method_modifier_type,
+                )
+            );
         }
     }
     else {

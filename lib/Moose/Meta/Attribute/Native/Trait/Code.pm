@@ -2,7 +2,7 @@ package Moose::Meta::Attribute::Native::Trait::Code;
 use Moose::Role;
 use Moose::Meta::Attribute::Native::MethodProvider::Code;
 
-our $VERSION   = '0.94';
+our $VERSION   = '0.95';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -58,6 +58,10 @@ This provides operations on coderef attributes.
 =item B<execute(@args)>
 
 Calls the coderef with the given args.
+
+=item B<execute_method(@args)>
+
+Calls the coderef with the the instance as invocant and given args.
 
 =back
 

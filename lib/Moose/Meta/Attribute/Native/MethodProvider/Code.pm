@@ -1,13 +1,24 @@
 package Moose::Meta::Attribute::Native::MethodProvider::Code;
 use Moose::Role;
 
-our $VERSION   = '0.94';
+our $VERSION   = '0.95';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 sub execute : method {
-    my ( $attr, $reader, $writer ) = @_;
-    return sub { my ($self, @args) = @_; $reader->($self)->(@args) };
+    my ($attr, $reader, $writer) = @_;
+    return sub {
+        my ($self, @args) = @_;
+        $reader->($self)->(@args);
+    };
+}
+
+sub execute_method : method {
+    my ($attr, $reader, $writer) = @_;
+    return sub {
+        my ($self, @args) = @_;
+        $reader->($self)->($self, @args);
+    };
 }
 
 no Moose::Role;

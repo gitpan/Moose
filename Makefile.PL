@@ -28,6 +28,9 @@ test_requires 'Test::Exception' => '0.27';
 author_requires 'Test::Inline';
 author_requires 'File::Find::Rule';
 author_requires 'Module::Info';
+author_requires 'Test::Spelling';
+author_requires 'Test::Pod::Coverage';
+author_requires 'Test::NoTabs';
 
 if ( $Module::Install::AUTHOR || $ENV{IS_MAINTAINER} ) {
     system( $^X, 'author/extract-inline-tests' );
@@ -44,6 +47,7 @@ WriteAll();
 sub check_conflicts {
     my %conflicts = (
         'Fey::ORM'                      => '0.23',
+        'Catalyst'                      => '5.80017',
         'MooseX::Aliases'               => '0.07',
         'MooseX::AttributeHelpers'      => '0.22',
         'MooseX::Attribute::Prototype'  => '0.10',

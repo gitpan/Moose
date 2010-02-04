@@ -58,19 +58,15 @@ BEGIN {
 
   sub BUILD {
       my ( $self, $params ) = @_;
-      if ( @{ $self->employees || [] } ) {
-          foreach my $employee ( @{ $self->employees } ) {
-              $employee->employer($self);
-          }
+      foreach my $employee ( @{ $self->employees || [] } ) {
+          $employee->employer($self);
       }
   }
 
   after 'employees' => sub {
       my ( $self, $employees ) = @_;
-      if ($employees) {
-          foreach my $employee ( @{$employees} ) {
-              $employee->employer($self);
-          }
+      foreach my $employee ( @{ $employees || [] } ) {
+          $employee->employer($self);
       }
   };
 
