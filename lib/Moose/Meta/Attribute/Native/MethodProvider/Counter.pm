@@ -2,7 +2,7 @@
 package Moose::Meta::Attribute::Native::MethodProvider::Counter;
 use Moose::Role;
 
-our $VERSION   = '0.95';
+our $VERSION   = '0.96';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -40,7 +40,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::MethodProvider::Counter
+Moose::Meta::Attribute::Native::MethodProvider::Counter - role providing method generators for Counter trait
 
 =head1 DESCRIPTION
 

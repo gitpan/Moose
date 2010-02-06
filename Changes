@@ -1,6 +1,17 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+0.96 Sat, Feb 6, 2010
+
+  [NEW FEATURES]
+  * ScalarRef is now a parameterized type. You can now specify a type
+    constraint for whatever the reference points to. (Closes RT#50857)
+    (Michael G. Schwern, Florian Ragwitz)
+
+  [BUG FIXES]
+  * ScalarRef now accepts references to other references. (Closes RT#50934)
+    (Michael G. Schwern)
+
 0.95 Thu, Feb 4, 2010
 
   [NEW FEATURES]

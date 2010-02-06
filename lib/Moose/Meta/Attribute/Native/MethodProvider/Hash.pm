@@ -1,7 +1,7 @@
 package Moose::Meta::Attribute::Native::MethodProvider::Hash;
 use Moose::Role;
 
-our $VERSION   = '0.95';
+our $VERSION   = '0.96';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -183,7 +183,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::MethodProvider::Hash
+Moose::Meta::Attribute::Native::MethodProvider::Hash - role providing method generators for Hash trait
 
 =head1 DESCRIPTION
 

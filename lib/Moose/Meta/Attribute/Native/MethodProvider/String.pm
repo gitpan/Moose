@@ -1,7 +1,7 @@
 package Moose::Meta::Attribute::Native::MethodProvider::String;
 use Moose::Role;
 
-our $VERSION   = '0.95';
+our $VERSION   = '0.96';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -111,7 +111,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::MethodProvider::String
+Moose::Meta::Attribute::Native::MethodProvider::String - role providing method generators for String trait
 
 =head1 DESCRIPTION
 
