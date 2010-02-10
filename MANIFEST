@@ -340,6 +340,7 @@ t/100_bugs/024_anon_method_metaclass.t
 t/100_bugs/025_universal_methods_wrappable.t
 t/100_bugs/026_create_anon_recursion.t
 t/100_bugs/027_constructor_object_overload.t
+t/100_bugs/028_apply_role_to_one_instance_only.t
 t/200_examples/001_example.t
 t/200_examples/002_example_Moose_POOP.t
 t/200_examples/003_example.t
