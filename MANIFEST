@@ -298,6 +298,7 @@ t/050_metaclasses/030_metarole_combination.t
 t/050_metaclasses/040_moose_nonmoose_metatrait_init_order.t
 t/050_metaclasses/041_moose_nonmoose_moose_chain_init_meta.t
 t/050_metaclasses/050_metarole_backcompat.t
+t/050_metaclasses/051_metarole_on_anon.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
