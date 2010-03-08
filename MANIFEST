@@ -60,6 +60,7 @@ lib/Moose/Manual/MethodModifiers.pod
 lib/Moose/Manual/MooseX.pod
 lib/Moose/Manual/MOP.pod
 lib/Moose/Manual/Roles.pod
+lib/Moose/Manual/Support.pod
 lib/Moose/Manual/Types.pod
 lib/Moose/Manual/Unsweetened.pod
 lib/Moose/Meta/Attribute.pm
@@ -363,6 +364,7 @@ t/300_immutable/012_default_values.t
 t/300_immutable/013_immutable_roundtrip.t
 t/300_immutable/014_immutable_metaclass_with_traits.t
 t/300_immutable/015_immutable_destroy.t
+t/300_immutable/016_inline_fallbacks.t
 t/400_moose_util/001_moose_util.t
 t/400_moose_util/002_moose_util_does_role.t
 t/400_moose_util/003_moose_util_search_class_by_role.t

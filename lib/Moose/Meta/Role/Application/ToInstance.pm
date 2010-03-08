@@ -6,11 +6,11 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-our $VERSION   = '0.98';
+our $VERSION   = '0.99';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-use base 'Moose::Meta::Role::Application::ToClass';
+use base 'Moose::Meta::Role::Application';
 
 __PACKAGE__->meta->add_attribute('rebless_params' => (
     reader  => 'rebless_params',
