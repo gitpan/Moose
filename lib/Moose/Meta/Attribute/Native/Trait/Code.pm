@@ -2,7 +2,7 @@ package Moose::Meta::Attribute::Native::Trait::Code;
 use Moose::Role;
 use Moose::Meta::Attribute::Native::MethodProvider::Code;
 
-our $VERSION   = '0.99';
+our $VERSION   = '1.00';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -15,7 +15,6 @@ has method_provider => (
     default   => 'Moose::Meta::Attribute::Native::MethodProvider::Code',
 );
 
-sub _default_is { 'ro' }
 sub _helper_type { 'CodeRef' }
 
 no Moose::Role;

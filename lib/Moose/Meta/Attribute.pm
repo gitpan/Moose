@@ -9,7 +9,7 @@ use List::MoreUtils 'any';
 use Try::Tiny;
 use overload     ();
 
-our $VERSION   = '0.99';
+our $VERSION   = '1.00';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Accessor;
@@ -942,7 +942,7 @@ I<Attribute (x) does not pass the type constraint (Int) with 'forty-two'>
 
 Before setting the value, a check is made on the type constraint of
 the attribute, if it has one, to see if the value passes it. If the
-value fails to pass, the set operation dies with a L<throw_error>.
+value fails to pass, the set operation dies with a L</throw_error>.
 
 Any coercion to convert values is done before checking the type constraint.
 
