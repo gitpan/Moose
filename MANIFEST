@@ -382,6 +382,8 @@ t/600_todo_tests/001_exception_reflects_failed_constraint.t
 t/600_todo_tests/002_various_role_features.t
 t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/005_moose_and_threads.t
+t/600_todo_tests/006_required_role_accessors.t
+t/600_todo_tests/007_metaclass_compat.t
 t/lib/Bar.pm
 t/lib/Foo.pm
 t/lib/Moose/Meta/Attribute/Custom/Bar.pm
