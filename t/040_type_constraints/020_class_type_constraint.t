@@ -32,6 +32,9 @@ my $type = find_type_constraint("Foo");
 
 is( $type->class, "Foo", "class attribute" );
 
+ok( !$type->is_subtype_of('Foo'), "Foo is not subtype of Foo" );
+ok( !$type->is_subtype_of($type), '$foo_type is not subtype of $foo_type' );
+
 ok( $type->is_subtype_of("Gorch"), "subtype of gorch" );
 
 ok( $type->is_subtype_of("Bar"), "subtype of bar" );
@@ -57,5 +60,10 @@ ok( $type->equals(Moose::Meta::TypeConstraint::Class->new( name => "__ANON__", c
 ok( $type->equals(Moose::Meta::TypeConstraint::Class->new( name => "Oink", class => "Foo" )), "equals differently named constraint of same value" );
 ok( !$type->equals(Moose::Meta::TypeConstraint::Class->new( name => "__ANON__", class => "Bar" )), "doesn't equal other anon constraint" );
 ok( $type->is_subtype_of(Moose::Meta::TypeConstraint::Class->new( name => "__ANON__", class => "Bar" )), "subtype of other anon constraint" );
+
+{
+    my $regexp_type = Moose::Meta::TypeConstraint::Class->new(name => 'Regexp', class => 'Regexp');
+    ok(!$regexp_type->check(qr//), 'a Regexp is not an instance of a class, even tho perl pretends it is');
+}
 
 done_testing;
