@@ -8,7 +8,7 @@ use Sub::Exporter;
 use Scalar::Util 'blessed';
 use Class::MOP   0.60;
 
-our $VERSION   = '1.02';
+our $VERSION   = '1.03';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -105,7 +105,7 @@ sub _apply_all_roles {
             $meta = $role->[0];
         }
         else {
-            Class::MOP::load_class( $role->[0] );
+            Class::MOP::load_class( $role->[0] , $role->[1] );
             $meta = Class::MOP::class_of( $role->[0] );
         }
 
