@@ -300,6 +300,7 @@ t/050_metaclasses/040_moose_nonmoose_metatrait_init_order.t
 t/050_metaclasses/041_moose_nonmoose_moose_chain_init_meta.t
 t/050_metaclasses/050_metarole_backcompat.t
 t/050_metaclasses/051_metarole_on_anon.t
+t/050_metaclasses/052_metaclass_compat.t
 t/050_metaclasses/052_new_object_BUILD.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
@@ -385,9 +386,10 @@ t/600_todo_tests/002_various_role_features.t
 t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/005_moose_and_threads.t
 t/600_todo_tests/006_required_role_accessors.t
-t/600_todo_tests/007_metaclass_compat.t
 t/600_todo_tests/008_replacing_super_methods.t
 t/lib/Bar.pm
+t/lib/Bar7/Meta/Trait.pm
+t/lib/Bar7/Meta/Trait2.pm
 t/lib/Foo.pm
 t/lib/Moose/Meta/Attribute/Custom/Bar.pm
 t/lib/Moose/Meta/Attribute/Custom/Foo.pm
