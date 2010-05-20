@@ -12,7 +12,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '1.03';
+our $VERSION   = '1.04';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -83,20 +83,20 @@ sub _immutable_options {
 }
 
 sub create {
-    my ($self, $package_name, %options) = @_;
+    my ($class, $package_name, %options) = @_;
 
     (ref $options{roles} eq 'ARRAY')
-        || $self->throw_error("You must pass an ARRAY ref of roles", data => $options{roles})
+        || $class->throw_error("You must pass an ARRAY ref of roles", data => $options{roles})
             if exists $options{roles};
     my $roles = delete $options{roles};
 
-    my $class = $self->SUPER::create($package_name, %options);
+    my $new_meta = $class->SUPER::create($package_name, %options);
 
     if ($roles) {
-        Moose::Util::apply_all_roles( $class, @$roles );
+        Moose::Util::apply_all_roles( $new_meta, @$roles );
     }
 
-    return $class;
+    return $new_meta;
 }
 
 sub _check_metaclass_compatibility {
@@ -251,11 +251,11 @@ sub excludes_role {
 }
 
 sub new_object {
-    my $class  = shift;
+    my $self   = shift;
     my $params = @_ == 1 ? $_[0] : {@_};
-    my $self   = $class->SUPER::new_object($params);
+    my $object = $self->SUPER::new_object($params);
 
-    foreach my $attr ( $class->get_all_attributes() ) {
+    foreach my $attr ( $self->get_all_attributes() ) {
 
         next unless $attr->can('has_trigger') && $attr->has_trigger;
 
@@ -266,16 +266,18 @@ sub new_object {
         next unless exists $params->{$init_arg};
 
         $attr->trigger->(
-            $self,
+            $object,
             (
                   $attr->should_coerce
-                ? $attr->get_read_method_ref->($self)
+                ? $attr->get_read_method_ref->($object)
                 : $params->{$init_arg}
             ),
         );
     }
 
-    return $self;
+    $object->BUILDALL($params) if $object->can('BUILDALL');
+
+    return $object;
 }
 
 sub superclasses {
@@ -726,7 +728,7 @@ roles, it will be reused.
   );
 
 Each entry in both the C<superclasses> and the C<roles> option can be
-followed by a hash reference with arguments. The C<supperclasses>
+followed by a hash reference with arguments. The C<superclasses>
 option can be supplied with a L<-version|Class::MOP/Class Loading
 Options> option that ensures the loaded superclass satisfies the
 required version. The C<role> option also takes the C<-version> as an
@@ -802,9 +804,9 @@ excludes the named role. This tests both the class and its parents.
 This overrides the parent's method in order to allow the parameters to
 be provided as a hash reference.
 
-=item B<< $metaclass->constructor_class ($class_name) >>
+=item B<< $metaclass->constructor_class($class_name) >>
 
-=item B<< $metaclass->destructor_class ($class_name) >>
+=item B<< $metaclass->destructor_class($class_name) >>
 
 These are the names of classes used when making a class
 immutable. These default to L<Moose::Meta::Method::Constructor> and

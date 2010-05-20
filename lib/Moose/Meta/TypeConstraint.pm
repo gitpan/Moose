@@ -13,7 +13,7 @@ use Sub::Name qw(subname);
 
 use base qw(Class::MOP::Object);
 
-our $VERSION   = '1.03';
+our $VERSION   = '1.04';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -122,7 +122,7 @@ sub get_message {
     }
     else {
         $value = (defined $value ? overload::StrVal($value) : 'undef');
-        return "Validation failed for '" . $self->name . "' failed with value $value";
+        return "Validation failed for '" . $self->name . "' with value $value";
     }
 }
 
@@ -148,7 +148,7 @@ sub equals {
         return if $other->has_parent;
     }
 
-    return 1;
+    return;
 }
 
 sub is_a_type_of {

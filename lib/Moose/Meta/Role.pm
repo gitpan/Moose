@@ -9,7 +9,7 @@ use Scalar::Util 'blessed';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
 
-our $VERSION   = '1.03';
+our $VERSION   = '1.04';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -20,7 +20,9 @@ use Moose::Meta::Role::Method::Required;
 use Moose::Meta::Role::Method::Conflicting;
 use Moose::Util qw( ensure_all_roles );
 
-use base 'Class::MOP::Module', 'Class::MOP::Mixin::HasAttributes';
+use base 'Class::MOP::Module',
+         'Class::MOP::Mixin::HasAttributes',
+         'Class::MOP::Mixin::HasMethods';
 
 ## ------------------------------------------------------------------
 ## NOTE:
@@ -196,6 +198,9 @@ sub add_attribute {
     if (blessed $_[0] && ! $_[0]->isa('Moose::Meta::Role::Attribute') ) {
         my $class = ref $_[0];
         Moose->throw_error( "Cannot add a $class as an attribute to a role" );
+    }
+    elsif (!blessed($_[0]) && defined($_[0]) && $_[0] =~ /^\+(.*)/) {
+        Moose->throw_error( "has '+attr' is not supported in roles" );
     }
 
     return $self->SUPER::add_attribute(@_);
@@ -501,6 +506,19 @@ sub create {
     return $meta;
 }
 
+sub consumers {
+    my $self = shift;
+    my @consumers;
+    for my $meta (Class::MOP::get_all_metaclass_instances) {
+        next if $meta->name eq $self->name;
+        next unless $meta->isa('Moose::Meta::Class')
+                 || $meta->isa('Moose::Meta::Role');
+        push @consumers, $meta->name
+            if $meta->does_role($self->name);
+    }
+    return @consumers;
+}
+
 # anonymous roles. most of it is copied straight out of Class::MOP::Class.
 # an intrepid hacker might find great riches if he unifies this code with that
 # code in Class::MOP::Module or Class::MOP::Package
@@ -734,6 +752,10 @@ C<create_anon_class> method.
 =item B<< $metarole->is_anon_role >>
 
 Returns true if the role is an anonymous role.
+
+=item B<< $metarole->consumers >>
+
+Returns a list of names of classes and roles which consume this role.
 
 =back
 

@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION = '1.03';
+our $VERSION = '1.04';
 our $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
@@ -475,6 +475,8 @@ sub _make_unimport_sub {
             $export_recorder,
             $is_reexport,
         );
+        strict->unimport;
+        warnings->unimport;
     };
 }
 
@@ -565,6 +567,11 @@ sub _make_init_meta {
 sub import {
     strict->import;
     warnings->import;
+}
+
+sub unimport {
+    strict->unimport;
+    warnings->unimport;
 }
 
 1;

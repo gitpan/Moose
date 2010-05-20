@@ -240,6 +240,7 @@ t/030_roles/041_empty_method_modifiers_meta_bug.t
 t/030_roles/042_compose_overloading.t
 t/030_roles/043_conflict_many_methods.t
 t/030_roles/044_role_attrs.t
+t/030_roles/044_role_consumers.t
 t/030_roles/045_role_compose_requires.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
@@ -299,6 +300,7 @@ t/050_metaclasses/040_moose_nonmoose_metatrait_init_order.t
 t/050_metaclasses/041_moose_nonmoose_moose_chain_init_meta.t
 t/050_metaclasses/050_metarole_backcompat.t
 t/050_metaclasses/051_metarole_on_anon.t
+t/050_metaclasses/052_new_object_BUILD.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t

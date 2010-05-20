@@ -1,6 +1,39 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+1.04 Thu, May 20, 2010
+
+  [API CHANGES]
+
+  * Packages and modules no longer have methods - this functionality was
+    moved back up into Moose::Meta::Class and Moose::Meta::Role individually
+    (through the Class::MOP::Mixin::HasMethods mixin) (doy).
+
+  * BUILDALL is now called by Moose::Meta::Class::new_object, rather than by
+    Moose::Object::new. (doy)
+
+  [NEW FEATURES]
+
+  * strict and warnings are now unimported when Moose, Moose::Role, or
+    Moose::Exporter are unimported. (doy, Adam Kennedy)
+
+  * Added a 'consumers' method to Moose::Meta::Role for finding all
+    classes/roles which consume the given role. (doy)
+
+  [BUG FIXES]
+
+  * Fix has '+attr' in Roles to explode immediately, rather than when the role
+    is applied to a class (t0m).
+
+  * Fix type constraint validation messages to not include the string 'failed'
+    twice in the same sentance (Florian Ragwitz).
+
+  * New type constraints will default to being unequal, rather than equal
+    (rjbs).
+
+  * The tests no longer check for perl's behavior of clobbering $@, which has
+    been fixed in perl-5.13.1 (Florian Ragwitz).
+
 1.03 Thu, May 06, 2010
 
   [NEW FEATURES]

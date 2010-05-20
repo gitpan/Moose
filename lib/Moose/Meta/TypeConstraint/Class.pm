@@ -7,7 +7,7 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '1.03';
+our $VERSION   = '1.04';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -116,7 +116,7 @@ sub get_message {
     }
 
     $value = (defined $value ? overload::StrVal($value) : 'undef');
-    return "Validation failed for '" . $self->name . "' failed with value $value (not isa " . $self->class . ")";
+    return "Validation failed for '" . $self->name . "' with value $value (not isa " . $self->class . ")";
 }
 
 1;

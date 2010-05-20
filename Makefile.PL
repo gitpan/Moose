@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use inc::Module::Install 0.95;
+use inc::Module::Install 0.97;
 use Module::Install::AuthorRequires;
 use 5.008001;
 
@@ -38,9 +38,11 @@ if ( is_maintainer() ) {
 
 tests_recursive();
 
+repository 'git://git.moose.perl.org/Moose.git';
+
 WriteAll();
 
-# Use the cpan-smolder-stable script in the Moose svn root to figure
+# Use the xt/author/test-my-dependents.t test to figure
 # out what on CPAN will break with the latest Moose, then update this
 # before a release.
 sub check_conflicts {
@@ -53,13 +55,14 @@ sub check_conflicts {
         'MooseX::Attribute::Prototype'  => '0.10',
         'MooseX::ClassAttribute'        => '0.09',
         'MooseX::MethodAttributes'      => '0.18',
-        'MooseX::NonMoose'              => '0.05',
+        'MooseX::NonMoose'              => '0.07',
         'MooseX::Params::Validate'      => '0.05',
         'MooseX::Role::Cmd'             => '0.06',
         'MooseX::Role::WithOverloading' => '0.04',
         'MooseX::Singleton'             => '0.19',
         'MooseX::StrictConstructor'     => '0.07',
         'MooseX::Types'                 => '0.19',
+        'Pod::Elemental'                => '0.093280',
         'namespace::autoclean'          => '0.08',
         'KiokuDB'                       => '0.41',
     );
