@@ -5,7 +5,9 @@ use strict;
 use warnings;
 use metaclass;
 
-use overload '""'     => sub { shift->name },   # stringify to tc name
+use overload '0+'     => sub { refaddr(shift) }, # id an object
+             '""'     => sub { shift->name },   # stringify to tc name
+             bool     => sub { 1 },
              fallback => 1;
 
 use Scalar::Util qw(blessed refaddr);
@@ -13,7 +15,7 @@ use Sub::Name qw(subname);
 
 use base qw(Class::MOP::Object);
 
-our $VERSION   = '1.05';
+our $VERSION   = '1.06';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -133,7 +135,7 @@ sub equals {
 
     my $other = Moose::Util::TypeConstraints::find_type_constraint($type_or_name) or return;
 
-    return 1 if refaddr($self) == refaddr($other);
+    return 1 if $self == $other;
 
     if ( $self->has_hand_optimized_type_constraint and $other->has_hand_optimized_type_constraint ) {
         return 1 if $self->hand_optimized_type_constraint == $other->hand_optimized_type_constraint;

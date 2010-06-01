@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '1.05';
+our $VERSION   = '1.06';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -354,7 +354,10 @@ Much of the Moose documentation has been translated into other languages.
 
 =item Japanese
 
-Japanese docs can be found at L<http://perldoc.perlassociation.org/pod/Moose-Doc-JA/index.html>. The source POD files can be found in GitHub: L<http://github.com/jpa/Moose-Doc-JA>
+Japanese docs can be found at
+L<http://perldoc.perlassociation.org/pod/Moose-Doc-JA/index.html>. The
+source POD files can be found in GitHub:
+L<http://github.com/jpa/Moose-Doc-JA>
 
 =back
 
