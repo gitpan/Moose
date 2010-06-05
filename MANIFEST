@@ -302,6 +302,7 @@ t/050_metaclasses/050_metarole_backcompat.t
 t/050_metaclasses/051_metarole_on_anon.t
 t/050_metaclasses/052_metaclass_compat.t
 t/050_metaclasses/052_new_object_BUILD.t
+t/050_metaclasses/053_immutable_metaclass_compat_bug.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
@@ -384,6 +385,7 @@ t/500_test_moose/005_with_immutable.t
 t/600_todo_tests/001_exception_reflects_failed_constraint.t
 t/600_todo_tests/002_various_role_features.t
 t/600_todo_tests/003_immutable_n_around.t
+t/600_todo_tests/004_role_insertion_order.t
 t/600_todo_tests/005_moose_and_threads.t
 t/600_todo_tests/006_required_role_accessors.t
 t/600_todo_tests/008_replacing_super_methods.t

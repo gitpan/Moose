@@ -12,7 +12,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '1.06';
+our $VERSION   = '1.07';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -585,13 +585,14 @@ sub _fix_single_metaclass_incompatibility {
             || confess "Can't fix metaclass incompatibility for "
                      . $self->name
                      . " because it is not pristine.";
+        my $super_meta_name = $super_meta->_real_ref_name;
         my $class_specific_meta_subclass_meta = $self->_reconcile_roles_for_metaclass($self->$metaclass_type, $super_meta->$metaclass_type);
         my $new_self = $super_meta->reinitialize(
             $self->name,
             $metaclass_type => $class_specific_meta_subclass_meta->name,
         );
 
-        $self->_replace_self( $new_self, blessed($super_meta) );
+        $self->_replace_self( $new_self, $super_meta_name );
     }
 }
 
