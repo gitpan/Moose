@@ -303,6 +303,7 @@ t/050_metaclasses/051_metarole_on_anon.t
 t/050_metaclasses/052_metaclass_compat.t
 t/050_metaclasses/052_new_object_BUILD.t
 t/050_metaclasses/053_immutable_metaclass_compat_bug.t
+t/050_metaclasses/054_metaclass_compat_no_fixing_bug.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
@@ -319,6 +320,7 @@ t/070_native_traits/205_trait_list.t
 t/070_native_traits/207_trait_string.t
 t/070_native_traits/208_trait_bool.t
 t/070_native_traits/209_trait_code.t
+t/070_native_traits/300_array_subtypes.t
 t/100_bugs/001_subtype_quote_bug.t
 t/100_bugs/002_subtype_conflict_bug.t
 t/100_bugs/003_Moose_Object_error.t
