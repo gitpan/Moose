@@ -1,6 +1,58 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+1.09 Tue, Jul 25, 2010
+
+  [API CHANGES]
+
+  * You can no longer pass "coerce => 1" for an attribute unless its type
+    constraint has a coercion defined. Doing so will issue a deprecation
+    warning. (Dave Rolsky)
+
+  * Previously, '+foo' only allowed a specific set of options to be
+    overridden, which made it impossible to change attribute options related
+    to extensions. Now we blacklist some options, and anything else is
+    allowed. (doy, Tuomas Jormola)
+
+  * Most features which have been declared deprecated now issue a warning using
+    Moose::Deprecated. Warnings are issued once per calling package, not
+    repeatedly. See Moose::Deprecated for information on how you can shut
+    these warnings up entirely. Note that deprecated features will eventually
+    be removed, so shutting up the warnings may not be the best idea. (Dave
+    Rolsky)
+
+  * Removed the long-deprecated Moose::Meta::Role->alias_method method. (Dave
+    Rolsky).
+
+  [NEW FEATURES]
+
+  * We no longer unimport strict and warnings when Moose, Moose::Role, or
+    Moose::Exporter are unimported. Doing this was broken if the user
+    explicitly loaded strict and warnings themself, and the results could be
+    generally surprising. We decided that it was best to err on the side of
+    safety and leave these on. Reported by David Wheeler. RT #58310. (Dave
+    Rolsky)
+
+  * New with_traits helper function in Moose::Util. (doy)
+
+  [BUG FIXES]
+
+  * Accessors will no longer be inlined if the instance metaclass isn't
+    inlinable. (doy)
+
+  * Use Perl 5.10's new recursive regex features, if possible, for the type
+    constraint parser. (doy, nothingmuch)
+
+  [ENHANCEMENTS]
+
+  * Attributes now warn if their accessors overwrite a locally defined
+    function (not just method). (doy)
+
+  [OTHER]
+
+  * Bump our required perl version to 5.8.3, since earlier versions fail tests
+    and aren't easily installable/testable.
+
 1.08 Tue, Jun 15, 2010
 
   [ENHANCEMENTS]

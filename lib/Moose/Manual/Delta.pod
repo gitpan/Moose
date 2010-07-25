@@ -16,6 +16,60 @@ feature.  If you encounter a problem and have a solution but don't see
 it documented here, or think we missed an important feature, please
 send us a patch.
 
+=head1 1.09
+
+=over 4
+
+=item All deprecated features now warn
+
+Previously, deprecation mostly consisted of simply saying "X is deprecated" in
+the Changes file. We were not very consistent about actually warning. Now, all
+deprecated features still present in Moose actually give a warning. The
+warning is issued once per calling package. See L<Moose::Deprecated> for more
+details.
+
+=item You cannot pass C<< coerce => 1 >> unless the attribute's type constraint has a coercion
+
+Previously, this was accepted, and it sort of worked, except that if you
+attempted to set the attribute after the object was created, you would get a
+runtime error.
+
+Now you will get an error when you attempt to define the attribute.
+
+=item C<no Moose>, C<no Moose::Role>, and C<no Moose::Exporter> no longer unimport strict and warnings
+
+This change was made in 1.05, and has now been reverted. We don't know if the
+user has explicitly loaded strict or warnings on their own, and unimporting
+them is just broken in that case.
+
+=item Reversed logic when defining which options can be changed
+
+L<Moose::Meta::Attribute> now allows all options to be changed in an
+overridden attribute. The previous behaviour required each option to be
+whitelisted using the C<legal_options_for_inheritance> method. This method has
+been removed, and there is a new method, C<illegal_options_for_inheritance>,
+which can now be used to prevent certain options from being changeable.
+
+In addition, we only throw an error if the illegal option is actually
+changed. If the superclass didn't specify this option at all when defining the
+attribute, the subclass version can still add it as an option.
+
+Example of overriding this in an attribute trait:
+
+  package Bar::Meta::Attribute;
+  use Moose::Role;
+
+  has 'my_illegal_option' => (
+      isa => 'CodeRef',
+      is  => 'rw',
+  );
+
+  around illegal_options_for_inheritance => sub {
+      return ( shift->(@_), qw/my_illegal_option/ );
+  };
+
+=back
+
 =head1 1.05
 
 =over 4

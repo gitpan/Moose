@@ -40,6 +40,7 @@ lib/Moose/Cookbook/Roles/Recipe3.pod
 lib/Moose/Cookbook/Snack/Keywords.pod
 lib/Moose/Cookbook/Snack/Types.pod
 lib/Moose/Cookbook/Style.pod
+lib/Moose/Deprecated.pm
 lib/Moose/Error/Confess.pm
 lib/Moose/Error/Croak.pm
 lib/Moose/Error/Default.pm
@@ -189,7 +190,7 @@ t/020_attributes/018_no_init_arg.t
 t/020_attributes/019_attribute_lazy_initializer.t
 t/020_attributes/020_trigger_and_coerce.t
 t/020_attributes/021_method_generation_rules.t
-t/020_attributes/022_legal_options_for_inheritance.t
+t/020_attributes/022_illegal_options_for_inheritance.t
 t/020_attributes/023_attribute_names.t
 t/020_attributes/024_attribute_traits_parameterized.t
 t/020_attributes/025_chained_coercion.t
@@ -200,6 +201,8 @@ t/020_attributes/029_accessor_context.t
 t/020_attributes/030_non_alpha_attr_names.t
 t/020_attributes/031_delegation_and_modifiers.t
 t/020_attributes/032_delegation_arg_aliasing.t
+t/020_attributes/033_accessor_inlining.t
+t/020_attributes/034_bad_coerce.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -348,6 +351,7 @@ t/100_bugs/026_create_anon_recursion.t
 t/100_bugs/027_constructor_object_overload.t
 t/100_bugs/028_apply_role_to_one_instance_only.t
 t/100_bugs/029_instance_application_role_args.t
+t/100_bugs/030_coerce_without_coercion.t
 t/200_examples/001_example.t
 t/200_examples/002_example_Moose_POOP.t
 t/200_examples/003_example.t
@@ -379,6 +383,7 @@ t/400_moose_util/005_ensure_all_roles.t
 t/400_moose_util/006_create_alias.t
 t/400_moose_util/007_apply_roles.t
 t/400_moose_util/008_method_mod_args.t
+t/400_moose_util/009_with_traits.t
 t/500_test_moose/001_test_moose.t
 t/500_test_moose/002_test_moose_does_ok.t
 t/500_test_moose/003_test_moose_has_attribute_ok.t

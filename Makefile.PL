@@ -2,35 +2,37 @@ use strict;
 use warnings;
 use inc::Module::Install 0.98;
 use Module::Install::AuthorRequires;
-use 5.008001;
+use 5.008003;
 
 check_broken_extratests();
 check_conflicts();
 
 name 'Moose';
-perl_version '5.008001';
+perl_version '5.008003';
 all_from 'lib/Moose.pm';
 license 'perl';
 
 requires 'Carp';
-requires 'Class::MOP'       => '1.02';
-requires 'Data::OptList'    => '0';
-requires 'List::MoreUtils'  => '0.12';
-requires 'Scalar::Util'     => '1.19';
-requires 'Sub::Exporter'    => '0.980';
-requires 'Sub::Name'        => '0';
-requires 'Task::Weaken'     => '0';
-requires 'Try::Tiny'        => '0.02';
+requires 'Class::MOP'                  => '1.04';
+requires 'Data::OptList'               => '0';
+requires 'List::MoreUtils'             => '0.12';
+requires 'Package::DeprecationManager' => '0.04';
+requires 'Scalar::Util'                => '1.19';
+requires 'Sub::Exporter'               => '0.980';
+requires 'Sub::Name'                   => '0';
+requires 'Task::Weaken'                => '0';
+requires 'Try::Tiny'                   => '0.02';
 
 test_requires 'Test::More'      => '0.88';
 test_requires 'Test::Exception' => '0.27';
 
-author_requires 'Test::Inline';
 author_requires 'File::Find::Rule';
 author_requires 'Module::Info';
-author_requires 'Test::Spelling';
-author_requires 'Test::Pod::Coverage';
+author_requires 'Test::Inline';
 author_requires 'Test::NoTabs';
+author_requires 'Test::Output';
+author_requires 'Test::Pod::Coverage';
+author_requires 'Test::Spelling';
 
 if ( is_maintainer() ) {
     system( $^X, 'author/extract-inline-tests' );
@@ -48,24 +50,32 @@ WriteAll();
 # before a release.
 sub check_conflicts {
     my %conflicts = (
-        'Devel::REPL'                   => '1.003008',
-        'Fey::ORM'                      => '0.23',
-        'Catalyst'                      => '5.80017',
-        'MooseX::Aliases'               => '0.07',
-        'MooseX::AttributeHelpers'      => '0.22',
-        'MooseX::Attribute::Prototype'  => '0.10',
-        'MooseX::ClassAttribute'        => '0.09',
-        'MooseX::MethodAttributes'      => '0.18',
-        'MooseX::NonMoose'              => '0.07',
-        'MooseX::Params::Validate'      => '0.05',
-        'MooseX::Role::Cmd'             => '0.06',
-        'MooseX::Role::WithOverloading' => '0.04',
-        'MooseX::Singleton'             => '0.19',
-        'MooseX::StrictConstructor'     => '0.07',
-        'MooseX::Types'                 => '0.19',
-        'Pod::Elemental'                => '0.093280',
-        'namespace::autoclean'          => '0.08',
-        'KiokuDB'                       => '0.41',
+        'Catalyst'                       => '5.80017',
+        'Devel::REPL'                    => '1.003008',
+        'Fey::ORM'                       => '0.23',
+        'File::ChangeNotify'             => '0.15',
+        'KiokuDB'                        => '0.41',
+        'MooseX::Aliases'                => '0.07',
+        'MooseX::AttributeHelpers'       => '0.22',
+        'MooseX::AttributeInflate'       => '0.02',
+        'MooseX::Attribute::Prototype'   => '0.10',
+        'MooseX::ClassAttribute'         => '0.13',
+        'MooseX::FollowPBP'              => '0.02',
+        'MooseX::HasDefaults'            => '0.02',
+        'MooseX::InstanceTracking'       => '0.04',
+        'MooseX::LazyRequire'            => '0.05',
+        'MooseX::MethodAttributes'       => '0.22',
+        'MooseX::NonMoose'               => '0.13',
+        'MooseX::Params::Validate'       => '0.05',
+        'MooseX::Role::Cmd'              => '0.06',
+        'MooseX::Role::WithOverloading'  => '0.07',
+        'MooseX::SemiAffordanceAccessor' => '0.05',
+        'MooseX::Singleton'              => '0.22',
+        'MooseX::StrictConstructor'      => '0.08',
+        'MooseX::Types'                  => '0.19',
+        'MooseX::UndefTolerant'          => '0.04',
+        'namespace::autoclean'           => '0.08',
+        'Pod::Elemental'                 => '0.093280',
     );
 
     my $found = 0;

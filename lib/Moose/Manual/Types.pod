@@ -198,19 +198,18 @@ package, C<MyApp::Types>, which can be loaded by other classes in your
 application.
 
 Once you're doing this, you should almost certainly look at the
-L<MooseX::Types> extension which allows easy declaration of type libraries
-and can export your types as perl constants so that you can refer to them
-as just
+L<MooseX::Types> module. This module makes it easy to create a "type library"
+module, which can export your types as perl constants.
 
   has 'counter' => (is => 'rw', isa => PositiveInt);
 
-rather than needing to fully qualify them everywhere. It also allows
+This lets you use a short name rather than needing to fully qualify the name
+everywhere. It also allows you to write easily create parameterized types:
 
   has 'counts' => (is => 'ro', isa => HashRef[PositiveInt]);
 
-and similarly for the union and other syntax discussed below, which
-will compile time check your use of names and is generally more robust
-than the string type parsing for complex cases.
+This module will check your names at compile time, and is generally more
+robust than the string type parsing for complex cases.
 
 =head1 COERCION
 
@@ -426,16 +425,6 @@ We have several recommendations for ameliorating this problem. First,
 define I<all> of your custom types in one module,
 C<MyApp::Types>. Second, load this module in all of your other
 modules.
-
-If you are still having load order problems, you can make use of the
-C<find_type_constraint> function exported by
-L<Moose::Util::TypeConstraints>:
-
-  class_type('MyApp::User')
-      unless find_type_constraint('MyApp::User');
-
-This sort of "find or create" logic is simple to write, and will let
-you work around load order issues.
 
 =head1 AUTHOR
 
