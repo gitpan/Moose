@@ -6,7 +6,7 @@ use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
 
-our $VERSION = '1.09';
+our $VERSION = '1.10';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -435,17 +435,16 @@ sub enum {
     # if only an array-ref is passed then
     # you get an anon-enum
     # - SL
-    if ( ref $type_name eq 'ARRAY' && !@values ) {
+    if ( ref $type_name eq 'ARRAY' ) {
+        @values == 0
+            || __PACKAGE__->_throw_error("enum called with an array reference and additional arguments. Did you mean to parenthesize the enum call's parameters?");
+
         @values    = @$type_name;
         $type_name = undef;
     }
     if ( @values == 1 && ref $values[0] eq 'ARRAY' ) {
         @values = @{ $values[0] };
     }
-    ( scalar @values >= 2 )
-        || __PACKAGE__->_throw_error(
-        "You must have at least two values to enumerate through");
-    my %valid = map { $_ => 1 } @values;
 
     register_type_constraint(
         create_enum_type_constraint(

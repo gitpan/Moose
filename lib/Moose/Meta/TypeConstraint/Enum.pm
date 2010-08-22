@@ -6,7 +6,7 @@ use metaclass;
 
 use Moose::Util::TypeConstraints ();
 
-our $VERSION   = '1.09';
+our $VERSION   = '1.10';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -20,6 +20,22 @@ sub new {
     my ( $class, %args ) = @_;
 
     $args{parent} = Moose::Util::TypeConstraints::find_type_constraint('Str');
+
+    if ( scalar @{ $args{values} } < 2 ) {
+        require Moose;
+        Moose->throw_error("You must have at least two values to enumerate through");
+    }
+
+    for (@{ $args{values} }) {
+        if (!defined($_)) {
+            require Moose;
+            Moose->throw_error("Enum values must be strings, not undef");
+        }
+        elsif (ref($_)) {
+            require Moose;
+            Moose->throw_error("Enum values must be strings, not '$_'");
+        }
+    }
 
     my $self = $class->_new(\%args);
 

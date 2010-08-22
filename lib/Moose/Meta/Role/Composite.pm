@@ -6,7 +6,7 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-our $VERSION   = '1.09';
+our $VERSION   = '1.10';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -99,6 +99,11 @@ sub add_method {
 sub get_method_list {
     my $self = shift;
     return keys %{ $self->_method_map };
+}
+
+sub _get_local_methods {
+    my $self = shift;
+    return values %{ $self->_method_map };
 }
 
 sub has_method {

@@ -12,7 +12,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '1.09';
+our $VERSION   = '1.10';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -407,7 +407,7 @@ sub _is_role_only_subclass {
 
     # loop over all methods that are a part of the current class
     # (not inherited)
-    for my $method (map { $meta->get_method($_) } $meta->get_method_list) {
+    for my $method ( $meta->_get_local_methods ) {
         # always ignore meta
         next if $method->name eq 'meta';
         # we'll deal with attributes below

@@ -22,7 +22,7 @@ no_index:
     - xt
 requires:
   Carp: 0
-  Class::MOP: 1.04
+  Class::MOP: 1.05
   Data::OptList: 0
   List::MoreUtils: 0.12
   Package::DeprecationManager: 0.04
@@ -35,5 +35,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.moose.perl.org/Moose.git
-version: 1.09
+version: 1.10
 x_authority: cpan:STEVAN

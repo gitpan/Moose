@@ -7,7 +7,7 @@ use Class::MOP;
 use Moose::Deprecated;
 use Scalar::Util 'blessed', 'looks_like_number';
 
-our $VERSION   = '1.09';
+our $VERSION   = '1.10';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -24,7 +24,12 @@ sub Str {
 
 sub Num { !ref($_[0]) && looks_like_number($_[0]) }
 
-sub Int { defined($_[0]) && !ref($_[0]) && $_[0] =~ /^-?[0-9]+$/ }
+# using a temporary here because regex matching promotes an IV to a PV,
+# and that confuses some things (like JSON.pm)
+sub Int {
+    my $value = $_[0];
+    defined($value) && !ref($value) && $value =~ /^-?[0-9]+$/
+}
 
 sub ScalarRef { ref($_[0]) eq 'SCALAR' || ref($_[0]) eq 'REF' }
 sub ArrayRef  { ref($_[0]) eq 'ARRAY'  }

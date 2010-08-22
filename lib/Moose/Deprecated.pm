@@ -3,13 +3,14 @@ package Moose::Deprecated;
 use strict;
 use warnings;
 
-our $VERSION = '1.09';
+our $VERSION = '1.10';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Package::DeprecationManager -deprecations => {
     'coerce without coercion' => '1.08',
-    'pre-0.94 MetaRole API'   => '0.93',
+    'pre-0.94 MetaRole API'   => '0.94',
+    'alias or excludes'       => '0.89',
     'Role type'               => '0.84',
     'subtype without sugar'   => '0.72',
     'type without sugar'      => '0.72',
@@ -46,7 +47,7 @@ deprecated in Moose.
 
 If you specify C<< -api_version => $version >>, you can use deprecated features
 without warnings. Note that this special treatment is limited to the package
-that loads C<Class::MOP::Deprecated>.
+that loads C<Moose::Deprecated>.
 
 =head1 AUTHORS
 

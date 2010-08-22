@@ -87,13 +87,13 @@ MooseX::Method::Signatures
 MooseX::MultiInitArg
 MooseX::MultiMethods
 MooseX::MutatorAttributes
+MooseX::NaturalKey
 MooseX::NonMoose
 MooseX::Object::Pluggable
 MooseX::Param
 MooseX::Params::Validate
 MooseX::Plaggerize
 MooseX::POE
-MooseX::Policy::SemiAffordanceAccessor
 MooseX::RelatedClassRoles
 MooseX::Role::BuildInstanceOf
 MooseX::Role::Cmd

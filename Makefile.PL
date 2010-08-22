@@ -13,7 +13,7 @@ all_from 'lib/Moose.pm';
 license 'perl';
 
 requires 'Carp';
-requires 'Class::MOP'                  => '1.04';
+requires 'Class::MOP'                  => '1.05';
 requires 'Data::OptList'               => '0';
 requires 'List::MoreUtils'             => '0.12';
 requires 'Package::DeprecationManager' => '0.04';
@@ -56,6 +56,7 @@ sub check_conflicts {
         'File::ChangeNotify'             => '0.15',
         'KiokuDB'                        => '0.41',
         'MooseX::Aliases'                => '0.07',
+        'MooseX::AlwaysCoerce'           => '0.05',
         'MooseX::AttributeHelpers'       => '0.22',
         'MooseX::AttributeInflate'       => '0.02',
         'MooseX::Attribute::Prototype'   => '0.10',
@@ -67,10 +68,11 @@ sub check_conflicts {
         'MooseX::MethodAttributes'       => '0.22',
         'MooseX::NonMoose'               => '0.13',
         'MooseX::Params::Validate'       => '0.05',
+        'MooseX::POE'                    => '0.205',
         'MooseX::Role::Cmd'              => '0.06',
         'MooseX::Role::WithOverloading'  => '0.07',
         'MooseX::SemiAffordanceAccessor' => '0.05',
-        'MooseX::Singleton'              => '0.22',
+        'MooseX::Singleton'              => '0.24',
         'MooseX::StrictConstructor'      => '0.08',
         'MooseX::Types'                  => '0.19',
         'MooseX::UndefTolerant'          => '0.04',

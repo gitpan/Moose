@@ -203,6 +203,8 @@ t/020_attributes/031_delegation_and_modifiers.t
 t/020_attributes/032_delegation_arg_aliasing.t
 t/020_attributes/033_accessor_inlining.t
 t/020_attributes/034_bad_coerce.t
+t/020_attributes/034_numeric_defaults.t
+t/020_attributes/035_default_undef.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -285,7 +287,6 @@ t/050_metaclasses/002_custom_attr_meta_as_role.t
 t/050_metaclasses/003_moose_w_metaclass.t
 t/050_metaclasses/004_moose_for_meta.t
 t/050_metaclasses/010_extending_and_embedding_back_compat.t
-t/050_metaclasses/011_init_meta.t
 t/050_metaclasses/012_moose_exporter.t
 t/050_metaclasses/013_metaclass_traits.t
 t/050_metaclasses/014_goto_moose_import.t
