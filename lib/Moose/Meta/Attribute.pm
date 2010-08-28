@@ -9,7 +9,7 @@ use List::MoreUtils 'any';
 use Try::Tiny;
 use overload     ();
 
-our $VERSION   = '1.10';
+our $VERSION   = '1.11';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Deprecated;
@@ -134,7 +134,7 @@ sub interpolate_class {
 
 # method-generating options shouldn't be overridden
 sub illegal_options_for_inheritance {
-    qw(is reader writer accessor clearer predicate)
+    qw(reader writer accessor clearer predicate)
 }
 
 # NOTE/TODO

@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use inc::Module::Install 0.98;
 use Module::Install::AuthorRequires;
+use Module::Install::ExtraTests;
 use 5.008003;
 
 check_broken_extratests();
@@ -25,6 +26,7 @@ requires 'Try::Tiny'                   => '0.02';
 
 test_requires 'Test::More'      => '0.88';
 test_requires 'Test::Exception' => '0.27';
+test_requires 'Test::Requires'  => '0.05';
 
 author_requires 'File::Find::Rule';
 author_requires 'Module::Info';

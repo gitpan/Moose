@@ -6,11 +6,10 @@ use warnings;
 use Test::More;
 use Test::Exception;
 
-BEGIN {
-    eval "use IO::String; use IO::File;";
-    plan skip_all => "IO::String and IO::File are required for this test" if $@;
-}
-
+use Test::Requires {
+    'IO::String' => '0.01', # skip all if not installed
+    'IO::File' => '0.01',
+};
 
 {
     package Email::Moose;
@@ -154,6 +153,38 @@ BEGIN {
 
     isa_ok($email->raw_body, 'IO::File');
     is($email->raw_body, $fh, '... and it is the one we expected');
+}
+
+{
+    package Foo;
+
+    use Moose;
+    use Moose::Util::TypeConstraints;
+
+    subtype 'Coerced' => as 'ArrayRef';
+    coerce 'Coerced'
+        => from 'Value'
+        => via { [ $_ ] };
+
+    has carray => (
+        is     => 'ro',
+        isa    => 'Coerced | Coerced',
+        coerce => 1,
+    );
+}
+
+{
+    my $foo;
+    lives_ok { $foo = Foo->new( carray => 1 ) }
+    'Can pass non-ref value for carray';
+    is_deeply(
+        $foo->carray, [1],
+        'carray was coerced to an array ref'
+    );
+
+    throws_ok { Foo->new( carray => {} ) }
+    qr/\QValidation failed for 'Coerced|Coerced' with value \E(?!undef)/,
+        'Cannot pass a hash ref for carray attribute, and hash ref is not coerced to an undef';
 }
 
 done_testing;

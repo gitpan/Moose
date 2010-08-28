@@ -5,8 +5,9 @@ use warnings;
 
 use Test::More;
 
-eval "use Test::Pod::Coverage 1.04";
-plan skip_all => "Test::Pod::Coverage 1.04 required for testing POD coverage" if $@;
+use Test::Requires {
+    'Test::Pod::Coverage' => '1.04', # skip all if not installed
+};
 
 # This is a stripped down version of all_pod_coverage_ok which lets us
 # vary the trustme parameter per module.
@@ -91,10 +92,11 @@ my %trustme = (
         [qw( constraint equals get_message )],
     'Moose::Meta::TypeConstraint::Parameterizable' => ['.+'],
     'Moose::Meta::TypeConstraint::Parameterized'   => ['.+'],
-    'Moose::Meta::TypeConstraint::Role'  => [qw( equals is_a_type_of )],
-    'Moose::Meta::TypeConstraint::Union' => ['compile_type_constraint'],
-    'Moose::Util'                        => ['add_method_modifier'],
-    'Moose::Util::MetaRole'              => ['apply_metaclass_roles'],
+    'Moose::Meta::TypeConstraint::Role' => [qw( equals is_a_type_of )],
+    'Moose::Meta::TypeConstraint::Union' =>
+        [qw( compile_type_constraint coercion has_coercion)],
+    'Moose::Util'                  => ['add_method_modifier'],
+    'Moose::Util::MetaRole'        => ['apply_metaclass_roles'],
     'Moose::Util::TypeConstraints' => ['find_or_create_type_constraint'],
 );
 
