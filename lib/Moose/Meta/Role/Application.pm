@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use metaclass;
 
-our $VERSION   = '1.11';
+our $VERSION   = '1.12';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -24,11 +24,11 @@ sub new {
     my ($class, %params) = @_;
 
     if ( exists $params{excludes} || exists $params{alias} ) {
-#        Moose::Deprecated::deprecated(
-#            feature => 'alias or excludes',
-#            message =>
-#                "The alias and excludes options for role application have been renamed -alias and -excludes"
-#        );
+        # Moose::Deprecated::deprecated(
+        #     feature => 'alias or excludes',
+        #     message =>
+        #         "The alias and excludes options for role application have been renamed -alias and -excludes"
+        # );
     }
 
     if ( exists $params{excludes} && !exists $params{'-excludes'} ) {
