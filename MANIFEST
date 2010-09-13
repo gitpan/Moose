@@ -170,6 +170,7 @@ t/010_basics/018_methods.t
 t/010_basics/019-destruction.t
 t/010_basics/020-global-destruction-helper.pl
 t/010_basics/020-global-destruction.t
+t/010_basics/021-moose-object-does.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
 t/020_attributes/003_attribute_accessor_generation.t
@@ -246,8 +247,9 @@ t/030_roles/041_empty_method_modifiers_meta_bug.t
 t/030_roles/042_compose_overloading.t
 t/030_roles/043_conflict_many_methods.t
 t/030_roles/044_role_attrs.t
-t/030_roles/044_role_consumers.t
 t/030_roles/045_role_compose_requires.t
+t/030_roles/046_role_consumers.t
+t/030_roles/047_role_attribute_conflict.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t

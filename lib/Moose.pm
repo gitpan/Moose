@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '1.12';
+our $VERSION   = '1.13';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -373,8 +373,10 @@ Moose makes every attempt to provide as much convenience as possible during
 class construction/definition, but still stay out of your way if you want it
 to. Here are a few items to note when building classes with Moose.
 
-Unless specified with C<extends>, any class which uses Moose will
-inherit from L<Moose::Object>.
+When you C<use Moose>, Moose will set the class's parent class to
+L<Moose::Object>, I<unless> the class using Moose already has a parent
+class. In addition, specifying a parent with C<extends> will change the parent
+class.
 
 Moose will also manage all attributes (including inherited ones) that are
 defined with C<has>. And (assuming you call C<new>, which is inherited from
@@ -472,9 +474,9 @@ for information on how to define a new type, and how to retrieve type meta-data)
 =item I<coerce =E<gt> (1|0)>
 
 This will attempt to use coercion with the supplied type constraint to change
-the value passed into any accessors or constructors. You B<must> have supplied
-a type constraint in order for this to work. See L<Moose::Cookbook::Basics::Recipe5>
-for an example.
+the value passed into any accessors or constructors. You B<must> supply a type
+constraint, and that type constraint B<must> define a coercion. See
+L<Moose::Cookbook::Basics::Recipe5> for an example.
 
 =item I<does =E<gt> $role_name>
 

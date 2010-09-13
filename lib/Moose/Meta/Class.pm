@@ -12,7 +12,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '1.12';
+our $VERSION   = '1.13';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -67,19 +67,6 @@ sub initialize {
                 'instance_metaclass'  => 'Moose::Meta::Instance',
                 @_
             );
-}
-
-sub _immutable_options {
-    my ( $self, @args ) = @_;
-
-    $self->SUPER::_immutable_options(
-        inline_destructor => 1,
-
-        # Moose always does this when an attribute is created
-        inline_accessors => 0,
-
-        @args,
-    );
 }
 
 sub create {
@@ -653,6 +640,21 @@ sub _process_inherited_attribute {
     }
 }
 
+## Immutability
+
+sub _immutable_options {
+    my ( $self, @args ) = @_;
+
+    $self->SUPER::_immutable_options(
+        inline_destructor => 1,
+
+        # Moose always does this when an attribute is created
+        inline_accessors => 0,
+
+        @args,
+    );
+}
+
 ## -------------------------------------------------
 
 our $error_level;
@@ -768,8 +770,8 @@ This overrides the parent's method to add a few options. Specifically,
 it uses the Moose-specific constructor and destructor classes, and
 enables inlining the destructor.
 
-Also, since Moose always inlines attributes, it sets the
-C<inline_accessors> option to false.
+Since Moose always inlines attributes, it sets the C<inline_accessors> option
+to false.
 
 =item B<< $metaclass->new_object(%params) >>
 
@@ -840,8 +842,8 @@ be provided as a hash reference.
 
 =item B<< $metaclass->destructor_class($class_name) >>
 
-These are the names of classes used when making a class
-immutable. These default to L<Moose::Meta::Method::Constructor> and
+These are the names of classes used when making a class immutable. These
+default to L<Moose::Meta::Method::Constructor> and
 L<Moose::Meta::Method::Destructor> respectively. These accessors are
 read-write, so you can use them to change the class name.
 

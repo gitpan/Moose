@@ -8,14 +8,10 @@ $| = 1;
 
 
 # =begin testing SETUP
-BEGIN {
-    eval 'use Regexp::Common; use Locale::US;';
-    if ($@) {
-        diag 'Regexp::Common & Locale::US required for this test';
-        ok(1);
-        exit 0;
-    }
-}
+use Test::Requires {
+    'Locale::US'     => '0',
+    'Regexp::Common' => '0',
+};
 
 
 

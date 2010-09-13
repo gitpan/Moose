@@ -4,8 +4,9 @@ use strict;
 use warnings;
 
 use Class::MOP;
+use Scalar::Util qw( blessed );
 
-our $VERSION   = '1.12';
+our $VERSION   = '1.13';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -17,6 +18,27 @@ sub calculate_all_roles {
     my $orig = shift;
     my $self = shift;
     @{ $self->{__immutable}{calculate_all_roles} ||= [ $self->$orig ] };
+}
+
+sub calculate_all_roles_with_inheritance {
+    my $orig = shift;
+    my $self = shift;
+    @{ $self->{__immutable}{calculate_all_roles_with_inheritance} ||= [ $self->$orig ] };
+}
+
+sub does_role {
+    shift;
+    my $self = shift;
+    my $role = shift;
+
+    (defined $role)
+        || $self->throw_error("You must supply a role name to look for");
+
+    $self->{__immutable}{does_role} ||= { map { $_->name => 1 } $self->calculate_all_roles_with_inheritance };
+
+    my $name = blessed $role ? $role->name : $role;
+
+    return $self->{__immutable}{does_role}{$name};
 }
 
 1;

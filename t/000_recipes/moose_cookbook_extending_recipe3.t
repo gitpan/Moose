@@ -8,14 +8,9 @@ $| = 1;
 
 
 # =begin testing SETUP
-BEGIN {
-    eval 'use Test::Output;';
-    if ($@) {
-        diag 'Test::Output is required for this test';
-        ok(1);
-        exit 0;
-    }
-}
+use Test::Requires {
+    'Test::Output' => '0',
+};
 
 
 

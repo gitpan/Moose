@@ -1,6 +1,23 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+1.13 Mon, Sep 13, 2010
+
+  [API CHANGES]
+
+  * The deprecation warnings for alias and excludes are back, use -alias and
+    -excludes instead. (Dave Rolsky)
+
+  [ENHANCEMENTS]
+
+  * When composing one role into another and there is an attribute conflict,
+    the error message now includes the attribute name. Reported by Sam
+    Graham. RT #59985. (Dave Rolsky)
+
+  * When a class is made immutable, the does_role method is overridden with a
+    much faster version that simply looks role names up in a hash. Code which
+    uses lots of role-based type constraints should be faster. (Dave Rolsky)
+
 1.12 Sat, Aug 28, 2010
 
   [BUG FIXES]
