@@ -1,19 +1,14 @@
 package Moose::Meta::Attribute::Native::Trait::Code;
 use Moose::Role;
-use Moose::Meta::Attribute::Native::MethodProvider::Code;
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-with 'Moose::Meta::Attribute::Native::Trait';
+use Moose::Meta::Method::Accessor::Native::Code::execute;
+use Moose::Meta::Method::Accessor::Native::Code::execute_method;
 
-has method_provider => (
-    is        => 'ro',
-    isa       => 'ClassName',
-    predicate => 'has_method_provider',
-    default   => 'Moose::Meta::Attribute::Native::MethodProvider::Code',
-);
+with 'Moose::Meta::Attribute::Native::Trait';
 
 sub _helper_type { 'CodeRef' }
 
@@ -69,10 +64,6 @@ Calls the coderef with the the instance as invocant and given args.
 =over 4
 
 =item B<meta>
-
-=item B<method_provider>
-
-=item B<has_method_provider>
 
 =back
 

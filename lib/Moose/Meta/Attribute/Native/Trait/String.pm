@@ -1,20 +1,22 @@
 package Moose::Meta::Attribute::Native::Trait::String;
 use Moose::Role;
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-use Moose::Meta::Attribute::Native::MethodProvider::String;
+use Moose::Meta::Method::Accessor::Native::String::append;
+use Moose::Meta::Method::Accessor::Native::String::chomp;
+use Moose::Meta::Method::Accessor::Native::String::chop;
+use Moose::Meta::Method::Accessor::Native::String::clear;
+use Moose::Meta::Method::Accessor::Native::String::inc;
+use Moose::Meta::Method::Accessor::Native::String::length;
+use Moose::Meta::Method::Accessor::Native::String::match;
+use Moose::Meta::Method::Accessor::Native::String::prepend;
+use Moose::Meta::Method::Accessor::Native::String::replace;
+use Moose::Meta::Method::Accessor::Native::String::substr;
 
 with 'Moose::Meta::Attribute::Native::Trait';
-
-has 'method_provider' => (
-    is        => 'ro',
-    isa       => 'ClassName',
-    predicate => 'has_method_provider',
-    default   => 'Moose::Meta::Attribute::Native::MethodProvider::String',
-);
 
 sub _default_default { q{} }
 sub _default_is { 'rw' }
@@ -67,11 +69,6 @@ above. This allows for a very basic string definition:
   $obj->append_foo;
 
 =head1 PROVIDED METHODS
-
-These methods are implemented in
-L<Moose::Meta::Attribute::Native::MethodProvider::String>. It is important to
-note that all those methods do in place modification of the value stored in
-the attribute.
 
 =over 4
 
@@ -128,10 +125,6 @@ based on C<substr>'s arity.
 =over 4
 
 =item B<meta>
-
-=item B<method_provider>
-
-=item B<has_method_provider>
 
 =back
 

@@ -1,6 +1,52 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+1.15 Tue, Oct 5, 2010
+
+  [API CHANGES]
+
+  * Major changes to Native Traits, most of which make them act more like
+    "normal" attributes. This should be mostly compatible with existing code,
+    but see Moose::Manual::Delta for details.
+
+  * A few native traits (String, Counter, Bool) provide default values of "is"
+    and "default" when you created an attribute. Allowing them to provide
+    these values is now deprecated. Supply the value yourself when creating
+    the attribute.
+
+  * New option 'trait_aliases' for Moose::Exporter, which will allow you to
+    generate non-global aliases for your traits (and allow your users to
+    rename the aliases, etc). (doy)
+
+  * 'use Moose' and 'use Moose::Role' now accept a '-meta_name' option, to
+    determine which name to install the 'meta' name under. Passing 'undef'
+    to this option will suppress generation of the meta method entirely. (doy)
+
+  * Moose now warns if it overwrites an existing method named "meta" in your
+    class when you "use Moose". (doy)
+
+  [ENHANCEMENTS]
+
+  * Native Trait delegations are now all generated as inline code. This should
+    be much faster than the previous method of delegation. In the best case,
+    native trait methods will be very highly optimized.
+
+  * Reinitializing a metaclass no longer removes the existing method and
+    attribute objects (it instead fixes them so they are correct for the
+    reinitialized metaclass). This should make the order of loading many
+    MooseX modules less of an issue. (doy)
+
+  * The Moose::Manual docs have been revised and updated. (Dave Rolsky)
+
+  [BUG FIXES]
+
+  * If an attribute was weak, setting it to a non-ref value after the object
+    was constructed caused an error. Now we only call weaken when the new
+    value is a reference.
+
+  * t/040_type_constraints/036_match_type_operator.t failed on 5.13.5+. Fixed
+    based on a patch from Andreas Koenig.
+
 1.14 Tue, Sep 21, 2010
 
   [BUG FIXES]

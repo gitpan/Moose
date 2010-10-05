@@ -16,6 +16,82 @@ feature.  If you encounter a problem and have a solution but don't see
 it documented here, or think we missed an important feature, please
 send us a patch.
 
+=head1 NEXT
+
+=over 4
+
+=item Native Traits
+
+In previous versions of Moose, the Native delegations were created as
+closures. The generated code was often quite slow compared to doing the same
+thing by hand. For example, the Array's push delegation ended up doing
+something like this:
+
+  push @{ $self->$reader() }, @_;
+
+If the attribute was created without a reader, the C<$reader> sub reference
+followed a very slow code path. Even with a reader, this is still slower than
+it needs to be.
+
+Native delegations are now generated as inline code, just like other
+accessors, so we can access the slot directly.
+
+In addition, native traits now do proper constraint checking in all cases. In
+particular, constraint checking has been improved for array and hash
+references. Previously, only the I<contained> type (the C<Str> in
+C<HashRef[Str]>) would be checked when a new value was added to the
+collection. However, if there was a constraint that applied to the whole
+value, this was never checked.
+
+In addition, coercions are now called on the whole value.
+
+The delegation methods now do more argument checking. All of the methods check
+that a valid number of arguments were passed to the method. In addition, the
+delegation methods check that the arguments are sane (array indexes, hash
+keys, numbers, etc.) when applicable. We have tried to emulate the behavior of
+Perl builtins as much as possible.
+
+Finally, triggers are called whenever the value of the attribute is changed by
+a Native delegation.
+
+These changes are only likely to break code in a few cases.
+
+The inlining code may or may not preserve the original reference when changes
+are made. In some cases, methods which change the value may replace it
+entirely. This will break tied values.
+
+If you have a typed arrayref or hashref attribute where the type enforces a
+constraint on the whole collection, this constraint will now be checked. It's
+possible that code which previously ran without errors will now cause the
+constraint to fail. However, presumably this is a good thing ;)
+
+If you are passing invalid arguments to a delegation which were previously
+being ignored, these calls will now fail.
+
+If your code relied on the trigger only being called for a regular writer,
+that may cause problems.
+
+As always, you are encouraged to test before deploying the latest version of
+Moose to production.
+
+=item Defaults is and default for String, Counter, and Bool
+
+A few native traits (String, Counter, Bool) provide default values of "is" and
+"default" when you created an attribute. Allowing them to provide these values
+is now deprecated. Supply the value yourself when creating the attribute.
+
+=item The C<meta> method
+
+Moose and Class::MOP have been cleaned up internally enough to make the
+C<meta> method that you get by default optional. C<use Moose> and
+C<use Moose::Role> now can take an additional C<-meta_name> option, which
+tells Moose what name to use when installing the C<meta> method. Passing
+C<undef> to this option suppresses generation of the C<meta> method
+entirely. This should be useful for users of modules which also use a C<meta>
+method or function, such as L<Curses> or L<Rose::DB::Object>.
+
+=back
+
 =head1 1.09
 
 =over 4

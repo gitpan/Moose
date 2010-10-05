@@ -1,22 +1,19 @@
 package Moose::Meta::Attribute::Native::Trait::Bool;
 use Moose::Role;
-use Moose::Meta::Attribute::Native::MethodProvider::Bool;
 
-our $VERSION = '1.14';
+our $VERSION = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
+
+use Moose::Meta::Method::Accessor::Native::Bool::not;
+use Moose::Meta::Method::Accessor::Native::Bool::set;
+use Moose::Meta::Method::Accessor::Native::Bool::toggle;
+use Moose::Meta::Method::Accessor::Native::Bool::unset;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
 sub _default_is  { 'rw' }
 sub _helper_type { 'Bool' }
-
-has 'method_provider' => (
-    is        => 'ro',
-    isa       => 'ClassName',
-    predicate => 'has_method_provider',
-    default   => 'Moose::Meta::Attribute::Native::MethodProvider::Bool'
-);
 
 no Moose::Role;
 
@@ -59,11 +56,6 @@ basic math operations.
 
 =head1 PROVIDED METHODS
 
-These methods are implemented in
-L<Moose::Meta::Attribute::Native::MethodProvider::Bool>. It is important to
-note that all those methods do in place modification of the value stored in
-the attribute.
-
 =over 4
 
 =item B<set>
@@ -89,10 +81,6 @@ Equivalent of 'not C<$value>'.
 =over 4
 
 =item B<meta>
-
-=item B<has_method_provider>
-
-=item B<method_provider>
 
 =back
 

@@ -2,24 +2,22 @@
 package Moose::Meta::Attribute::Native::Trait::Counter;
 use Moose::Role;
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-use Moose::Meta::Attribute::Native::MethodProvider::Counter;
+use Moose::Meta::Method::Accessor::Native::Counter::dec;
+use Moose::Meta::Method::Accessor::Native::Counter::inc;
+use Moose::Meta::Method::Accessor::Native::Counter::reset;
+use Moose::Meta::Method::Accessor::Native::Counter::set;
 
-with 'Moose::Meta::Attribute::Native::Trait';
-
-has 'method_provider' => (
-    is        => 'ro',
-    isa       => 'ClassName',
-    predicate => 'has_method_provider',
-    default   => 'Moose::Meta::Attribute::Native::MethodProvider::Counter',
-);
+with 'Moose::Meta::Attribute::Native::Trait' =>
+    { -excludes => ['_root_types'] };
 
 sub _default_default { 0 }
 sub _default_is { 'ro' }
 sub _helper_type { 'Num' }
+sub _root_types { 'Num', 'Int' }
 
 no Moose::Role;
 
@@ -65,11 +63,6 @@ amount of change is one.
 
 =head1 PROVIDED METHODS
 
-These methods are implemented in
-L<Moose::Meta::Attribute::Native::MethodProvider::Counter>. It is important to
-note that all those methods do in place modification of the value stored in
-the attribute.
-
 =over 4
 
 =item B<set($value)>
@@ -97,10 +90,6 @@ Resets the value stored in this slot to it's default value.
 =over 4
 
 =item B<meta>
-
-=item B<method_provider>
-
-=item B<has_method_provider>
 
 =back
 

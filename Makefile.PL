@@ -14,10 +14,11 @@ all_from 'lib/Moose.pm';
 license 'perl';
 
 requires 'Carp';
-requires 'Class::MOP'                  => '1.05';
+requires 'Class::MOP'                  => '1.09';
 requires 'Data::OptList'               => '0';
 requires 'List::MoreUtils'             => '0.12';
 requires 'Package::DeprecationManager' => '0.04';
+requires 'Params::Util'                => '0';
 requires 'Scalar::Util'                => '1.19';
 requires 'Sub::Exporter'               => '0.980';
 requires 'Sub::Name'                   => '0';
@@ -68,23 +69,25 @@ WriteAll();
 # before a release.
 sub check_conflicts {
     my %conflicts = (
-        'Catalyst'                       => '5.80017',
+        'Catalyst'                       => '5.80028',
         'Devel::REPL'                    => '1.003008',
-        'Fey::ORM'                       => '0.23',
+        'Fey'                            => '0.36',
+        'Fey::ORM'                       => '0.34',
         'File::ChangeNotify'             => '0.15',
         'KiokuDB'                        => '0.41',
+        'Markdent'                       => '0.16',
         'MooseX::Aliases'                => '0.07',
         'MooseX::AlwaysCoerce'           => '0.05',
         'MooseX::AttributeHelpers'       => '0.22',
         'MooseX::AttributeInflate'       => '0.02',
         'MooseX::Attribute::Prototype'   => '0.10',
-        'MooseX::ClassAttribute'         => '0.13',
+        'MooseX::ClassAttribute'         => '0.16',
         'MooseX::FollowPBP'              => '0.02',
         'MooseX::HasDefaults'            => '0.02',
         'MooseX::InstanceTracking'       => '0.04',
         'MooseX::LazyRequire'            => '0.05',
         'MooseX::MethodAttributes'       => '0.22',
-        'MooseX::NonMoose'               => '0.13',
+        'MooseX::NonMoose'               => '0.15',
         'MooseX::Params::Validate'       => '0.05',
         'MooseX::POE'                    => '0.205',
         'MooseX::Role::Cmd'              => '0.06',

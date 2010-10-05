@@ -4,7 +4,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -14,7 +14,7 @@ use Carp         'confess';
 use Moose::Deprecated;
 use Moose::Exporter;
 
-use Class::MOP 1.05;
+use Class::MOP 1.09;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -153,6 +153,7 @@ sub init_meta {
         or Moose->throw_error("Cannot call init_meta without specifying a for_class");
     my $base_class = $args{base_class} || 'Moose::Object';
     my $metaclass  = $args{metaclass}  || 'Moose::Meta::Class';
+    my $meta_name  = exists $args{meta_name} ? $args{meta_name} : 'meta';
 
     Moose->throw_error("The Metaclass $metaclass must be a subclass of Moose::Meta::Class.")
         unless $metaclass->isa('Moose::Meta::Class');
@@ -173,7 +174,7 @@ sub init_meta {
             }
         }
     } else {
-        # no metaclass, no 'meta' method
+        # no metaclass
 
         # now we check whether our ancestors have metaclass, and if so borrow that
         my ( undef, @isa ) = @{ mro::get_linear_isa($class) };
@@ -181,9 +182,7 @@ sub init_meta {
         foreach my $ancestor ( @isa ) {
             my $ancestor_meta = Class::MOP::get_metaclass_by_name($ancestor) || next;
 
-            my $ancestor_meta_class = ($ancestor_meta->is_immutable
-                ? $ancestor_meta->_get_mutable_metaclass_name
-                : ref($ancestor_meta));
+            my $ancestor_meta_class = $ancestor_meta->_real_ref_name;
 
             # if we have an ancestor metaclass that inherits $metaclass, we use
             # that. This is like _fix_metaclass_incompatibility, but we can do it now.
@@ -200,32 +199,19 @@ sub init_meta {
         $meta = $metaclass->initialize($class);
     }
 
-    if ( $class->can('meta') ) {
-        # check 'meta' method
-
-        # it may be inherited
-
-        # NOTE:
-        # this is the case where the metaclass pragma
-        # was used before the 'use Moose' statement to
-        # override a specific class
-        my $method_meta = $class->meta;
-
-        ( blessed($method_meta) && $method_meta->isa('Moose::Meta::Class') )
-            || Moose->throw_error("$class already has a &meta function, but it does not return a Moose::Meta::Class ($method_meta)");
-
-        $meta = $method_meta;
-    }
-
-    unless ( $meta->has_method("meta") ) { # don't overwrite
+    if (defined $meta_name) {
         # also check for inherited non moose 'meta' method?
-        # FIXME also skip this if the user requested by passing an option
-        $meta->add_method(
-            'meta' => sub {
-                # re-initialize so it inherits properly
-                $metaclass->initialize( ref($_[0]) || $_[0] );
-            }
-        );
+        my $existing = $meta->get_method($meta_name);
+        if ($existing && !$existing->isa('Class::MOP::Method::Meta')) {
+            Carp::cluck "Moose is overwriting an existing method named "
+                      . "$meta_name in class $class with a method "
+                      . "which returns the class's metaclass. If this is "
+                      . "actually what you want, you should remove the "
+                      . "existing method, otherwise, you should rename or "
+                      . "disable this generated method using the "
+                      . "'-meta_name' option to 'use Moose'.";
+        }
+        $meta->_add_meta_method($meta_name);
     }
 
     # make sure they inherit from Moose::Object

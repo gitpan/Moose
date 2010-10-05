@@ -6,7 +6,7 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -57,7 +57,6 @@ sub new {
             roles        => [ @composition_roles ],
             cache        => 1,
         );
-        $meta->add_method(meta => sub { $meta });
         $class = $meta->name;
     }
 

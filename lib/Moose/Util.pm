@@ -4,11 +4,14 @@ use strict;
 use warnings;
 
 use Data::OptList;
+use Params::Util qw( _STRING );
 use Sub::Exporter;
 use Scalar::Util 'blessed';
+use List::Util qw(first);
+use List::MoreUtils qw(any all);
 use Class::MOP   0.60;
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -283,6 +286,162 @@ sub meta_class_alias {
     my $meta = Class::MOP::class_of($from);
     my $trait = $meta->isa('Moose::Meta::Role');
     _create_alias('Class', $to, $trait, $from);
+}
+
+# XXX - this should be added to Params::Util
+sub _STRINGLIKE ($) {
+    return _STRING( $_[0] )
+        || ( blessed $_[0]
+        && overload::Method( $_[0], q{""} )
+        && length "$_[0]" );
+}
+
+sub _reconcile_roles_for_metaclass {
+    my ($class_meta_name, $super_meta_name) = @_;
+
+    my @role_differences = _role_differences(
+        $class_meta_name, $super_meta_name,
+    );
+
+    # handle the case where we need to fix compatibility between a class and
+    # its parent, but all roles in the class are already also done by the
+    # parent
+    # see t/050/054.t
+    return $super_meta_name
+        unless @role_differences;
+
+    return Moose::Meta::Class->create_anon_class(
+        superclasses => [$super_meta_name],
+        roles        => [map { $_->name } @role_differences],
+        cache        => 1,
+    )->name;
+}
+
+sub _role_differences {
+    my ($class_meta_name, $super_meta_name) = @_;
+    my @super_role_metas = $super_meta_name->meta->can('calculate_all_roles_with_inheritance')
+                         ? $super_meta_name->meta->calculate_all_roles_with_inheritance
+                         : $super_meta_name->meta->can('calculate_all_roles')
+                         ? $super_meta_name->meta->calculate_all_roles
+                         : ();
+    my @role_metas       = $class_meta_name->meta->can('calculate_all_roles_with_inheritance')
+                         ? $class_meta_name->meta->calculate_all_roles_with_inheritance
+                         : $class_meta_name->meta->can('calculate_all_roles')
+                         ? $class_meta_name->meta->calculate_all_roles
+                         : ();
+    my @differences;
+    for my $role_meta (@role_metas) {
+        push @differences, $role_meta
+            unless any { $_->name eq $role_meta->name } @super_role_metas;
+    }
+    return @differences;
+}
+
+sub _classes_differ_by_roles_only {
+    my ( $self_meta_name, $super_meta_name ) = @_;
+
+    my $common_base_name
+        = _find_common_base( $self_meta_name, $super_meta_name );
+
+    return unless defined $common_base_name;
+
+    my @super_meta_name_ancestor_names
+        = _get_ancestors_until( $super_meta_name, $common_base_name );
+    my @class_meta_name_ancestor_names
+        = _get_ancestors_until( $self_meta_name, $common_base_name );
+
+    return
+        unless all { _is_role_only_subclass($_) }
+        @super_meta_name_ancestor_names,
+        @class_meta_name_ancestor_names;
+
+    return 1;
+}
+
+sub _find_common_base {
+    my ($meta1, $meta2) = map { Class::MOP::class_of($_) } @_;
+    return unless defined $meta1 && defined $meta2;
+
+    # FIXME? This doesn't account for multiple inheritance (not sure
+    # if it needs to though). For example, if somewhere in $meta1's
+    # history it inherits from both ClassA and ClassB, and $meta2
+    # inherits from ClassB & ClassA, does it matter? And what crazy
+    # fool would do that anyway?
+
+    my %meta1_parents = map { $_ => 1 } $meta1->linearized_isa;
+
+    return first { $meta1_parents{$_} } $meta2->linearized_isa;
+}
+
+sub _get_ancestors_until {
+    my ($start_name, $until_name) = @_;
+
+    my @ancestor_names;
+    for my $ancestor_name (Class::MOP::class_of($start_name)->linearized_isa) {
+        last if $ancestor_name eq $until_name;
+        push @ancestor_names, $ancestor_name;
+    }
+    return @ancestor_names;
+}
+
+sub _is_role_only_subclass {
+    my ($meta_name) = @_;
+    my $meta = Class::MOP::Class->initialize($meta_name);
+    my @parent_names = $meta->superclasses;
+
+    # XXX: don't feel like messing with multiple inheritance here... what would
+    # that even do?
+    return unless @parent_names == 1;
+    my ($parent_name) = @parent_names;
+    my $parent_meta = Class::MOP::Class->initialize($parent_name);
+
+    # only get the roles attached to this particular class, don't look at
+    # superclasses
+    my @roles = $meta->can('calculate_all_roles')
+                    ? $meta->calculate_all_roles
+                    : ();
+
+    # it's obviously not a role-only subclass if it doesn't do any roles
+    return unless @roles;
+
+    # loop over all methods that are a part of the current class
+    # (not inherited)
+    for my $method ( $meta->_get_local_methods ) {
+        # always ignore meta
+        next if $method->isa('Class::MOP::Method::Meta');
+        # we'll deal with attributes below
+        next if $method->can('associated_attribute');
+        # if the method comes from a role we consumed, ignore it
+        next if $meta->can('does_role')
+             && $meta->does_role($method->original_package_name);
+        # FIXME - this really isn't right. Just because a modifier is
+        # defined in a role doesn't mean it isn't _also_ defined in the
+        # subclass.
+        next if $method->isa('Class::MOP::Method::Wrapped')
+             && (
+                 (!scalar($method->around_modifiers)
+               || any { $_->has_around_method_modifiers($method->name) } @roles)
+              && (!scalar($method->before_modifiers)
+               || any { $_->has_before_method_modifiers($method->name) } @roles)
+              && (!scalar($method->after_modifiers)
+               || any { $_->has_after_method_modifiers($method->name) } @roles)
+                );
+
+        return 0;
+    }
+
+    # loop over all attributes that are a part of the current class
+    # (not inherited)
+    # FIXME - this really isn't right. Just because an attribute is
+    # defined in a role doesn't mean it isn't _also_ defined in the
+    # subclass.
+    for my $attr (map { $meta->get_attribute($_) } $meta->get_attribute_list) {
+        next if any { $_->has_attribute($attr->name) } @roles;
+
+        return 0;
+    }
+
+    return 1;
 }
 
 1;

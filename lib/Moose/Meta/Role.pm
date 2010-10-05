@@ -9,7 +9,7 @@ use Scalar::Util 'blessed';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -18,11 +18,15 @@ use Moose::Meta::Role::Attribute;
 use Moose::Meta::Role::Method;
 use Moose::Meta::Role::Method::Required;
 use Moose::Meta::Role::Method::Conflicting;
+use Moose::Meta::Method::Meta;
 use Moose::Util qw( ensure_all_roles );
+use Class::MOP::MiniTrait;
 
 use base 'Class::MOP::Module',
          'Class::MOP::Mixin::HasAttributes',
          'Class::MOP::Mixin::HasMethods';
+
+Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 ## ------------------------------------------------------------------
 ## NOTE:
@@ -185,11 +189,25 @@ sub reinitialize {
         );
     }
 
-    return $self->SUPER::reinitialize(
+    # don't need to remove generated metaobjects here yet, since we don't
+    # yet generate anything in roles. this may change in the future though...
+    # keep an eye on that
+    my $new_meta = $self->SUPER::reinitialize(
         $pkg,
         %existing_classes,
         @_,
     );
+    $new_meta->_restore_metaobjects_from($meta)
+        if $meta && $meta->isa('Moose::Meta::Role');
+    return $new_meta;
+}
+
+sub _restore_metaobjects_from {
+    my $self = shift;
+    my ($old_meta) = @_;
+
+    $self->_restore_metamethods_from($old_meta);
+    $self->_restore_metaattributes_from($old_meta);
 }
 
 sub add_attribute {
@@ -348,6 +366,7 @@ sub update_package_cache_flag {
 }
 
 
+sub _meta_method_class { 'Moose::Meta::Method::Meta' }
 
 ## ------------------------------------------------------------------
 ## subroles
@@ -460,11 +479,15 @@ sub create {
         || confess "You must pass a HASH ref of methods"
             if exists $options{methods};
 
+    $options{meta_name} = 'meta'
+        unless exists $options{meta_name};
+
     my (%initialize_options) = %options;
     delete @initialize_options{qw(
         package
         attributes
         methods
+        meta_name
         version
         authority
     )};
@@ -473,10 +496,8 @@ sub create {
 
     $meta->_instantiate_module( $options{version}, $options{authority} );
 
-    # FIXME totally lame
-    $meta->add_method('meta' => sub {
-        $role->initialize(ref($_[0]) || $_[0]);
-    });
+    $meta->_add_meta_method($options{meta_name})
+        if defined $options{meta_name};
 
     if (exists $options{attributes}) {
         foreach my $attribute_name (keys %{$options{attributes}}) {

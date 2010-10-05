@@ -4,7 +4,7 @@ package Moose::Meta::Method::Accessor;
 use strict;
 use warnings;
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -19,20 +19,8 @@ sub _error_thrower {
 sub _eval_code {
     my ( $self, $source ) = @_;
 
-    # NOTE:
-    # set up the environment
-    my $attr = $self->associated_attribute;
-    my $type_constraint_obj = $attr->type_constraint;
-    my $environment = {
-        '$attr' => \$attr,
-        '$meta' => \$self,
-        '$type_constraint_obj' => \$type_constraint_obj,
-        '$type_constraint' => \($type_constraint_obj
-                                   ? $type_constraint_obj->_compiled_type_constraint
-                                   : undef),
-    };
+    my $environment = $self->_eval_environment;
 
-    #warn "code for " . $attr->name . " =>\n" . $source . "\n";
     my ( $code, $e ) = $self->_compile_code( environment => $environment, code => $source );
 
     $self->throw_error(
@@ -41,6 +29,24 @@ sub _eval_code {
         if $e;
 
     return $code;
+}
+
+sub _eval_environment {
+    my $self = shift;
+
+    my $attr                = $self->associated_attribute;
+    my $type_constraint_obj = $attr->type_constraint;
+
+    return {
+        '$attr'                => \$attr,
+        '$meta'                => \$self,
+        '$type_constraint_obj' => \$type_constraint_obj,
+        '$type_constraint'     => \(
+              $type_constraint_obj
+            ? $type_constraint_obj->_compiled_type_constraint
+            : undef
+        ),
+    };
 }
 
 sub _generate_accessor_method_inline {
@@ -241,15 +247,9 @@ sub _inline_init_slot {
 }
 
 sub _inline_store {
-    my ($self, $instance, $value) = @_;
-    my $attr = $self->associated_attribute;
+    my ( $self, $instance, $value ) = @_;
 
-    my $mi = $attr->associated_class->get_meta_instance;
-
-    my $code = $mi->inline_set_slot_value($instance, $attr->slots, $value)    . ";";
-    $code   .= $mi->inline_weaken_slot_value($instance, $attr->slots, $value) . ";"
-        if $attr->is_weak_ref;
-    return $code;
+    return $self->associated_attribute->inline_set( $instance, $value );
 }
 
 sub _inline_get_old_value_for_trigger {
@@ -258,12 +258,9 @@ sub _inline_get_old_value_for_trigger {
     my $attr = $self->associated_attribute;
     return '' unless $attr->has_trigger;
 
-    my $mi = $attr->associated_class->get_meta_instance;
-    my $pred = $mi->inline_is_slot_initialized($instance, $attr->name);
-
     return
           'my @old = '
-        . $pred . q{ ? }
+        . $self->_inline_has($instance) . q{ ? }
         . $self->_inline_get($instance) . q{ : ()} . ";\n";
 }
 
@@ -276,29 +273,14 @@ sub _inline_trigger {
 
 sub _inline_get {
     my ($self, $instance) = @_;
-    my $attr = $self->associated_attribute;
 
-    my $mi = $attr->associated_class->get_meta_instance;
-
-    return $mi->inline_get_slot_value($instance, $attr->slots);
-}
-
-sub _inline_access {
-    my ($self, $instance) = @_;
-    my $attr = $self->associated_attribute;
-
-    my $mi = $attr->associated_class->get_meta_instance;
-
-    return $mi->inline_slot_access($instance, $attr->slots);
+    return $self->associated_attribute->inline_get($instance);
 }
 
 sub _inline_has {
     my ($self, $instance) = @_;
-    my $attr = $self->associated_attribute;
 
-    my $mi = $attr->associated_class->get_meta_instance;
-
-    return $mi->inline_is_slot_initialized($instance, $attr->slots);
+    return $self->associated_attribute->inline_has($instance);
 }
 
 sub _inline_auto_deref {

@@ -9,7 +9,7 @@ use List::MoreUtils 'any';
 use Try::Tiny;
 use overload     ();
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Deprecated;
@@ -17,8 +17,11 @@ use Moose::Meta::Method::Accessor;
 use Moose::Meta::Method::Delegation;
 use Moose::Util ();
 use Moose::Util::TypeConstraints ();
+use Class::MOP::MiniTrait;
 
 use base 'Class::MOP::Attribute', 'Moose::Meta::Mixin::AttributeCore';
+
+Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 __PACKAGE__->meta->add_attribute('traits' => (
     reader    => 'applied_traits',
@@ -577,6 +580,22 @@ sub remove_accessors {
     return;
 }
 
+sub inline_set {
+    my $self = shift;
+    my ( $instance, $value ) = @_;
+
+    my $mi = $self->associated_class->get_meta_instance;
+
+    my $code
+        = $mi->inline_set_slot_value( $instance, $self->slots, $value ) . ";";
+    $code
+        .= $mi->inline_weaken_slot_value( $instance, $self->slots, $value )
+        . "    if ref $value;"
+        if $self->is_weak_ref;
+
+    return $code;
+}
+
 sub install_delegation {
     my $self = shift;
 
@@ -666,9 +685,10 @@ sub _canonicalize_handles {
         || $self->throw_error("Unable to canonicalize the 'handles' option with $handles because its metaclass is not a Moose::Meta::Role", data => $handles);
 
     return map { $_ => $_ }
-        grep { $_ ne 'meta' } (
-        $role_meta->get_method_list,
-        map { $_->name } $role_meta->get_required_method_list,
+        map { $_->name }
+        grep { !$_->isa('Class::MOP::Method::Meta') } (
+        $role_meta->_get_local_methods,
+        $role_meta->get_required_method_list,
         );
 }
 
@@ -693,7 +713,7 @@ sub _get_delegate_method_list {
     my $meta = $self->_find_delegate_metaclass;
     if ($meta->isa('Class::MOP::Class')) {
         return map  { $_->name }  # NOTE: !never! delegate &meta
-               grep { $_->package_name ne 'Moose::Object' && $_->name ne 'meta' }
+               grep { $_->package_name ne 'Moose::Object' && !$_->isa('Class::MOP::Method::Meta') }
                     $meta->get_all_methods;
     }
     elsif ($meta->isa('Moose::Meta::Role')) {
@@ -962,6 +982,12 @@ methods is almost always an error.)
 =item B<< $attr->remove_accessors >>
 
 This method overrides the parent to also remove delegation methods.
+
+=item B<< $attr->inline_set($instance_var, $value_var) >>
+
+This method return a code snippet suitable for inlining the relevant
+operation. It expect strings containing variable names to be used in the
+inlining, like C<'$self'> or C<'$_[1]'>.
 
 =item B<< $attr->install_delegation >>
 

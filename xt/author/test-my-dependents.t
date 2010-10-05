@@ -4,13 +4,23 @@ use warnings;
 use Cwd qw( abs_path );
 use Test::More;
 
-plan skip_all => 'This test will not run unless you set MOOSE_TEST_MD to a true value'
-    unless $ENV{MOOSE_TEST_MD};
+BEGIN {
+    plan skip_all => 'This test will not run unless you set MOOSE_TEST_MD to a true value'
+        unless $ENV{MOOSE_TEST_MD};
+}
 
 use Test::Requires {
     'Test::DependentModules' => '0.01', # skip all if not installed
 };
 use Test::DependentModules qw( test_all_dependents test_module );
+
+use DateTime;
+use Class::MOP ();
+use Moose ();
+print 'Test run performed at: ' . DateTime->now,
+    ' with Class::MOP ', Class::MOP->VERSION,
+    ' and Moose ', Moose->VERSION, "\n";
+
 
 $ENV{PERL_TEST_DM_LOG_DIR} = abs_path('.');
 
@@ -184,7 +194,6 @@ Lighttpd::Control
 Locale::POFileManager
 Markdent
 namespace::autoclean
-NetHack::Item
 Net::HTTP::API
 Net::Twitter
 Path::Router

@@ -7,7 +7,7 @@ use metaclass;
 use Moose::Util  'english_list';
 use Scalar::Util 'weaken', 'blessed';
 
-our $VERSION   = '1.14';
+our $VERSION   = '1.15';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -152,7 +152,7 @@ sub apply_methods {
     foreach my $method ( $role->_get_local_methods ) {
         my $method_name = $method->name;
 
-        next if $method_name eq 'meta';
+        next if $method->isa('Class::MOP::Method::Meta');
 
         unless ( $self->is_method_excluded($method_name) ) {
 
