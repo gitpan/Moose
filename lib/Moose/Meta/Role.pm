@@ -9,7 +9,7 @@ use Scalar::Util 'blessed';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -161,12 +161,22 @@ $META->add_attribute(
 sub initialize {
     my $class = shift;
     my $pkg   = shift;
-    return Class::MOP::get_metaclass_by_name($pkg)
-        || $class->SUPER::initialize(
+
+    if (defined(my $meta = Class::MOP::get_metaclass_by_name($pkg))) {
+        return $meta;
+    }
+
+    my %options = @_;
+
+    my $meta = $class->SUPER::initialize(
         $pkg,
         'attribute_metaclass' => 'Moose::Meta::Role::Attribute',
-        @_
-        );
+        %options,
+    );
+
+    Class::MOP::weaken_metaclass($pkg) if $options{weaken};
+
+    return $meta;
 }
 
 sub reinitialize {
@@ -189,13 +199,19 @@ sub reinitialize {
         );
     }
 
+    my %options = @_;
+    $options{weaken} = Class::MOP::metaclass_is_weak($meta->name)
+        if !exists $options{weaken}
+        && blessed($meta)
+        && $meta->isa('Moose::Meta::Role');
+
     # don't need to remove generated metaobjects here yet, since we don't
     # yet generate anything in roles. this may change in the future though...
     # keep an eye on that
     my $new_meta = $self->SUPER::reinitialize(
         $pkg,
         %existing_classes,
-        @_,
+        %options,
     );
     $new_meta->_restore_metaobjects_from($meta)
         if $meta && $meta->isa('Moose::Meta::Role');
@@ -432,6 +448,38 @@ sub apply {
     }
 
     Class::MOP::load_class($application_class);
+
+    my $deprecation_check = 0;
+
+    if ( exists $args{excludes} && !exists $args{'-excludes'} ) {
+        $args{'-excludes'} = delete $args{excludes};
+        $deprecation_check = 1;
+    }
+    if ( exists $args{alias} && !exists $args{'-alias'} ) {
+        $args{'-alias'} = delete $args{alias};
+        $deprecation_check = 1;
+    }
+
+    if ( $deprecation_check ) {
+        Moose::Deprecated::deprecated(
+            feature => 'alias or excludes',
+            message =>
+                'The alias and excludes options for role application'.
+                ' have been renamed -alias and -excludes'.
+                " (${\$other->name} is consuming ${\$self->name}".
+                " - do you need to upgrade ${\$other->name}?)"
+        );
+    }
+
+    if ( exists $args{'-excludes'} ) {
+        # I wish we had coercion here :)
+        $args{'-excludes'} = (
+            ref $args{'-excludes'} eq 'ARRAY'
+            ? $args{'-excludes'}
+            : [ $args{'-excludes'} ]
+        );
+    }
+
     return $application_class->new(%args)->apply($self, $other, \%args);
 }
 
@@ -513,9 +561,6 @@ sub create {
         }
     }
 
-    Class::MOP::weaken_metaclass($meta->name)
-        if $meta->is_anon_role;
-
     return $meta;
 }
 
@@ -557,6 +602,7 @@ sub consumers {
 
     sub create_anon_role {
         my ($role, %options) = @_;
+        $options{weaken} = 1 unless exists $options{weaken};
         my $package_name = $ANON_ROLE_PREFIX . ++$ANON_ROLE_SERIAL;
         return $role->create($package_name, %options);
     }

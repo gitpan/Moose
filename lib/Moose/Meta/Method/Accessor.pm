@@ -4,7 +4,7 @@ package Moose::Meta::Method::Accessor;
 use strict;
 use warnings;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -51,7 +51,6 @@ sub _eval_environment {
 
 sub _generate_accessor_method_inline {
     my $self        = $_[0];
-    my $attr        = $self->associated_attribute;
     my $inv         = '$_[0]';
     my $value_name  = $self->_value_needs_copy ? '$val' : '$_[1]';
 
@@ -74,9 +73,7 @@ sub _generate_accessor_method_inline {
 
 sub _generate_writer_method_inline {
     my $self        = $_[0];
-    my $attr        = $self->associated_attribute;
     my $inv         = '$_[0]';
-    my $slot_access = $self->_inline_get($inv);
     my $value_name  = $self->_value_needs_copy ? '$val' : '$_[1]';
 
     $self->_eval_code('sub { '
@@ -94,7 +91,6 @@ sub _generate_writer_method_inline {
 
 sub _generate_reader_method_inline {
     my $self        = $_[0];
-    my $attr        = $self->associated_attribute;
     my $inv         = '$_[0]';
     my $slot_access = $self->_inline_get($inv);
 

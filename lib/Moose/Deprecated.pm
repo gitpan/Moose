@@ -3,11 +3,11 @@ package Moose::Deprecated;
 use strict;
 use warnings;
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
-use Package::DeprecationManager -deprecations => {
+use Package::DeprecationManager 0.07 -deprecations => {
     'default is for Native Trait'      => '1.14',
     'default default for Native Trait' => '1.14',
     'coerce without coercion'          => '1.08',
@@ -18,14 +18,7 @@ use Package::DeprecationManager -deprecations => {
     'type without sugar'               => '0.72',
     'Moose::init_meta'                 => '0.56',
     },
-    -ignore => [
-    qw( Moose
-        Moose::Exporter
-        Moose::Meta::Attribute
-        Moose::Meta::Class
-        Moose::Util::MetaRole
-        )
-    ],
+    -ignore => [qr/^(?:Class::MOP|Moose)(?:::)?/],
     ;
 
 1;

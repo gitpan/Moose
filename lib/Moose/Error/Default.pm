@@ -3,7 +3,7 @@ package Moose::Error::Default;
 use strict;
 use warnings;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -16,7 +16,12 @@ Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 sub new {
     my ( $self, @args ) = @_;
-    $self->create_error_confess( @args );
+    if (defined $ENV{MOOSE_ERROR_STYLE} && $ENV{MOOSE_ERROR_STYLE} eq 'croak') {
+        $self->create_error_croak( @args );
+    }
+    else {
+        $self->create_error_confess( @args );
+    }
 }
 
 sub create_error_croak {
@@ -59,19 +64,24 @@ Moose::Error::Default - L<Carp> based error generation for Moose.
 
 This class implements L<Carp> based error generation.
 
-The default behavior is like L<Moose::Error::Confess>.
+The default behavior is like L<Moose::Error::Confess>. To override this to
+default to L<Moose::Error::Croak>'s behaviour on a system wide basis, set the
+MOOSE_ERROR_STYLE environment variable to C<croak>. The use of this
+environment variable is considered experimental, and may change in a future
+release.
 
 =head1 METHODS
 
 =over 4
 
-=item new @args
+=item B<< Moose::Error::Default->new(@args) >>
 
-Create a new error. Delegates to C<create_error_confess>.
+Create a new error. Delegates to C<create_error_confess> or
+C<create_error_croak>.
 
-=item create_error_confess @args
+=item B<< $error->create_error_confess(@args) >>
 
-=item create_error_croak @args
+=item B<< $error->create_error_croak(@args) >>
 
 Creates a new errors string of the specified style.
 

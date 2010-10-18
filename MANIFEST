@@ -200,7 +200,7 @@ Moose.xs
 ppport.h
 README
 t/000_load.t
-t/000_recipes/basics-recipe10.t
+t/000_recipes/basics_recipe10.t
 t/000_recipes/moose_cookbook_basics_recipe1.t
 t/000_recipes/moose_cookbook_basics_recipe11.t
 t/000_recipes/moose_cookbook_basics_recipe2.t
@@ -236,10 +236,11 @@ t/010_basics/015_buildargs.t
 t/010_basics/016_load_into_main.t
 t/010_basics/017_error_handling.t
 t/010_basics/018_methods.t
-t/010_basics/019-destruction.t
+t/010_basics/019_destruction.t
 t/010_basics/020-global-destruction-helper.pl
-t/010_basics/020-global-destruction.t
-t/010_basics/021-moose-object-does.t
+t/010_basics/020_global_destruction.t
+t/010_basics/021_moose_object_does.t
+t/010_basics/022_buildargs_warning.t
 t/010_basics/030_deprecations.t
 t/020_attributes/001_attribute_reader_generation.t
 t/020_attributes/002_attribute_writer_generation.t
@@ -320,6 +321,7 @@ t/030_roles/044_role_attrs.t
 t/030_roles/045_role_compose_requires.t
 t/030_roles/046_role_consumers.t
 t/030_roles/047_role_attribute_conflict.t
+t/030_roles/048_method_modifiers.t
 t/040_type_constraints/001_util_type_constraints.t
 t/040_type_constraints/002_util_type_constraints_export.t
 t/040_type_constraints/003_util_std_type_constraints.t
@@ -388,6 +390,7 @@ t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t
 t/060_compat/004_extends_nonmoose_that_isa_moose_with_metarole.t
+t/060_compat/005_composite_metaroles.t
 t/070_native_traits/010_trait_array.t
 t/070_native_traits/011_array_subtypes.t
 t/070_native_traits/012_array_trigger.t
@@ -404,6 +407,7 @@ t/070_native_traits/070_trait_string.t
 t/070_native_traits/100_array_from_role.t
 t/070_native_traits/101_remove_attribute.t
 t/070_native_traits/102_collection_with_roles.t
+t/070_native_traits/103_custom_instance.t
 t/100_bugs/001_subtype_quote_bug.t
 t/100_bugs/002_subtype_conflict_bug.t
 t/100_bugs/003_Moose_Object_error.t
@@ -475,6 +479,7 @@ t/600_todo_tests/003_immutable_n_around.t
 t/600_todo_tests/004_role_insertion_order.t
 t/600_todo_tests/005_moose_and_threads.t
 t/600_todo_tests/006_required_role_accessors.t
+t/600_todo_tests/007_application_metarole_compat.t
 t/600_todo_tests/008_replacing_super_methods.t
 t/lib/Bar.pm
 t/lib/Bar7/Meta/Trait.pm

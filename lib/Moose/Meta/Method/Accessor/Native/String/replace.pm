@@ -6,7 +6,7 @@ use warnings;
 use Moose::Util ();
 use Params::Util ();
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -21,7 +21,7 @@ with 'Moose::Meta::Method::Accessor::Native::Writer' => {
             _inline_optimized_set_new_value
             )
     ]
-};
+    };
 
 sub _minimum_arguments { 1 }
 
@@ -33,10 +33,10 @@ sub _inline_check_arguments {
     return $self->_inline_throw_error(
         q{'The first argument passed to replace must be a string or regexp reference'}
         )
-        . q{ unless Moose::Util::_STRINGLIKE( $_[0] ) || Params::Util::_REGEX( $_[0] );}
+        . q{ unless Moose::Util::_STRINGLIKE0( $_[0] ) || Params::Util::_REGEX( $_[0] );}
         . $self->_inline_throw_error(
         q{'The second argument passed to replace must be a string or code reference'}
-        ) . q{ unless Moose::Util::_STRINGLIKE( $_[1] ) || Params::Util::_CODELIKE( $_[1] );};
+        ) . q{ unless Moose::Util::_STRINGLIKE0( $_[1] ) || Params::Util::_CODELIKE( $_[1] );};
 }
 
 sub _potential_value {

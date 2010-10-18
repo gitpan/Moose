@@ -2,7 +2,7 @@
 package Moose::Meta::Attribute::Native::Trait::Counter;
 use Moose::Role;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -37,11 +37,11 @@ Moose::Meta::Attribute::Native::Trait::Counter - Helper trait for counters
   use Moose;
 
   has 'counter' => (
-      traits    => ['Counter'],
-      is        => 'ro',
-      isa       => 'Num',
-      default   => 0,
-      handles   => {
+      traits  => ['Counter'],
+      is      => 'ro',
+      isa     => 'Num',
+      default => 0,
+      handles => {
           inc_counter   => 'inc',
           dec_counter   => 'dec',
           reset_counter => 'reset',
@@ -49,47 +49,55 @@ Moose::Meta::Attribute::Native::Trait::Counter - Helper trait for counters
   );
 
   my $page = MyHomePage->new();
-  $page->inc_counter; # same as $page->counter( $page->counter + 1 );
-  $page->dec_counter; # same as $page->counter( $page->counter - 1 );
-  
+  $page->inc_counter;    # same as $page->counter( $page->counter + 1 );
+  $page->dec_counter;    # same as $page->counter( $page->counter - 1 );
+
   my $count_by_twos = 2;
   $page->inc_counter($count_by_twos);
 
 =head1 DESCRIPTION
 
-This module provides a simple counter attribute, which can be
-incremented and decremented by arbitrary amounts.  The default
-amount of change is one.
+This trait provides native delegation methods for counters. A counter can be
+any sort of number (integer or not). The delegation methods allow you to
+increment, decrement, or reset the value.
+
+=head1 DEFAULT TYPE
+
+If you don't provide an C<isa> value for your attribute, it will default to
+C<Num>.
 
 =head1 PROVIDED METHODS
 
 =over 4
 
-=item B<set($value)>
+=item * B<set($value)>
 
-Set the counter to the specified value.
+Sets the counter to the specified value and returns the new value.
 
-=item B<inc($arg)>
+This method requires a single argument.
 
-Increase the attribute value by the amount of the argument.  
-No argument increments the value by 1. 
+=item * B<inc>
 
-=item B<dec($arg)>
+=item * B<inc($arg)>
 
-Decrease the attribute value by the amount of the argument.  
-No argument decrements the value by 1.
+Increases the attribute value by the amount of the argument, or by 1 if no
+argument is given. This method returns the new value.
 
-=item B<reset>
+This method accepts a single argument.
 
-Resets the value stored in this slot to it's default value.
+=item * B<dec>
 
-=back
+=item * B<dec($arg)>
 
-=head1 METHODS
+Decreases the attribute value by the amount of the argument, or by 1 if no
+argument is given. This method returns the new value.
 
-=over 4
+This method accepts a single argument.
 
-=item B<meta>
+=item * B<reset>
+
+Resets the value stored in this slot to its default value, and returns the new
+value.
 
 =back
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use metaclass;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -22,32 +22,6 @@ __PACKAGE__->meta->add_attribute('method_aliases' => (
 
 sub new {
     my ($class, %params) = @_;
-
-    if ( exists $params{excludes} || exists $params{alias} ) {
-        Moose::Deprecated::deprecated(
-            feature => 'alias or excludes',
-            message =>
-                "The alias and excludes options for role application have been renamed -alias and -excludes"
-        );
-    }
-
-    if ( exists $params{excludes} && !exists $params{'-excludes'} ) {
-        $params{'-excludes'} = delete $params{excludes};
-    }
-    if ( exists $params{alias} && !exists $params{'-alias'} ) {
-        $params{'-alias'} = delete $params{alias};
-    }
-
-    if ( exists $params{'-excludes'} ) {
-
-        # I wish we had coercion here :)
-        $params{'-excludes'} = (
-            ref $params{'-excludes'} eq 'ARRAY'
-            ? $params{'-excludes'}
-            : [ $params{'-excludes'} ]
-        );
-    }
-
     $class->_new(\%params);
 }
 

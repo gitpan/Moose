@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::clear;
 use strict;
 use warnings;
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -14,6 +14,7 @@ with 'Moose::Meta::Method::Accessor::Native::Array::Writer' => {
         qw(
             _maximum_arguments
             _inline_optimized_set_new_value
+            _return_value
             )
     ]
 };
@@ -29,6 +30,8 @@ sub _inline_optimized_set_new_value {
 
     return "$slot_access = []";
 }
+
+sub _return_value { return q{} }
 
 no Moose::Role;
 

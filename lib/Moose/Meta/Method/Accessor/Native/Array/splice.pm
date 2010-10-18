@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::splice;
 use strict;
 use warnings;
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -16,6 +16,7 @@ with 'Moose::Meta::Method::Accessor::Native::Array::Writer' => {
             _inline_process_arguments
             _inline_check_arguments
             _inline_optimized_set_new_value
+            _return_value
             )
     ]
 };
@@ -41,13 +42,19 @@ sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
     return "( do { my \@potential = \@{ $slot_access };"
-        . 'defined $len ? ( splice @potential, $idx, $len, @_ ) : ( splice @potential, $idx ); \\@potential } )';
+        . '@return = defined $len ? ( splice @potential, $idx, $len, @_ ) : ( splice @potential, $idx ); \\@potential } )';
 }
 
 sub _inline_optimized_set_new_value {
     my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return "defined \$len ? ( splice \@{ $slot_access }, \$idx, \$len, \@_ ) : ( splice \@{ $slot_access }, \$idx )";
+    return "\@return = defined \$len ? ( splice \@{ $slot_access }, \$idx, \$len, \@_ ) : ( splice \@{ $slot_access }, \$idx )";
+}
+
+sub _return_value {
+    my ($self, $slot_access) = @_;
+
+    return 'return wantarray ? @return : $return[-1]';
 }
 
 no Moose::Role;

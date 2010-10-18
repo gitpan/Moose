@@ -6,7 +6,7 @@ use warnings;
 use Moose::Util ();
 use Params::Util ();
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -31,7 +31,7 @@ sub _inline_check_arguments {
 
     return $self->_inline_throw_error(
         q{'The argument passed to match must be a string or regexp reference'}
-    ) . q{ unless Moose::Util::_STRINGLIKE( $_[0] ) || Params::Util::_REGEX( $_[0] );};
+    ) . q{ unless Moose::Util::_STRINGLIKE0( $_[0] ) || Params::Util::_REGEX( $_[0] );};
 }
 
 sub _return_value {

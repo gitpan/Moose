@@ -1,6 +1,66 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+1.16 Mon, Oct 18, 2010
+
+  [ENHANCEMENTS]
+
+  * Almost every native delegation method which changes the attribute value
+    now has an explicitly documented return value. In general, this return
+    value matches what Perl would return for the same operation. (Dave Rolsky)
+
+  * Lots of work on native delegation documentation, including documenting
+    what arguments each native delegation method allows or requires. (Dave
+    Rolsky)
+
+  * Passing an odd number of args to ->new() now gives a more useful warning
+    than Perl's builtin warning. Suggested by Sir Robert Burbridge. (Dave
+    Rolsky)
+
+  * Allow disabling stack traces by setting an environment variable. See
+    Moose::Error::Default for details. This feature is considered
+    experimental, and may change in a future release. (Marcus Ramberg)
+
+  * The deprecation warning for using alias and excludes without a leading
+    dash now tells you the role being applied and what it was being applied
+    to. (mst).
+
+  [BUG FIXES]
+
+  * A number of native trait methods which expected strings as arguments did
+    not allow the empty string. This included Array->join, String->match,
+    String->replace, and String->substr. Reported by Whitney Jackson. RT
+    #61962. (Dave Rolsky)
+
+  * 'no Moose' no longer inadvertently removes imports it didn't create
+    itself. RT #60013. (Florian Ragwitz, doy)
+
+  * Roles now support passing an array reference of method names to method
+    modifier sugar functions. (doy)
+
+  * Native traits no longer use optimized inlining routines if the instance
+    requests it (in particular, if inline_get_slot_value doesn't return
+    something that can be assigned to). This should fix issues with
+    KiokuDB::Class. (doy)
+
+  * We now ignore all Class::MOP and Moose classes when determining what
+    package called a deprecated feature. This should make the deprecation
+    warnings saner, and make it possible to turn them off more easily. (Dave
+    Rolsky)
+
+  * The deprecated "default is" warning no longer happens if the attribute has
+    any accessor method defined (accessor, reader, writer). Also, this warning
+    only happens when a method that was generated because of the "default is"
+    gets called, rather than when the attribute is defined. (Dave Rolsky)
+
+  * The "default default" code for some native delegations no longer issues a
+    deprecation warning when the attribute is required or has a builder. (Dave
+    Rolsky)
+
+  * Setting a "default default" caused a fatal error if you used the builder
+    or lazy_build options for the attribute. Reported by Kent Fredric. RT
+    #59613. (Dave Rolsky)
+
 1.15 Tue, Oct 5, 2010
 
   [API CHANGES]
@@ -1225,7 +1285,7 @@ for, noteworthy changes.
         vetting on names created via the sugar functions, so that they
         can only contain alphanumerics, ":", and ".". (Dave Rolsky)
 
-0.65 Thu, January 22, 2008
+0.65 Thu, January 22, 2009
     * Moose and Moose::Meta::Method::Overridden
       - If an overridden method called super(), and then the
         superclass's method (not overridden) _also_ called super(),

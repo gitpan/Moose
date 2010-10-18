@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::delete;
 use strict;
 use warnings;
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -16,6 +16,7 @@ with 'Moose::Meta::Method::Accessor::Native::Array::Writer' => {
             _maximum_arguments
             _inline_check_arguments
             _inline_optimized_set_new_value
+            _return_value
             )
     ],
 };
@@ -36,13 +37,19 @@ sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
     return
-        "( do { my \@potential = \@{ $slot_access }; splice \@potential, \$_[0], 1; \\\@potential } )";
+        "( do { my \@potential = \@{ $slot_access }; \@return = splice \@potential, \$_[0], 1; \\\@potential } )";
 }
 
 sub _inline_optimized_set_new_value {
     my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return "splice \@{ $slot_access }, \$_[0], 1";
+    return "\@return = splice \@{ $slot_access }, \$_[0], 1";
+}
+
+sub _return_value {
+    my ( $self, $slot_access ) = @_;
+
+    return 'return $return[0];';
 }
 
 no Moose::Role;

@@ -5,7 +5,7 @@ use warnings;
 
 use Moose::Util ();
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -98,7 +98,7 @@ sub _inline_check_arguments {
             .= "\n"
             . $self->_inline_throw_error(
             q{'The third argument passed to substr must be a string'})
-            . q{ unless Moose::Util::_STRINGLIKE($replacement);};
+            . q{ unless Moose::Util::_STRINGLIKE0($replacement);};
     }
 
     return $code;
@@ -108,19 +108,19 @@ sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
     return
-        "( do { my \$potential = $slot_access; substr \$potential, \$offset, \$length, \$replacement; \$potential; } )";
+        "( do { my \$potential = $slot_access; \@return = substr \$potential, \$offset, \$length, \$replacement; \$potential; } )";
 }
 
 sub _inline_optimized_set_new_value {
     my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return "substr $slot_access, \$offset, \$length, \$replacement";
+    return "\@return = substr $slot_access, \$offset, \$length, \$replacement";
 }
 
 sub _return_value {
     my ( $self, $slot_access, $for_writer ) = @_;
 
-    return q{} if $for_writer;
+    return '$return[0]' if $for_writer;
 
     return "substr $slot_access, \$offset, \$length";
 }

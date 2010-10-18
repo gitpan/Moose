@@ -5,7 +5,7 @@ use warnings;
 
 use List::MoreUtils qw( any );
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -51,6 +51,12 @@ sub _writer_core {
     $code .= "\n" . $self->_inline_check_lazy($inv);
 
     my $potential_value = $self->_potential_value($slot_access);
+
+    if ( $self->_return_value($slot_access) ) {
+        # some writers will save the return value in this variable when they
+        # generate the potential value.
+        $code .= "\n" . 'my @return;';
+    }
 
     $code .= "\n" . $self->_inline_copy_native_value( \$potential_value );
     $code .= "\n"
@@ -148,10 +154,18 @@ sub _inline_set_new_value {
     my $self = shift;
 
     return $self->_inline_store(@_)
-        if $self->_value_needs_copy || !$self->_slot_access_can_be_inlined;
+        if $self->_value_needs_copy
+        || !$self->_slot_access_can_be_inlined
+        || !$self->_inline_get_is_lvalue;
 
     return $self->_inline_optimized_set_new_value(@_);
-};
+}
+
+sub _inline_get_is_lvalue {
+    my $self = shift;
+
+    return $self->associated_attribute->associated_class->instance_metaclass->inline_get_is_lvalue;
+}
 
 sub _inline_optimized_set_new_value {
     my $self = shift;
@@ -159,7 +173,11 @@ sub _inline_optimized_set_new_value {
     return $self->_inline_store(@_);
 }
 
-sub _return_value { return q{} }
+sub _return_value {
+    my ( $self, $slot_access ) = @_;
+
+    return $slot_access;
+}
 
 no Moose::Role;
 

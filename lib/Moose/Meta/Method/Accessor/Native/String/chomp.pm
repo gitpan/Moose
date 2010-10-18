@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::String::chomp;
 use strict;
 use warnings;
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -14,22 +14,29 @@ with 'Moose::Meta::Method::Accessor::Native::Writer' => {
         qw(
             _maximum_arguments
             _inline_optimized_set_new_value
+            _return_value
             )
     ]
 };
 
-sub _maximum_arguments { 0 }
+sub _maximum_arguments {0}
 
 sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
-    return "( do { my \$val = $slot_access; chomp \$val; \$val } )";
+    return "( do { my \$val = $slot_access; \@return = chomp \$val; \$val } )";
 }
 
 sub _inline_optimized_set_new_value {
     my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return "chomp $slot_access";
+    return "\@return = chomp $slot_access";
+}
+
+sub _return_value {
+    my ( $self, $slot_access ) = @_;
+
+    return '$return[0]';
 }
 
 no Moose::Role;

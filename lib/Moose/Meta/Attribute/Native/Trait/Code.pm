@@ -1,7 +1,7 @@
 package Moose::Meta::Attribute::Native::Trait::Code;
 use Moose::Role;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -28,42 +28,40 @@ Moose::Meta::Attribute::Native::Trait::Code - Helper trait for Code attributes
   use Moose;
 
   has 'callback' => (
-      traits    => ['Code'],
-      is        => 'ro',
-      isa       => 'CodeRef',
-      default   => sub { sub { print "called" } },
-      handles   => {
+      traits  => ['Code'],
+      is      => 'ro',
+      isa     => 'CodeRef',
+      default => sub {
+          sub { print "called" }
+      },
+      handles => {
           call => 'execute',
       },
   );
 
   my $foo = Foo->new;
-  $foo->call; # prints "called"
-
+  $foo->call;    # prints "called"
 
 =head1 DESCRIPTION
 
-This provides operations on coderef attributes.
+This trait provides native delegation methods for code references.
+
+=head1 DEFAULT TYPE
+
+If you don't provide an C<isa> value for your attribute, it will default to
+C<CodeRef>.
 
 =head1 PROVIDED METHODS
 
 =over 4
 
-=item B<execute(@args)>
+=item * B<execute(@args)>
 
 Calls the coderef with the given args.
 
-=item B<execute_method(@args)>
+=item * B<execute_method(@args)>
 
 Calls the coderef with the the instance as invocant and given args.
-
-=back
-
-=head1 METHODS
-
-=over 4
-
-=item B<meta>
 
 =back
 

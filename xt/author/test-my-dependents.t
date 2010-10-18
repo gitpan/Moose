@@ -17,10 +17,13 @@ use Test::DependentModules qw( test_all_dependents test_module );
 use DateTime;
 use Class::MOP ();
 use Moose ();
-print 'Test run performed at: ' . DateTime->now,
-    ' with Class::MOP ', Class::MOP->VERSION,
-    ' and Moose ', Moose->VERSION, "\n";
 
+diag(     'Test run performed at: '
+        . DateTime->now
+        . ' with Class::MOP '
+        . Class::MOP->VERSION
+        . ' and Moose '
+        . Moose->VERSION );
 
 $ENV{PERL_TEST_DM_LOG_DIR} = abs_path('.');
 
@@ -44,7 +47,6 @@ MooseX::Accessors::ReadWritePrivate
 MooseX::Aliases
 MooseX::AlwaysCoerce
 MooseX::App::Cmd
-MooseX::App::Cmd::Command::BashComplete
 MooseX::Async
 MooseX::Attribute::ENV
 MooseX::AttributeCloner

@@ -14,11 +14,11 @@ all_from 'lib/Moose.pm';
 license 'perl';
 
 requires 'Carp';
-requires 'Class::MOP'                  => '1.09';
+requires 'Class::MOP'                  => '1.10';
 requires 'Data::OptList'               => '0';
 requires 'List::MoreUtils'             => '0.12';
-requires 'Package::DeprecationManager' => '0.04';
-requires 'Params::Util'                => '0';
+requires 'Package::DeprecationManager' => '0.07';
+requires 'Params::Util'                => '1.00';
 requires 'Scalar::Util'                => '1.19';
 requires 'Sub::Exporter'               => '0.980';
 requires 'Sub::Name'                   => '0';
@@ -74,14 +74,14 @@ sub check_conflicts {
         'Fey'                            => '0.36',
         'Fey::ORM'                       => '0.34',
         'File::ChangeNotify'             => '0.15',
-        'KiokuDB'                        => '0.41',
+        'KiokuDB'                        => '0.49',
         'Markdent'                       => '0.16',
         'MooseX::Aliases'                => '0.07',
         'MooseX::AlwaysCoerce'           => '0.05',
         'MooseX::AttributeHelpers'       => '0.22',
         'MooseX::AttributeInflate'       => '0.02',
         'MooseX::Attribute::Prototype'   => '0.10',
-        'MooseX::ClassAttribute'         => '0.16',
+        'MooseX::ClassAttribute'         => '0.17',
         'MooseX::FollowPBP'              => '0.02',
         'MooseX::HasDefaults'            => '0.02',
         'MooseX::InstanceTracking'       => '0.04',

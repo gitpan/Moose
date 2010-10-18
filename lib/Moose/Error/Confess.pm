@@ -3,11 +3,16 @@ package Moose::Error::Confess;
 use strict;
 use warnings;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base qw(Moose::Error::Default);
+
+sub new {
+    my ( $self, @args ) = @_;
+    $self->create_error_confess(@args);
+}
 
 __PACKAGE__
 

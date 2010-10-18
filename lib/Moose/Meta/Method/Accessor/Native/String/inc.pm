@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::String::inc;
 use strict;
 use warnings;
 
-our $VERSION = '1.15';
+our $VERSION = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -16,7 +16,7 @@ with 'Moose::Meta::Method::Accessor::Native::Writer' => {
             _inline_optimized_set_new_value
             )
     ]
-};
+    };
 
 sub _maximum_arguments { 0 }
 

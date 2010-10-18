@@ -1,40 +1,86 @@
 
 package Moose::Meta::Attribute::Native::Trait;
 use Moose::Role;
+
+use List::MoreUtils qw( any uniq );
 use Moose::Util::TypeConstraints;
 use Moose::Deprecated;
 
-our $VERSION   = '1.15';
+our $VERSION   = '1.16';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
 requires '_helper_type';
+
+has _used_default_is => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
 
 before '_process_options' => sub {
     my ( $self, $name, $options ) = @_;
 
     $self->_check_helper_type( $options, $name );
 
-    if ( !exists $options->{is} && $self->can('_default_is') ) {
+    if ( !( any { exists $options->{$_} } qw( is reader writer accessor ) )
+        && $self->can('_default_is') ) {
+
         $options->{is} = $self->_default_is;
 
-        Moose::Deprecated::deprecated(
-            feature => 'default is for Native Trait',
-            message =>
-                q{Allowing a native trait to automatically supply a value for "is" is deprecated}
-        );
+        $options->{_used_default_is} = 1;
     }
 
-    if ( !exists $options->{default} && $self->can('_default_default') ) {
+    if (
+        !(
+            $options->{required}
+            || any { exists $options->{$_} } qw( default builder lazy_build )
+        )
+        && $self->can('_default_default')
+        ) {
+
         $options->{default} = $self->_default_default;
 
         Moose::Deprecated::deprecated(
             feature => 'default default for Native Trait',
             message =>
-                'Allowing a native trait to automatically supply a default is deprecated'
+                'Allowing a native trait to automatically supply a default is deprecated.'
+                . ' You can avoid this warning by supply a default, builder, or making the attribute required'
         );
     }
 };
+
+after 'install_accessors' => sub {
+    my $self = shift;
+
+    return unless $self->_used_default_is;
+
+    my @methods
+        = $self->_default_is eq 'rw'
+        ? qw( reader writer accessor )
+        : 'reader';
+
+    my $name = $self->name;
+    my $class = $self->associated_class->name;
+
+    for my $meth ( uniq grep {defined} map { $self->$_ } @methods ) {
+
+        my $message
+            = "The $meth method in the $class class was automatically created"
+            . " by the native delegation trait for the $name attribute."
+            . q{ This "default is" feature is deprecated.}
+            . q{ Explicitly set "is" or define accessor names to avoid this};
+
+        $self->associated_class->add_before_method_modifier(
+            $meth => sub {
+                Moose::Deprecated::deprecated(
+                    feature => 'default is for Native Trait',
+                    message =>$message,
+                );
+            }
+        );
+    }
+    };
 
 sub _check_helper_type {
     my ( $self, $options, $name ) = @_;
@@ -157,7 +203,7 @@ __END__
 
 =head1 NAME
 
-Moose::Meta::Attribute::Native::Trait - Base role for helpers
+Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 BUGS
 
@@ -165,7 +211,8 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 SEE ALSO
 
-Documentation for Moose native traits starts at L<Moose::Meta::Attribute Native>
+Documentation for Moose native traits can be found in
+L<Moose::Meta::Attribute::Native>.
 
 =head1 AUTHORS
 
