@@ -5,7 +5,7 @@ use warnings;
 
 use Params::Util ();
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -37,7 +37,7 @@ sub _return_value {
     my $self        = shift;
     my $slot_access = shift;
 
-    return "grep { \$_[0]->() } \@{ $slot_access }";
+    return "grep { \$_[0]->() } \@{ ($slot_access) }";
 }
 
 no Moose::Role;

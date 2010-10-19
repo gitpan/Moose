@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::count;
 use strict;
 use warnings;
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -17,7 +17,7 @@ sub _maximum_arguments { 0 }
 sub _return_value {
     my ( $self, $slot_access ) = @_;
 
-    return "scalar \@{ $slot_access }";
+    return "scalar \@{ ($slot_access) }";
 }
 
 no Moose::Role;

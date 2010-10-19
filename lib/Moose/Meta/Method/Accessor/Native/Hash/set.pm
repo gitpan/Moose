@@ -5,7 +5,7 @@ use warnings;
 
 use Scalar::Util qw( looks_like_number );
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -61,7 +61,7 @@ sub _adds_members { 1 }
 sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
-    return "{ %{ $slot_access }, \@_ }";
+    return "{ %{ ($slot_access) }, \@_ }";
 }
 
 sub _new_members { '@_[ @values_idx ]' }
@@ -69,13 +69,13 @@ sub _new_members { '@_[ @values_idx ]' }
 sub _inline_optimized_set_new_value {
     my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return "\@{ $slot_access }{ \@_[ \@keys_idx] } = \@_[ \@values_idx ]";
+    return "\@{ ($slot_access) }{ \@_[ \@keys_idx] } = \@_[ \@values_idx ]";
 }
 
 sub _return_value {
     my ( $self, $slot_access ) = @_;
 
-    return "return wantarray ? \@{ $slot_access }{ \@_[ \@keys_idx ] } : ${slot_access}->{ \$_[ \$keys_idx[0] ] };";
+    return "return wantarray ? \@{ ($slot_access) }{ \@_[ \@keys_idx ] } : ${slot_access}->{ \$_[ \$keys_idx[0] ] };";
 }
 
 no Moose::Role;

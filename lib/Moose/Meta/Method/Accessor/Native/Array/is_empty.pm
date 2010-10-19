@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::is_empty;
 use strict;
 use warnings;
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -18,7 +18,7 @@ sub _return_value {
     my $self        = shift;
     my $slot_access = shift;
 
-    return "\@{ $slot_access } ? 0 : 1";
+    return "\@{ ($slot_access) } ? 0 : 1";
 }
 
 no Moose::Role;

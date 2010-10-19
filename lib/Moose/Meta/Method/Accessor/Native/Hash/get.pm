@@ -5,7 +5,7 @@ use warnings;
 
 use Scalar::Util qw( looks_like_number );
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -35,7 +35,7 @@ sub _return_value {
     my $self        = shift;
     my $slot_access = shift;
 
-    return "\@_ > 1 ? \@{ $slot_access }{\@_} : ${slot_access}->{ \$_[0] }";
+    return "\@_ > 1 ? \@{ ($slot_access) }{\@_} : ${slot_access}->{ \$_[0] }";
 }
 
 no Moose::Role;

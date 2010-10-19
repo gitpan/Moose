@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::pop;
 use strict;
 use warnings;
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -25,7 +25,7 @@ sub _adds_members { 0 }
 sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
-    return "[ \@{ $slot_access } > 1 ? \@{ $slot_access }[ 0 .. \$#{ $slot_access } - 1 ] : () ]";
+    return "[ \@{ ($slot_access) } > 1 ? \@{ ($slot_access) }[ 0 .. \$#{ ($slot_access) } - 1 ] : () ]";
 }
 
 sub _inline_capture_return_value {
@@ -37,7 +37,7 @@ sub _inline_capture_return_value {
 sub _inline_optimized_set_new_value {
     my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return "pop \@{ $slot_access }";
+    return "pop \@{ ($slot_access) }";
 }
 
 sub _return_value {

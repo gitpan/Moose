@@ -5,7 +5,7 @@ use warnings;
 
 use Scalar::Util qw( looks_like_number );
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -20,7 +20,7 @@ sub _return_value {
     my $self        = shift;
     my $slot_access = shift;
 
-    return "scalar keys \%{ $slot_access } ? 0 : 1";
+    return "scalar keys \%{ ($slot_access) } ? 0 : 1";
 }
 
 no Moose::Role;

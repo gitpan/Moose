@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::set;
 use strict;
 use warnings;
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -38,7 +38,7 @@ sub _potential_value {
     my ( $self, $slot_access ) = @_;
 
     return
-        "( do { my \@potential = \@{ $slot_access }; \$potential[ \$_[0] ] = \$_[1]; \\\@potential } )";
+        "( do { my \@potential = \@{ ($slot_access) }; \$potential[ \$_[0] ] = \$_[1]; \\\@potential } )";
 }
 
 sub _new_members { '$_[1]' }

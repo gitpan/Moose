@@ -37,5 +37,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.moose.perl.org/Moose.git
-version: 1.16
+version: 1.17
 x_authority: cpan:STEVAN

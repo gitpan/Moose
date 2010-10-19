@@ -6,7 +6,7 @@ use warnings;
 use List::MoreUtils ();
 use Params::Util ();
 
-our $VERSION = '1.16';
+our $VERSION = '1.17';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -42,7 +42,7 @@ sub _inline_return_value {
     my ( $self, $slot_access ) = @_;
 
     return
-        "my \$iter = List::MoreUtils::natatime( \$_[0], \@{ $slot_access } );"
+        "my \$iter = List::MoreUtils::natatime( \$_[0], \@{ ($slot_access) } );"
         . "\n"
         . 'if ( $_[1] ) {' . "\n"
         . 'while (my @vals = $iter->()) {' . "\n"
