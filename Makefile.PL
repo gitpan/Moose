@@ -14,10 +14,10 @@ all_from 'lib/Moose.pm';
 license 'perl';
 
 requires 'Carp';
-requires 'Class::MOP'                  => '1.10';
+requires 'Class::MOP'                  => '1.11';
 requires 'Data::OptList'               => '0';
 requires 'List::MoreUtils'             => '0.12';
-requires 'Package::DeprecationManager' => '0.07';
+requires 'Package::DeprecationManager' => '0.10';
 requires 'Params::Util'                => '1.00';
 requires 'Scalar::Util'                => '1.19';
 requires 'Sub::Exporter'               => '0.980';
@@ -25,9 +25,9 @@ requires 'Sub::Name'                   => '0';
 requires 'Task::Weaken'                => '0';
 requires 'Try::Tiny'                   => '0.02';
 
-test_requires 'Test::More'      => '0.88';
-test_requires 'Test::Exception' => '0.27';
-test_requires 'Test::Requires'  => '0.05';
+test_requires 'Test::More'     => '0.88';
+test_requires 'Test::Fatal'    => '0.001';
+test_requires 'Test::Requires' => '0.05';
 
 author_requires 'DateTime';
 author_requires 'DateTime::Calendar::Mayan';
@@ -58,7 +58,13 @@ if ( is_maintainer() ) {
 tests_recursive();
 
 repository 'git://git.moose.perl.org/Moose.git';
-add_metadata(x_authority => 'cpan:STEVAN');
+add_metadata( x_authority => 'cpan:STEVAN' );
+add_metadata(
+    no_index => {
+        files     => ['lib/Moose/Meta/Method/Accessor/Native.pm'],
+        directory => ['lib/Moose/Meta/Method/Accessor/Native'],
+    }
+);
 
 extra_tests();
 

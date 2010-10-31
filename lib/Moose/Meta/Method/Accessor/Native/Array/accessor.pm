@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::accessor;
 use strict;
 use warnings;
 
-our $VERSION = '1.17';
+our $VERSION = '1.18';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -71,8 +71,7 @@ sub _generate_method {
     return $code;
 }
 
-# If we get one argument we won't check the argument count
-sub _minimum_arguments {2}
+sub _minimum_arguments {1}
 sub _maximum_arguments {2}
 
 no Moose::Role;

@@ -15,7 +15,7 @@ use Sub::Name qw(subname);
 
 use base qw(Class::MOP::Object);
 
-our $VERSION   = '1.17';
+our $VERSION   = '1.18';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -88,6 +88,25 @@ sub coerce {
     return $_[0] if $self->check($_[0]);
 
     return $coercion->coerce(@_);
+}
+
+sub assert_coerce {
+    my $self = shift;
+
+    my $coercion = $self->coercion;
+
+    unless ($coercion) {
+        require Moose;
+        Moose->throw_error("Cannot coerce without a type coercion");
+    }
+
+    return $_[0] if $self->check($_[0]);
+
+    my $result = $coercion->coerce(@_);
+
+    $self->assert_valid($result);
+
+    return $result;
 }
 
 sub check {
@@ -385,6 +404,14 @@ C<equals> and C<is_subtype_of>.
 
 This will attempt to coerce the value to the type. If the type does
 have any defined coercions this will throw an error.
+
+If no coercion can produce a value matching C<$constraint>, the original
+value is returned.
+
+=item B<< $constraint->assert_coerce($value) >>
+
+This method behaves just like C<coerce>, but if the result is not valid
+according to C<$constraint>, an error is thrown.
 
 =item B<< $constraint->check($value) >>
 

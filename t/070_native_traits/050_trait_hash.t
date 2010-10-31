@@ -8,7 +8,7 @@ use lib 't/lib';
 use Moose ();
 use Moose::Util::TypeConstraints;
 use NoInlineAttribute;
-use Test::Exception;
+use Test::Fatal;
 use Test::More;
 use Test::Moose;
 
@@ -24,6 +24,8 @@ use Test::Moose;
         has_option       => 'exists',
         get_option       => 'get',
         has_no_options   => 'is_empty',
+        keys             => 'keys',
+        values           => 'values',
         key_value        => 'kv',
         set_option       => 'set',
     );
@@ -45,7 +47,7 @@ use Test::Moose;
         $class->add_attribute(
             options => (
                 traits  => \@traits,
-                is      => 'ro',
+                is      => 'rw',
                 isa     => 'HashRef[Str]',
                 default => sub { {} },
                 handles => \%handles,
@@ -88,14 +90,13 @@ sub run_tests {
         is_deeply( $obj->options, {}, '... no options yet' );
         ok( !$obj->has_option('foo'), '... we have no foo option' );
 
-        lives_and {
+        is( exception {
             is(
                 $obj->set_option( foo => 'bar' ),
                 'bar',
                 'set return single new value in scalar context'
             );
-        }
-        '... set the option okay';
+        }, undef, '... set the option okay' );
 
         ok( $obj->is_defined('foo'), '... foo is defined' );
 
@@ -104,10 +105,9 @@ sub run_tests {
         ok( $obj->has_option('foo'), '... we have a foo option' );
         is_deeply( $obj->options, { foo => 'bar' }, '... got options now' );
 
-        lives_ok {
+        is( exception {
             $obj->set_option( bar => 'baz' );
-        }
-        '... set the option okay';
+        }, undef, '... set the option okay' );
 
         is( $obj->num_options, 2, '... we have 2 option(s)' );
         is_deeply(
@@ -127,10 +127,9 @@ sub run_tests {
             '... got last option in scalar context'
         );
 
-        lives_ok {
+        is( exception {
             $obj->set_option( oink => "blah", xxy => "flop" );
-        }
-        '... set the option okay';
+        }, undef, '... set the option okay' );
 
         is( $obj->num_options, 4, "4 options" );
         is_deeply(
@@ -138,20 +137,18 @@ sub run_tests {
             [qw(bar baz blah flop)], "get multiple options at once"
         );
 
-        lives_and {
+        is( exception {
             is( scalar $obj->delete_option('bar'), 'baz',
                 'delete returns deleted value' );
-        }
-        '... deleted the option okay';
+        }, undef, '... deleted the option okay' );
 
-        lives_ok {
+        is( exception {
             is_deeply(
                 [ $obj->delete_option( 'oink', 'xxy' ) ],
                 [ 'blah', 'flop' ],
                 'delete returns all deleted values in list context'
             );
-        }
-        '... deleted multiple option okay';
+        }, undef, '... deleted multiple option okay' );
 
         is( $obj->num_options, 1, '... we have 1 option(s)' );
         is_deeply(
@@ -163,32 +160,50 @@ sub run_tests {
 
         is_deeply( $obj->options, {}, "... cleared options" );
 
-        lives_ok {
+        is( exception {
             $obj->quantity(4);
-        }
-        '... options added okay with defaults';
+        }, undef, '... options added okay with defaults' );
 
         is( $obj->quantity, 4, 'reader part of curried accessor works' );
+
+        is(
+            $obj->option_accessor('quantity'), 4,
+            'accessor as reader'
+        );
 
         is_deeply(
             $obj->options, { quantity => 4 },
             '... returns what we expect'
         );
 
-        lives_ok {
+        $obj->option_accessor( size => 42 );
+
+        like(
+            exception {
+                $obj->option_accessor;
+            },
+            qr/Cannot call accessor without at least 1 argument/,
+            'error when calling accessor with no arguments'
+        );
+
+        is_deeply(
+            $obj->options, { quantity => 4, size => 42 },
+            'accessor as writer'
+        );
+
+        is( exception {
             $class->new( options => { foo => 'BAR' } );
-        }
-        '... good constructor params';
+        }, undef, '... good constructor params' );
 
-        dies_ok {
+        isnt( exception {
             $obj->set_option( bar => {} );
-        }
-        '... could not add a hash ref where an string is expected';
+        }, undef, '... could not add a hash ref where an string is expected' );
 
-        dies_ok {
+        isnt( exception {
             $class->new( options => { foo => [] } );
-        }
-        '... bad constructor params';
+        }, undef, '... bad constructor params' );
+
+        $obj->options( {} );
 
         is_deeply(
             [ $obj->set_option( oink => "blah", xxy => "flop" ) ],
@@ -196,12 +211,23 @@ sub run_tests {
             'set returns newly set values in order of keys provided'
         );
 
+        is_deeply(
+            [ sort $obj->keys ],
+            [ 'oink', 'xxy' ],
+            'keys returns expected keys'
+        );
+
+        is_deeply(
+            [ sort $obj->values ],
+            [ 'blah', 'flop' ],
+            'values returns expected values'
+        );
+
         my @key_value = sort { $a->[0] cmp $b->[0] } $obj->key_value;
         is_deeply(
             \@key_value,
             [
                 sort { $a->[0] cmp $b->[0] }[ 'xxy', 'flop' ],
-                [ 'quantity', 4 ],
                 [ 'oink',     'blah' ]
             ],
             '... got the right key value pairs'
@@ -215,7 +241,6 @@ sub run_tests {
         is_deeply(
             \%options_elements, {
                 'oink'     => 'blah',
-                'quantity' => 4,
                 'xxy'      => 'flop'
             },
             '... got the right hash elements'
@@ -251,6 +276,16 @@ sub run_tests {
                 [ $obj->key_value ],
                 [ [ x => 1 ] ],
                 'kv returns lazy default'
+            );
+
+            $obj->_clear_options;
+
+            $obj->option_accessor( y => 2 );
+
+            is_deeply(
+                [ sort $obj->keys ],
+                [ 'x', 'y' ],
+                'accessor triggers lazy default generator'
             );
         }
     }

@@ -4,7 +4,7 @@ package Moose::Meta::Method::Accessor;
 use strict;
 use warnings;
 
-our $VERSION   = '1.17';
+our $VERSION   = '1.18';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -206,7 +206,7 @@ sub _inline_check_lazy {
                          ';'. "\n    }";
             }
             $code .= $self->_inline_check_coercion('$default') . "\n";
-            $code .= $self->_inline_check_constraint('$default') . "\n";
+            $code .= $self->_inline_check_constraint('$default', 'lazy') . "\n";
             $code .= '    ' . $self->_inline_init_slot($attr, $instance, '$default') . "\n";
         }
         else {

@@ -5,7 +5,6 @@ use warnings;
 use FindBin;
 
 use Test::More;
-use Test::Exception;
 
 use Moose::Util::TypeConstraints;
 

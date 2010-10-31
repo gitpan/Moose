@@ -2,7 +2,7 @@
 
 use strict;
 use Test::More 'no_plan';
-use Test::Exception;
+use Test::Fatal;
 $| = 1;
 
 
@@ -102,25 +102,35 @@ isa_ok( $r, 'Request' );
     is( $header4->content_type, 'application/pdf',
         '... got the right content type in the header' );
 
-    dies_ok {
-        $r->headers('Foo');
-    }
-    '... dies when it gets bad params';
+    isnt(
+        exception {
+            $r->headers('Foo');
+        },
+        undef,
+        '... dies when it gets bad params'
+    );
 }
 
 {
     is( $r->protocol, undef, '... got nothing by default' );
 
-    lives_ok {
-        $r->protocol('HTTP/1.0');
-    }
-    '... set the protocol correctly';
+    is(
+        exception {
+            $r->protocol('HTTP/1.0');
+        },
+        undef,
+        '... set the protocol correctly'
+    );
+
     is( $r->protocol, 'HTTP/1.0', '... got nothing by default' );
 
-    dies_ok {
-        $r->protocol('http/1.0');
-    }
-    '... the protocol died with bar params correctly';
+    isnt(
+        exception {
+            $r->protocol('http/1.0');
+        },
+        undef,
+        '... the protocol died with bar params correctly'
+    );
 }
 
 {

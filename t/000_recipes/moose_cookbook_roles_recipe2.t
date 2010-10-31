@@ -2,7 +2,7 @@
 
 use strict;
 use Test::More 'no_plan';
-use Test::Exception;
+use Test::Fatal;
 $| = 1;
 
 

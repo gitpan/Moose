@@ -5,7 +5,7 @@ use warnings;
 
 use List::MoreUtils qw( any );
 
-our $VERSION = '1.17';
+our $VERSION = '1.18';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -58,6 +58,8 @@ sub _writer_core {
         $code .= "\n" . 'my @return;';
     }
 
+    # This is only needed by collections.
+    $code .= "\n" . $self->_inline_coerce_new_values;
     $code .= "\n" . $self->_inline_copy_native_value( \$potential_value );
     $code .= "\n"
         . $self->_inline_tc_code(
@@ -81,6 +83,8 @@ sub _writer_core {
 sub _inline_process_arguments {q{}}
 
 sub _inline_check_arguments {q{}}
+
+sub _inline_coerce_new_values {q{}}
 
 sub _value_needs_copy {
     my $self = shift;
@@ -132,8 +136,9 @@ sub _inline_check_coercion {
 
     my $attr = $self->associated_attribute;
 
-    return ''
-        unless $attr->should_coerce && $attr->type_constraint->has_coercion;
+    return q{}
+        unless $attr->should_coerce
+            && $attr->type_constraint->has_coercion;
 
     # We want to break the aliasing in @_ in case the coercion tries to make a
     # destructive change to an array member.
@@ -141,9 +146,9 @@ sub _inline_check_coercion {
 }
 
 override _inline_check_constraint => sub {
-    my $self = shift;
+    my ( $self, $value, $for_lazy ) = @_;
 
-    return q{} unless $self->_constraint_must_be_checked;
+    return q{} unless $for_lazy || $self->_constraint_must_be_checked;
 
     return super();
 };

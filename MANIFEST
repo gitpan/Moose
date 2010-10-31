@@ -1,4 +1,6 @@
+author/convert-to-test-fatal
 author/extract-inline-tests
+author/find-dupe-test-numbers
 Changes
 doap.rdf
 inc/Module/Install.pm
@@ -278,6 +280,10 @@ t/020_attributes/033_accessor_inlining.t
 t/020_attributes/034_bad_coerce.t
 t/020_attributes/035_default_undef.t
 t/020_attributes/036_numeric_defaults.t
+t/020_attributes/037_inherit_lazy_build.t
+t/020_attributes/038_delegation_target_not_loaded.t
+t/020_attributes/039_accessor_overwrite_warning.t
+t/020_attributes/040_lazy_no_default.t
 t/030_roles/001_meta_role.t
 t/030_roles/002_role.t
 t/030_roles/003_apply_role.t
@@ -380,9 +386,9 @@ t/050_metaclasses/041_moose_nonmoose_moose_chain_init_meta.t
 t/050_metaclasses/050_metarole_backcompat.t
 t/050_metaclasses/051_metarole_on_anon.t
 t/050_metaclasses/052_metaclass_compat.t
-t/050_metaclasses/052_new_object_BUILD.t
 t/050_metaclasses/053_immutable_metaclass_compat_bug.t
 t/050_metaclasses/054_metaclass_compat_no_fixing_bug.t
+t/050_metaclasses/055_new_object_BUILD.t
 t/050_metaclasses/060_reinitialize.t
 t/050_metaclasses/061_moose_exporter_trait_aliases.t
 t/050_metaclasses/062_meta_name.t

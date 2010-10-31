@@ -2,7 +2,7 @@
 
 use strict;
 use Test::More 'no_plan';
-use Test::Exception;
+use Test::Fatal;
 $| = 1;
 
 
@@ -56,10 +56,13 @@ my $savings_account;
     isa_ok( $savings_account, 'BankAccount' );
 
     is( $savings_account->balance, 250, '... got the right savings balance' );
-    lives_ok {
-        $savings_account->withdraw(50);
-    }
-    '... withdrew from savings successfully';
+    is(
+        exception {
+            $savings_account->withdraw(50);
+        },
+        undef,
+        '... withdrew from savings successfully'
+    );
     is( $savings_account->balance, 200,
         '... got the right savings balance after withdrawl' );
 
@@ -82,20 +85,26 @@ my $savings_account;
     is( $checking_account->balance, 100,
         '... got the right checkings balance' );
 
-    lives_ok {
-        $checking_account->withdraw(50);
-    }
-    '... withdrew from checking successfully';
+    is(
+        exception {
+            $checking_account->withdraw(50);
+        },
+        undef,
+        '... withdrew from checking successfully'
+    );
     is( $checking_account->balance, 50,
         '... got the right checkings balance after withdrawl' );
     is( $savings_account->balance, 350,
         '... got the right savings balance after checking withdrawl (no overdraft)'
     );
 
-    lives_ok {
-        $checking_account->withdraw(200);
-    }
-    '... withdrew from checking successfully';
+    is(
+        exception {
+            $checking_account->withdraw(200);
+        },
+        undef,
+        '... withdrew from checking successfully'
+    );
     is( $checking_account->balance, 0,
         '... got the right checkings balance after withdrawl' );
     is( $savings_account->balance, 200,
@@ -117,17 +126,23 @@ my $savings_account;
     is( $checking_account->balance, 100,
         '... got the right checkings balance' );
 
-    lives_ok {
-        $checking_account->withdraw(50);
-    }
-    '... withdrew from checking successfully';
+    is(
+        exception {
+            $checking_account->withdraw(50);
+        },
+        undef,
+        '... withdrew from checking successfully'
+    );
     is( $checking_account->balance, 50,
         '... got the right checkings balance after withdrawl' );
 
-    dies_ok {
-        $checking_account->withdraw(200);
-    }
-    '... withdrawl failed due to attempted overdraft';
+    isnt(
+        exception {
+            $checking_account->withdraw(200);
+        },
+        undef,
+        '... withdrawal failed due to attempted overdraft'
+    );
     is( $checking_account->balance, 50,
         '... got the right checkings balance after withdrawl failure' );
 }

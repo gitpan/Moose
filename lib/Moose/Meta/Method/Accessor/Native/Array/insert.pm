@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Array::insert;
 use strict;
 use warnings;
 
-our $VERSION = '1.17';
+our $VERSION = '1.18';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -33,6 +33,19 @@ sub _potential_value {
     return
         "( do { my \@potential = \@{ ($slot_access) }; splice \@potential, \$_[0], 0, \$_[1]; \\\@potential } )";
 }
+
+# We need to override this because while @_ can be written to, we cannot write
+# directly to $_[1].
+around _inline_coerce_new_values => sub {
+    shift;
+    my $self = shift;
+
+    return q{} unless $self->associated_attribute->should_coerce;
+
+    return q{} unless $self->_tc_member_type_can_coerce;
+
+    return '@_ = ( $_[0], $member_tc_obj->coerce( $_[1] ) );';
+};
 
 sub _new_members { '$_[1]' }
 

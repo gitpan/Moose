@@ -4,7 +4,7 @@ author:
   - 'Moose is an open project, there are at this point dozens of people who have'
 build_requires:
   ExtUtils::MakeMaker: 6.42
-  Test::Exception: 0.27
+  Test::Fatal: 0.001
   Test::More: 0.88
   Test::Requires: 0.05
 configure_requires:
@@ -19,14 +19,17 @@ name: Moose
 no_index:
   directory:
     - inc
+    - lib/Moose/Meta/Method/Accessor/Native
     - t
     - xt
+  files:
+    - lib/Moose/Meta/Method/Accessor/Native.pm
 requires:
   Carp: 0
-  Class::MOP: 1.10
+  Class::MOP: 1.11
   Data::OptList: 0
   List::MoreUtils: 0.12
-  Package::DeprecationManager: 0.07
+  Package::DeprecationManager: 0.10
   Params::Util: 1.00
   Scalar::Util: 1.19
   Sub::Exporter: 0.980
@@ -37,5 +40,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.moose.perl.org/Moose.git
-version: 1.17
+version: 1.18
 x_authority: cpan:STEVAN
