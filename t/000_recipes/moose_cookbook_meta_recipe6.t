@@ -82,13 +82,13 @@ $| = 1;
 {
 package main;
 
-use Test::Exception;
+use Test::Fatal;
 
 my $user = MyApp::User->new( password => 'foo!' );
 
-throws_ok { $user->_reset_password }
+like( exception { $user->_reset_password },
 qr/The MyApp::User::_reset_password method is private/,
-    '_reset_password method dies if called outside MyApp::User class';
+    '_reset_password method dies if called outside MyApp::User class');
 
 {
     package MyApp::User;
