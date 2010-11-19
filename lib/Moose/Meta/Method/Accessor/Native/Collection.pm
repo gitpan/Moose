@@ -3,7 +3,7 @@ package Moose::Meta::Method::Accessor::Native::Collection;
 use strict;
 use warnings;
 
-our $VERSION = '1.19';
+our $VERSION = '1.20';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -108,7 +108,7 @@ sub _inline_check_member_constraint {
     return '$member_tc->($_) || '
         . $self->_inline_throw_error(
         qq{"A new member value for '$attr_name' does not pass its type constraint because: "}
-            . ' . $member_tc->get_message($_)',
+            . ' . $member_tc_obj->get_message($_)',
         "data => \$_"
         ) . " for $new_value;";
 }
