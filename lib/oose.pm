@@ -5,7 +5,7 @@ use warnings;
 
 use Class::MOP;
 
-our $VERSION   = '1.20';
+our $VERSION   = '1.21';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -80,7 +80,7 @@ Chris Prather  C<< <chris@prather.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2009 by Infinity Interactive, Inc.
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

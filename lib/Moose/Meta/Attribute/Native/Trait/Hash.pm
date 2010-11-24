@@ -2,7 +2,7 @@
 package Moose::Meta::Attribute::Native::Trait::Hash;
 use Moose::Role;
 
-our $VERSION   = '1.20';
+our $VERSION   = '1.21';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -158,6 +158,9 @@ When called as a setter, this method returns the value that was set.
 
 =back
 
+Note that C<each> is deliberately omitted, due to its stateful interaction
+with the hash iterator. C<keys> or C<kv> are much safer.
+
 =head1 METHODS
 
 =over 4
@@ -176,7 +179,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2009 by Infinity Interactive, Inc.
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

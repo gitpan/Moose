@@ -7,7 +7,7 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken';
 
-our $VERSION   = '1.20';
+our $VERSION   = '1.21';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -198,7 +198,7 @@ Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009 by Infinity Interactive, Inc.
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

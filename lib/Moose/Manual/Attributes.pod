@@ -414,7 +414,7 @@ set:
       }
 
       $msg .= " - size is now $size";
-      warn $msg.
+      warn $msg;
   }
 
 The trigger is called I<after> an attribute's value is set. It is
@@ -618,7 +618,7 @@ Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009 by Infinity Interactive, Inc.
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

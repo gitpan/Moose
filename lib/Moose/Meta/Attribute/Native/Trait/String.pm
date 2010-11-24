@@ -1,7 +1,7 @@
 package Moose::Meta::Attribute::Native::Trait::String;
 use Moose::Role;
 
-our $VERSION   = '1.20';
+our $VERSION   = '1.21';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -145,7 +145,7 @@ Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2009 by Infinity Interactive, Inc.
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

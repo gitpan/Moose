@@ -89,7 +89,16 @@ everyone involved. The branches below are ordered by level of stability.
 
 =over
 
-=item Stable (refs/heads/stable)
+=item stable/*
+
+The branch from which releases are cut. When making a new major release, the
+release manager makes a new C<stable/X.YY> branch at the current position of
+C<master>. The version used in the stable branch should not include the last
+two digits of the version number.
+
+For minor releases, patches will be committed to C<master>, and
+backported (cherry-picked) to the appropriate stable branch as needed. A
+stable branch is only updated by someone from the Cabal during a release.
 
 The branch from which releases are cut. When making a new release, the
 release manager merges from master to stable. The stable branch is only
@@ -218,8 +227,9 @@ branch's approval.
 
 =item Backwards incompatible changes.
 
-Anything that breaks backwards compatibility must be discussed by the cabal
-and agreed to by a majority of the members.
+Anything that breaks backwards compatibility must be discussed by the
+cabal. Backwards incompatible changes should not be merged to master if there
+are strong objections from any cabal members.
 
 We have a policy for what we see as sane L</BACKWARDS COMPATIBILITY> for
 Moose. If your changes break back-compat, you must be ready to discuss and
@@ -230,18 +240,28 @@ defend your change.
 =head1 RELEASE WORKFLOW
 
     git checkout master
+
+    # minor releases
+    git checkout stable/X.YY
+
     # edit for final version bumping, changelogging, etc
     # prepare release (test suite etc)
     perl-reversion -bump
     make manifest
     git commit
-    git checkout stable
-    git merge master # must be a fast forward
-    git push both
+    git branch stable/X.YY # only for non-trial major releases
     shipit # does not ship the tarball, but does everything else
     cpan-upload ~/shipit-dist/Moose-X.YZ.tar.gz
 
 Development releases are made without merging into the stable branch.
+
+    # non-trial releases
+    cpan-upload ~/shipit-dist/Moose-X.YYZZ.tar.gz
+
+    # trial releases
+    cd ~/shipit-dist
+    mv Moose-X.YYZZ.tar.gz Moose-X.YYZZ-TRIAL.tar.gz
+    cpan-upload Moose-X.YYZZ-TRIAL.tar.gz
 
 =head2 Release How-To
 
@@ -283,14 +303,14 @@ Anyone can create the necessary fix by branching off of the stable branch:
     # hack
     git commit
 
-Then a cabal member merges into stable:
+Then a cabal member merges into C<master>, and backports the change into
+C<stable/X.YY>:
 
-    git checkout stable
+    git checkout master
     git merge topic/my-emergency-fix
     git push
-    # release
-    git checkout master
-    git merge stable
+    git checkout stable/X.YY
+    git cherry-pick -x master
 
 =head1 PROJECT WORKFLOW
 
@@ -405,7 +425,7 @@ Yuval (nothingmuch) Kogman
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009 by Infinity Interactive, Inc.
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

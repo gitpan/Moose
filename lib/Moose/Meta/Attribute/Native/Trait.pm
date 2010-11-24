@@ -6,7 +6,7 @@ use List::MoreUtils qw( any uniq );
 use Moose::Util::TypeConstraints;
 use Moose::Deprecated;
 
-our $VERSION   = '1.20';
+our $VERSION   = '1.21';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -224,7 +224,7 @@ Jesse Luehrs
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2009 by Infinity Interactive, Inc.
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 

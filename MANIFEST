@@ -392,6 +392,7 @@ t/050_metaclasses/055_new_object_BUILD.t
 t/050_metaclasses/060_reinitialize.t
 t/050_metaclasses/061_moose_exporter_trait_aliases.t
 t/050_metaclasses/062_meta_name.t
+t/050_metaclasses/070_metaroles_of_metaroles.t
 t/060_compat/001_module_refresh_compat.t
 t/060_compat/002_moose_respects_base.t
 t/060_compat/003_foreign_inheritence.t

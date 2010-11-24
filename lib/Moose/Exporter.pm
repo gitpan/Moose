@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION = '1.20';
+our $VERSION = '1.21';
 our $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
@@ -873,7 +873,7 @@ Stevan Little and others.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009 by Infinity Interactive, Inc.
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
 L<http://www.iinteractive.com>
 
