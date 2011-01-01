@@ -1,20 +1,11 @@
 package Moose::Meta::Attribute::Native::Trait::String;
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::String::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::String::VERSION = '1.9900'; # TRIAL
+}
 use Moose::Role;
-
-our $VERSION   = '1.21';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
-
-use Moose::Meta::Method::Accessor::Native::String::append;
-use Moose::Meta::Method::Accessor::Native::String::chomp;
-use Moose::Meta::Method::Accessor::Native::String::chop;
-use Moose::Meta::Method::Accessor::Native::String::clear;
-use Moose::Meta::Method::Accessor::Native::String::inc;
-use Moose::Meta::Method::Accessor::Native::String::length;
-use Moose::Meta::Method::Accessor::Native::String::match;
-use Moose::Meta::Method::Accessor::Native::String::prepend;
-use Moose::Meta::Method::Accessor::Native::String::replace;
-use Moose::Meta::Method::Accessor::Native::String::substr;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -26,13 +17,19 @@ no Moose::Role;
 
 1;
 
-__END__
+# ABSTRACT: Helper trait for Str attributes
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait::String - Helper trait for Str attributes
+
+=head1 VERSION
+
+version 1.9900
 
 =head1 SYNOPSIS
 
@@ -141,15 +138,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

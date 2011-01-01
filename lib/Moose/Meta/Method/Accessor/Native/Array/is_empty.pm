@@ -1,11 +1,13 @@
 package Moose::Meta::Method::Accessor::Native::Array::is_empty;
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::is_empty::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::is_empty::VERSION = '1.9900'; # TRIAL
+}
 
 use strict;
 use warnings;
-
-our $VERSION = '1.21';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -15,10 +17,10 @@ with 'Moose::Meta::Method::Accessor::Native::Reader' =>
 sub _maximum_arguments { 0 }
 
 sub _return_value {
-    my $self        = shift;
-    my $slot_access = shift;
+    my $self = shift;
+    my ($slot_access) = @_;
 
-    return "\@{ ($slot_access) } ? 0 : 1";
+    return '@{ (' . $slot_access . ') } ? 0 : 1';
 }
 
 no Moose::Role;

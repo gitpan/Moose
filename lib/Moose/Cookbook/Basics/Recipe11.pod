@@ -1,18 +1,18 @@
+package Moose::Cookbook::Basics::Recipe11;
+
+# ABSTRACT: Extending a non-Moose base class
+
+
 
 =pod
-
-=begin testing-SETUP
-
-use Test::Requires {
-    'DateTime'                  => '0',
-    'DateTime::Calendar::Mayan' => '0',
-};
-
-=end testing-SETUP
 
 =head1 NAME
 
 Moose::Cookbook::Basics::Recipe11 - Extending a non-Moose base class
+
+=head1 VERSION
+
+version 1.9900
 
 =head1 SYNOPSIS
 
@@ -96,6 +96,11 @@ our subclass.
 The C<after> modifier works just like we'd expect. The fact that
 C<set> is defined in our non-Moose parent does not matter.
 
+=for testing-SETUP use Test::Requires {
+    'DateTime'                  => '0',
+    'DateTime::Calendar::Mayan' => '0',
+};
+
 =head1 CONCLUSION
 
 Moose can play nice with non-Moose classes when you follow the pattern
@@ -107,19 +112,6 @@ However, you won't be able to easily override a parent's "attributes",
 since they're not Moose attributes. Nor will you be able to inline a
 constructor, since you need to explicitly use the metaclass's object
 constructor.
-
-=head1 AUTHOR
-
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2009-2010 by Infinity Interactive, Inc.
-
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =begin testing
 
@@ -134,4 +126,20 @@ ok( ! $dt->has_mayan_date, 'mayan_date is cleared after call to ->set' );
 
 =end testing
 
+=head1 AUTHOR
+
+Stevan Little <stevan@iinteractive.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
+
+__END__
+
+

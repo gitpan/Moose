@@ -1,9 +1,18 @@
+package Moose::Cookbook::Basics::Recipe10;
+
+# ABSTRACT: Using BUILDARGS and BUILD to hook into object construction
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Basics::Recipe10 - Using BUILDARGS and BUILD to hook into object construction
+
+=head1 VERSION
+
+version 1.9900
 
 =head1 SYNOPSIS
 
@@ -116,15 +125,18 @@ logical constraints across the whole object after it is created.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
+

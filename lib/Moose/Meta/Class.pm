@@ -1,5 +1,11 @@
 
 package Moose::Meta::Class;
+BEGIN {
+  $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Class::VERSION = '1.9900'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -11,10 +17,6 @@ use Data::OptList;
 use List::Util qw( first );
 use List::MoreUtils qw( any all uniq first_index );
 use Scalar::Util 'weaken', 'blessed';
-
-our $VERSION   = '1.21';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Method::Overridden;
 use Moose::Meta::Method::Augmented;
@@ -280,6 +282,190 @@ sub new_object {
     return $object;
 }
 
+sub _generate_fallback_constructor {
+    my $self = shift;
+    my ($class) = @_;
+    return $class . '->Moose::Object::new(@_)'
+}
+
+sub _inline_params {
+    my $self = shift;
+    my ($params, $class) = @_;
+    return (
+        'my ' . $params . ' = ',
+        $self->_inline_BUILDARGS($class, '@_'),
+        ';',
+    );
+}
+
+sub _inline_BUILDARGS {
+    my $self = shift;
+    my ($class, $args) = @_;
+
+    my $buildargs = $self->find_method_by_name("BUILDARGS");
+
+    if ($args eq '@_'
+     && (!$buildargs or $buildargs->body == \&Moose::Object::BUILDARGS)) {
+        return (
+            'do {',
+                'my $params;',
+                'if (scalar @_ == 1) {',
+                    'if (!defined($_[0]) || ref($_[0]) ne \'HASH\') {',
+                        $self->_inline_throw_error(
+                            '"Single parameters to new() must be a HASH ref"',
+                            'data => $_[0]',
+                        ) . ';',
+                    '}',
+                    '$params = { %{ $_[0] } };',
+                '}',
+                'elsif (@_ % 2) {',
+                    'Carp::carp(',
+                        '"The new() method for ' . $class . ' expects a '
+                      . 'hash reference or a key/value list. You passed an '
+                      . 'odd number of arguments"',
+                    ');',
+                    '$params = {@_, undef};',
+                '}',
+                'else {',
+                    '$params = {@_};',
+                '}',
+                '$params;',
+            '}',
+        );
+    }
+    else {
+        return $class . '->BUILDARGS(' . $args . ')';
+    }
+}
+
+sub _inline_slot_initializer {
+    my $self  = shift;
+    my ($attr, $idx) = @_;
+
+    return (
+        '## ' . $attr->name,
+        $self->_inline_check_required_attr($attr),
+        $self->SUPER::_inline_slot_initializer(@_),
+    );
+}
+
+sub _inline_check_required_attr {
+    my $self = shift;
+    my ($attr) = @_;
+
+    return unless defined $attr->init_arg;
+    return unless $attr->can('is_required') && $attr->is_required;
+    return if $attr->has_default || $attr->has_builder;
+
+    return (
+        'if (!exists $params->{\'' . $attr->init_arg . '\'}) {',
+            $self->_inline_throw_error(
+                '"Attribute (' . quotemeta($attr->name) . ') is required"'
+            ) . ';',
+        '}',
+    );
+}
+
+# XXX: these two are duplicated from cmop, because we have to pass the tc stuff
+# through to _inline_set_value - this should probably be fixed, but i'm not
+# quite sure how. -doy
+sub _inline_init_attr_from_constructor {
+    my $self = shift;
+    my ($attr, $idx) = @_;
+
+    my @initial_value = $attr->_inline_set_value(
+        '$instance',
+        '$params->{\'' . $attr->init_arg . '\'}',
+        '$type_constraint_bodies[' . $idx . ']',
+        '$type_constraints[' . $idx . ']',
+        'for constructor',
+    );
+
+    push @initial_value, (
+        '$attrs->[' . $idx . ']->set_initial_value(',
+            '$instance,',
+            $attr->_inline_instance_get('$instance'),
+        ');',
+    ) if $attr->has_initializer;
+
+    return @initial_value;
+}
+
+sub _inline_init_attr_from_default {
+    my $self = shift;
+    my ($attr, $idx) = @_;
+
+    my $default = $self->_inline_default_value($attr, $idx);
+    return unless $default;
+
+    my @initial_value = (
+        'my $default = ' . $default . ';',
+        $attr->_inline_set_value(
+            '$instance',
+            '$default',
+            '$type_constraint_bodies[' . $idx . ']',
+            '$type_constraints[' . $idx . ']',
+            'for constructor',
+        ),
+    );
+
+    push @initial_value, (
+        '$attrs->[' . $idx . ']->set_initial_value(',
+            '$instance,',
+            $attr->_inline_instance_get('$instance'),
+        ');',
+    ) if $attr->has_initializer;
+
+    return @initial_value;
+}
+
+sub _inline_extra_init {
+    my $self = shift;
+    return (
+        $self->_inline_triggers,
+        $self->_inline_BUILDALL,
+    );
+}
+
+sub _inline_triggers {
+    my $self = shift;
+    my @trigger_calls;
+
+    my @attrs = sort { $a->name cmp $b->name } $self->get_all_attributes;
+    for my $i (0 .. $#attrs) {
+        my $attr = $attrs[$i];
+
+        next unless $attr->can('has_trigger') && $attr->has_trigger;
+
+        my $init_arg = $attr->init_arg;
+        next unless defined $init_arg;
+
+        push @trigger_calls,
+            'if (exists $params->{\'' . $init_arg . '\'}) {',
+                '$attrs->[' . $i . ']->trigger->(',
+                    '$instance,',
+                    $attr->_inline_instance_get('$instance') . ',',
+                ');',
+            '}';
+    }
+
+    return @trigger_calls;
+}
+
+sub _inline_BUILDALL {
+    my $self = shift;
+
+    my @methods = reverse $self->find_all_methods_by_name('BUILD');
+    my @BUILD_calls;
+
+    foreach my $method (@methods) {
+        push @BUILD_calls,
+            '$instance->' . $method->{class} . '::BUILD($params);';
+    }
+
+    return @BUILD_calls;
+}
+
 sub superclasses {
     my $self = shift;
     my $supers = Data::OptList::mkopt(\@_);
@@ -478,6 +664,11 @@ sub throw_error {
     $self->raise_error($self->create_error(@args));
 }
 
+sub _inline_throw_error {
+    my ( $self, $msg, $args ) = @_;
+    "\$meta->throw_error($msg" . ($args ? ", $args" : "") . ")"; # FIXME makes deparsing *REALLY* hard
+}
+
 sub raise_error {
     my ( $self, @args ) = @_;
     die @args;
@@ -510,13 +701,19 @@ sub create_error {
 
 1;
 
-__END__
+# ABSTRACT: The Moose metaclass
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Class - The Moose metaclass
+
+=head1 VERSION
+
+version 1.9900
 
 =head1 DESCRIPTION
 
@@ -678,16 +875,18 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

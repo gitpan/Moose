@@ -1,4 +1,10 @@
 package Moose::Meta::Role::Application::ToClass;
+BEGIN {
+  $Moose::Meta::Role::Application::ToClass::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Role::Application::ToClass::VERSION = '1.9900'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -6,10 +12,6 @@ use metaclass;
 
 use Moose::Util  'english_list';
 use Scalar::Util 'weaken', 'blessed';
-
-our $VERSION   = '1.21';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Role::Application';
 
@@ -129,7 +131,7 @@ sub check_required_attributes {
 
 sub apply_attributes {
     my ($self, $role, $class) = @_;
-    my $attr_metaclass = $class->attribute_metaclass;
+    my $attr_metaclass = $role->applied_attribute_metaclass;
 
     foreach my $attribute_name ($role->get_attribute_list) {
         # it if it has one already
@@ -224,13 +226,19 @@ sub apply_method_modifiers {
 
 1;
 
-__END__
+# ABSTRACT: Compose a role into a class
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Role::Application::ToClass - Compose a role into a class
+
+=head1 VERSION
+
+version 1.9900
 
 =head1 DESCRIPTION
 
@@ -266,16 +274,18 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

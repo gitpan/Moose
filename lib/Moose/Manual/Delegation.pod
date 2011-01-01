@@ -1,8 +1,18 @@
+package Moose::Manual::Delegation;
+
+# ABSTRACT: Attribute delegation
+
+
+
 =pod
 
 =head1 NAME
 
 Moose::Manual::Delegation - Attribute delegation
+
+=head1 VERSION
+
+version 1.9900
 
 =head1 WHAT IS DELEGATION?
 
@@ -178,15 +188,17 @@ object.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

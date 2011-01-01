@@ -1,14 +1,16 @@
 package Moose::Meta::Method::Accessor::Native::Array::first;
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::first::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::first::VERSION = '1.9900'; # TRIAL
+}
 
 use strict;
 use warnings;
 
 use List::Util ();
 use Params::Util ();
-
-our $VERSION = '1.21';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -29,16 +31,20 @@ sub _maximum_arguments { 1 }
 sub _inline_check_arguments {
     my $self = shift;
 
-    return $self->_inline_throw_error(
-        q{'The argument passed to first must be a code reference'})
-        . q{ unless Params::Util::_CODELIKE( $_[0] );};
+    return (
+        'if (!Params::Util::_CODELIKE($_[0])) {',
+            $self->_inline_throw_error(
+                '"The argument passed to first must be a code reference"',
+            ) . ';',
+        '}',
+    );
 }
 
 sub _return_value {
-    my $self        = shift;
-    my $slot_access = shift;
+    my $self = shift;
+    my ($slot_access) = @_;
 
-    return "&List::Util::first( \$_[0], \@{ ($slot_access) } )";
+    return '&List::Util::first($_[0], @{ (' . $slot_access . ') })';
 }
 
 no Moose::Role;
