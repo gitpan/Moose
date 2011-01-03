@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::OptimizedConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::TypeConstraints::OptimizedConstraints::VERSION = '1.9901'; # TRIAL
+  $Moose::Util::TypeConstraints::OptimizedConstraints::VERSION = '1.9902'; # TRIAL
 }
 
 use strict;

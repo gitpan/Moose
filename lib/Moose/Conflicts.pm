@@ -16,6 +16,8 @@ use Dist::CheckConflicts
         'Markdent' => '0.16',
         'MooseX::Aliases' => '0.07',
         'MooseX::AlwaysCoerce' => '0.05',
+        'MooseX::Attribute::Deflator' => '1.130000',
+        'MooseX::Attribute::Dependent' => '1.0.0',
         'MooseX::Attribute::Prototype' => '0.10',
         'MooseX::AttributeHelpers' => '0.22',
         'MooseX::AttributeInflate' => '0.02',

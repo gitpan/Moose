@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Attribute::VERSION = '1.9901'; # TRIAL
+  $Moose::Meta::Role::Attribute::VERSION = '1.9902'; # TRIAL
 }
 
 use strict;

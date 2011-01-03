@@ -14,7 +14,6 @@ my %WriteMakefileArgs = (
     'Test::More' => '0.88',
     'Test::Requires' => '0.05'
   },
-  'CCFLAGS' => '-fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I.',
   'CONFIGURE_REQUIRES' => {
     'Dist::CheckConflicts' => '0.02',
     'ExtUtils::MakeMaker' => '6.31'
@@ -42,7 +41,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '1.9901',
+  'VERSION' => '1.9902',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',
@@ -81,6 +80,8 @@ unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+$WriteMakefileArgs{CCFLAGS} = ( $Config::Config{ccflags} || '' ) . ' -I.';
 
 WriteMakefile(%WriteMakefileArgs);
 

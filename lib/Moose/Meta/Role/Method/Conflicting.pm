@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::Method::Conflicting::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Method::Conflicting::VERSION = '1.9901'; # TRIAL
+  $Moose::Meta::Role::Method::Conflicting::VERSION = '1.9902'; # TRIAL
 }
 
 use strict;
@@ -38,7 +38,7 @@ Moose::Meta::Role::Method::Conflicting - A Moose metaclass for conflicting metho
 
 =head1 VERSION
 
-version 1.9901
+version 1.9902
 
 =head1 DESCRIPTION
 

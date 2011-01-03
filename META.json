@@ -94,7 +94,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "1.9901",
+   "version" : "1.9902",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",
@@ -106,6 +106,8 @@
       "Markdent" : "0.16",
       "MooseX::Aliases" : "0.07",
       "MooseX::AlwaysCoerce" : "0.05",
+      "MooseX::Attribute::Deflator" : "1.130000",
+      "MooseX::Attribute::Dependent" : "1.0.0",
       "MooseX::Attribute::Prototype" : "0.10",
       "MooseX::AttributeHelpers" : "0.22",
       "MooseX::AttributeInflate" : "0.02",

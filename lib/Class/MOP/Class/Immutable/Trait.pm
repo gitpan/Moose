@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Class::Immutable::Trait::VERSION = '1.9901'; # TRIAL
+  $Class::MOP::Class::Immutable::Trait::VERSION = '1.9902'; # TRIAL
 }
 
 use strict;
@@ -96,7 +96,7 @@ Class::MOP::Class::Immutable::Trait - Implements immutability for metaclass obje
 
 =head1 VERSION
 
-version 1.9901
+version 1.9902
 
 =head1 DESCRIPTION
 

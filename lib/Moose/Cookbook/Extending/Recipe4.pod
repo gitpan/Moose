@@ -12,7 +12,7 @@ Moose::Cookbook::Extending::Recipe4 - Acting like Moose.pm and providing sugar M
 
 =head1 VERSION
 
-version 1.9901
+version 1.9902
 
 =head1 SYNOPSIS
 

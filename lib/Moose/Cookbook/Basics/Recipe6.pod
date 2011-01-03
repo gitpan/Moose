@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe6 - The augment/inner example
 
 =head1 VERSION
 
-version 1.9901
+version 1.9902
 
 =head1 SYNOPSIS
 

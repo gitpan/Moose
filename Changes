@@ -1,11 +1,20 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-1.9901 Mon, Jan 03, 2011
+1.9902 Mon, Jan 03, 2011
+
+  [OTHER]
+
+  * Fix generation of CCFLAGS.
+
+  * Add a bit more Dist::Zilla functionality.
+
+1.9901-TRIAL Mon, Jan 03, 2011
 
   [OTHER]
 
   * Fix some indexing issues.
+
   * Fix a few issues with the conflict checking stuff.
 
 1.9900-TRIAL Sat, Jan 01, 2011

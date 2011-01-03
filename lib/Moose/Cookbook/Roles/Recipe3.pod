@@ -12,7 +12,7 @@ Moose::Cookbook::Roles::Recipe3 - Applying a role to an object instance
 
 =head1 VERSION
 
-version 1.9901
+version 1.9902
 
 =head1 SYNOPSIS
 

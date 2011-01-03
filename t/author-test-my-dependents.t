@@ -57,6 +57,8 @@ MooseX::AlwaysCoerce
 MooseX::App::Cmd
 MooseX::Async
 MooseX::Attribute::ENV
+MooseX::Attribute::Deflator
+MooseX::Attribute::Dependent
 MooseX::AttributeCloner
 MooseX::AttributeDefaults
 MooseX::AttributeHelpers

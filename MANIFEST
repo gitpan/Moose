@@ -52,6 +52,8 @@ inc/GatherDir.pm
 inc/MMHelper.pm
 inc/MakeMaker.pm
 inc/MyInline.pm
+inc/RequireAuthorDeps.pm
+inc/TestRelease.pm
 lib/Class/MOP.pm
 lib/Class/MOP/Attribute.pm
 lib/Class/MOP/Class.pm

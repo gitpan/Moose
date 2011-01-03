@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Mixin::VERSION = '1.9901'; # TRIAL
+  $Class::MOP::Mixin::VERSION = '1.9902'; # TRIAL
 }
 
 use strict;
@@ -30,7 +30,7 @@ Class::MOP::Mixin - Base class for mixin classes
 
 =head1 VERSION
 
-version 1.9901
+version 1.9902
 
 =head1 DESCRIPTION
 
