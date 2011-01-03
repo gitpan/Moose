@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Class::VERSION = '1.9900'; # TRIAL
+  $Moose::Meta::TypeConstraint::Class::VERSION = '1.9901'; # TRIAL
 }
 
 use strict;
@@ -135,7 +135,7 @@ Moose::Meta::TypeConstraint::Class - Class/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 1.9900
+version 1.9901
 
 =head1 DESCRIPTION
 

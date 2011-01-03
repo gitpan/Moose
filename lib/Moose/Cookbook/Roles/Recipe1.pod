@@ -12,7 +12,7 @@ Moose::Cookbook::Roles::Recipe1 - The Moose::Role example
 
 =head1 VERSION
 
-version 1.9900
+version 1.9901
 
 =head1 SYNOPSIS
 

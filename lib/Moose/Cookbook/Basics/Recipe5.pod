@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe5 - More subtypes, coercion in a B<Request> class
 
 =head1 VERSION
 
-version 1.9900
+version 1.9901
 
 =head1 SYNOPSIS
 

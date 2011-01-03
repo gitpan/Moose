@@ -16,7 +16,7 @@ my %WriteMakefileArgs = (
   },
   'CCFLAGS' => '-fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I.',
   'CONFIGURE_REQUIRES' => {
-    'Dist::CheckConflicts' => '0.01',
+    'Dist::CheckConflicts' => '0.02',
     'ExtUtils::MakeMaker' => '6.31'
   },
   'DISTNAME' => 'Moose',
@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
     'List::MoreUtils' => '0.12',
     'MRO::Compat' => '0.05',
     'Package::DeprecationManager' => '0.10',
-    'Package::Stash' => '0.15',
+    'Package::Stash' => '0.16',
     'Package::Stash::XS' => '0.17',
     'Params::Util' => '1.00',
     'Scalar::Util' => '1.19',
@@ -42,7 +42,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '1.9900',
+  'VERSION' => '1.9901',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',

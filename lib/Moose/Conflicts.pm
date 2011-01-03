@@ -39,8 +39,22 @@ use Dist::CheckConflicts
         'namespace::autoclean' => '0.08',
     },
     -also => [ qw(
-        Package::Stash::Conflicts
+        Data::OptList
+        Devel::GlobalDestruction
+        Eval::Closure
+        List::MoreUtils
+        MRO::Compat
+        Package::DeprecationManager
+        Package::Stash
+        Package::Stash::XS
+        Params::Util
+        Scalar::Util
+        Sub::Exporter
+        Sub::Name
+        Task::Weaken
+        Try::Tiny
     ) ],
+
 ;
 
 1;

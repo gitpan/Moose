@@ -7,16 +7,18 @@ build_requires:
   Test::More: 0.88
   Test::Requires: 0.05
 configure_requires:
-  Dist::CheckConflicts: 0.01
+  Dist::CheckConflicts: 0.02
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200000, CPAN::Meta::Converter version 2.101670'
+generated_by: 'Dist::Zilla version 4.200001, CPAN::Meta::Converter version 2.101670'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Moose
 no_index:
+  directory:
+    - benchmarks
   namespace:
     - Moose::Meta::Method::Accessor::Native
   package:
@@ -28,7 +30,7 @@ requires:
   List::MoreUtils: 0.12
   MRO::Compat: 0.05
   Package::DeprecationManager: 0.10
-  Package::Stash: 0.15
+  Package::Stash: 0.16
   Package::Stash::XS: 0.17
   Params::Util: 1.00
   Scalar::Util: 1.19
@@ -40,7 +42,7 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Moose
   repository: git://git.moose.perl.org/Moose.git
-version: 1.9900
+version: 1.9901
 x_authority: cpan:STEVAN
 x_conflicts:
   Catalyst: 5.80028

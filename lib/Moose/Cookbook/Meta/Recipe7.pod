@@ -12,7 +12,7 @@ Moose::Cookbook::Meta::Recipe7 - Creating a glob reference meta-instance class
 
 =head1 VERSION
 
-version 1.9900
+version 1.9901
 
 =head1 SYNOPSIS
 
