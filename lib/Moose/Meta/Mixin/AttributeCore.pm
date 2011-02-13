@@ -1,13 +1,10 @@
 package Moose::Meta::Mixin::AttributeCore;
-BEGIN {
-  $Moose::Meta::Mixin::AttributeCore::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Mixin::AttributeCore::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION   = '1.22';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Class::MOP::Mixin::AttributeCore';
 
@@ -51,19 +48,13 @@ __PACKAGE__->meta->add_attribute(
 
 1;
 
-# ABSTRACT: Core attributes shared by attribute metaclasses
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Mixin::AttributeCore - Core attributes shared by attribute metaclasses
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 DESCRIPTION
 
@@ -74,19 +65,17 @@ attributes. See the L<Moose::Meta::Attribute> documentation for API details.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Stevan Little <stevan@iinteractive.com>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::Hash::accessor;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::accessor::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::accessor::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -37,29 +35,47 @@ with 'Moose::Meta::Method::Accessor::Native::Hash::set' => {
 sub _generate_method {
     my $self = shift;
 
-    my $inv         = '$self';
-    my $slot_access = $self->_get_value($inv);
+    my $inv = '$self';
 
-    return (
-        'sub {',
-            'my ' . $inv . ' = shift;',
-            $self->_inline_curried_arguments,
-            $self->_inline_check_lazy($inv, '$type_constraint', '$type_constraint_obj'),
-            # get
-            'if (@_ == 1) {',
-                $self->_inline_check_var_is_valid_key('$_[0]'),
-                $self->Moose::Meta::Method::Accessor::Native::Hash::get::_inline_return_value($slot_access),
-            '}',
-            # set
-            'else {',
-                $self->_inline_writer_core($inv, $slot_access),
-            '}',
-        '}',
-    );
+    my $code = 'sub {';
+    $code .= "\n" . $self->_inline_pre_body(@_);
+
+    $code .= "\n" . 'my $self = shift;';
+
+    $code .= "\n" . $self->_inline_curried_arguments;
+
+    $code .= "\n" . $self->_inline_check_lazy($inv);
+
+    my $slot_access = $self->_inline_get($inv);
+
+    # get
+    $code .= "\n" . 'if ( @_ == 1 ) {';
+
+    $code .= "\n" . $self->_inline_check_var_is_valid_key('$_[0]');
+
+    $code
+        .= "\n"
+        . 'return '
+        . $self
+        ->Moose::Meta::Method::Accessor::Native::Hash::get::_return_value(
+        $slot_access)
+        . ';';
+
+    # set
+    $code .= "\n" . '} else {';
+
+    $code .= "\n" . $self->_writer_core( $inv, $slot_access );
+
+    $code .= "\n" . $self->_inline_post_body(@_);
+
+    $code .= "\n}";
+    $code .= "\n}";
+
+    return $code;
 }
 
-sub _minimum_arguments { 1 }
-sub _maximum_arguments { 2 }
+sub _minimum_arguments {1}
+sub _maximum_arguments {2}
 
 no Moose::Role;
 

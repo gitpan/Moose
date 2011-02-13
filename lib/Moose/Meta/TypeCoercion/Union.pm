@@ -1,17 +1,15 @@
 
 package Moose::Meta::TypeCoercion::Union;
-BEGIN {
-  $Moose::Meta::TypeCoercion::Union::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::TypeCoercion::Union::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
 use metaclass;
 
 use Scalar::Util 'blessed';
+
+our $VERSION   = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::TypeCoercion';
 
@@ -47,19 +45,13 @@ sub add_type_coercions {
 
 1;
 
-# ABSTRACT: The Moose Type Coercion metaclass for Unions
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::TypeCoercion::Union - The Moose Type Coercion metaclass for Unions
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 DESCRIPTION
 
@@ -91,17 +83,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

@@ -1,18 +1,8 @@
-package Moose::Manual::MOP;
-
-# ABSTRACT: The Moose (and Class::MOP) meta API
-
-
-
 =pod
 
 =head1 NAME
 
 Moose::Manual::MOP - The Moose (and Class::MOP) meta API
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 INTRODUCTION
 
@@ -159,17 +149,16 @@ found in the L<Moose.pm docs|Moose/GETTING HELP>.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Dave Rolsky E<lt>autarch@urth.orgE<gt> and Stevan Little
+E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

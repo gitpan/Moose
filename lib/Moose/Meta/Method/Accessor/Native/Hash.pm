@@ -1,28 +1,21 @@
 package Moose::Meta::Method::Accessor::Native::Hash;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
 
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
+
 use Moose::Role;
 
 sub _inline_check_var_is_valid_key {
-    my $self = shift;
-    my ($var) = @_;
+    my ( $self, $var ) = @_;
 
-    return (
-        'if (!defined(' . $var . ')) {',
-            $self->_inline_throw_error(
-                '"The key passed to ' . $self->delegate_to_method
-              . ' must be a defined value"',
-            ) . ';',
-        '}',
-    );
+    return $self->_inline_throw_error( q{'The key passed to }
+            . $self->delegate_to_method
+            . q{ must be a defined value'} )
+        . qq{ unless defined $var;};
 }
 
 no Moose::Role;

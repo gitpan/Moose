@@ -1,10 +1,4 @@
 package Moose::Meta::Role::Application::RoleSummation;
-BEGIN {
-  $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Role::Application::RoleSummation::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
@@ -13,6 +7,10 @@ use metaclass;
 use Scalar::Util 'blessed';
 
 use Moose::Meta::Role::Composite;
+
+our $VERSION   = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Role::Application';
 
@@ -256,19 +254,13 @@ sub apply_method_modifiers {
 
 1;
 
-# ABSTRACT: Combine two or more roles
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 DESCRIPTION
 
@@ -319,18 +311,16 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-
 

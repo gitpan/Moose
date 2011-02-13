@@ -1,14 +1,12 @@
 package Moose;
-BEGIN {
-  $Moose::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::VERSION = '1.9902'; # TRIAL
-}
 use strict;
 use warnings;
 
 use 5.008;
+
+our $VERSION   = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Scalar::Util 'blessed';
 use Carp         'confess';
@@ -16,7 +14,7 @@ use Carp         'confess';
 use Moose::Deprecated;
 use Moose::Exporter;
 
-use Class::MOP;
+use Class::MOP 1.10;
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -274,19 +272,13 @@ Moose::Meta::Mixin::AttributeCore->meta->make_immutable(
 
 1;
 
-# ABSTRACT: A postmodern object system for Perl 5
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose - A postmodern object system for Perl 5
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -319,7 +311,7 @@ version 1.9902
 Moose is an extension of the Perl 5 object system.
 
 The main goal of Moose is to make Perl 5 Object Oriented programming
-easier, more consistent, and less tedious. With Moose you can think
+easier, more consistent and less tedious. With Moose you can to think
 more about what you want to do and less about the mechanics of OOP.
 
 Additionally, Moose is built on top of L<Class::MOP>, which is a
@@ -509,7 +501,7 @@ either C<ArrayRef> or C<HashRef>.
 
 The I<trigger> option is a CODE reference which will be called after
 the value of the attribute is set. The CODE ref is passed the
-instance itself, the updated value, and the original value if the
+instance itself, the updated value, and the original value if the 
 attribute was already set.
 
 You B<can> have a trigger on a read-only attribute.
@@ -581,7 +573,7 @@ quick example (soon to be expanded into a Moose::Cookbook recipe):
   has 'parent' => (
       is          => 'rw',
       isa         => 'Tree',
-      weak_ref    => 1,
+      weak_ref => 1,
       handles     => {
           parent_node => 'node',
           siblings    => 'children',
@@ -626,7 +618,7 @@ is consistent with role composition).
 =item C<DUCKTYPE>
 
 With the duck type option, you pass a duck type object whose "interface" then
-becomes the list of methods to handle. The "interface" can be defined as the
+becomes the list of methods to handle. The "interface" can be defined as; the
 list of methods passed to C<duck_type> to create a duck type object. For more
 information on C<duck_type> please check
 L<Moose::Util::TypeConstraints>.
@@ -649,7 +641,7 @@ a HASH ref) of the methods you want mapped.
 This tells the class to use a custom attribute metaclass for this particular
 attribute. Custom attribute metaclasses are useful for extending the
 capabilities of the I<has> keyword: they are the simplest way to extend the MOP,
-but they are still a fairly advanced topic and too much to cover here. See
+but they are still a fairly advanced topic and too much to cover here, see
 L<Moose::Cookbook::Meta::Recipe1> for more information.
 
 See L<Metaclass and Trait Name Resolution> for details on how a metaclass name
@@ -672,7 +664,7 @@ example.
 The value of this key is the name of the method that will be called to
 obtain the value used to initialize the attribute. See the L<builder
 option docs in Class::MOP::Attribute|Class::MOP::Attribute/builder>
-and/or L<Moose::Cookbook::Basics::Recipe8> for more information.
+ and/or L<Moose::Cookbook::Basics::Recipe8> for more information.
 
 =item I<default> => SCALAR | CODE
 
@@ -687,14 +679,14 @@ information.
 
 =item I<clearer> => Str
 
-Creates a method allowing you to clear the value. See the L<clearer option
+Creates a method allowing you to clear the value, see the L<clearer option
 docs in Class::MOP::Attribute|Class::MOP::Attribute/clearer> for more
 information.
 
 =item I<predicate> => Str
 
 Creates a method to perform a basic test to see if a value has been set in the
-attribute. See the L<predicate option docs in
+attribute, see the L<predicate option docs in
 Class::MOP::Attribute|Class::MOP::Attribute/predicate> for more information.
 
 =item I<lazy_build> => (0|1)
@@ -716,6 +708,8 @@ information.
 
 An arbitrary string that can be retrieved later by calling C<<
 $attr->documentation >>.
+
+
 
 =back
 
@@ -873,7 +867,7 @@ all the time.
 
 =item B<blessed>
 
-This is the C<Scalar::Util::blessed> function. It is exported here because I
+This is the C<Scalar::Util::blessed> function, it is exported here because I
 use it all the time. It is highly recommended that this is used instead of
 C<ref> anywhere you need to test for an object's class name.
 
@@ -973,7 +967,7 @@ for you.
 
 =head2 B<throw_error>
 
-An alias for C<confess>, used internally by Moose.
+An alias for C<confess>, used by internally by Moose.
 
 =head2 The MooseX:: namespace
 
@@ -1004,7 +998,7 @@ modules, many of which apply roles to the metaclass.
 
 If the parent and child do differ by roles, Moose replaces the
 metaclass in the child with a newly created metaclass. This metaclass
-is a subclass of the parent's metaclass which does all of the roles that
+is a subclass of the parent's metaclass, does all of the roles that
 the child's metaclass did before being replaced. Effectively, this
 means the new metaclass does all of the roles done by both the
 parent's and child's original metaclasses.
@@ -1097,7 +1091,7 @@ See L<http://search.cpan.org/search?query=MooseX::> for extensions.
 
 =item The Art of the MetaObject Protocol
 
-I mention this in the L<Class::MOP> docs too, as this book was critical in
+I mention this in the L<Class::MOP> docs too, this book was critical in
 the development of both modules and is highly recommended.
 
 =back
@@ -1139,11 +1133,17 @@ L<irc://irc.perl.org/#moose> to discuss. The
 L<Moose::Manual::Contributing> has more detail about how and when you
 can contribute.
 
-=head1 CABAL
+=head1 AUTHOR
 
-There are only a few people with the rights to release a new version
+Moose is an open project, there are at this point dozens of people who have
+contributed, and can contribute. If you have added anything to the Moose
+project you have a commit bit on this file and can add your name to the list.
+
+=head2 CABAL
+
+However there are only a few people with the rights to release a new version
 of Moose. The Moose Cabal are the people to go to with questions regarding
-the wider purview of Moose. They help maintain not just the code
+the wider purview of Moose, and help out maintaining not just the code
 but the community as well.
 
 Stevan (stevan) Little E<lt>stevan@iinteractive.comE<gt>
@@ -1162,7 +1162,7 @@ Florian Ragwitz E<lt>rafl@debian.orgE<gt>
 
 Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
 
-=head1 CONTRIBUTORS
+=head2 OTHER CONTRIBUTORS
 
 Aankhen
 
@@ -1170,71 +1170,47 @@ Adam (Alias) Kennedy
 
 Anders (Debolaz) Nor Berle
 
-Chris (perigrin) Prather
+Nathan (kolibrie) Gray
 
 Christian (chansen) Hansen
 
-Cory (gphat) Watson
-
-Dylan Hardison (doc fixes)
-
 Eric (ewilhelm) Wilhelm
-
-Evan Carroll
-
-Florian (rafl) Ragwitz
 
 Guillermo (groditi) Roditi
 
-Jason May
-
-Jay Hannah
-
 Jess (castaway) Robinson
 
-Jonathan (jrockway) Rockway
-
 Matt (mst) Trout
-
-Nathan (kolibrie) Gray
-
-Paul (frodwith) Driver
-
-Piotr (dexter) Roszatycki
-
-Robert Buels
 
 Robert (phaylon) Sedlacek
 
 Robert (rlb3) Boone
 
-Sam (mugwump) Vilain
-
 Scott (konobi) McWhirter
-
-Shawn (Sartak) Moore
 
 Shlomi (rindolf) Fish
 
-Tom (dec) Lanyon
-
 Wallace (wreis) Reis
+
+Jonathan (jrockway) Rockway
+
+Piotr (dexter) Roszatycki
+
+Sam (mugwump) Vilain
+
+Cory (gphat) Watson
+
+Dylan Hardison (doc fixes)
 
 ... and many other #moose folks
 
-=head1 AUTHOR
-
-Stevan Little <stevan@iinteractive.com>
-
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

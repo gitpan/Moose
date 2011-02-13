@@ -7,16 +7,13 @@ use Test::Fatal;
 
 our $called = 0;
 {
-    package Foo::Trait::Class;
+    package Foo::Trait::Constructor;
     use Moose::Role;
 
-    around _inline_BUILDALL => sub {
+    around _generate_BUILDALL => sub {
         my $orig = shift;
         my $self = shift;
-        return (
-            $self->$orig(@_),
-            '$::called++;'
-        );
+        return $self->$orig(@_) . '$::called++;';
     }
 }
 
@@ -26,7 +23,7 @@ our $called = 0;
     Moose::Util::MetaRole::apply_metaroles(
         for => __PACKAGE__,
         class_metaroles => {
-            class => ['Foo::Trait::Class'],
+            constructor => ['Foo::Trait::Constructor'],
         }
     );
 }
@@ -38,8 +35,8 @@ Foo->meta->make_immutable;
 Foo->new;
 is($called, 1, "inlined constructor has trait modifications");
 
-ok(Foo->meta->meta->does_role('Foo::Trait::Class'),
-   "class has correct traits");
+ok(Foo->meta->constructor_class->meta->does_role('Foo::Trait::Constructor'),
+   "class has correct constructor traits");
 
 {
     package Foo::Sub;
@@ -55,11 +52,11 @@ is($called, 0, "no calls before inlining");
 Foo::Sub->meta->make_immutable;
 
 Foo::Sub->new;
-is($called, 1, "inherits trait properly");
+is($called, 1, "inherits constructor trait properly");
 
-ok(Foo::Sub->meta->meta->can('does_role')
-&& Foo::Sub->meta->meta->does_role('Foo::Trait::Class'),
-   "subclass inherits traits");
+ok(Foo::Sub->meta->constructor_class->meta->can('does_role')
+&& Foo::Sub->meta->constructor_class->meta->does_role('Foo::Trait::Constructor'),
+   "subclass inherits constructor traits");
 
 {
     package Foo2::Role;

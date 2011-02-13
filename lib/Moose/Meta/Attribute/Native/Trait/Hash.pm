@@ -1,12 +1,24 @@
 
 package Moose::Meta::Attribute::Native::Trait::Hash;
-BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Hash::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '1.9902'; # TRIAL
-}
 use Moose::Role;
+
+our $VERSION   = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
+
+use Moose::Meta::Method::Accessor::Native::Hash::accessor;
+use Moose::Meta::Method::Accessor::Native::Hash::clear;
+use Moose::Meta::Method::Accessor::Native::Hash::count;
+use Moose::Meta::Method::Accessor::Native::Hash::defined;
+use Moose::Meta::Method::Accessor::Native::Hash::delete;
+use Moose::Meta::Method::Accessor::Native::Hash::elements;
+use Moose::Meta::Method::Accessor::Native::Hash::exists;
+use Moose::Meta::Method::Accessor::Native::Hash::get;
+use Moose::Meta::Method::Accessor::Native::Hash::is_empty;
+use Moose::Meta::Method::Accessor::Native::Hash::keys;
+use Moose::Meta::Method::Accessor::Native::Hash::kv;
+use Moose::Meta::Method::Accessor::Native::Hash::set;
+use Moose::Meta::Method::Accessor::Native::Hash::values;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -16,19 +28,13 @@ no Moose::Role;
 
 1;
 
-# ABSTRACT: Helper trait for HashRef attributes
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attributes
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -110,7 +116,7 @@ This method does not accept any arguments.
 
 Returns the key/value pairs in the hash as an array of array references.
 
-  for my $pair ( $object->options->kv ) {
+  for my $pair ( $object->options->pairs ) {
       print "$pair->[0] = $pair->[1]\n";
   }
 
@@ -169,17 +175,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

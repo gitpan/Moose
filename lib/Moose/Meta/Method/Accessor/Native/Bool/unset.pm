@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::Bool::unset;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Bool::unset::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Bool::unset::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -25,10 +23,9 @@ sub _maximum_arguments { 0 }
 sub _potential_value { 0 }
 
 sub _inline_optimized_set_new_value {
-    my $self = shift;
-    my ($inv, $new, $slot_access) = @_;
+    my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return $slot_access . ' = 0;';
+    return "$slot_access = 0";
 }
 
 no Moose::Role;

@@ -1,15 +1,13 @@
 package Moose::Meta::Method::Accessor::Native::Hash::get;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::get::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::get::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Scalar::Util qw( looks_like_number );
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -28,20 +26,16 @@ sub _minimum_arguments { 1 }
 sub _inline_check_arguments {
     my $self = shift;
 
-    return (
-        'for (@_) {',
-            $self->_inline_check_var_is_valid_key('$_'),
-        '}',
-    );
+    return
+        'for (@_) {' . "\n"
+        . $self->_inline_check_var_is_valid_key('$_') . "\n" . '}';
 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my $self        = shift;
+    my $slot_access = shift;
 
-    return '@_ > 1 '
-             . '? @{ (' . $slot_access . ') }{@_} '
-             . ': ' . $slot_access . '->{$_[0]}';
+    return "\@_ > 1 ? \@{ ($slot_access) }{\@_} : ${slot_access}->{ \$_[0] }";
 }
 
 no Moose::Role;

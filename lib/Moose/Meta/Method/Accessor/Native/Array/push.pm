@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::Array::push;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::push::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::push::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -23,24 +21,21 @@ with 'Moose::Meta::Method::Accessor::Native::Array::Writer' => {
 sub _adds_members { 1 }
 
 sub _potential_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my ( $self, $slot_access ) = @_;
 
-    return '[ @{ (' . $slot_access . ') }, @_ ]';
+    return "[ \@{ ($slot_access) }, \@_ ]";
 }
 
 sub _inline_optimized_set_new_value {
-    my $self = shift;
-    my ($inv, $new, $slot_access) = @_;
+    my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return 'push @{ (' . $slot_access . ') }, @_;';
+    return "push \@{ ($slot_access) }, \@_";
 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my ( $self, $slot_access ) = @_;
 
-    return 'scalar @{ (' . $slot_access . ') }';
+    return "return scalar \@{ ($slot_access) }";
 }
 
 no Moose::Role;

@@ -1,51 +1,14 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-1.9902 Mon, Jan 03, 2011
 
-  [OTHER]
+1.22 Sun, Feb 13, 2010
 
-  * Fix generation of CCFLAGS.
+  [BUG FIXES]
 
-  * Add a bit more Dist::Zilla functionality.
-
-1.9901-TRIAL Mon, Jan 03, 2011
-
-  [OTHER]
-
-  * Fix some indexing issues.
-
-  * Fix a few issues with the conflict checking stuff.
-
-1.9900-TRIAL Sat, Jan 01, 2011
-
-  [OTHER]
-
-  * The entire Class::MOP distribution has been merged with Moose. In the
-    future, the Class::MOP code itself will be merged into Moose, and
-    eventually the Class::MOP namespace will disappear entirely. For the
-    current release, we have simply changed how Class::MOP is
-    distributed. (Dave Rolsky).
-
-  * Switched to Dist::Zilla for development. However, we still have a minimal
-    Makefile.PL in the repository that can be used for development. (Dave
-    Rolsky)
-
-  [API CHANGES]
-
-  * Roles now have their own default attribute metaclass to use during
-    application to a class, rather than just using the class's
-    attribute_metaclass. This is also overridable via ::MetaRole, with the
-    applied_attribute key in the role_metaroles hashref (doy).
-
-  * The internal code used to generate inlined methods (accessor, constructor,
-    etc.) has been massively rewritten. MooseX modules that do inlining will
-    almost certainly need to be updated as well.
-
-  [ENHANCEMENTS]
-
-  * We now load the roles needed for native delegations only as needed. This
-    speeds up the compilation time for Moose itself. (doy)
+  * When reinitializing meta objects for classes and roles, we failed to
+    preserve roles and role applications. This led to weird bugs. Many MooseX
+    modules end up reinitializing your class or role. (Dave Rolsky)
 
 1.21 Wed, Nov 24, 2010
 
@@ -63,8 +26,8 @@ for, noteworthy changes.
     which could cause errors when trying to resolve metaclass compatibility
     issues. Reported by Daniel Ruoso. (doy)
 
-  * The lazy_build feature was accidentally removed from all the docs. Now
-    it's listed in Moose.pm again. (Chris Prather)
+  * The lazy_build feature was accidentally removed all the docs. Now it's
+    listed in Moose.pm again. (Chris Prather)
 
 1.20 Fri, Nov 19, 2010
 

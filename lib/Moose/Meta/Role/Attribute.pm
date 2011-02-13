@@ -1,10 +1,4 @@
 package Moose::Meta::Role::Attribute;
-BEGIN {
-  $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Role::Attribute::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
@@ -12,6 +6,9 @@ use warnings;
 use Carp 'confess';
 use List::MoreUtils 'all';
 use Scalar::Util 'blessed', 'weaken';
+
+our $VERSION   = '1.22';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Mixin::AttributeCore', 'Class::MOP::Object';
 
@@ -102,6 +99,10 @@ sub is_same_as {
 
 =pod
 
+=head1 NAME
+
+Moose::Meta::Role::Attribute - A Moose Attribute metaclass for Roles
+
 =head1 DESCRIPTION
 
 This class implements the API for attributes in roles. Attributes in roles are
@@ -160,5 +161,18 @@ L<Moose::Meta::Attribute> (and L<Class::MOP::Attribute>).
 =head1 BUGS
 
 See L<Moose/BUGS> for details on reporting bugs.
+
+=head1 AUTHOR
+
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2006-2010 by Infinity Interactive, Inc.
+
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut

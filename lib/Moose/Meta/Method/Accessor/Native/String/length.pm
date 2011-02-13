@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::String::length;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::length::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::length::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -17,10 +15,9 @@ with 'Moose::Meta::Method::Accessor::Native::Reader' =>
 sub _maximum_arguments { 0 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my ( $self, $slot_access ) = @_;
 
-    return 'length ' . $slot_access;
+    return "length $slot_access";
 }
 
 no Moose::Role;

@@ -1,18 +1,9 @@
-package Moose::Cookbook::Meta::Recipe3;
-
-# ABSTRACT: Labels implemented via attribute traits
-
-
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Meta::Recipe3 - Labels implemented via attribute traits
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -193,7 +184,24 @@ extensions, either from CPAN or that you might write in the
 future. Moose makes it easy to create attribute metaclasses on the fly
 by providing a list of trait names to L<Moose/has>.
 
-=for testing my $app2
+=head1 AUTHOR
+
+Shawn M Moore E<lt>sartak@gmail.comE<gt>
+
+Dave Rolsky E<lt>autarch@urth.org<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2006-2010 by Infinity Interactive, Inc.
+
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=begin testing
+
+my $app2
     = MyApp::Website->new( url => "http://google.com", name => "Google" );
 is(
     $app2->dump, q{name: Google
@@ -201,20 +209,7 @@ The site's URL: http://google.com
 }, '... got the expected dump value'
 );
 
-=head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+=end testing
 
 =cut
-
-
-__END__
-
-

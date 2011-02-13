@@ -1,16 +1,14 @@
 package Moose::Meta::Method::Accessor::Native::Array::natatime;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::natatime::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::natatime::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use List::MoreUtils ();
 use Params::Util ();
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -25,43 +23,32 @@ with 'Moose::Meta::Method::Accessor::Native::Reader' => {
     ]
 };
 
-sub _minimum_arguments { 1 }
+sub _minimum_arguments {1}
 
-sub _maximum_arguments { 2 }
+sub _maximum_arguments {2}
 
 sub _inline_check_arguments {
     my $self = shift;
 
-    return (
-        'if (!defined($_[0]) || $_[0] !~ /^\d+$/) {',
-            $self->_inline_throw_error(
-                '"The n value passed to natatime must be an integer"',
-            ) . ';',
-        '}',
-        'if (@_ == 2 && !Params::Util::_CODELIKE($_[1])) {',
-            $self->_inline_throw_error(
-                '"The second argument passed to natatime must be a code '
-              . 'reference"',
-            ) . ';',
-        '}',
-    );
+    return $self->_inline_throw_error(
+        q{'The n value passed to natatime must be an integer'})
+        . ' unless defined $_[0] && $_[0] =~ /^\\d+$/;' . "\n"
+        . $self->_inline_throw_error(
+        q{'The second argument passed to natatime must be a code reference'})
+        . q{ if @_ == 2 && ! Params::Util::_CODELIKE( $_[1] );};
 }
 
 sub _inline_return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my ( $self, $slot_access ) = @_;
 
-    return (
-        'my $iter = List::MoreUtils::natatime($_[0], @{ (' . $slot_access . ') });',
-        'if ($_[1]) {',
-            'while (my @vals = $iter->()) {',
-                '$_[1]->(@vals);',
-            '}',
-        '}',
-        'else {',
-            'return $iter;',
-        '}',
-    );
+    return
+        "my \$iter = List::MoreUtils::natatime( \$_[0], \@{ ($slot_access) } );"
+        . "\n"
+        . 'if ( $_[1] ) {' . "\n"
+        . 'while (my @vals = $iter->()) {' . "\n"
+        . '$_[1]->(@vals);' . "\n" . '}' . "\n"
+        . '} else {' . "\n"
+        . 'return $iter;' . "\n" . '}';
 }
 
 # Not called, but needed to satisfy the Reader role

@@ -1,18 +1,9 @@
-package Moose::Cookbook::Basics::Recipe9;
-
-# ABSTRACT: Operator overloading, subtypes, and coercion
-
-
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Basics::Recipe9 - Operator overloading, subtypes, and coercion
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -262,27 +253,17 @@ Had this been a real project we'd probably want:
 
 =back
 
+=head1 AUTHORS
+
+Aran Clary Deltac <bluefeet@cpan.org>
+
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
 =head1 LICENSE
 
 This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 
 License details are at: L<http://creativecommons.org/licenses/by/3.0/>
 
-=head1 AUTHOR
-
-Stevan Little <stevan@iinteractive.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
-
-__END__
-
-
 

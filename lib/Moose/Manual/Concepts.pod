@@ -1,18 +1,8 @@
-package Moose::Manual::Concepts;
-
-# ABSTRACT: Moose OO concepts
-
-
-
 =pod
 
 =head1 NAME
 
 Moose::Manual::Concepts - Moose OO concepts
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 MOOSE CONCEPTS (VS "OLD SCHOOL" Perl)
 
@@ -384,17 +374,15 @@ for people who want to be Moose wizards and extend Moose itself.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2008-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

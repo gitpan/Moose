@@ -1,12 +1,15 @@
 
 package Moose::Meta::Attribute::Native::Trait::Counter;
-BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Counter::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Counter::VERSION = '1.9902'; # TRIAL
-}
 use Moose::Role;
+
+our $VERSION   = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
+
+use Moose::Meta::Method::Accessor::Native::Counter::dec;
+use Moose::Meta::Method::Accessor::Native::Counter::inc;
+use Moose::Meta::Method::Accessor::Native::Counter::reset;
+use Moose::Meta::Method::Accessor::Native::Counter::set;
 
 with 'Moose::Meta::Attribute::Native::Trait' =>
     { -excludes => ['_root_types'] };
@@ -20,19 +23,13 @@ no Moose::Role;
 
 1;
 
-# ABSTRACT: Helper trait for counters
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait::Counter - Helper trait for counters
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -110,17 +107,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

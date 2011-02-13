@@ -1,18 +1,9 @@
-package Moose::Cookbook::Snack::Types;
-
-# ABSTRACT: Snippets of code for using Types and Type Constraints
-
-
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Snack::Types - Snippets of code for using Types and Type Constraints
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -72,18 +63,15 @@ to check a value directly.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Jess Robinson <cpan@desert-island.me.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-
-

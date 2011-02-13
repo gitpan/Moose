@@ -1,22 +1,12 @@
 package Moose::Exporter;
-BEGIN {
-  $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Exporter::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
 
-use XSLoader;
-
-BEGIN {
-    XSLoader::load(
-        'Moose',
-        $Moose::Exporter::{VERSION} ? ${ $Moose::Exporter::{VERSION} } : ()
-    );
-}
+our $VERSION = '1.22';
+our $XS_VERSION = $VERSION;
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Class::MOP;
 use List::MoreUtils qw( first_index uniq );
@@ -24,6 +14,10 @@ use Moose::Util::MetaRole;
 use Scalar::Util qw(reftype);
 use Sub::Exporter 0.980;
 use Sub::Name qw(subname);
+
+use XSLoader;
+
+XSLoader::load( 'Moose', $XS_VERSION );
 
 my %EXPORT_SPEC;
 
@@ -656,19 +650,11 @@ sub import {
 
 1;
 
-# ABSTRACT: make an import() and unimport() just like Moose.pm
-
-
-
-=pod
+__END__
 
 =head1 NAME
 
 Moose::Exporter - make an import() and unimport() just like Moose.pm
-
-=head1 VERSION
-
-version 1.9902
 
 =head1 SYNOPSIS
 
@@ -726,7 +712,7 @@ This module provides two public methods:
 
 =over 4
 
-=item B<< Moose::Exporter->setup_import_methods(...) >>
+=item  B<< Moose::Exporter->setup_import_methods(...) >>
 
 When you call this method, C<Moose::Exporter> builds custom C<import>,
 C<unimport>, and C<init_meta> methods for your module. The C<import> method
@@ -880,17 +866,18 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+This is largely a reworking of code in Moose.pm originally written by
+Stevan Little and others.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

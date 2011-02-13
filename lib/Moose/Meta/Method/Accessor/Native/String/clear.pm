@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::String::clear;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::clear::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::clear::VERSION = '1.9902'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.22';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -22,13 +20,16 @@ with 'Moose::Meta::Method::Accessor::Native::Writer' => {
 
 sub _maximum_arguments { 0 }
 
-sub _potential_value { '""' }
+sub _potential_value {
+    my ( $self, $slot_access ) = @_;
+
+    return "q{}";
+}
 
 sub _inline_optimized_set_new_value {
-    my $self = shift;
-    my ($inv, $new, $slot_access) = @_;
+    my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return $slot_access . ' = "";';
+    return "$slot_access = q{}";
 }
 
 no Moose::Role;
