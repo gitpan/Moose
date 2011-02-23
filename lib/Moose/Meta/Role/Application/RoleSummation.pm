@@ -8,7 +8,7 @@ use Scalar::Util 'blessed';
 
 use Moose::Meta::Role::Composite;
 
-our $VERSION   = '1.23';
+our $VERSION   = '1.24';
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
 
@@ -138,7 +138,7 @@ sub apply_attributes {
                 "We have encountered an attribute conflict with '$name' "
                     . "during role composition. "
                     . " This attribute is defined in both $role1 and $role2."
-                    . " This is fatal error and cannot be disambiguated." );
+                    . " This is a fatal error and cannot be disambiguated." );
         }
 
         $seen{$name} = $attr;

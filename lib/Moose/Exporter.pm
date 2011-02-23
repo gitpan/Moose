@@ -3,7 +3,7 @@ package Moose::Exporter;
 use strict;
 use warnings;
 
-our $VERSION = '1.23';
+our $VERSION = '1.24';
 our $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 our $AUTHORITY = 'cpan:STEVAN';
@@ -136,7 +136,7 @@ sub _make_exporter {
 
         local %$seen = ( $exporting_package => 1 );
 
-        return uniq( _follow_also_real($exporting_package) );
+        return reverse uniq( _follow_also_real($exporting_package) );
     }
 
     sub _follow_also_real {
