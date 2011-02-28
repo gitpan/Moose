@@ -1,24 +1,12 @@
 
 package Moose::Meta::Attribute::Native::Trait::Hash;
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::Hash::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '1.9903'; # TRIAL
+}
 use Moose::Role;
-
-our $VERSION   = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
-
-use Moose::Meta::Method::Accessor::Native::Hash::accessor;
-use Moose::Meta::Method::Accessor::Native::Hash::clear;
-use Moose::Meta::Method::Accessor::Native::Hash::count;
-use Moose::Meta::Method::Accessor::Native::Hash::defined;
-use Moose::Meta::Method::Accessor::Native::Hash::delete;
-use Moose::Meta::Method::Accessor::Native::Hash::elements;
-use Moose::Meta::Method::Accessor::Native::Hash::exists;
-use Moose::Meta::Method::Accessor::Native::Hash::get;
-use Moose::Meta::Method::Accessor::Native::Hash::is_empty;
-use Moose::Meta::Method::Accessor::Native::Hash::keys;
-use Moose::Meta::Method::Accessor::Native::Hash::kv;
-use Moose::Meta::Method::Accessor::Native::Hash::set;
-use Moose::Meta::Method::Accessor::Native::Hash::values;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -28,13 +16,19 @@ no Moose::Role;
 
 1;
 
-__END__
+# ABSTRACT: Helper trait for HashRef attributes
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attributes
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -58,7 +52,7 @@ Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attribute
 
 =head1 DESCRIPTION
 
-This trait provides native delegation methods for array references.
+This trait provides native delegation methods for hash references.
 
 =head1 PROVIDED METHODS
 
@@ -116,7 +110,7 @@ This method does not accept any arguments.
 
 Returns the key/value pairs in the hash as an array of array references.
 
-  for my $pair ( $object->options->pairs ) {
+  for my $pair ( $object->options->kv ) {
       print "$pair->[0] = $pair->[1]\n";
   }
 
@@ -175,15 +169,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

@@ -1,9 +1,18 @@
+package Moose::Cookbook::Basics::Recipe6;
+
+# ABSTRACT: The augment/inner example
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Basics::Recipe6 - The augment/inner example
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -118,21 +127,6 @@ The C<augment> modifier is a powerful tool for creating a set of
 nested wrappers. It's not something you will need often, but when you
 do, it is very handy.
 
-=head1 AUTHOR
-
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
-
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2007-2010 by Infinity Interactive, Inc.
-
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
 =begin testing
 
 my $tps_report = TPSReport->new;
@@ -146,4 +140,20 @@ is(
 
 =end testing
 
+=head1 AUTHOR
+
+Stevan Little <stevan@iinteractive.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
+
+__END__
+
+

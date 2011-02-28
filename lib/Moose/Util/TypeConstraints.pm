@@ -1,14 +1,16 @@
 
 package Moose::Util::TypeConstraints;
+BEGIN {
+  $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Util::TypeConstraints::VERSION = '1.9903'; # TRIAL
+}
 
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
-
-our $VERSION = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 ## --------------------------------------------------------
 # Prototyped subs must be predeclared because we have a
@@ -879,13 +881,19 @@ sub _throw_error {
 
 1;
 
-__END__
+# ABSTRACT: Type constraint system for Moose
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Util::TypeConstraints - Type constraint system for Moose
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -1176,8 +1184,8 @@ This can be used to define a "hand optimized" version of your
 type constraint which can be used to avoid traversing a subtype
 constraint hierarchy.
 
-B<NOTE:> You should only use this if you know what you are doing,
-all the built in types use this, so your subtypes (assuming they
+B<NOTE:> You should only use this if you know what you are doing.
+All the built in types use this, so your subtypes (assuming they
 are shallow) will not likely need to use this.
 
 =item B<< type 'Name' => where { } ... >>
@@ -1279,10 +1287,16 @@ See the L</SYNOPSIS> for an example of how to use these.
 
 =over 4
 
-=item B<< coerce 'Name' => from 'OtherName' => via { ... } >>
+=item B<< coerce 'Name' => from 'OtherName' => via { ... }  >>
 
 This defines a coercion from one type to another. The C<Name> argument
 is the type you are coercing I<to>.
+
+To define multiple coercions, supply more sets of from/via pairs:
+
+  coerce 'Name' =>
+    from 'OtherName' => via { ... },
+    from 'ThirdName' => via { ... };
 
 =item B<from 'OtherName'>
 
@@ -1433,15 +1447,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

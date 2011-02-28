@@ -1,35 +1,12 @@
 
 package Moose::Meta::Attribute::Native::Trait::Array;
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '1.9903'; # TRIAL
+}
 use Moose::Role;
-
-our $VERSION   = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
-
-use Moose::Meta::Method::Accessor::Native::Array::accessor;
-use Moose::Meta::Method::Accessor::Native::Array::clear;
-use Moose::Meta::Method::Accessor::Native::Array::count;
-use Moose::Meta::Method::Accessor::Native::Array::delete;
-use Moose::Meta::Method::Accessor::Native::Array::elements;
-use Moose::Meta::Method::Accessor::Native::Array::first;
-use Moose::Meta::Method::Accessor::Native::Array::get;
-use Moose::Meta::Method::Accessor::Native::Array::grep;
-use Moose::Meta::Method::Accessor::Native::Array::insert;
-use Moose::Meta::Method::Accessor::Native::Array::is_empty;
-use Moose::Meta::Method::Accessor::Native::Array::join;
-use Moose::Meta::Method::Accessor::Native::Array::map;
-use Moose::Meta::Method::Accessor::Native::Array::natatime;
-use Moose::Meta::Method::Accessor::Native::Array::pop;
-use Moose::Meta::Method::Accessor::Native::Array::push;
-use Moose::Meta::Method::Accessor::Native::Array::reduce;
-use Moose::Meta::Method::Accessor::Native::Array::set;
-use Moose::Meta::Method::Accessor::Native::Array::shift;
-use Moose::Meta::Method::Accessor::Native::Array::shuffle;
-use Moose::Meta::Method::Accessor::Native::Array::splice;
-use Moose::Meta::Method::Accessor::Native::Array::sort;
-use Moose::Meta::Method::Accessor::Native::Array::sort_in_place;
-use Moose::Meta::Method::Accessor::Native::Array::uniq;
-use Moose::Meta::Method::Accessor::Native::Array::unshift;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -39,13 +16,19 @@ no Moose::Role;
 
 1;
 
-__END__
+# ABSTRACT: Helper trait for array delegation
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait::Array - Helper trait for array delegation
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -329,15 +312,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

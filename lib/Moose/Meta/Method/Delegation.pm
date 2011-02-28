@@ -1,15 +1,17 @@
 
 package Moose::Meta::Method::Delegation;
+BEGIN {
+  $Moose::Meta::Method::Delegation::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Delegation::VERSION = '1.9903'; # TRIAL
+}
 
 use strict;
 use warnings;
 
 use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken';
-
-our $VERSION   = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Method',
          'Class::MOP::Method::Generated';
@@ -133,13 +135,19 @@ sub _get_delegate_accessor {
 
 1;
 
-__END__
+# ABSTRACT: A Moose Method metaclass for delegation methods
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Method::Delegation - A Moose Method metaclass for delegation methods
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 DESCRIPTION
 
@@ -194,15 +202,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

@@ -1,15 +1,17 @@
 
 package Moose::Meta::TypeConstraint::Registry;
+BEGIN {
+  $Moose::Meta::TypeConstraint::Registry::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::TypeConstraint::Registry::VERSION = '1.9903'; # TRIAL
+}
 
 use strict;
 use warnings;
 use metaclass;
 
 use Scalar::Util 'blessed';
-
-our $VERSION   = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Class::MOP::Object';
 
@@ -63,7 +65,8 @@ sub find_type_constraint {
 
 1;
 
-__END__
+# ABSTRACT: registry for type constraints
+
 
 
 =pod
@@ -71,6 +74,10 @@ __END__
 =head1 NAME
 
 Moose::Meta::TypeConstraint::Registry - registry for type constraints
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 DESCRIPTION
 
@@ -148,15 +155,18 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
+

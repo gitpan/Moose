@@ -1,14 +1,16 @@
 package Moose::Meta::Method::Accessor::Native::String::replace;
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::String::replace::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::String::replace::VERSION = '1.9903'; # TRIAL
+}
 
 use strict;
 use warnings;
 
 use Moose::Util ();
 use Params::Util ();
-
-our $VERSION = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -30,25 +32,44 @@ sub _maximum_arguments { 2 }
 sub _inline_check_arguments {
     my $self = shift;
 
-    return $self->_inline_throw_error(
-        q{'The first argument passed to replace must be a string or regexp reference'}
-        )
-        . q{ unless Moose::Util::_STRINGLIKE0( $_[0] ) || Params::Util::_REGEX( $_[0] );}
-        . $self->_inline_throw_error(
-        q{'The second argument passed to replace must be a string or code reference'}
-        ) . q{ unless Moose::Util::_STRINGLIKE0( $_[1] ) || Params::Util::_CODELIKE( $_[1] );};
+    return (
+        'if (!Moose::Util::_STRINGLIKE0($_[0]) && !Params::Util::_REGEX($_[0])) {',
+            $self->_inline_throw_error(
+                '"The first argument passed to replace must be a string or '
+              . 'regexp reference"'
+            ) . ';',
+        '}',
+        'if (!Moose::Util::_STRINGLIKE0($_[1]) && !Params::Util::_CODELIKE($_[1])) {',
+            $self->_inline_throw_error(
+                '"The second argument passed to replace must be a string or '
+              . 'code reference"'
+            ) . ';',
+        '}',
+    );
 }
 
 sub _potential_value {
-    my ( $self, $slot_access ) = @_;
+    my $self = shift;
+    my ($slot_access) = @_;
 
-    return "( do { my \$val = $slot_access; ref \$_[1] ? \$val =~ s/\$_[0]/\$_[1]->()/e : \$val =~ s/\$_[0]/\$_[1]/; \$val } )";
+    return '(do { '
+             . 'my $val = ' . $slot_access . '; '
+             . 'ref $_[1] '
+                 . '? $val =~ s/$_[0]/$_[1]->()/e '
+                 . ': $val =~ s/$_[0]/$_[1]/; '
+             . '$val; '
+         . '})';
 }
 
 sub _inline_optimized_set_new_value {
-    my ( $self, $inv, $new, $slot_access ) = @_;
+    my $self = shift;
+    my ($inv, $new, $slot_access) = @_;
 
-    return "if ( ref \$_[1] ) { $slot_access =~ s/\$_[0]/\$_[1]->()/e; } else { $slot_access =~ s/\$_[0]/\$_[1]/; }";
+    return (
+        'ref $_[1]',
+            '? ' . $slot_access . ' =~ s/$_[0]/$_[1]->()/e',
+            ': ' . $slot_access . ' =~ s/$_[0]/$_[1]/;',
+     );
 }
 
 no Moose::Role;

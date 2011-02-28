@@ -1,8 +1,18 @@
+package Moose::Manual::Attributes;
+
+# ABSTRACT: Object attributes with Moose
+
+
+
 =pod
 
 =head1 NAME
 
 Moose::Manual::Attributes - Object attributes with Moose
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 INTRODUCTION
 
@@ -394,6 +404,15 @@ C<Scalar::Util::weaken> whenever the attribute is set:
 This is very useful when you're building objects that may contain
 circular references.
 
+When the object in a weak references goes out of scope, the attribute's value
+will become C<undef> "behind the scenes". This is done by the Perl interpreter
+directly, so Moose does not see this change. This means that triggers don't
+fire, coercions aren't applied, etc.
+
+The attribute is not cleared, so a predicate method for that attribute will
+still return true. Similarly, when the attribute is next accessed, a default
+value will not be generated.
+
 =head2 Triggers
 
 A C<trigger> is a subroutine that is called whenever the attribute is
@@ -614,15 +633,17 @@ value before it is set.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

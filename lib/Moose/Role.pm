@@ -1,4 +1,10 @@
 package Moose::Role;
+BEGIN {
+  $Moose::Role::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Role::VERSION = '1.9903'; # TRIAL
+}
 use strict;
 use warnings;
 
@@ -6,10 +12,6 @@ use Scalar::Util 'blessed';
 use Carp         'croak';
 
 use Sub::Exporter;
-
-our $VERSION   = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose       ();
 use Moose::Util ();
@@ -151,13 +153,19 @@ sub init_meta {
 
 1;
 
-__END__
+# ABSTRACT: The Moose Role
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Role - The Moose Role
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -295,17 +303,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
-
-Christian Hansen E<lt>chansen@cpan.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

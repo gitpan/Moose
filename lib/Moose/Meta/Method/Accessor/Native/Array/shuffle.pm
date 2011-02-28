@@ -1,13 +1,15 @@
 package Moose::Meta::Method::Accessor::Native::Array::shuffle;
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::shuffle::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '1.9903'; # TRIAL
+}
 
 use strict;
 use warnings;
 
 use List::Util ();
-
-our $VERSION = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -17,10 +19,10 @@ with 'Moose::Meta::Method::Accessor::Native::Reader' =>
 sub _maximum_arguments { 0 }
 
 sub _return_value {
-    my $self        = shift;
-    my $slot_access = shift;
+    my $self = shift;
+    my ($slot_access) = @_;
 
-    return "List::Util::shuffle \@{ ($slot_access) }";
+    return 'List::Util::shuffle @{ (' . $slot_access . ') }';
 }
 
 no Moose::Role;

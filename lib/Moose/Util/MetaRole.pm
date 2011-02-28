@@ -1,12 +1,14 @@
 package Moose::Util::MetaRole;
+BEGIN {
+  $Moose::Util::MetaRole::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Util::MetaRole::VERSION = '1.9903'; # TRIAL
+}
 
 use strict;
 use warnings;
 use Scalar::Util 'blessed';
-
-our $VERSION   = '1.24';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use List::MoreUtils qw( all );
 use List::Util qw( first );
@@ -169,11 +171,19 @@ sub _make_new_class {
 
 1;
 
-__END__
+# ABSTRACT: Apply roles to any metaclass, as well as the object base class
+
+
+
+=pod
 
 =head1 NAME
 
 Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base class
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -318,15 +328,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

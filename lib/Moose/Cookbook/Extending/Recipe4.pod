@@ -1,9 +1,18 @@
+package Moose::Cookbook::Extending::Recipe4;
+
+# ABSTRACT: Acting like Moose.pm and providing sugar Moose-style
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Extending::Recipe4 - Acting like Moose.pm and providing sugar Moose-style
+
+=head1 VERSION
+
+version 1.9903
 
 =head1 SYNOPSIS
 
@@ -78,21 +87,7 @@ when you C<use MyApp::Mooseish>.
 Providing sugar functions can make your extension look much more
 Moose-ish. See L<Fey::ORM> for a more extensive example.
 
-=head1 AUTHOR
-
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2006-2010 by Infinity Interactive, Inc.
-
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
 =begin testing
-
 
 {
     package MyApp::User;
@@ -115,4 +110,20 @@ ok( MyApp::User->can('username'),
 
 =end testing
 
-=pod
+=head1 AUTHOR
+
+Stevan Little <stevan@iinteractive.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+
+
+__END__
+
+
