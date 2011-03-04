@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Constructor::VERSION = '1.9903'; # TRIAL
+  $Moose::Meta::Method::Constructor::VERSION = '1.9904'; # TRIAL
 }
 
 use strict;
@@ -102,7 +102,7 @@ Moose::Meta::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 1.9903
+version 1.9904
 
 =head1 DESCRIPTION
 

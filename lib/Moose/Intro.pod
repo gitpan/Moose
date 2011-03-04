@@ -12,7 +12,7 @@ Moose::Intro - Expanded into Moose::Manual, so go read that
 
 =head1 VERSION
 
-version 1.9903
+version 1.9904
 
 =head1 DESCRIPTION
 

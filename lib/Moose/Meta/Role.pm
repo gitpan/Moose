@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::VERSION = '1.9903'; # TRIAL
+  $Moose::Meta::Role::VERSION = '1.9904'; # TRIAL
 }
 
 use strict;
@@ -627,16 +627,13 @@ sub consumers {
         no warnings 'uninitialized';
         return unless $self->name =~ /^$ANON_ROLE_PREFIX/;
 
-        # XXX: is this necessary for us? I don't understand what it's doing
-        # -sartak
-
         # Moose does a weird thing where it replaces the metaclass for
         # class when fixing metaclass incompatibility. In that case,
         # we don't want to clean out the namespace now. We can detect
         # that because Moose will explicitly update the singleton
         # cache in Class::MOP.
-        #my $current_meta = Class::MOP::get_metaclass_by_name($self->name);
-        #return if $current_meta ne $self;
+        my $current_meta = Class::MOP::get_metaclass_by_name($self->name);
+        return if $current_meta ne $self;
 
         my ($serial_id) = ($self->name =~ /^$ANON_ROLE_PREFIX(\d+)/);
         no strict 'refs';
@@ -768,7 +765,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 1.9903
+version 1.9904
 
 =head1 DESCRIPTION
 

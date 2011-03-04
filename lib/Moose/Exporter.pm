@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Exporter::VERSION = '1.9903'; # TRIAL
+  $Moose::Exporter::VERSION = '1.9904'; # TRIAL
 }
 
 use strict;
@@ -668,7 +668,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 1.9903
+version 1.9904
 
 =head1 SYNOPSIS
 

@@ -15,7 +15,7 @@ my %WriteMakefileArgs = (
     'Test::Requires' => '0.05'
   },
   'CONFIGURE_REQUIRES' => {
-    'Dist::CheckConflicts' => '0.01',
+    'Dist::CheckConflicts' => '0.02',
     'ExtUtils::MakeMaker' => '6.31'
   },
   'DISTNAME' => 'Moose',
@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '1.9903',
+  'VERSION' => '1.9904',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',
@@ -70,7 +70,7 @@ unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $pp = $WriteMakefileArgs{PREREQ_PM};
   for my $mod ( keys %$br ) {
     if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod}; 
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
     }
     else {
       $pp->{$mod} = $br->{$mod};

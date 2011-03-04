@@ -12,7 +12,7 @@ Moose::Manual::Classes - Making your classes use Moose (and subclassing)
 
 =head1 VERSION
 
-version 1.9903
+version 1.9904
 
 =head1 USING MOOSE
 

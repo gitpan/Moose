@@ -1,7 +1,17 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-1.9903 Mon, Feb 28, 2011
+1.9904 Fri, Mar 04, 2011
+
+  [BUG FIXES]
+
+  * Reinitializing anonymous roles used to accidentally clear out the role's
+    stash in some circumstances. This is now fixed. (doy)
+
+  * The Int type constraint now rejects integers with trailing newlines.
+    (Matthew Horsfall)
+
+1.9903-TRIAL Mon, Feb 28, 2011
 
   [BUG FIXES]
 
