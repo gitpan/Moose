@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '1.9904',
+  'VERSION' => '1.9905',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',
@@ -60,7 +60,7 @@ my %WriteMakefileArgs = (
     'FILES' => 'xs/Attribute$(OBJ_EXT) xs/AttributeCore$(OBJ_EXT) xs/Class$(OBJ_EXT) xs/Generated$(OBJ_EXT) xs/HasAttributes$(OBJ_EXT) xs/HasMethods$(OBJ_EXT) xs/Inlined$(OBJ_EXT) xs/Instance$(OBJ_EXT) xs/Method$(OBJ_EXT) xs/Moose$(OBJ_EXT) xs/MOP$(OBJ_EXT) xs/Package$(OBJ_EXT) mop$(OBJ_EXT)'
   },
   'test' => {
-    'TESTS' => 't/*.t t/001_cmop/*.t t/002_recipes/*.t t/010_basics/*.t t/020_attributes/*.t t/030_roles/*.t t/040_type_constraints/*.t t/050_metaclasses/*.t t/060_compat/*.t t/070_native_traits/*.t t/100_bugs/*.t t/200_examples/*.t t/300_immutable/*.t t/400_moose_util/*.t t/500_test_moose/*.t t/600_todo_tests/*.t'
+    'TESTS' => 't/*.t t/attributes/*.t t/basics/*.t t/bugs/*.t t/cmop/*.t t/compat/*.t t/examples/*.t t/immutable/*.t t/metaclasses/*.t t/moose_util/*.t t/native_traits/*.t t/recipes/*.t t/roles/*.t t/test_moose/*.t t/todo_tests/*.t t/type_constraints/*.t'
   }
 );
 

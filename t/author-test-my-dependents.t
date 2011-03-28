@@ -205,6 +205,7 @@ MooseX::YAML
 App::Nopaste
 App::Termcast
 Bread::Board
+Bread::Board::Declare
 Cache::Ref
 Cantella::Worker
 Carp::REPL

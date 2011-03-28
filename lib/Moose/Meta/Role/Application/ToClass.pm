@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::ToClass::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Application::ToClass::VERSION = '1.9904'; # TRIAL
+  $Moose::Meta::Role::Application::ToClass::VERSION = '1.9905'; # TRIAL
 }
 
 use strict;
@@ -131,7 +131,6 @@ sub check_required_attributes {
 
 sub apply_attributes {
     my ($self, $role, $class) = @_;
-    my $attr_metaclass = $role->applied_attribute_metaclass;
 
     foreach my $attribute_name ($role->get_attribute_list) {
         # it if it has one already
@@ -142,7 +141,7 @@ sub apply_attributes {
         }
         else {
             $class->add_attribute(
-                $role->get_attribute($attribute_name)->attribute_for_class($attr_metaclass)
+                $role->get_attribute($attribute_name)->attribute_for_class
             );
         }
     }
@@ -238,7 +237,7 @@ Moose::Meta::Role::Application::ToClass - Compose a role into a class
 
 =head1 VERSION
 
-version 1.9904
+version 1.9905
 
 =head1 DESCRIPTION
 

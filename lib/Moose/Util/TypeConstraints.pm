@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::TypeConstraints::VERSION = '1.9904'; # TRIAL
+  $Moose::Util::TypeConstraints::VERSION = '1.9905'; # TRIAL
 }
 
 use Carp ();
@@ -281,7 +281,7 @@ sub type {
         Moose::Deprecated::deprecated(
             feature => 'type without sugar',
             message =>
-                'Calling type() with a simple list of parameters is deprecated'
+                'Calling type() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
         );
 
         return _create_type_constraint( $_[0], undef, $_[1] );
@@ -306,7 +306,7 @@ sub subtype {
         Moose::Deprecated::deprecated(
             feature => 'subtype without sugar',
             message =>
-                'Calling subtype() with a simple list of parameters is deprecated'
+                'Calling subtype() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
         );
 
         return _create_type_constraint( undef, @_ );
@@ -319,7 +319,7 @@ sub subtype {
         Moose::Deprecated::deprecated(
             feature => 'subtype without sugar',
             message =>
-                'Calling subtype() with a simple list of parameters is deprecated'
+                'Calling subtype() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
         );
 
         return _create_type_constraint( undef, @_ );
@@ -330,7 +330,7 @@ sub subtype {
         Moose::Deprecated::deprecated(
             feature => 'subtype without sugar',
             message =>
-                'Calling subtype() with a simple list of parameters is deprecated'
+                'Calling subtype() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
         );
 
         return _create_type_constraint(@_);
@@ -893,7 +893,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 1.9904
+version 1.9905
 
 =head1 SYNOPSIS
 

@@ -1,7 +1,30 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-1.9904 Fri, Mar 04, 2011
+1.9905 Mon, Mar 28, 2011
+
+  [NEW FEATURES]
+
+  * The Moose::Meta::Role::Attribute class now has an original_role method
+    which returns the role which first defined an attribute. See the docs for
+    details. (Dave Rolsky)
+
+  * Moose::Util::MetaRole will make sure that the class to which you're
+    applying metaroles or base class roles can actually have them applied. If
+    not (it's not a Moose class, it has a non-Moose metaclass, etc.), then it
+    gives a useful error message. Previously, this would just end up dying in
+    the MetaRole code without a useful message. (Dave Rolsky)
+
+  [BUG FIXES]
+
+  * When a role had its own applied_attribute metaclass (usually from MetaRole
+    application), that metaclass would get lost when that role participated in
+    role composition. It was also lost if that role was consumed by some other
+    role. Both of these cases have been fixed. Attributes are always applied
+    with the applied_attribute metaclass of the role which originall defined
+    them. (Dave Rolsky)
+
+1.9904-TRIAL Fri, Mar 04, 2011
 
   [BUG FIXES]
 
@@ -659,7 +682,7 @@ for, noteworthy changes.
     too. (Dave Rolsky)
 
   * Moose::Util::MetaRole::apply_metaclass_roles is now called
-    apply_metaroles. The old name is deprecated. Dave Rolsky>
+    apply_metaroles. The old name is deprecated. (Dave Rolsky)
 
   * The unimport subs created by Moose::Exporter now clean up re-exported
     functions like blessed and confess, unless the caller imported them from

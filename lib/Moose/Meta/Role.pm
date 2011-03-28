@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::VERSION = '1.9904'; # TRIAL
+  $Moose::Meta::Role::VERSION = '1.9905'; # TRIAL
 }
 
 use strict;
@@ -473,7 +473,8 @@ sub apply {
                 'The alias and excludes options for role application'.
                 ' have been renamed -alias and -excludes'.
                 " (${\$other->name} is consuming ${\$self->name}".
-                " - do you need to upgrade ${\$other->name}?)"
+                " - do you need to upgrade ${\$other->name}?).".
+                ' This will be an error in Moose 2.0200.'
         );
     }
 
@@ -765,7 +766,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 1.9904
+version 1.9905
 
 =head1 DESCRIPTION
 

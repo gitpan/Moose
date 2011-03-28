@@ -95,7 +95,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "1.9904",
+   "version" : "1.9905",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",
@@ -107,7 +107,7 @@
       "Markdent" : "0.16",
       "MooseX::Aliases" : "0.08",
       "MooseX::AlwaysCoerce" : "0.12",
-      "MooseX::Attribute::Deflator" : "1.130000",
+      "MooseX::Attribute::Deflator" : "1.130002",
       "MooseX::Attribute::Dependent" : "1.0.0",
       "MooseX::Attribute::Prototype" : "0.10",
       "MooseX::AttributeHelpers" : "0.22",
@@ -120,16 +120,19 @@
       "MooseX::LazyRequire" : "0.05",
       "MooseX::MethodAttributes" : "0.22",
       "MooseX::NonMoose" : "0.17",
-      "MooseX::POE" : "0.205",
+      "MooseX::POE" : "0.211",
       "MooseX::Params::Validate" : "0.05",
       "MooseX::Role::Cmd" : "0.06",
+      "MooseX::Role::Parameterized" : "0.23",
       "MooseX::Role::WithOverloading" : "0.07",
       "MooseX::SemiAffordanceAccessor" : "0.05",
+      "MooseX::SetOnce" : "0.100472",
       "MooseX::Singleton" : "0.25",
       "MooseX::StrictConstructor" : "0.12",
       "MooseX::Types" : "0.19",
       "MooseX::UndefTolerant" : "0.04",
       "Pod::Elemental" : "0.093280",
+      "Reaction" : "0.002003",
       "namespace::autoclean" : "0.08"
    }
 }

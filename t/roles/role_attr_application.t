@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Moose;
+use Moose::Util qw( does_role );
 
 {
     package Foo::Meta::Attribute;
@@ -200,5 +202,91 @@ ok(!Moose::Util::does_role(Baz->meta->get_attribute('foo'), 'Baz::Meta::Attribut
     can_ok('Class::With::Role::With::Trait', 'foo_foo');
     can_ok('Class::With::Role::With::Trait', 'bar');
 }
+
+{
+    package Quux::Meta::Role::Attribute;
+    use Moose::Role;
+}
+
+{
+    package Quux::Role1;
+    use Moose::Role;
+
+    has foo => (traits => ['Quux::Meta::Role::Attribute'], is => 'ro');
+    has baz => (is => 'ro');
+}
+
+{
+    package Quux::Role2;
+    use Moose::Role;
+    Moose::Util::MetaRole::apply_metaroles(
+        for            => __PACKAGE__,
+        role_metaroles => {
+            applied_attribute => ['Quux::Meta::Role::Attribute']
+        },
+    );
+
+    has bar => (is => 'ro');
+}
+
+{
+    package Quux;
+    use Moose;
+    with 'Quux::Role1', 'Quux::Role2';
+}
+
+{
+    my $foo = Quux->meta->get_attribute('foo');
+    does_ok($foo, 'Quux::Meta::Role::Attribute',
+            "individual attribute trait applied correctly");
+
+    my $baz = Quux->meta->get_attribute('baz');
+    ok(! does_role($baz, 'Quux::Meta::Role::Attribute'),
+       "applied_attribute traits do not end up applying to attributes from other roles during composition");
+
+    my $bar = Quux->meta->get_attribute('bar');
+    does_ok($bar, 'Quux::Meta::Role::Attribute',
+            "attribute metarole applied correctly");
+}
+
+{
+    package HasMeta;
+    use Moose::Role;
+    Moose::Util::MetaRole::apply_metaroles(
+        for            => __PACKAGE__,
+        role_metaroles => {
+            applied_attribute => ['Quux::Meta::Role::Attribute']
+        },
+    );
+
+    has foo => (is => 'ro');
+}
+
+{
+    package NoMeta;
+    use Moose::Role;
+
+    with 'HasMeta';
+
+    has bar => (is => 'ro');
+}
+
+{
+    package ConsumesBoth;
+    use Moose;
+    with 'HasMeta', 'NoMeta';
+}
+
+{
+    my $foo = ConsumesBoth->meta->get_attribute('foo');
+    does_ok($foo, 'Quux::Meta::Role::Attribute',
+            'applied_attribute traits are preserved when one role consumes another');
+
+    my $bar = ConsumesBoth->meta->get_attribute('bar');
+    ok(! does_role($bar, 'Quux::Meta::Role::Attribute'),
+       "applied_attribute traits do not spill over from consumed role");
+}
+
+
 
 done_testing;

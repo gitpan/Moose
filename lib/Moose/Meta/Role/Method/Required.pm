@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::Method::Required::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Method::Required::VERSION = '1.9904'; # TRIAL
+  $Moose::Meta::Role::Method::Required::VERSION = '1.9905'; # TRIAL
 }
 
 use strict;
@@ -40,7 +40,7 @@ Moose::Meta::Role::Method::Required - A Moose metaclass for required methods in 
 
 =head1 VERSION
 
-version 1.9904
+version 1.9905
 
 =head1 DESCRIPTION
 

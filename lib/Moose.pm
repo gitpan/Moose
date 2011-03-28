@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::VERSION = '1.9904'; # TRIAL
+  $Moose::VERSION = '1.9905'; # TRIAL
 }
 use strict;
 use warnings;
@@ -138,7 +138,8 @@ sub init_meta {
     if ( $_[0] ne __PACKAGE__ ) {
         Moose::Deprecated::deprecated(
             feature => 'Moose::init_meta',
-            message => 'Calling Moose::init_meta as a function is deprecated',
+            message => 'Calling Moose::init_meta as a function is deprecated.'
+                . ' Doing so will throw an error in Moose 2.0200.'
         );
 
         return __PACKAGE__->init_meta(
@@ -286,7 +287,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 1.9904
+version 1.9905
 
 =head1 SYNOPSIS
 

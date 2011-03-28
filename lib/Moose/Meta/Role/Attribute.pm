@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Attribute::VERSION = '1.9904'; # TRIAL
+  $Moose::Meta::Role::Attribute::VERSION = '1.9905'; # TRIAL
 }
 
 use strict;
@@ -28,6 +28,12 @@ __PACKAGE__->meta->add_attribute(
 );
 
 __PACKAGE__->meta->add_attribute(
+    '_original_role' => (
+        reader => '_original_role',
+    )
+);
+
+__PACKAGE__->meta->add_attribute(
     'is' => (
         reader => 'is',
     )
@@ -45,9 +51,12 @@ sub new {
     (defined $name)
         || confess "You must provide a name for the attribute";
 
+    my $role = delete $options{_original_role};
+
     return bless {
         name             => $name,
         original_options => \%options,
+        _original_role   => $role,
         %options,
     }, $class;
 }
@@ -62,9 +71,16 @@ sub attach_to_role {
     weaken( $self->{'associated_role'} = $role );
 }
 
+sub original_role {
+    my $self = shift;
+
+    return $self->_original_role || $self->associated_role;
+}
+
 sub attribute_for_class {
-    my $self      = shift;
-    my $metaclass = shift;
+    my $self = shift;
+
+    my $metaclass = $self->original_role->applied_attribute_metaclass;
 
     return $metaclass->interpolate_class_and_new(
         $self->name => %{ $self->original_options } );
@@ -73,7 +89,13 @@ sub attribute_for_class {
 sub clone {
     my $self = shift;
 
-    return ( ref $self )->new( $self->name, %{ $self->original_options } );
+    my $role = $self->original_role;
+
+    return ( ref $self )->new(
+        $self->name,
+        %{ $self->original_options },
+        _original_role => $role,
+    );
 }
 
 sub is_same_as {
@@ -128,6 +150,12 @@ Returns the option as passed to the constructor.
 =item B<< $attr->associated_role >>
 
 Returns the L<Moose::Meta::Role> to which this attribute belongs, if any.
+
+=item B<< $attr->original_role >>
+
+Returns the L<Moose::Meta::Role> in which this attribute was first
+defined. This may not be the same as the value C<associated_role()> in the
+case of composite role, or the case where one role consumes other roles.
 
 =item B<< $attr->original_options >>
 
