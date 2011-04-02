@@ -1,10 +1,8 @@
 package Moose::Meta::Attribute::Native;
-BEGIN {
-  $Moose::Meta::Attribute::Native::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Attribute::Native::VERSION = '1.9905'; # TRIAL
-}
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 my @trait_names = qw(Bool Counter Number String Array Hash Code);
 
@@ -30,19 +28,13 @@ for my $trait_name (@trait_names) {
 
 1;
 
-# ABSTRACT: Delegate to native Perl types
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native - Delegate to native Perl types
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -257,17 +249,45 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
+
+B<with contributions from:>
+
+Robert (rlb3) Boone
+
+Paul (frodwith) Driver
+
+Shawn (Sartak) Moore
+
+Chris (perigrin) Prather
+
+Robert (phaylon) Sedlacek
+
+Tom (dec) Lanyon
+
+Yuval Kogman
+
+Jason May
+
+Cory (gphat) Watson
+
+Florian (rafl) Ragwitz
+
+Evan Carroll
+
+Jesse (doy) Luehrs
+
+Jay Hannah
+
+Robert Buels
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

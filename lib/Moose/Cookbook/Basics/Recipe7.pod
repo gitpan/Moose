@@ -1,18 +1,9 @@
-package Moose::Cookbook::Basics::Recipe7;
-
-# ABSTRACT: Making Moose fast with immutable
-
-
 
 =pod
 
 =head1 NAME
 
 Moose::Cookbook::Basics::Recipe7 - Making Moose fast with immutable
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -44,18 +35,15 @@ especially noticeable when creating many objects.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-
-

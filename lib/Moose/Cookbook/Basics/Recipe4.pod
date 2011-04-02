@@ -1,18 +1,18 @@
-package Moose::Cookbook::Basics::Recipe4;
-
-# ABSTRACT: Subtypes, and modeling a simple B<Company> class hierarchy
-
-
 
 =pod
+
+=begin testing-SETUP
+
+use Test::Requires {
+    'Locale::US'     => '0',
+    'Regexp::Common' => '0',
+};
+
+=end testing-SETUP
 
 =head1 NAME
 
 Moose::Cookbook::Basics::Recipe4 - Subtypes, and modeling a simple B<Company> class hierarchy
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -252,11 +252,6 @@ parameters that were passed to the method.
 A more detailed example of usage can be found in
 F<t/000_recipes/moose_cookbook_basics_recipe4.t>.
 
-=for testing-SETUP use Test::Requires {
-    'Locale::US'     => '0',
-    'Regexp::Common' => '0',
-};
-
 =head1 CONCLUSION
 
 This recipe was intentionally longer and more complex. It illustrates
@@ -293,6 +288,21 @@ method climbs the object inheritance graph and calls any C<BUILD>
 methods it finds in the correct order.
 
 =back
+
+=head1 AUTHORS
+
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
+
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2006-2010 by Infinity Interactive, Inc.
+
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =begin testing
 
@@ -537,20 +547,4 @@ is(
 
 =end testing
 
-=head1 AUTHOR
-
-Stevan Little <stevan@iinteractive.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
-
-__END__
-
-

@@ -1,16 +1,14 @@
 
 package Moose::Util::TypeConstraints;
-BEGIN {
-  $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Util::TypeConstraints::VERSION = '1.9905'; # TRIAL
-}
 
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 ## --------------------------------------------------------
 # Prototyped subs must be predeclared because we have a
@@ -281,7 +279,7 @@ sub type {
         Moose::Deprecated::deprecated(
             feature => 'type without sugar',
             message =>
-                'Calling type() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
+                'Calling type() with a simple list of parameters is deprecated'
         );
 
         return _create_type_constraint( $_[0], undef, $_[1] );
@@ -306,7 +304,7 @@ sub subtype {
         Moose::Deprecated::deprecated(
             feature => 'subtype without sugar',
             message =>
-                'Calling subtype() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
+                'Calling subtype() with a simple list of parameters is deprecated'
         );
 
         return _create_type_constraint( undef, @_ );
@@ -319,7 +317,7 @@ sub subtype {
         Moose::Deprecated::deprecated(
             feature => 'subtype without sugar',
             message =>
-                'Calling subtype() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
+                'Calling subtype() with a simple list of parameters is deprecated'
         );
 
         return _create_type_constraint( undef, @_ );
@@ -330,7 +328,7 @@ sub subtype {
         Moose::Deprecated::deprecated(
             feature => 'subtype without sugar',
             message =>
-                'Calling subtype() with a simple list of parameters is deprecated. This will be an error in Moose 2.0200.'
+                'Calling subtype() with a simple list of parameters is deprecated'
         );
 
         return _create_type_constraint(@_);
@@ -881,19 +879,13 @@ sub _throw_error {
 
 1;
 
-# ABSTRACT: Type constraint system for Moose
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Util::TypeConstraints - Type constraint system for Moose
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -1184,8 +1176,8 @@ This can be used to define a "hand optimized" version of your
 type constraint which can be used to avoid traversing a subtype
 constraint hierarchy.
 
-B<NOTE:> You should only use this if you know what you are doing.
-All the built in types use this, so your subtypes (assuming they
+B<NOTE:> You should only use this if you know what you are doing,
+all the built in types use this, so your subtypes (assuming they
 are shallow) will not likely need to use this.
 
 =item B<< type 'Name' => where { } ... >>
@@ -1287,16 +1279,10 @@ See the L</SYNOPSIS> for an example of how to use these.
 
 =over 4
 
-=item B<< coerce 'Name' => from 'OtherName' => via { ... }  >>
+=item B<< coerce 'Name' => from 'OtherName' => via { ... } >>
 
 This defines a coercion from one type to another. The C<Name> argument
 is the type you are coercing I<to>.
-
-To define multiple coercions, supply more sets of from/via pairs:
-
-  coerce 'Name' =>
-    from 'OtherName' => via { ... },
-    from 'ThirdName' => via { ... };
 
 =item B<from 'OtherName'>
 
@@ -1447,17 +1433,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

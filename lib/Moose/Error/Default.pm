@@ -1,13 +1,11 @@
 package Moose::Error::Default;
-BEGIN {
-  $Moose::Error::Default::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Error::Default::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Carp::Heavy;
 use Class::MOP::MiniTrait;
@@ -52,21 +50,15 @@ sub _create_error_carpmess {
     }
 }
 
-1;
+__PACKAGE__
 
-# ABSTRACT: L<Carp> based error generation for Moose.
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Error::Default - L<Carp> based error generation for Moose.
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 DESCRIPTION
 
@@ -95,21 +87,6 @@ Creates a new errors string of the specified style.
 
 =back
 
-=head1 AUTHOR
-
-Stevan Little <stevan@iinteractive.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
-
-__END__
-
 
 

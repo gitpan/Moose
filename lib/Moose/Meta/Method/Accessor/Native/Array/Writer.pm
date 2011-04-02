@@ -1,27 +1,22 @@
 package Moose::Meta::Method::Accessor::Native::Array::Writer;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::Writer::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::Writer::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
+
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Writer' => {
-        -excludes => ['_inline_coerce_new_values'],
-    },
+with 'Moose::Meta::Method::Accessor::Native::Writer',
     'Moose::Meta::Method::Accessor::Native::Array',
     'Moose::Meta::Method::Accessor::Native::Collection';
 
-sub _new_members { '@_' }
+sub _new_members {'@_'}
 
-sub _copy_old_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+sub _inline_copy_old_value {
+    my ( $self, $slot_access ) = @_;
 
     return '[ @{(' . $slot_access . ')} ]';
 }

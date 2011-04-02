@@ -1,15 +1,13 @@
 package oose;
-BEGIN {
-  $oose::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $oose::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Class::MOP;
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 BEGIN {
     my $package;
@@ -25,19 +23,13 @@ BEGIN {
 
 1;
 
-# ABSTRACT: syntactic sugar to make Moose one-liners easier
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 oose - syntactic sugar to make Moose one-liners easier
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -84,17 +76,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Chris Prather  C<< <chris@prather.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

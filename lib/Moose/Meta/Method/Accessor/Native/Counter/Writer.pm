@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::Counter::Writer;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Counter::Writer::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Counter::Writer::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -19,9 +17,8 @@ sub _constraint_must_be_checked {
     my $attr = $self->associated_attribute;
 
     return $attr->has_type_constraint
-        && ($attr->type_constraint->name =~ /^(?:Num|Int)$/
-         || ($attr->should_coerce && $attr->type_constraint->has_coercion)
-           );
+        && ( $attr->type_constraint->name =~ /^(?:Num|Int)$/
+        || ( $attr->should_coerce && $attr->type_constraint->has_coercion ) );
 }
 
 no Moose::Role;

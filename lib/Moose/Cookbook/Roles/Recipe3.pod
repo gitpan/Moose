@@ -1,18 +1,33 @@
 package Moose::Cookbook::Roles::Recipe3;
 
-# ABSTRACT: Applying a role to an object instance
-
-
-
 =pod
+
+=begin testing-SETUP
+
+{
+    # Not in the recipe, but needed for writing tests.
+    package Employee;
+
+    use Moose;
+
+    has 'name' => (
+        is       => 'ro',
+        isa      => 'Str',
+        required => 1,
+    );
+
+    has 'work' => (
+        is        => 'rw',
+        isa       => 'Str',
+        predicate => 'has_work',
+    );
+}
+
+=end testing-SETUP
 
 =head1 NAME
 
 Moose::Cookbook::Roles::Recipe3 - Applying a role to an object instance
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -79,29 +94,6 @@ We could also pass parameters to the role we're applying:
 We saw examples of how method exclusion and alias working in L<roles
 recipe 2|Moose::Cookbook::Roles::Recipe2>.
 
-=begin testing-SETUP
-
-{
-    # Not in the recipe, but needed for writing tests.
-    package Employee;
-
-    use Moose;
-
-    has 'name' => (
-        is       => 'ro',
-        isa      => 'Str',
-        required => 1,
-    );
-
-    has 'work' => (
-        is        => 'rw',
-        isa       => 'Str',
-        predicate => 'has_work',
-    );
-}
-
-=end testing-SETUP
-
 =head1 CONCLUSION
 
 Applying a role to an object instance is a useful tool for adding
@@ -111,6 +103,20 @@ model a promotion.
 It can also be useful as a sort of controlled monkey-patching for
 existing code, particularly non-Moose code. For example, you could
 create a debugging role and apply it to an object at runtime.
+
+=head1 AUTHOR
+
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2006-2010 by Infinity Interactive, Inc.
+
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
 
 =begin testing
 
@@ -134,21 +140,4 @@ create a debugging role and apply it to an object at runtime.
 
 =end testing
 
-=head1 AUTHOR
-
-Stevan Little <stevan@iinteractive.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
-
-__END__
-
-package Moose::Cookbook::Roles::Recipe3;
-

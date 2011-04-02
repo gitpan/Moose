@@ -1,96 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-1.9905 Mon, Mar 28, 2011
-
-  [NEW FEATURES]
-
-  * The Moose::Meta::Role::Attribute class now has an original_role method
-    which returns the role which first defined an attribute. See the docs for
-    details. (Dave Rolsky)
-
-  * Moose::Util::MetaRole will make sure that the class to which you're
-    applying metaroles or base class roles can actually have them applied. If
-    not (it's not a Moose class, it has a non-Moose metaclass, etc.), then it
-    gives a useful error message. Previously, this would just end up dying in
-    the MetaRole code without a useful message. (Dave Rolsky)
-
-  [BUG FIXES]
-
-  * When a role had its own applied_attribute metaclass (usually from MetaRole
-    application), that metaclass would get lost when that role participated in
-    role composition. It was also lost if that role was consumed by some other
-    role. Both of these cases have been fixed. Attributes are always applied
-    with the applied_attribute metaclass of the role which originall defined
-    them. (Dave Rolsky)
-
-1.9904-TRIAL Fri, Mar 04, 2011
+1.25 Fri, Apr 1, 2011
 
   [BUG FIXES]
 
   * Reinitializing anonymous roles used to accidentally clear out the role's
-    stash in some circumstances. This is now fixed. (doy)
-
-  * The Int type constraint now rejects integers with trailing newlines.
-    (Matthew Horsfall)
-
-1.9903-TRIAL Mon, Feb 28, 2011
-
-  [BUG FIXES]
-
-  * Don't initialize lazy attributes with defaults in the constructor (for
-    immutable classes). (mo)
-
-  * When reinitializing meta objects for classes and roles, we failed to
-    preserve roles and role applications. This led to weird bugs. Many MooseX
-    modules end up reinitializing your class or role. (Dave Rolsky)
-
-1.9902-TRIAL Mon, Jan 03, 2011
-
-  [OTHER]
-
-  * Fix generation of CCFLAGS.
-
-  * Add a bit more Dist::Zilla functionality.
-
-1.9901-TRIAL Mon, Jan 03, 2011
-
-  [OTHER]
-
-  * Fix some indexing issues.
-
-  * Fix a few issues with the conflict checking stuff.
-
-1.9900-TRIAL Sat, Jan 01, 2011
-
-  [OTHER]
-
-  * The entire Class::MOP distribution has been merged with Moose. In the
-    future, the Class::MOP code itself will be merged into Moose, and
-    eventually the Class::MOP namespace will disappear entirely. For the
-    current release, we have simply changed how Class::MOP is
-    distributed. (Dave Rolsky).
-
-  * Switched to Dist::Zilla for development. However, we still have a minimal
-    Makefile.PL in the repository that can be used for development. (Dave
-    Rolsky)
-
-  [API CHANGES]
-
-  * Roles now have their own default attribute metaclass to use during
-    application to a class, rather than just using the class's
-    attribute_metaclass. This is also overridable via ::MetaRole, with the
-    applied_attribute key in the role_metaroles hashref (doy).
-
-  * The internal code used to generate inlined methods (accessor, constructor,
-    etc.) has been massively rewritten. MooseX modules that do inlining will
-    almost certainly need to be updated as well.
-
-  [ENHANCEMENTS]
-
-  * We now load the roles needed for native delegations only as needed. This
-    speeds up the compilation time for Moose itself. (doy)
-
+    stash in some circumstances. This is now fixed. (doy) (backported from
+    1.9904)
 
 1.24 Tue, Feb 24, 2011
 
@@ -101,13 +18,11 @@ for, noteworthy changes.
     Moose sugar, you'd get the original Moose sugar instead of the overrides. 
     There are also now tests for this. (perigrin)
 
-
 1.23 Sun, Feb 13, 2011
 
   [PACKAGING FIX]
 
   * The 1.22 release had a bad MANIFEST. This has been fixed.
-
 
 1.22 Sun, Feb 13, 2011
 
@@ -133,8 +48,8 @@ for, noteworthy changes.
     which could cause errors when trying to resolve metaclass compatibility
     issues. Reported by Daniel Ruoso. (doy)
 
-  * The lazy_build feature was accidentally removed from all the docs. Now
-    it's listed in Moose.pm again. (Chris Prather)
+  * The lazy_build feature was accidentally removed all the docs. Now it's
+    listed in Moose.pm again. (Chris Prather)
 
 1.20 Fri, Nov 19, 2010
 
@@ -682,7 +597,7 @@ for, noteworthy changes.
     too. (Dave Rolsky)
 
   * Moose::Util::MetaRole::apply_metaclass_roles is now called
-    apply_metaroles. The old name is deprecated. (Dave Rolsky)
+    apply_metaroles. The old name is deprecated. Dave Rolsky>
 
   * The unimport subs created by Moose::Exporter now clean up re-exported
     functions like blessed and confess, unless the caller imported them from

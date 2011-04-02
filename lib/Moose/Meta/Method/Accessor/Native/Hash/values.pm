@@ -1,15 +1,13 @@
 package Moose::Meta::Method::Accessor::Native::Hash::values;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::values::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::values::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Scalar::Util qw( looks_like_number );
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -19,10 +17,10 @@ with 'Moose::Meta::Method::Accessor::Native::Reader' =>
 sub _maximum_arguments { 0 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my $self        = shift;
+    my $slot_access = shift;
 
-    return 'values %{ (' . $slot_access . ') }';
+    return "values \%{ ($slot_access) }";
 }
 
 no Moose::Role;

@@ -1,15 +1,13 @@
 package Moose::Meta::Method::Accessor::Native::Array::get;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::get::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::get::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Class::MOP::MiniTrait;
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -35,10 +33,10 @@ sub _inline_check_arguments {
 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my $self        = shift;
+    my $slot_access = shift;
 
-    return $slot_access . '->[ $_[0] ]';
+    return "${slot_access}->[ \$_[0] ]";
 }
 
 1;

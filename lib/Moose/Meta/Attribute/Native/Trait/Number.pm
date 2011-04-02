@@ -1,11 +1,17 @@
 package Moose::Meta::Attribute::Native::Trait::Number;
-BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Number::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Number::VERSION = '1.9905'; # TRIAL
-}
 use Moose::Role;
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
+
+use Moose::Meta::Method::Accessor::Native::Number::abs;
+use Moose::Meta::Method::Accessor::Native::Number::add;
+use Moose::Meta::Method::Accessor::Native::Number::div;
+use Moose::Meta::Method::Accessor::Native::Number::mod;
+use Moose::Meta::Method::Accessor::Native::Number::mul;
+use Moose::Meta::Method::Accessor::Native::Number::set;
+use Moose::Meta::Method::Accessor::Native::Number::sub;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -16,6 +22,10 @@ no Moose::Role;
 1;
 
 =pod
+
+=head1 NAME
+
+Moose::Meta::Attribute::Native::Trait::Number - Helper trait for Num attributes
 
 =head1 SYNOPSIS
 
@@ -89,5 +99,18 @@ Sets the current value of the attribute to its absolute value.
 =head1 BUGS
 
 See L<Moose/BUGS> for details on reporting bugs.
+
+=head1 AUTHOR
+
+Robert Boone
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2007-2010 by Infinity Interactive, Inc.
+
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut

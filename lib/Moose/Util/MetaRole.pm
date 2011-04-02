@@ -1,27 +1,22 @@
 package Moose::Util::MetaRole;
-BEGIN {
-  $Moose::Util::MetaRole::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Util::MetaRole::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 use Scalar::Util 'blessed';
 
-use Carp qw( croak );
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
+
 use List::MoreUtils qw( all );
 use List::Util qw( first );
 use Moose::Deprecated;
-use Scalar::Util qw( blessed );
 
 sub apply_metaclass_roles {
     Moose::Deprecated::deprecated(
         feature => 'pre-0.94 MetaRole API',
         message =>
-            'The old Moose::Util::MetaRole API (before version 0.94) has been deprecated.'
-            . ' Using this API will throw an error in Moose 2.0200.'
+            'The old Moose::Util::MetaRole API (before version 0.94) has been deprecated'
     );
 
     goto &apply_metaroles;
@@ -32,53 +27,16 @@ sub apply_metaroles {
 
     _fixup_old_style_args(\%args);
 
-    my $for = _metathing_for( $args{for} );
+    my $for
+        = blessed $args{for}
+        ? $args{for}
+        : Class::MOP::class_of( $args{for} );
 
     if ( $for->isa('Moose::Meta::Role') ) {
         return _make_new_metaclass( $for, $args{role_metaroles}, 'role' );
     }
     else {
         return _make_new_metaclass( $for, $args{class_metaroles}, 'class' );
-    }
-}
-
-sub _metathing_for {
-    my $passed = shift;
-
-    my $found
-        = blessed $passed
-        ? $passed
-        : Class::MOP::class_of($passed);
-
-    return $found
-        if defined $found
-            && blessed $found
-            && (   $found->isa('Moose::Meta::Role')
-                || $found->isa('Moose::Meta::Class') );
-
-    local $Carp::CarpLevel = $Carp::CarpLevel + 1;
-
-    my $error_start
-        = 'When using Moose::Util::MetaRole, you must pass a Moose class name,'
-        . ' role name, metaclass object, or metarole object.';
-
-    if ( defined $found && blessed $found ) {
-        croak $error_start
-            . " You passed $passed, and we resolved this to a "
-            . ( blessed $found )
-            . ' object.';
-    }
-
-    if ( defined $passed && !defined $found ) {
-        croak $error_start
-            . " You passed $passed, and this did not resolve to a metaclass or metarole."
-            . ' Maybe you need to call Moose->init_meta to initialize the metaclass first?';
-    }
-
-    if ( !defined $passed ) {
-        croak $error_start
-            . " You passed an undef."
-            . ' Maybe you need to call Moose->init_meta to initialize the metaclass first?';
     }
 }
 
@@ -90,8 +48,7 @@ sub _fixup_old_style_args {
     Moose::Deprecated::deprecated(
         feature => 'pre-0.94 MetaRole API',
         message =>
-            'The old Moose::Util::MetaRole API (before version 0.94) has been deprecated.'
-            . ' Using this API will throw an error in Moose 2.0200.'
+            'The old Moose::Util::MetaRole API (before version 0.94) has been deprecated'
     );
 
     $args->{for} = delete $args->{for_class}
@@ -176,12 +133,12 @@ sub _make_new_metaclass {
 sub apply_base_class_roles {
     my %args = @_;
 
-    my $meta = _metathing_for( $args{for} || $args{for_class} );
-    croak 'You can only apply base class roles to a Moose class, not a role.'
-        if $meta->isa('Moose::Meta::Role');
+    my $for = $args{for} || $args{for_class};
+
+    my $meta = Class::MOP::class_of($for);
 
     my $new_base = _make_new_class(
-        $meta->name,
+        $for,
         $args{roles},
         [ $meta->superclasses() ],
     );
@@ -212,19 +169,11 @@ sub _make_new_class {
 
 1;
 
-# ABSTRACT: Apply roles to any metaclass, as well as the object base class
-
-
-
-=pod
+__END__
 
 =head1 NAME
 
 Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base class
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -369,17 +318,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

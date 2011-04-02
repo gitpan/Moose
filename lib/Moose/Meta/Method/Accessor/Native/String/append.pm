@@ -1,13 +1,11 @@
 package Moose::Meta::Method::Accessor::Native::String::append;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::append::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::append::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -26,17 +24,15 @@ sub _minimum_arguments { 1 }
 sub _maximum_arguments { 1 }
 
 sub _potential_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my ( $self, $slot_access ) = @_;
 
-    return '( ' . $slot_access . ' . $_[0] )';
+    return "( $slot_access . \$_[0] )";
 }
 
 sub _inline_optimized_set_new_value {
-    my $self = shift;
-    my ($inv, $new, $slot_access) = @_;
+    my ( $self, $inv, $new, $slot_access ) = @_;
 
-    return $slot_access . ' .= $_[0];';
+    return "$slot_access .= \$_[0]";
 }
 
 no Moose::Role;

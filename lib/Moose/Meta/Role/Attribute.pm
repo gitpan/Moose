@@ -1,10 +1,4 @@
 package Moose::Meta::Role::Attribute;
-BEGIN {
-  $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Role::Attribute::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
@@ -12,6 +6,9 @@ use warnings;
 use Carp 'confess';
 use List::MoreUtils 'all';
 use Scalar::Util 'blessed', 'weaken';
+
+our $VERSION   = '1.25';
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Mixin::AttributeCore', 'Class::MOP::Object';
 
@@ -24,12 +21,6 @@ __PACKAGE__->meta->add_attribute(
 __PACKAGE__->meta->add_attribute(
     'associated_role' => (
         reader => 'associated_role',
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    '_original_role' => (
-        reader => '_original_role',
     )
 );
 
@@ -51,12 +42,9 @@ sub new {
     (defined $name)
         || confess "You must provide a name for the attribute";
 
-    my $role = delete $options{_original_role};
-
     return bless {
         name             => $name,
         original_options => \%options,
-        _original_role   => $role,
         %options,
     }, $class;
 }
@@ -71,16 +59,9 @@ sub attach_to_role {
     weaken( $self->{'associated_role'} = $role );
 }
 
-sub original_role {
-    my $self = shift;
-
-    return $self->_original_role || $self->associated_role;
-}
-
 sub attribute_for_class {
-    my $self = shift;
-
-    my $metaclass = $self->original_role->applied_attribute_metaclass;
+    my $self      = shift;
+    my $metaclass = shift;
 
     return $metaclass->interpolate_class_and_new(
         $self->name => %{ $self->original_options } );
@@ -89,13 +70,7 @@ sub attribute_for_class {
 sub clone {
     my $self = shift;
 
-    my $role = $self->original_role;
-
-    return ( ref $self )->new(
-        $self->name,
-        %{ $self->original_options },
-        _original_role => $role,
-    );
+    return ( ref $self )->new( $self->name, %{ $self->original_options } );
 }
 
 sub is_same_as {
@@ -124,6 +99,10 @@ sub is_same_as {
 
 =pod
 
+=head1 NAME
+
+Moose::Meta::Role::Attribute - A Moose Attribute metaclass for Roles
+
 =head1 DESCRIPTION
 
 This class implements the API for attributes in roles. Attributes in roles are
@@ -150,12 +129,6 @@ Returns the option as passed to the constructor.
 =item B<< $attr->associated_role >>
 
 Returns the L<Moose::Meta::Role> to which this attribute belongs, if any.
-
-=item B<< $attr->original_role >>
-
-Returns the L<Moose::Meta::Role> in which this attribute was first
-defined. This may not be the same as the value C<associated_role()> in the
-case of composite role, or the case where one role consumes other roles.
 
 =item B<< $attr->original_options >>
 
@@ -188,5 +161,18 @@ L<Moose::Meta::Attribute> (and L<Class::MOP::Attribute>).
 =head1 BUGS
 
 See L<Moose/BUGS> for details on reporting bugs.
+
+=head1 AUTHOR
+
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2006-2010 by Infinity Interactive, Inc.
+
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut

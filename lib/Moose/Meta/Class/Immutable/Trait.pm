@@ -1,16 +1,14 @@
 package Moose::Meta::Class::Immutable::Trait;
-BEGIN {
-  $Moose::Meta::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Class::Immutable::Trait::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Class::MOP;
 use Scalar::Util qw( blessed );
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Class::MOP::Class::Immutable::Trait';
 
@@ -45,19 +43,13 @@ sub does_role {
 
 1;
 
-# ABSTRACT: Implements immutability for metaclass objects
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Class::Immutable::Trait - Implements immutability for metaclass objects
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 DESCRIPTION
 
@@ -70,18 +62,16 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Yuval Kogman E<lt>nothingmuch@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2009-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-
 

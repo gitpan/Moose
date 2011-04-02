@@ -1,10 +1,4 @@
 package Moose::Util;
-BEGIN {
-  $Moose::Util::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Util::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
@@ -16,7 +10,11 @@ use Scalar::Util 'blessed';
 use List::Util qw(first);
 use List::MoreUtils qw(any all);
 use overload ();
-use Class::MOP;
+use Class::MOP   0.60;
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 my @exports = qw[
     find_meta
@@ -455,19 +453,13 @@ sub _is_role_only_subclass {
 
 1;
 
-# ABSTRACT: Utilities for working with Moose classes
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Util - Utilities for working with Moose classes
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 SYNOPSIS
 
@@ -597,18 +589,22 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Anders Nor Berle E<lt>debolaz@gmail.comE<gt>
+
+B<with contributions from:>
+
+Robert (phaylon) Sedlacek
+
+Stevan Little
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2007-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-
 

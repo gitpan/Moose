@@ -1,13 +1,11 @@
 
 package Moose::Meta::Object::Trait;
-BEGIN {
-  $Moose::Meta::Object::Trait::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Object::Trait::VERSION = '1.9905'; # TRIAL
-}
 
 use Scalar::Util qw(blessed);
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 sub _get_compatible_metaclass {
     my $orig = shift;
@@ -32,19 +30,13 @@ sub _get_compatible_metaclass_by_role_reconciliation {
 
 1;
 
-# ABSTRACT: Some overrides for L<Class::MOP::Object> functionality
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Object::Trait - Some overrides for L<Class::MOP::Object> functionality
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 DESCRIPTION
 
@@ -57,17 +49,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Jesse Luehrs E<lt>doy at tozt dot netE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

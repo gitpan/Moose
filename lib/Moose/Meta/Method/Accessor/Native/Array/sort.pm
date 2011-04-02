@@ -1,15 +1,13 @@
 package Moose::Meta::Method::Accessor::Native::Array::sort;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::sort::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::sort::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Params::Util ();
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -27,22 +25,17 @@ sub _maximum_arguments { 1 }
 sub _inline_check_arguments {
     my $self = shift;
 
-    return (
-        'if (@_ && !Params::Util::_CODELIKE($_[0])) {',
-            $self->_inline_throw_error(
-                '"The argument passed to sort must be a code reference"',
-            ) . ';',
-        '}',
-    );
+    return $self->_inline_throw_error(
+        q{'The argument passed to sort must be a code reference'})
+        . q{ if @_ && ! Params::Util::_CODELIKE( $_[0] );};
 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = @_;
+    my $self        = shift;
+    my $slot_access = shift;
 
-    return '$_[0] '
-             . '? sort { $_[0]->($a, $b) } @{ (' . $slot_access . ') } '
-             . ': sort @{ (' . $slot_access . ') }';
+    return
+        "\$_[0] ? sort { \$_[0]->( \$a, \$b ) } \@{ ($slot_access) } : sort \@{ ($slot_access) }";
 }
 
 no Moose::Role;

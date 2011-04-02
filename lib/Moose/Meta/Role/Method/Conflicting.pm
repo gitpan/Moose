@@ -1,11 +1,5 @@
 
 package Moose::Meta::Role::Method::Conflicting;
-BEGIN {
-  $Moose::Meta::Role::Method::Conflicting::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Role::Method::Conflicting::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
@@ -13,6 +7,10 @@ use warnings;
 use Moose::Util;
 
 use base qw(Moose::Meta::Role::Method::Required);
+
+our $VERSION   = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 __PACKAGE__->meta->add_attribute('roles' => (
     reader   => 'roles',
@@ -26,19 +24,13 @@ sub roles_as_english_list {
 
 1;
 
-# ABSTRACT: A Moose metaclass for conflicting methods in Roles
-
-
+__END__
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Role::Method::Conflicting - A Moose metaclass for conflicting methods in Roles
-
-=head1 VERSION
-
-version 1.9905
 
 =head1 DESCRIPTION
 
@@ -88,17 +80,15 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Stevan Little E<lt>stevan@iinteractive.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Infinity Interactive, Inc..
+Copyright 2006-2010 by Infinity Interactive, Inc.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+L<http://www.iinteractive.com>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut
-
-
-__END__
-

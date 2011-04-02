@@ -1,15 +1,13 @@
 package Moose::Meta::Method::Accessor::Native::Hash::exists;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::exists::AUTHORITY = 'cpan:STEVAN';
-}
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::exists::VERSION = '1.9905'; # TRIAL
-}
 
 use strict;
 use warnings;
 
 use Scalar::Util qw( looks_like_number );
+
+our $VERSION = '1.25';
+$VERSION = eval $VERSION;
+our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
@@ -35,10 +33,10 @@ sub _inline_check_arguments {
 }
 
 sub _return_value {
-    my $self = shift;
-    my ($slot_access) = shift;
+    my $self        = shift;
+    my $slot_access = shift;
 
-    return 'exists ' . $slot_access . '->{ $_[0] }';
+    return "exists ${slot_access}->{ \$_[0] }";
 }
 
 no Moose::Role;
