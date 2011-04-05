@@ -1,4 +1,10 @@
 package Test::Moose;
+BEGIN {
+  $Test::Moose::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Test::Moose::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -8,10 +14,6 @@ use Test::Builder;
 
 use List::MoreUtils 'all';
 use Moose::Util 'does_role', 'find_meta';
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 my @exports = qw[
     meta_ok
@@ -84,13 +86,19 @@ sub with_immutable (&@) {
 
 1;
 
-__END__
+# ABSTRACT: Test functions for Moose specific features
+
+
 
 =pod
 
 =head1 NAME
 
 Test::Moose - Test functions for Moose specific features
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 SYNOPSIS
 
@@ -167,18 +175,18 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Anders Nor Berle E<lt>debolaz@gmail.comE<gt>
-
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

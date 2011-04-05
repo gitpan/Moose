@@ -1,16 +1,18 @@
 
 package Moose::Meta::Method::Destructor;
+BEGIN {
+  $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Destructor::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
 
 use Devel::GlobalDestruction ();
 use Scalar::Util 'blessed', 'weaken';
-use Try::Tiny ();
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
+use Try::Tiny;
 
 use base 'Moose::Meta::Method',
          'Class::MOP::Method::Inlined';
@@ -78,59 +80,76 @@ sub _initialize_body {
     # requires some adaption on the part of
     # the author, after all, nothing is free)
 
-    my @DEMOLISH_methods = $self->associated_metaclass->find_all_methods_by_name('DEMOLISH');
-
-    my $source;
-    $source  = 'sub {' . "\n";
-    $source .= 'my $self = shift;' . "\n";
-    $source .= 'return $self->Moose::Object::DESTROY(@_)' . "\n";
-    $source .= '    if Scalar::Util::blessed($self) ne ';
-    $source .= "'" . $self->associated_metaclass->name . "'";
-    $source .= ';' . "\n";
-
-    if ( @DEMOLISH_methods ) {
-        $source .= 'local $?;' . "\n";
-
-        $source .= 'my $in_global_destruction = Devel::GlobalDestruction::in_global_destruction;' . "\n";
-
-        $source .= 'Try::Tiny::try {' . "\n";
-
-        $source .= '$self->' . $_->{class} . '::DEMOLISH($in_global_destruction);' . "\n"
-            for @DEMOLISH_methods;
-
-        $source .= '}';
-        $source .= q[ Try::Tiny::catch { no warnings 'misc'; die $_ };] . "\n";
-        $source .= 'return;' . "\n";
-
-    }
-
-    $source .= '}';
-
-    warn $source if $self->options->{debug};
-
-    my ( $code, $e ) = $self->_compile_code(
-        environment => {},
-        code => $source,
+    my $class = $self->associated_metaclass->name;
+    my @source = (
+        'sub {',
+            'my $self = shift;',
+            'return ' . $self->_generate_fallback_destructor('$self'),
+                'if Scalar::Util::blessed($self) ne \'' . $class . '\';',
+            $self->_generate_DEMOLISHALL('$self'),
+        '}',
     );
+    warn join("\n", @source) if $self->options->{debug};
 
-    $self->throw_error(
-        "Could not eval the destructor :\n\n$source\n\nbecause :\n\n$e",
-        error => $e, data => $source )
-        if $e;
+    my $code = try {
+        $self->_compile_code(source => \@source);
+    }
+    catch {
+        my $source = join("\n", @source);
+        $self->throw_error(
+            "Could not eval the destructor :\n\n$source\n\nbecause :\n\n$_",
+            error => $_,
+            data  => $source,
+        );
+    };
 
     $self->{'body'} = $code;
+}
+
+sub _generate_fallback_destructor {
+    my $self = shift;
+    my ($inv) = @_;
+
+    return $inv . '->Moose::Object::DESTROY(@_)';
+}
+
+sub _generate_DEMOLISHALL {
+    my $self = shift;
+    my ($inv) = @_;
+
+    my @methods = $self->associated_metaclass->find_all_methods_by_name('DEMOLISH');
+    return unless @methods;
+
+    return (
+        'local $?;',
+        'my $igd = Devel::GlobalDestruction::in_global_destruction;',
+        'Try::Tiny::try {',
+            (map { $inv . '->' . $_->{class} . '::DEMOLISH($igd);' } @methods),
+        '}',
+        'Try::Tiny::catch {',
+            'no warnings \'misc\';',
+            'die $_;',
+        '};',
+        'return;',
+    );
 }
 
 
 1;
 
-__END__
+# ABSTRACT: Method Meta Object for destructors
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Method::Destructor - Method Meta Object for destructors
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 DESCRIPTION
 
@@ -184,18 +203,20 @@ of its parents defines a C<DEMOLISH> method, it needs a destructor.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

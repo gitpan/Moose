@@ -1,5 +1,11 @@
 
 package Moose::Object;
+BEGIN {
+  $Moose::Object::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Object::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -12,10 +18,6 @@ use Try::Tiny ();
 
 use if ( not our $__mx_is_compiled ), 'Moose::Meta::Class';
 use if ( not our $__mx_is_compiled ), metaclass => 'Moose::Meta::Class';
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 sub new {
     my $class = shift;
@@ -135,13 +137,19 @@ sub dump {
 
 1;
 
-__END__
+# ABSTRACT: The base object for Moose
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Object - The base object for Moose
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 DESCRIPTION
 
@@ -220,15 +228,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

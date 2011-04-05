@@ -1,5 +1,11 @@
 
 package Moose::Meta::Role::Method::Required;
+BEGIN {
+  $Moose::Meta::Role::Method::Required::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Role::Method::Required::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -9,10 +15,6 @@ use overload '""'     => sub { shift->name },   # stringify to method name
              fallback => 1;
 
 use base qw(Class::MOP::Object);
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 # This is not a Moose::Meta::Role::Method because it has no implementation, it
 # is just a name
@@ -26,13 +28,19 @@ sub new { shift->_new(@_) }
 
 1;
 
-__END__
+# ABSTRACT: A Moose metaclass for required methods in Roles
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Role::Method::Required - A Moose metaclass for required methods in Roles
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 DESCRIPTION
 
@@ -70,15 +78,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

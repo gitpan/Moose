@@ -1,13 +1,23 @@
+package Moose::Manual::Roles;
+
+# ABSTRACT: Roles, an alternative to deep hierarchies and base classes
+
+
+
 =pod
 
 =head1 NAME
 
 Moose::Manual::Roles - Roles, an alternative to deep hierarchies and base classes
 
+=head1 VERSION
+
+version 1.9906
+
 =head1 WHAT IS A ROLE?
 
 A role encapsulates some piece of behavior or state that can be shared between
-classes. Is something that classes I<do>. It is important to understand that
+classes. It is something that classes I<do>. It is important to understand that
 I<roles are not classes>. You cannot inherit from a role, and a role cannot be
 instantiated. We sometimes say that roles are I<consumed>, either by classes
 or other roles.
@@ -326,15 +336,17 @@ C<with>.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

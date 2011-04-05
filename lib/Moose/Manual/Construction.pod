@@ -1,8 +1,18 @@
+package Moose::Manual::Construction;
+
+# ABSTRACT: Object construction (and destruction) with Moose
+
+
+
 =pod
 
 =head1 NAME
 
 Moose::Manual::Construction - Object construction (and destruction) with Moose
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 WHERE'S THE CONSTRUCTOR?
 
@@ -93,7 +103,6 @@ object creation.
       debug( 'Made a new person - SSN = ', $self->ssn, );
   }
 
-
 The C<BUILD> method is called with the hash reference of the parameters passed
 to the constructor (after munging by C<BUILDARGS>). This gives you a chance to
 do something with parameters that do not represent object attributes.
@@ -159,15 +168,17 @@ creating an error stack.
 
 =head1 AUTHOR
 
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2009-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

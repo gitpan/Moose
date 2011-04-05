@@ -1,17 +1,18 @@
+package Moose::Cookbook::Extending::Recipe3;
+
+# ABSTRACT: Providing an alternate base object class
+
+
 
 =pod
-
-=begin testing-SETUP
-
-use Test::Requires {
-    'Test::Output' => '0',
-};
-
-=end testing-SETUP
 
 =head1 NAME
 
 Moose::Cookbook::Extending::Recipe3 - Providing an alternate base object class
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 SYNOPSIS
 
@@ -62,6 +63,10 @@ us in the first place.
 
 See the L<Moose::Exporter> docs for more details on its API.
 
+=for testing-SETUP use Test::Requires {
+    'Test::Output' => '0',
+};
+
 =head1 USING MyApp::UseMyBase
 
 To actually use our new base class, we simply use C<MyApp::UseMyBase>
@@ -81,19 +86,6 @@ class.
 This is an awful lot of magic for a simple base class. You will often
 want to combine a metaclass trait with a base class extension, and
 that's when this technique is useful.
-
-=head1 AUTHOR
-
-Dave Rolsky E<lt>autarch@urth.orgE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2006-2010 by Infinity Interactive, Inc.
-
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =begin testing
 
@@ -120,4 +112,20 @@ is( $foo->size(), 2, '$foo->size is 2' );
 
 =end testing
 
+=head1 AUTHOR
+
+Stevan Little <stevan@iinteractive.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
+
+__END__
+
+

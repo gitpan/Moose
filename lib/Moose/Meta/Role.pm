@@ -1,5 +1,11 @@
 
 package Moose::Meta::Role;
+BEGIN {
+  $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Role::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -8,10 +14,6 @@ use metaclass;
 use Scalar::Util 'blessed';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Meta::Class;
 use Moose::Meta::Role::Attribute;
@@ -157,6 +159,12 @@ $META->add_attribute(
     default => 'Moose::Meta::Role::Application::ToInstance',
 );
 
+$META->add_attribute(
+    'applied_attribute_metaclass',
+    reader  => 'applied_attribute_metaclass',
+    default => 'Moose::Meta::Attribute',
+);
+
 # More or less copied from Moose::Meta::Class
 sub initialize {
     my $class = shift;
@@ -196,6 +204,7 @@ sub reinitialize {
             application_to_class_class
             application_to_role_class
             application_to_instance_class
+            applied_attribute_metaclass
         );
     }
 
@@ -379,13 +388,6 @@ sub get_method_modifier_list {
     keys %{$self->$accessor};
 }
 
-sub reset_package_cache_flag  { (shift)->{'_package_cache_flag'} = undef }
-sub update_package_cache_flag {
-    my $self = shift;
-    $self->{'_package_cache_flag'} = Class::MOP::check_package_cache_flag($self->name);
-}
-
-
 sub _meta_method_class { 'Moose::Meta::Method::Meta' }
 
 ## ------------------------------------------------------------------
@@ -471,7 +473,8 @@ sub apply {
                 'The alias and excludes options for role application'.
                 ' have been renamed -alias and -excludes'.
                 " (${\$other->name} is consuming ${\$self->name}".
-                " - do you need to upgrade ${\$other->name}?)"
+                " - do you need to upgrade ${\$other->name}?).".
+                ' This will be an error in Moose 2.0200.'
         );
     }
 
@@ -751,13 +754,19 @@ sub consumers {
 
 1;
 
-__END__
+# ABSTRACT: The Moose Role metaclass
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Role - The Moose Role metaclass
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 DESCRIPTION
 
@@ -1022,15 +1031,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

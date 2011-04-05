@@ -1,5 +1,11 @@
 
 package Moose::Meta::Attribute;
+BEGIN {
+  $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
@@ -9,9 +15,6 @@ use Scalar::Util 'blessed', 'weaken';
 use List::MoreUtils 'any';
 use Try::Tiny;
 use overload     ();
-
-our $VERSION   = '1.25';
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Deprecated;
 use Moose::Meta::Method::Accessor;
@@ -50,6 +53,11 @@ sub throw_error {
     unshift @_, $class;
     my $handler = $class->can("throw_error"); # to avoid incrementing depth by 1
     goto $handler;
+}
+
+sub _inline_throw_error {
+    my ( $self, $msg, $args ) = @_;
+    "\$meta->throw_error($msg" . ($args ? ", $args" : "") . ")"; # FIXME makes deparsing *REALLY* hard
 }
 
 sub new {
@@ -509,29 +517,13 @@ sub _call_builder {
 
 ## Slot management
 
-# FIXME:
-# this duplicates too much code from
-# Class::MOP::Attribute, we need to
-# refactor these bits eventually.
-# - SL
-sub _set_initial_slot_value {
-    my ($self, $meta_instance, $instance, $value) = @_;
-
-    my $slot_name = $self->name;
-
-    return $meta_instance->set_slot_value($instance, $slot_name, $value)
-        unless $self->has_initializer;
-
-    my $callback = sub {
-        my $val = $self->_coerce_and_verify( shift, $instance );;
-
-        $meta_instance->set_slot_value($instance, $slot_name, $val);
+sub _make_initializer_writer_callback {
+    my $self = shift;
+    my ($meta_instance, $instance, $slot_name) = @_;
+    my $old_callback = $self->SUPER::_make_initializer_writer_callback(@_);
+    return sub {
+        $old_callback->($self->_coerce_and_verify($_[0], $instance));
     };
-
-    my $initializer = $self->initializer;
-
-    # most things will just want to set a value, so make it first arg
-    $instance->$initializer($value, $callback, $self);
 }
 
 sub set_value {
@@ -560,6 +552,144 @@ sub set_value {
     if ($self->has_trigger) {
         $self->trigger->($instance, $value, @old);
     }
+}
+
+sub _inline_set_value {
+    my $self = shift;
+    my ($instance, $value, $tc, $tc_obj, $for_constructor) = @_;
+
+    my $old   = '@old';
+    my $copy  = '$val';
+    $tc     ||= '$type_constraint';
+    $tc_obj ||= '$type_constraint_obj';
+
+    my @code;
+    if ($self->_writer_value_needs_copy) {
+        push @code, $self->_inline_copy_value($value, $copy);
+        $value = $copy;
+    }
+
+    # constructors already handle required checks
+    push @code, $self->_inline_check_required
+        unless $for_constructor;
+
+    push @code, $self->_inline_tc_code($value, $tc, $tc_obj);
+
+    # constructors do triggers all at once at the end
+    push @code, $self->_inline_get_old_value_for_trigger($instance, $old)
+        unless $for_constructor;
+
+    push @code, (
+        $self->SUPER::_inline_set_value($instance, $value),
+        $self->_inline_weaken_value($instance, $value),
+    );
+
+    # constructors do triggers all at once at the end
+    push @code, $self->_inline_trigger($instance, $value, $old)
+        unless $for_constructor;
+
+    return @code;
+}
+
+sub _writer_value_needs_copy {
+    my $self = shift;
+    return $self->should_coerce;
+}
+
+sub _inline_copy_value {
+    my $self = shift;
+    my ($value, $copy) = @_;
+
+    return 'my ' . $copy . ' = ' . $value . ';'
+}
+
+sub _inline_check_required {
+    my $self = shift;
+
+    return unless $self->is_required;
+
+    my $attr_name = quotemeta($self->name);
+
+    return (
+        'if (@_ < 2) {',
+            $self->_inline_throw_error(
+                '"Attribute (' . $attr_name . ') is required, so cannot '
+              . 'be set to undef"' # defined $_[1] is not good enough
+            ) . ';',
+        '}',
+    );
+}
+
+sub _inline_tc_code {
+    my $self = shift;
+    return (
+        $self->_inline_check_coercion(@_),
+        $self->_inline_check_constraint(@_),
+    );
+}
+
+sub _inline_check_coercion {
+    my $self = shift;
+    my ($value, $tc, $tc_obj) = @_;
+
+    return unless $self->should_coerce && $self->type_constraint->has_coercion;
+
+    return $value . ' = ' . $tc_obj . '->coerce(' . $value . ');';
+}
+
+sub _inline_check_constraint {
+    my $self = shift;
+    my ($value, $tc, $tc_obj) = @_;
+
+    return unless $self->has_type_constraint;
+
+    my $attr_name = quotemeta($self->name);
+
+    return (
+        'if (!' . $tc . '->(' . $value . ')) {',
+            $self->_inline_throw_error(
+                '"Attribute (' . $attr_name . ') does not pass the type '
+              . 'constraint because: " . '
+              . $tc_obj . '->get_message(' . $value . ')',
+                'data => ' . $value
+            ) . ';',
+        '}',
+    );
+}
+
+sub _inline_get_old_value_for_trigger {
+    my $self = shift;
+    my ($instance, $old) = @_;
+
+    return unless $self->has_trigger;
+
+    return (
+        'my ' . $old . ' = ' . $self->_inline_instance_has($instance),
+            '? ' . $self->_inline_instance_get($instance),
+            ': ();',
+    );
+}
+
+sub _inline_weaken_value {
+    my $self = shift;
+    my ($instance, $value) = @_;
+
+    return unless $self->is_weak_ref;
+
+    my $mi = $self->associated_class->get_meta_instance;
+    return (
+        $mi->inline_weaken_slot_value($instance, $self->name, $value),
+            'if ref ' . $value . ';',
+    );
+}
+
+sub _inline_trigger {
+    my $self = shift;
+    my ($instance, $value, $old) = @_;
+
+    return unless $self->has_trigger;
+
+    return '$attr->trigger->(' . $instance . ', ' . $value . ', ' . $old . ');';
 }
 
 sub _weaken_value {
@@ -612,6 +742,140 @@ sub get_value {
 
         return $self->SUPER::get_value($instance);
     }
+}
+
+sub _inline_get_value {
+    my $self = shift;
+    my ($instance, $tc, $tc_obj) = @_;
+
+    my $slot_access = $self->_inline_instance_get($instance);
+    $tc           ||= '$type_constraint';
+    $tc_obj       ||= '$type_constraint_obj';
+
+    return (
+        $self->_inline_check_lazy($instance, $tc, $tc_obj),
+        $self->_inline_return_auto_deref($slot_access),
+    );
+}
+
+sub _inline_check_lazy {
+    my $self = shift;
+    my ($instance, $tc, $tc_obj) = @_;
+
+    return unless $self->is_lazy;
+
+    my $slot_exists = $self->_inline_instance_has($instance);
+
+    return (
+        'if (!' . $slot_exists . ') {',
+            $self->_inline_init_from_default($instance, '$default', $tc, $tc_obj, 'lazy'),
+        '}',
+    );
+}
+
+sub _inline_init_from_default {
+    my $self = shift;
+    my ($instance, $default, $tc, $tc_obj, $for_lazy) = @_;
+
+    if (!($self->has_default || $self->has_builder)) {
+        $self->throw_error(
+            'You cannot have a lazy attribute '
+          . '(' . $self->name . ') '
+          . 'without specifying a default value for it',
+            attr => $self,
+        );
+    }
+
+    return (
+        $self->_inline_generate_default($instance, $default),
+        # intentionally not using _inline_tc_code, since that can be overridden
+        # to do things like possibly only do member tc checks, which isn't
+        # appropriate for checking the result of a default
+        $self->has_type_constraint
+            ? ($self->_inline_check_coercion($default, $tc, $tc_obj, $for_lazy),
+               $self->_inline_check_constraint($default, $tc, $tc_obj, $for_lazy))
+            : (),
+        $self->_inline_init_slot($instance, $default),
+    );
+}
+
+sub _inline_generate_default {
+    my $self = shift;
+    my ($instance, $default) = @_;
+
+    if ($self->has_default) {
+        return 'my ' . $default . ' = $attr->default(' . $instance . ');';
+    }
+    elsif ($self->has_builder) {
+        return (
+            'my ' . $default . ';',
+            'if (my $builder = ' . $instance . '->can($attr->builder)) {',
+                $default . ' = ' . $instance . '->$builder;',
+            '}',
+            'else {',
+                'my $class = ref(' . $instance . ') || ' . $instance . ';',
+                'my $builder_name = $attr->builder;',
+                'my $attr_name = $attr->name;',
+                $self->_inline_throw_error(
+                    '"$class does not support builder method '
+                  . '\'$builder_name\' for attribute \'$attr_name\'"'
+                ) . ';',
+            '}',
+        );
+    }
+    else {
+        $self->throw_error(
+            "Can't generate a default for " . $self->name
+          . " since no default or builder was specified"
+        );
+    }
+}
+
+sub _inline_init_slot {
+    my $self = shift;
+    my ($inv, $value) = @_;
+
+    if ($self->has_initializer) {
+        return '$attr->set_initial_value(' . $inv . ', ' . $value . ');';
+    }
+    else {
+        return $self->_inline_instance_set($inv, $value) . ';';
+    }
+}
+
+sub _inline_return_auto_deref {
+    my $self = shift;
+
+    return 'return ' . $self->_auto_deref(@_) . ';';
+}
+
+sub _auto_deref {
+    my $self = shift;
+    my ($ref_value) = @_;
+
+    return $ref_value unless $self->should_auto_deref;
+
+    my $type_constraint = $self->type_constraint;
+
+    my $sigil;
+    if ($type_constraint->is_a_type_of('ArrayRef')) {
+        $sigil = '@';
+    }
+    elsif ($type_constraint->is_a_type_of('HashRef')) {
+        $sigil = '%';
+    }
+    else {
+        $self->throw_error(
+            'Can not auto de-reference the type constraint \''
+          . $type_constraint->name
+          . '\'',
+            type_constraint => $type_constraint,
+        );
+    }
+
+    return 'wantarray '
+             . '? ' . $sigil . '{ (' . $ref_value . ') || return } '
+             . ': (' . $ref_value . ')';
 }
 
 ## installing accessors
@@ -688,22 +952,6 @@ sub remove_accessors {
     $self->SUPER::remove_accessors(@_);
     $self->remove_delegation if $self->has_handles;
     return;
-}
-
-sub inline_set {
-    my $self = shift;
-    my ( $instance, $value ) = @_;
-
-    my $mi = $self->associated_class->get_meta_instance;
-
-    my $code
-        = $mi->inline_set_slot_value( $instance, $self->slots, $value ) . ";";
-    $code
-        .= $mi->inline_weaken_slot_value( $instance, $self->slots, $value )
-        . "    if ref $value;"
-        if $self->is_weak_ref;
-
-    return $code;
 }
 
 sub install_delegation {
@@ -901,17 +1149,29 @@ sub verify_against_type_constraint {
 }
 
 package Moose::Meta::Attribute::Custom::Moose;
+BEGIN {
+  $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '1.9906'; # TRIAL
+}
 sub register_implementation { 'Moose::Meta::Attribute' }
 
 1;
 
-__END__
+# ABSTRACT: The Moose attribute metaclass
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute - The Moose attribute metaclass
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 DESCRIPTION
 
@@ -1038,7 +1298,6 @@ is equivalent to this:
       clearer   => 'clear_size',
       predicate => 'has_size',
   );
-
 
 If your attribute name starts with an underscore (C<_>), then the clearer
 and predicate will as well:
@@ -1293,17 +1552,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
-
-Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

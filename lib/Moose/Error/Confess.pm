@@ -1,11 +1,13 @@
 package Moose::Error::Confess;
+BEGIN {
+  $Moose::Error::Confess::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Error::Confess::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use base qw(Moose::Error::Default);
 
@@ -14,15 +16,21 @@ sub new {
     $self->create_error_confess(@args);
 }
 
-__PACKAGE__
+1;
 
-__END__
+# ABSTRACT: Prefer C<confess>
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Error::Confess - Prefer C<confess>
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 SYNOPSIS
 
@@ -39,7 +47,22 @@ Moose::Error::Confess - Prefer C<confess>
 This error class uses L<Carp/confess> to raise errors generated in your
 metaclass.
 
+=head1 AUTHOR
+
+Stevan Little <stevan@iinteractive.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
+
+__END__
+
 
 
 

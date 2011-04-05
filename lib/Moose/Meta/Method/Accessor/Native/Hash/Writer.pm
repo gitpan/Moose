@@ -1,26 +1,31 @@
 package Moose::Meta::Method::Accessor::Native::Hash::Writer;
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Hash::Writer::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Hash::Writer::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
 
 use Class::MOP::MiniTrait;
 
-our $VERSION = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
-
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Writer',
+with 'Moose::Meta::Method::Accessor::Native::Writer' => {
+        -excludes => ['_inline_coerce_new_values'],
+    },
     'Moose::Meta::Method::Accessor::Native::Hash',
     'Moose::Meta::Method::Accessor::Native::Collection';
 
-sub _new_values {'@values'}
+sub _new_values { '@values' }
 
-sub _inline_copy_old_value {
-    my ( $self, $slot_access ) = @_;
+sub _copy_old_value {
+    my $self = shift;
+    my ($slot_access) = @_;
 
-    return '{ %{(' . $slot_access . ')} }';
+    return '{ %{ (' . $slot_access . ') } }';
 }
 
 no Moose::Role;

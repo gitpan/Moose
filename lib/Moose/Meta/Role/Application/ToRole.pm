@@ -1,14 +1,16 @@
 package Moose::Meta::Role::Application::ToRole;
+BEGIN {
+  $Moose::Meta::Role::Application::ToRole::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Role::Application::ToRole::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
 use metaclass;
 
 use Scalar::Util    'blessed';
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Moose::Meta::Role::Application';
 
@@ -184,13 +186,19 @@ sub apply_method_modifiers {
 
 1;
 
-__END__
+# ABSTRACT: Compose a role into another role
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Role::Application::ToRole - Compose a role into another role
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 DESCRIPTION
 
@@ -226,16 +234,18 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

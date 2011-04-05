@@ -1,8 +1,10 @@
 package Moose::Meta::Attribute::Native;
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
+BEGIN {
+  $Moose::Meta::Attribute::Native::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::Native::VERSION = '1.9906'; # TRIAL
+}
 
 my @trait_names = qw(Bool Counter Number String Array Hash Code);
 
@@ -28,13 +30,19 @@ for my $trait_name (@trait_names) {
 
 1;
 
-__END__
+# ABSTRACT: Delegate to native Perl types
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native - Delegate to native Perl types
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 SYNOPSIS
 
@@ -95,8 +103,6 @@ You will need to make sure that the attribute has an appropriate type. For
 example, to use this with a Hash you must specify that your attribute is some
 sort of C<HashRef>.
 
-If you I<don't> specify a type, each trait has a default type it will use.
-
 =head2 handles
 
 This is just like any other delegation, but only a hash reference is allowed
@@ -111,8 +117,8 @@ See the docs for each native trait for details on what methods are available.
 
 Some traits provide a default C<is> for historical reasons. This behavior is
 deprecated, and you are strongly encouraged to provide a value. If you don't
-plan to read and write the attribute value directly, you can set C<< is =>
-'bare' >> to prevent standard accessor generation.
+plan to read and write the attribute value directly, not passing the C<is>
+option will prevent standard accessor generation.
 
 =head2 default or builder
 
@@ -249,45 +255,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
-
-B<with contributions from:>
-
-Robert (rlb3) Boone
-
-Paul (frodwith) Driver
-
-Shawn (Sartak) Moore
-
-Chris (perigrin) Prather
-
-Robert (phaylon) Sedlacek
-
-Tom (dec) Lanyon
-
-Yuval Kogman
-
-Jason May
-
-Cory (gphat) Watson
-
-Florian (rafl) Ragwitz
-
-Evan Carroll
-
-Jesse (doy) Luehrs
-
-Jay Hannah
-
-Robert Buels
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

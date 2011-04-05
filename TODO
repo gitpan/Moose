@@ -1,0 +1,179 @@
+== Todo for 2.0200
+
+=== Revise MetaRole API to reunify class/role metaroles:
+
+  apply_metaroles(
+      for   => $meta,
+      roles => {
+          attribute => [...],
+          class     => [...],
+          role_attribute => [ ... ],
+      }
+  );
+
+If the $meta is a class, we apply the roles to the class. If it's a role, we
+hold onto them and apply them as part of applying the role to a class.
+
+To make this all work nicely, we'll probably want to track the original role
+where a method was defined, just like we do with attributes currently. We'll
+also need to store method modifiers with their original role, which may mean
+adding some sort of Moose::Meta::Role::MethodModifier class.
+
+For each role-specific thing (methods, attributes, etc.) we should allow a
+role_attribute, role_method, etc. key. The common case will be that the
+metaroles are intended for the consuming class, but we should allow for
+metaroles on the role's metaobjects as well.
+
+=== Remove a bunch of deprecated crap
+
+See Moose::Manual::Delta for a list. Some of this is important to make merging
+Class::MOP into Moose core much easier. Other is just removing complexity
+needed to support ancient APIs.
+
+== Old todo (does anyone look at this?)
+
+-------------------------------------------------------------------------------
+BUGS
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+FEATURES
+-------------------------------------------------------------------------------
+
+- DDuncan's Str types
+
+subtype 'Str'
+    => as 'Value'
+    => where { Encode::is_utf8( $_[0] ) or $_[0] !~ m/[^0x00-0x7F]/x }
+    => optimize_as { defined($_[0]) && !ref($_[0]) };
+
+subtype 'Blob'
+    => as 'Value'
+    => where { !Encode::is_utf8( $_[0] ) }
+    => optimize_as { defined($_[0]) && !ref($_[0]) };
+
+- type unions
+
+Add support for doing it with Classes which do not have
+a type constraint yet created
+
+- type intersections
+
+Mostly just for Roles
+
+- inherited slot specs
+
+'does' can be added to,.. but not changed
+(need type unions for this)
+
+- proxy attributes
+
+a proxied attribute is an attribute
+which looks like an attribute,
+talks like an attribute, smells
+like an attribute,.. but if you
+look behind the curtain,.. its
+over there.. in that other object
+
+(... probably be a custom metaclass)
+
+- local coerce
+
+[13:16] 	mst	stevan: slight problem with coerce
+[13:16] 	mst	I only get to declare it once
+[13:17] 	mst	so if I'm trying to declare it cast-style per-source-class rather than per-target-class
+[13:17] 	mst	I am extremely screwed
+[13:17] 	stevan	yes
+[13:17] 	stevan	they are not class specific
+[13:18] 	stevan	they are attached to the type constraint itself
+[13:18] 	*	stevan ponders anon-coercion-metaobjects
+[13:18] 	mst	yes, that's fine
+[13:19] 	mst	but when I declare a class
+[13:19] 	mst	I want to be able to say "this class coerces to X type via <this>"
+[13:19] 	stevan	yeah something like that
+[13:19] 	stevan	oh,.. hmm
+[13:20] 	stevan	sort of like inflate/deflate?
+[13:20] 	stevan	around the accessors?
+[13:25] 	*	bluefeet has quit (Remote host closed the connection)
+[13:27] 	mst	no
+[13:27] 	mst	nothing like that
+[13:27] 	mst	like a cast
+[13:31] 	mst	stevan: $obj->foo($bar); where 'foo' expects a 'Foo' object
+[13:31] 	mst	stevan: is effectively <Foo>$bar, right?
+[13:32] 	mst	stevan: I want to be able to say in package Bar
+[13:32] 	mst	stevan: coerce_to 'Foo' via { ... };
+[13:32] 	mst	etc.
+[13:53] 	stevan	hmm
+
+-------------------------------------------------------------------------------
+INTERNALS
+-------------------------------------------------------------------------------
+
+- rationalize all the get_X methods for classes (and roles)
+
+We have get_attribute, get_attributes_list, get_all_attributes,
+etc. First, we need to make the method names consistent. If something
+returns an attribute vs a name, that needs to be clear from the method
+name. We also need to make sure that local vs. "entire inheritance
+chain" is clear from the name.
+
+This is mostly a CMOP change.
+
+- Metaclass constructors
+
+There's a _lot_ of different conventions in here. Some things to consider:
+
+* new vs _new
+* allowing new( 'name', %args ) vs ( name => 'name', %args )
+* Method->wrap vs Method->new
+
+- Moose::Meta::TypeConstraint::Parameter{izable,ized}
+
+The relationship between these two classes is very odd. In particular,
+this line in Parameterized is insane:
+
+    foreach my $type (Moose::Util::TypeConstraints::get_all_parameterizable_types()) {
+
+Why does it need to loop through all parameterizable types? Shouldn't
+it know which parameterizable type it "came from"?
+
+- Moose::Util::TypeConstraints vs Moose::Meta::Type{Coercion,Constraint}
+
+The Util module has _way_ too much functionality. It needs to be
+refactored so it's a thin sugar layer on top of the meta API. As it
+stands now, it does things like parse type names (and determine if
+they're valid), manage the registry, and much more.
+
+- Anything with a _(meta)?class method
+
+Every method that returns a class name needs to become a rw attribute
+that can be set via the constructor.
+
+- The Moose::Error stuff
+
+This is sort of half-implemented. We still use Carp directly, and the
+internals can't decide how to throw an error (is it
+Moose->throw_error, __PACKAGE__->throw_error, what?).
+
+The internals need to be made consistent before we expose this to the
+rest of the world.
+
+-------------------------------------------------------------------------------
+TO PONDER
+-------------------------------------------------------------------------------
+
+- Moose "strict" mode
+
+use Moose 'strict'; This would allow us to have all sort of expensive tests
+which can be turned off in prod.
+
+- Moose::Philosophy.pod
+
+To explain Moose from a very high level
+
+- moosedoc
+
+We certainly have enough meta-information to make pretty complete POD docs.
+
+
+

@@ -1,12 +1,14 @@
 
 package Moose::Meta::Instance;
+BEGIN {
+  $Moose::Meta::Instance::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Instance::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Class::MOP::MiniTrait;
 
@@ -16,13 +18,19 @@ Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 1;
 
-__END__
+# ABSTRACT: The Moose Instance metaclass
+
+
 
 =pod
 
 =head1 NAME
 
 Moose::Meta::Instance - The Moose Instance metaclass
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 SYNOPSIS
 
@@ -51,17 +59,17 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little E<lt>stevan@iinteractive.comE<gt>
-
-Yuval Kogman E<lt>nothingmuch@woobling.comE<gt>
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2006-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+

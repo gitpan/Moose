@@ -1,20 +1,23 @@
 package Moose::Meta::Method::Accessor::Native::Code::execute_method;
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Code::execute_method::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '1.9906'; # TRIAL
+}
 
 use strict;
 use warnings;
-
-our $VERSION = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 use Moose::Role;
 
 with 'Moose::Meta::Method::Accessor::Native::Reader';
 
 sub _return_value {
-    my ( $self, $slot_access ) = @_;
+    my $self = shift;
+    my ($slot_access) = @_;
 
-    return "${slot_access}->(\$self, \@_)";
+    return $slot_access . '->($self, @_)';
 }
 
 no Moose::Role;

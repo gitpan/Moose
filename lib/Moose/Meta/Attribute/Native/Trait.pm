@@ -1,14 +1,16 @@
 
 package Moose::Meta::Attribute::Native::Trait;
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
+}
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::VERSION = '1.9906'; # TRIAL
+}
 use Moose::Role;
 
 use List::MoreUtils qw( any uniq );
 use Moose::Util::TypeConstraints;
 use Moose::Deprecated;
-
-our $VERSION   = '1.25';
-$VERSION = eval $VERSION;
-our $AUTHORITY = 'cpan:STEVAN';
 
 requires '_helper_type';
 
@@ -169,6 +171,7 @@ sub _native_accessor_class_for {
         . $self->_native_type . '::'
         . $suffix;
 
+    Class::MOP::load_class($role);
     return Moose::Meta::Class->create_anon_class(
         superclasses =>
             [ $self->accessor_metaclass, $self->delegation_metaclass ],
@@ -199,11 +202,19 @@ no Moose::Util::TypeConstraints;
 
 1;
 
-__END__
+# ABSTRACT: Shared role for native delegation traits
+
+
+
+=pod
 
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
+
+=head1 VERSION
+
+version 1.9906
 
 =head1 BUGS
 
@@ -214,21 +225,19 @@ See L<Moose/BUGS> for details on reporting bugs.
 Documentation for Moose native traits can be found in
 L<Moose::Meta::Attribute::Native>.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Yuval Kogman
-
-Shawn M Moore
-
-Jesse Luehrs
+Stevan Little <stevan@iinteractive.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2010 by Infinity Interactive, Inc.
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
 
-L<http://www.iinteractive.com>
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
