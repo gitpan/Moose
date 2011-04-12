@@ -1,7 +1,26 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-1.9906 Mon, Apr 04, 2011
+2.0000 Mon, Apr 11, 2011
+
+  [API CHANGES]
+
+  * The RegexpRef type constraint now accepts regular expressions blessed into
+    other classes, such as those found in pluggable regexp engines.
+    Additionally the 'Object' constraint no longer rejects objects which
+    implementation is a regular expression. (David Leadbeater)
+
+  [OTHER]
+
+  * Moose::Manual::Support now explicitly states when major releases are
+    allowed to happen (January, April, July, or October).
+
+1.9906-TRIAL Mon, Apr 04, 2011
+
+  [OTHER]
+
+  * Update conflicts list.
+  * Minor pod updates.
 
 1.9905-TRIAL Mon, Mar 28, 2011
 
@@ -39,6 +58,11 @@ for, noteworthy changes.
 1.9903-TRIAL Mon, Feb 28, 2011
 
   [BUG FIXES]
+
+  * Reverse the order that Moose::Exporter 'also' exports are dispatched. When
+    trying to re-export from a package that itself exported a modified set of
+    Moose sugar, you'd get the original Moose sugar instead of the overrides.
+    There are also now tests for this. (perigrin)
 
   * Don't initialize lazy attributes with defaults in the constructor (for
     immutable classes). (mo)
@@ -108,9 +132,9 @@ for, noteworthy changes.
   [BUG FIXES]
 
   * Reverse the order that Moose::Exporter 'also' exports are dispatched. When
-    trying to re-export from a package that itself exported a modified set of 
-    Moose sugar, you'd get the original Moose sugar instead of the overrides. 
-    There are also now tests for this. (perigrin)
+    trying to re-export from a package that itself exported a modified set of
+    Moose sugar, you'd get the original Moose sugar instead of the overrides.
+    There are also now tests for this. (perigrin) (backported from 1.9903)
 
 
 1.23 Sun, Feb 13, 2011
@@ -126,7 +150,8 @@ for, noteworthy changes.
 
   * When reinitializing meta objects for classes and roles, we failed to
     preserve roles and role applications. This led to weird bugs. Many MooseX
-    modules end up reinitializing your class or role. (Dave Rolsky)
+    modules end up reinitializing your class or role. (Dave Rolsky) (backported
+    from 1.9903)
 
 1.21 Wed, Nov 24, 2010
 

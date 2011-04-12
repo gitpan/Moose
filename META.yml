@@ -10,7 +10,7 @@ configure_requires:
   Dist::CheckConflicts: 0.02
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580'
+generated_by: 'Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.101670'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -42,7 +42,7 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Moose
   repository: git://git.moose.perl.org/Moose.git
-version: 1.9906
+version: 2.0000
 x_authority: cpan:STEVAN
 x_conflicts:
   Catalyst: 5.80028
@@ -76,7 +76,7 @@ x_conflicts:
   MooseX::Role::Parameterized: 0.23
   MooseX::Role::WithOverloading: 0.07
   MooseX::SemiAffordanceAccessor: 0.05
-  MooseX::SetOnce: 0.100472
+  MooseX::SetOnce: 0.100473
   MooseX::Singleton: 0.25
   MooseX::StrictConstructor: 0.12
   MooseX::Types: 0.19

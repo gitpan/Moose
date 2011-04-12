@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::TypeConstraints::VERSION = '1.9906'; # TRIAL
+  $Moose::Util::TypeConstraints::VERSION = '2.0000';
 }
 
 use Carp ();
@@ -733,9 +733,9 @@ subtype 'Int' => as 'Num' => where { "$_" =~ /^-?[0-9]+$/ } =>
 
 subtype 'CodeRef' => as 'Ref' => where { ref($_) eq 'CODE' } =>
     optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::CodeRef;
-subtype 'RegexpRef' => as 'Ref' => where { ref($_) eq 'Regexp' } =>
-    optimize_as
-    \&Moose::Util::TypeConstraints::OptimizedConstraints::RegexpRef;
+subtype 'RegexpRef' => as 'Ref' =>
+    where(\&Moose::Util::TypeConstraints::OptimizedConstraints::RegexpRef) =>
+    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::RegexpRef;
 subtype 'GlobRef' => as 'Ref' => where { ref($_) eq 'GLOB' } =>
     optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::GlobRef;
 
@@ -747,10 +747,8 @@ subtype 'FileHandle' => as 'GlobRef' => where {
 } => optimize_as
     \&Moose::Util::TypeConstraints::OptimizedConstraints::FileHandle;
 
-# NOTE:
-# blessed(qr/.../) returns true,.. how odd
 subtype 'Object' => as 'Ref' =>
-    where { blessed($_) && blessed($_) ne 'Regexp' } =>
+    where { blessed($_) } =>
     optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Object;
 
 # This type is deprecated.
@@ -893,7 +891,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 1.9906
+version 2.0000
 
 =head1 SYNOPSIS
 

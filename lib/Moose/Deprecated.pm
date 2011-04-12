@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Deprecated::VERSION = '1.9906'; # TRIAL
+  $Moose::Deprecated::VERSION = '2.0000';
 }
 
 use strict;

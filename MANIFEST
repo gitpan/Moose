@@ -5,7 +5,6 @@ MANIFEST
 META.json
 META.yml
 Makefile.PL
-PLANS
 README
 TODO
 author/convert-to-test-fatal

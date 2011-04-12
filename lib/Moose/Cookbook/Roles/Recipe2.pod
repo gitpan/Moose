@@ -12,7 +12,7 @@ Moose::Cookbook::Roles::Recipe2 - Advanced Role Composition - method exclusion a
 
 =head1 VERSION
 
-version 1.9906
+version 2.0000
 
 =head1 SYNOPSIS
 

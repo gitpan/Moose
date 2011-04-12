@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Class::VERSION = '1.9906'; # TRIAL
+  $Moose::Meta::TypeConstraint::Class::VERSION = '2.0000';
 }
 
 use strict;
@@ -36,7 +36,7 @@ sub _create_hand_optimized_type_constraint {
     my $class = $self->class;
     $self->hand_optimized_type_constraint(
         sub {
-            blessed( $_[0] ) && blessed( $_[0] ) ne 'Regexp' && $_[0]->isa($class)
+            blessed( $_[0] ) && $_[0]->isa($class)
         }
     );
 }
@@ -135,7 +135,7 @@ Moose::Meta::TypeConstraint::Class - Class/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 1.9906
+version 2.0000
 
 =head1 DESCRIPTION
 
