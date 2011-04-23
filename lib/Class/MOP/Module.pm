@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Module::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Module::VERSION = '2.0000';
+  $Class::MOP::Module::VERSION = '2.0001';
 }
 
 use strict;
@@ -55,8 +55,26 @@ sub identifier {
 }
 
 sub create {
-    confess "The Class::MOP::Module->create method has been made a private object method.\n";
+    my $class = shift;
+    my @args = @_;
+
+    unshift @args, 'package' if @args % 2 == 1;
+    my %options = @args;
+
+    my $package   = delete $options{package};
+    my $version   = delete $options{version};
+    my $authority = delete $options{authority};
+
+    my $meta = $class->SUPER::create($package => %options);
+
+    $meta->_instantiate_module($version, $authority);
+
+    return $meta;
 }
+
+sub _anon_package_prefix { 'Class::MOP::Module::__ANON__::SERIAL::' }
+sub _anon_cache_key      { confess "Modules are not cacheable" }
+
 
 sub _instantiate_module {
     my($self, $version, $authority) = @_;
@@ -65,10 +83,10 @@ sub _instantiate_module {
     Class::MOP::_is_valid_class_name($package_name)
         || confess "creation of $package_name failed: invalid package name";
 
-    no strict 'refs';
-    scalar %{ $package_name . '::' };    # touch the stash
-    ${ $package_name . '::VERSION' }   = $version   if defined $version;
-    ${ $package_name . '::AUTHORITY' } = $authority if defined $authority;
+    $self->add_package_symbol('$VERSION' => $version)
+        if defined $version;
+    $self->add_package_symbol('$AUTHORITY' => $authority)
+        if defined $authority;
 
     return;
 }
@@ -87,7 +105,7 @@ Class::MOP::Module - Module Meta Object
 
 =head1 VERSION
 
-version 2.0000
+version 2.0001
 
 =head1 DESCRIPTION
 
@@ -105,6 +123,23 @@ B<Class::MOP::Module> is a subclass of L<Class::MOP::Package>.
 =head1 METHODS
 
 =over 4
+
+=item B<< Class::MOP::Module->create($package, %options) >>
+
+Overrides C<create> from L<Class::MOP::Package> to provide these additional
+options:
+
+=over 4
+
+=item C<version>
+
+A version number, to be installed in the C<$VERSION> package global variable.
+
+=item C<authority>
+
+An authority, to be installed in the C<$AUTHORITY> package global variable.
+
+=back
 
 =item B<< $metamodule->version >>
 

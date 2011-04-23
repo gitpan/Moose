@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::VERSION = '2.0000';
+  $Moose::Meta::Role::VERSION = '2.0001';
 }
 
 use strict;
@@ -168,23 +168,15 @@ $META->add_attribute(
 # More or less copied from Moose::Meta::Class
 sub initialize {
     my $class = shift;
-    my $pkg   = shift;
-
-    if (defined(my $meta = Class::MOP::get_metaclass_by_name($pkg))) {
-        return $meta;
-    }
-
-    my %options = @_;
-
-    my $meta = $class->SUPER::initialize(
-        $pkg,
-        'attribute_metaclass' => 'Moose::Meta::Role::Attribute',
-        %options,
-    );
-
-    Class::MOP::weaken_metaclass($pkg) if $options{weaken};
-
-    return $meta;
+    my @args = @_;
+    unshift @args, 'package' if @args % 2;
+    my %opts = @args;
+    my $package = delete $opts{package};
+    return Class::MOP::get_metaclass_by_name($package)
+        || $class->SUPER::initialize($package,
+                'attribute_metaclass' => 'Moose::Meta::Role::Attribute',
+                %opts,
+            );
 }
 
 sub reinitialize {
@@ -522,9 +514,11 @@ sub _role_for_combination {
 }
 
 sub create {
-    my ( $role, $package_name, %options ) = @_;
+    my $class = shift;
+    my @args = @_;
 
-    $options{package} = $package_name;
+    unshift @args, 'package' if @args % 2 == 1;
+    my %options = @args;
 
     (ref $options{attributes} eq 'HASH')
         || confess "You must pass a HASH ref of attributes"
@@ -534,38 +528,39 @@ sub create {
         || confess "You must pass a HASH ref of methods"
             if exists $options{methods};
 
-    $options{meta_name} = 'meta'
-        unless exists $options{meta_name};
+    (ref $options{roles} eq 'ARRAY')
+        || confess "You must pass an ARRAY ref of roles"
+            if exists $options{roles};
 
-    my (%initialize_options) = %options;
-    delete @initialize_options{qw(
-        package
-        attributes
-        methods
-        meta_name
-        version
-        authority
-    )};
+    my $package      = delete $options{package};
+    my $roles        = delete $options{roles};
+    my $attributes   = delete $options{attributes};
+    my $methods      = delete $options{methods};
+    my $meta_name    = exists $options{meta_name}
+                         ? delete $options{meta_name}
+                         : 'meta';
 
-    my $meta = $role->initialize( $package_name => %initialize_options );
+    my $meta = $class->SUPER::create($package => %options);
 
-    $meta->_instantiate_module( $options{version}, $options{authority} );
+    $meta->_add_meta_method($meta_name)
+        if defined $meta_name;
 
-    $meta->_add_meta_method($options{meta_name})
-        if defined $options{meta_name};
-
-    if (exists $options{attributes}) {
-        foreach my $attribute_name (keys %{$options{attributes}}) {
-            my $attr = $options{attributes}->{$attribute_name};
+    if (defined $attributes) {
+        foreach my $attribute_name (keys %{$attributes}) {
+            my $attr = $attributes->{$attribute_name};
             $meta->add_attribute(
                 $attribute_name => blessed $attr ? $attr : %{$attr} );
         }
     }
 
-    if (exists $options{methods}) {
-        foreach my $method_name (keys %{$options{methods}}) {
-            $meta->add_method($method_name, $options{methods}->{$method_name});
+    if (defined $methods) {
+        foreach my $method_name (keys %{$methods}) {
+            $meta->add_method($method_name, $methods->{$method_name});
         }
+    }
+
+    if ($roles) {
+        Moose::Util::apply_all_roles($meta, @$roles);
     }
 
     return $meta;
@@ -584,65 +579,19 @@ sub consumers {
     return @consumers;
 }
 
-# anonymous roles. most of it is copied straight out of Class::MOP::Class.
-# an intrepid hacker might find great riches if he unifies this code with that
-# code in Class::MOP::Module or Class::MOP::Package
-{
-    # NOTE:
-    # this should be sufficient, if you have a
-    # use case where it is not, write a test and
-    # I will change it.
-    my $ANON_ROLE_SERIAL = 0;
+# XXX: something more intelligent here?
+sub _anon_package_prefix { 'Moose::Meta::Role::__ANON__::SERIAL::' }
 
-    # NOTE:
-    # we need a sufficiently annoying prefix
-    # this should suffice for now, this is
-    # used in a couple of places below, so
-    # need to put it up here for now.
-    my $ANON_ROLE_PREFIX = 'Moose::Meta::Role::__ANON__::SERIAL::';
+sub create_anon_role { shift->create_anon(@_) }
+sub is_anon_role     { shift->is_anon(@_)     }
 
-    sub is_anon_role {
-        my $self = shift;
-        no warnings 'uninitialized';
-        $self->name =~ /^$ANON_ROLE_PREFIX/;
-    }
-
-    sub create_anon_role {
-        my ($role, %options) = @_;
-        $options{weaken} = 1 unless exists $options{weaken};
-        my $package_name = $ANON_ROLE_PREFIX . ++$ANON_ROLE_SERIAL;
-        return $role->create($package_name, %options);
-    }
-
-    # NOTE:
-    # this will only get called for
-    # anon-roles, all other calls
-    # are assumed to occur during
-    # global destruction and so don't
-    # really need to be handled explicitly
-    sub DESTROY {
-        my $self = shift;
-
-        return if in_global_destruction(); # it'll happen soon anyway and this just makes things more complicated
-
-        no warnings 'uninitialized';
-        return unless $self->name =~ /^$ANON_ROLE_PREFIX/;
-
-        # Moose does a weird thing where it replaces the metaclass for
-        # class when fixing metaclass incompatibility. In that case,
-        # we don't want to clean out the namespace now. We can detect
-        # that because Moose will explicitly update the singleton
-        # cache in Class::MOP.
-        my $current_meta = Class::MOP::get_metaclass_by_name($self->name);
-        return if $current_meta ne $self;
-
-        my ($serial_id) = ($self->name =~ /^$ANON_ROLE_PREFIX(\d+)/);
-        no strict 'refs';
-        foreach my $key (keys %{$ANON_ROLE_PREFIX . $serial_id}) {
-            delete ${$ANON_ROLE_PREFIX . $serial_id}{$key};
-        }
-        delete ${'main::' . $ANON_ROLE_PREFIX}{$serial_id . '::'};
-    }
+sub _anon_cache_key {
+    my $class = shift;
+    my %options = @_;
+    # Makes something like Role|Role::1
+    return join '=' => (
+        join( '|', sort @{ $options{roles} || [] } ),
+    );
 }
 
 #####################################################################
@@ -766,7 +715,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0000
+version 2.0001
 
 =head1 DESCRIPTION
 

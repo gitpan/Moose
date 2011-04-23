@@ -4,14 +4,15 @@ BEGIN {
   $Class::MOP::Package::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Package::VERSION = '2.0000';
+  $Class::MOP::Package::VERSION = '2.0001';
 }
 
 use strict;
 use warnings;
 
-use Scalar::Util 'blessed', 'reftype';
+use Scalar::Util 'blessed', 'reftype', 'weaken';
 use Carp         'confess';
+use Devel::GlobalDestruction 'in_global_destruction';
 use Package::Stash;
 
 use base 'Class::MOP::Object';
@@ -24,7 +25,7 @@ sub initialize {
     unshift @args, "package" if @args % 2;
 
     my %options = @args;
-    my $package_name = $options{package};
+    my $package_name = delete $options{package};
 
 
     # we hand-construct the class 
@@ -37,6 +38,9 @@ sub initialize {
             %options,
         });
         Class::MOP::store_metaclass_by_name($package_name, $meta);
+
+        Class::MOP::weaken_metaclass($package_name) if $options{weaken};
+
 
         return $meta;
     }
@@ -60,6 +64,102 @@ sub reinitialize {
     Class::MOP::remove_metaclass_by_name($package_name);
 
     $class->initialize($package_name, %options); # call with first arg form for compat
+}
+
+sub create {
+    my $class = shift;
+    my @args = @_;
+
+    return $class->initialize(@args);
+}
+
+## ANON packages
+
+{
+    # NOTE:
+    # this should be sufficient, if you have a
+    # use case where it is not, write a test and
+    # I will change it.
+    my $ANON_SERIAL = 0;
+
+    my %ANON_PACKAGE_CACHE;
+
+    # NOTE:
+    # we need a sufficiently annoying prefix
+    # this should suffice for now, this is
+    # used in a couple of places below, so
+    # need to put it up here for now.
+    sub _anon_package_prefix { 'Class::MOP::Package::__ANON__::SERIAL::' }
+
+    sub is_anon {
+        my $self = shift;
+        no warnings 'uninitialized';
+        my $prefix = $self->_anon_package_prefix;
+        $self->name =~ /^\Q$prefix/;
+    }
+
+    sub create_anon {
+        my ($class, %options) = @_;
+
+        my $cache_ok = delete $options{cache};
+
+        my $cache_key;
+        if ($cache_ok) {
+            $cache_key = $class->_anon_cache_key(%options);
+
+            if (defined $ANON_PACKAGE_CACHE{$cache_key}) {
+                return $ANON_PACKAGE_CACHE{$cache_key};
+            }
+        }
+
+        $options{weaken} = !$cache_ok unless exists $options{weaken};
+
+        my $package_name = $class->_anon_package_prefix . ++$ANON_SERIAL;
+
+        my $meta = $class->create($package_name, %options);
+
+        if ($cache_ok) {
+            $ANON_PACKAGE_CACHE{$cache_key} = $meta;
+            weaken($ANON_PACKAGE_CACHE{$cache_key});
+        }
+
+        return $meta;
+    }
+
+    sub _anon_cache_key { confess "Packages are not cacheable" }
+
+    sub DESTROY {
+        my $self = shift;
+
+        return if in_global_destruction(); # it'll happen soon anyway and this just makes things more complicated
+
+        $self->_free_anon
+            if $self->is_anon;
+    }
+
+    sub _free_anon {
+        my $self = shift;
+        my $name = $self->name;
+
+        # Moose does a weird thing where it replaces the metaclass for
+        # class when fixing metaclass incompatibility. In that case,
+        # we don't want to clean out the namespace now. We can detect
+        # that because Moose will explicitly update the singleton
+        # cache in Class::MOP.
+        no warnings 'uninitialized';
+        my $current_meta = Class::MOP::get_metaclass_by_name($name);
+        return if $current_meta ne $self;
+
+        my ($first_fragments, $last_fragment) = ($name =~ /^(.*)::(.*)$/);
+
+        no strict 'refs';
+        @{$name . '::ISA'} = ();
+        %{$name . '::'}    = ();
+        delete ${$first_fragments . '::'}{$last_fragment . '::'};
+
+        Class::MOP::remove_metaclass_by_name($name);
+    }
+
 }
 
 sub _new {
@@ -161,7 +261,7 @@ Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.0000
+version 2.0001
 
 =head1 DESCRIPTION
 
@@ -173,13 +273,14 @@ looking at and changing that namespace's symbol table.
 
 =over 4
 
-=item B<< Class::MOP::Package->initialize($package_name) >>
+=item B<< Class::MOP::Package->initialize($package_name, %options) >>
 
 This method creates a new C<Class::MOP::Package> instance which
 represents specified package. If an existing metaclass object exists
-for the package, that will be returned instead.
+for the package, that will be returned instead. No options are valid at the
+package level.
 
-=item B<< Class::MOP::Package->reinitialize($package) >>
+=item B<< Class::MOP::Package->reinitialize($package, %options) >>
 
 This method forcibly removes any existing metaclass for the package
 before calling C<initialize>. In contrast to C<initialize>, you may
@@ -187,6 +288,31 @@ also pass an existing C<Class::MOP::Package> instance instead of just
 a package name as C<$package>.
 
 Do not call this unless you know what you are doing.
+
+=item B<< Class::MOP::Package->create($package, %options) >>
+
+Creates a new C<Class::MOP::Package> instance which represents the specified
+package, and also does some initialization of that package. Currently, this
+just does the same thing as C<initialize>, but is overridden in subclasses,
+such as C<Class::MOP::Class>.
+
+=item B<< Class::MOP::Package->create_anon(%options) >>
+
+Creates a new anonymous package. Valid keys for C<%options> are:
+
+=over 4
+
+=item C<weaken>
+
+If this is true (the default), the instance stored in C<Class::MOP>'s metaclass
+cache will be weakened, so that the anonymous package will be garbage collected
+when the returned instance goes out of scope.
+
+=back
+
+=item B<< $metapackage->is_anon >>
+
+Returns true if the package is an anonymous package.
 
 =item B<< $metapackage->name >>
 

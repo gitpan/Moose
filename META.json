@@ -4,7 +4,7 @@
       "Stevan Little <stevan@iinteractive.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200003, CPAN::Meta::Converter version 2.101670",
+   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580",
    "license" : [
       "perl_5"
    ],
@@ -49,7 +49,7 @@
             "Params::Coerce" : 0,
             "Regexp::Common" : 0,
             "Test::Deep" : 0,
-            "Test::DependentModules" : 0,
+            "Test::DependentModules" : "0.09",
             "Test::Inline" : 0,
             "Test::LeakTrace" : 0,
             "Test::Output" : 0,
@@ -60,7 +60,7 @@
          "requires" : {
             "Data::OptList" : 0,
             "Devel::GlobalDestruction" : 0,
-            "Eval::Closure" : 0,
+            "Eval::Closure" : "0.04",
             "List::MoreUtils" : "0.12",
             "MRO::Compat" : "0.05",
             "Package::DeprecationManager" : "0.10",
@@ -95,7 +95,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0000",
+   "version" : "2.0001",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",
@@ -131,6 +131,7 @@
       "MooseX::SemiAffordanceAccessor" : "0.05",
       "MooseX::SetOnce" : "0.100473",
       "MooseX::Singleton" : "0.25",
+      "MooseX::SlurpyConstructor" : "1.1",
       "MooseX::StrictConstructor" : "0.12",
       "MooseX::Types" : "0.19",
       "MooseX::UndefTolerant" : "0.11",

@@ -40,6 +40,7 @@ use Dist::CheckConflicts
         'MooseX::SemiAffordanceAccessor' => '0.05',
         'MooseX::SetOnce' => '0.100473',
         'MooseX::Singleton' => '0.25',
+        'MooseX::SlurpyConstructor' => '1.1',
         'MooseX::StrictConstructor' => '0.12',
         'MooseX::Types' => '0.19',
         'MooseX::UndefTolerant' => '0.11',

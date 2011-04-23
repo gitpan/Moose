@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Counter::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Counter::VERSION = '2.0000';
+  $Moose::Meta::Attribute::Native::Trait::Counter::VERSION = '2.0001';
 }
 use Moose::Role;
 
@@ -32,7 +32,7 @@ Moose::Meta::Attribute::Native::Trait::Counter - Helper trait for counters
 
 =head1 VERSION
 
-version 2.0000
+version 2.0001
 
 =head1 SYNOPSIS
 

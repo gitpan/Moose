@@ -18,9 +18,9 @@ BEGIN {
 }
 
 use Test::Requires {
-    'Test::DependentModules' => '0.01', # skip all if not installed
+    'Test::DependentModules' => '0.09', # skip all if not installed
 };
-use Test::DependentModules qw( test_all_dependents test_module );
+use Test::DependentModules qw( test_all_dependents test_modules );
 
 use DateTime;
 use Class::MOP ();
@@ -34,7 +34,7 @@ diag(     'Test run performed at: '
         . Moose->VERSION );
 
 $ENV{PERL_TEST_DM_LOG_DIR} = abs_path('.');
-delete $ENV{AUTHOR_TESTING};
+delete @ENV{ qw( AUTHOR_TESTING RELEASE_TESTING SMOKE_TESTING ) };
 
 my $exclude = qr/^Acme-/x;
 
@@ -45,7 +45,7 @@ if ( $ENV{MOOSE_TEST_MD_ALL} ) {
 else {
     my @modules = map { chomp; $_ } <DATA>;
     plan tests => scalar @modules;
-    test_module($_) for @modules;
+    test_modules(@modules);
 }
 
 __DATA__
@@ -162,7 +162,6 @@ MooseX::SymmetricAttribute
 MooseX::Templated
 MooseX::Timestamp
 MooseX::Traits
-MooseX::Traits::Attribute::CascadeClear
 MooseX::Traits::Attribute::MergeHashRef
 MooseX::Traits::Pluggable
 MooseX::TransactionalMethods

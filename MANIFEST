@@ -47,6 +47,7 @@ examples/InsideOutClass.pod
 examples/InstanceCountingClass.pod
 examples/LazyClass.pod
 examples/Perl6Attribute.pod
+inc/Clean.pm
 inc/ExtractInlineTests.pm
 inc/GatherDir.pm
 inc/MMHelper.pm
@@ -376,6 +377,7 @@ t/cmop/anon_class.t
 t/cmop/anon_class_create_init.t
 t/cmop/anon_class_keep_alive.t
 t/cmop/anon_class_leak.t
+t/cmop/anon_packages.t
 t/cmop/attribute.t
 t/cmop/attribute_duplication.t
 t/cmop/attribute_errors_and_edge_cases.t

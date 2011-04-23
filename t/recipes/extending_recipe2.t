@@ -29,7 +29,8 @@ use Test::Requires {
 
   use Moose::Role;
 
-  after 'BUILDALL' => sub {
+  sub BUILD {}
+  after BUILD => sub {
       my $self = shift;
 
       warn "Made a new " . ( ref $self ) . " object\n";

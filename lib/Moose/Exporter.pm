@@ -3,20 +3,11 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Exporter::VERSION = '2.0000';
+  $Moose::Exporter::VERSION = '2.0001';
 }
 
 use strict;
 use warnings;
-
-use XSLoader;
-
-BEGIN {
-    XSLoader::load(
-        'Moose',
-        $Moose::Exporter::{VERSION} ? ${ $Moose::Exporter::{VERSION} } : ()
-    );
-}
 
 use Class::MOP;
 use List::MoreUtils qw( first_index uniq );
@@ -668,7 +659,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.0000
+version 2.0001
 
 =head1 SYNOPSIS
 

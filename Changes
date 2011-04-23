@@ -1,14 +1,33 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0001 Fri, Apr 22, 2011
+
+  [ENHANCEMENTS]
+
+  * Anonymous classes and roles now have a unified implementation in
+    Class::MOP::Package. This means that anonymous packages are now also
+    possible. (Shawn M Moore, doy)
+
+  [BUG FIXES]
+
+  * No longer call XSLoader from multiple places, as this causes issues on
+    older perls. (doy, ribasushi)
+
+  * Moose::Meta::Role->create now accepts the 'roles' parameter, as it was
+    documented to. (Chris Weyl)
+
+  * Depend on Eval::Closure 0.04, which fixes some issues in mod_perl
+    environments. (doy, mateu)
+
 2.0000 Mon, Apr 11, 2011
 
   [API CHANGES]
 
   * The RegexpRef type constraint now accepts regular expressions blessed into
     other classes, such as those found in pluggable regexp engines.
-    Additionally the 'Object' constraint no longer rejects objects which
-    implementation is a regular expression. (David Leadbeater)
+    Additionally the 'Object' constraint no longer rejects objects implemented
+    as a blessed regular expression. (David Leadbeater)
 
   [OTHER]
 

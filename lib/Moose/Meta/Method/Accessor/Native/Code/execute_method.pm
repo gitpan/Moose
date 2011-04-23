@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Code::execute_method::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '2.0000';
+  $Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '2.0001';
 }
 
 use strict;

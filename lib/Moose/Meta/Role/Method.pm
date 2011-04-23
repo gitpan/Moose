@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::Method::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Method::VERSION = '2.0000';
+  $Moose::Meta::Role::Method::VERSION = '2.0001';
 }
 
 use strict;
@@ -37,7 +37,7 @@ Moose::Meta::Role::Method - A Moose Method metaclass for Roles
 
 =head1 VERSION
 
-version 2.0000
+version 2.0001
 
 =head1 DESCRIPTION
 
