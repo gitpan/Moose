@@ -34,6 +34,7 @@ benchmarks/simple_class.pl
 benchmarks/simple_compile.pl
 benchmarks/simple_constructor.pl
 benchmarks/type_constraints.pl
+benchmarks/type_constraints2.pl
 bin/moose-outdated
 dist.ini
 doap.rdf
@@ -468,6 +469,7 @@ t/immutable/buildargs.t
 t/immutable/constructor_is_not_moose.t
 t/immutable/constructor_is_wrapped.t
 t/immutable/default_values.t
+t/immutable/definition_context.t
 t/immutable/immutable_constructor_error.t
 t/immutable/immutable_destroy.t
 t/immutable/immutable_meta_class.t

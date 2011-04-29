@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe7 - Making Moose fast with immutable
 
 =head1 VERSION
 
-version 2.0001
+version 2.0002
 
 =head1 SYNOPSIS
 

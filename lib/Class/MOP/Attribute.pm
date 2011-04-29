@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Attribute::VERSION = '2.0001';
+  $Class::MOP::Attribute::VERSION = '2.0002';
 }
 
 use strict;
@@ -384,7 +384,7 @@ sub _process_accessors {
         my $method;
         try {
             if ( $method_ctx ) {
-                my $desc = "accessor $accessor";
+                my $desc = "accessor " . $self->associated_class->name . "::$accessor";
                 if ( $accessor ne $self->name ) {
                     $desc .= " of attribute " . $self->name;
                 }
@@ -479,7 +479,7 @@ Class::MOP::Attribute - Attribute Meta Object
 
 =head1 VERSION
 
-version 2.0001
+version 2.0002
 
 =head1 SYNOPSIS
 

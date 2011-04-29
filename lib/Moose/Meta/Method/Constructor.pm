@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Constructor::VERSION = '2.0001';
+  $Moose::Meta::Method::Constructor::VERSION = '2.0002';
 }
 
 use strict;
@@ -35,6 +35,7 @@ sub new {
         'name'          => $options{name},
         'options'       => $options{options},
         'associated_metaclass' => $meta,
+        'definition_context' => $options{definition_context},
         '_expected_method_class' => $options{_expected_method_class} || 'Moose::Object',
     } => $class;
 
@@ -102,7 +103,7 @@ Moose::Meta::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.0001
+version 2.0002
 
 =head1 DESCRIPTION
 

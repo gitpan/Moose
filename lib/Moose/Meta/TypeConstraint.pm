@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::VERSION = '2.0001';
+  $Moose::Meta::TypeConstraint::VERSION = '2.0002';
 }
 
 use strict;
@@ -18,6 +18,7 @@ use overload '0+'     => sub { refaddr(shift) }, # id an object
 
 use Scalar::Util qw(blessed refaddr);
 use Sub::Name qw(subname);
+use Try::Tiny;
 
 use base qw(Class::MOP::Object);
 
@@ -144,7 +145,18 @@ sub get_message {
         return $msg->($value);
     }
     else {
-        $value = (defined $value ? overload::StrVal($value) : 'undef');
+        # have to load it late like this, since it uses Moose itself
+        my $can_partialdump = try {
+            # versions prior to 0.14 had a potential infinite loop bug
+            Class::MOP::load_class('Devel::PartialDump', { -version => 0.14 });
+            1;
+        };
+        if ($can_partialdump) {
+            $value = Devel::PartialDump->new->dump($value);
+        }
+        else {
+            $value = (defined $value ? overload::StrVal($value) : 'undef');
+        }
         return "Validation failed for '" . $self->name . "' with value $value";
     }
 }
@@ -335,7 +347,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.0001
+version 2.0002
 
 =head1 DESCRIPTION
 

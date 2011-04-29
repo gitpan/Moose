@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0001';
+  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0002';
 }
 use Moose::Role;
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Array - Helper trait for array delegation
 
 =head1 VERSION
 
-version 2.0001
+version 2.0002
 
 =head1 SYNOPSIS
 

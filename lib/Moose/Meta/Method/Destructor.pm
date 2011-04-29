@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Destructor::VERSION = '2.0001';
+  $Moose::Meta::Method::Destructor::VERSION = '2.0002';
 }
 
 use strict;
@@ -34,6 +34,7 @@ sub new {
         'name'                 => $options{name},
         # ...
         'options'              => $options{options},
+        'definition_context'   => $options{definition_context},
         'associated_metaclass' => $options{metaclass},
     } => $class;
 
@@ -86,7 +87,9 @@ sub _initialize_body {
             'my $self = shift;',
             'return ' . $self->_generate_fallback_destructor('$self'),
                 'if Scalar::Util::blessed($self) ne \'' . $class . '\';',
+            'local $?;',
             $self->_generate_DEMOLISHALL('$self'),
+            'return;',
         '}',
     );
     warn join("\n", @source) if $self->options->{debug};
@@ -121,16 +124,13 @@ sub _generate_DEMOLISHALL {
     return unless @methods;
 
     return (
-        'local $?;',
         'my $igd = Devel::GlobalDestruction::in_global_destruction;',
         'Try::Tiny::try {',
             (map { $inv . '->' . $_->{class} . '::DEMOLISH($igd);' } @methods),
         '}',
         'Try::Tiny::catch {',
-            'no warnings \'misc\';',
             'die $_;',
         '};',
-        'return;',
     );
 }
 
@@ -149,7 +149,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.0001
+version 2.0002
 
 =head1 DESCRIPTION
 

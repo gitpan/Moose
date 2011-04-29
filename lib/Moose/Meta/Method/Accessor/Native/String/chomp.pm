@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::chomp::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::chomp::VERSION = '2.0001';
+  $Moose::Meta::Method::Accessor::Native::String::chomp::VERSION = '2.0002';
 }
 
 use strict;

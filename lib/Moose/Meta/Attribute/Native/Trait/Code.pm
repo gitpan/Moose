@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Code::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.0001';
+  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.0002';
 }
 use Moose::Role;
 

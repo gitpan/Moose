@@ -1,6 +1,25 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0002 Thu, Apr 28, 2011
+
+  [ENHANCEMENTS]
+
+  * Provide definition context information for constructors and destructors, so
+    that they will show up as something other than "generated method (unknown
+    origin)". Also, add the package that accessors are defined in to their
+    definition context.
+
+  * Use Devel::PartialDump in type constraint error messages, if it is
+    installed.
+
+  [BUG FIXES]
+
+  * Stop hiding warnings produced by throwing errors in DEMOLISH methods.
+
+  * The 'reset' native delegation for Counter attributes will now also respect
+    builders (previously, it only respected defaults).
+
 2.0001 Fri, Apr 22, 2011
 
   [ENHANCEMENTS]
