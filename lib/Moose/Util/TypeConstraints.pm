@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::TypeConstraints::VERSION = '2.0004';
+  $Moose::Util::TypeConstraints::VERSION = '2.0005';
 }
 
 use Carp ();
@@ -891,7 +891,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.0004
+version 2.0005
 
 =head1 SYNOPSIS
 
