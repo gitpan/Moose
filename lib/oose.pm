@@ -3,7 +3,7 @@ BEGIN {
   $oose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $oose::VERSION = '2.0002';
+  $oose::VERSION = '2.0003';
 }
 
 use strict;
@@ -37,7 +37,7 @@ oose - syntactic sugar to make Moose one-liners easier
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 
@@ -54,7 +54,8 @@ version 2.0002
 
 =head1 DESCRIPTION
 
-oose.pm is a simple source filter that adds C<package $name; use Moose;>
+oose.pm is a simple source filter that adds
+C<package $name; use Moose; use Moose::Util::TypeConstraints;>
 to the beginning of your script and was entirely created because typing
 C<perl -e'package Foo; use Moose; ...'> was annoying me.
 
@@ -66,7 +67,8 @@ oose provides exactly one method and it's automatically called by perl:
 
 =item B<import($package)>
 
-Pass a package name to import to be used by the source filter.
+Pass a package name to import to be used by the source filter. The
+package defaults to C<Class> if none is given.
 
 =back
 

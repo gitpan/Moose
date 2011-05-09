@@ -4,7 +4,7 @@ BEGIN {
   $metaclass::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $metaclass::VERSION = '2.0002';
+  $metaclass::VERSION = '2.0003';
 }
 
 use strict;
@@ -63,7 +63,7 @@ metaclass - a pragma for installing and using Class::MOP metaclasses
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 
@@ -102,6 +102,9 @@ This is a pragma to make it easier to use a specific metaclass
 and a set of custom attribute and method metaclasses. It also
 installs a C<meta> method to your class as well, unless C<undef>
 is passed to the C<meta_name> option.
+
+Note that if you are using Moose, you most likely do B<not> want
+to be using this - look into L<Moose::Util::MetaRole> instead.
 
 =head1 AUTHOR
 

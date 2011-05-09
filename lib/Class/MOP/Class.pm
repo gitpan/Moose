@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Class::VERSION = '2.0002';
+  $Class::MOP::Class::VERSION = '2.0003';
 }
 
 use strict;
@@ -789,7 +789,8 @@ sub _force_rebless_instance {
     }
 
     # rebless!
-    # we use $_[1] here because of t/306_rebless_overload.t regressions on 5.8.8
+    # we use $_[1] here because of t/cmop/rebless_overload.t regressions
+    # on 5.8.8
     $meta_instance->rebless_instance_structure($_[1], $self);
 
     $self->_fixup_attributes_after_rebless($instance, $old_metaclass, %params);
@@ -1489,7 +1490,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 

@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
   'NAME' => 'Moose',
   'OBJECT' => 'xs/Attribute$(OBJ_EXT) xs/AttributeCore$(OBJ_EXT) xs/Class$(OBJ_EXT) xs/Generated$(OBJ_EXT) xs/HasAttributes$(OBJ_EXT) xs/HasMethods$(OBJ_EXT) xs/Inlined$(OBJ_EXT) xs/Instance$(OBJ_EXT) xs/Method$(OBJ_EXT) xs/Moose$(OBJ_EXT) xs/MOP$(OBJ_EXT) xs/Package$(OBJ_EXT) mop$(OBJ_EXT)',
   'PREREQ_PM' => {
-    'Data::OptList' => '0',
+    'Data::OptList' => '0.107',
     'Devel::GlobalDestruction' => '0',
     'Eval::Closure' => '0.04',
     'List::MoreUtils' => '0.12',
@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0002',
+  'VERSION' => '2.0003',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',

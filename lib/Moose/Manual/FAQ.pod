@@ -12,7 +12,7 @@ Moose::Manual::FAQ - Frequently asked questions about Moose
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 FREQUENTLY ASKED QUESTIONS
 
@@ -22,6 +22,8 @@ version 2.0002
 
 Yes! Many sites with household names are using Moose to build
 high-traffic services. Countless others are using Moose in production.
+See L<http://www.iinteractive.com/moose/about.html#organizations> for
+a partial list.
 
 As of this writing, Moose is a dependency of several hundred CPAN
 modules. L<http://cpants.perl.org/dist/used_by/Moose>
@@ -57,16 +59,6 @@ construction) is pretty significant. This can be done with the
 following code:
 
   MyClass->meta->make_immutable();
-
-We are regularly converting the hotspots of L<Class::MOP> to XS.
-Florian Ragwitz and Yuval Kogman are currently working on a way to
-compile your accessors and instances directly into C, so that everyone
-can enjoy blazing fast OO.
-
-=head3 When will Moose 1.0 be ready?
-
-Moose is ready now! Stevan Little declared 0.18, released in March
-2007, to be "ready to use".
 
 =head2 Constructors
 
@@ -200,23 +192,6 @@ Still another option is to write a custom attribute metaclass, which
 is also outside the scope of this document, but we would be happy to
 explain it on #moose or the mailing list.
 
-=head3 I created an attribute, where are my accessors?
-
-Accessors are B<not> created implicitly, you B<must> ask Moose to
-create them for you. My guess is that you have this:
-
-  has 'foo' => (isa => 'Bar');
-
-when what you really want to say is:
-
-  has 'foo' => (isa => 'Bar', is => 'rw');
-
-The reason this is so is because it is a perfectly valid use case to
-I<not> have an accessor. The simplest one is that you want to write
-your own. If Moose created one automatically, then because of the
-order in which classes are constructed, Moose would overwrite your
-custom accessor. You wouldn't want that would you?
-
 =head2 Method Modifiers
 
 =head3 How can I affect the values in C<@_> using C<before>?
@@ -234,6 +209,9 @@ preserve context).
 
 The C<around> method modifier has neither of these limitations, but is
 a little more verbose.
+
+Alternatively, the L<MooseX::Mangle> extension provides the
+C<mangle_args> function, which does allow you to affect C<@_>.
 
 =head3 Can I use C<before> to stop execution of a method?
 
@@ -254,6 +232,10 @@ of the main method. Here is an example:
 By choosing not to call the C<$next> method, you can stop the
 execution of the main method.
 
+Alternatively, the L<MooseX::Mangle> extension provides the
+C<guard> function, which will conditionally prevent execution
+of the original method.
+
 =head3 Why can't I see return values in an C<after> modifier?
 
 As with the C<before> modifier, the C<after> modifier is simply called
@@ -271,6 +253,10 @@ is some sample code:
       # do something silly with the return values
       return reverse @rv;
   };
+
+Alternatively, the L<MooseX::Mangle> extension provides the
+C<mangle_return> function, which allows modifying the return values
+of the original method.
 
 =head2 Type Constraints
 
@@ -292,16 +278,22 @@ Not yet. This option may come in a future release.
 
 =head3 My coercions stopped working with recent Moose, why did you break it?
 
-Moose 0.76 fixed a case where Coercions were being applied even if the original constraint passed. This has caused some edge cases to fail where people were doing something like
+Moose 0.76 fixed a case where coercions were being applied even if the original
+constraint passed. This has caused some edge cases to fail where people were
+doing something like
 
-    subtype Address => as 'Str';
-    coerce Address => from Str => via { get_address($_) };
+    subtype 'Address', as 'Str';
+    coerce 'Address', from 'Str', via { get_address($_) };
 
-Which is not what they intended. The Type Constraint C<Address> is too loose in this case, it is saying that all Strings are Addresses, which is obviously not the case. The solution is to provide a where clause that properly restricts the Type Constraint.
+This is not what they intended, because the type constraint C<Address> is too
+loose in this case. It is saying that all strings are Addresses, which is
+obviously not the case. The solution is to provide a C<where> clause that
+properly restricts the type constraint:
 
-    subtype Address => as Str => where { looks_like_address($_) };
+    subtype 'Address', as 'Str', where { looks_like_address($_) };
 
-This will allow the coercion to apply only to strings that fail to look like an Address.
+This will allow the coercion to apply only to strings that fail to look like an
+Address.
 
 =head2 Roles
 
@@ -363,7 +355,7 @@ not the best tool for the job, and you really should be using
 classes. Or, at the very least, you should reduce the amount of
 functionality in your role so that it does not require initialization.
 
-=head3 What are Traits, and how are they different from Roles?
+=head3 What are traits, and how are they different from roles?
 
 In Moose, a trait is almost exactly the same thing as a role, except
 that traits typically register themselves, which allows you to refer
@@ -375,17 +367,17 @@ of a class at runtime to add or modify the behavior of B<just that
 instance>.
 
 Outside the context of Moose, traits and roles generally mean exactly
-the same thing. The original paper called them Traits, however Perl 6
-will call them Roles.
+the same thing. The original paper called them traits, but Perl 6
+will call them roles.
 
 =head2 Moose and Subroutine Attributes
 
 =head3 Why don't subroutine attributes I inherited from a superclass work?
 
-Currently when you subclass a module, this is done at runtime with the
-C<extends> keyword but attributes are checked at compile time by
+Currently when subclassing a module is done at runtime with the
+C<extends> keyword, but attributes are checked at compile time by
 Perl. To make attributes work, you must place C<extends> in a C<BEGIN>
-block so that the attribute handlers will be available at compile time
+block so that the attribute handlers will be available at compile time,
 like this:
 
   BEGIN { extends qw/Foo/ }

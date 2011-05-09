@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Croak::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Error::Croak::VERSION = '2.0002';
+  $Moose::Error::Croak::VERSION = '2.0003';
 }
 
 use strict;
@@ -30,7 +30,7 @@ Moose::Error::Croak - Prefer C<croak>
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 

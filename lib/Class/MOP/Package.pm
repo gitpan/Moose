@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Package::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Package::VERSION = '2.0002';
+  $Class::MOP::Package::VERSION = '2.0003';
 }
 
 use strict;
@@ -102,17 +102,19 @@ sub create {
         my ($class, %options) = @_;
 
         my $cache_ok = delete $options{cache};
+        $options{weaken} = !$cache_ok unless exists $options{weaken};
 
         my $cache_key;
         if ($cache_ok) {
             $cache_key = $class->_anon_cache_key(%options);
+            undef $cache_ok if !defined($cache_key);
+        }
 
+        if ($cache_ok) {
             if (defined $ANON_PACKAGE_CACHE{$cache_key}) {
                 return $ANON_PACKAGE_CACHE{$cache_key};
             }
         }
-
-        $options{weaken} = !$cache_ok unless exists $options{weaken};
 
         my $package_name = $class->_anon_package_prefix . ++$ANON_SERIAL;
 
@@ -261,7 +263,7 @@ Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 DESCRIPTION
 

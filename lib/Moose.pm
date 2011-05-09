@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::VERSION = '2.0002';
+  $Moose::VERSION = '2.0003';
 }
 use strict;
 use warnings;
@@ -90,7 +90,7 @@ our @SUPER_ARGS;
 
 sub super {
     # This check avoids a recursion loop - see
-    # t/100_bugs/020_super_recursion.t
+    # t/bugs/super_recursion.t
     return if defined $SUPER_PACKAGE && $SUPER_PACKAGE ne caller();
     return unless $SUPER_BODY; $SUPER_BODY->(@SUPER_ARGS);
 }
@@ -287,7 +287,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 
@@ -438,9 +438,10 @@ hash reference as well.
 
 This will install an attribute of a given C<$name> into the current class. If
 the first parameter is an array reference, it will create an attribute for
-every C<$name> in the list. The C<%options> are the same as those provided by
-L<Class::MOP::Attribute>, in addition to the list below which are provided by
-Moose (L<Moose::Meta::Attribute> to be more specific):
+every C<$name> in the list. The C<%options> will be passed to the constructor
+for L<Moose::Meta::Attribute> (which inherits from L<Class::MOP::Attribute>),
+so the full documentation for the valid options can be found there. These are
+the most commonly used options:
 
 =over 4
 
@@ -496,17 +497,8 @@ default, etc.
 =item I<lazy =E<gt> (1|0)>
 
 This will tell the class to not create this slot until absolutely necessary.
-If an attribute is marked as lazy it B<must> have a default supplied.
-
-=item I<auto_deref =E<gt> (1|0)>
-
-This tells the accessor to automatically dereference the value of this
-attribute when called in list context.  The accessor will still return a
-reference when called in scalar context.  If this behavior isn't desirable,
-L<Moose::Meta::Attribute::Native::Trait::Array/elements> or
-L<Moose::Meta::Attribute::Native::Trait::Hash/elements> may be a better
-choice.  The I<auto_deref> option is only legal if your I<isa> option is
-either C<ArrayRef> or C<HashRef>.
+If an attribute is marked as lazy it B<must> have a default or builder
+supplied.
 
 =item I<trigger =E<gt> $code>
 
@@ -647,22 +639,13 @@ a HASH ref) of the methods you want mapped.
 
 =back
 
-=item I<metaclass =E<gt> $metaclass_name>
-
-This tells the class to use a custom attribute metaclass for this particular
-attribute. Custom attribute metaclasses are useful for extending the
-capabilities of the I<has> keyword: they are the simplest way to extend the MOP,
-but they are still a fairly advanced topic and too much to cover here. See
-L<Moose::Cookbook::Meta::Recipe1> for more information.
-
-See L<Metaclass and Trait Name Resolution> for details on how a metaclass name
-is resolved to a class name.
-
 =item I<traits =E<gt> [ @role_names ]>
 
 This tells Moose to take the list of C<@role_names> and apply them to the
-attribute meta-object. This is very similar to the I<metaclass> option, but
-allows you to use more than one extension at a time.
+attribute meta-object. Custom attribute metaclass traits are useful for
+extending the capabilities of the I<has> keyword: they are the simplest way to
+extend the MOP, but they are still a fairly advanced topic and too much to
+cover here.
 
 See L<Metaclass and Trait Name Resolution> for details on how a trait name is
 resolved to a role name.
@@ -702,21 +685,6 @@ Class::MOP::Attribute|Class::MOP::Attribute/predicate> for more information.
 
 Note that the predicate will return true even for a C<weak_ref> attribute
 whose value has expired.
-
-=item I<lazy_build> => (0|1)
-
-Automatically define lazy => 1 as well as builder => "_build_$attr", clearer =>
-"clear_$attr', predicate => 'has_$attr' unless they are already defined.
-
-=item I<initializer> => Str
-
-This may be a method name (referring to a method on the class with
-this attribute) or a CODE ref.  The initializer is used to set the
-attribute value on an instance when the attribute is set during
-instance initialization (but not when the value is being assigned
-to). See the L<initializer option docs in
-Class::MOP::Attribute|Class::MOP::Attribute/initializer> for more
-information.
 
 =item I<documentation> => $string
 
@@ -778,54 +746,21 @@ another role.
 
 Aside from where the attributes come from (one from superclass, the other
 from a role), this feature works exactly the same. This feature is restricted
-somewhat, so as to try and force at least I<some> sanity into it. You are only
-allowed to change the following attributes:
+somewhat, so as to try and force at least I<some> sanity into it. Most options work the same, but there are some exceptions:
 
 =over 4
 
-=item I<default>
+=item I<reader>
 
-Change the default value of an attribute.
+=item I<writer>
 
-=item I<coerce>
+=item I<accessor>
 
-Change whether the attribute attempts to coerce a value passed to it.
+=item I<clearer>
 
-=item I<required>
+=item I<predicate>
 
-Change if the attribute is required to have a value.
-
-=item I<documentation>
-
-Change the documentation string associated with the attribute.
-
-=item I<lazy>
-
-Change if the attribute lazily initializes the slot.
-
-=item I<isa>
-
-You I<are> allowed to change the type without restriction.
-
-It is recommended that you use this freedom with caution. We used to
-only allow for extension only if the type was a subtype of the parent's
-type, but we felt that was too restrictive and is better left as a
-policy decision.
-
-=item I<handles>
-
-You are allowed to B<add> a new C<handles> definition, but you are B<not>
-allowed to I<change> one.
-
-=item I<builder>
-
-You are allowed to B<add> a new C<builder> definition, but you are B<not>
-allowed to I<change> one.
-
-=item I<metaclass>
-
-You are allowed to B<add> a new C<metaclass> definition, but you are
-B<not> allowed to I<change> one.
+These options can be added, but cannot override a superclass definition.
 
 =item I<traits>
 
@@ -846,18 +781,24 @@ modifier features that L<Class::MOP> provides. More information on these may be
 found in L<Moose::Manual::MethodModifiers> and the
 L<Class::MOP::Class documentation|Class::MOP::Class/"Method Modifiers">.
 
-=item B<super>
-
-The keyword C<super> is a no-op when called outside of an C<override> method. In
-the context of an C<override> method, it will call the next most appropriate
-superclass method with the same arguments as the original method.
-
 =item B<override ($name, &sub)>
 
 An C<override> method is a way of explicitly saying "I am overriding this
 method from my superclass". You can call C<super> within this method, and
 it will work as expected. The same thing I<can> be accomplished with a normal
 method call and the C<SUPER::> pseudo-package; it is really your choice.
+
+=item B<super>
+
+The keyword C<super> is a no-op when called outside of an C<override> method. In
+the context of an C<override> method, it will call the next most appropriate
+superclass method with the same arguments as the original method.
+
+=item B<augment ($name, &sub)>
+
+An C<augment> method, is a way of explicitly saying "I am augmenting this
+method from my superclass". Once again, the details of how C<inner> and
+C<augment> work is best described in the L<Moose::Cookbook::Basics::Recipe6>.
 
 =item B<inner>
 
@@ -866,32 +807,23 @@ an C<augment> method. You can think of C<inner> as being the inverse of
 C<super>; the details of how C<inner> and C<augment> work is best described in
 the L<Moose::Cookbook::Basics::Recipe6>.
 
-=item B<augment ($name, &sub)>
+=item B<blessed>
 
-An C<augment> method, is a way of explicitly saying "I am augmenting this
-method from my superclass". Once again, the details of how C<inner> and
-C<augment> work is best described in the L<Moose::Cookbook::Basics::Recipe6>.
+This is the C<Scalar::Util::blessed> function. It is highly recommended that
+this is used instead of C<ref> anywhere you need to test for an object's class
+name.
 
 =item B<confess>
 
-This is the C<Carp::confess> function, and exported here because I use it
-all the time.
-
-=item B<blessed>
-
-This is the C<Scalar::Util::blessed> function. It is exported here because I
-use it all the time. It is highly recommended that this is used instead of
-C<ref> anywhere you need to test for an object's class name.
+This is the C<Carp::confess> function, and exported here for historical
+reasons.
 
 =back
 
 =head1 METACLASS
 
-When you use Moose, you can specify which metaclass to use:
-
-    use Moose -metaclass => 'My::Meta::Class';
-
-You can also specify traits which will be applied to your metaclass:
+When you use Moose, you can specify traits which will be applied to your
+metaclass:
 
     use Moose -traits => 'My::Trait';
 
@@ -948,38 +880,9 @@ to work. Here is an example:
 To learn more about extending Moose, we recommend checking out the
 "Extending" recipes in the L<Moose::Cookbook>, starting with
 L<Moose::Cookbook::Extending::Recipe1>, which provides an overview of
-all the different ways you might extend Moose.
-
-=head2 B<< Moose->init_meta(for_class => $class, base_class => $baseclass, metaclass => $metaclass) >>
-
-The C<init_meta> method sets up the metaclass object for the class
-specified by C<for_class>. This method injects a a C<meta> accessor
-into the class so you can get at this object. It also sets the class's
-superclass to C<base_class>, with L<Moose::Object> as the default.
-
-C<init_meta> returns the metaclass object for C<$class>.
-
-You can specify an alternate metaclass with the C<metaclass> option.
-
-For more detail on this topic, see L<Moose::Cookbook::Extending::Recipe2>.
-
-This method used to be documented as a function which accepted
-positional parameters. This calling style will still work for
-backwards compatibility, but is deprecated.
-
-=head2 B<import>
-
-Moose's C<import> method supports the L<Sub::Exporter> form of C<{into =E<gt> $pkg}>
-and C<{into_level =E<gt> 1}>.
-
-B<NOTE>: Doing this is more or less deprecated. Use L<Moose::Exporter>
-instead, which lets you stack multiple C<Moose.pm>-alike modules
-sanely. It handles getting the exported functions into the right place
-for you.
-
-=head2 B<throw_error>
-
-An alias for C<confess>, used internally by Moose.
+all the different ways you might extend Moose. L<Moose::Exporter> and
+L<Moose::Util::MetaRole> are the modules which provide the majority of the
+extension functionality, so reading their documentation should also be helpful.
 
 =head2 The MooseX:: namespace
 
@@ -1026,7 +929,7 @@ unresolvable conflict.
 
 It should be noted that C<super> and C<inner> B<cannot> be used in the same
 method. However, they may be combined within the same class hierarchy; see
-F<t/014_override_augment_inner_super.t> for an example.
+F<t/basics/override_augment_inner_super.t> for an example.
 
 The reason for this is that C<super> is only valid within a method
 with the C<override> modifier, and C<inner> will never be valid within an
@@ -1092,8 +995,6 @@ Part 2 - L<http://www.stonehenge.com/merlyn/LinuxMag/col95.html>
 =item Several Moose extension modules in the C<MooseX::> namespace.
 
 See L<http://search.cpan.org/search?query=MooseX::> for extensions.
-
-=item Moose stats on ohloh.net - L<http://www.ohloh.net/projects/moose>
 
 =back
 

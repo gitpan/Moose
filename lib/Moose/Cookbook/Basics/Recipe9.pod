@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe9 - Operator overloading, subtypes, and coercion
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 
@@ -21,11 +21,11 @@ version 2.0002
   use Moose;
   use Moose::Util::TypeConstraints;
 
-  subtype 'Gender'
+  subtype 'Sex'
       => as 'Str'
       => where { $_ =~ m{^[mf]$}s };
 
-  has 'gender' => ( is => 'ro', isa => 'Gender', required => 1 );
+  has 'sex'    => ( is => 'ro', isa => 'Sex', required => 1 );
 
   has 'mother' => ( is => 'ro', isa => 'Human' );
   has 'father' => ( is => 'ro', isa => 'Human' );
@@ -36,16 +36,16 @@ version 2.0002
       my ( $one, $two ) = @_;
 
       die('Only male and female humans may create children')
-          if ( $one->gender() eq $two->gender() );
+          if ( $one->sex() eq $two->sex() );
 
       my ( $mother, $father )
-          = ( $one->gender eq 'f' ? ( $one, $two ) : ( $two, $one ) );
+          = ( $one->sex eq 'f' ? ( $one, $two ) : ( $two, $one ) );
 
-      my $gender = 'f';
-      $gender = 'm' if ( rand() >= 0.5 );
+      my $sex = 'f';
+      $sex = 'm' if ( rand() >= 0.5 );
 
       return Human->new(
-          gender => $gender,
+          sex    => $sex,
           mother => $mother,
           father => $father,
       );
@@ -54,14 +54,14 @@ version 2.0002
 =head1 DESCRIPTION
 
 This Moose cookbook recipe shows how operator overloading, coercion,
-and sub types can be used to mimic the human reproductive system
+and subtypes can be used to mimic the human reproductive system
 (well, the selection of genes at least).
 
 =head1 INTRODUCTION
 
 Our C<Human> class uses operator overloading to allow us to "add" two
 humans together and produce a child. Our implementation does require
-that the two objects be of opposite genders. Remember, we're talking
+that the two objects be of opposite sex. Remember, we're talking
 about biological reproduction, not marriage.
 
 While this example works as-is, we can take it a lot further by adding
@@ -97,7 +97,7 @@ class for each gene.
 
   has 'color' => ( is => 'ro', isa => 'bey2_color' );
 
-This class is trivial, We have a type constraint for the allowed
+This class is trivial. We have a type constraint for the allowed
 colors, and a C<color> attribute.
 
 =head2 Human::Gene::gey
@@ -116,7 +116,7 @@ that the I<gey> gene allows for different colors.
 
 =head1 EYE COLOR
 
-We could just give add four attributes (two of each gene) to the
+We could just give four attributes (two of each gene) to the
 C<Human> class, but this is a bit messy. Instead, we'll abstract the
 genes into a container class, C<Human::EyeColor>. Then a C<Human> can
 have a single C<eye_color> attribute.
@@ -146,12 +146,12 @@ that a coercion will fail if it attempts to coerce a string like
 "indigo", because that is not a valid color for either type of gene.
 
 As an aside, you can see that we can define several identical
-attributes at once by supply an array reference of names as the first
+attributes at once by supplying an array reference of names as the first
 argument to C<has>.
 
 We also need a method to calculate the actual eye color that results
 from a set of genes. The I<bey2> brown gene is dominant over both blue
-and green. The I<gey> green gene dominant over blue.
+and green. The I<gey> green gene is dominant over blue.
 
   sub color {
       my ($self) = @_;
@@ -173,7 +173,7 @@ so we define a string overloading for the class:
   use overload '""' => \&color, fallback => 1;
 
 Finally, we need to define overloading for addition. That way we can
-add together to C<Human::EyeColor> objects and get a new one with a
+add together two C<Human::EyeColor> objects and get a new one with a
 new (genetically correct) eye color.
 
   use overload '+' => \&_overload_add, fallback => 1;
@@ -199,7 +199,7 @@ new (genetically correct) eye color.
       return 1 + int( rand(2) );
   }
 
-When two eye color objects are added together the C<_overload_add()>
+When two eye color objects are added together, the C<_overload_add()>
 method will be passed two C<Human::EyeColor> objects. These are the
 left and right side operands for the C<+> operator. This method
 returns a new C<Human::EyeColor> object.
@@ -227,7 +227,7 @@ We also need to modify C<_overload_add()> in the C<Human> class to
 account for eye color:
 
   return Human->new(
-      gender    => $gender,
+      sex       => $sex,
       eye_color => ( $one->eye_color() + $two->eye_color() ),
       mother    => $mother,
       father    => $father,
@@ -242,7 +242,7 @@ If you'd like to learn more about overloading, please read the
 documentation for the L<overload> pragma.
 
 To see all the code we created together, take a look at
-F<t/000_recipes/basics/010_genes.t>.
+F<t/recipes/basics_recipe9.t>.
 
 =head1 NEXT STEPS
 

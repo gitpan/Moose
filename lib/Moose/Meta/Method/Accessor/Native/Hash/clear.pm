@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::clear::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::clear::VERSION = '2.0002';
+  $Moose::Meta::Method::Accessor::Native::Hash::clear::VERSION = '2.0003';
 }
 
 use strict;

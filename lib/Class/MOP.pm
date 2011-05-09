@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::VERSION = '2.0002';
+  $Class::MOP::VERSION = '2.0003';
 }
 
 use strict;
@@ -745,7 +745,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 DESCRIPTION
 
@@ -940,18 +940,6 @@ See L<Class::MOP::Instance> for more details.
 
 Note that this module does not export any constants or functions.
 
-=head2 Constants
-
-=over 4
-
-=item I<Class::MOP::IS_RUNNING_ON_5_10>
-
-We set this constant depending on what version perl we are on, this
-allows us to take advantage of new 5.10 features and stay backwards
-compatible.
-
-=back
-
 =head2 Utility functions
 
 Note that these are all called as B<functions, not methods>.
@@ -971,8 +959,6 @@ You can pass a hash reference with options as second argument. The
 only option currently recognized is C<-version>, which will ensure
 that the loaded class has at least the required version.
 
-See also L</Class Loading Options>.
-
 For historical reasons, this function explicitly returns a true value.
 
 =item B<Class::MOP::is_class_loaded($class_name, \%options?)>
@@ -991,8 +977,6 @@ You can pass a hash reference with options as second argument. The
 only option currently recognized is C<-version>, which will ensure
 that the loaded class has at least the required version.
 
-See also L</Class Loading Options>.
-
 =item B<Class::MOP::get_code_info($code)>
 
 This function returns two values, the name of the package the C<$code>
@@ -1005,36 +989,6 @@ from.
 This will return the metaclass of the given instance or class name.  If the
 class lacks a metaclass, no metaclass will be initialized, and C<undef> will be
 returned.
-
-=item B<Class::MOP::check_package_cache_flag($pkg)>
-
-B<NOTE: DO NOT USE THIS FUNCTION, IT IS FOR INTERNAL USE ONLY!>
-
-This will return an integer that is managed by L<Class::MOP::Class> to
-determine if a module's symbol table has been altered.
-
-In Perl 5.10 or greater, this flag is package specific. However in
-versions prior to 5.10, this will use the C<PL_sub_generation>
-variable which is not package specific.
-
-=item B<Class::MOP::load_first_existing_class(@class_names)>
-
-=item B<Class::MOP::load_first_existing_class($classA, \%optionsA?, $classB, ...)>
-
-B<NOTE: DO NOT USE THIS FUNCTION, IT IS FOR INTERNAL USE ONLY!>
-
-Given a list of class names, this function will attempt to load each
-one in turn.
-
-If it finds a class it can load, it will return that class' name.  If
-none of the classes can be loaded, it will throw an exception.
-
-Additionally, you can pass a hash reference with options after each
-class name. Currently, only C<-version> is recognized and will ensure
-that the loaded class has at least the required version. If the class
-version is not sufficient, an exception will be raised.
-
-See also L</Class Loading Options>.
 
 =back
 
@@ -1091,17 +1045,6 @@ C<$name> key, and return false otherwise.
 =item B<Class::MOP::remove_metaclass_by_name($name)>
 
 This will remove the metaclass stored in the C<$name> key.
-
-=back
-
-=head2 Class Loading Options
-
-=over 4
-
-=item -version
-
-Can be used to pass a minimum required version that will be checked
-against the class version after it was loaded.
 
 =back
 
@@ -1181,7 +1124,7 @@ As I have said above, this module is a class-builder-builder, so it is
 not the same thing as modules like L<Class::Accessor> and
 L<Class::MethodMaker>. That being said there are very few modules on CPAN
 with similar goals to this module. The one I have found which is most
-like this module is L<Class::Meta>, although it's philosophy and the MOP it
+like this module is L<Class::Meta>, although its philosophy and the MOP it
 creates are very different from this modules.
 
 =head1 BUGS

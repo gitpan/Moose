@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Number::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Number::VERSION = '2.0002';
+  $Moose::Meta::Attribute::Native::Trait::Number::VERSION = '2.0003';
 }
 use Moose::Role;
 
@@ -15,7 +15,19 @@ no Moose::Role;
 
 1;
 
+# ABSTRACT: Helper trait for Num attributes
+
+
+
 =pod
+
+=head1 NAME
+
+Moose::Meta::Attribute::Native::Trait::Number - Helper trait for Num attributes
+
+=head1 VERSION
+
+version 2.0003
 
 =head1 SYNOPSIS
 
@@ -90,4 +102,19 @@ Sets the current value of the attribute to its absolute value.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
+=head1 AUTHOR
+
+Stevan Little <stevan@iinteractive.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 =cut
+
+
+__END__
+

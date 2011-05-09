@@ -4,7 +4,7 @@
       "Stevan Little <stevan@iinteractive.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.101670",
+   "generated_by" : "Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930",
    "license" : [
       "perl_5"
    ],
@@ -18,10 +18,21 @@
          "benchmarks"
       ],
       "namespace" : [
-         "Moose::Meta::Method::Accessor::Native"
+         "Class::MOP::Mixin",
+         "Moose::Meta::Method::Accessor::Native",
+         "Moose::Meta::Mixin"
       ],
       "package" : [
-         "Moose::Meta::Method::Accessor::Native"
+         "Class::MOP::Class::Immutable::Trait",
+         "Class::MOP::Deprecated",
+         "Class::MOP::MiniTrait",
+         "Class::MOP::Mixin",
+         "Moose::Deprecated",
+         "Moose::Meta::Attribute::Native::Trait",
+         "Moose::Meta::Class::Immutable::Trait",
+         "Moose::Meta::Method::Accessor::Native",
+         "Moose::Meta::Object::Trait",
+         "Moose::Util::TypeConstraint::OptimizedConstraints"
       ]
    },
    "prereqs" : {
@@ -61,7 +72,7 @@
             "Devel::PartialDump" : "0.14"
          },
          "requires" : {
-            "Data::OptList" : 0,
+            "Data::OptList" : "0.107",
             "Devel::GlobalDestruction" : 0,
             "Eval::Closure" : "0.04",
             "List::MoreUtils" : "0.12",
@@ -98,7 +109,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0002",
+   "version" : "2.0003",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",

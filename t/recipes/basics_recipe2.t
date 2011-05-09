@@ -64,7 +64,7 @@ my $savings_account;
         '... withdrew from savings successfully'
     );
     is( $savings_account->balance, 200,
-        '... got the right savings balance after withdrawl' );
+        '... got the right savings balance after withdrawal' );
 
     $savings_account->deposit(150);
     is( $savings_account->balance, 350,
@@ -93,9 +93,9 @@ my $savings_account;
         '... withdrew from checking successfully'
     );
     is( $checking_account->balance, 50,
-        '... got the right checkings balance after withdrawl' );
+        '... got the right checkings balance after withdrawal' );
     is( $savings_account->balance, 350,
-        '... got the right savings balance after checking withdrawl (no overdraft)'
+        '... got the right savings balance after checking withdrawal (no overdraft)'
     );
 
     is(
@@ -106,9 +106,9 @@ my $savings_account;
         '... withdrew from checking successfully'
     );
     is( $checking_account->balance, 0,
-        '... got the right checkings balance after withdrawl' );
+        '... got the right checkings balance after withdrawal' );
     is( $savings_account->balance, 200,
-        '... got the right savings balance after overdraft withdrawl' );
+        '... got the right savings balance after overdraft withdrawal' );
 }
 
 {
@@ -134,7 +134,7 @@ my $savings_account;
         '... withdrew from checking successfully'
     );
     is( $checking_account->balance, 50,
-        '... got the right checkings balance after withdrawl' );
+        '... got the right checkings balance after withdrawal' );
 
     isnt(
         exception {
@@ -144,7 +144,7 @@ my $savings_account;
         '... withdrawal failed due to attempted overdraft'
     );
     is( $checking_account->balance, 50,
-        '... got the right checkings balance after withdrawl failure' );
+        '... got the right checkings balance after withdrawal failure' );
 }
 }
 

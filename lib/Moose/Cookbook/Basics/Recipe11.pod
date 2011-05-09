@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe11 - Extending a non-Moose base class
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 
@@ -31,17 +31,6 @@ version 2.0002
       clearer   => '_clear_mayan_date',
       predicate => 'has_mayan_date',
   );
-
-  sub new {
-      my $class = shift;
-
-      my $obj = $class->SUPER::new(@_);
-
-      return $class->meta->new_object(
-          __INSTANCE__ => $obj,
-          @_,
-      );
-  }
 
   after 'set' => sub {
       $_[0]->_clear_mayan_date;

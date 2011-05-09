@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::VERSION = '2.0002';
+  $Moose::Meta::Role::VERSION = '2.0003';
 }
 
 use strict;
@@ -588,10 +588,46 @@ sub is_anon_role     { shift->is_anon(@_)     }
 sub _anon_cache_key {
     my $class = shift;
     my %options = @_;
+
+    # XXX fix this duplication (see MMC::_anon_cache_key
+    my $roles = Data::OptList::mkopt(($options{roles} || []), {
+        moniker  => 'role',
+        val_test => sub { ref($_[0]) eq 'HASH' },
+    });
+
+    my @role_keys;
+    for my $role_spec (@$roles) {
+        my ($role, $params) = @$role_spec;
+        $params = { %$params };
+
+        my $key = blessed($role) ? $role->name : $role;
+
+        if ($params && %$params) {
+            my $alias    = delete $params->{'-alias'}
+                        || delete $params->{'alias'}
+                        || {};
+            my $excludes = delete $params->{'-excludes'}
+                        || delete $params->{'excludes'}
+                        || [];
+            $excludes = [$excludes] unless ref($excludes) eq 'ARRAY';
+
+            if (%$params) {
+                # disable this warning until 2.02
+                # warn "Roles with parameters cannot be cached. Consider "
+                #    . "applying the parameters before calling "
+                #    . "create_anon_class, or using 'weaken => 0' instead";
+                return;
+            }
+
+            $key .= '<' . join('+', 'a', join('%', %$alias),
+                                    'e', join('%', @$excludes)) . '>';
+        }
+
+        push @role_keys, $key;
+    }
+
     # Makes something like Role|Role::1
-    return join '=' => (
-        join( '|', sort @{ $options{roles} || [] } ),
-    );
+    return join('|', @role_keys);
 }
 
 #####################################################################
@@ -715,14 +751,14 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 DESCRIPTION
 
 This class is a subclass of L<Class::MOP::Module> that provides
 additional Moose-specific functionality.
 
-It's API looks a lot like L<Moose::Meta::Class>, but internally it
+Its API looks a lot like L<Moose::Meta::Class>, but internally it
 implements many things differently. This may change in the future.
 
 =head1 INHERITANCE

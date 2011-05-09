@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::VERSION = '2.0002';
+  $Moose::Util::VERSION = '2.0003';
 }
 
 use strict;
@@ -102,7 +102,18 @@ sub _apply_all_roles {
         Moose->throw_error("Must specify at least one role to apply to $applicant");
     }
 
-    my $roles = Data::OptList::mkopt( [@_] );
+    # If @_ contains role meta objects, mkopt will think that they're values,
+    # because they're references.  In other words (roleobj1, roleobj2,
+    # roleobj3) will become [ [ roleobj1, roleobj2 ], [ roleobj3, undef ] ]
+    # -- this is no good.  We'll preprocess @_ first to eliminate the potential
+    # bug.
+    # -- rjbs, 2011-04-08
+    my $roles = Data::OptList::mkopt( [@_], {
+      moniker   => 'role',
+      name_test => sub {
+        ! ref $_[0] or blessed($_[0]) && $_[0]->isa('Moose::Meta::Role')
+      }
+    });
 
     my @role_metas;
     foreach my $role (@$roles) {
@@ -311,7 +322,7 @@ sub _reconcile_roles_for_metaclass {
     # handle the case where we need to fix compatibility between a class and
     # its parent, but all roles in the class are already also done by the
     # parent
-    # see t/050/054.t
+    # see t/metaclasses/metaclass_compat_no_fixing_bug.t
     return $super_meta_name
         unless @role_differences;
 
@@ -467,7 +478,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 

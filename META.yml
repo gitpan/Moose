@@ -10,7 +10,7 @@ configure_requires:
   Dist::CheckConflicts: 0.02
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.101670'
+generated_by: 'Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -20,13 +20,24 @@ no_index:
   directory:
     - benchmarks
   namespace:
+    - Class::MOP::Mixin
     - Moose::Meta::Method::Accessor::Native
+    - Moose::Meta::Mixin
   package:
+    - Class::MOP::Class::Immutable::Trait
+    - Class::MOP::Deprecated
+    - Class::MOP::MiniTrait
+    - Class::MOP::Mixin
+    - Moose::Deprecated
+    - Moose::Meta::Attribute::Native::Trait
+    - Moose::Meta::Class::Immutable::Trait
     - Moose::Meta::Method::Accessor::Native
+    - Moose::Meta::Object::Trait
+    - Moose::Util::TypeConstraint::OptimizedConstraints
 recommends:
   Devel::PartialDump: 0.14
 requires:
-  Data::OptList: 0
+  Data::OptList: 0.107
   Devel::GlobalDestruction: 0
   Eval::Closure: 0.04
   List::MoreUtils: 0.12
@@ -44,7 +55,7 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Moose
   repository: git://git.moose.perl.org/Moose.git
-version: 2.0002
+version: 2.0003
 x_authority: cpan:STEVAN
 x_conflicts:
   Catalyst: 5.80028

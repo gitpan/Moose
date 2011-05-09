@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Instance::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Instance::VERSION = '2.0002';
+  $Class::MOP::Instance::VERSION = '2.0003';
 }
 
 use strict;
@@ -156,7 +156,8 @@ sub strengthen_slot_value {
 sub rebless_instance_structure {
     my ($self, $instance, $metaclass) = @_;
 
-    # we use $_[1] here because of t/306_rebless_overload.t regressions on 5.8.8
+    # we use $_[1] here because of t/cmop/rebless_overload.t regressions
+    # on 5.8.8
     bless $_[1], $metaclass->name;
 }
 
@@ -263,7 +264,7 @@ Class::MOP::Instance - Instance Meta Object
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 DESCRIPTION
 

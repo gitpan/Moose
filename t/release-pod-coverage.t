@@ -27,8 +27,11 @@ my %trustme = (
     'Class::MOP' => [
         'DEBUG_NO_META',
         'HAVE_ISAREV',
+        'IS_RUNNING_ON_5_10',
         'subname',
         'in_global_destruction',
+        'check_package_cache_flag',
+        'load_first_existing_class',
     ],
     'Class::MOP::Attribute' => ['process_accessors'],
     'Class::MOP::Class'     => [
@@ -110,6 +113,7 @@ my %trustme = (
     'Class::MOP::Mixin::HasAttributes' => ['.+'],
     'Class::MOP::Mixin::HasMethods'    => ['.+'],
     'Class::MOP::Package'    => [ 'get_method_map', 'wrap_method_body' ],
+    'Moose' => ['init_meta', 'throw_error'],
     'Moose::Error::Confess'  => ['new'],
     'Moose::Meta::Attribute' => [
         qw( interpolate_class
@@ -167,6 +171,7 @@ my %trustme = (
     'Moose::Meta::Mixin::AttributeCore' => ['.+'],
     'Moose::Meta::Role::Composite' =>
         [ 'get_method', 'get_method_list', 'has_method', 'add_method' ],
+    'Moose::Object' => ['BUILDALL', 'DEMOLISHALL'],
     'Moose::Role' => [
         qw( after
             around
@@ -177,7 +182,8 @@ my %trustme = (
             inner
             override
             super
-            with )
+            with
+            init_meta )
     ],
     'Moose::Meta::TypeCoercion'        => ['compile_type_coercion'],
     'Moose::Meta::TypeCoercion::Union' => ['compile_type_coercion'],

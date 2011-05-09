@@ -554,7 +554,6 @@ t/native_traits/trait_hash.t
 t/native_traits/trait_number.t
 t/native_traits/trait_string.t
 t/recipes/basics_recipe1.t
-t/recipes/basics_recipe10.t
 t/recipes/basics_recipe11.t
 t/recipes/basics_recipe2.t
 t/recipes/basics_recipe3.t

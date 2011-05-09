@@ -50,18 +50,23 @@ use Test::Requires {
 
   has 'name' => ( is => 'rw', isa => 'Str', required => 1 );
   has 'address'   => ( is => 'rw', isa => 'Address' );
-  has 'employees' => ( is => 'rw', isa => 'ArrayRef[Employee]' );
+  has 'employees' => (
+      is      => 'rw',
+      isa     => 'ArrayRef[Employee]',
+      default => sub { [] },
+  );
 
   sub BUILD {
       my ( $self, $params ) = @_;
-      foreach my $employee ( @{ $self->employees || [] } ) {
+      foreach my $employee ( @{ $self->employees } ) {
           $employee->employer($self);
       }
   }
 
   after 'employees' => sub {
       my ( $self, $employees ) = @_;
-      foreach my $employee ( @{ $employees || [] } ) {
+      return unless $employees;
+      foreach my $employee ( @$employees ) {
           $employee->employer($self);
       }
   };

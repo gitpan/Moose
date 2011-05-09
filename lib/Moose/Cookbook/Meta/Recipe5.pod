@@ -12,7 +12,7 @@ Moose::Cookbook::Meta::Recipe5 - The "table" attribute as a metaclass trait
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 

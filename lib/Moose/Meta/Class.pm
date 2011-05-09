@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Class::VERSION = '2.0002';
+  $Moose::Meta::Class::VERSION = '2.0003';
 }
 
 use strict;
@@ -109,11 +109,51 @@ sub _anon_package_prefix { 'Moose::Meta::Class::__ANON__::SERIAL::' }
 sub _anon_cache_key {
     my $class = shift;
     my %options = @_;
-    # Makes something like Super::Class|Super::Class::2=Role|Role::1
-    return join '=' => (
-        join( '|', @{ $options{superclasses} || [] } ),
-        join( '|', sort @{ $options{roles}   || [] } ),
+
+    my $superclass_key = join('|',
+        map { $_->[0] } @{ Data::OptList::mkopt($options{superclasses} || []) }
     );
+
+    my $roles = Data::OptList::mkopt(($options{roles} || []), {
+        moniker  => 'role',
+        val_test => sub { ref($_[0]) eq 'HASH' },
+    });
+
+    my @role_keys;
+    for my $role_spec (@$roles) {
+        my ($role, $params) = @$role_spec;
+        $params = { %$params } if $params;
+
+        my $key = blessed($role) ? $role->name : $role;
+
+        if ($params && %$params) {
+            my $alias    = delete $params->{'-alias'}
+                        || delete $params->{'alias'}
+                        || {};
+            my $excludes = delete $params->{'-excludes'}
+                        || delete $params->{'excludes'}
+                        || [];
+            $excludes = [$excludes] unless ref($excludes) eq 'ARRAY';
+
+            if (%$params) {
+                # disable this warning until 2.02
+                # warn "Roles with parameters cannot be cached. Consider "
+                #    . "applying the parameters before calling "
+                #    . "create_anon_class, or using 'weaken => 0' instead";
+                return;
+            }
+
+            $key .= '<' . join('+', 'a', join('%', %$alias),
+                                    'e', join('%', @$excludes)) . '>';
+        }
+
+        push @role_keys, $key;
+    }
+
+    my $role_key = join('|', @role_keys);
+
+    # Makes something like Super::Class|Super::Class::2=Role|Role::1
+    return join('=', $superclass_key, $role_key);
 }
 
 sub reinitialize {
@@ -698,7 +738,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 DESCRIPTION
 

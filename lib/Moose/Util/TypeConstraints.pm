@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::TypeConstraints::VERSION = '2.0002';
+  $Moose::Util::TypeConstraints::VERSION = '2.0003';
 }
 
 use Carp ();
@@ -420,7 +420,7 @@ sub coerce {
 #
 # subtype( 'Foo', as( 'Str', where { ... } ) );
 #
-# If as() returns all it's extra arguments, this just works, and
+# If as() returns all its extra arguments, this just works, and
 # preserves backwards compatibility.
 sub as { { as => shift }, @_ }
 sub where (&)       { { where       => $_[0] } }
@@ -891,26 +891,26 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.0002
+version 2.0003
 
 =head1 SYNOPSIS
 
   use Moose::Util::TypeConstraints;
 
-  subtype 'Natural'
-      => as 'Int'
-      => where { $_ > 0 };
+  subtype 'Natural',
+      as 'Int',
+      where { $_ > 0 };
 
-  subtype 'NaturalLessThanTen'
-      => as 'Natural'
-      => where { $_ < 10 }
-      => message { "This number ($_) is not less than ten!" };
+  subtype 'NaturalLessThanTen',
+      as 'Natural',
+      where { $_ < 10 },
+      message { "This number ($_) is not less than ten!" };
 
-  coerce 'Num'
-      => from 'Str'
-        => via { 0+$_ };
+  coerce 'Num',
+      from 'Str',
+      via { 0+$_ };
 
-  enum 'RGBColors' => qw(red green blue);
+  enum 'RGBColors', [qw(red green blue)];
 
   no Moose::Util::TypeConstraints;
 
@@ -952,7 +952,7 @@ this, as well as future proof your subtypes from classes which have
 yet to have been created, is to quote the type name:
 
   use DateTime;
-  subtype 'DateTime' => as 'Object' => where { $_->isa('DateTime') };
+  subtype 'DateTime', as 'Object', where { $_->isa('DateTime') };
 
 =head2 Default Type Constraints
 
@@ -1023,7 +1023,7 @@ I<My::Graphics::Types::Color> instead.
 
 This module can play nicely with other constraint modules with some
 slight tweaking. The C<where> clause in types is expected to be a
-C<CODE> reference which checks it's first argument and returns a
+C<CODE> reference which checks its first argument and returns a
 boolean. Since most constraint modules work in a similar way, it
 should be simple to adapt them to work with Moose.
 
@@ -1031,21 +1031,21 @@ For instance, this is how you could use it with
 L<Declare::Constraints::Simple> to declare a completely new type.
 
   type 'HashOfArrayOfObjects',
-      {
-      where => IsHashRef(
-          -keys   => HasLength,
-          -values => IsArrayRef(IsObject)
-      )
-  };
+      where {
+          IsHashRef(
+              -keys   => HasLength,
+              -values => IsArrayRef(IsObject)
+          )->(@_);
+      };
 
-For more examples see the F<t/200_examples/004_example_w_DCS.t> test
+For more examples see the F<t/examples/example_w_DCS.t> test
 file.
 
-Here is an example of using L<Test::Deep> and it's non-test
+Here is an example of using L<Test::Deep> and its non-test
 related C<eq_deeply> function.
 
-  type 'ArrayOfHashOfBarsAndRandomNumbers'
-      => where {
+  type 'ArrayOfHashOfBarsAndRandomNumbers',
+      where {
           eq_deeply($_,
               array_each(subhashof({
                   bar           => isa('Bar'),
@@ -1054,7 +1054,23 @@ related C<eq_deeply> function.
         };
 
 For a complete example see the
-F<t/200_examples/005_example_w_TestDeep.t> test file.
+F<t/examples/example_w_TestDeep.t> test file.
+
+=head2 Error messages
+
+Type constraints can also specify custom error messages, for when they fail to
+validate. This is provided as just another coderef, which receives the invalid
+value in C<$_>, as in:
+
+  subtype 'PositiveInt',
+       as 'Int',
+       where { $_ > 0 },
+       message { "$_ is not a positive integer!" };
+
+If no message is specified, a default message will be used, which indicates
+which type constraint was being used and what value failed. If
+L<Devel::PartialDump> (version 0.14 or higher) is installed, it will be used to
+display the invalid value, otherwise it will just be printed as is.
 
 =head1 FUNCTIONS
 
@@ -1068,7 +1084,7 @@ See the L</SYNOPSIS> for an example of how to use these.
 
 =over 4
 
-=item B<< subtype 'Name' => as 'Parent' => where { } ... >>
+=item B<< subtype 'Name', as 'Parent', where { } ... >>
 
 This creates a named subtype.
 
@@ -1084,7 +1100,7 @@ name and a hashref of parameters:
 The valid hashref keys are C<as> (the parent), C<where>, C<message>,
 and C<optimize_as>.
 
-=item B<< subtype as 'Parent' => where { } ... >>
+=item B<< subtype as 'Parent', where { } ... >>
 
 This creates an unnamed subtype and will return the type
 constraint meta-object, which will be an instance of
@@ -1186,7 +1202,7 @@ B<NOTE:> You should only use this if you know what you are doing.
 All the built in types use this, so your subtypes (assuming they
 are shallow) will not likely need to use this.
 
-=item B<< type 'Name' => where { } ... >>
+=item B<< type 'Name', where { } ... >>
 
 This creates a base type, which has no parent.
 
@@ -1285,16 +1301,16 @@ See the L</SYNOPSIS> for an example of how to use these.
 
 =over 4
 
-=item B<< coerce 'Name' => from 'OtherName' => via { ... }  >>
+=item B<< coerce 'Name', from 'OtherName', via { ... }  >>
 
 This defines a coercion from one type to another. The C<Name> argument
 is the type you are coercing I<to>.
 
 To define multiple coercions, supply more sets of from/via pairs:
 
-  coerce 'Name' =>
-    from 'OtherName' => via { ... },
-    from 'ThirdName' => via { ... };
+  coerce 'Name',
+    from 'OtherName', via { ... },
+    from 'ThirdName', via { ... };
 
 =item B<from 'OtherName'>
 
