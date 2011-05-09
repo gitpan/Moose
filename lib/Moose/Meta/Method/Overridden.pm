@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Overridden::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Overridden::VERSION = '2.0003';
+  $Moose::Meta::Method::Overridden::VERSION = '2.0004';
 }
 
 use strict;
@@ -63,7 +63,7 @@ Moose::Meta::Method::Overridden - A Moose Method metaclass for overridden method
 
 =head1 VERSION
 
-version 2.0003
+version 2.0004
 
 =head1 DESCRIPTION
 

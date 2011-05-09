@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Class::VERSION = '2.0003';
+  $Moose::Meta::Class::VERSION = '2.0004';
 }
 
 use strict;
@@ -143,14 +143,14 @@ sub _anon_cache_key {
                 return;
             }
 
-            $key .= '<' . join('+', 'a', join('%', %$alias),
-                                    'e', join('%', @$excludes)) . '>';
+            $key .= '<' . join('+', 'a', join('%', sort %$alias),
+                                    'e', join('%', sort @$excludes)) . '>';
         }
 
         push @role_keys, $key;
     }
 
-    my $role_key = join('|', @role_keys);
+    my $role_key = join('|', sort @role_keys);
 
     # Makes something like Super::Class|Super::Class::2=Role|Role::1
     return join('=', $superclass_key, $role_key);
@@ -738,7 +738,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.0003
+version 2.0004
 
 =head1 DESCRIPTION
 

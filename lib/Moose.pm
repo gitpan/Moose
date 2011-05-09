@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::VERSION = '2.0003';
+  $Moose::VERSION = '2.0004';
 }
 use strict;
 use warnings;
@@ -287,7 +287,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0003
+version 2.0004
 
 =head1 SYNOPSIS
 
