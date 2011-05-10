@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::VERSION = '2.0005';
+  $Moose::Meta::TypeConstraint::VERSION = '2.0006';
 }
 
 use strict;
@@ -347,7 +347,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.0005
+version 2.0006
 
 =head1 DESCRIPTION
 

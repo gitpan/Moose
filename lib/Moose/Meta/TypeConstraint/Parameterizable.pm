@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Parameterizable::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.0005';
+  $Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.0006';
 }
 
 use strict;
@@ -95,7 +95,7 @@ Moose::Meta::TypeConstraint::Parameterizable - Type constraints which can take a
 
 =head1 VERSION
 
-version 2.0005
+version 2.0006
 
 =head1 DESCRIPTION
 
