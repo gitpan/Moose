@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::VERSION = '2.0006';
+  $Moose::VERSION = '2.0007';
 }
 use strict;
 use warnings;
@@ -17,6 +17,11 @@ use Moose::Deprecated;
 use Moose::Exporter;
 
 use Class::MOP;
+
+BEGIN {
+    die "Class::MOP version $Moose::VERSION required--this is version $Class::MOP::VERSION"
+        if $Moose::VERSION && $Class::MOP::VERSION ne $Moose::VERSION;
+}
 
 use Moose::Meta::Class;
 use Moose::Meta::TypeConstraint;
@@ -287,7 +292,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0006
+version 2.0007
 
 =head1 SYNOPSIS
 

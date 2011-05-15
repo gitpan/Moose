@@ -288,6 +288,7 @@ t/attributes/attribute_without_any_methods.t
 t/attributes/attribute_writer_generation.t
 t/attributes/bad_coerce.t
 t/attributes/chained_coercion.t
+t/attributes/clone_weak.t
 t/attributes/default_undef.t
 t/attributes/delegation_and_modifiers.t
 t/attributes/delegation_arg_aliasing.t

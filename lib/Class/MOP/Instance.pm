@@ -4,13 +4,13 @@ BEGIN {
   $Class::MOP::Instance::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Instance::VERSION = '2.0006';
+  $Class::MOP::Instance::VERSION = '2.0007';
 }
 
 use strict;
 use warnings;
 
-use Scalar::Util 'weaken', 'blessed';
+use Scalar::Util 'isweak', 'weaken', 'blessed';
 
 use base 'Class::MOP::Object';
 
@@ -82,7 +82,22 @@ sub create_instance {
 
 sub clone_instance {
     my ($self, $instance) = @_;
-    bless { %$instance }, $self->_class_name;
+
+    my $clone = $self->create_instance;
+    for my $attr ($self->get_all_attributes) {
+        next unless $attr->has_value($instance);
+        for my $slot ($attr->slots) {
+            my $val = $self->get_slot_value($instance, $slot);
+            $self->set_slot_value($clone, $slot, $val);
+            $self->weaken_slot_value($clone, $slot)
+                if $self->slot_value_is_weak($instance, $slot);
+        }
+    }
+
+    $self->_set_mop_slot($clone, $self->_get_mop_slot($instance))
+        if $self->_has_mop_slot($instance);
+
+    return $clone;
 }
 
 # operations on meta instance
@@ -148,6 +163,11 @@ sub weaken_slot_value {
     weaken $instance->{$slot_name};
 }
 
+sub slot_value_is_weak {
+    my ($self, $instance, $slot_name) = @_;
+    isweak $instance->{$slot_name};
+}
+
 sub strengthen_slot_value {
     my ($self, $instance, $slot_name) = @_;
     $self->set_slot_value($instance, $slot_name, $self->get_slot_value($instance, $slot_name));
@@ -168,6 +188,11 @@ sub is_dependent_on_superclasses {
 sub _get_mop_slot {
     my ($self, $instance) = @_;
     $self->get_slot_value($instance, $RESERVED_MOP_SLOT);
+}
+
+sub _has_mop_slot {
+    my ($self, $instance) = @_;
+    $self->is_slot_initialized($instance, $RESERVED_MOP_SLOT);
 }
 
 sub _set_mop_slot {
@@ -264,7 +289,7 @@ Class::MOP::Instance - Instance Meta Object
 
 =head1 VERSION
 
-version 2.0006
+version 2.0007
 
 =head1 DESCRIPTION
 
@@ -373,6 +398,8 @@ that the object instance be passed to the method.
 =item B<< $metainstance->is_slot_initialized($instance_structure, $slot_name) >>
 
 =item B<< $metainstance->weaken_slot_value($instance_structure, $slot_name) >>
+
+=item B<< $metainstance->slot_value_is_weak($instance_structure, $slot_name) >>
 
 =item B<< $metainstance->strengthen_slot_value($instance_structure, $slot_name) >>
 

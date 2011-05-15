@@ -1,6 +1,12 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0007 Sun, May 15, 2011
+
+  [BUG FIXES]
+
+  * Make sure weak attributes remain weak when cloning. (doy, rafl)
+
 2.0006 Mon, May 09, 2011
 
   [BUG FIXES]
