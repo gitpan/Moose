@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Instance::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Instance::VERSION = '2.0007';
+  $Moose::Meta::Instance::VERSION = '2.0100'; # TRIAL
 }
 
 use strict;
@@ -30,7 +30,7 @@ Moose::Meta::Instance - The Moose Instance metaclass
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 SYNOPSIS
 

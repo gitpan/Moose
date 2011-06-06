@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Mixin::HasMethods::VERSION = '2.0007';
+  $Class::MOP::Mixin::HasMethods::VERSION = '2.0100'; # TRIAL
 }
 
 use strict;
@@ -220,7 +220,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 DESCRIPTION
 

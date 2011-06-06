@@ -12,7 +12,7 @@ Moose::Manual::Concepts - Moose OO concepts
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 MOOSE CONCEPTS (VS "OLD SCHOOL" Perl)
 

@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe2 - A simple B<BankAccount> example
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 SYNOPSIS
 

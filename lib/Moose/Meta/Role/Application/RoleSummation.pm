@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.0007';
+  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.0100'; # TRIAL
 }
 
 use strict;
@@ -18,7 +18,8 @@ use base 'Moose::Meta::Role::Application';
 
 __PACKAGE__->meta->add_attribute('role_params' => (
     reader  => 'role_params',
-    default => sub { {} }
+    default => sub { {} },
+    Class::MOP::_definition_context(),
 ));
 
 sub get_exclusions_for_role {
@@ -268,7 +269,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 DESCRIPTION
 

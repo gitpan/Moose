@@ -4,13 +4,14 @@ BEGIN {
   $Moose::Meta::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Constructor::VERSION = '2.0007';
+  $Moose::Meta::Method::Constructor::VERSION = '2.0100'; # TRIAL
 }
 
 use strict;
 use warnings;
 
 use Carp ();
+use List::MoreUtils 'any';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number', 'refaddr';
 use Try::Tiny;
 
@@ -62,6 +63,10 @@ sub _eval_environment {
     my $attrs = $self->_attributes;
 
     my $defaults = [map { $_->default } @$attrs];
+    my $triggers = [
+        map { $_->can('has_trigger') && $_->has_trigger ? $_->trigger : undef }
+            @$attrs
+    ];
 
     # We need to check if the attribute ->can('type_constraint')
     # since we may be trying to immutabilize a Moose meta class,
@@ -80,12 +85,33 @@ sub _eval_environment {
         defined $_ ? $_->_compiled_type_constraint : undef;
     } @type_constraints;
 
+    my @type_coercions = map {
+        defined $_ && $_->has_coercion
+            ? $_->coercion->_compiled_type_coercion
+            : undef
+    } @type_constraints;
+
+    my @type_constraint_messages = map {
+        defined $_
+            ? ($_->has_message ? $_->message : $_->_default_message)
+            : undef
+    } @type_constraints;
+
     return {
-        '$meta'  => \$self,
-        '$attrs' => \$attrs,
+        ((any { defined && $_->has_initializer } @$attrs)
+            ? ('$attrs' => \$attrs)
+            : ()),
         '$defaults' => \$defaults,
-        '@type_constraints' => \@type_constraints,
+        '$triggers' => \$triggers,
+        '@type_coercions' => \@type_coercions,
         '@type_constraint_bodies' => \@type_constraint_bodies,
+        '@type_constraint_messages' => \@type_constraint_messages,
+        ( map { defined($_) ? %{ $_->inline_environment } : () }
+              @type_constraints ),
+        # pretty sure this is only going to be closed over if you use a custom
+        # error class at this point, but we should still get rid of this
+        # at some point
+        '$meta'  => \($self->associated_metaclass),
     };
 }
 
@@ -103,7 +129,7 @@ Moose::Meta::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 DESCRIPTION
 

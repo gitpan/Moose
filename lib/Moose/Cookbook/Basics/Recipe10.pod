@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe10 - Using BUILDARGS and BUILD to hook into objec
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 SYNOPSIS
 

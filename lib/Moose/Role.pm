@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Role::VERSION = '2.0007';
+  $Moose::Role::VERSION = '2.0100'; # TRIAL
 }
 use strict;
 use warnings;
@@ -165,7 +165,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.0007
+version 2.0100
 
 =head1 SYNOPSIS
 
@@ -190,6 +190,23 @@ version 2.0007
       my ($self, $other) = @_;
       $self->as_float == $other->as_float;
   }
+
+  # ... and also
+
+  package Comparator;
+  use Moose;
+
+  has compare_to => (
+      is      => 'ro',
+      does    => 'Eq',
+      handles => 'Eq',
+  );
+
+  # ... which allows
+
+  my $currency1 = Currency->new(...);
+  my $currency2 = Currency->new(...);
+  Comparator->new(compare_to => $currency1)->equal($currency2);
 
 =head1 DESCRIPTION
 

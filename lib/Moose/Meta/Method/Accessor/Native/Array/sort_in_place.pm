@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::VERSION = '2.0007';
+  $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::VERSION = '2.0100'; # TRIAL
 }
 
 use strict;
