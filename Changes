@@ -1,6 +1,12 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0101 Mon, Jun 06, 2011
+
+  [OTHER]
+
+  * Various packaging issues.
+
 2.0100 Mon, Jun 06, 2011
 
   [DEPRECATIONS]
@@ -12,8 +18,8 @@ for, noteworthy changes.
   [NEW FEATURES]
 
   * Type constraints can now provide inlined versions, which should make
-    inlined code which uses type constraints (such as accessors) faster.
-    (Dave Rolsky)
+    inlined code which uses type constraints (such as accessors) faster. This
+    replaces the existing hand-optimized constraint feature.  (Dave Rolsky)
 
   [ENHANCEMENTS]
 
@@ -21,8 +27,7 @@ for, noteworthy changes.
     Most simple cases should now only close over simple data types and
     coderefs. This should make deparsing simpler.
 
-  * Type constraints can now inline their constraint checks. This replaces the
-    existing hand-optimized constraint feature.
+2.0007 Sun, May 15, 2011
 
   [BUG FIXES]
 

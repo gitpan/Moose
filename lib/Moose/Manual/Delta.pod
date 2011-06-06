@@ -12,7 +12,7 @@ Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.0100
+version 2.0101
 
 =head1 DESCRIPTION
 
@@ -26,7 +26,7 @@ feature.  If you encounter a problem and have a solution but don't see
 it documented here, or think we missed an important feature, please
 send us a patch.
 
-=head1 $NEXT
+=head1 2.0100
 
 =over 4
 

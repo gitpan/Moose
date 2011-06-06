@@ -48,9 +48,11 @@ examples/InsideOutClass.pod
 examples/InstanceCountingClass.pod
 examples/LazyClass.pod
 examples/Perl6Attribute.pod
+inc/CheckDelta.pm
 inc/Clean.pm
 inc/ExtractInlineTests.pm
 inc/GatherDir.pm
+inc/GitUpToDate.pm
 inc/MMHelper.pm
 inc/MakeMaker.pm
 inc/MyInline.pm

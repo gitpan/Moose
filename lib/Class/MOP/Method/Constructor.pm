@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Method::Constructor::VERSION = '2.0100'; # TRIAL
+  $Class::MOP::Method::Constructor::VERSION = '2.0101'; # TRIAL
 }
 
 use strict;
@@ -144,7 +144,7 @@ Class::MOP::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.0100
+version 2.0101
 
 =head1 SYNOPSIS
 
