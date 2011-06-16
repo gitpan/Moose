@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::VERSION = '2.0101'; # TRIAL
+  $Class::MOP::VERSION = '2.0008';
 }
 
 use strict;
@@ -157,15 +157,6 @@ sub _is_valid_class_name {
     return 0;
 }
 
-sub _definition_context {
-    my %context;
-    @context{qw(package file line)} = caller(1);
-
-    return (
-        definition_context => \%context,
-    );
-}
-
 ## ----------------------------------------------------------------------------
 ## Setting up our environment ...
 ## ----------------------------------------------------------------------------
@@ -201,8 +192,7 @@ Class::MOP::Mixin::HasMethods->meta->add_attribute(
             # rather than re-produce it here
             '_method_map' => \&Class::MOP::Mixin::HasMethods::_method_map
         },
-        default => sub { {} },
-        _definition_context(),
+        default => sub { {} }
     ))
 );
 
@@ -215,7 +205,6 @@ Class::MOP::Mixin::HasMethods->meta->add_attribute(
             'method_metaclass' => \&Class::MOP::Mixin::HasMethods::method_metaclass
         },
         default  => 'Class::MOP::Method',
-        _definition_context(),
     ))
 );
 
@@ -228,7 +217,6 @@ Class::MOP::Mixin::HasMethods->meta->add_attribute(
             'wrapped_method_metaclass' => \&Class::MOP::Mixin::HasMethods::wrapped_method_metaclass
         },
         default  => 'Class::MOP::Method::Wrapped',
-        _definition_context(),
     ))
 );
 
@@ -246,8 +234,7 @@ Class::MOP::Mixin::HasAttributes->meta->add_attribute(
             # rather than re-produce it here
             '_attribute_map' => \&Class::MOP::Mixin::HasAttributes::_attribute_map
         },
-        default  => sub { {} },
-        _definition_context(),
+        default  => sub { {} }
     ))
 );
 
@@ -260,7 +247,6 @@ Class::MOP::Mixin::HasAttributes->meta->add_attribute(
             'attribute_metaclass' => \&Class::MOP::Mixin::HasAttributes::attribute_metaclass
         },
         default  => 'Class::MOP::Attribute',
-        _definition_context(),
     ))
 );
 
@@ -278,7 +264,6 @@ Class::MOP::Package->meta->add_attribute(
             # rather than re-produce it here
             'name' => \&Class::MOP::Package::name
         },
-        _definition_context(),
     ))
 );
 
@@ -291,8 +276,7 @@ Class::MOP::Package->meta->add_attribute(
             'namespace' => \&Class::MOP::Package::namespace
         },
         init_arg => undef,
-        default  => sub { \undef },
-        _definition_context(),
+        default  => sub { \undef }
     ))
 );
 
@@ -318,8 +302,7 @@ Class::MOP::Module->meta->add_attribute(
             'version' => \&Class::MOP::Module::version
         },
         init_arg => undef,
-        default  => sub { \undef },
-        _definition_context(),
+        default  => sub { \undef }
     ))
 );
 
@@ -338,8 +321,7 @@ Class::MOP::Module->meta->add_attribute(
             'authority' => \&Class::MOP::Module::authority
         },
         init_arg => undef,
-        default  => sub { \undef },
-        _definition_context(),
+        default  => sub { \undef }
     ))
 );
 
@@ -355,8 +337,7 @@ Class::MOP::Class->meta->add_attribute(
             'superclasses' => \&Class::MOP::Class::superclasses
         },
         init_arg => undef,
-        default  => sub { \undef },
-        _definition_context(),
+        default  => sub { \undef }
     ))
 );
 
@@ -372,7 +353,6 @@ Class::MOP::Class->meta->add_attribute(
             'instance_metaclass' => \&Class::MOP::Class::instance_metaclass
         },
         default  => 'Class::MOP::Instance',
-        _definition_context(),
     ))
 );
 
@@ -382,7 +362,6 @@ Class::MOP::Class->meta->add_attribute(
             'immutable_trait' => \&Class::MOP::Class::immutable_trait
         },
         default => "Class::MOP::Class::Immutable::Trait",
-        _definition_context(),
     ))
 );
 
@@ -392,7 +371,6 @@ Class::MOP::Class->meta->add_attribute(
             'constructor_name' => \&Class::MOP::Class::constructor_name,
         },
         default => "new",
-        _definition_context(),
     ))
 );
 
@@ -402,7 +380,6 @@ Class::MOP::Class->meta->add_attribute(
             'constructor_class' => \&Class::MOP::Class::constructor_class,
         },
         default => "Class::MOP::Method::Constructor",
-        _definition_context(),
     ))
 );
 
@@ -412,7 +389,6 @@ Class::MOP::Class->meta->add_attribute(
         reader   => {
             'destructor_class' => \&Class::MOP::Class::destructor_class,
         },
-        _definition_context(),
     ))
 );
 
@@ -434,8 +410,7 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
             # we just alias the original method
             # rather than re-produce it here
             'name' => \&Class::MOP::Mixin::AttributeCore::name
-        },
-        _definition_context(),
+        }
     ))
 );
 
@@ -443,7 +418,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('accessor' => (
         reader    => { 'accessor'     => \&Class::MOP::Mixin::AttributeCore::accessor     },
         predicate => { 'has_accessor' => \&Class::MOP::Mixin::AttributeCore::has_accessor },
-        _definition_context(),
     ))
 );
 
@@ -451,7 +425,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('reader' => (
         reader    => { 'reader'     => \&Class::MOP::Mixin::AttributeCore::reader     },
         predicate => { 'has_reader' => \&Class::MOP::Mixin::AttributeCore::has_reader },
-        _definition_context(),
     ))
 );
 
@@ -459,14 +432,12 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('initializer' => (
         reader    => { 'initializer'     => \&Class::MOP::Mixin::AttributeCore::initializer     },
         predicate => { 'has_initializer' => \&Class::MOP::Mixin::AttributeCore::has_initializer },
-        _definition_context(),
     ))
 );
 
 Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('definition_context' => (
         reader    => { 'definition_context'     => \&Class::MOP::Mixin::AttributeCore::definition_context     },
-        _definition_context(),
     ))
 );
 
@@ -474,7 +445,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('writer' => (
         reader    => { 'writer'     => \&Class::MOP::Mixin::AttributeCore::writer     },
         predicate => { 'has_writer' => \&Class::MOP::Mixin::AttributeCore::has_writer },
-        _definition_context(),
     ))
 );
 
@@ -482,7 +452,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('predicate' => (
         reader    => { 'predicate'     => \&Class::MOP::Mixin::AttributeCore::predicate     },
         predicate => { 'has_predicate' => \&Class::MOP::Mixin::AttributeCore::has_predicate },
-        _definition_context(),
     ))
 );
 
@@ -490,7 +459,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('clearer' => (
         reader    => { 'clearer'     => \&Class::MOP::Mixin::AttributeCore::clearer     },
         predicate => { 'has_clearer' => \&Class::MOP::Mixin::AttributeCore::has_clearer },
-        _definition_context(),
     ))
 );
 
@@ -498,7 +466,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('builder' => (
         reader    => { 'builder'     => \&Class::MOP::Mixin::AttributeCore::builder     },
         predicate => { 'has_builder' => \&Class::MOP::Mixin::AttributeCore::has_builder },
-        _definition_context(),
     ))
 );
 
@@ -506,7 +473,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('init_arg' => (
         reader    => { 'init_arg'     => \&Class::MOP::Mixin::AttributeCore::init_arg     },
         predicate => { 'has_init_arg' => \&Class::MOP::Mixin::AttributeCore::has_init_arg },
-        _definition_context(),
     ))
 );
 
@@ -514,7 +480,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
     Class::MOP::Attribute->new('default' => (
         # default has a custom 'reader' method ...
         predicate => { 'has_default' => \&Class::MOP::Mixin::AttributeCore::has_default },
-        _definition_context(),
     ))
 );
 
@@ -523,7 +488,6 @@ Class::MOP::Mixin::AttributeCore->meta->add_attribute(
         reader      => { 'insertion_order' => \&Class::MOP::Mixin::AttributeCore::insertion_order },
         writer      => { '_set_insertion_order' => \&Class::MOP::Mixin::AttributeCore::_set_insertion_order },
         predicate   => { 'has_insertion_order' => \&Class::MOP::Mixin::AttributeCore::has_insertion_order },
-        _definition_context(),
     ))
 );
 
@@ -539,16 +503,14 @@ Class::MOP::Attribute->meta->add_attribute(
             # we just alias the original method
             # rather than re-produce it here
             'associated_class' => \&Class::MOP::Attribute::associated_class
-        },
-        _definition_context(),
+        }
     ))
 );
 
 Class::MOP::Attribute->meta->add_attribute(
     Class::MOP::Attribute->new('associated_methods' => (
         reader   => { 'associated_methods' => \&Class::MOP::Attribute::associated_methods },
-        default  => sub { [] },
-        _definition_context(),
+        default  => sub { [] }
     ))
 );
 
@@ -562,28 +524,24 @@ Class::MOP::Attribute->meta->add_method('clone' => sub {
 Class::MOP::Method->meta->add_attribute(
     Class::MOP::Attribute->new('body' => (
         reader   => { 'body' => \&Class::MOP::Method::body },
-        _definition_context(),
     ))
 );
 
 Class::MOP::Method->meta->add_attribute(
     Class::MOP::Attribute->new('associated_metaclass' => (
         reader   => { 'associated_metaclass' => \&Class::MOP::Method::associated_metaclass },
-        _definition_context(),
     ))
 );
 
 Class::MOP::Method->meta->add_attribute(
     Class::MOP::Attribute->new('package_name' => (
         reader   => { 'package_name' => \&Class::MOP::Method::package_name },
-        _definition_context(),
     ))
 );
 
 Class::MOP::Method->meta->add_attribute(
     Class::MOP::Attribute->new('name' => (
         reader   => { 'name' => \&Class::MOP::Method::name },
-        _definition_context(),
     ))
 );
 
@@ -591,7 +549,6 @@ Class::MOP::Method->meta->add_attribute(
     Class::MOP::Attribute->new('original_method' => (
         reader   => { 'original_method'      => \&Class::MOP::Method::original_method },
         writer   => { '_set_original_method' => \&Class::MOP::Method::_set_original_method },
-        _definition_context(),
     ))
 );
 
@@ -604,9 +561,7 @@ Class::MOP::Method->meta->add_attribute(
 # practices of attributes, but we put
 # it here for completeness
 Class::MOP::Method::Wrapped->meta->add_attribute(
-    Class::MOP::Attribute->new('modifier_table' => (
-        _definition_context(),
-    ))
+    Class::MOP::Attribute->new('modifier_table')
 );
 
 ## --------------------------------------------------------
@@ -615,15 +570,13 @@ Class::MOP::Method::Wrapped->meta->add_attribute(
 Class::MOP::Method::Generated->meta->add_attribute(
     Class::MOP::Attribute->new('is_inline' => (
         reader   => { 'is_inline' => \&Class::MOP::Method::Generated::is_inline },
-        default  => 0,
-        _definition_context(),
+        default  => 0, 
     ))
 );
 
 Class::MOP::Method::Generated->meta->add_attribute(
     Class::MOP::Attribute->new('definition_context' => (
         reader   => { 'definition_context' => \&Class::MOP::Method::Generated::definition_context },
-        _definition_context(),
     ))
 );
 
@@ -634,7 +587,6 @@ Class::MOP::Method::Generated->meta->add_attribute(
 Class::MOP::Method::Inlined->meta->add_attribute(
     Class::MOP::Attribute->new('_expected_method_class' => (
         reader   => { '_expected_method_class' => \&Class::MOP::Method::Inlined::_expected_method_class },
-        _definition_context(),
     ))
 );
 
@@ -646,14 +598,12 @@ Class::MOP::Method::Accessor->meta->add_attribute(
         reader   => {
             'associated_attribute' => \&Class::MOP::Method::Accessor::associated_attribute
         },
-        _definition_context(),
     ))
 );
 
 Class::MOP::Method::Accessor->meta->add_attribute(
     Class::MOP::Attribute->new('accessor_type' => (
         reader   => { 'accessor_type' => \&Class::MOP::Method::Accessor::accessor_type },
-        _definition_context(),
     ))
 );
 
@@ -665,8 +615,7 @@ Class::MOP::Method::Constructor->meta->add_attribute(
         reader   => {
             'options' => \&Class::MOP::Method::Constructor::options
         },
-        default  => sub { +{} },
-        _definition_context(),
+        default  => sub { +{} }
     ))
 );
 
@@ -676,7 +625,6 @@ Class::MOP::Method::Constructor->meta->add_attribute(
         reader   => {
             'associated_metaclass' => \&Class::MOP::Method::Constructor::associated_metaclass
         },
-        _definition_context(),
     ))
 );
 
@@ -690,7 +638,6 @@ Class::MOP::Method::Constructor->meta->add_attribute(
 Class::MOP::Instance->meta->add_attribute(
     Class::MOP::Attribute->new('associated_metaclass',
         reader   => { associated_metaclass => \&Class::MOP::Instance::associated_metaclass },
-        _definition_context(),
     ),
 );
 
@@ -700,28 +647,24 @@ Class::MOP::Instance->meta->add_attribute(
         reader   => { _class_name => \&Class::MOP::Instance::_class_name },
         #lazy     => 1, # not yet supported by Class::MOP but out our version does it anyway
         #default  => sub { $_[0]->associated_metaclass->name },
-        _definition_context(),
     ),
 );
 
 Class::MOP::Instance->meta->add_attribute(
     Class::MOP::Attribute->new('attributes',
         reader   => { attributes => \&Class::MOP::Instance::get_all_attributes },
-        _definition_context(),
     ),
 );
 
 Class::MOP::Instance->meta->add_attribute(
     Class::MOP::Attribute->new('slots',
         reader   => { slots => \&Class::MOP::Instance::slots },
-        _definition_context(),
     ),
 );
 
 Class::MOP::Instance->meta->add_attribute(
     Class::MOP::Attribute->new('slot_hash',
         reader   => { slot_hash => \&Class::MOP::Instance::slot_hash },
-        _definition_context(),
     ),
 );
 
@@ -802,7 +745,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 DESCRIPTION
 

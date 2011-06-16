@@ -154,10 +154,10 @@ _export_is_flagged (SV *sv)
     OUTPUT:
         RETVAL
 
-MODULE = Moose  PACKAGE = Moose::Util::TypeConstraints::Builtins
+MODULE = Moose  PACKAGE = Moose::Util::TypeConstraints::OptimizedConstraints
 
 bool
-_RegexpRef (SV *sv=NULL)
+RegexpRef (SV *sv=NULL)
     INIT:
         if (!items) {
             sv = DEFSV;

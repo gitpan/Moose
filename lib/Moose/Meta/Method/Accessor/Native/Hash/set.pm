@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::set::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.0101'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.0008';
 }
 
 use strict;
@@ -40,7 +40,10 @@ around _inline_check_argument_count => sub {
         $self->$orig(@_),
         'if (@_ % 2) {',
             $self->_inline_throw_error(
-                '"You must pass an even number of arguments to set"',
+                sprintf(
+                    '"You must pass an even number of arguments to %s"',
+                    $self->delegate_to_method,
+                ),
             ) . ';',
         '}',
     );
@@ -62,7 +65,10 @@ sub _inline_check_arguments {
         'for (@keys_idx) {',
             'if (!defined($_[$_])) {',
                 $self->_inline_throw_error(
-                    '"Hash keys passed to set must be defined"',
+                    sprintf(
+                        '"Hash keys passed to %s must be defined"',
+                        $self->delegate_to_method,
+                    ),
                 ) . ';',
             '}',
         '}',
@@ -85,7 +91,7 @@ sub _inline_coerce_new_values {
         'my $iter = List::MoreUtils::natatime(2, @_);',
         '@_ = ();',
         'while (my ($key, $val) = $iter->()) {',
-            'push @_, $key, $member_coercion->($val);',
+            'push @_, $key, $member_tc_obj->coerce($val);',
         '}',
     );
 };

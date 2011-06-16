@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::VERSION = '2.0101'; # TRIAL
+  $Moose::VERSION = '2.0008';
 }
 use strict;
 use warnings;
@@ -252,6 +252,7 @@ $_->make_immutable(
     Moose::Meta::TypeCoercion::Union
 
     Moose::Meta::Method
+    Moose::Meta::Method::Accessor
     Moose::Meta::Method::Constructor
     Moose::Meta::Method::Destructor
     Moose::Meta::Method::Overridden
@@ -272,17 +273,9 @@ $_->make_immutable(
     Moose::Meta::Role::Application::ToInstance
 );
 
-$_->make_immutable(
+Moose::Meta::Mixin::AttributeCore->meta->make_immutable(
     inline_constructor => 0,
     constructor_name   => undef,
-    # these are Class::MOP accessors, so they need inlining
-    inline_accessors => 1
-    ) for grep { $_->is_mutable }
-    map { $_->meta }
-    qw(
-    Moose::Meta::Method::Accessor
-    Moose::Meta::Method::Delegation
-    Moose::Meta::Mixin::AttributeCore
 );
 
 1;
@@ -299,7 +292,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 SYNOPSIS
 

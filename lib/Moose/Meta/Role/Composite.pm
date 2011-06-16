@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Composite::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Composite::VERSION = '2.0101'; # TRIAL
+  $Moose::Meta::Role::Composite::VERSION = '2.0008';
 }
 
 use strict;
@@ -20,10 +20,7 @@ use base 'Moose::Meta::Role';
 # since we don't have an actual
 # package for this.
 # - SL
-__PACKAGE__->meta->add_attribute('name' => (
-    reader => 'name',
-    Class::MOP::_definition_context(),
-));
+__PACKAGE__->meta->add_attribute('name' => (reader => 'name'));
 
 # NOTE:
 # Again, since we don't have a real
@@ -32,15 +29,13 @@ __PACKAGE__->meta->add_attribute('name' => (
 # - SL
 __PACKAGE__->meta->add_attribute('_methods' => (
     reader  => '_method_map',
-    default => sub { {} },
-    Class::MOP::_definition_context(),
+    default => sub { {} }
 ));
 
 __PACKAGE__->meta->add_attribute(
     'application_role_summation_class',
     reader  => 'application_role_summation_class',
     default => 'Moose::Meta::Role::Application::RoleSummation',
-    Class::MOP::_definition_context(),
 );
 
 sub new {
@@ -165,7 +160,7 @@ Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 DESCRIPTION
 

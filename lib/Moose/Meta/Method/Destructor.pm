@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Destructor::VERSION = '2.0101'; # TRIAL
+  $Moose::Meta::Method::Destructor::VERSION = '2.0008';
 }
 
 use strict;
@@ -149,7 +149,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 DESCRIPTION
 

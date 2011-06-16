@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::VERSION = '2.0101'; # TRIAL
+  $Moose::Meta::Method::Accessor::VERSION = '2.0008';
 }
 
 use strict;
@@ -14,15 +14,6 @@ use Try::Tiny;
 
 use base 'Moose::Meta::Method',
          'Class::MOP::Method::Accessor';
-
-# multiple inheritance is terrible
-sub new {
-    goto &Class::MOP::Method::Accessor::new;
-}
-
-sub _new {
-    goto &Class::MOP::Method::Accessor::_new;
-}
 
 sub _error_thrower {
     my $self = shift;
@@ -50,41 +41,19 @@ sub _compile_code {
 sub _eval_environment {
     my $self = shift;
 
-    my $env = { };
+    my $attr                = $self->associated_attribute;
+    my $type_constraint_obj = $attr->type_constraint;
 
-    my $attr = $self->associated_attribute;
-
-    $env->{'$trigger'} = \($attr->trigger)
-        if $attr->has_trigger;
-    $env->{'$attr_default'} = \($attr->default)
-        if $attr->has_default;
-
-    if ($attr->has_type_constraint) {
-        my $tc_obj = $attr->type_constraint;
-
-        $env->{'$type_constraint'} = \(
-            $tc_obj->_compiled_type_constraint
-        ) unless $tc_obj->can_be_inlined;
-        # these two could probably get inlined versions too
-        $env->{'$type_coercion'} = \(
-            $tc_obj->coercion->_compiled_type_coercion
-        ) if $tc_obj->has_coercion;
-        $env->{'$type_message'} = \(
-            $tc_obj->has_message ? $tc_obj->message : $tc_obj->_default_message
-        );
-
-        $env = { %$env, %{ $tc_obj->inline_environment } };
-    }
-
-    # XXX ugh, fix these
-    $env->{'$attr'} = \$attr
-        if $attr->has_initializer && $attr->is_lazy;
-    # pretty sure this is only going to be closed over if you use a custom
-    # error class at this point, but we should still get rid of this
-    # at some point
-    $env->{'$meta'} = \($self->associated_metaclass);
-
-    return $env;
+    return {
+        '$attr'                => \$attr,
+        '$meta'                => \$self,
+        '$type_constraint_obj' => \$type_constraint_obj,
+        '$type_constraint'     => \(
+              $type_constraint_obj
+                  ? $type_constraint_obj->_compiled_type_constraint
+                  : undef
+        ),
+    };
 }
 
 sub _instance_is_inlinable {
@@ -130,10 +99,6 @@ sub _inline_tc_code {
     shift->associated_attribute->_inline_tc_code(@_);
 }
 
-sub _inline_check_coercion {
-    shift->associated_attribute->_inline_check_coercion(@_);
-}
-
 sub _inline_check_constraint {
     shift->associated_attribute->_inline_check_constraint(@_);
 }
@@ -176,7 +141,7 @@ Moose::Meta::Method::Accessor - A Moose Method metaclass for accessors
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 DESCRIPTION
 

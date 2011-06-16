@@ -23,7 +23,7 @@ use Dist::CheckConflicts
         'MooseX::AttributeIndexes' => '1.0.0',
         'MooseX::AttributeInflate' => '0.02',
         'MooseX::CascadeClearing' => '0.03',
-        'MooseX::ClassAttribute' => '0.25',
+        'MooseX::ClassAttribute' => '0.23',
         'MooseX::Constructor::AllErrors' => '0.012',
         'MooseX::FollowPBP' => '0.02',
         'MooseX::HasDefaults' => '0.02',

@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Deprecated::VERSION = '2.0101'; # TRIAL
+  $Class::MOP::Deprecated::VERSION = '2.0008';
 }
 
 use strict;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::accessor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::accessor::VERSION = '2.0101'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Hash::accessor::VERSION = '2.0008';
 }
 
 use strict;
@@ -17,8 +17,6 @@ with 'Moose::Meta::Method::Accessor::Native::Hash::set' => {
             _generate_method
             _minimum_arguments
             _maximum_arguments
-            _inline_check_arguments
-            _return_value
             )
     ]
     },
@@ -29,7 +27,9 @@ with 'Moose::Meta::Method::Accessor::Native::Hash::set' => {
             _minimum_arguments
             _maximum_arguments
             _inline_check_argument_count
+            _inline_check_arguments
             _inline_process_arguments
+            _return_value
             )
     ]
     };
@@ -44,11 +44,11 @@ sub _generate_method {
         'sub {',
             'my ' . $inv . ' = shift;',
             $self->_inline_curried_arguments,
-            $self->_inline_check_lazy($inv, '$type_constraint', '$type_coercion', '$type_message'),
+            $self->_inline_check_lazy($inv, '$type_constraint', '$type_constraint_obj'),
             # get
             'if (@_ == 1) {',
                 $self->_inline_check_var_is_valid_key('$_[0]'),
-                $self->Moose::Meta::Method::Accessor::Native::Hash::get::_inline_return_value($slot_access),
+                $slot_access . '->{$_[0]}',
             '}',
             # set
             'else {',

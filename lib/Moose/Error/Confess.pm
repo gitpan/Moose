@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Confess::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Error::Confess::VERSION = '2.0101'; # TRIAL
+  $Moose::Error::Confess::VERSION = '2.0008';
 }
 
 use strict;
@@ -14,16 +14,6 @@ use base qw(Moose::Error::Default);
 sub new {
     my ( $self, @args ) = @_;
     $self->create_error_confess(@args);
-}
-
-sub _inline_new {
-    my ( $self, %args ) = @_;
-
-    my $depth = ($args{depth} || 0) - 1;
-    return 'Moose::Error::Util::create_error_confess('
-      . 'message => ' . $args{message} . ', '
-      . 'depth   => ' . $depth         . ', '
-  . ')';
 }
 
 1;
@@ -40,7 +30,7 @@ Moose::Error::Confess - Prefer C<confess>
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 SYNOPSIS
 

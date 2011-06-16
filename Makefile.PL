@@ -29,7 +29,7 @@ my %WriteMakefileArgs = (
     'Data::OptList' => '0.107',
     'Devel::GlobalDestruction' => '0',
     'Eval::Closure' => '0.04',
-    'List::MoreUtils' => '0.28',
+    'List::MoreUtils' => '0.12',
     'MRO::Compat' => '0.05',
     'Package::DeprecationManager' => '0.10',
     'Package::Stash' => '0.21',
@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0101',
+  'VERSION' => '2.0008',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',

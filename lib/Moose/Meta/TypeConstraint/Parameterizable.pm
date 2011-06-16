@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Parameterizable::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.0101'; # TRIAL
+  $Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.0008';
 }
 
 use strict;
@@ -14,18 +14,9 @@ use base 'Moose::Meta::TypeConstraint';
 use Moose::Meta::TypeConstraint::Parameterized;
 use Moose::Util::TypeConstraints ();
 
-use Carp 'confess';
-
 __PACKAGE__->meta->add_attribute('constraint_generator' => (
     accessor  => 'constraint_generator',
     predicate => 'has_constraint_generator',
-    Class::MOP::_definition_context(),
-));
-
-__PACKAGE__->meta->add_attribute('inline_generator' => (
-    accessor  => 'inline_generator',
-    predicate => 'has_inline_generator',
-    Class::MOP::_definition_context(),
 ));
 
 sub generate_constraint_for {
@@ -53,16 +44,6 @@ sub _can_coerce_constraint_from {
     };
 }
 
-sub generate_inline_for {
-    my ($self, $type, $val) = @_;
-
-    confess "Can't generate an inline constraint for $type, since none "
-          . "was defined"
-        unless $self->has_inline_generator;
-
-    return '( do { ' . $self->inline_generator->( $self, $type, $val ) . ' } )';
-}
-
 sub _parse_type_parameter {
     my ($self, $type_parameter) = @_;
     return Moose::Util::TypeConstraints::find_or_create_isa_type_constraint($type_parameter);
@@ -88,10 +69,9 @@ sub parameterize {
     if ( $contained_tc->isa('Moose::Meta::TypeConstraint') ) {
         my $tc_name = $self->name . '[' . $contained_tc->name . ']';
         return Moose::Meta::TypeConstraint::Parameterized->new(
-            name               => $tc_name,
-            parent             => $self,
-            type_parameter     => $contained_tc,
-            parameterized_from => $self,
+            name           => $tc_name,
+            parent         => $self,
+            type_parameter => $contained_tc,
         );
     }
     else {
@@ -115,7 +95,7 @@ Moose::Meta::TypeConstraint::Parameterizable - Type constraints which can take a
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 DESCRIPTION
 

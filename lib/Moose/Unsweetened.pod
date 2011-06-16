@@ -1,4 +1,4 @@
-package Moose::Intro;
+package Moose::Unsweetened;
 
 # ABSTRACT: Moved to Moose::Manual::Unsweetened, so go read that
 
@@ -8,11 +8,11 @@ package Moose::Intro;
 
 =head1 NAME
 
-Moose::Intro - Moved to Moose::Manual::Unsweetened, so go read that
+Moose::Unsweetened - Moved to Moose::Manual::Unsweetened, so go read that
 
 =head1 VERSION
 
-version 2.0101
+version 2.0008
 
 =head1 DESCRIPTION
 
