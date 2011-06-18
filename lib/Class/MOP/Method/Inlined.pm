@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Method::Inlined::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Method::Inlined::VERSION = '2.0008';
+  $Class::MOP::Method::Inlined::VERSION = '2.0102'; # TRIAL
 }
 
 use strict;
@@ -123,7 +123,7 @@ Class::MOP::Method::Inlined - Method base class for methods which have been inli
 
 =head1 VERSION
 
-version 2.0008
+version 2.0102
 
 =head1 DESCRIPTION
 

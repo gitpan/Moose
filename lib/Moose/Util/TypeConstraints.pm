@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::TypeConstraints::VERSION = '2.0008';
+  $Moose::Util::TypeConstraints::VERSION = '2.0102'; # TRIAL
 }
 
 use Carp ();
@@ -24,6 +24,7 @@ sub where (&);
 sub via (&);
 sub message (&);
 sub optimize_as (&);
+sub inline_as (&);
 
 ## --------------------------------------------------------
 
@@ -39,13 +40,12 @@ use Moose::Meta::TypeConstraint::DuckType;
 use Moose::Meta::TypeCoercion;
 use Moose::Meta::TypeCoercion::Union;
 use Moose::Meta::TypeConstraint::Registry;
-use Moose::Util::TypeConstraints::OptimizedConstraints;
 
 Moose::Exporter->setup_import_methods(
     as_is => [
         qw(
             type subtype class_type role_type maybe_type duck_type
-            as where message optimize_as
+            as where message optimize_as inline_as
             coerce from via
             enum
             find_type_constraint
@@ -293,7 +293,7 @@ sub type {
 
     return _create_type_constraint(
         $name, undef, $p{where}, $p{message},
-        $p{optimize_as}
+        $p{optimize_as}, $p{inline_as},
     );
 }
 
@@ -356,7 +356,7 @@ sub subtype {
 
     return _create_type_constraint(
         $name, $p{as}, $p{where}, $p{message},
-        $p{optimize_as}
+        $p{optimize_as}, $p{inline_as},
     );
 }
 
@@ -426,6 +426,7 @@ sub as { { as => shift }, @_ }
 sub where (&)       { { where       => $_[0] } }
 sub message (&)     { { message     => $_[0] } }
 sub optimize_as (&) { { optimize_as => $_[0] } }
+sub inline_as (&)   { { inline_as   => $_[0] } }
 
 sub from    {@_}
 sub via (&) { $_[0] }
@@ -517,6 +518,7 @@ sub _create_type_constraint ($$$;$$) {
     my $check     = shift;
     my $message   = shift;
     my $optimized = shift;
+    my $inlined   = shift;
 
     my $pkg_defined_in = scalar( caller(1) );
 
@@ -543,6 +545,7 @@ sub _create_type_constraint ($$$;$$) {
         ( $check     ? ( constraint => $check )     : () ),
         ( $message   ? ( message    => $message )   : () ),
         ( $optimized ? ( optimized  => $optimized ) : () ),
+        ( $inlined   ? ( inlined    => $inlined )   : () ),
     );
 
     my $constraint;
@@ -684,8 +687,9 @@ sub _install_type_coercions ($$) {
 # define some basic built-in types
 ## --------------------------------------------------------
 
-# By making these classes immutable before creating all the types we
-# below, we avoid repeatedly calling the slow MOP-based accessors.
+# By making these classes immutable before creating all the types in
+# Moose::Util::TypeConstraints::Builtin , we avoid repeatedly calling the slow
+# MOP-based accessors.
 $_->make_immutable(
     inline_constructor => 1,
     constructor_name   => "_new",
@@ -706,145 +710,8 @@ $_->make_immutable(
     Moose::Meta::TypeConstraint::Registry
 );
 
-type 'Any'  => where {1};    # meta-type including all
-subtype 'Item' => as 'Any';  # base-type
-
-subtype 'Undef'   => as 'Item' => where { !defined($_) };
-subtype 'Defined' => as 'Item' => where { defined($_) };
-
-subtype 'Bool' => as 'Item' =>
-    where { !defined($_) || $_ eq "" || "$_" eq '1' || "$_" eq '0' };
-
-subtype 'Value' => as 'Defined' => where { !ref($_) } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Value;
-
-subtype 'Ref' => as 'Defined' => where { ref($_) } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Ref;
-
-subtype 'Str' => as 'Value' => where { ref(\$_) eq 'SCALAR' } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Str;
-
-subtype 'Num' => as 'Str' =>
-    where { Scalar::Util::looks_like_number($_) } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Num;
-
-subtype 'Int' => as 'Num' => where { "$_" =~ /^-?[0-9]+$/ } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Int;
-
-subtype 'CodeRef' => as 'Ref' => where { ref($_) eq 'CODE' } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::CodeRef;
-subtype 'RegexpRef' => as 'Ref' =>
-    where(\&Moose::Util::TypeConstraints::OptimizedConstraints::RegexpRef) =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::RegexpRef;
-subtype 'GlobRef' => as 'Ref' => where { ref($_) eq 'GLOB' } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::GlobRef;
-
-# NOTE:
-# scalar filehandles are GLOB refs,
-# but a GLOB ref is not always a filehandle
-subtype 'FileHandle' => as 'GlobRef' => where {
-    Scalar::Util::openhandle($_) || ( blessed($_) && $_->isa("IO::Handle") );
-} => optimize_as
-    \&Moose::Util::TypeConstraints::OptimizedConstraints::FileHandle;
-
-subtype 'Object' => as 'Ref' =>
-    where { blessed($_) } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Object;
-
-# This type is deprecated.
-subtype 'Role' => as 'Object' => where { $_->can('does') } =>
-    optimize_as \&Moose::Util::TypeConstraints::OptimizedConstraints::Role;
-
-my $_class_name_checker = sub { };
-
-subtype 'ClassName' => as 'Str' =>
-    where { Class::MOP::is_class_loaded($_) } => optimize_as
-    \&Moose::Util::TypeConstraints::OptimizedConstraints::ClassName;
-
-subtype 'RoleName' => as 'ClassName' => where {
-    (Class::MOP::class_of($_) || return)->isa('Moose::Meta::Role');
-} => optimize_as
-    \&Moose::Util::TypeConstraints::OptimizedConstraints::RoleName;
-
-## --------------------------------------------------------
-# parameterizable types ...
-
-$REGISTRY->add_type_constraint(
-    Moose::Meta::TypeConstraint::Parameterizable->new(
-        name               => 'ScalarRef',
-        package_defined_in => __PACKAGE__,
-        parent             => find_type_constraint('Ref'),
-        constraint         => sub { ref($_) eq 'SCALAR' || ref($_) eq 'REF' },
-        optimized =>
-            \&Moose::Util::TypeConstraints::OptimizedConstraints::ScalarRef,
-        constraint_generator => sub {
-            my $type_parameter = shift;
-            my $check          = $type_parameter->_compiled_type_constraint;
-            return sub {
-                return $check->(${ $_ });
-            };
-        }
-    )
-);
-
-$REGISTRY->add_type_constraint(
-    Moose::Meta::TypeConstraint::Parameterizable->new(
-        name               => 'ArrayRef',
-        package_defined_in => __PACKAGE__,
-        parent             => find_type_constraint('Ref'),
-        constraint         => sub { ref($_) eq 'ARRAY' },
-        optimized =>
-            \&Moose::Util::TypeConstraints::OptimizedConstraints::ArrayRef,
-        constraint_generator => sub {
-            my $type_parameter = shift;
-            my $check          = $type_parameter->_compiled_type_constraint;
-            return sub {
-                foreach my $x (@$_) {
-                    ( $check->($x) ) || return;
-                }
-                1;
-                }
-        }
-    )
-);
-
-$REGISTRY->add_type_constraint(
-    Moose::Meta::TypeConstraint::Parameterizable->new(
-        name               => 'HashRef',
-        package_defined_in => __PACKAGE__,
-        parent             => find_type_constraint('Ref'),
-        constraint         => sub { ref($_) eq 'HASH' },
-        optimized =>
-            \&Moose::Util::TypeConstraints::OptimizedConstraints::HashRef,
-        constraint_generator => sub {
-            my $type_parameter = shift;
-            my $check          = $type_parameter->_compiled_type_constraint;
-            return sub {
-                foreach my $x ( values %$_ ) {
-                    ( $check->($x) ) || return;
-                }
-                1;
-                }
-        }
-    )
-);
-
-$REGISTRY->add_type_constraint(
-    Moose::Meta::TypeConstraint::Parameterizable->new(
-        name                 => 'Maybe',
-        package_defined_in   => __PACKAGE__,
-        parent               => find_type_constraint('Item'),
-        constraint           => sub {1},
-        constraint_generator => sub {
-            my $type_parameter = shift;
-            my $check          = $type_parameter->_compiled_type_constraint;
-            return sub {
-                return 1 if not( defined($_) ) || $check->($_);
-                return;
-                }
-        }
-    )
-);
+require Moose::Util::TypeConstraints::Builtins;
+Moose::Util::TypeConstraints::Builtins::define_builtins($REGISTRY);
 
 my @PARAMETERIZABLE_TYPES
     = map { $REGISTRY->get_type_constraint($_) } qw[ScalarRef ArrayRef HashRef Maybe];
@@ -891,7 +758,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.0008
+version 2.0102
 
 =head1 SYNOPSIS
 
@@ -978,7 +845,7 @@ that hierarchy represented visually.
               CodeRef
               RegexpRef
               GlobRef
-                  FileHandle
+              FileHandle
               Object
 
 B<NOTE:> Any type followed by a type parameter C<[`a]> can be
@@ -1192,7 +1059,37 @@ constraint fails, then the code block is run with the value provided
 in C<$_>. This reference should return a string, which will be used in
 the text of the exception thrown.
 
+=item B<inline_as { ... }>
+
+This can be used to define a "hand optimized" inlinable version of your type
+constraint.
+
+You provide a subroutine which will be called I<as a method> on a
+L<Moose::Meta::TypeConstraint> object. It will receive a single parameter, the
+name of the variable to check, typically something like C<"$_"> or C<"$_[0]">.
+
+The subroutine should return a code string suitable for inlining. You can
+assume that the check will be wrapped in parentheses when it is inlined.
+
+The inlined code should include any checks that your type's parent types
+do. For example, the C<Value> type's inlining sub looks like this:
+
+    sub {
+        'defined(' . $_[1] . ')'
+        . ' && !ref(' . $_[1] . ')'
+    }
+
+Note that it checks if the variable is defined, since it is a subtype of
+the C<Defined> type.  However, to avoid repeating code, this can be optimized as:
+
+    sub {
+        $_[0]->parent()->_inline_check($_[1])
+        . ' && !ref(' . $_[1] . ')'
+    }
+
 =item B<optimize_as { ... }>
+
+B<This feature is deprecated, use C<inline_as> instead.>
 
 This can be used to define a "hand optimized" version of your
 type constraint which can be used to avoid traversing a subtype
@@ -1212,7 +1109,7 @@ parameters:
 
   type( 'Foo', { where => ..., message => ... } );
 
-The valid hashref keys are C<where>, C<message>, and C<optimize_as>.
+The valid hashref keys are C<where>, C<message>, and C<inlined_as>.
 
 =back
 

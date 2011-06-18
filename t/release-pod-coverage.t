@@ -115,6 +115,7 @@ my %trustme = (
     'Class::MOP::Package'    => [ 'get_method_map', 'wrap_method_body' ],
     'Moose' => ['init_meta', 'throw_error'],
     'Moose::Error::Confess'  => ['new'],
+    'Moose::Error::Util' => ['.+'],
     'Moose::Meta::Attribute' => [
         qw( interpolate_class
             throw_error
@@ -147,6 +148,7 @@ my %trustme = (
             generate_reader_method_inline
             generate_writer_method
             generate_writer_method_inline
+            new
             )
     ],
     'Moose::Meta::Method::Constructor' => [
@@ -187,7 +189,7 @@ my %trustme = (
     ],
     'Moose::Meta::TypeCoercion'        => ['compile_type_coercion'],
     'Moose::Meta::TypeCoercion::Union' => ['compile_type_coercion'],
-    'Moose::Meta::TypeConstraint'      => ['compile_type_constraint'],
+    'Moose::Meta::TypeConstraint' => [qw( compile_type_constraint inlined )],
     'Moose::Meta::TypeConstraint::Class' =>
         [qw( equals is_a_type_of is_a_subtype_of )],
     'Moose::Meta::TypeConstraint::Enum' => [qw( constraint equals )],
@@ -196,11 +198,17 @@ my %trustme = (
     'Moose::Meta::TypeConstraint::Parameterizable' => ['.+'],
     'Moose::Meta::TypeConstraint::Parameterized'   => ['.+'],
     'Moose::Meta::TypeConstraint::Role' => [qw( equals is_a_type_of )],
-    'Moose::Meta::TypeConstraint::Union' =>
-        [qw( compile_type_constraint coercion has_coercion)],
+    'Moose::Meta::TypeConstraint::Union' => [
+        qw( compile_type_constraint
+            coercion
+            has_coercion
+            can_be_inlined
+            inline_environment )
+    ],
     'Moose::Util'                  => ['add_method_modifier'],
     'Moose::Util::MetaRole'        => ['apply_metaclass_roles'],
     'Moose::Util::TypeConstraints' => ['find_or_create_type_constraint'],
+    'Moose::Util::TypeConstraints::Builtins' => ['.+'],
 );
 
 for my $module ( sort @modules ) {

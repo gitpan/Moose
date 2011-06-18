@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0008';
+  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0102'; # TRIAL
 }
 use Moose::Role;
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Array - Helper trait for ArrayRef attribu
 
 =head1 VERSION
 
-version 2.0008
+version 2.0102
 
 =head1 SYNOPSIS
 
@@ -147,13 +147,23 @@ This method requires at least one argument.
 
 =item * B<first( sub { ... } )>
 
-This method returns the first item matching item in the array, just like
+This method returns the first matching item in the array, just like
 L<List::Util>'s C<first> function. The matching is done with a subroutine
 reference you pass to this method. The subroutine will be called against each
 element in the array until one matches or all elements have been checked.
 
   my $found = $stuff->find_option( sub {/^b/} );
   print "$found\n";    # prints "bar"
+
+This method requires a single argument.
+
+=item * B<first_index( sub { ... } )>
+
+This method returns the index of the first matching item in the array, just
+like L<List::MoreUtils>'s C<first_index> function. The matching is done with a
+subroutine reference you pass to this method. The subroutine will be called
+against each element in the array until one matches or all elements have been
+checked.
 
 This method requires a single argument.
 

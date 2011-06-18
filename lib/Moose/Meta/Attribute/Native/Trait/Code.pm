@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Code::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.0008';
+  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.0102'; # TRIAL
 }
 use Moose::Role;
 
@@ -27,7 +27,7 @@ Moose::Meta::Attribute::Native::Trait::Code - Helper trait for CodeRef attribute
 
 =head1 VERSION
 
-version 2.0008
+version 2.0102
 
 =head1 SYNOPSIS
 

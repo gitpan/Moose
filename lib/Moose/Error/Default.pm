@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Default::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Error::Default::VERSION = '2.0008';
+  $Moose::Error::Default::VERSION = '2.0102'; # TRIAL
 }
 
 use strict;
@@ -12,12 +12,17 @@ use warnings;
 use Carp::Heavy;
 use Class::MOP::MiniTrait;
 
+use Moose::Error::Util;
+
 use base 'Class::MOP::Object';
 
 Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 sub new {
     my ( $self, @args ) = @_;
+    # can't use Moose::Error::Util::create_error here because that would break
+    # inheritance. we don't care about that for the inlined version, because
+    # the inlined versions are explicitly not inherited.
     if (defined $ENV{MOOSE_ERROR_STYLE} && $ENV{MOOSE_ERROR_STYLE} eq 'croak') {
         $self->create_error_croak( @args );
     }
@@ -26,30 +31,24 @@ sub new {
     }
 }
 
+sub _inline_new {
+    my ( $self, %args ) = @_;
+
+    my $depth = ($args{depth} || 0) - 1;
+    return 'Moose::Error::Util::create_error('
+      . 'message => ' . $args{message} . ', '
+      . 'depth   => ' . $depth         . ', '
+  . ')';
+}
+
 sub create_error_croak {
     my ( $self, @args ) = @_;
-    $self->_create_error_carpmess( @args );
+    return Moose::Error::Util::create_error_croak(@args);
 }
 
 sub create_error_confess {
     my ( $self, @args ) = @_;
-    $self->_create_error_carpmess( @args, longmess => 1 );
-}
-
-sub _create_error_carpmess {
-    my ( $self, %args ) = @_;
-
-    my $carp_level = 3 + ( $args{depth} || 1 );
-    local $Carp::MaxArgNums = 20; # default is 8, usually we use named args which gets messier though
-
-    my @args = exists $args{message} ? $args{message} : ();
-
-    if ( $args{longmess} || $Carp::Verbose ) {
-        local $Carp::CarpLevel = ( $Carp::CarpLevel || 0 ) + $carp_level;
-        return Carp::longmess(@args);
-    } else {
-        return Carp::ret_summary($carp_level, @args);
-    }
+    return Moose::Error::Util::create_error_confess(@args);
 }
 
 1;
@@ -66,7 +65,7 @@ Moose::Error::Default - L<Carp> based error generation for Moose.
 
 =head1 VERSION
 
-version 2.0008
+version 2.0102
 
 =head1 DESCRIPTION
 

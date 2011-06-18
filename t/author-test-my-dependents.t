@@ -122,8 +122,8 @@ MooseX::MethodAttributes
 MooseX::Method::Signatures
 MooseX::MultiInitArg
 MooseX::MultiMethods
+MooseX::MultiObject
 MooseX::MutatorAttributes
-MooseX::Net::API
 MooseX::NonMoose
 MooseX::Object::Pluggable
 MooseX::OneArgNew
@@ -211,6 +211,7 @@ Catalyst::Devel
 CatalystX::Declare
 Chart::Clicker
 CHI
+Chloro
 Config::MVP
 Crypt::Util
 Data::Stream::Bulk
@@ -220,18 +221,15 @@ Devel::REPL
 Dist::Zilla
 Email::MIME::Kit
 Email::Sender
-FCGI::Engine
 Fey
 Fey::ORM
 File::ChangeNotify
 Forest
 Git::PurePerl
-Gitalist
 Hailo
 HTML::FormHandler
 IM::Engine
 JSON::RPC::Common
-JSORB
 KiokuDB
 KiokuDB::Backend::DBI
 KiokuX::Model::Role::Annotations
@@ -258,6 +256,7 @@ Role::Subsystem
 Search::GIN
 Silki
 Test::Able
+Test::Magpie
 Test::Routine
 Test::Sweet
 Throwable

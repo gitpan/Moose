@@ -28,11 +28,13 @@
          "Class::MOP::MiniTrait",
          "Class::MOP::Mixin",
          "Moose::Deprecated",
+         "Moose::Error::Util",
          "Moose::Meta::Attribute::Native::Trait",
          "Moose::Meta::Class::Immutable::Trait",
          "Moose::Meta::Method::Accessor::Native",
          "Moose::Meta::Object::Trait",
-         "Moose::Util::TypeConstraints::OptimizedConstraints"
+         "Moose::Util::TypeConstraints::OptimizedConstraints",
+         "Moose::Util::TypeConstraints::Builtins"
       ]
    },
    "prereqs" : {
@@ -46,6 +48,7 @@
          "requires" : {
             "Algorithm::C3" : 0,
             "DBM::Deep" : 0,
+            "Data::Visitor" : 0,
             "DateTime" : 0,
             "DateTime::Calendar::Mayan" : 0,
             "DateTime::Format::MySQL" : 0,
@@ -57,6 +60,7 @@
             "Locale::US" : 0,
             "Module::Info" : 0,
             "Module::Refresh" : 0,
+            "PadWalker" : 0,
             "Params::Coerce" : 0,
             "Regexp::Common" : 0,
             "Test::Deep" : 0,
@@ -75,7 +79,7 @@
             "Data::OptList" : "0.107",
             "Devel::GlobalDestruction" : 0,
             "Eval::Closure" : "0.04",
-            "List::MoreUtils" : "0.12",
+            "List::MoreUtils" : "0.28",
             "MRO::Compat" : "0.05",
             "Package::DeprecationManager" : "0.10",
             "Package::Stash" : "0.21",
@@ -97,7 +101,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-moose@rt.cpan.org",
@@ -109,7 +113,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0008",
+   "version" : "2.0102",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",
@@ -121,14 +125,14 @@
       "Markdent" : "0.16",
       "MooseX::Aliases" : "0.08",
       "MooseX::AlwaysCoerce" : "0.13",
-      "MooseX::Attribute::Deflator" : "2.1.0",
+      "MooseX::Attribute::Deflator" : "2.1.5",
       "MooseX::Attribute::Dependent" : "1.1.0",
       "MooseX::Attribute::Prototype" : "0.10",
       "MooseX::AttributeHelpers" : "0.22",
       "MooseX::AttributeIndexes" : "1.0.0",
       "MooseX::AttributeInflate" : "0.02",
       "MooseX::CascadeClearing" : "0.03",
-      "MooseX::ClassAttribute" : "0.23",
+      "MooseX::ClassAttribute" : "0.25",
       "MooseX::Constructor::AllErrors" : "0.012",
       "MooseX::FollowPBP" : "0.02",
       "MooseX::HasDefaults" : "0.02",

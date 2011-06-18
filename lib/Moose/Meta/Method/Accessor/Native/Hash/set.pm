@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::set::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.0008';
+  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.0102'; # TRIAL
 }
 
 use strict;
@@ -91,7 +91,7 @@ sub _inline_coerce_new_values {
         'my $iter = List::MoreUtils::natatime(2, @_);',
         '@_ = ();',
         'while (my ($key, $val) = $iter->()) {',
-            'push @_, $key, $member_tc_obj->coerce($val);',
+            'push @_, $key, $member_coercion->($val);',
         '}',
     );
 };

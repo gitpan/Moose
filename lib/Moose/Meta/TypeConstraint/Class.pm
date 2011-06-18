@@ -3,13 +3,14 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Class::VERSION = '2.0008';
+  $Moose::Meta::TypeConstraint::Class::VERSION = '2.0102'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
 
+use B;
 use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
 
@@ -17,28 +18,33 @@ use base 'Moose::Meta::TypeConstraint';
 
 __PACKAGE__->meta->add_attribute('class' => (
     reader => 'class',
+    Class::MOP::_definition_context(),
 ));
+
+my $inliner = sub {
+    my $self = shift;
+    my $val  = shift;
+
+    return 'Scalar::Util::blessed(' . $val . ')'
+             . ' && ' . $val . '->isa(' . B::perlstring($self->class) . ')';
+};
 
 sub new {
     my ( $class, %args ) = @_;
 
-    $args{parent} = Moose::Util::TypeConstraints::find_type_constraint('Object');
-    my $self      = $class->_new(\%args);
+    $args{parent}
+        = Moose::Util::TypeConstraints::find_type_constraint('Object');
 
-    $self->_create_hand_optimized_type_constraint;
+    my $class_name = $args{class};
+    $args{constraint} = sub { $_[0]->isa($class_name) };
+
+    $args{inlined} = $inliner;
+
+    my $self = $class->SUPER::new( \%args );
+
     $self->compile_type_constraint();
 
     return $self;
-}
-
-sub _create_hand_optimized_type_constraint {
-    my $self = shift;
-    my $class = $self->class;
-    $self->hand_optimized_type_constraint(
-        sub {
-            blessed( $_[0] ) && $_[0]->isa($class)
-        }
-    );
 }
 
 sub parents {
@@ -135,7 +141,7 @@ Moose::Meta::TypeConstraint::Class - Class/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 2.0008
+version 2.0102
 
 =head1 DESCRIPTION
 

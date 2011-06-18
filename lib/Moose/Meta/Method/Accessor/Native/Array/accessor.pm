@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::accessor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::accessor::VERSION = '2.0008';
+  $Moose::Meta::Method::Accessor::Native::Array::accessor::VERSION = '2.0102'; # TRIAL
 }
 
 use strict;
@@ -41,7 +41,7 @@ sub _generate_method {
         'sub {',
             'my ' . $inv . ' = shift;',
             $self->_inline_curried_arguments,
-            $self->_inline_check_lazy($inv, '$type_constraint', '$type_constraint_obj'),
+            $self->_inline_check_lazy($inv, '$type_constraint', '$type_coercion', '$type_message'),
             # get
             'if (@_ == 1) {',
                 $self->_inline_check_var_is_valid_index('$_[0]'),
