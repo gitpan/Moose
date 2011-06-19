@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Application::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::Role::Application::VERSION = '2.0009';
 }
 
 use strict;
@@ -13,15 +13,13 @@ use metaclass;
 __PACKAGE__->meta->add_attribute('method_exclusions' => (
     init_arg => '-excludes',
     reader   => 'get_method_exclusions',
-    default  => sub { [] },
-    Class::MOP::_definition_context(),
+    default  => sub { [] }
 ));
 
 __PACKAGE__->meta->add_attribute('method_aliases' => (
     init_arg => '-alias',
     reader   => 'get_method_aliases',
-    default  => sub { {} },
-    Class::MOP::_definition_context(),
+    default  => sub { {} }
 ));
 
 sub new {
@@ -92,7 +90,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 DESCRIPTION
 

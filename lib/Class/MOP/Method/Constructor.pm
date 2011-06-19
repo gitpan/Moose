@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Method::Constructor::VERSION = '2.0102'; # TRIAL
+  $Class::MOP::Method::Constructor::VERSION = '2.0009';
 }
 
 use strict;
@@ -73,6 +73,16 @@ sub _new {
 sub options              { (shift)->{'options'}              }
 sub associated_metaclass { (shift)->{'associated_metaclass'} }
 
+## cached values ...
+
+sub _attributes {
+    my $self = shift;
+    $self->{'attributes'} ||= [
+        sort { $a->name cmp $b->name }
+             $self->associated_metaclass->get_all_attributes
+    ]
+}
+
 ## method
 
 sub _initialize_body {
@@ -86,7 +96,10 @@ sub _initialize_body {
 
 sub _eval_environment {
     my $self = shift;
-    return $self->associated_metaclass->_eval_environment;
+    my $defaults = [map { $_->default } @{ $self->_attributes }];
+    return {
+        '$defaults' => \$defaults,
+    };
 }
 
 sub _generate_constructor_method {
@@ -131,7 +144,7 @@ Class::MOP::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 SYNOPSIS
 

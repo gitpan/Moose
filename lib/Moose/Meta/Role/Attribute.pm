@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Attribute::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::Role::Attribute::VERSION = '2.0009';
 }
 
 use strict;
@@ -18,35 +18,30 @@ use base 'Moose::Meta::Mixin::AttributeCore', 'Class::MOP::Object';
 __PACKAGE__->meta->add_attribute(
     'metaclass' => (
         reader => 'metaclass',
-        Class::MOP::_definition_context(),
     )
 );
 
 __PACKAGE__->meta->add_attribute(
     'associated_role' => (
         reader => 'associated_role',
-        Class::MOP::_definition_context(),
     )
 );
 
 __PACKAGE__->meta->add_attribute(
     '_original_role' => (
         reader => '_original_role',
-        Class::MOP::_definition_context(),
     )
 );
 
 __PACKAGE__->meta->add_attribute(
     'is' => (
         reader => 'is',
-        Class::MOP::_definition_context(),
     )
 );
 
 __PACKAGE__->meta->add_attribute(
     'original_options' => (
         reader => 'original_options',
-        Class::MOP::_definition_context(),
     )
 );
 
@@ -139,7 +134,7 @@ Moose::Meta::Role::Attribute - The Moose attribute metaclass for Roles
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 DESCRIPTION
 

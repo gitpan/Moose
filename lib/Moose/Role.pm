@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Role::VERSION = '2.0102'; # TRIAL
+  $Moose::Role::VERSION = '2.0009';
 }
 use strict;
 use warnings;
@@ -112,6 +112,9 @@ sub init_meta {
     my $metaclass = $args{metaclass} || "Moose::Meta::Role";
     my $meta_name = exists $args{meta_name} ? $args{meta_name} : 'meta';
 
+    Moose->throw_error("The Metaclass $metaclass must be loaded. (Perhaps you forgot to 'use $metaclass'?)")
+        unless Class::MOP::is_class_loaded($metaclass);
+
     Moose->throw_error("The Metaclass $metaclass must be a subclass of Moose::Meta::Role.")
         unless $metaclass->isa('Moose::Meta::Role');
 
@@ -165,7 +168,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 SYNOPSIS
 
@@ -190,23 +193,6 @@ version 2.0102
       my ($self, $other) = @_;
       $self->as_float == $other->as_float;
   }
-
-  # ... and also
-
-  package Comparator;
-  use Moose;
-
-  has compare_to => (
-      is      => 'ro',
-      does    => 'Eq',
-      handles => 'Eq',
-  );
-
-  # ... which allows
-
-  my $currency1 = Currency->new(...);
-  my $currency2 = Currency->new(...);
-  Comparator->new(compare_to => $currency1)->equal($currency2);
 
 =head1 DESCRIPTION
 

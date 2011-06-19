@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Parameterized::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.0009';
 }
 
 use strict;
@@ -19,13 +19,6 @@ use base 'Moose::Meta::TypeConstraint';
 __PACKAGE__->meta->add_attribute('type_parameter' => (
     accessor  => 'type_parameter',
     predicate => 'has_type_parameter',
-    Class::MOP::_definition_context(),
-));
-
-__PACKAGE__->meta->add_attribute('parameterized_from' => (
-    accessor   => 'parameterized_from',
-    predicate  => 'has_parameterized_from',
-    Class::MOP::_definition_context(),
 ));
 
 sub equals {
@@ -71,36 +64,6 @@ sub compile_type_constraint {
           . $self->parent->name . " doesn't subtype or coerce from a parameterizable type.");
 }
 
-sub can_be_inlined {
-    my $self = shift;
-
-    return
-           $self->has_parameterized_from
-        && $self->parameterized_from->has_inline_generator
-        && $self->type_parameter->can_be_inlined;
-}
-
-sub inline_environment {
-    my $self = shift;
-
-    return {
-        ($self->has_parameterized_from
-            ? (%{ $self->parameterized_from->inline_environment })
-            : ()),
-        ($self->has_type_parameter
-            ? (%{ $self->type_parameter->inline_environment })
-            : ()),
-    };
-}
-
-sub _inline_check {
-    my $self = shift;
-
-    return unless $self->can_be_inlined;
-
-    return $self->parameterized_from->generate_inline_for( $self->type_parameter, @_ );
-}
-
 sub create_child_type {
     my ($self, %opts) = @_;
     return Moose::Meta::TypeConstraint::Parameterizable->new(%opts, parent=>$self);
@@ -120,7 +83,7 @@ Moose::Meta::TypeConstraint::Parameterized - Type constraints with a bound param
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 METHODS
 

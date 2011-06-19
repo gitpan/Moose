@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::shuffle::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.0009';
 }
 
 use strict;

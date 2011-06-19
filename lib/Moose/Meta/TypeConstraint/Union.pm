@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Union::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0009';
 }
 
 use strict;
@@ -13,15 +13,13 @@ use metaclass;
 
 use Moose::Meta::TypeCoercion::Union;
 
-use List::MoreUtils qw(all);
 use List::Util qw(first);
 
 use base 'Moose::Meta::TypeConstraint';
 
 __PACKAGE__->meta->add_attribute('type_constraints' => (
     accessor  => 'type_constraints',
-    default   => sub { [] },
-    Class::MOP::_definition_context(),
+    default   => sub { [] }
 ));
 
 sub new {
@@ -78,36 +76,6 @@ sub _actually_compile_type_constraint {
     };
 }
 
-sub can_be_inlined {
-    my $self = shift;
-
-    # This was originally done with all() from List::MoreUtils, but that
-    # caused some sort of bizarro parsing failure under 5.10.
-    for my $tc ( @{ $self->type_constraints } ) {
-        return 0 unless $tc->can_be_inlined;
-    }
-
-    return 1;
-}
-
-sub _inline_check {
-    my $self = shift;
-    my $val  = shift;
-
-    return '('
-               . (
-                  join ' || ', map { '(' . $_->_inline_check($val) . ')' }
-                  @{ $self->type_constraints }
-                 )
-           . ')';
-}
-
-sub inline_environment {
-    my $self = shift;
-
-    return { map { %{ $_->inline_environment } }
-            @{ $self->type_constraints } };
-}
 
 sub equals {
     my ( $self, $type_or_name ) = @_;
@@ -210,7 +178,7 @@ Moose::Meta::TypeConstraint::Union - A union of Moose type constraints
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 DESCRIPTION
 

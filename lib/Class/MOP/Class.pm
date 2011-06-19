@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Class::VERSION = '2.0102'; # TRIAL
+  $Class::MOP::Class::VERSION = '2.0009';
 }
 
 use strict;
@@ -701,18 +701,6 @@ sub _inline_preserve_weak_metaclasses {
 
 sub _inline_extra_init { }
 
-sub _eval_environment {
-    my $self = shift;
-
-    my @attrs = sort { $a->name cmp $b->name } $self->get_all_attributes;
-
-    my $defaults = [map { $_->default } @attrs];
-
-    return {
-        '$defaults' => \$defaults,
-    };
-}
-
 
 sub get_meta_instance {
     my $self = shift;
@@ -733,6 +721,7 @@ sub _create_meta_instance {
     return $instance;
 }
 
+# TODO: this is actually not being used!
 sub _inline_rebless_instance {
     my $self = shift;
 
@@ -1275,19 +1264,18 @@ sub _immutable_options {
 sub make_immutable {
     my ( $self, @args ) = @_;
 
+    return unless $self->is_mutable;
+
     my ($file, $line) = (caller)[1..2];
-    if ( $self->is_mutable ) {
-        $self->_initialize_immutable(
-            file => $file,
-            line => $line,
-            $self->_immutable_options(@args),
-        );
-        $self->_rebless_as_immutable(@args);
-        return $self;
-    }
-    else {
-        return;
-    }
+
+    $self->_initialize_immutable(
+        file => $file,
+        line => $line,
+        $self->_immutable_options(@args),
+    );
+    $self->_rebless_as_immutable(@args);
+
+    return $self;
 }
 
 sub make_mutable {
@@ -1502,7 +1490,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 SYNOPSIS
 

@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Registry::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.0009';
 }
 
 use strict;
@@ -19,13 +19,11 @@ __PACKAGE__->meta->add_attribute('parent_registry' => (
     reader    => 'get_parent_registry',
     writer    => 'set_parent_registry',
     predicate => 'has_parent_registry',
-    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute('type_constraints' => (
     reader  => 'type_constraints',
-    default => sub { {} },
-    Class::MOP::_definition_context(),
+    default => sub { {} }
 ));
 
 sub new {
@@ -79,7 +77,7 @@ Moose::Meta::TypeConstraint::Registry - registry for type constraints
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 DESCRIPTION
 

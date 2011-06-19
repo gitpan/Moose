@@ -1,44 +1,23 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-2.0102 Sat, Jun 18, 2011
+2.0009 Sun, Jun 19, 2011
 
-  [ENHANCEMENTS]
+  [BUG FIXES]
 
-  * The native Array trait now has a 'first_index' method, which works just
-    like the version in List::MoreUtils. (Karen Etheridge)
+  * duck_type type constraints now report reasonable errors when given
+    something which isn't an instance of an object. (t0m)
 
-  * Clean up some internal code to help out extensions.
+  * Moose::Util::apply_all_roles now works even if the applicant is a non-Moose
+    class. (perigrin)
 
-  [OTHER]
-
-  * Include changes from Moose 2.0008.
-
-2.0101 Mon, Jun 06, 2011
+  * When an object is reblessed, triggers are called on attributes that are
+    set during the reblessing. (Karen Etheridge).
 
   [OTHER]
 
-  * Various packaging issues.
-
-2.0100 Mon, Jun 06, 2011
-
-  [DEPRECATIONS]
-
-  * Using a hand-optimized type constraint is now deprecated. In keeping with
-    our release policy, this won't actually start warning until the 2.0200
-    release.
-
-  [NEW FEATURES]
-
-  * Type constraints can now provide inlined versions, which should make
-    inlined code which uses type constraints (such as accessors) faster. This
-    replaces the existing hand-optimized constraint feature.  (Dave Rolsky)
-
-  [ENHANCEMENTS]
-
-  * Remove a lot of cases where generated methods closed over meta objects.
-    Most simple cases should now only close over simple data types and
-    coderefs. This should make deparsing simpler.
+  * Better error message if Moose->init_meta is called with a 'metaclass'
+    option when that metaclass hasn't been loaded. (jasonmay)
 
 2.0008 Thu, Jun 16, 2011
 

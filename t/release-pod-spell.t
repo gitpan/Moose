@@ -89,7 +89,6 @@ wreis
 
 ## proper names
 AOP
-CentOS
 CLOS
 CPAN
 OCaml
@@ -204,7 +203,6 @@ immutabilize
 immutabilized
 immutabilizes
 incrementing
-inlinable
 inline
 inlines
 installable

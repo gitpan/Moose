@@ -12,7 +12,7 @@ Moose::Manual::FAQ - Frequently asked questions about Moose
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 FREQUENTLY ASKED QUESTIONS
 
@@ -369,6 +369,26 @@ instance>.
 Outside the context of Moose, traits and roles generally mean exactly
 the same thing. The original paper called them traits, but Perl 6
 will call them roles.
+
+=head3 Can an attribute-generated method (e.g. an accessor) satisfy requires?
+
+Yes, just be sure to consume the role I<after> declaring your
+attribute.  L<Moose::Manual::Roles/Required_Attributes> provides
+an example:
+
+  package Breakable;
+  use Moose::Role;
+  requires 'stress';
+
+  package Car;
+  use Moose;
+  has 'stress' => ( is  => 'rw', isa => 'Int' );
+  with 'Breakable';
+
+If you mistakenly consume the C<Breakable> role before declaring your
+C<stress> attribute, you would see an error like this:
+
+  'Breakable' requires the method 'stress' to be implemented by 'Car' at...
 
 =head2 Moose and Subroutine Attributes
 

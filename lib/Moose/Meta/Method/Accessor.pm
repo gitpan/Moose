@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::VERSION = '2.0102'; # TRIAL
+  $Moose::Meta::Method::Accessor::VERSION = '2.0009';
 }
 
 use strict;
@@ -14,15 +14,6 @@ use Try::Tiny;
 
 use base 'Moose::Meta::Method',
          'Class::MOP::Method::Accessor';
-
-# multiple inheritance is terrible
-sub new {
-    goto &Class::MOP::Method::Accessor::new;
-}
-
-sub _new {
-    goto &Class::MOP::Method::Accessor::_new;
-}
 
 sub _error_thrower {
     my $self = shift;
@@ -49,7 +40,20 @@ sub _compile_code {
 
 sub _eval_environment {
     my $self = shift;
-    return $self->associated_attribute->_eval_environment;
+
+    my $attr                = $self->associated_attribute;
+    my $type_constraint_obj = $attr->type_constraint;
+
+    return {
+        '$attr'                => \$attr,
+        '$meta'                => \$self,
+        '$type_constraint_obj' => \$type_constraint_obj,
+        '$type_constraint'     => \(
+              $type_constraint_obj
+                  ? $type_constraint_obj->_compiled_type_constraint
+                  : undef
+        ),
+    };
 }
 
 sub _instance_is_inlinable {
@@ -95,10 +99,6 @@ sub _inline_tc_code {
     shift->associated_attribute->_inline_tc_code(@_);
 }
 
-sub _inline_check_coercion {
-    shift->associated_attribute->_inline_check_coercion(@_);
-}
-
 sub _inline_check_constraint {
     shift->associated_attribute->_inline_check_constraint(@_);
 }
@@ -141,7 +141,7 @@ Moose::Meta::Method::Accessor - A Moose Method metaclass for accessors
 
 =head1 VERSION
 
-version 2.0102
+version 2.0009
 
 =head1 DESCRIPTION
 

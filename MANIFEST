@@ -114,7 +114,6 @@ lib/Moose/Deprecated.pm
 lib/Moose/Error/Confess.pm
 lib/Moose/Error/Croak.pm
 lib/Moose/Error/Default.pm
-lib/Moose/Error/Util.pm
 lib/Moose/Exporter.pm
 lib/Moose/Intro.pod
 lib/Moose/Manual.pod
@@ -158,7 +157,6 @@ lib/Moose/Meta/Method/Accessor/Native/Array/count.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/delete.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/elements.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/first.pm
-lib/Moose/Meta/Method/Accessor/Native/Array/first_index.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/get.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/grep.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/insert.pm
@@ -260,7 +258,7 @@ lib/Moose/Unsweetened.pod
 lib/Moose/Util.pm
 lib/Moose/Util/MetaRole.pm
 lib/Moose/Util/TypeConstraints.pm
-lib/Moose/Util/TypeConstraints/Builtins.pm
+lib/Moose/Util/TypeConstraints/OptimizedConstraints.pm
 lib/Test/Moose.pm
 lib/metaclass.pm
 lib/oose.pm
@@ -482,7 +480,6 @@ t/immutable/immutable_metaclass_with_traits.t
 t/immutable/immutable_moose.t
 t/immutable/immutable_roundtrip.t
 t/immutable/immutable_trigger_from_constructor.t
-t/immutable/inline_close_over.t
 t/immutable/inline_fallbacks.t
 t/immutable/inlined_constructors_n_types.t
 t/immutable/multiple_demolish_inline.t
@@ -649,7 +646,6 @@ t/type_constraints/define_type_twice_throws.t
 t/type_constraints/duck_type_handles.t
 t/type_constraints/duck_types.t
 t/type_constraints/enum.t
-t/type_constraints/inlining.t
 t/type_constraints/match_type_operator.t
 t/type_constraints/maybe_type_constraint.t
 t/type_constraints/misc_type_tests.t
