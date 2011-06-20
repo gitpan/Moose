@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::MiniTrait::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::MiniTrait::VERSION = '2.0010';
+  $Class::MOP::MiniTrait::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;

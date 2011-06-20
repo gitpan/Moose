@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::VERSION = '2.0010';
+  $Moose::Meta::Method::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
@@ -17,6 +17,7 @@ Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 sub _error_thrower {
     my $self = shift;
+    require Moose::Meta::Class;
     ( ref $self && $self->associated_metaclass ) || "Moose::Meta::Class";
 }
 
@@ -32,7 +33,22 @@ sub throw_error {
 
 sub _inline_throw_error {
     my ( $self, $msg, $args ) = @_;
-    "\$meta->throw_error($msg" . ($args ? ", $args" : "") . ")"; # FIXME makes deparsing *REALLY* hard
+
+    my $inv = $self->_error_thrower;
+    # XXX ugh
+    $inv = 'Moose::Meta::Class' unless $inv->can('_inline_throw_error');
+
+    # XXX ugh ugh UGH
+    my $class = $self->associated_metaclass;
+    if ($class) {
+        my $class_name = B::perlstring($class->name);
+        my $meth_name = B::perlstring($self->name);
+        $args = 'method => Class::MOP::class_of(' . $class_name . ')'
+              . '->find_method_by_name(' . $meth_name . '), '
+              . (defined $args ? $args : '');
+    }
+
+    return $inv->_inline_throw_error($msg, $args)
 }
 
 1;
@@ -49,7 +65,7 @@ Moose::Meta::Method - A Moose Method metaclass
 
 =head1 VERSION
 
-version 2.0010
+version 2.0104
 
 =head1 DESCRIPTION
 

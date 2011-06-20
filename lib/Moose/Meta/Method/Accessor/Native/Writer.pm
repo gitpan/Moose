@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Writer::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Writer::VERSION = '2.0010';
+  $Moose::Meta::Method::Accessor::Native::Writer::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
@@ -44,7 +44,7 @@ sub _inline_writer_core {
         $self->_inline_check_argument_count,
         $self->_inline_process_arguments($inv, $slot_access),
         $self->_inline_check_arguments('for writer'),
-        $self->_inline_check_lazy($inv, '$type_constraint', '$type_constraint_obj'),
+        $self->_inline_check_lazy($inv, '$type_constraint', '$type_coercion', '$type_message'),
     );
 
     if ($self->_return_value($slot_access)) {
@@ -56,7 +56,7 @@ sub _inline_writer_core {
     push @code, (
         $self->_inline_coerce_new_values,
         $self->_inline_copy_native_value(\$potential),
-        $self->_inline_tc_code($potential, '$type_constraint', '$type_constraint_obj'),
+        $self->_inline_tc_code($potential, '$type_constraint', '$type_coercion', '$type_message'),
         $self->_inline_get_old_value_for_trigger($inv, $old),
         $self->_inline_capture_return_value($slot_access),
         $self->_inline_set_new_value($inv, $potential, $slot_access),
@@ -115,29 +115,17 @@ sub _inline_copy_native_value {
 around _inline_tc_code => sub {
     my $orig = shift;
     my $self = shift;
-    my ($value, $tc, $tc_obj, $for_lazy) = @_;
+    my ($value, $tc, $coercion, $message, $for_lazy) = @_;
 
     return unless $for_lazy || $self->_constraint_must_be_checked;
 
     return $self->$orig(@_);
 };
 
-sub _inline_check_coercion {
-    my $self = shift;
-    my ($value, $tc, $tc_obj) = @_;
-
-    my $attr = $self->associated_attribute;
-    return unless $attr->should_coerce && $attr->type_constraint->has_coercion;
-
-    # We want to break the aliasing in @_ in case the coercion tries to make a
-    # destructive change to an array member.
-    return $value . ' = ' . $tc_obj . '->coerce(' . $value . ');';
-}
-
 around _inline_check_constraint => sub {
     my $orig = shift;
     my $self = shift;
-    my ($value, $tc, $tc_obj, $for_lazy) = @_;
+    my ($value, $tc, $message, $for_lazy) = @_;
 
     return unless $for_lazy || $self->_constraint_must_be_checked;
 

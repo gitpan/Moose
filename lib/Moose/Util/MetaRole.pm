@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::MetaRole::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::MetaRole::VERSION = '2.0010';
+  $Moose::Util::MetaRole::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
@@ -16,21 +16,8 @@ use List::Util qw( first );
 use Moose::Deprecated;
 use Scalar::Util qw( blessed );
 
-sub apply_metaclass_roles {
-    Moose::Deprecated::deprecated(
-        feature => 'pre-0.94 MetaRole API',
-        message =>
-            'The old Moose::Util::MetaRole API (before version 0.94) has been deprecated.'
-            . ' Using this API will throw an error in Moose 2.0200.'
-    );
-
-    goto &apply_metaroles;
-}
-
 sub apply_metaroles {
     my %args = @_;
-
-    _fixup_old_style_args(\%args);
 
     my $for = _metathing_for( $args{for} );
 
@@ -80,65 +67,6 @@ sub _metathing_for {
             . " You passed an undef."
             . ' Maybe you need to call Moose->init_meta to initialize the metaclass first?';
     }
-}
-
-sub _fixup_old_style_args {
-    my $args = shift;
-
-    return if $args->{class_metaroles} || $args->{role_metaroles};
-
-    Moose::Deprecated::deprecated(
-        feature => 'pre-0.94 MetaRole API',
-        message =>
-            'The old Moose::Util::MetaRole API (before version 0.94) has been deprecated.'
-            . ' Using this API will throw an error in Moose 2.0200.'
-    );
-
-    $args->{for} = delete $args->{for_class}
-        if exists $args->{for_class};
-
-    my @old_keys = qw(
-        attribute_metaclass_roles
-        method_metaclass_roles
-        wrapped_method_metaclass_roles
-        instance_metaclass_roles
-        constructor_class_roles
-        destructor_class_roles
-        error_class_roles
-
-        application_to_class_class_roles
-        application_to_role_class_roles
-        application_to_instance_class_roles
-        application_role_summation_class_roles
-    );
-
-    my $for
-        = blessed $args->{for}
-        ? $args->{for}
-        : Class::MOP::class_of( $args->{for} );
-
-    my $top_key;
-    if ( $for->isa('Moose::Meta::Class') ) {
-        $top_key = 'class_metaroles';
-
-        $args->{class_metaroles}{class} = delete $args->{metaclass_roles}
-            if exists $args->{metaclass_roles};
-    }
-    else {
-        $top_key = 'role_metaroles';
-
-        $args->{role_metaroles}{role} = delete $args->{metaclass_roles}
-            if exists $args->{metaclass_roles};
-    }
-
-    for my $old_key (@old_keys) {
-        my ($new_key) = $old_key =~ /^(.+)_(?:class|metaclass)_roles$/;
-
-        $args->{$top_key}{$new_key} = delete $args->{$old_key}
-            if exists $args->{$old_key};
-    }
-
-    return;
 }
 
 sub _make_new_metaclass {
@@ -224,7 +152,7 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
 
 =head1 VERSION
 
-version 2.0010
+version 2.0104
 
 =head1 SYNOPSIS
 

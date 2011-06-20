@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeCoercion::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeCoercion::VERSION = '2.0010';
+  $Moose::Meta::TypeCoercion::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
@@ -16,19 +16,22 @@ use Moose::Util::TypeConstraints ();
 
 __PACKAGE__->meta->add_attribute('type_coercion_map' => (
     reader  => 'type_coercion_map',
-    default => sub { [] }
+    default => sub { [] },
+    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute(
     Moose::Meta::Attribute->new('type_constraint' => (
         reader   => 'type_constraint',
-        weak_ref => 1
+        weak_ref => 1,
+        Class::MOP::_definition_context(),
     ))
 );
 
 # private accessor
 __PACKAGE__->meta->add_attribute('compiled_type_coercion' => (
-    accessor => '_compiled_type_coercion'
+    accessor => '_compiled_type_coercion',
+    Class::MOP::_definition_context(),
 ));
 
 sub new {
@@ -113,7 +116,7 @@ Moose::Meta::TypeCoercion - The Moose Type Coercion metaclass
 
 =head1 VERSION
 
-version 2.0010
+version 2.0104
 
 =head1 DESCRIPTION
 

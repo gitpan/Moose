@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Croak::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Error::Croak::VERSION = '2.0010';
+  $Moose::Error::Croak::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
@@ -14,6 +14,16 @@ use base qw(Moose::Error::Default);
 sub new {
     my ( $self, @args ) = @_;
     $self->create_error_croak(@args);
+}
+
+sub _inline_new {
+    my ( $self, %args ) = @_;
+
+    my $depth = ($args{depth} || 0) - 1;
+    return 'Moose::Error::Util::create_error_croak('
+      . 'message => ' . $args{message} . ', '
+      . 'depth   => ' . $depth         . ', '
+  . ')';
 }
 
 1;
@@ -30,7 +40,7 @@ Moose::Error::Croak - Prefer C<croak>
 
 =head1 VERSION
 
-version 2.0010
+version 2.0104
 
 =head1 SYNOPSIS
 

@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Class::VERSION = '2.0010';
+  $Moose::Meta::Class::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
@@ -34,34 +34,40 @@ Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
 __PACKAGE__->meta->add_attribute('roles' => (
     reader  => 'roles',
-    default => sub { [] }
+    default => sub { [] },
+    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute('role_applications' => (
     reader  => '_get_role_applications',
-    default => sub { [] }
+    default => sub { [] },
+    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute(
     Class::MOP::Attribute->new('immutable_trait' => (
         accessor => "immutable_trait",
         default  => 'Moose::Meta::Class::Immutable::Trait',
+        Class::MOP::_definition_context(),
     ))
 );
 
 __PACKAGE__->meta->add_attribute('constructor_class' => (
     accessor => 'constructor_class',
     default  => 'Moose::Meta::Method::Constructor',
+    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute('destructor_class' => (
     accessor => 'destructor_class',
     default  => 'Moose::Meta::Method::Destructor',
+    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute('error_class' => (
     accessor => 'error_class',
     default  => 'Moose::Error::Default',
+    Class::MOP::_definition_context(),
 ));
 
 sub initialize {
@@ -136,10 +142,9 @@ sub _anon_cache_key {
             $excludes = [$excludes] unless ref($excludes) eq 'ARRAY';
 
             if (%$params) {
-                # disable this warning until 2.02
-                # warn "Roles with parameters cannot be cached. Consider "
-                #    . "applying the parameters before calling "
-                #    . "create_anon_class, or using 'weaken => 0' instead";
+                warn "Roles with parameters cannot be cached. Consider "
+                   . "applying the parameters before calling "
+                   . "create_anon_class, or using 'weaken => 0' instead";
                 return;
             }
 
@@ -392,7 +397,8 @@ sub _inline_init_attr_from_constructor {
         '$instance',
         '$params->{\'' . $attr->init_arg . '\'}',
         '$type_constraint_bodies[' . $idx . ']',
-        '$type_constraints[' . $idx . ']',
+        '$type_coercions[' . $idx . ']',
+        '$type_constraint_messages[' . $idx . ']',
         'for constructor',
     );
 
@@ -420,7 +426,8 @@ sub _inline_init_attr_from_default {
             '$instance',
             '$default',
             '$type_constraint_bodies[' . $idx . ']',
-            '$type_constraints[' . $idx . ']',
+            '$type_coercions[' . $idx . ']',
+            '$type_constraint_messages[' . $idx . ']',
             'for constructor',
         ),
     );
@@ -458,7 +465,7 @@ sub _inline_triggers {
 
         push @trigger_calls,
             'if (exists $params->{\'' . $init_arg . '\'}) {',
-                '$attrs->[' . $i . ']->trigger->(',
+                '$triggers->[' . $i . ']->(',
                     '$instance,',
                     $attr->_inline_instance_get('$instance') . ',',
                 ');',
@@ -480,6 +487,63 @@ sub _inline_BUILDALL {
     }
 
     return @BUILD_calls;
+}
+
+sub _eval_environment {
+    my $self = shift;
+
+    my @attrs = sort { $a->name cmp $b->name } $self->get_all_attributes;
+
+    my $triggers = [
+        map { $_->can('has_trigger') && $_->has_trigger ? $_->trigger : undef }
+            @attrs
+    ];
+
+    # We need to check if the attribute ->can('type_constraint')
+    # since we may be trying to immutabilize a Moose meta class,
+    # which in turn has attributes which are Class::MOP::Attribute
+    # objects, rather than Moose::Meta::Attribute. And
+    # Class::MOP::Attribute attributes have no type constraints.
+    # However we need to make sure we leave an undef value there
+    # because the inlined code is using the index of the attributes
+    # to determine where to find the type constraint
+
+    my @type_constraints = map {
+        $_->can('type_constraint') ? $_->type_constraint : undef
+    } @attrs;
+
+    my @type_constraint_bodies = map {
+        defined $_ ? $_->_compiled_type_constraint : undef;
+    } @type_constraints;
+
+    my @type_coercions = map {
+        defined $_ && $_->has_coercion
+            ? $_->coercion->_compiled_type_coercion
+            : undef
+    } @type_constraints;
+
+    my @type_constraint_messages = map {
+        defined $_
+            ? ($_->has_message ? $_->message : $_->_default_message)
+            : undef
+    } @type_constraints;
+
+    return {
+        %{ $self->SUPER::_eval_environment },
+        ((any { defined && $_->has_initializer } @attrs)
+            ? ('$attrs' => \[@attrs])
+            : ()),
+        '$triggers' => \$triggers,
+        '@type_coercions' => \@type_coercions,
+        '@type_constraint_bodies' => \@type_constraint_bodies,
+        '@type_constraint_messages' => \@type_constraint_messages,
+        ( map { defined($_) ? %{ $_->inline_environment } : () }
+              @type_constraints ),
+        # pretty sure this is only going to be closed over if you use a custom
+        # error class at this point, but we should still get rid of this
+        # at some point
+        '$meta'  => \$self,
+    };
 }
 
 sub superclasses {
@@ -712,13 +776,19 @@ sub throw_error {
 }
 
 sub _inline_throw_error {
-    my ( $self, $msg, $args ) = @_;
-    "\$meta->throw_error($msg" . ($args ? ", $args" : "") . ")"; # FIXME makes deparsing *REALLY* hard
+    my ( $self, @args ) = @_;
+    $self->_inline_raise_error($self->_inline_create_error(@args));
 }
 
 sub raise_error {
     my ( $self, @args ) = @_;
     die @args;
+}
+
+sub _inline_raise_error {
+    my ( $self, $message ) = @_;
+
+    return 'die ' . $message;
 }
 
 sub create_error {
@@ -746,6 +816,36 @@ sub create_error {
     );
 }
 
+sub _inline_create_error {
+    my ( $self, $msg, $args ) = @_;
+    # XXX ignore $args for now, nothing currently uses it anyway
+
+    require Carp::Heavy;
+
+    my %args = (
+        metaclass  => $self,
+        last_error => $@,
+        message    => $msg,
+    );
+
+    my $class = ref $self ? $self->error_class : "Moose::Error::Default";
+
+    Class::MOP::load_class($class);
+
+    # don't check inheritance here - the intention is that the class needs
+    # to provide a non-inherited inlining method, because falling back to
+    # the default inlining method is most likely going to be wrong
+    # yes, this is a huge hack, but so is the entire error system, so.
+    return '$meta->create_error(' . $msg . ', ' . $args . ');'
+        unless $class->meta->has_method('_inline_new');
+
+    $class->_inline_new(
+        # XXX ignore this for now too
+        # Carp::caller_info($args{depth}),
+        %args
+    );
+}
+
 1;
 
 # ABSTRACT: The Moose metaclass
@@ -760,7 +860,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.0010
+version 2.0104
 
 =head1 DESCRIPTION
 

@@ -114,6 +114,7 @@ lib/Moose/Deprecated.pm
 lib/Moose/Error/Confess.pm
 lib/Moose/Error/Croak.pm
 lib/Moose/Error/Default.pm
+lib/Moose/Error/Util.pm
 lib/Moose/Exporter.pm
 lib/Moose/Intro.pod
 lib/Moose/Manual.pod
@@ -157,6 +158,7 @@ lib/Moose/Meta/Method/Accessor/Native/Array/count.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/delete.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/elements.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/first.pm
+lib/Moose/Meta/Method/Accessor/Native/Array/first_index.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/get.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/grep.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/insert.pm
@@ -258,7 +260,7 @@ lib/Moose/Unsweetened.pod
 lib/Moose/Util.pm
 lib/Moose/Util/MetaRole.pm
 lib/Moose/Util/TypeConstraints.pm
-lib/Moose/Util/TypeConstraints/OptimizedConstraints.pm
+lib/Moose/Util/TypeConstraints/Builtins.pm
 lib/Test/Moose.pm
 lib/metaclass.pm
 lib/oose.pm
@@ -480,6 +482,7 @@ t/immutable/immutable_metaclass_with_traits.t
 t/immutable/immutable_moose.t
 t/immutable/immutable_roundtrip.t
 t/immutable/immutable_trigger_from_constructor.t
+t/immutable/inline_close_over.t
 t/immutable/inline_fallbacks.t
 t/immutable/inlined_constructors_n_types.t
 t/immutable/multiple_demolish_inline.t
@@ -505,7 +508,6 @@ t/metaclasses/custom_attr_meta_as_role.t
 t/metaclasses/custom_attr_meta_with_roles.t
 t/metaclasses/easy_init_meta.t
 t/metaclasses/export_with_prototype.t
-t/metaclasses/extending_and_embedding_back_compat.t
 t/metaclasses/goto_moose_import.t
 t/metaclasses/immutable_metaclass_compat_bug.t
 t/metaclasses/meta_name.t
@@ -514,7 +516,6 @@ t/metaclasses/metaclass_compat_no_fixing_bug.t
 t/metaclasses/metaclass_parameterized_traits.t
 t/metaclasses/metaclass_traits.t
 t/metaclasses/metarole.t
-t/metaclasses/metarole_backcompat.t
 t/metaclasses/metarole_combination.t
 t/metaclasses/metarole_on_anon.t
 t/metaclasses/metarole_w_metaclass_pm.t
@@ -646,6 +647,7 @@ t/type_constraints/define_type_twice_throws.t
 t/type_constraints/duck_type_handles.t
 t/type_constraints/duck_types.t
 t/type_constraints/enum.t
+t/type_constraints/inlining.t
 t/type_constraints/match_type_operator.t
 t/type_constraints/maybe_type_constraint.t
 t/type_constraints/misc_type_tests.t

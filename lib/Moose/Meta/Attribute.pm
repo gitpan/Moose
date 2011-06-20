@@ -4,13 +4,14 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::VERSION = '2.0010';
+  $Moose::Meta::Attribute::VERSION = '2.0104'; # TRIAL
 }
 
 use strict;
 use warnings;
 
 use Class::MOP ();
+use B ();
 use Scalar::Util 'blessed', 'weaken';
 use List::MoreUtils 'any';
 use Try::Tiny;
@@ -30,6 +31,7 @@ Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 __PACKAGE__->meta->add_attribute('traits' => (
     reader    => 'applied_traits',
     predicate => 'has_applied_traits',
+    Class::MOP::_definition_context(),
 ));
 
 # we need to have a ->does method in here to
@@ -45,19 +47,40 @@ sub does {
     return $self->Moose::Object::does($name);
 }
 
+sub _error_thrower {
+    my $self = shift;
+    require Moose::Meta::Class;
+    ( ref $self && $self->associated_class ) || "Moose::Meta::Class";
+}
+
 sub throw_error {
     my $self = shift;
-    my $class = ( ref $self && $self->associated_class ) || "Moose::Meta::Class";
+    my $inv = $self->_error_thrower;
     unshift @_, "message" if @_ % 2 == 1;
     unshift @_, attr => $self if ref $self;
-    unshift @_, $class;
-    my $handler = $class->can("throw_error"); # to avoid incrementing depth by 1
+    unshift @_, $inv;
+    my $handler = $inv->can("throw_error"); # to avoid incrementing depth by 1
     goto $handler;
 }
 
 sub _inline_throw_error {
     my ( $self, $msg, $args ) = @_;
-    "\$meta->throw_error($msg" . ($args ? ", $args" : "") . ")"; # FIXME makes deparsing *REALLY* hard
+
+    my $inv = $self->_error_thrower;
+    # XXX ugh
+    $inv = 'Moose::Meta::Class' unless $inv->can('_inline_throw_error');
+
+    # XXX ugh ugh UGH
+    my $class = $self->associated_class;
+    if ($class) {
+        my $class_name = B::perlstring($class->name);
+        my $attr_name = B::perlstring($self->name);
+        $args = 'attr => Class::MOP::class_of(' . $class_name . ')'
+              . '->find_attribute_by_name(' . $attr_name . '), '
+              . (defined $args ? $args : '');
+    }
+
+    return $inv->_inline_throw_error($msg, $args)
 }
 
 sub new {
@@ -530,7 +553,7 @@ sub set_value {
     my ($self, $instance, @args) = @_;
     my $value = $args[0];
 
-    my $attr_name = $self->name;
+    my $attr_name = quotemeta($self->name);
 
     if ($self->is_required and not @args) {
         $self->throw_error("Attribute ($attr_name) is required", object => $instance);
@@ -556,12 +579,13 @@ sub set_value {
 
 sub _inline_set_value {
     my $self = shift;
-    my ($instance, $value, $tc, $tc_obj, $for_constructor) = @_;
+    my ($instance, $value, $tc, $coercion, $message, $for_constructor) = @_;
 
-    my $old   = '@old';
-    my $copy  = '$val';
-    $tc     ||= '$type_constraint';
-    $tc_obj ||= '$type_constraint_obj';
+    my $old     = '@old';
+    my $copy    = '$val';
+    $tc       ||= '$type_constraint';
+    $coercion ||= '$type_coercion';
+    $message  ||= '$type_message';
 
     my @code;
     if ($self->_writer_value_needs_copy) {
@@ -573,7 +597,7 @@ sub _inline_set_value {
     push @code, $self->_inline_check_required
         unless $for_constructor;
 
-    push @code, $self->_inline_tc_code($value, $tc, $tc_obj);
+    push @code, $self->_inline_tc_code($value, $tc, $coercion, $message);
 
     # constructors do triggers all at once at the end
     push @code, $self->_inline_get_old_value_for_trigger($instance, $old)
@@ -622,39 +646,75 @@ sub _inline_check_required {
 
 sub _inline_tc_code {
     my $self = shift;
+    my ($value, $tc, $coercion, $message, $is_lazy) = @_;
     return (
-        $self->_inline_check_coercion(@_),
-        $self->_inline_check_constraint(@_),
+        $self->_inline_check_coercion(
+            $value, $tc, $coercion, $is_lazy,
+        ),
+        $self->_inline_check_constraint(
+            $value, $tc, $message, $is_lazy,
+        ),
     );
 }
 
 sub _inline_check_coercion {
     my $self = shift;
-    my ($value, $tc, $tc_obj) = @_;
+    my ($value, $tc, $coercion) = @_;
 
     return unless $self->should_coerce && $self->type_constraint->has_coercion;
 
-    return $value . ' = ' . $tc_obj . '->coerce(' . $value . ');';
+    if ( $self->type_constraint->can_be_inlined ) {
+        return (
+            'if (! (' . $self->type_constraint->_inline_check($value) . ')) {',
+                $value . ' = ' . $coercion . '->(' . $value . ');',
+            '}',
+        );
+    }
+    else {
+        return (
+            'if (!' . $tc . '->(' . $value . ')) {',
+                $value . ' = ' . $coercion . '->(' . $value . ');',
+            '}',
+        );
+    }
 }
 
 sub _inline_check_constraint {
     my $self = shift;
-    my ($value, $tc, $tc_obj) = @_;
+    my ($value, $tc, $message) = @_;
 
     return unless $self->has_type_constraint;
 
     my $attr_name = quotemeta($self->name);
 
-    return (
-        'if (!' . $tc . '->(' . $value . ')) {',
-            $self->_inline_throw_error(
-                '"Attribute (' . $attr_name . ') does not pass the type '
-              . 'constraint because: " . '
-              . $tc_obj . '->get_message(' . $value . ')',
-                'data => ' . $value
-            ) . ';',
-        '}',
-    );
+    if ( $self->type_constraint->can_be_inlined ) {
+        return (
+            'if (! (' . $self->type_constraint->_inline_check($value) . ')) {',
+                $self->_inline_throw_error(
+                    '"Attribute (' . $attr_name . ') does not pass the type '
+                  . 'constraint because: " . '
+                  . 'do { local $_ = ' . $value . '; '
+                      . $message . '->(' . $value . ')'
+                  . '}',
+                    'data => ' . $value
+                ) . ';',
+            '}',
+        );
+    }
+    else {
+        return (
+            'if (!' . $tc . '->(' . $value . ')) {',
+                $self->_inline_throw_error(
+                    '"Attribute (' . $attr_name . ') does not pass the type '
+                  . 'constraint because: " . '
+                  . 'do { local $_ = ' . $value . '; '
+                      . $message . '->(' . $value . ')'
+                  . '}',
+                    'data => ' . $value
+                ) . ';',
+            '}',
+        );
+    }
 }
 
 sub _inline_get_old_value_for_trigger {
@@ -689,7 +749,45 @@ sub _inline_trigger {
 
     return unless $self->has_trigger;
 
-    return '$attr->trigger->(' . $instance . ', ' . $value . ', ' . $old . ');';
+    return '$trigger->(' . $instance . ', ' . $value . ', ' . $old . ');';
+}
+
+sub _eval_environment {
+    my $self = shift;
+
+    my $env = { };
+
+    $env->{'$trigger'} = \($self->trigger)
+        if $self->has_trigger;
+    $env->{'$attr_default'} = \($self->default)
+        if $self->has_default;
+
+    if ($self->has_type_constraint) {
+        my $tc_obj = $self->type_constraint;
+
+        $env->{'$type_constraint'} = \(
+            $tc_obj->_compiled_type_constraint
+        ) unless $tc_obj->can_be_inlined;
+        # these two could probably get inlined versions too
+        $env->{'$type_coercion'} = \(
+            $tc_obj->coercion->_compiled_type_coercion
+        ) if $tc_obj->has_coercion;
+        $env->{'$type_message'} = \(
+            $tc_obj->has_message ? $tc_obj->message : $tc_obj->_default_message
+        );
+
+        $env = { %$env, %{ $tc_obj->inline_environment } };
+    }
+
+    # XXX ugh, fix these
+    $env->{'$attr'} = \$self
+        if $self->has_initializer && $self->is_lazy;
+    # pretty sure this is only going to be closed over if you use a custom
+    # error class at this point, but we should still get rid of this
+    # at some point
+    $env->{'$meta'} = \($self->associated_class);
+
+    return $env;
 }
 
 sub _weaken_value {
@@ -746,21 +844,22 @@ sub get_value {
 
 sub _inline_get_value {
     my $self = shift;
-    my ($instance, $tc, $tc_obj) = @_;
+    my ($instance, $tc, $coercion, $message) = @_;
 
     my $slot_access = $self->_inline_instance_get($instance);
     $tc           ||= '$type_constraint';
-    $tc_obj       ||= '$type_constraint_obj';
+    $coercion     ||= '$type_coercion';
+    $message      ||= '$type_message';
 
     return (
-        $self->_inline_check_lazy($instance, $tc, $tc_obj),
+        $self->_inline_check_lazy($instance, $tc, $coercion, $message),
         $self->_inline_return_auto_deref($slot_access),
     );
 }
 
 sub _inline_check_lazy {
     my $self = shift;
-    my ($instance, $tc, $tc_obj) = @_;
+    my ($instance, $tc, $coercion, $message) = @_;
 
     return unless $self->is_lazy;
 
@@ -768,14 +867,14 @@ sub _inline_check_lazy {
 
     return (
         'if (!' . $slot_exists . ') {',
-            $self->_inline_init_from_default($instance, '$default', $tc, $tc_obj, 'lazy'),
+            $self->_inline_init_from_default($instance, '$default', $tc, $coercion, $message, 'lazy'),
         '}',
     );
 }
 
 sub _inline_init_from_default {
     my $self = shift;
-    my ($instance, $default, $tc, $tc_obj, $for_lazy) = @_;
+    my ($instance, $default, $tc, $coercion, $message, $for_lazy) = @_;
 
     if (!($self->has_default || $self->has_builder)) {
         $self->throw_error(
@@ -792,8 +891,8 @@ sub _inline_init_from_default {
         # to do things like possibly only do member tc checks, which isn't
         # appropriate for checking the result of a default
         $self->has_type_constraint
-            ? ($self->_inline_check_coercion($default, $tc, $tc_obj, $for_lazy),
-               $self->_inline_check_constraint($default, $tc, $tc_obj, $for_lazy))
+            ? ($self->_inline_check_coercion($default, $tc, $coercion, $for_lazy),
+               $self->_inline_check_constraint($default, $tc, $message, $for_lazy))
             : (),
         $self->_inline_init_slot($instance, $default),
     );
@@ -804,21 +903,26 @@ sub _inline_generate_default {
     my ($instance, $default) = @_;
 
     if ($self->has_default) {
-        return 'my ' . $default . ' = $attr->default(' . $instance . ');';
+        my $source = 'my ' . $default . ' = $attr_default';
+        $source .= '->(' . $instance . ')'
+            if $self->is_default_a_coderef;
+        return $source . ';';
     }
     elsif ($self->has_builder) {
+        my $builder = B::perlstring($self->builder);
+        my $builder_str = quotemeta($self->builder);
+        my $attr_name_str = quotemeta($self->name);
         return (
             'my ' . $default . ';',
-            'if (my $builder = ' . $instance . '->can($attr->builder)) {',
+            'if (my $builder = ' . $instance . '->can(' . $builder . ')) {',
                 $default . ' = ' . $instance . '->$builder;',
             '}',
             'else {',
                 'my $class = ref(' . $instance . ') || ' . $instance . ';',
-                'my $builder_name = $attr->builder;',
-                'my $attr_name = $attr->name;',
                 $self->_inline_throw_error(
                     '"$class does not support builder method '
-                  . '\'$builder_name\' for attribute \'$attr_name\'"'
+                  . '\'' . $builder_str . '\' for attribute '
+                  . '\'' . $attr_name_str . '\'"'
                 ) . ';',
             '}',
         );
@@ -1153,7 +1257,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0010';
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0104'; # TRIAL
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1171,7 +1275,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0010
+version 2.0104
 
 =head1 DESCRIPTION
 
