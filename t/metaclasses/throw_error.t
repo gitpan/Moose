@@ -5,7 +5,6 @@ use warnings;
 
 use Test::More;
 use Test::Fatal;
-use Test::Moose;
 
 {
 
@@ -64,7 +63,6 @@ sub create_error {
     };
 }
 
-with_immutable {
 {
     my $e = create_error( Foo->new );
     ok( !ref( $e->{error} ), "error is a string" );
@@ -93,7 +91,6 @@ with_immutable {
     is_deeply( $e->{error}->data, [ $baz, 4 ], "captured args" );
     like( $e->{error}->last_error, qr/Blah/, "last error preserved" );
 }
-} 'Foo', 'Bar', 'Baz';
 
 {
     package Role::Foo;
@@ -203,7 +200,6 @@ sub stacktrace_not_ok (&) {
     cmp_ok(scalar(@lines), '==', 1, "didn't get a stacktrace");
 }
 
-with_immutable {
 my $default = Quux::Default->new;
 my $croak = Quux::Croak->new;
 my $confess = Quux::Confess->new;
@@ -232,6 +228,5 @@ is($confess->meta->error_class, 'Moose::Error::Confess');
     stacktrace_not_ok { $croak->bar };
     stacktrace_ok { $confess->bar };
 }
-} 'Quux::Default', 'Quux::Croak', 'Quux::Confess';
 
 done_testing;

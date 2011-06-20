@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Class::VERSION = '2.0103'; # TRIAL
+  $Class::MOP::Class::VERSION = '2.0010';
 }
 
 use strict;
@@ -700,18 +700,6 @@ sub _inline_preserve_weak_metaclasses {
 }
 
 sub _inline_extra_init { }
-
-sub _eval_environment {
-    my $self = shift;
-
-    my @attrs = sort { $a->name cmp $b->name } $self->get_all_attributes;
-
-    my $defaults = [map { $_->default } @attrs];
-
-    return {
-        '$defaults' => \$defaults,
-    };
-}
 
 
 sub get_meta_instance {
@@ -1502,7 +1490,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.0103
+version 2.0010
 
 =head1 SYNOPSIS
 

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Reader::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Reader::VERSION = '2.0103'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Reader::VERSION = '2.0010';
 }
 
 use strict;
@@ -38,7 +38,7 @@ sub _inline_reader_core {
         $self->_inline_check_argument_count,
         $self->_inline_process_arguments($inv, $slot_access),
         $self->_inline_check_arguments,
-        $self->_inline_check_lazy($inv, '$type_constraint', '$type_coercion', '$type_message'),
+        $self->_inline_check_lazy($inv, '$type_constraint', '$type_constraint_obj'),
         $self->_inline_return_value($slot_access),
     );
 }

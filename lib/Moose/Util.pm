@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::VERSION = '2.0103'; # TRIAL
+  $Moose::Util::VERSION = '2.0010';
 }
 
 use strict;
@@ -143,7 +143,10 @@ sub _apply_all_roles {
 
     return unless @role_metas;
 
-    Class::MOP::load_class($applicant) unless blessed($applicant);
+    Class::MOP::load_class($applicant)
+        unless blessed($applicant)
+            || Class::MOP::class_of($applicant);
+
     my $meta = ( blessed $applicant ? $applicant : Moose::Meta::Class->initialize($applicant) );
 
     if ( scalar @role_metas == 1 ) {
@@ -479,7 +482,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0103
+version 2.0010
 
 =head1 SYNOPSIS
 

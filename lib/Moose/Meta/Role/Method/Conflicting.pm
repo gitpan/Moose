@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::Method::Conflicting::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Method::Conflicting::VERSION = '2.0103'; # TRIAL
+  $Moose::Meta::Role::Method::Conflicting::VERSION = '2.0010';
 }
 
 use strict;
@@ -17,7 +17,6 @@ use base qw(Moose::Meta::Role::Method::Required);
 __PACKAGE__->meta->add_attribute('roles' => (
     reader   => 'roles',
     required => 1,
-    Class::MOP::_definition_context(),
 ));
 
 sub roles_as_english_list {
@@ -39,7 +38,7 @@ Moose::Meta::Role::Method::Conflicting - A Moose metaclass for conflicting metho
 
 =head1 VERSION
 
-version 2.0103
+version 2.0010
 
 =head1 DESCRIPTION
 

@@ -26,6 +26,7 @@ foreach my $type_name (qw(
                 CodeRef
                 RegexpRef
                 Object
+                    Role
     )) {
     is(find_type_constraint($type_name)->name,
        $type_name,

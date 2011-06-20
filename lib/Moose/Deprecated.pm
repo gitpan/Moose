@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Deprecated::VERSION = '2.0103'; # TRIAL
+  $Moose::Deprecated::VERSION = '2.0010';
 }
 
 use strict;
@@ -13,6 +13,12 @@ use Package::DeprecationManager 0.07 -deprecations => {
     'default is for Native Trait'      => '1.14',
     'default default for Native Trait' => '1.14',
     'coerce without coercion'          => '1.08',
+    'pre-0.94 MetaRole API'            => '0.94',
+    'alias or excludes'                => '0.89',
+    'Role type'                        => '0.84',
+    'subtype without sugar'            => '0.72',
+    'type without sugar'               => '0.72',
+    'Moose::init_meta'                 => '0.56',
     },
     -ignore => [qr/^(?:Class::MOP|Moose)(?:::)?/],
     ;

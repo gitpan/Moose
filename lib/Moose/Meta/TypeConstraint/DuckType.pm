@@ -3,14 +3,13 @@ BEGIN {
   $Moose::Meta::TypeConstraint::DuckType::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::DuckType::VERSION = '2.0103'; # TRIAL
+  $Moose::Meta::TypeConstraint::DuckType::VERSION = '2.0010';
 }
 
 use strict;
 use warnings;
 use metaclass;
 
-use B;
 use Scalar::Util 'blessed';
 use List::MoreUtils qw(all);
 use Moose::Util 'english_list';
@@ -21,36 +20,14 @@ use base 'Moose::Meta::TypeConstraint';
 
 __PACKAGE__->meta->add_attribute('methods' => (
     accessor => 'methods',
-    Class::MOP::_definition_context(),
 ));
-
-my $inliner = sub {
-    my $self = shift;
-    my $val  = shift;
-
-    return 'Scalar::Util::blessed(' . $val . ') '
-             . '&& Scalar::Util::blessed(' . $val . ') ne "Regexp" '
-             . '&& &List::MoreUtils::all('
-                 . 'sub { ' . $val . '->can($_) }, '
-                 . join(', ', map { B::perlstring($_) } @{ $self->methods })
-             . ')';
-};
 
 sub new {
     my ( $class, %args ) = @_;
 
-    $args{parent}
-        = Moose::Util::TypeConstraints::find_type_constraint('Object');
+    $args{parent} = Moose::Util::TypeConstraints::find_type_constraint('Object');
 
-    my @methods = @{ $args{methods} };
-    $args{constraint} = sub {
-        blessed( $_[0] ) ne 'Regexp'
-            && all { $_[0]->can($_) } @methods;
-    };
-
-    $args{inlined} = $inliner;
-
-    my $self = $class->SUPER::new(\%args);
+    my $self = $class->_new(\%args);
 
     $self->compile_type_constraint()
         unless $self->_has_compiled_type_constraint;
@@ -91,6 +68,20 @@ sub constraint {
     };
 }
 
+sub _compile_hand_optimized_type_constraint {
+    my $self  = shift;
+
+    my @methods = @{ $self->methods };
+
+    sub {
+        my $obj = shift;
+
+        return blessed($obj)
+            && blessed($obj) ne 'Regexp'
+            && all { $obj->can($_) } @methods;
+    };
+}
+
 sub create_child_type {
     my ($self, @args) = @_;
     return Moose::Meta::TypeConstraint->new(@args, parent => $self);
@@ -108,8 +99,6 @@ sub get_message {
 
     my @methods = grep { !$value->can($_) } @{ $self->methods };
     my $class = blessed $value;
-    $class ||= $value;
-
     return $class
          . " is missing methods "
          . english_list(map { "'$_'" } @methods);
@@ -129,7 +118,7 @@ Moose::Meta::TypeConstraint::DuckType - Type constraint for duck typing
 
 =head1 VERSION
 
-version 2.0103
+version 2.0010
 
 =head1 DESCRIPTION
 

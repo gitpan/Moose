@@ -8,13 +8,7 @@ sub before_build {
 
     if (-e 'Makefile') {
         $self->log("Running make distclean to clear out build cruft");
-        unless (fork) {
-            close(STDIN);
-            close(STDOUT);
-            close(STDERR);
-            { exec("$^X Makefile.PL && make distclean") }
-            die "couldn't exec: $!";
-        }
+        system("$^X Makefile.PL && make distclean");
     }
 
     if (-e 'META.yml') {

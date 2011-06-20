@@ -141,7 +141,7 @@ Well cause merlyn asked if it could :)
         );
     }
 
-    around '_construct_instance' => sub {
+    around 'construct_instance' => sub {
         my $next = shift;
         my $self = shift;
         # NOTE:

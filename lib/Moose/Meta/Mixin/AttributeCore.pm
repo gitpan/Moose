@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Mixin::AttributeCore::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Mixin::AttributeCore::VERSION = '2.0103'; # TRIAL
+  $Moose::Meta::Mixin::AttributeCore::VERSION = '2.0010';
 }
 
 use strict;
@@ -11,98 +11,41 @@ use warnings;
 
 use base 'Class::MOP::Mixin::AttributeCore';
 
-__PACKAGE__->meta->add_attribute(
-    'isa' => (
-        reader => '_isa_metadata',
-        Class::MOP::_definition_context(),
-    )
-);
+__PACKAGE__->meta->add_attribute( 'isa'  => ( reader => '_isa_metadata' ) );
+__PACKAGE__->meta->add_attribute( 'does' => ( reader => '_does_metadata' ) );
+__PACKAGE__->meta->add_attribute( 'is'   => ( reader => '_is_metadata' ) );
 
+__PACKAGE__->meta->add_attribute( 'required' => ( reader => 'is_required' ) );
+__PACKAGE__->meta->add_attribute( 'lazy'     => ( reader => 'is_lazy' ) );
 __PACKAGE__->meta->add_attribute(
-    'does' => (
-        reader => '_does_metadata',
-        Class::MOP::_definition_context(),
-    )
-);
-
+    'lazy_build' => ( reader => 'is_lazy_build' ) );
+__PACKAGE__->meta->add_attribute( 'coerce' => ( reader => 'should_coerce' ) );
+__PACKAGE__->meta->add_attribute( 'weak_ref' => ( reader => 'is_weak_ref' ) );
 __PACKAGE__->meta->add_attribute(
-    'is' => (
-        reader => '_is_metadata',
-        Class::MOP::_definition_context(),
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    'required' => (
-        reader => 'is_required',
-        Class::MOP::_definition_context(),
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    'lazy' => (
-        reader => 'is_lazy', Class::MOP::_definition_context(),
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    'lazy_build' => (
-        reader => 'is_lazy_build',
-        Class::MOP::_definition_context(),
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    'coerce' => (
-        reader => 'should_coerce',
-        Class::MOP::_definition_context(),
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    'weak_ref' => (
-        reader => 'is_weak_ref',
-        Class::MOP::_definition_context(),
-    )
-);
-
-__PACKAGE__->meta->add_attribute(
-    'auto_deref' => (
-        reader => 'should_auto_deref',
-        Class::MOP::_definition_context(),
-    )
-);
-
+    'auto_deref' => ( reader => 'should_auto_deref' ) );
 __PACKAGE__->meta->add_attribute(
     'type_constraint' => (
         reader    => 'type_constraint',
         predicate => 'has_type_constraint',
-        Class::MOP::_definition_context(),
     )
 );
-
 __PACKAGE__->meta->add_attribute(
     'trigger' => (
         reader    => 'trigger',
         predicate => 'has_trigger',
-        Class::MOP::_definition_context(),
     )
 );
-
 __PACKAGE__->meta->add_attribute(
     'handles' => (
         reader    => 'handles',
         writer    => '_set_handles',
         predicate => 'has_handles',
-        Class::MOP::_definition_context(),
     )
 );
-
 __PACKAGE__->meta->add_attribute(
     'documentation' => (
         reader    => 'documentation',
         predicate => 'has_documentation',
-        Class::MOP::_definition_context(),
     )
 );
 
@@ -120,7 +63,7 @@ Moose::Meta::Mixin::AttributeCore - Core attributes shared by attribute metaclas
 
 =head1 VERSION
 
-version 2.0103
+version 2.0010
 
 =head1 DESCRIPTION
 
