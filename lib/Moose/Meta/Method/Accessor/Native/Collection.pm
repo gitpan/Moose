@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Collection::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Collection::VERSION = '2.0009';
+  $Moose::Meta::Method::Accessor::Native::Collection::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
@@ -21,7 +21,7 @@ sub _inline_coerce_new_values {
     return unless $self->_tc_member_type_can_coerce;
 
     return (
-        '(' . $self->_new_members . ') = map { $member_tc_obj->coerce($_) }',
+        '(' . $self->_new_members . ') = map { $member_coercion->($_) }',
                                              $self->_new_members . ';',
     );
 }
@@ -56,6 +56,7 @@ sub _writer_value_needs_copy {
 
 sub _inline_tc_code {
     my $self = shift;
+    my ($value, $tc, $coercion, $message, $is_lazy) = @_;
 
     return unless $self->_constraint_must_be_checked;
 
@@ -66,8 +67,8 @@ sub _inline_tc_code {
     }
     else {
         return (
-            $self->_inline_check_coercion(@_),
-            $self->_inline_check_constraint(@_),
+            $self->_inline_check_coercion($value, $tc, $coercion, $is_lazy),
+            $self->_inline_check_constraint($value, $tc, $message, $is_lazy),
         );
     }
 }
@@ -103,14 +104,19 @@ sub _inline_check_member_constraint {
 
     my $attr_name = $self->associated_attribute->name;
 
+    my $check
+        = $self->_tc_member_type->can_be_inlined
+        ? '! (' . $self->_tc_member_type->_inline_check('$new_val') . ')'
+        : ' !$member_tc->($new_val) ';
+
     return (
-        'for (' . $new_value . ') {',
-            'if (!$member_tc->($_)) {',
+        'for my $new_val (' . $new_value . ') {',
+            "if ($check) {",
                 $self->_inline_throw_error(
                     '"A new member value for ' . $attr_name
-                  . ' does not pass its type constraint because: "'
-                  . ' . $member_tc_obj->get_message($_)',
-                    'data => $_',
+                  . ' does not pass its type constraint because: "' . ' . '
+                  . 'do { local $_ = $new_val; $member_message->($new_val) }',
+                    'data => $new_val',
                 ) . ';',
             '}',
         '}',
@@ -141,9 +147,19 @@ around _eval_environment => sub {
 
     return $env unless $member_tc;
 
-    $env->{'$member_tc_obj'} = \($member_tc);
-
     $env->{'$member_tc'} = \( $member_tc->_compiled_type_constraint );
+    $env->{'$member_coercion'} = \(
+        $member_tc->coercion->_compiled_type_coercion
+    ) if $member_tc->has_coercion;
+    $env->{'$member_message'} = \(
+        $member_tc->has_message
+            ? $member_tc->message
+            : $member_tc->_default_message
+    );
+
+    my $tc_env = $member_tc->inline_environment();
+
+    $env = { %{$env}, %{$tc_env} };
 
     return $env;
 };

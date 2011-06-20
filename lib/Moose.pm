@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::VERSION = '2.0009';
+  $Moose::VERSION = '2.0103'; # TRIAL
 }
 use strict;
 use warnings;
@@ -138,22 +138,6 @@ Moose::Exporter->setup_import_methods(
 );
 
 sub init_meta {
-    # This used to be called as a function. This hack preserves
-    # backwards compatibility.
-    if ( $_[0] ne __PACKAGE__ ) {
-        Moose::Deprecated::deprecated(
-            feature => 'Moose::init_meta',
-            message => 'Calling Moose::init_meta as a function is deprecated.'
-                . ' Doing so will throw an error in Moose 2.0200.'
-        );
-
-        return __PACKAGE__->init_meta(
-            for_class  => $_[0],
-            base_class => $_[1],
-            metaclass  => $_[2],
-        );
-    }
-
     shift;
     my %args = @_;
 
@@ -255,7 +239,6 @@ $_->make_immutable(
     Moose::Meta::TypeCoercion::Union
 
     Moose::Meta::Method
-    Moose::Meta::Method::Accessor
     Moose::Meta::Method::Constructor
     Moose::Meta::Method::Destructor
     Moose::Meta::Method::Overridden
@@ -276,9 +259,17 @@ $_->make_immutable(
     Moose::Meta::Role::Application::ToInstance
 );
 
-Moose::Meta::Mixin::AttributeCore->meta->make_immutable(
+$_->make_immutable(
     inline_constructor => 0,
     constructor_name   => undef,
+    # these are Class::MOP accessors, so they need inlining
+    inline_accessors => 1
+    ) for grep { $_->is_mutable }
+    map { $_->meta }
+    qw(
+    Moose::Meta::Method::Accessor
+    Moose::Meta::Method::Delegation
+    Moose::Meta::Mixin::AttributeCore
 );
 
 1;
@@ -295,7 +286,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0009
+version 2.0103
 
 =head1 SYNOPSIS
 

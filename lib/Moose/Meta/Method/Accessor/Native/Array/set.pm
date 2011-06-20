@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::set::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Array::set::VERSION = '2.0009';
+  $Moose::Meta::Method::Accessor::Native::Array::set::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
@@ -57,7 +57,7 @@ sub _inline_coerce_new_values {
 
     return unless $self->_tc_member_type_can_coerce;
 
-    return '@_ = ($_[0], $member_tc_obj->coerce($_[1]));';
+    return '@_ = ($_[0], $member_coercion->($_[1]));';
 };
 
 sub _new_members { '$_[1]' }

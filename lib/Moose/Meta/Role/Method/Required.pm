@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::Method::Required::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Method::Required::VERSION = '2.0009';
+  $Moose::Meta::Role::Method::Required::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
@@ -22,6 +22,7 @@ use base qw(Class::MOP::Object);
 __PACKAGE__->meta->add_attribute('name' => (
     reader   => 'name',
     required => 1,
+    Class::MOP::_definition_context(),
 ));
 
 sub new { shift->_new(@_) }
@@ -40,7 +41,7 @@ Moose::Meta::Role::Method::Required - A Moose metaclass for required methods in 
 
 =head1 VERSION
 
-version 2.0009
+version 2.0103
 
 =head1 DESCRIPTION
 

@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Attribute::VERSION = '2.0009';
+  $Class::MOP::Attribute::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
@@ -371,8 +371,10 @@ sub _process_accessors {
 
         $method = $self->accessor_metaclass->wrap(
             $method,
+            attribute    => $self,
             package_name => $self->associated_class->name,
             name         => $name,
+            associated_metaclass => $self->associated_class,
             definition_context => $method_ctx,
         );
         $self->associate_method($method);
@@ -390,6 +392,7 @@ sub _process_accessors {
                 accessor_type => $type,
                 package_name  => $self->associated_class->name,
                 name          => $accessor,
+                associated_metaclass => $self->associated_class,
                 definition_context => $method_ctx,
             );
         }
@@ -483,7 +486,7 @@ Class::MOP::Attribute - Attribute Meta Object
 
 =head1 VERSION
 
-version 2.0009
+version 2.0103
 
 =head1 SYNOPSIS
 

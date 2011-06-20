@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Method::Generated::VERSION = '2.0009';
+  $Class::MOP::Method::Generated::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;

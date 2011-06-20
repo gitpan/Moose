@@ -3,25 +3,44 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Enum::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.0009';
+  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
 
+use B;
 use Moose::Util::TypeConstraints ();
 
 use base 'Moose::Meta::TypeConstraint';
 
 __PACKAGE__->meta->add_attribute('values' => (
     accessor => 'values',
+    Class::MOP::_definition_context(),
 ));
+
+__PACKAGE__->meta->add_attribute('_inline_var_name' => (
+    accessor => '_inline_var_name',
+    Class::MOP::_definition_context(),
+));
+
+my $inliner = sub {
+    my $self = shift;
+    my $val  = shift;
+
+    return 'defined(' . $val . ') '
+             . '&& !ref(' . $val . ') '
+             . '&& $' . $self->_inline_var_name . '{' . $val . '}';
+};
+
+my $var_suffix = 0;
 
 sub new {
     my ( $class, %args ) = @_;
 
     $args{parent} = Moose::Util::TypeConstraints::find_type_constraint('Str');
+    $args{inlined} = $inliner;
 
     if ( scalar @{ $args{values} } < 2 ) {
         require Moose;
@@ -39,7 +58,14 @@ sub new {
         }
     }
 
-    my $self = $class->_new(\%args);
+    my %values = map { $_ => 1 } @{ $args{values} };
+    $args{constraint} = sub { $values{ $_[0] } };
+
+    my $var_name = 'enums' . $var_suffix++;;
+    $args{_inline_var_name} = $var_name;
+    $args{inline_environment} = { '%' . $var_name => \%values };
+
+    my $self = $class->SUPER::new(\%args);
 
     $self->compile_type_constraint()
         unless $self->_has_compiled_type_constraint;
@@ -77,14 +103,6 @@ sub constraint {
     return sub { exists $values{$_[0]} };
 }
 
-sub _compile_hand_optimized_type_constraint {
-    my $self  = shift;
-
-    my %values = map { $_ => undef } @{ $self->values };
-
-    sub { defined($_[0]) && !ref($_[0]) && exists $values{$_[0]} };
-}
-
 sub create_child_type {
     my ($self, @args) = @_;
     return Moose::Meta::TypeConstraint->new(@args, parent => $self);
@@ -104,7 +122,7 @@ Moose::Meta::TypeConstraint::Enum - Type constraint for enumerated values.
 
 =head1 VERSION
 
-version 2.0009
+version 2.0103
 
 =head1 DESCRIPTION
 

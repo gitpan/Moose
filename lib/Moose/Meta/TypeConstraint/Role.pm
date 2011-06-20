@@ -3,13 +3,14 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Role::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::Role::VERSION = '2.0009';
+  $Moose::Meta::TypeConstraint::Role::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
 
+use B;
 use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
 
@@ -17,13 +18,30 @@ use base 'Moose::Meta::TypeConstraint';
 
 __PACKAGE__->meta->add_attribute('role' => (
     reader => 'role',
+    Class::MOP::_definition_context(),
 ));
+
+my $inliner = sub {
+    my $self = shift;
+    my $val  = shift;
+
+    return 'Moose::Util::does_role('
+             . $val . ', '
+             . B::perlstring($self->role)
+         . ')';
+};
 
 sub new {
     my ( $class, %args ) = @_;
 
     $args{parent} = Moose::Util::TypeConstraints::find_type_constraint('Object');
-    my $self      = $class->_new(\%args);
+
+    my $role_name = $args{role};
+    $args{constraint} = sub { Moose::Util::does_role( $_[0], $role_name ) };
+
+    $args{inlined} = $inliner;
+
+    my $self = $class->SUPER::new( \%args );
 
     $self->_create_hand_optimized_type_constraint;
     $self->compile_type_constraint();
@@ -116,7 +134,7 @@ Moose::Meta::TypeConstraint::Role - Role/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 2.0009
+version 2.0103
 
 =head1 DESCRIPTION
 

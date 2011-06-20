@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::ToClass::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Application::ToClass::VERSION = '2.0009';
+  $Moose::Meta::Role::Application::ToClass::VERSION = '2.0103'; # TRIAL
 }
 
 use strict;
@@ -17,10 +17,12 @@ use base 'Moose::Meta::Role::Application';
 
 __PACKAGE__->meta->add_attribute('role' => (
     reader => 'role',
+    Class::MOP::_definition_context(),
 ));
 
 __PACKAGE__->meta->add_attribute('class' => (
     accessor => 'class',
+    Class::MOP::_definition_context(),
 ));
 
 sub apply {
@@ -237,7 +239,7 @@ Moose::Meta::Role::Application::ToClass - Compose a role into a class
 
 =head1 VERSION
 
-version 2.0009
+version 2.0103
 
 =head1 DESCRIPTION
 
