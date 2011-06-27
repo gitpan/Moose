@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::VERSION = '2.0104'; # TRIAL
+  $Moose::Util::VERSION = '2.0105'; # TRIAL
 }
 
 use strict;
@@ -16,6 +16,7 @@ use Scalar::Util 'blessed';
 use List::Util qw(first);
 use List::MoreUtils qw(any all);
 use overload ();
+use Try::Tiny;
 use Class::MOP;
 
 my @exports = qw[
@@ -48,6 +49,10 @@ sub find_meta { Class::MOP::class_of(@_) }
 
 sub does_role {
     my ($class_or_obj, $role) = @_;
+
+    if (try { $class_or_obj->can('does') }) {
+        return $class_or_obj->does($role);
+    }
 
     my $meta = find_meta($class_or_obj);
 
@@ -482,7 +487,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0104
+version 2.0105
 
 =head1 SYNOPSIS
 

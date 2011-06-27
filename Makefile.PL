@@ -3,7 +3,7 @@
 BEGIN { require 5.8.3; }
 use strict;
 use warnings;
-use ExtUtils::MakeMaker 6.30;
+use ExtUtils::MakeMaker 6.31;
 check_conflicts();
 
 my %WriteMakefileArgs = (
@@ -16,7 +16,7 @@ my %WriteMakefileArgs = (
   },
   'CONFIGURE_REQUIRES' => {
     'Dist::CheckConflicts' => '0.02',
-    'ExtUtils::MakeMaker' => '6.30'
+    'ExtUtils::MakeMaker' => '6.31'
   },
   'DISTNAME' => 'Moose',
   'EXE_FILES' => [
@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0104',
+  'VERSION' => '2.0105',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',

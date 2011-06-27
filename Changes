@@ -1,7 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-2.0104 Mon, Jun 20, 2011
+2.0105 Mon, Jun 27, 2011
+
+  [ENHANCEMENTS]
+
+  * Moose::Util::does_role now respects overridden ->does methods. (doy)
+
+2.0104-TRIAL Mon, Jun 20, 2011
 
   [OTHER]
 

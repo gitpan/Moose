@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Deprecated::VERSION = '2.0104'; # TRIAL
+  $Class::MOP::Deprecated::VERSION = '2.0105'; # TRIAL
 }
 
 use strict;
@@ -11,30 +11,6 @@ use warnings;
 
 use Package::DeprecationManager -deprecations => {
 };
-
-package
-    Class::MOP;
-
-package
-    Class::MOP::Package;
-
-package
-    Class::MOP::Module;
-
-package
-    Class::MOP::Class;
-
-package
-    Class::MOP::Instance;
-
-package
-    Class::MOP::Attribute;
-
-package
-    Class::MOP::Method::Accessor;
-
-package
-    Class::MOP::Method::Constructor;
 
 1;
 
