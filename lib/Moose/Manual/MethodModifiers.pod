@@ -12,7 +12,7 @@ Moose::Manual::MethodModifiers - Moose's method modifiers
 
 =head1 VERSION
 
-version 2.0105
+version 2.0200
 
 =head1 WHAT IS A METHOD MODIFIER?
 
@@ -316,6 +316,13 @@ semi-colon:
 
   after 'foo' => sub { };
 
+=head1 CAVEATS
+
+These method modification features do not work well with multiple inheritance,
+due to how method resolution is performed in Perl. Experiment with a test
+program to ensure your class hierarchy works as expected, or more preferably,
+don't use multiple inheritance (roles can help with this)!
+
 =head1 AUTHOR
 
 Stevan Little <stevan@iinteractive.com>
@@ -331,4 +338,5 @@ the same terms as the Perl 5 programming language system itself.
 
 
 __END__
+
 

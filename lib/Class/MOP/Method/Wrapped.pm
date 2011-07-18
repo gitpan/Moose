@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Wrapped::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Class::MOP::Method::Wrapped::VERSION = '2.0105'; # TRIAL
+  $Class::MOP::Method::Wrapped::VERSION = '2.0200';
 }
 
 use strict;
@@ -213,7 +213,7 @@ Class::MOP::Method::Wrapped - Method Meta Object for methods with before/after/a
 
 =head1 VERSION
 
-version 2.0105
+version 2.0200
 
 =head1 DESCRIPTION
 

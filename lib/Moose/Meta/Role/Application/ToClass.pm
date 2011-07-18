@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::ToClass::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Application::ToClass::VERSION = '2.0105'; # TRIAL
+  $Moose::Meta::Role::Application::ToClass::VERSION = '2.0200';
 }
 
 use strict;
@@ -239,7 +239,7 @@ Moose::Meta::Role::Application::ToClass - Compose a role into a class
 
 =head1 VERSION
 
-version 2.0105
+version 2.0200
 
 =head1 DESCRIPTION
 

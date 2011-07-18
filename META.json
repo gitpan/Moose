@@ -4,7 +4,7 @@
       "Stevan Little <stevan@iinteractive.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580",
+   "generated_by" : "Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110440",
    "license" : [
       "perl_5"
    ],
@@ -41,7 +41,7 @@
       "configure" : {
          "requires" : {
             "Dist::CheckConflicts" : "0.02",
-            "ExtUtils::MakeMaker" : "6.31"
+            "ExtUtils::MakeMaker" : "6.30"
          }
       },
       "develop" : {
@@ -101,7 +101,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-moose@rt.cpan.org",
@@ -113,7 +113,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0105",
+   "version" : "2.0200",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",

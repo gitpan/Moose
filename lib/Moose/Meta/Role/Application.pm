@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Role::Application::VERSION = '2.0105'; # TRIAL
+  $Moose::Meta::Role::Application::VERSION = '2.0200';
 }
 
 use strict;
@@ -92,7 +92,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.0105
+version 2.0200
 
 =head1 DESCRIPTION
 
