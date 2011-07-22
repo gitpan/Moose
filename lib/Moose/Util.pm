@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::VERSION = '2.0200';
+  $Moose::Util::VERSION = '2.0201';
 }
 
 use strict;
@@ -50,7 +50,7 @@ sub find_meta { Class::MOP::class_of(@_) }
 sub does_role {
     my ($class_or_obj, $role) = @_;
 
-    if (try { $class_or_obj->can('does') }) {
+    if (try { $class_or_obj->isa('Moose::Object') }) {
         return $class_or_obj->does($role);
     }
 
@@ -487,7 +487,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0200
+version 2.0201
 
 =head1 SYNOPSIS
 

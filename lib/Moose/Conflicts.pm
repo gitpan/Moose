@@ -53,6 +53,7 @@ use Dist::CheckConflicts
     -also => [ qw(
         Data::OptList
         Devel::GlobalDestruction
+        Dist::CheckConflicts
         Eval::Closure
         List::MoreUtils
         MRO::Compat

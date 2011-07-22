@@ -623,6 +623,7 @@ t/roles/run_time_role_composition.t
 t/roles/runtime_roles_and_attrs.t
 t/roles/runtime_roles_and_nonmoose.t
 t/roles/runtime_roles_w_params.t
+t/roles/use_base_does.t
 t/test_moose/test_moose.t
 t/test_moose/test_moose_does_ok.t
 t/test_moose/test_moose_has_attribute_ok.t

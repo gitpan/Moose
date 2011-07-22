@@ -28,6 +28,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'Data::OptList' => '0.107',
     'Devel::GlobalDestruction' => '0',
+    'Dist::CheckConflicts' => '0.02',
     'Eval::Closure' => '0.04',
     'List::MoreUtils' => '0.28',
     'MRO::Compat' => '0.05',
@@ -41,7 +42,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0200',
+  'VERSION' => '2.0201',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',

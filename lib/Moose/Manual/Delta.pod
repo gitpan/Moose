@@ -12,7 +12,7 @@ Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.0200
+version 2.0201
 
 =head1 DESCRIPTION
 
@@ -41,7 +41,7 @@ subroutine reference.
 This affects the C<optimize_as> sub exported by
 L<Moose::Util::TypeConstraints>. Use C<inline_as> instead.
 
-This will start warning in the 2.0200 release.
+This will start warning in the 2.0300 release.
 
 =head1 2.0002
 
