@@ -45,6 +45,7 @@ use Dist::CheckConflicts
         'MooseX::SlurpyConstructor' => '1.1',
         'MooseX::StrictConstructor' => '0.12',
         'MooseX::Types' => '0.19',
+        'MooseX::Types::Parameterizable' => '0.05',
         'MooseX::UndefTolerant' => '0.11',
         'Pod::Elemental' => '0.093280',
         'Reaction' => '0.002003',

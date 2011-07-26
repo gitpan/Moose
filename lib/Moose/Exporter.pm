@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Exporter::VERSION = '2.0201';
+  $Moose::Exporter::VERSION = '2.0202';
 }
 
 use strict;
@@ -659,7 +659,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.0201
+version 2.0202
 
 =head1 SYNOPSIS
 
@@ -799,6 +799,10 @@ C<unimport>, and C<init_meta>. Calling C<setup_import_methods> is equivalent
 to calling C<build_import_methods> with C<< install => [qw(import unimport
 init_meta)] >> except that it doesn't also return the methods.
 
+The C<import> method is built using L<Sub::Exporter>. This means that it can
+take a hashref of the form C<< { into => $package } >> to specify the package
+it operates on.
+
 Used by C<setup_import_methods>.
 
 =back
@@ -826,29 +830,32 @@ Keep in mind that C<build_import_methods> will return an C<init_meta>
 method for you, which you can also call from within your custom
 C<init_meta>:
 
-  my ( $import, $unimport, $init_meta ) =
-      Moose::Exporter->build_import_methods( ... );
+  my ( $import, $unimport, $init_meta )
+      = Moose::Exporter->build_import_methods(...);
 
   sub import {
-     my $class = shift;
+      my $class = shift;
 
-     ...
+      ...
 
-     $class->$import(...);
+      # You can either pass an explicit package to import into ...
+      $class->$import( { into => scalar(caller) }, ... );
 
-     ...
+      ...;
   }
 
+  # ... or you can use 'goto' to provide the correct caller info to the
+  # generated method
   sub unimport { goto &$unimport }
 
   sub init_meta {
-     my $class = shift;
+      my $class = shift;
 
-     ...
+      ...
 
-     $class->$init_meta(...);
+      $class->$init_meta(...);
 
-     ...
+      ...
   }
 
 =head1 METACLASS TRAITS

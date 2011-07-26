@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::TypeConstraint::VERSION = '2.0201';
+  $Moose::Meta::TypeConstraint::VERSION = '2.0202';
 }
 
 use strict;
@@ -16,6 +16,7 @@ use overload '0+'     => sub { refaddr(shift) }, # id an object
              bool     => sub { 1 },
              fallback => 1;
 
+use Carp qw(confess);
 use Eval::Closure;
 use Scalar::Util qw(blessed refaddr);
 use Sub::Name qw(subname);
@@ -124,6 +125,11 @@ sub new {
     my %args = ref $first ? %$first : $first ? ($first, @rest) : ();
     $args{name} = $args{name} ? "$args{name}" : "__ANON__";
 
+    if ( exists $args{message}
+      && (!ref($args{message}) || ref($args{message}) ne 'CODE') ) {
+        confess("The 'message' parameter must be a coderef");
+    }
+
     my $self  = $class->_new(%args);
     $self->compile_type_constraint()
         unless $self->_has_compiled_type_constraint;
@@ -231,7 +237,9 @@ sub assert_valid {
 
 sub get_message {
     my ($self, $value) = @_;
-    my $msg = $self->message || $self->_default_message;
+    my $msg = $self->has_message
+        ? $self->message
+        : $self->_default_message;
     local $_ = $value;
     return $msg->($value);
 }
@@ -428,7 +436,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.0201
+version 2.0202
 
 =head1 DESCRIPTION
 

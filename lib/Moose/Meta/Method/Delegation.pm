@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Delegation::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Method::Delegation::VERSION = '2.0201';
+  $Moose::Meta::Method::Delegation::VERSION = '2.0202';
 }
 
 use strict;
@@ -147,7 +147,7 @@ Moose::Meta::Method::Delegation - A Moose Method metaclass for delegation method
 
 =head1 VERSION
 
-version 2.0201
+version 2.0202
 
 =head1 DESCRIPTION
 

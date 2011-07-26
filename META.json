@@ -114,7 +114,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0201",
+   "version" : "2.0202",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",
@@ -155,6 +155,7 @@
       "MooseX::SlurpyConstructor" : "1.1",
       "MooseX::StrictConstructor" : "0.12",
       "MooseX::Types" : "0.19",
+      "MooseX::Types::Parameterizable" : "0.05",
       "MooseX::UndefTolerant" : "0.11",
       "Pod::Elemental" : "0.093280",
       "Reaction" : "0.002003",

@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.0201';
+  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.0202';
 }
 use Moose::Role;
 
@@ -214,7 +214,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.0201
+version 2.0202
 
 =head1 BUGS
 
