@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::MetaRole::AUTHORITY = 'cpan:STEVAN';
 }
 BEGIN {
-  $Moose::Util::MetaRole::VERSION = '2.0202';
+  $Moose::Util::MetaRole::VERSION = '2.0203';
 }
 
 use strict;
@@ -152,7 +152,7 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
 
 =head1 VERSION
 
-version 2.0202
+version 2.0203
 
 =head1 SYNOPSIS
 
@@ -282,6 +282,8 @@ It accepts the following keys:
 =item application_to_instance
 
 =item application_role_summation
+
+=item applied_attribute
 
 =back
 

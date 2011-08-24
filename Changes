@@ -1,6 +1,15 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0203 Tue, Aug 23, 2011
+
+  [BUG FIXES]
+
+  * is_class_loaded now properly detects packages which have a version object
+    in their $VERSION.
+
+  * Fix XS compilation under blead.
+
 2.0202 Tue, Jul 26, 2011
 
   [BUG FIXES]

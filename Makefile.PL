@@ -10,6 +10,7 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'A postmodern object system for Perl 5',
   'AUTHOR' => 'Stevan Little <stevan@iinteractive.com>',
   'BUILD_REQUIRES' => {
+    'ExtUtils::ParseXS' => '3.03_02',
     'Test::Fatal' => '0.001',
     'Test::More' => '0.88',
     'Test::Requires' => '0.05'
@@ -42,7 +43,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0202',
+  'VERSION' => '2.0203',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',
