@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Code::execute_method;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Code::execute_method::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '2.0203';
+{
+  $Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '2.0204';
 }
 
 use strict;

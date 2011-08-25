@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::String::match;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::match::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::match::VERSION = '2.0203';
+{
+  $Moose::Meta::Method::Accessor::Native::String::match::VERSION = '2.0204';
 }
 
 use strict;

@@ -3,8 +3,8 @@ package Moose::Meta::Attribute;
 BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Attribute::VERSION = '2.0203';
+{
+  $Moose::Meta::Attribute::VERSION = '2.0204';
 }
 
 use strict;
@@ -1256,8 +1256,8 @@ package Moose::Meta::Attribute::Custom::Moose;
 BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0203';
+{
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0204';
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1275,7 +1275,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0203
+version 2.0204
 
 =head1 DESCRIPTION
 

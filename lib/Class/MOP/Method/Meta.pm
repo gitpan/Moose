@@ -3,8 +3,8 @@ package Class::MOP::Method::Meta;
 BEGIN {
   $Class::MOP::Method::Meta::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Class::MOP::Method::Meta::VERSION = '2.0203';
+{
+  $Class::MOP::Method::Meta::VERSION = '2.0204';
 }
 
 use strict;
@@ -93,7 +93,7 @@ Class::MOP::Method::Meta - Method Meta Object for C<meta> methods
 
 =head1 VERSION
 
-version 2.0203
+version 2.0204
 
 =head1 DESCRIPTION
 

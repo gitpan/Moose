@@ -2,8 +2,8 @@ package oose;
 BEGIN {
   $oose::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $oose::VERSION = '2.0203';
+{
+  $oose::VERSION = '2.0204';
 }
 
 use strict;
@@ -37,7 +37,7 @@ oose - syntactic sugar to make Moose one-liners easier
 
 =head1 VERSION
 
-version 2.0203
+version 2.0204
 
 =head1 SYNOPSIS
 

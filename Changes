@@ -1,6 +1,18 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0204 Thu, Aug 25, 2011
+
+  [BUG FIXES]
+
+  * Validating duck_type type constraint turned out to work only by accident,
+    and only when not running under the debugger. This has been fixed.
+    (Florian Ragwitz)
+
+  [OTHER]
+
+  * Loosen the dependency on ExtUtils::ParseXS.
+
 2.0203 Tue, Aug 23, 2011
 
   [BUG FIXES]

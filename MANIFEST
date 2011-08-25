@@ -309,6 +309,7 @@ t/attributes/no_slot_access.t
 t/attributes/non_alpha_attr_names.t
 t/attributes/numeric_defaults.t
 t/attributes/trigger_and_coerce.t
+t/author-debugger-duck_type.t
 t/author-test-my-dependents.t
 t/basics/always_strict_warnings.t
 t/basics/basic_class_setup.t

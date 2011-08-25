@@ -3,8 +3,8 @@ package Class::MOP::Method::Generated;
 BEGIN {
   $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Class::MOP::Method::Generated::VERSION = '2.0203';
+{
+  $Class::MOP::Method::Generated::VERSION = '2.0204';
 }
 
 use strict;

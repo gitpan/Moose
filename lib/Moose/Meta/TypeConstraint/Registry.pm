@@ -3,8 +3,8 @@ package Moose::Meta::TypeConstraint::Registry;
 BEGIN {
   $Moose::Meta::TypeConstraint::Registry::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.0203';
+{
+  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.0204';
 }
 
 use strict;
@@ -79,7 +79,7 @@ Moose::Meta::TypeConstraint::Registry - registry for type constraints
 
 =head1 VERSION
 
-version 2.0203
+version 2.0204
 
 =head1 DESCRIPTION
 

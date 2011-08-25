@@ -2,8 +2,8 @@ package Class::MOP::Deprecated;
 BEGIN {
   $Class::MOP::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Class::MOP::Deprecated::VERSION = '2.0203';
+{
+  $Class::MOP::Deprecated::VERSION = '2.0204';
 }
 
 use strict;

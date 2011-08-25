@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Hash::defined;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::defined::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::defined::VERSION = '2.0203';
+{
+  $Moose::Meta::Method::Accessor::Native::Hash::defined::VERSION = '2.0204';
 }
 
 use strict;

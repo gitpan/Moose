@@ -3,8 +3,8 @@ package Class::MOP::Object;
 BEGIN {
   $Class::MOP::Object::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Class::MOP::Object::VERSION = '2.0203';
+{
+  $Class::MOP::Object::VERSION = '2.0204';
 }
 
 use strict;

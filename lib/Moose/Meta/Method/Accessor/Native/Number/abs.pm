@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Number::abs;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Number::abs::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Number::abs::VERSION = '2.0203';
+{
+  $Moose::Meta::Method::Accessor::Native::Number::abs::VERSION = '2.0204';
 }
 
 use strict;

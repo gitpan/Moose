@@ -2,8 +2,8 @@ package Moose::Util::MetaRole;
 BEGIN {
   $Moose::Util::MetaRole::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Util::MetaRole::VERSION = '2.0203';
+{
+  $Moose::Util::MetaRole::VERSION = '2.0204';
 }
 
 use strict;
@@ -152,7 +152,7 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
 
 =head1 VERSION
 
-version 2.0203
+version 2.0204
 
 =head1 SYNOPSIS
 
