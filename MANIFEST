@@ -170,6 +170,7 @@ lib/Moose/Meta/Method/Accessor/Native/Array/pop.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/push.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/reduce.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/set.pm
+lib/Moose/Meta/Method/Accessor/Native/Array/shallow_clone.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/shift.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/shuffle.pm
 lib/Moose/Meta/Method/Accessor/Native/Array/sort.pm
@@ -203,6 +204,7 @@ lib/Moose/Meta/Method/Accessor/Native/Hash/is_empty.pm
 lib/Moose/Meta/Method/Accessor/Native/Hash/keys.pm
 lib/Moose/Meta/Method/Accessor/Native/Hash/kv.pm
 lib/Moose/Meta/Method/Accessor/Native/Hash/set.pm
+lib/Moose/Meta/Method/Accessor/Native/Hash/shallow_clone.pm
 lib/Moose/Meta/Method/Accessor/Native/Hash/values.pm
 lib/Moose/Meta/Method/Accessor/Native/Number/abs.pm
 lib/Moose/Meta/Method/Accessor/Native/Number/add.pm
@@ -344,6 +346,7 @@ t/bugs/Moose_Object_error.t
 t/bugs/anon_method_metaclass.t
 t/bugs/application_metarole_compat.t
 t/bugs/apply_role_to_one_instance_only.t
+t/bugs/attribute_trait_parameters.t
 t/bugs/augment_recursion_bug.t
 t/bugs/coerce_without_coercion.t
 t/bugs/constructor_object_overload.t
@@ -356,6 +359,7 @@ t/bugs/inline_reader_bug.t
 t/bugs/instance_application_role_args.t
 t/bugs/lazybuild_required_undef.t
 t/bugs/moose_octal_defaults.t
+t/bugs/native_trait_handles_bad_value.t
 t/bugs/reader_precedence_bug.t
 t/bugs/role_caller.t
 t/bugs/subclass_use_base_bug.t
@@ -551,6 +555,7 @@ t/native_traits/hash_coerce.t
 t/native_traits/hash_subtypes.t
 t/native_traits/hash_trigger.t
 t/native_traits/remove_attribute.t
+t/native_traits/shallow_clone.t
 t/native_traits/trait_array.t
 t/native_traits/trait_bool.t
 t/native_traits/trait_code.t

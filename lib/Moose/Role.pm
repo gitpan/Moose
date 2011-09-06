@@ -2,8 +2,8 @@ package Moose::Role;
 BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Role::VERSION = '2.0204';
+BEGIN {
+  $Moose::Role::VERSION = '2.0205';
 }
 use strict;
 use warnings;
@@ -168,7 +168,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 

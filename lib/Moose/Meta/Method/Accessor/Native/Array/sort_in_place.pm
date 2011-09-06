@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Array::sort_in_place;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::VERSION = '2.0205';
 }
 
 use strict;

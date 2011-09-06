@@ -3,8 +3,8 @@ package Moose::Meta::Attribute::Native::Trait::Array;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0205';
 }
 use Moose::Role;
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Array - Helper trait for ArrayRef attribu
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 
@@ -313,6 +313,13 @@ can optionally be provided; it will be called on each group of C<$n> elements
 in the array.
 
 This method accepts one or two arguments.
+
+=item B<shallow_clone>
+
+This method returns a shallow clone of the array reference.  The return value
+is a reference to a new array with the same elements.  It is I<shallow>
+because any elements that were references in the original will be the I<same>
+references in the clone.
 
 =back
 

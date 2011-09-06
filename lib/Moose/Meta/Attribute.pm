@@ -3,8 +3,8 @@ package Moose::Meta::Attribute;
 BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Attribute::VERSION = '2.0205';
 }
 
 use strict;
@@ -135,6 +135,8 @@ sub interpolate_class {
 
     if (my $traits = $options->{traits}) {
         my $i = 0;
+        my $has_foreign_options = 0;
+
         while ($i < @$traits) {
             my $trait = $traits->[$i++];
             next if ref($trait); # options to a trait we discarded
@@ -147,17 +149,28 @@ sub interpolate_class {
             push @traits, $trait;
 
             # are there options?
-            push @traits, $traits->[$i++]
-                if $traits->[$i] && ref($traits->[$i]);
+            if ($traits->[$i] && ref($traits->[$i])) {
+                $has_foreign_options = 1
+                    if any { $_ ne '-alias' && $_ ne '-excludes' } keys %{ $traits->[$i] };
+
+                push @traits, $traits->[$i++];
+            }
         }
 
         if (@traits) {
-            my $anon_class = Moose::Meta::Class->create_anon_class(
+            my %options = (
                 superclasses => [ $class ],
                 roles        => [ @traits ],
-                cache        => 1,
             );
 
+            if ($has_foreign_options) {
+                $options{weaken} = 0;
+            }
+            else {
+                $options{cache} = 1;
+            }
+
+            my $anon_class = Moose::Meta::Class->create_anon_class(%options);
             $class = $anon_class->name;
         }
     }
@@ -1256,8 +1269,8 @@ package Moose::Meta::Attribute::Custom::Moose;
 BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0205';
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1275,7 +1288,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 DESCRIPTION
 

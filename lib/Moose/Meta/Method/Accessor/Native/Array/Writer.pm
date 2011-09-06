@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Array::Writer;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::Writer::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Array::Writer::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::Writer::VERSION = '2.0205';
 }
 
 use strict;

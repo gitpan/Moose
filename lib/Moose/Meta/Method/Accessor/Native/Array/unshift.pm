@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Array::unshift;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::unshift::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Array::unshift::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::unshift::VERSION = '2.0205';
 }
 
 use strict;

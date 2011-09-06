@@ -3,8 +3,8 @@ package Moose::Meta::TypeCoercion;
 BEGIN {
   $Moose::Meta::TypeCoercion::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::TypeCoercion::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::TypeCoercion::VERSION = '2.0205';
 }
 
 use strict;
@@ -116,7 +116,7 @@ Moose::Meta::TypeCoercion - The Moose Type Coercion metaclass
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 DESCRIPTION
 

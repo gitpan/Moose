@@ -12,7 +12,7 @@ Moose::Cookbook::Meta::Recipe6 - A method metaclass for marking methods public o
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 

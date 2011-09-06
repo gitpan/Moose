@@ -2,8 +2,8 @@ package Moose::Meta::TypeConstraint::DuckType;
 BEGIN {
   $Moose::Meta::TypeConstraint::DuckType::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::TypeConstraint::DuckType::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::TypeConstraint::DuckType::VERSION = '2.0205';
 }
 
 use strict;
@@ -28,12 +28,14 @@ my $inliner = sub {
     my $self = shift;
     my $val  = shift;
 
-    return 'my $val = ' . $val . '; Scalar::Util::blessed($val) '
-             . '&& Scalar::Util::blessed($val) ne "Regexp" '
-             . '&& &List::MoreUtils::all('
-                 . 'sub { $val->can($_) }, '
+    return $self->parent->_inline_check($val)
+         . ' && do {' . "\n"
+             . 'my $val = ' . $val . ';' . "\n"
+             . '&List::MoreUtils::all(' . "\n"
+                 . 'sub { $val->can($_) },' . "\n"
                  . join(', ', map { B::perlstring($_) } @{ $self->methods })
-             . ')';
+             . ');' . "\n"
+         . '}';
 };
 
 sub new {
@@ -45,8 +47,7 @@ sub new {
     my @methods = @{ $args{methods} };
     $args{constraint} = sub {
         my $val = $_[0];
-        blessed($val) && blessed($val) ne 'Regexp'
-            && all { $val->can($_) } @methods;
+        return all { $val->can($_) } @methods;
     };
 
     $args{inlined} = $inliner;
@@ -79,17 +80,6 @@ sub equals {
     }
 
     return 1;
-}
-
-sub constraint {
-    my $self = shift;
-
-    my @methods = @{ $self->methods };
-
-    return sub {
-        my $obj = shift;
-        return all { $obj->can($_) } @methods
-    };
 }
 
 sub create_child_type {
@@ -130,7 +120,7 @@ Moose::Meta::TypeConstraint::DuckType - Type constraint for duck typing
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 DESCRIPTION
 

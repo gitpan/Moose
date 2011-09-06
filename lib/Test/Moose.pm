@@ -2,8 +2,8 @@ package Test::Moose;
 BEGIN {
   $Test::Moose::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Test::Moose::VERSION = '2.0204';
+BEGIN {
+  $Test::Moose::VERSION = '2.0205';
 }
 
 use strict;
@@ -98,7 +98,7 @@ Test::Moose - Test functions for Moose specific features
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 

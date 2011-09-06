@@ -3,8 +3,8 @@ package Moose::Meta::Attribute::Native::Trait::Hash;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Hash::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.0205';
 }
 use Moose::Role;
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attribute
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 
@@ -149,6 +149,13 @@ If passed one argument, returns the value of the specified key. If passed two
 arguments, sets the value of the specified key.
 
 When called as a setter, this method returns the value that was set.
+
+=item B<shallow_clone>
+
+This method returns a shallow clone of the hash reference.  The return value
+is a reference to a new hash with the same keys and values.  It is I<shallow>
+because any values that were references in the original will be the I<same>
+references in the clone.
 
 =back
 

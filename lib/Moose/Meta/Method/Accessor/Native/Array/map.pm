@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Array::map;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::map::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Array::map::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::map::VERSION = '2.0205';
 }
 
 use strict;

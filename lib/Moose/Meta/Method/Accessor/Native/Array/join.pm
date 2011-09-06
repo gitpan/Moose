@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::Array::join;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::join::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Array::join::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::Array::join::VERSION = '2.0205';
 }
 
 use strict;

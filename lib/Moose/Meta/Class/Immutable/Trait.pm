@@ -2,8 +2,8 @@ package Moose::Meta::Class::Immutable::Trait;
 BEGIN {
   $Moose::Meta::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Class::Immutable::Trait::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Class::Immutable::Trait::VERSION = '2.0205';
 }
 
 use strict;
@@ -57,7 +57,7 @@ Moose::Meta::Class::Immutable::Trait - Implements immutability for metaclass obj
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 DESCRIPTION
 

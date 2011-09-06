@@ -2,8 +2,8 @@ package Moose::Meta::Mixin::AttributeCore;
 BEGIN {
   $Moose::Meta::Mixin::AttributeCore::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Mixin::AttributeCore::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Mixin::AttributeCore::VERSION = '2.0205';
 }
 
 use strict;
@@ -120,7 +120,7 @@ Moose::Meta::Mixin::AttributeCore - Core attributes shared by attribute metaclas
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 DESCRIPTION
 

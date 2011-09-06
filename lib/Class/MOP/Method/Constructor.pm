@@ -3,8 +3,8 @@ package Class::MOP::Method::Constructor;
 BEGIN {
   $Class::MOP::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Class::MOP::Method::Constructor::VERSION = '2.0204';
+BEGIN {
+  $Class::MOP::Method::Constructor::VERSION = '2.0205';
 }
 
 use strict;
@@ -131,7 +131,7 @@ Class::MOP::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 

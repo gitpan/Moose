@@ -2,8 +2,8 @@ package Moose::Meta::Method::Accessor::Native::String::chop;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::chop::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::String::chop::VERSION = '2.0204';
+BEGIN {
+  $Moose::Meta::Method::Accessor::Native::String::chop::VERSION = '2.0205';
 }
 
 use strict;

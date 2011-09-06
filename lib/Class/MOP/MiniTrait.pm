@@ -2,8 +2,8 @@ package Class::MOP::MiniTrait;
 BEGIN {
   $Class::MOP::MiniTrait::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Class::MOP::MiniTrait::VERSION = '2.0204';
+BEGIN {
+  $Class::MOP::MiniTrait::VERSION = '2.0205';
 }
 
 use strict;

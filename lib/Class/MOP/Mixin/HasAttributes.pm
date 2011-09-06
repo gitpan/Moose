@@ -2,8 +2,8 @@ package Class::MOP::Mixin::HasAttributes;
 BEGIN {
   $Class::MOP::Mixin::HasAttributes::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Class::MOP::Mixin::HasAttributes::VERSION = '2.0204';
+BEGIN {
+  $Class::MOP::Mixin::HasAttributes::VERSION = '2.0205';
 }
 
 use strict;
@@ -110,7 +110,7 @@ Class::MOP::Mixin::HasAttributes - Methods for metaclasses which have attributes
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 DESCRIPTION
 

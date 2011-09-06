@@ -2,8 +2,8 @@ package Moose::Deprecated;
 BEGIN {
   $Moose::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Deprecated::VERSION = '2.0204';
+BEGIN {
+  $Moose::Deprecated::VERSION = '2.0205';
 }
 
 use strict;

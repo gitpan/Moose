@@ -3,8 +3,8 @@ package Class::MOP::Method::Accessor;
 BEGIN {
   $Class::MOP::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Class::MOP::Method::Accessor::VERSION = '2.0204';
+BEGIN {
+  $Class::MOP::Method::Accessor::VERSION = '2.0205';
 }
 
 use strict;
@@ -159,7 +159,7 @@ sub _generate_reader_method_inline {
 
 sub _inline_throw_error {
     my $self = shift;
-    return 'confess ' . $_[0];
+    return 'Carp::confess ' . $_[0];
 }
 
 sub _generate_writer_method {
@@ -251,7 +251,7 @@ Class::MOP::Method::Accessor - Method Meta Object for accessors
 
 =head1 VERSION
 
-version 2.0204
+version 2.0205
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,28 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0205 Tue, Sep 06, 2011
+
+  [NEW FEATURES]
+
+  * The Array and Hash native traits now provide a "shallow_clone" method,
+    which will return a reference to a new container with the same contents as
+    the attribute's reference.
+
+  [ENHANCEMENTS]
+
+  * Specifying an invalid value in a hashref 'handles' value now throws a
+    sensible error (Dave Rolsky)
+
+  [BUG FIXES]
+
+  * When specifying an attribute trait, passing options for the trait besides
+    -alias or -excludes caused a warning. However, passing other options is
+    totally valid when using MooseX::Role::Parameterized. (sartak)
+
+  * Allow regexp objects in duck_type constraints (to bring this in line with
+    the Object constraint)
+
 2.0204 Thu, Aug 25, 2011
 
   [BUG FIXES]
