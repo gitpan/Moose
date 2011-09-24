@@ -3,8 +3,8 @@ package Moose::Meta::Object::Trait;
 BEGIN {
   $Moose::Meta::Object::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Object::Trait::VERSION = '2.0205';
+{
+  $Moose::Meta::Object::Trait::VERSION = '2.0300'; # TRIAL
 }
 
 use Scalar::Util qw(blessed);
@@ -44,7 +44,7 @@ Moose::Meta::Object::Trait - Some overrides for L<Class::MOP::Object> functional
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 DESCRIPTION
 

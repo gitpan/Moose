@@ -52,7 +52,6 @@ __DATA__
 Moose::Autobox
 MooseX::ABC
 MooseX::APIRole
-MooseX::AbstractFactory
 MooseX::Accessors::ReadWritePrivate
 MooseX::Aliases
 MooseX::AlwaysCoerce
@@ -194,7 +193,6 @@ MooseX::Types::UUID
 MooseX::Types::UniStr
 MooseX::Types::Varchar
 MooseX::UndefTolerant
-MooseX::WithCache
 MooseX::Workers
 MooseX::YAML
 App::Nopaste

@@ -295,6 +295,7 @@ t/attributes/attribute_writer_generation.t
 t/attributes/bad_coerce.t
 t/attributes/chained_coercion.t
 t/attributes/clone_weak.t
+t/attributes/default_class_role_types.t
 t/attributes/default_undef.t
 t/attributes/delegation_and_modifiers.t
 t/attributes/delegation_arg_aliasing.t
@@ -336,6 +337,7 @@ t/basics/override_augment_inner_super.t
 t/basics/rebless.t
 t/basics/require_superclasses.t
 t/basics/super_and_override.t
+t/basics/universal_methods_wrappable.t
 t/basics/wrapped_method_cxt_propagation.t
 t/bugs/DEMOLISHALL.t
 t/bugs/DEMOLISHALL_shortcutted.t
@@ -367,7 +369,6 @@ t/bugs/subtype_conflict_bug.t
 t/bugs/subtype_quote_bug.t
 t/bugs/super_recursion.t
 t/bugs/type_constraint_messages.t
-t/bugs/universal_methods_wrappable.t
 t/cmop/ArrayBasedStorage_test.t
 t/cmop/AttributesWithHistory_test.t
 t/cmop/BinaryTree_test.t
@@ -388,6 +389,7 @@ t/cmop/anon_class.t
 t/cmop/anon_class_create_init.t
 t/cmop/anon_class_keep_alive.t
 t/cmop/anon_class_leak.t
+t/cmop/anon_class_removal.t
 t/cmop/anon_packages.t
 t/cmop/attribute.t
 t/cmop/attribute_duplication.t
@@ -425,13 +427,7 @@ t/cmop/lib/MyMetaClass/Instance.pm
 t/cmop/lib/MyMetaClass/Method.pm
 t/cmop/lib/MyMetaClass/Random.pm
 t/cmop/lib/SyntaxError.pm
-t/cmop/lib/TestClassLoaded.pm
-t/cmop/lib/TestClassLoaded/Sub.pm
-t/cmop/lib/TestClassLoaded2.pm
-t/cmop/lib/TestClassLoaded3.pm
 t/cmop/load.t
-t/cmop/load_class.t
-t/cmop/load_class_gvstash_detect_bug.t
 t/cmop/magic.t
 t/cmop/make_mutable.t
 t/cmop/meta_method.t
@@ -513,6 +509,7 @@ t/metaclasses/custom_attr_meta_as_role.t
 t/metaclasses/custom_attr_meta_with_roles.t
 t/metaclasses/easy_init_meta.t
 t/metaclasses/export_with_prototype.t
+t/metaclasses/exporter_meta_lookup.t
 t/metaclasses/goto_moose_import.t
 t/metaclasses/immutable_metaclass_compat_bug.t
 t/metaclasses/meta_name.t
@@ -580,9 +577,11 @@ t/recipes/meta_recipe7.t
 t/recipes/roles_recipe1.t
 t/recipes/roles_recipe2.t
 t/recipes/roles_recipe3.t
+t/release-eol.t
 t/release-no-tabs.t
 t/release-pod-coverage.t
 t/release-pod-spell.t
+t/release-pod-syntax.t
 t/roles/anonymous_roles.t
 t/roles/application_toclass.t
 t/roles/apply_role.t
@@ -594,6 +593,7 @@ t/roles/create_role_subclass.t
 t/roles/empty_method_modifiers_meta_bug.t
 t/roles/extending_role_attrs.t
 t/roles/free_anonymous_roles.t
+t/roles/imported_required_method.t
 t/roles/meta_role.t
 t/roles/method_aliasing_in_composition.t
 t/roles/method_exclusion_in_composition.t
@@ -658,6 +658,7 @@ t/type_constraints/inlining.t
 t/type_constraints/match_type_operator.t
 t/type_constraints/maybe_type_constraint.t
 t/type_constraints/misc_type_tests.t
+t/type_constraints/name_conflicts.t
 t/type_constraints/normalize_type_name.t
 t/type_constraints/parameterize_from.t
 t/type_constraints/role_type_constraint.t
@@ -669,6 +670,7 @@ t/type_constraints/type_coersion_on_lazy_attributes.t
 t/type_constraints/type_names.t
 t/type_constraints/type_notation_parser.t
 t/type_constraints/types_and_undef.t
+t/type_constraints/union_is_a_type_of.t
 t/type_constraints/union_types.t
 t/type_constraints/union_types_and_coercions.t
 t/type_constraints/util_find_type_constraint.t

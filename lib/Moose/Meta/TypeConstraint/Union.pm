@@ -3,8 +3,8 @@ package Moose::Meta::TypeConstraint::Union;
 BEGIN {
   $Moose::Meta::TypeConstraint::Union::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0205';
+{
+  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
@@ -134,9 +134,16 @@ sub equals {
     return @other_constraints == 0;
 }
 
-sub parents {
+sub parent {
     my $self = shift;
-    $self->type_constraints;
+
+    my ($first, @rest) = @{ $self->type_constraints };
+
+    for my $parent ( $first->_collect_all_parents ) {
+        return $parent if all { $_->is_a_type_of($parent) } @rest;
+    }
+
+    return;
 }
 
 sub validate {
@@ -159,18 +166,14 @@ sub find_type_for {
 
 sub is_a_type_of {
     my ($self, $type_name) = @_;
-    foreach my $type (@{$self->type_constraints}) {
-        return 1 if $type->is_a_type_of($type_name);
-    }
-    return 0;
+
+    return all { $_->is_a_type_of($type_name) } @{ $self->type_constraints };
 }
 
 sub is_subtype_of {
     my ($self, $type_name) = @_;
-    foreach my $type (@{$self->type_constraints}) {
-        return 1 if $type->is_subtype_of($type_name);
-    }
-    return 0;
+
+    return all { $_->is_subtype_of($type_name) } @{ $self->type_constraints };
 }
 
 sub create_child_type {
@@ -210,7 +213,7 @@ Moose::Meta::TypeConstraint::Union - A union of Moose type constraints
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 DESCRIPTION
 
@@ -247,9 +250,9 @@ attribute is a L<Moose::Meta::TypeCoercion::Union> object.
 This returns the array reference of C<type_constraints> provided to
 the constructor.
 
-=item B<< $constraint->parents >>
+=item B<< $constraint->parent >>
 
-This returns the same constraint as the C<type_constraints> method.
+This returns the nearest common ancestor of all the components of the union.
 
 =item B<< $constraint->check($value) >>
 
@@ -275,12 +278,12 @@ a given value matches.
 
 =item B<< $constraint->is_a_type_of($type_name_or_object) >>
 
-This returns true if any of the member type constraints return true
+This returns true if all of the member type constraints return true
 for the C<is_a_type_of> method.
 
 =item B<< $constraint->is_subtype_of >>
 
-This returns true if any of the member type constraints return true
+This returns true if all of the member type constraints return true
 for the C<is_a_subtype_of> method.
 
 =item B<< $constraint->create_child_type(%options) >>

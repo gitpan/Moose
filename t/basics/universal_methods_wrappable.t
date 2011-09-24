@@ -18,14 +18,12 @@ use Test::More;
     package Foo;
     use Moose;
 
-    use Test::More; # for $TODO
-
-    local $TODO = 'UNIVERSAL methods should be wrappable';
+    use Test::More;
 
     ::is( ::exception { with 'FakeBar' }, undef, 'applied role' );
 
     my $foo = Foo->new;
-    ::isa_ok $foo, 'Bar';
+    ::isa_ok( $foo, 'Bar' );
 }
 
 done_testing;

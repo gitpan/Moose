@@ -52,6 +52,8 @@ use Dist::CheckConflicts
         'namespace::autoclean' => '0.08',
     },
     -also => [ qw(
+        Class::Load
+        Class::Load::XS
         Data::OptList
         Devel::GlobalDestruction
         Dist::CheckConflicts

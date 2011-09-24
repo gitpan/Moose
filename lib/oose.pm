@@ -2,14 +2,14 @@ package oose;
 BEGIN {
   $oose::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $oose::VERSION = '2.0205';
+{
+  $oose::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Class::MOP;
+use Class::Load qw(load_class);
 
 BEGIN {
     my $package;
@@ -17,7 +17,7 @@ BEGIN {
         $package = $_[1] || 'Class';
         if ($package =~ /^\+/) {
             $package =~ s/^\+//;
-            Class::MOP::load_class($package);
+            load_class($package);
         }
     }
     use Filter::Simple sub { s/^/package $package;\nuse Moose;use Moose::Util::TypeConstraints;\n/; }
@@ -37,7 +37,7 @@ oose - syntactic sugar to make Moose one-liners easier
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 SYNOPSIS
 

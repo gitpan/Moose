@@ -6,9 +6,7 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-BEGIN {
-    use_ok('Moose::Util::TypeConstraints');
-}
+use Moose::Util::TypeConstraints;
 
 {
     package Gorch;
@@ -59,5 +57,39 @@ ok( $type->equals(Moose::Meta::TypeConstraint::Class->new( name => "__ANON__", c
 ok( $type->equals(Moose::Meta::TypeConstraint::Class->new( name => "Oink", class => "Foo" )), "equals differently named constraint of same value" );
 ok( !$type->equals(Moose::Meta::TypeConstraint::Class->new( name => "__ANON__", class => "Bar" )), "doesn't equal other anon constraint" );
 ok( $type->is_subtype_of(Moose::Meta::TypeConstraint::Class->new( name => "__ANON__", class => "Bar" )), "subtype of other anon constraint" );
+
+{
+    package Parent;
+    sub parent { }
+}
+
+{
+    package Child;
+    use base 'Parent';
+}
+
+{
+    my $parent = Moose::Meta::TypeConstraint::Class->new(
+        name  => 'Parent',
+        class => 'Parent',
+    );
+    ok($parent->is_a_type_of('Parent'));
+    ok(!$parent->is_subtype_of('Parent'));
+    ok($parent->is_a_type_of($parent));
+    ok(!$parent->is_subtype_of($parent));
+
+    my $child = Moose::Meta::TypeConstraint::Class->new(
+        name  => 'Child',
+        class => 'Child',
+    );
+    ok($child->is_a_type_of('Child'));
+    ok(!$child->is_subtype_of('Child'));
+    ok($child->is_a_type_of($child));
+    ok(!$child->is_subtype_of($child));
+    ok($child->is_a_type_of('Parent'));
+    ok($child->is_subtype_of('Parent'));
+    ok($child->is_a_type_of($parent));
+    ok($child->is_subtype_of($parent));
+}
 
 done_testing;

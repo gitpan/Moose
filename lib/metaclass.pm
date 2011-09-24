@@ -3,14 +3,15 @@ package metaclass;
 BEGIN {
   $metaclass::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $metaclass::VERSION = '2.0205';
+{
+  $metaclass::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
 use warnings;
 
 use Carp         'confess';
+use Class::Load  'load_class';
 use Scalar::Util 'blessed';
 use Try::Tiny;
 
@@ -28,7 +29,7 @@ sub import {
     unless ( defined $metaclass ) {
         $metaclass = "Class::MOP::Class";
     } else {
-        Class::MOP::load_class($metaclass);
+        load_class($metaclass);
     }
 
     ($metaclass->isa('Class::MOP::Class'))
@@ -37,7 +38,7 @@ sub import {
     # make sure the custom metaclasses get loaded
     foreach my $key (grep { /_(?:meta)?class$/ } keys %options) {
         unless ( ref( my $class = $options{$key} ) ) {
-            Class::MOP::load_class($class)
+            load_class($class)
         }
     }
 
@@ -63,7 +64,7 @@ metaclass - a pragma for installing and using Class::MOP metaclasses
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 SYNOPSIS
 

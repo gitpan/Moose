@@ -3,14 +3,15 @@ package Moose::Meta::Role;
 BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Role::VERSION = '2.0205';
+{
+  $Moose::Meta::Role::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
 
+use Class::Load qw(load_class);
 use Scalar::Util 'blessed';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
@@ -456,7 +457,7 @@ sub apply {
         $application_class = $self->application_to_instance_class;
     }
 
-    Class::MOP::load_class($application_class);
+    load_class($application_class);
 
     if ( exists $args{'-excludes'} ) {
         # I wish we had coercion here :)
@@ -743,7 +744,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 DESCRIPTION
 

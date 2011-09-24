@@ -6,9 +6,7 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-BEGIN {
-    use_ok("Moose::Util::TypeConstraints");
-}
+use Moose::Util::TypeConstraints;
 
 is( exception {
     subtype 'MyCollections' => as 'ArrayRef | HashRef';
@@ -64,6 +62,49 @@ is( exception {
     ok($t->check({ one => 1, two => 2 }), '... validated it correctly');
 
     ok(!$t->check(1), '... validated it correctly');
+}
+
+{
+    my $union = Moose::Util::TypeConstraints::find_or_create_type_constraint('Int|ArrayRef[Int]');
+    subtype 'UnionSub', as 'Int|ArrayRef[Int]';
+
+    my $subtype = find_type_constraint('UnionSub');
+
+    ok(
+        !$union->is_a_type_of('Ref'),
+        'Int|ArrayRef[Int] is not a type of Ref'
+    );
+    ok(
+        !$subtype->is_a_type_of('Ref'),
+        'subtype of Int|ArrayRef[Int] is not a type of Ref'
+    );
+
+    ok(
+        $union->is_a_type_of('Defined'),
+        'Int|ArrayRef[Int] is a type of Defined'
+    );
+    ok(
+        $subtype->is_a_type_of('Defined'),
+        'subtype of Int|ArrayRef[Int] is a type of Defined'
+    );
+
+    ok(
+        !$union->is_subtype_of('Ref'),
+        'Int|ArrayRef[Int] is not a subtype of Ref'
+    );
+    ok(
+        !$subtype->is_subtype_of('Ref'),
+        'subtype of Int|ArrayRef[Int] is not a subtype of Ref'
+    );
+
+    ok(
+        $union->is_subtype_of('Defined'),
+        'Int|ArrayRef[Int] is a subtype of Defined'
+    );
+    ok(
+        $subtype->is_subtype_of('Defined'),
+        'subtype of Int|ArrayRef[Int] is a subtype of Defined'
+    );
 }
 
 done_testing;

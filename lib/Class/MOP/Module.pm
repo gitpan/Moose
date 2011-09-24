@@ -3,8 +3,8 @@ package Class::MOP::Module;
 BEGIN {
   $Class::MOP::Module::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Class::MOP::Module::VERSION = '2.0205';
+{
+  $Class::MOP::Module::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
@@ -35,12 +35,12 @@ sub _new {
     } => $class;
 }
 
-sub version {  
+sub version {
     my $self = shift;
     ${$self->get_or_add_package_symbol('$VERSION')};
 }
 
-sub authority {  
+sub authority {
     my $self = shift;
     ${$self->get_or_add_package_symbol('$AUTHORITY')};
 }
@@ -80,9 +80,6 @@ sub _instantiate_module {
     my($self, $version, $authority) = @_;
     my $package_name = $self->name;
 
-    Class::MOP::_is_valid_class_name($package_name)
-        || confess "creation of $package_name failed: invalid package name";
-
     $self->add_package_symbol('$VERSION' => $version)
         if defined $version;
     $self->add_package_symbol('$AUTHORITY' => $authority)
@@ -105,16 +102,12 @@ Class::MOP::Module - Module Meta Object
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 DESCRIPTION
 
 A module is essentially a L<Class::MOP::Package> with metadata, in our
 case the version and authority.
-
-=head1 NAME 
-
-Class::MOP::Module - Module Meta Object
 
 =head1 INHERITANCE
 

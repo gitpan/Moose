@@ -3,8 +3,8 @@ package Class::MOP::Method;
 BEGIN {
   $Class::MOP::Method::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Class::MOP::Method::VERSION = '2.0205';
+{
+  $Class::MOP::Method::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
@@ -153,7 +153,7 @@ Class::MOP::Method - Method Meta Object
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 DESCRIPTION
 
@@ -253,6 +253,12 @@ was first defined.
 If this method is a clone of a clone (of a clone, etc.), this method
 returns the fully qualified name from the I<first> method in the chain
 of clones.
+
+=item B<< $metamethod->is_stub >>
+
+Returns true if the method is just a stub:
+
+  sub foo;
 
 =item B<< $metamethod->attach_to_class($metaclass) >>
 

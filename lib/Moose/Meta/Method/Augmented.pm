@@ -2,8 +2,8 @@ package Moose::Meta::Method::Augmented;
 BEGIN {
   $Moose::Meta::Method::Augmented::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Meta::Method::Augmented::VERSION = '2.0205';
+{
+  $Moose::Meta::Method::Augmented::VERSION = '2.0300'; # TRIAL
 }
 
 use strict;
@@ -70,7 +70,7 @@ Moose::Meta::Method::Augmented - A Moose Method metaclass for augmented methods
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 DESCRIPTION
 

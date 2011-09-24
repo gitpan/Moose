@@ -2,8 +2,8 @@ package Moose;
 BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::VERSION = '2.0205';
+{
+  $Moose::VERSION = '2.0300'; # TRIAL
 }
 use strict;
 use warnings;
@@ -12,6 +12,8 @@ use 5.008;
 
 use Scalar::Util 'blessed';
 use Carp         'confess';
+use Class::Load  'is_class_loaded';
+
 
 use Moose::Deprecated;
 use Moose::Exporter;
@@ -148,7 +150,7 @@ sub init_meta {
     my $meta_name  = exists $args{meta_name} ? $args{meta_name} : 'meta';
 
     Moose->throw_error("The Metaclass $metaclass must be loaded. (Perhaps you forgot to 'use $metaclass'?)")
-        unless Class::MOP::is_class_loaded($metaclass);
+        unless is_class_loaded($metaclass);
 
     Moose->throw_error("The Metaclass $metaclass must be a subclass of Moose::Meta::Class.")
         unless $metaclass->isa('Moose::Meta::Class');
@@ -286,7 +288,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 SYNOPSIS
 

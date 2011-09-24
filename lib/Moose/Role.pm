@@ -2,14 +2,15 @@ package Moose::Role;
 BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
-BEGIN {
-  $Moose::Role::VERSION = '2.0205';
+{
+  $Moose::Role::VERSION = '2.0300'; # TRIAL
 }
 use strict;
 use warnings;
 
 use Scalar::Util 'blessed';
 use Carp         'croak';
+use Class::Load  'is_class_loaded';
 
 use Sub::Exporter;
 
@@ -113,7 +114,7 @@ sub init_meta {
     my $meta_name = exists $args{meta_name} ? $args{meta_name} : 'meta';
 
     Moose->throw_error("The Metaclass $metaclass must be loaded. (Perhaps you forgot to 'use $metaclass'?)")
-        unless Class::MOP::is_class_loaded($metaclass);
+        unless is_class_loaded($metaclass);
 
     Moose->throw_error("The Metaclass $metaclass must be a subclass of Moose::Meta::Role.")
         unless $metaclass->isa('Moose::Meta::Role');
@@ -168,7 +169,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.0205
+version 2.0300
 
 =head1 SYNOPSIS
 
