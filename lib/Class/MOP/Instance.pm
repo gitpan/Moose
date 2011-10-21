@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Instance::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Instance::VERSION = '2.0300'; # TRIAL
+  $Class::MOP::Instance::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -289,7 +289,7 @@ Class::MOP::Instance - Instance Meta Object
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -483,7 +483,7 @@ metaclass.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

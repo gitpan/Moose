@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Enum::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.0300'; # TRIAL
+  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -42,9 +42,9 @@ sub new {
     $args{parent} = Moose::Util::TypeConstraints::find_type_constraint('Str');
     $args{inlined} = $inliner;
 
-    if ( scalar @{ $args{values} } < 2 ) {
+    if ( scalar @{ $args{values} } < 1 ) {
         require Moose;
-        Moose->throw_error("You must have at least two values to enumerate through");
+        Moose->throw_error("You must have at least one value to enumerate through");
     }
 
     for (@{ $args{values} }) {
@@ -122,7 +122,7 @@ Moose::Meta::TypeConstraint::Enum - Type constraint for enumerated values.
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -172,7 +172,7 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -59,17 +59,17 @@ $| = 1;
 
   sub deinitialize_slot {
       my ( $self, $instance, $slot_name ) = @_;
-      delete *$instance->{$slot_name};;
+      delete *$instance->{$slot_name};
   }
 
   sub is_slot_initialized {
-      my ( $self, $instance, $slot_name, $value ) = @_;
-      exists *$instance->{$slot_name};;
+      my ( $self, $instance, $slot_name ) = @_;
+      exists *$instance->{$slot_name};
   }
 
   sub weaken_slot_value {
       my ( $self, $instance, $slot_name ) = @_;
-      weaken *$instance->{$slot_name};;
+      weaken *$instance->{$slot_name};
   }
 
   sub inline_create_instance {

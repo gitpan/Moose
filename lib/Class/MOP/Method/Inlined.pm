@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Method::Inlined::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Inlined::VERSION = '2.0300'; # TRIAL
+  $Class::MOP::Method::Inlined::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -123,7 +123,7 @@ Class::MOP::Method::Inlined - Method base class for methods which have been inli
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -145,7 +145,7 @@ If it cannot be inlined, it spits out a warning and returns false.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

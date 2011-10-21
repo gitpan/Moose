@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Class::Immutable::Trait::VERSION = '2.0300'; # TRIAL
+  $Class::MOP::Class::Immutable::Trait::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -104,7 +104,7 @@ Class::MOP::Class::Immutable::Trait - Implements immutability for metaclass obje
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -115,7 +115,7 @@ It implements caching and read-only-ness for various metaclass methods.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

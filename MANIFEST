@@ -507,6 +507,7 @@ t/lib/Role/Parent.pm
 t/metaclasses/create_anon_with_required_attr.t
 t/metaclasses/custom_attr_meta_as_role.t
 t/metaclasses/custom_attr_meta_with_roles.t
+t/metaclasses/custom_error_class.t
 t/metaclasses/easy_init_meta.t
 t/metaclasses/export_with_prototype.t
 t/metaclasses/exporter_meta_lookup.t

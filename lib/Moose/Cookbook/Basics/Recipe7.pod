@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::Recipe7 - Making Moose fast with immutable
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 SYNOPSIS
 
@@ -44,7 +44,7 @@ especially noticeable when creating many objects.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

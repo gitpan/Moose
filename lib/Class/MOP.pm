@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::VERSION = '2.0300'; # TRIAL
+  $Class::MOP::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -730,7 +730,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -1105,7 +1105,7 @@ Thanks to Rob for actually getting the development of this module kick-started.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

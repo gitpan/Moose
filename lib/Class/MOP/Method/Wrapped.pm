@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Wrapped::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Wrapped::VERSION = '2.0300'; # TRIAL
+  $Class::MOP::Method::Wrapped::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -213,7 +213,7 @@ Class::MOP::Method::Wrapped - Method Meta Object for methods with before/after/a
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -279,7 +279,7 @@ acting as the specified type of modifier.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

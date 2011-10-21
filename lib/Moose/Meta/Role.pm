@@ -1,10 +1,9 @@
-
 package Moose::Meta::Role;
 BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::VERSION = '2.0300'; # TRIAL
+  $Moose::Meta::Role::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -50,7 +49,7 @@ my $META = __PACKAGE__->meta;
 
 # NOTE:
 # since roles are lazy, we hold all the attributes
-# of the individual role in 'statis' until which
+# of the individual role in 'stasis' until which
 # time when it is applied to a class. This means
 # keeping a lot of things in hash maps, so we are
 # using a little of that meta-programmin' magic
@@ -744,7 +743,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -1009,7 +1008,7 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

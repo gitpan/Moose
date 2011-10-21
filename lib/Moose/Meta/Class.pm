@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Class::VERSION = '2.0300'; # TRIAL
+  $Moose::Meta::Class::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -836,7 +836,10 @@ sub _inline_create_error {
     # to provide a non-inherited inlining method, because falling back to
     # the default inlining method is most likely going to be wrong
     # yes, this is a huge hack, but so is the entire error system, so.
-    return '$meta->create_error(' . $msg . ', ' . $args . ');'
+    return
+          '$meta->create_error('
+        . $msg
+        . ( defined $args ? ', ' . $args : q{} ) . ');'
         unless $class->meta->has_method('_inline_new');
 
     $class->_inline_new(
@@ -860,7 +863,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -1022,7 +1025,7 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

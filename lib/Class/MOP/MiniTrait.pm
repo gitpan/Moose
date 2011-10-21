@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::MiniTrait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::MiniTrait::VERSION = '2.0300'; # TRIAL
+  $Class::MOP::MiniTrait::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -51,7 +51,7 @@ Class::MOP::MiniTrait - Extremely limited trait application
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -61,7 +61,7 @@ L<Moose> core classes.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

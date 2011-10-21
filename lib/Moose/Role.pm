@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Role::VERSION = '2.0300'; # TRIAL
+  $Moose::Role::VERSION = '2.0301'; # TRIAL
 }
 use strict;
 use warnings;
@@ -169,7 +169,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 SYNOPSIS
 
@@ -313,7 +313,7 @@ See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

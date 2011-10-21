@@ -8,7 +8,7 @@ check_conflicts();
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'A postmodern object system for Perl 5',
-  'AUTHOR' => 'Stevan Little <stevan@iinteractive.com>',
+  'AUTHOR' => 'Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.',
   'BUILD_REQUIRES' => {
     'Test::Fatal' => '0.001',
     'Test::More' => '0.88',
@@ -44,7 +44,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0300',
+  'VERSION' => '2.0301',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',

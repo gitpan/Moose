@@ -12,7 +12,7 @@ Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 DESCRIPTION
 
@@ -47,6 +47,11 @@ I<any> of its member types were subtypes of that type. This was incorrect
 because any value that passes a subtype constraint must also pass a parent
 constraint. This has changed so that I<all> of its member types must be a
 subtype of the specified type.
+
+=item Enum types now work with just one value
+
+Previously, an C<enum> type needed to have two or more values.  Nobody knew
+why, so we fixed it.
 
 =item Methods defined in UNIVERSAL now appear in the MOP
 
@@ -1016,7 +1021,7 @@ if anyone would like to continue this please feel free.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

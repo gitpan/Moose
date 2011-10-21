@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Confess::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Error::Confess::VERSION = '2.0300'; # TRIAL
+  $Moose::Error::Confess::VERSION = '2.0301'; # TRIAL
 }
 
 use strict;
@@ -40,7 +40,7 @@ Moose::Error::Confess - Prefer C<confess>
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 SYNOPSIS
 
@@ -59,7 +59,7 @@ metaclass.
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 

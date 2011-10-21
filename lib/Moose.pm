@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.0300'; # TRIAL
+  $Moose::VERSION = '2.0301'; # TRIAL
 }
 use strict;
 use warnings;
@@ -288,7 +288,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0300
+version 2.0301
 
 =head1 SYNOPSIS
 
@@ -983,9 +983,19 @@ early ideas/feature-requests/encouragement/bug-finding.
 
 =item L<http://www.iinteractive.com/moose>
 
-This is the official web home of Moose, it contains links to our public git repository
-as well as links to a number of talks and articles on Moose and Moose related
-technologies.
+This is the official web home of Moose. It contains links to our public git
+repository, as well as links to a number of talks and articles on Moose and
+Moose related technologies.
+
+=item the L<Moose manual|Moose::Manual>
+
+This is an introduction to Moose which covers most of the basics.
+
+=item Modern Perl, by chromatic
+
+This is an introduction to modern Perl programming, which includes a section on
+Moose. It is available in print and as a free download from
+L<http://onyxneon.com/books/modern_perl/>.
 
 =item The Moose is flying, a tutorial by Randal Schwartz
 
@@ -1072,13 +1082,58 @@ Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 CONTRIBUTORS
 
+Moose is a community project, and as such, involves the work of many, many
+members of the community beyond just the members in the cabal. In particular:
+
+Dave (autarch) Rolsky wrote most of the documentation in L<Moose::Manual>.
+
+John (jgoulah) Goulah wrote L<Moose::Cookbook::Snack::Keywords>.
+
+Jess (castaway) Robinson wrote L<Moose::Cookbook::Snack::Types>.
+
+Aran (bluefeet) Clary Deltac wrote L<Moose::Cookbook::Basics::Recipe9>.
+
+Anders (Debolaz) Nor Berle contributed L<Test::Moose> and L<Moose::Util>.
+
+Also, the code in L<Moose::Meta::Attribute::Native> is based on code from the
+L<MooseX::AttributeHelpers> distribution, which had contributions from:
+
+Chris (perigrin) Prather
+
+Cory (gphat) Watson
+
+Evan Carroll
+
+Florian (rafl) Ragwitz
+
+Jason May
+
+Jay Hannah
+
+Jesse (doy) Luehrs
+
+Paul (frodwith) Driver
+
+Robert (rlb3) Boone
+
+Robert Buels
+
+Robert (phaylon) Sedlacek
+
+Shawn (Sartak) Moore
+
+Stevan Little
+
+Tom (dec) Lanyon
+
+Yuval Kogman
+
+Finally, these people also contributed various tests, bug fixes,
+documentation, and features to the Moose codebase:
+
 Aankhen
 
 Adam (Alias) Kennedy
-
-Anders (Debolaz) Nor Berle
-
-Chris (perigrin) Prather
 
 Christian (chansen) Hansen
 
@@ -1090,15 +1145,11 @@ Eric (ewilhelm) Wilhelm
 
 Evan Carroll
 
-Florian (rafl) Ragwitz
-
 Guillermo (groditi) Roditi
 
 Jason May
 
 Jay Hannah
-
-Jess (castaway) Robinson
 
 Jonathan (jrockway) Rockway
 
@@ -1120,8 +1171,6 @@ Sam (mugwump) Vilain
 
 Scott (konobi) McWhirter
 
-Shawn (Sartak) Moore
-
 Shlomi (rindolf) Fish
 
 Tom (dec) Lanyon
@@ -1132,7 +1181,7 @@ Wallace (wreis) Reis
 
 =head1 AUTHOR
 
-Stevan Little <stevan@iinteractive.com>
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
 
 =head1 COPYRIGHT AND LICENSE
 
