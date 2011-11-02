@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Class::VERSION = '2.0301'; # TRIAL
+  $Class::MOP::Class::VERSION = '2.0302'; # TRIAL
 }
 
 use strict;
@@ -1280,7 +1280,7 @@ sub _immutable_options {
 sub make_immutable {
     my ( $self, @args ) = @_;
 
-    return unless $self->is_mutable;
+    return $self unless $self->is_mutable;
 
     my ($file, $line) = (caller)[1..2];
 
@@ -1506,7 +1506,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.0301
+version 2.0302
 
 =head1 SYNOPSIS
 
@@ -1991,7 +1991,8 @@ of the inlining features than Class::MOP itself does.
 =item B<< $metaclass->make_immutable(%options) >>
 
 This method will create an immutable transformer and use it to make
-the class and its metaclass object immutable.
+the class and its metaclass object immutable, and returns true
+(you should not rely on the details of this value apart from its truth).
 
 This method accepts the following options:
 

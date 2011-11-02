@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Class::VERSION = '2.0301'; # TRIAL
+  $Moose::Meta::Class::VERSION = '2.0302'; # TRIAL
 }
 
 use strict;
@@ -863,7 +863,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.0301
+version 2.0302
 
 =head1 DESCRIPTION
 
@@ -923,15 +923,6 @@ Options> option that ensures the loaded superclass satisfies the
 required version. The C<role> option also takes the C<-version> as an
 argument, but the option hash reference can also contain any other
 role relevant values like exclusions or parameterized role arguments.
-
-=item B<< $metaclass->make_immutable(%options) >>
-
-This overrides the parent's method to add a few options. Specifically,
-it uses the Moose-specific constructor and destructor classes, and
-enables inlining the destructor.
-
-Since Moose always inlines attributes, it sets the C<inline_accessors> option
-to false.
 
 =item B<< $metaclass->new_object(%params) >>
 

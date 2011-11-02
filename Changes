@@ -1,6 +1,15 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0302 Wed, Nov 02, 2011
+
+  [BUG FIXES]
+
+  * Fix test failure on 5.8. (Dave Rolsky)
+
+  * Make make_immutable return value consistent and document it to be true.
+    (mst)
+
 2.0301 Fri, Oct 21, 2011
 
   [BUG FIXES]

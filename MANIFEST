@@ -28,6 +28,7 @@ benchmarks/cmop/loading-benchmark.pl
 benchmarks/cmop/profile.pl
 benchmarks/cmop/run_yml.pl
 benchmarks/immutable.pl
+benchmarks/lotsa-classes.pl
 benchmarks/method_modifiers.pl
 benchmarks/moose_bench.pl
 benchmarks/simple_class.pl
