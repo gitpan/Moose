@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.0400';
+  $Moose::Meta::Attribute::VERSION = '2.0401';
 }
 
 use strict;
@@ -755,7 +755,7 @@ sub _inline_weaken_value {
 
     my $mi = $self->associated_class->get_meta_instance;
     return (
-        $mi->inline_weaken_slot_value($instance, $self->name, $value),
+        $mi->inline_weaken_slot_value($instance, $self->name),
             'if ref ' . $value . ';',
     );
 }
@@ -831,6 +831,10 @@ sub get_value {
             $value = $self->_coerce_and_verify( $value, $instance );
 
             $self->set_initial_value($instance, $value);
+
+            if ( ref $value && $self->is_weak_ref ) {
+                $self->_weaken_value($instance);
+            }
         }
     }
 
@@ -912,6 +916,7 @@ sub _inline_init_from_default {
                $self->_inline_check_constraint($default, $tc, $message, $for_lazy))
             : (),
         $self->_inline_init_slot($instance, $default),
+        $self->_inline_weaken_value($instance, $default),
     );
 }
 
@@ -1279,7 +1284,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0400';
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0401';
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1297,7 +1302,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0400
+version 2.0401
 
 =head1 DESCRIPTION
 

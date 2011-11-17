@@ -1,6 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0401 Thu, Nov 17, 2011
+
+  [BUG FIXES]
+
+  * Attributes with weak_ref now weaken their associated slot when they are
+    initialized through a lazy default or builder. Reported by tome. (doy)
+
 2.0400 Tue, Nov 15, 2011
 
   [OTHER]

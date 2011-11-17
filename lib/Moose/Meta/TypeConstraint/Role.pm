@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Role::VERSION = '2.0400';
+  $Moose::Meta::TypeConstraint::Role::VERSION = '2.0401';
 }
 
 use strict;
@@ -134,7 +134,7 @@ Moose::Meta::TypeConstraint::Role - Role/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 2.0400
+version 2.0401
 
 =head1 DESCRIPTION
 

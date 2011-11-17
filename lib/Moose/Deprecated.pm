@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Deprecated::VERSION = '2.0400';
+  $Moose::Deprecated::VERSION = '2.0401';
 }
 
 use strict;
@@ -32,7 +32,7 @@ Moose::Deprecated - Manages deprecation warnings for Moose
 
 =head1 VERSION
 
-version 2.0400
+version 2.0401
 
 =head1 DESCRIPTION
 
