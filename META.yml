@@ -10,7 +10,7 @@ configure_requires:
   Dist::CheckConflicts: 0.02
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300002, CPAN::Meta::Converter version 2.110440'
+generated_by: 'Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -60,7 +60,7 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Moose
   repository: git://git.moose.perl.org/Moose.git
-version: 2.0401
+version: 2.0402
 x_authority: cpan:STEVAN
 x_conflicts:
   Catalyst: 5.80028

@@ -1,6 +1,15 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0402 Sat, Feb 04, 2012
+
+  [OTHER]
+
+  * Minor documentation fixes.
+
+  * Fix test failure on blead (test was unnecessarily strict). Reported by
+    Nicholas Clark. (doy)
+
 2.0401 Thu, Nov 17, 2011
 
   [BUG FIXES]

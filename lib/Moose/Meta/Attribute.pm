@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.0401';
+  $Moose::Meta::Attribute::VERSION = '2.0402';
 }
 
 use strict;
@@ -1284,7 +1284,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0401';
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0402';
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1302,7 +1302,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0401
+version 2.0402
 
 =head1 DESCRIPTION
 
@@ -1687,7 +1687,7 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Infinity Interactive, Inc..
+This software is copyright (c) 2012 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

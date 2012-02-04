@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Delegation::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Delegation::VERSION = '2.0401';
+  $Moose::Meta::Method::Delegation::VERSION = '2.0402';
 }
 
 use strict;
@@ -147,7 +147,7 @@ Moose::Meta::Method::Delegation - A Moose Method metaclass for delegation method
 
 =head1 VERSION
 
-version 2.0401
+version 2.0402
 
 =head1 DESCRIPTION
 
@@ -206,7 +206,7 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Infinity Interactive, Inc..
+This software is copyright (c) 2012 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
