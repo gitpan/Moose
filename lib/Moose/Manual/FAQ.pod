@@ -12,7 +12,7 @@ Moose::Manual::FAQ - Frequently asked questions about Moose
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 FREQUENTLY ASKED QUESTIONS
 
@@ -22,11 +22,11 @@ version 2.0500
 
 Yes! Many sites with household names are using Moose to build
 high-traffic services. Countless others are using Moose in production.
-See L<http://moose.iinteractive.com/about.html#organizations> for
+See L<http://www.iinteractive.com/moose/about.html#organizations> for
 a partial list.
 
 As of this writing, Moose is a dependency of several hundred CPAN
-modules. L<https://metacpan.org/requires/module/Moose>
+modules. L<http://cpants.perl.org/dist/used_by/Moose>
 
 =head3 Is Moose's API stable?
 
@@ -84,11 +84,12 @@ C<BUILDARGS> method. The default implementation accepts key/value
 pairs or a hash reference. You can override it to take positional
 args, or any other format
 
-To change the handling of individual parameters, there are I<coercions> (See
-the L<Moose::Cookbook::Basics::HTTP_SubtypesAndCoercion> for a complete
-example and explanation of coercions). With coercions it is possible to morph
-argument values into the correct expected types. This approach is the most
-flexible and robust, but does have a slightly higher learning curve.
+To change the handling of individual parameters, there are
+I<coercions> (See the L<Moose::Cookbook::Basics::Recipe5> for a
+complete example and explanation of coercions). With coercions it is
+possible to morph argument values into the correct expected
+types. This approach is the most flexible and robust, but does have a
+slightly higher learning curve.
 
 =head3 How do I make non-Moose constructors work with Moose?
 
@@ -98,7 +99,7 @@ coercions, and C<lazy_build>, so subclassing is often not the ideal
 route.
 
 That said, if you really need to inherit from a non-Moose class, see
-L<Moose::Cookbook::Basics::DateTime_ExtendingNonMooseParent> for an example of how to do it,
+L<Moose::Cookbook::Basics::Recipe11> for an example of how to do it,
 or take a look at L<Moose::Manual::MooseX/"MooseX::NonMoose">.
 
 =head2 Accessors
@@ -134,9 +135,9 @@ L<MooseX::SemiAffordanceAccessor>.
 
 NOTE: This B<cannot> be set globally in Moose, as that would break
 other classes which are built with Moose. You can still save on typing
-by defining a new C<MyApp::Moose> that exports Moose's sugar and then
+by defining a new L<MyApp::Moose> that exports Moose's sugar and then
 turns on L<MooseX::FollowPBP>. See
-L<Moose::Cookbook::Extending::Mooseish_MooseSugar>.
+L<Moose::Cookbook::Extending::Recipe4>.
 
 =head3 How can I inflate/deflate values in accessors?
 
@@ -162,7 +163,7 @@ coerce the value into a C<DateTime> object using the code in found
 in the C<via> block.
 
 For a more comprehensive example of using coercions, see the
-L<Moose::Cookbook::Basics::HTTP_SubtypesAndCoercion>.
+L<Moose::Cookbook::Basics::Recipe5>.
 
 If you need to deflate your attribute's value, the current best
 practice is to add an C<around> modifier to your accessor:
@@ -314,9 +315,8 @@ As for alternate solutions, there are a couple.
 =item *
 
 Using a combination of lazy and default in your attributes to defer
-initialization (see the Binary Tree example in the cookbook for a good example
-of lazy/default usage
-L<Moose::Cookbook::Basics::BinaryTree_AttributeFeatures>)
+initialization (see the Binary Tree example in the cookbook for a good
+example of lazy/default usage L<Moose::Cookbook::Basics::Recipe3>)
 
 =item *
 

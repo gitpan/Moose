@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::VERSION = '2.0500'; # TRIAL
+  $Class::MOP::Method::VERSION = '2.0403';
 }
 
 use strict;
@@ -133,7 +133,6 @@ sub clone {
     my $self = shift;
 
     my $clone = bless { %{$self}, @_ }, blessed($self);
-    weaken($clone->{associated_metaclass}) if $clone->{associated_metaclass};
 
     $clone->_set_original_method($self);
 
@@ -154,7 +153,7 @@ Class::MOP::Method - Method Meta Object
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 DESCRIPTION
 

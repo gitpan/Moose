@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Confess::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Error::Confess::VERSION = '2.0500'; # TRIAL
+  $Moose::Error::Confess::VERSION = '2.0403';
 }
 
 use strict;
@@ -40,7 +40,7 @@ Moose::Error::Confess - Prefer C<confess>
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 SYNOPSIS
 

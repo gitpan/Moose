@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.0500'; # TRIAL
+  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.0403';
 }
 
 use strict;
@@ -180,9 +180,8 @@ sub apply_methods {
         );
     } @{$c->get_roles};
 
-    my (%seen, %conflicts, %method_map);
+    my (%seen, %method_map);
     foreach my $method (@all_methods) {
-        next if $conflicts{$method->{name}};
         my $seen = $seen{$method->{name}};
 
         if ($seen) {
@@ -193,7 +192,6 @@ sub apply_methods {
                 );
 
                 delete $method_map{$method->{name}};
-                $conflicts{$method->{name}} = 1;
                 next;
             }
         }
@@ -271,7 +269,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 DESCRIPTION
 

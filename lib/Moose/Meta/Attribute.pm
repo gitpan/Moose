@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.0500'; # TRIAL
+  $Moose::Meta::Attribute::VERSION = '2.0403';
 }
 
 use strict;
@@ -1284,7 +1284,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0500'; # TRIAL
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0403';
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1302,7 +1302,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 DESCRIPTION
 
@@ -1494,14 +1494,14 @@ I<Attribute (x) does not pass the type constraint (Int) with 'forty-two'>
 
 Before setting the value, a check is made on the type constraint of
 the attribute, if it has one, to see if the value passes it. If the
-value fails to pass, the set operation dies.
+value fails to pass, the set operation dies with a L</throw_error>.
 
 Any coercion to convert values is done before checking the type constraint.
 
 To check a value against a type constraint before setting it, fetch the
 attribute instance using L<Class::MOP::Class/find_attribute_by_name>,
 fetch the type_constraint from the attribute using L<Moose::Meta::Attribute/type_constraint>
-and call L<Moose::Meta::TypeConstraint/check>. See L<Moose::Cookbook::Basics::Company_Subtypes>
+and call L<Moose::Meta::TypeConstraint/check>. See L<Moose::Cookbook::Basics::Recipe4>
 for an example.
 
 =back

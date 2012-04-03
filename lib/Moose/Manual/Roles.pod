@@ -12,7 +12,7 @@ Moose::Manual::Roles - Roles, an alternative to deep hierarchies and base classe
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 WHAT IS A ROLE?
 
@@ -110,7 +110,7 @@ We could use this same role in a C<Bone> class:
       isa => 'Marrow',
   );
 
-See also L<Moose::Cookbook::Roles::Comparable_CodeReuse> for an example.
+See also L<Moose::Cookbook::Roles::Recipe1> for an example.
 
 =head1 REQUIRED METHODS
 
@@ -224,7 +224,7 @@ in the same order as the roles are used:
 
   with 'Breakable', 'ExplodesOnBreakage';
 
-Assuming that the new C<ExplodesOnBreakage> role I<also> has an
+Assuming that the new C<ExplodesOnBreakage> method I<also> has an
 C<after> modifier on C<break>, the C<after> modifiers will run one
 after the other. The modifier from C<Breakable> will run first, then
 the one from C<ExplodesOnBreakage>.
@@ -300,7 +300,7 @@ probably expects it to implement that method.
 In some use cases we might alias and exclude methods from roles, but
 then provide a method of the same name in the class itself.
 
-Also see L<Moose::Cookbook::Roles::Restartable_AdvancedComposition> for an example.
+Also see L<Moose::Cookbook::Roles::Recipe2> for an example.
 
 =head1 ROLE EXCLUSION
 

@@ -23,7 +23,6 @@ BEGIN {
     use_ok('Class::MOP::Method::Accessor');
     use_ok('Class::MOP::Method::Constructor');
     use_ok('Class::MOP::Method::Meta');
-    use_ok('Class::MOP::Method::Overload');
     use_ok('Class::MOP::Instance');
     use_ok('Class::MOP::Object');
 }
@@ -37,7 +36,6 @@ my %METAS = (
     'Class::MOP::Method::Accessor'  => Class::MOP::Method::Accessor->meta,
     'Class::MOP::Method::Constructor' => Class::MOP::Method::Constructor->meta,
     'Class::MOP::Method::Meta' => Class::MOP::Method::Meta->meta,
-    'Class::MOP::Method::Overload' => Class::MOP::Method::Overload->meta,
     'Class::MOP::Mixin'   => Class::MOP::Mixin->meta,
     'Class::MOP::Mixin::AttributeCore'   => Class::MOP::Mixin::AttributeCore->meta,
     'Class::MOP::Mixin::HasAttributes'   => Class::MOP::Mixin::HasAttributes->meta,
@@ -93,7 +91,6 @@ is_deeply(
         Class::MOP::Method::Generated->meta,
         Class::MOP::Method::Inlined->meta,
         Class::MOP::Method::Meta->meta,
-        Class::MOP::Method::Overload->meta,
         Class::MOP::Method::Wrapped->meta,
         Class::MOP::Mixin->meta,
         Class::MOP::Mixin::AttributeCore->meta,
@@ -127,7 +124,6 @@ is_deeply(
             Class::MOP::Method::Inlined
             Class::MOP::Method::Wrapped
             Class::MOP::Method::Meta
-            Class::MOP::Method::Overload
             Class::MOP::Module
             Class::MOP::Object
             Class::MOP::Package

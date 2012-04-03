@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::kv::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Hash::kv::VERSION = '2.0500'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Hash::kv::VERSION = '2.0403';
 }
 
 use strict;

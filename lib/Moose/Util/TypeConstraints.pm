@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::VERSION = '2.0500'; # TRIAL
+  $Moose::Util::TypeConstraints::VERSION = '2.0403';
 }
 
 use Carp ();
@@ -171,9 +171,6 @@ sub create_class_type_constraint {
               . " and cannot be created again in "
               . $pkg_defined_in )
         }
-        else {
-            return $type;
-        }
     }
 
     my %options = (
@@ -206,9 +203,6 @@ sub create_role_type_constraint {
               . $type->_package_defined_in
               . " and cannot be created again in "
               . $pkg_defined_in )
-        }
-        else {
-            return $type;
         }
     }
 
@@ -771,7 +765,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 SYNOPSIS
 

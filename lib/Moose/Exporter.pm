@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exporter::VERSION = '2.0500'; # TRIAL
+  $Moose::Exporter::VERSION = '2.0403';
 }
 
 use strict;
@@ -30,10 +30,6 @@ sub setup_import_methods {
     );
 }
 
-# A reminder to intrepid Moose hackers
-# there may be more than one level of exporter
-# don't make doy cry. -- perigrin
-
 sub build_import_methods {
     my ( $class, %args ) = @_;
 
@@ -49,10 +45,10 @@ sub build_import_methods {
     my $is_reexport     = {};
 
     my $exports = $class->_make_sub_exporter_params(
-        [ $exporting_package, @exports_from ],
+        [ @exports_from, $exporting_package ],
         $export_recorder,
         $is_reexport,
-        $args{meta_lookup}, # so that we don't pass through the default
+        $meta_lookup,
     );
 
     my $exporter = $class->_make_exporter(
@@ -148,7 +144,7 @@ sub _make_exporter {
 
         local %$seen = ( $exporting_package => 1 );
 
-        return uniq( _follow_also_real($exporting_package) );
+        return reverse uniq( _follow_also_real($exporting_package) );
     }
 
     sub _follow_also_real {
@@ -205,24 +201,17 @@ sub _parse_trait_aliases {
 }
 
 sub _make_sub_exporter_params {
-    my $class                = shift;
-    my $packages             = shift;
-    my $export_recorder      = shift;
-    my $is_reexport          = shift;
-    my $meta_lookup_override = shift;
+    my $class           = shift;
+    my $packages        = shift;
+    my $export_recorder = shift;
+    my $is_reexport     = shift;
+    my $meta_lookup     = shift;
 
     my %exports;
-    my $current_meta_lookup;
 
     for my $package ( @{$packages} ) {
         my $args = $EXPORT_SPEC{$package}
             or die "The $package package does not use Moose::Exporter\n";
-
-        $current_meta_lookup = $meta_lookup_override || $args->{meta_lookup};
-        $meta_lookup_override = $current_meta_lookup;
-
-        my $meta_lookup = $current_meta_lookup
-                       || sub { Class::MOP::class_of(shift) };
 
         for my $name ( @{ $args->{with_meta} } ) {
             my $sub = $class->_sub_from_package( $package, $name )
@@ -235,7 +224,7 @@ sub _make_sub_exporter_params {
                 $sub,
                 $export_recorder,
                 $meta_lookup,
-            ) unless exists $exports{$name};
+            );
         }
 
         for my $name ( @{ $args->{with_caller} } ) {
@@ -248,7 +237,7 @@ sub _make_sub_exporter_params {
                 $fq_name,
                 $sub,
                 $export_recorder,
-            ) unless exists $exports{$name};
+            );
         }
 
         my @extra_exports = $class->_parse_trait_aliases(
@@ -277,8 +266,7 @@ sub _make_sub_exporter_params {
 
             $export_recorder->{$sub} = 1;
 
-            $exports{$coderef_name} = sub { $sub }
-                unless exists $exports{$coderef_name};
+            $exports{$coderef_name} = sub {$sub};
         }
     }
 
@@ -452,18 +440,6 @@ sub _make_import_sub {
             $did_init_meta = 1;
         }
 
-        {
-            # The metaroles will use Moose::Role, which in turn uses
-            # Moose::Exporter, which in turn sets $CALLER, so we need
-            # to protect against that.
-            local $CALLER = $CALLER;
-            _apply_metaroles(
-                $CALLER,
-                [$class, @$exports_from],
-                $meta_lookup
-            );
-        }
-
         if ( $did_init_meta && @{$traits} ) {
 
             # The traits will use Moose::Role, which in turn uses
@@ -528,90 +504,6 @@ sub _strip_meta_name {
     splice @_, $idx, 2;
 
     return ( $meta_name, @_ );
-}
-
-sub _apply_metaroles {
-    my ($class, $exports_from, $meta_lookup) = @_;
-
-    my $metaroles = _collect_metaroles($exports_from);
-    my $base_class_roles = delete $metaroles->{base_class_roles};
-
-    my $meta = $meta_lookup->($class);
-    # for instance, Moose.pm uses Moose::Util::TypeConstraints
-    return unless $meta;
-
-    Moose::Util::MetaRole::apply_metaroles(
-        for => $meta,
-        %$metaroles,
-    ) if keys %$metaroles;
-
-    Moose::Util::MetaRole::apply_base_class_roles(
-        for   => $meta,
-        roles => $base_class_roles,
-    ) if $meta->isa('Class::MOP::Class')
-      && $base_class_roles && @$base_class_roles;
-}
-
-sub _collect_metaroles {
-    my ($exports_from) = @_;
-
-    my @old_style_role_types = map { "${_}_roles" } qw(
-        metaclass
-        attribute_metaclass
-        method_metaclass
-        wrapped_method_metaclass
-        instance_metaclass
-        constructor_class
-        destructor_class
-        error_class
-    );
-
-    my %class_metaroles;
-    my %role_metaroles;
-    my @base_class_roles;
-    my %old_style_roles;
-
-    for my $exporter (@$exports_from) {
-        my $data = $EXPORT_SPEC{$exporter};
-
-        if (exists $data->{class_metaroles}) {
-            for my $type (keys %{ $data->{class_metaroles} }) {
-                push @{ $class_metaroles{$type} ||= [] },
-                     @{ $data->{class_metaroles}{$type} };
-            }
-        }
-
-        if (exists $data->{role_metaroles}) {
-            for my $type (keys %{ $data->{role_metaroles} }) {
-                push @{ $role_metaroles{$type} ||= [] },
-                     @{ $data->{role_metaroles}{$type} };
-            }
-        }
-
-        if (exists $data->{base_class_roles}) {
-            push @base_class_roles, @{ $data->{base_class_roles} };
-        }
-
-        for my $type (@old_style_role_types) {
-            if (exists $data->{$type}) {
-                push @{ $old_style_roles{$type} ||= [] },
-                     @{ $data->{$type} };
-            }
-        }
-    }
-
-    return {
-        (keys(%class_metaroles)
-            ? (class_metaroles  => \%class_metaroles)
-            : ()),
-        (keys(%role_metaroles)
-            ? (role_metaroles   => \%role_metaroles)
-            : ()),
-        (@base_class_roles
-            ? (base_class_roles => \@base_class_roles)
-            : ()),
-        %old_style_roles,
-    };
 }
 
 sub _apply_meta_traits {
@@ -707,9 +599,6 @@ sub _remove_keywords {
     }
 }
 
-# maintain this for now for backcompat
-# make sure to return a sub to install in the same circumstances as previously
-# but this functionality now happens at the end of ->import
 sub _make_init_meta {
     shift;
     my $class          = shift;
@@ -743,7 +632,29 @@ sub _make_init_meta {
 
     return unless %new_style_roles || %old_style_roles || %base_class_roles;
 
-    return sub { };
+    return sub {
+        shift;
+        my %options = @_;
+
+        return unless $meta_lookup->( $options{for_class} );
+
+        if ( %new_style_roles || %old_style_roles ) {
+            Moose::Util::MetaRole::apply_metaroles(
+                for => $options{for_class},
+                %new_style_roles,
+                %old_style_roles,
+            );
+        }
+
+        Moose::Util::MetaRole::apply_base_class_roles(
+            for_class => $options{for_class},
+            %base_class_roles,
+            )
+            if $meta_lookup->( $options{for_class} )
+                ->isa('Moose::Meta::Class');
+
+        return $meta_lookup->( $options{for_class} );
+    };
 }
 
 sub import {
@@ -765,7 +676,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.0500
+version 2.0403
 
 =head1 SYNOPSIS
 
@@ -803,8 +714,9 @@ version 2.0500
 =head1 DESCRIPTION
 
 This module encapsulates the exporting of sugar functions in a
-C<Moose.pm>-like manner. It does this by building custom C<import> and
-C<unimport> methods for your module, based on a spec you provide.
+C<Moose.pm>-like manner. It does this by building custom C<import>,
+C<unimport>, and C<init_meta> methods for your module, based on a spec you
+provide.
 
 It also lets you "stack" Moose-alike modules so you can export Moose's sugar
 as well as your own, along with sugar from any random C<MooseX> module, as
@@ -824,19 +736,20 @@ This module provides two public methods:
 
 =item B<< Moose::Exporter->setup_import_methods(...) >>
 
-When you call this method, C<Moose::Exporter> builds custom C<import> and
-C<unimport> methods for your module. The C<import> method
+When you call this method, C<Moose::Exporter> builds custom C<import>,
+C<unimport>, and C<init_meta> methods for your module. The C<import> method
 will export the functions you specify, and can also re-export functions
-exported by some other module (like C<Moose.pm>). If you pass any parameters
-for L<Moose::Util::MetaRole>, the C<import> method will also call
-C<Moose::Util::MetaRole::apply_metaroles> and
-C<Moose::Util::MetaRole::apply_base_class_roles> as needed, after making
-sure the metaclass is initialized.
+exported by some other module (like C<Moose.pm>).
 
 The C<unimport> method cleans the caller's namespace of all the exported
 functions. This includes any functions you re-export from other
 packages. However, if the consumer of your package also imports those
 functions from the original package, they will I<not> be cleaned.
+
+If you pass any parameters for L<Moose::Util::MetaRole>, this method will
+generate an C<init_meta> for you as well (see below for details). This
+C<init_meta> will call C<Moose::Util::MetaRole::apply_metaroles> and
+C<Moose::Util::MetaRole::apply_base_class_roles> as needed.
 
 Note that if any of these methods already exist, they will not be
 overridden, you will have to use C<build_import_methods> to get the
@@ -910,13 +823,15 @@ are "class_metaroles", "role_metaroles", and "base_class_roles".
 
 =item B<< Moose::Exporter->build_import_methods(...) >>
 
-Returns two code refs, one for C<import> and one for C<unimport>.
+Returns two or three code refs, one for C<import>, one for
+C<unimport>, and optionally one for C<init_meta>, if the appropriate
+options are passed in.
 
 Accepts the additional C<install> option, which accepts an arrayref of method
-names to install into your exporting package. The valid options are C<import>
-and C<unimport>. Calling C<setup_import_methods> is equivalent
-to calling C<build_import_methods> with C<< install => [qw(import unimport)] >>
-except that it doesn't also return the methods.
+names to install into your exporting package. The valid options are C<import>,
+C<unimport>, and C<init_meta>. Calling C<setup_import_methods> is equivalent
+to calling C<build_import_methods> with C<< install => [qw(import unimport
+init_meta)] >> except that it doesn't also return the methods.
 
 The C<import> method is built using L<Sub::Exporter>. This means that it can
 take a hashref of the form C<< { into => $package } >> to specify the package
@@ -943,6 +858,38 @@ Moose->init_meta >> to do the real work:
   sub init_meta {
       shift; # our class name
       return Moose->init_meta( @_, metaclass => 'My::Metaclass' );
+  }
+
+Keep in mind that C<build_import_methods> will return an C<init_meta>
+method for you, which you can also call from within your custom
+C<init_meta>:
+
+  my ( $import, $unimport, $init_meta )
+      = Moose::Exporter->build_import_methods(...);
+
+  sub import {
+      my $class = shift;
+
+      ...
+
+      # You can either pass an explicit package to import into ...
+      $class->$import( { into => scalar(caller) }, ... );
+
+      ...;
+  }
+
+  # ... or you can use 'goto' to provide the correct caller info to the
+  # generated method
+  sub unimport { goto &$unimport }
+
+  sub init_meta {
+      my $class = shift;
+
+      ...
+
+      $class->$init_meta(...);
+
+      ...
   }
 
 =head1 METACLASS TRAITS

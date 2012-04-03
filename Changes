@@ -1,45 +1,11 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-2.0500 Tue, Apr 03, 2012
+2.0403 Tue, Apr 03, 2012
 
-  [NEW FEATURES]
+  [OTHER]
 
-  * Class::MOP::Class now has methods for introspecting and modifying the
-    overloaded operators for a class. (doy)
-
-  [ENHANCEMENTS]
-
-  * The cookbook recipes have all been renamed. Instead of numbered recipes
-    (Basics::Recipe1), we now have descriptive names
-    (Basics::Point_AttributesAndSubclassing). This makes it easier for us to
-    add and remove recipes in the future, and makes it a little easier to
-    converse about them, since the name gives us some clue of what they
-    contain.
-
-  [BUG FIXES]
-
-  * Re-declaring a class_type or role_type constraint that has already been
-    declared now just returns the original type constraint, rather than
-    replacing the original constraint and ergo losing any coercions that were
-    on the original constraint. Fixes RT #73289. (t0m)
-
-  * Moose::Exporter now calls init_meta methods in the correct order, when
-    multiple levels of 'also' parameters are specified. Reported by Rocco
-    Caputo. (doy, perigrin)
-
-  * Moose::Exporter no longer generates init_meta methods in order to apply
-    metaroles, since the metaclass itself isn't guaranteed to exist yet at that
-    point. Metaroles are now applied at the end of import, after all
-    user-defined init_meta methods have been called. Fixes RT #51561. (doy)
-
-  * Fixed a memory leak. This occurred when creating an anonymous
-    class. Immutabilizing an anonymous class still leaks memory due to a bug in
-    Eval::Closure (which should hopefully be fixed soon). Based on code and bug
-    report from Carlos Lima. RT #74650.
-
-  * Fix a segfault when adding a method to a class which was defined in a
-    package which was deleted. (doy)
+  * No changes, reupload to fix indexing.
 
 2.0402 Sat, Feb 04, 2012
 
