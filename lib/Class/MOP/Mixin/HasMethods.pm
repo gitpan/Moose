@@ -3,17 +3,20 @@ BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Mixin::HasMethods::VERSION = '2.0403';
+  $Class::MOP::Mixin::HasMethods::VERSION = '2.0501'; # TRIAL
 }
 
 use strict;
 use warnings;
 
 use Class::MOP::Method::Meta;
+use Class::MOP::Method::Overload;
 
 use Scalar::Util 'blessed';
 use Carp         'confess';
 use Sub::Name    'subname';
+
+use overload ();
 
 use base 'Class::MOP::Mixin';
 
@@ -206,6 +209,92 @@ sub _full_method_map {
     return $self->_method_map;
 }
 
+# overloading
+
+my $overload_operators;
+sub overload_operators {
+    $overload_operators ||= [map { split /\s+/ } values %overload::ops];
+    return @$overload_operators;
+}
+
+sub is_overloaded {
+    my $self = shift;
+    return overload::Overloaded($self->name);
+}
+
+# XXX this could probably stand to be cached, but i figure it should be
+# uncommon enough to not particularly matter
+sub _overload_map {
+    my $self = shift;
+
+    return {} unless $self->is_overloaded;
+
+    my %map;
+    for my $op ($self->overload_operators) {
+        my $body = $self->_get_overloaded_operator_body($op);
+        next unless defined $body;
+        $map{$op} = $body;
+    }
+
+    return \%map;
+}
+
+sub get_overload_list {
+    my $self = shift;
+    return keys %{ $self->_overload_map };
+}
+
+sub get_all_overloaded_operators {
+    my $self = shift;
+    my $map = $self->_overload_map;
+    return map { $self->_wrap_overload($_, $map->{$_}) } keys %$map;
+}
+
+sub has_overloaded_operator {
+    my $self = shift;
+    my ($op) = @_;
+    return defined $self->_get_overloaded_operator_body($op);
+}
+
+sub get_overloaded_operator {
+    my $self = shift;
+    my ($op) = @_;
+    my $body = $self->_get_overloaded_operator_body($op);
+    return unless defined $body;
+    return $self->_wrap_overload($op, $body);
+}
+
+sub add_overloaded_operator {
+    my $self = shift;
+    my ($op, $body) = @_;
+    $self->name->overload::OVERLOAD($op => $body);
+}
+
+sub remove_overloaded_operator {
+    my $self = shift;
+    my ($op) = @_;
+    # ugh, overload.pm provides no api for this
+    $self->get_or_add_package_symbol('%OVERLOAD')->{dummy}++;
+    $self->remove_package_symbol('&(' . $op);
+}
+
+sub _get_overloaded_operator_body {
+    my $self = shift;
+    my ($op) = @_;
+    return overload::Method($self->name, $op);
+}
+
+sub _wrap_overload {
+    my $self = shift;
+    my ($op, $body) = @_;
+    return Class::MOP::Method::Overload->wrap(
+        operator             => $op,
+        package_name         => $self->name,
+        associated_metaclass => $self,
+        body                 => $body,
+    );
+}
+
 1;
 
 # ABSTRACT: Methods for metaclasses which have methods
@@ -220,7 +309,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.0403
+version 2.0501
 
 =head1 DESCRIPTION
 

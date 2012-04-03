@@ -95,12 +95,14 @@ mop_get_code_info (SV *coderef, char **pkg, char **name)
     */
 
     if ( isGV_with_GP(CvGV(coderef)) ) {
-        GV *gv   = CvGV(coderef);
-        *pkg     = HvNAME( GvSTASH(gv) ? GvSTASH(gv) : CvSTASH(coderef) );
-        *name    = GvNAME( CvGV(coderef) );
+        GV *gv    = CvGV(coderef);
+        HV *stash = GvSTASH(gv) ? GvSTASH(gv) : CvSTASH(coderef);
+
+        *pkg  = stash ? HvNAME(stash) : "__UNKNOWN__";
+        *name = GvNAME( CvGV(coderef) );
     } else {
-        *pkg     = "__UNKNOWN__";
-        *name    = "__ANON__";
+        *pkg  = "__UNKNOWN__";
+        *name = "__ANON__";
     }
 
     return 1;
@@ -220,7 +222,8 @@ static struct {
     DECLARE_KEY(wrapped_method_metaclass),
     DECLARE_KEY(writer),
     DECLARE_KEY_WITH_VALUE(package_cache_flag, "_package_cache_flag"),
-    DECLARE_KEY_WITH_VALUE(_version, "-version")
+    DECLARE_KEY_WITH_VALUE(_version, "-version"),
+    DECLARE_KEY(operator)
 };
 
 SV *

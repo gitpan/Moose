@@ -3,13 +3,13 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::VERSION = '2.0403';
+  $Moose::Util::VERSION = '2.0501'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Class::Load qw(load_class load_first_existing_class);
+use Class::Load 0.07 qw(load_class load_first_existing_class);
 use Data::OptList;
 use Params::Util qw( _STRING );
 use Sub::Exporter;
@@ -314,12 +314,14 @@ sub meta_class_alias {
 
 # XXX - this should be added to Params::Util
 sub _STRINGLIKE0 ($) {
-    return _STRING( $_[0] )
-        || ( defined $_[0]
-        && $_[0] eq q{} )
-        || ( blessed $_[0]
-        && overload::Method( $_[0], q{""} )
-        && length "$_[0]" );
+    return 1 if _STRING( $_[0] );
+    if ( blessed $_[0] ) {
+        return overload::Method( $_[0], q{""} );
+    }
+
+    return 1 if defined $_[0] && $_[0] eq q{};
+
+    return 0;
 }
 
 sub _reconcile_roles_for_metaclass {
@@ -488,7 +490,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0403
+version 2.0501
 
 =head1 SYNOPSIS
 
@@ -548,7 +550,7 @@ each of which can be followed by an optional hash reference of options
 
 =item B<ensure_all_roles($applicant, @roles)>
 
-This function is similar to L</apply_all_roles>, but only applies roles that
+This function is similar to C<apply_all_roles>, but only applies roles that
 C<$applicant> does not already consume.
 
 =item B<with_traits($class_name, @role_names)>

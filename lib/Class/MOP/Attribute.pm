@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Attribute::VERSION = '2.0403';
+  $Class::MOP::Attribute::VERSION = '2.0501'; # TRIAL
 }
 
 use strict;
@@ -486,7 +486,7 @@ Class::MOP::Attribute - Attribute Meta Object
 
 =head1 VERSION
 
-version 2.0403
+version 2.0501
 
 =head1 SYNOPSIS
 
@@ -768,6 +768,8 @@ either a method name or a subroutine reference.
 =item B<< $attr->init_arg >>
 
 =item B<< $attr->is_default_a_coderef >>
+
+=item B<< $attr->builder >>
 
 =item B<< $attr->default($instance) >>
 

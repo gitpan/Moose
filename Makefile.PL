@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
   ],
   'LICENSE' => 'perl',
   'NAME' => 'Moose',
-  'OBJECT' => 'xs/Attribute$(OBJ_EXT) xs/AttributeCore$(OBJ_EXT) xs/Class$(OBJ_EXT) xs/Generated$(OBJ_EXT) xs/HasAttributes$(OBJ_EXT) xs/HasMethods$(OBJ_EXT) xs/Inlined$(OBJ_EXT) xs/Instance$(OBJ_EXT) xs/Method$(OBJ_EXT) xs/Moose$(OBJ_EXT) xs/MOP$(OBJ_EXT) xs/Package$(OBJ_EXT) mop$(OBJ_EXT)',
+  'OBJECT' => 'xs/Attribute$(OBJ_EXT) xs/AttributeCore$(OBJ_EXT) xs/Class$(OBJ_EXT) xs/Generated$(OBJ_EXT) xs/HasAttributes$(OBJ_EXT) xs/HasMethods$(OBJ_EXT) xs/Inlined$(OBJ_EXT) xs/Instance$(OBJ_EXT) xs/Method$(OBJ_EXT) xs/Moose$(OBJ_EXT) xs/MOP$(OBJ_EXT) xs/Overload$(OBJ_EXT) xs/Package$(OBJ_EXT) mop$(OBJ_EXT)',
   'PREREQ_PM' => {
     'Class::Load' => '0.09',
     'Class::Load::XS' => '0.01',
@@ -44,7 +44,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0403',
+  'VERSION' => '2.0501',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',
@@ -57,10 +57,11 @@ my %WriteMakefileArgs = (
     'xs/MOP.xs' => 'xs/MOP.c',
     'xs/Method.xs' => 'xs/Method.c',
     'xs/Moose.xs' => 'xs/Moose.c',
+    'xs/Overload.xs' => 'xs/Overload.c',
     'xs/Package.xs' => 'xs/Package.c'
   },
   'clean' => {
-    'FILES' => 'xs/Attribute$(OBJ_EXT) xs/AttributeCore$(OBJ_EXT) xs/Class$(OBJ_EXT) xs/Generated$(OBJ_EXT) xs/HasAttributes$(OBJ_EXT) xs/HasMethods$(OBJ_EXT) xs/Inlined$(OBJ_EXT) xs/Instance$(OBJ_EXT) xs/Method$(OBJ_EXT) xs/Moose$(OBJ_EXT) xs/MOP$(OBJ_EXT) xs/Package$(OBJ_EXT) mop$(OBJ_EXT)'
+    'FILES' => 'xs/Attribute$(OBJ_EXT) xs/AttributeCore$(OBJ_EXT) xs/Class$(OBJ_EXT) xs/Generated$(OBJ_EXT) xs/HasAttributes$(OBJ_EXT) xs/HasMethods$(OBJ_EXT) xs/Inlined$(OBJ_EXT) xs/Instance$(OBJ_EXT) xs/Method$(OBJ_EXT) xs/Moose$(OBJ_EXT) xs/MOP$(OBJ_EXT) xs/Overload$(OBJ_EXT) xs/Package$(OBJ_EXT) mop$(OBJ_EXT)'
   },
   'test' => {
     'TESTS' => 't/*.t t/attributes/*.t t/basics/*.t t/bugs/*.t t/cmop/*.t t/compat/*.t t/examples/*.t t/immutable/*.t t/metaclasses/*.t t/moose_util/*.t t/native_traits/*.t t/recipes/*.t t/roles/*.t t/test_moose/*.t t/todo_tests/*.t t/type_constraints/*.t'

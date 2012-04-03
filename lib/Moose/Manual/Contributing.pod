@@ -12,7 +12,7 @@ Moose::Manual::Contributing - How to get involved in Moose
 
 =head1 VERSION
 
-version 2.0403
+version 2.0501
 
 =head1 GETTING INVOLVED
 
@@ -66,7 +66,7 @@ L<git://git.moose.perl.org/Moose.git>
 
 =item Read+Write
 
-L<gitmo@git.moose.perl.org:Moose.git>
+gitmo@git.moose.perl.org:Moose.git
 
 =back
 

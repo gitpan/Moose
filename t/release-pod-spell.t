@@ -134,6 +134,8 @@ introspectable
 metaclass
 metaclass's
 metadata
+metaobject
+metaobjects
 metaprogrammer
 metarole
 metaroles

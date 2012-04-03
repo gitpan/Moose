@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::VERSION = '2.0403';
+  $Moose::Meta::Role::VERSION = '2.0501'; # TRIAL
 }
 
 use strict;
@@ -743,7 +743,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0403
+version 2.0501
 
 =head1 DESCRIPTION
 
@@ -915,6 +915,31 @@ This is quite likely to change in the future.
 =item B<< $metarole->add_attribute($name, %options) >>
 
 =item B<< $metarole->remove_attribute($attribute_name) >>
+
+=back
+
+=head2 Overload introspection and creation
+
+The methods for dealing with a role's overloads are all identical in API
+and behavior to the same methods in L<Class::MOP::Class>. Note that these are
+not particularly useful (yet), because overloads do not participate in role
+composition.
+
+=over 4
+
+=item B<< $metarole->is_overloaded >>
+
+=item B<< $metarole->get_overloaded_operator($op) >>
+
+=item B<< $metarole->has_overloaded_operator($op) >>
+
+=item B<< $metarole->get_overload_list >>
+
+=item B<< $metarole->get_all_overloaded_operators >>
+
+=item B<< $metarole->add_overloaded_operator($op, $impl) >>
+
+=item B<< $metarole->remove_overloaded_operator($op) >>
 
 =back
 
