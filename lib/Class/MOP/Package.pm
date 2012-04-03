@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Package::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Package::VERSION = '2.0402';
+  $Class::MOP::Package::VERSION = '2.0500'; # TRIAL
 }
 
 use strict;
@@ -162,6 +162,8 @@ sub create {
         my ($first_fragments, $last_fragment) = ($name =~ /^(.*)::(.*)$/);
 
         no strict 'refs';
+        # clear @ISA first, to avoid a memory leak
+        # see https://rt.perl.org/rt3/Public/Bug/Display.html?id=92708
         @{$name . '::ISA'} = ();
         %{$name . '::'}    = ();
         delete ${$first_fragments . '::'}{$last_fragment . '::'};
@@ -270,7 +272,7 @@ Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.0402
+version 2.0500
 
 =head1 DESCRIPTION
 

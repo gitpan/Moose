@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.0402';
+  $Moose::VERSION = '2.0500'; # TRIAL
 }
 use strict;
 use warnings;
@@ -288,7 +288,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0402
+version 2.0500
 
 =head1 SYNOPSIS
 
@@ -473,7 +473,7 @@ for information on how to define a new type, and how to retrieve type meta-data)
 This will attempt to use coercion with the supplied type constraint to change
 the value passed into any accessors or constructors. You B<must> supply a type
 constraint, and that type constraint B<must> define a coercion. See
-L<Moose::Cookbook::Basics::Recipe5> for an example.
+L<Moose::Cookbook::Basics::HTTP_SubtypesAndCoercion> for an example.
 
 =item I<does =E<gt> $role_name>
 
@@ -651,15 +651,16 @@ cover here.
 See L<Metaclass and Trait Name Resolution> for details on how a trait name is
 resolved to a role name.
 
-Also see L<Moose::Cookbook::Meta::Recipe3> for a metaclass trait
-example.
+Also see L<Moose::Cookbook::Meta::Labeled_AttributeTrait> for a metaclass
+trait example.
 
 =item I<builder> => Str
 
-The value of this key is the name of the method that will be called to
-obtain the value used to initialize the attribute. See the L<builder
-option docs in Class::MOP::Attribute|Class::MOP::Attribute/builder>
-and/or L<Moose::Cookbook::Basics::Recipe8> for more information.
+The value of this key is the name of the method that will be called to obtain
+the value used to initialize the attribute. See the L<builder option docs in
+Class::MOP::Attribute|Class::MOP::Attribute/builder> and/or
+L<Moose::Cookbook::Basics::BinaryTree_BuilderAndLazyBuild> for more
+information.
 
 =item I<default> => SCALAR | CODE
 
@@ -799,14 +800,15 @@ superclass method with the same arguments as the original method.
 
 An C<augment> method, is a way of explicitly saying "I am augmenting this
 method from my superclass". Once again, the details of how C<inner> and
-C<augment> work is best described in the L<Moose::Cookbook::Basics::Recipe6>.
+C<augment> work is best described in the
+L<Moose::Cookbook::Basics::Document_AugmentAndInner>.
 
 =item B<inner>
 
 The keyword C<inner>, much like C<super>, is a no-op outside of the context of
 an C<augment> method. You can think of C<inner> as being the inverse of
 C<super>; the details of how C<inner> and C<augment> work is best described in
-the L<Moose::Cookbook::Basics::Recipe6>.
+the L<Moose::Cookbook::Basics::Document_AugmentAndInner>.
 
 =item B<blessed>
 
@@ -852,8 +854,8 @@ The lookup method for metaclasses is the same, except that it looks
 for a class matching B<Moose::Meta::$type::Custom::$metaclass_name>.
 
 If all this is confusing, take a look at
-L<Moose::Cookbook::Meta::Recipe3>, which demonstrates how to create an
-attribute trait.
+L<Moose::Cookbook::Meta::Labeled_AttributeTrait>, which demonstrates how to
+create an attribute trait.
 
 =head1 UNIMPORTING FUNCTIONS
 
@@ -880,7 +882,7 @@ to work. Here is an example:
 
 To learn more about extending Moose, we recommend checking out the
 "Extending" recipes in the L<Moose::Cookbook>, starting with
-L<Moose::Cookbook::Extending::Recipe1>, which provides an overview of
+L<Moose::Cookbook::Extending::ExtensionOverview>, which provides an overview of
 all the different ways you might extend Moose. L<Moose::Exporter> and
 L<Moose::Util::MetaRole> are the modules which provide the majority of the
 extension functionality, so reading their documentation should also be helpful.
@@ -948,9 +950,9 @@ not (UPDATE: so far so good).
 
 We offer both a mailing list and a very active IRC channel.
 
-The mailing list is L<moose@perl.org>. You must be subscribed to send
+The mailing list is L<mailto:moose@perl.org>. You must be subscribed to send
 a message. To subscribe, send an empty message to
-L<moose-subscribe@perl.org>
+L<mailto:moose-subscribe@perl.org>
 
 You can also visit us at C<#moose> on L<irc://irc.perl.org/#moose>
 This channel is quite active, and questions at all levels (on Moose-related
@@ -1091,7 +1093,8 @@ John (jgoulah) Goulah wrote L<Moose::Cookbook::Snack::Keywords>.
 
 Jess (castaway) Robinson wrote L<Moose::Cookbook::Snack::Types>.
 
-Aran (bluefeet) Clary Deltac wrote L<Moose::Cookbook::Basics::Recipe9>.
+Aran (bluefeet) Clary Deltac wrote
+L<Moose::Cookbook::Basics::Genome_OverloadingSubtypesAndCoercion>.
 
 Anders (Debolaz) Nor Berle contributed L<Test::Moose> and L<Moose::Util>.
 

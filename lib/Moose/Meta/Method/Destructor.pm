@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Destructor::VERSION = '2.0402';
+  $Moose::Meta::Method::Destructor::VERSION = '2.0500'; # TRIAL
 }
 
 use strict;
@@ -149,20 +149,20 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.0402
+version 2.0500
 
 =head1 DESCRIPTION
 
-This class is a subclass of L<Class::MOP::Class::Generated> that
+This class is a subclass of L<Class::MOP::Method::Inlined> that
 provides Moose-specific functionality for inlining destructors.
 
 To understand this class, you should read the the
-L<Class::MOP::Class::Generated> documentation as well.
+L<Class::MOP::Method::Inlined> documentation as well.
 
 =head1 INHERITANCE
 
 C<Moose::Meta::Method::Destructor> is a subclass of
-L<Moose::Meta::Method> I<and> L<Class::MOP::Method::Generated>.
+L<Moose::Meta::Method> I<and> L<Class::MOP::Method::Inlined>.
 
 =head1 METHODS
 

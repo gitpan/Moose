@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::VERSION = '2.0402';
+  $Class::MOP::VERSION = '2.0500'; # TRIAL
 }
 
 use strict;
@@ -15,7 +15,7 @@ use 5.008;
 use MRO::Compat;
 
 use Carp          'confess';
-use Class::Load   ();
+use Class::Load 0.07 ();
 use Scalar::Util  'weaken', 'isweak', 'reftype', 'blessed';
 use Data::OptList;
 use Try::Tiny;
@@ -703,6 +703,7 @@ $_->meta->make_immutable(
     Class::MOP::Method::Wrapped
 
     Class::MOP::Method::Meta
+    Class::MOP::Method::Overload
 /;
 
 $_->meta->make_immutable(
@@ -730,7 +731,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.0402
+version 2.0500
 
 =head1 DESCRIPTION
 
@@ -791,12 +792,12 @@ method dispatch.
 
 This module was designed to be as unintrusive as possible. Many of its
 features are accessible without B<any> change to your existing
-code. It is meant to be a compliment to your existing code and not an
+code. It is meant to be a complement to your existing code and not an
 intrusion on your code base. Unlike many other B<Class::> modules,
 this module B<does not> require you subclass it, or even that you
 C<use> it in within your module's package.
 
-The only features which requires additions to your code are the
+The only features which require additions to your code are the
 attribute handling and instance construction features, and these are
 both completely optional features. The only reason for this is because
 Perl 5's object system does not actually have these features built
@@ -833,8 +834,8 @@ given class is either the same as (or a subclass of) all of the
 class's ancestors.
 
 Downward metaclass compatibility means that the metaclasses of a
-given class's ancestors are all either the same as (or a subclass
-of) that metaclass.
+given class's ancestors are all the same as (or a subclass of) that
+metaclass.
 
 Here is a diagram showing a set of two classes (C<A> and C<B>) and
 two metaclasses (C<Meta::A> and C<Meta::B>) which have correct
@@ -875,7 +876,7 @@ create an incorrect type of metaclass for you. This is a very rare
 problem, and one which can only occur if you are doing deep metaclass
 programming. So in other words, don't worry about it.
 
-Note that if you're using L<Moose> we encourage you to I<not> use
+Note that if you're using L<Moose> we encourage you to I<not> use the
 L<metaclass> pragma, and instead use L<Moose::Util::MetaRole> to apply
 roles to a class's metaclasses. This topic is covered at length in
 various L<Moose::Cookbook> recipes.
@@ -948,7 +949,7 @@ returned.
 
 =head2 Metaclass cache functions
 
-Class::MOP holds a cache of metaclasses. The following are functions
+C<Class::MOP> holds a cache of metaclasses. The following are functions
 (B<not methods>) which can be used to access that cache. It is not
 recommended that you mess with these. Bad things could happen, but if
 you are brave and willing to risk it: go for it!
@@ -1038,7 +1039,7 @@ This paper is on how Traits can be used to do safe metaclass composition,
 and offers an excellent introduction section which delves into the topic of
 metaclass compatibility.
 
-L<http://www.iam.unibe.ch/~scg/Archive/Papers/Duca05ySafeMetaclassTrait.pdf>
+L<http://scg.unibe.ch/archive/papers/Duca05ySafeMetaclassTrait.pdf>
 
 =item "Safe Metaclass Programming"
 

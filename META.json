@@ -4,7 +4,7 @@
       "Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details."
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640",
+   "generated_by" : "Dist::Zilla version 4.300007, CPAN::Meta::Converter version 2.120351",
    "license" : [
       "perl_5"
    ],
@@ -46,31 +46,32 @@
       },
       "develop" : {
          "requires" : {
-            "Algorithm::C3" : 0,
-            "DBM::Deep" : 0,
-            "Data::Visitor" : 0,
-            "DateTime" : 0,
-            "DateTime::Calendar::Mayan" : 0,
-            "DateTime::Format::MySQL" : 0,
-            "Declare::Constraints::Simple" : 0,
-            "File::Find::Rule" : 0,
-            "HTTP::Headers" : 0,
-            "IO::File" : 0,
-            "IO::String" : 0,
-            "Locale::US" : 0,
-            "Module::Info" : 0,
-            "Module::Refresh" : 0,
-            "PadWalker" : 0,
-            "Params::Coerce" : 0,
-            "Regexp::Common" : 0,
-            "SUPER" : 0,
-            "Test::Deep" : 0,
+            "Algorithm::C3" : "0",
+            "DBM::Deep" : "0",
+            "Data::Visitor" : "0",
+            "DateTime" : "0",
+            "DateTime::Calendar::Mayan" : "0",
+            "DateTime::Format::MySQL" : "0",
+            "Declare::Constraints::Simple" : "0",
+            "File::Find::Rule" : "0",
+            "HTTP::Headers" : "0",
+            "IO::File" : "0",
+            "IO::String" : "0",
+            "Locale::US" : "0",
+            "Module::Info" : "0",
+            "Module::Refresh" : "0",
+            "PadWalker" : "0",
+            "Params::Coerce" : "0",
+            "Regexp::Common" : "0",
+            "SUPER" : "0",
+            "Test::Deep" : "0",
             "Test::DependentModules" : "0.12",
-            "Test::Inline" : 0,
-            "Test::LeakTrace" : 0,
-            "Test::Output" : 0,
-            "Test::Spelling" : 0,
-            "URI" : 0
+            "Test::Inline" : "0",
+            "Test::LeakTrace" : "0",
+            "Test::Memory::Cycle" : "0",
+            "Test::Output" : "0",
+            "Test::Spelling" : "0",
+            "URI" : "0"
          }
       },
       "runtime" : {
@@ -81,7 +82,7 @@
             "Class::Load" : "0.09",
             "Class::Load::XS" : "0.01",
             "Data::OptList" : "0.107",
-            "Devel::GlobalDestruction" : 0,
+            "Devel::GlobalDestruction" : "0",
             "Dist::CheckConflicts" : "0.02",
             "Eval::Closure" : "0.04",
             "List::MoreUtils" : "0.28",
@@ -93,7 +94,7 @@
             "Scalar::Util" : "1.19",
             "Sub::Exporter" : "0.980",
             "Sub::Name" : "0.05",
-            "Task::Weaken" : 0,
+            "Task::Weaken" : "0",
             "Try::Tiny" : "0.02",
             "perl" : "v5.8.3"
          }
@@ -106,7 +107,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-moose@rt.cpan.org",
@@ -118,7 +119,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0402",
+   "version" : "2.0500",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",

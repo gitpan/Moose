@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Union::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0402';
+  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0500'; # TRIAL
 }
 
 use strict;
@@ -213,7 +213,7 @@ Moose::Meta::TypeConstraint::Union - A union of Moose type constraints
 
 =head1 VERSION
 
-version 2.0402
+version 2.0500
 
 =head1 DESCRIPTION
 

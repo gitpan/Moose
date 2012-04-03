@@ -4,14 +4,14 @@ BEGIN {
   $Class::MOP::Method::Meta::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Meta::VERSION = '2.0402';
+  $Class::MOP::Method::Meta::VERSION = '2.0500'; # TRIAL
 }
 
 use strict;
 use warnings;
 
 use Carp         'confess';
-use Scalar::Util 'blessed';
+use Scalar::Util 'blessed', 'weaken';
 
 use constant DEBUG_NO_META => $ENV{DEBUG_NO_META} ? 1 : 0;
 
@@ -26,6 +26,8 @@ sub _is_caller_mop_internal {
 sub _generate_meta_method {
     my $method_self = shift;
     my $metaclass   = shift;
+    weaken($metaclass);
+
     sub {
         # this will be compiled out if the env var wasn't set
         if (DEBUG_NO_META) {
@@ -93,7 +95,7 @@ Class::MOP::Method::Meta - Method Meta Object for C<meta> methods
 
 =head1 VERSION
 
-version 2.0402
+version 2.0500
 
 =head1 DESCRIPTION
 
