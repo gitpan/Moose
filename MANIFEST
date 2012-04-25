@@ -315,6 +315,7 @@ t/attributes/non_alpha_attr_names.t
 t/attributes/numeric_defaults.t
 t/attributes/trigger_and_coerce.t
 t/author-debugger-duck_type.t
+t/author-memory_leaks.t
 t/author-test-my-dependents.t
 t/basics/always_strict_warnings.t
 t/basics/basic_class_setup.t
@@ -363,7 +364,6 @@ t/bugs/inheriting_from_roles.t
 t/bugs/inline_reader_bug.t
 t/bugs/instance_application_role_args.t
 t/bugs/lazybuild_required_undef.t
-t/bugs/memory_leaks.t
 t/bugs/moose_octal_defaults.t
 t/bugs/native_trait_handles_bad_value.t
 t/bugs/reader_precedence_bug.t

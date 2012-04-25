@@ -1,12 +1,17 @@
+
+BEGIN {
+  unless ($ENV{AUTHOR_TESTING}) {
+    require Test::More;
+    Test::More::plan(skip_all => 'these tests are for testing by the author');
+  }
+}
+
 use strict;
 use warnings;
 
-use Test::Requires {
-    'Test::LeakTrace'     => '0.01',
-    'Test::Memory::Cycle' => '0',
-};
-
 use Test::More;
+use Test::LeakTrace 0.01;
+use Test::Memory::Cycle;
 
 use Moose ();
 use Moose::Util qw( apply_all_roles );

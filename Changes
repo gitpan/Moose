@@ -1,6 +1,17 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0502 Wed, Apr 25, 2012
+
+  [OTHER]
+
+  * The Test::DependentModules test now covers a much wider range of downstream
+    dependents (all of them in fact, for some definition of "all"). This should
+    allow us to track inadvertent backwards compatibility breakages much more
+    effectively. (doy)
+
+  * A few test tweaks to avoid spurious failures. (doy)
+
 2.0501 Tue, Apr 03, 2012
 
   [BUG FIXES]

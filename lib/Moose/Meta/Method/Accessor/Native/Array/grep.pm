@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::grep::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::grep::VERSION = '2.0501'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Array::grep::VERSION = '2.0502'; # TRIAL
 }
 
 use strict;
