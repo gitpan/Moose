@@ -12,7 +12,7 @@ Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.0502
+version 2.0600
 
 =head1 DESCRIPTION
 
@@ -27,9 +27,19 @@ feature.  If you encounter a problem and have a solution but don't see
 it documented here, or think we missed an important feature, please
 send us a patch.
 
-=head1 2.0500
+=head1 2.0600
 
 =over 4
+
+=item C<< ->init_meta >> is even less reliable at loading extensions
+
+Previously, calling C<< MooseX::Foo->init_meta(@_) >> (and nothing else) from
+within your own C<init_meta> had a decent chance of doing something useful.
+This was never supported behavior, and didn't always work anyway. Due to some
+implementation adjustments, this now has a smaller chance of doing something
+useful, which could break code that was expecting it to continue doing useful
+things. Code that does this should instead just call
+C<< MooseX::Foo->import({ into => $into }) >>.
 
 =item All the Cookbook recipes have been renamed
 
@@ -39,7 +49,7 @@ order to reorder them or delete one.
 
 =back
 
-=head1 2.0300
+=head1 2.0400
 
 =over 4
 
@@ -103,7 +113,7 @@ attribute's reference.
 
 =back
 
-=head1 2.0100
+=head1 2.0200
 
 =over 4
 

@@ -107,7 +107,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-moose@rt.cpan.org",
@@ -119,7 +119,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0502",
+   "version" : "2.0600",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",
@@ -129,6 +129,8 @@
       "File::ChangeNotify" : "0.15",
       "KiokuDB" : "0.51",
       "Markdent" : "0.16",
+      "Mason" : "2.18",
+      "MooseX::ABC" : "0.05",
       "MooseX::Aliases" : "0.08",
       "MooseX::AlwaysCoerce" : "0.13",
       "MooseX::Attribute::Deflator" : "2.1.7",
@@ -148,12 +150,13 @@
       "MooseX::Meta::Attribute::Lvalue" : "0.05",
       "MooseX::MethodAttributes" : "0.22",
       "MooseX::NonMoose" : "0.17",
-      "MooseX::POE" : "0.211",
+      "MooseX::POE" : "0.214",
       "MooseX::Params::Validate" : "0.05",
       "MooseX::PrivateSetters" : "0.03",
       "MooseX::Role::Cmd" : "0.06",
       "MooseX::Role::Parameterized" : "0.23",
       "MooseX::Role::WithOverloading" : "0.07",
+      "MooseX::Scaffold" : "0.05",
       "MooseX::SemiAffordanceAccessor" : "0.05",
       "MooseX::SetOnce" : "0.100473",
       "MooseX::Singleton" : "0.25",

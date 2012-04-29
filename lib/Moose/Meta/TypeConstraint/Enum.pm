@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Enum::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.0502'; # TRIAL
+  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.0600';
 }
 
 use strict;
@@ -122,7 +122,7 @@ Moose::Meta::TypeConstraint::Enum - Type constraint for enumerated values.
 
 =head1 VERSION
 
-version 2.0502
+version 2.0600
 
 =head1 DESCRIPTION
 
