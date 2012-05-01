@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Hash::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.0600';
+  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.0601';
 }
 use Moose::Role;
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attribute
 
 =head1 VERSION
 
-version 2.0600
+version 2.0601
 
 =head1 SYNOPSIS
 
@@ -110,7 +110,7 @@ This method does not accept any arguments.
 
 Returns the key/value pairs in the hash as an array of array references.
 
-  for my $pair ( $object->options->kv ) {
+  for my $pair ( $object->option_pairs ) {
       print "$pair->[0] = $pair->[1]\n";
   }
 

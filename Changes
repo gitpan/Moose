@@ -1,6 +1,14 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0601 Tue, May 01, 2012
+
+  [BUG FIXES]
+
+  * Fix init_meta order when multiple also packages are specified (this matters
+    when one of them is being used to actually initalize the metaclass,
+    typically with also => 'Moose'). Reported by Randy Stauner. (doy)
+
 2.0600 Sun, Apr 29, 2012
 
   [OTHER]

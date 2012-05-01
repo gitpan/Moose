@@ -1,0 +1,1767 @@
+PASS: AI-ANN-0.008 - AI-ANN-0.008 - DCOLLINS
+FAIL (TODO: no tests): AI-ExpertSystem-Advanced-0.03 - AI-ExpertSystem-Advanced-0.03 - PFISCHER
+WARN: AI-Nerl-0.03 - AI-Nerl-0.03 - ZPMORGAN
+FAIL (TODO: no tests): API-Assembla-0.03 - API-Assembla-0.03 - GPHAT
+PASS: AXL-Client-Simple-0.01 - AXL-Client-Simple-0.01 - OLIVER
+WARN: Abilities-0.2 - Abilities-0.2 - IDOPEREL
+PASS: Action-Generic-0.000004 - Action-Generic-0.000004 - DHOUSTON
+PASS: Algorithm-BestChoice-0.01 - Algorithm-BestChoice-0.01 - RKRIMEN
+PASS: Algorithm-DistanceMatrix-0.04 - Algorithm-DistanceMatrix-0.04 - CADAVIS
+PASS: Algorithm-DrillDown-0.005 - Algorithm-DrillDown-0.005 - MOOLI
+PASS: Algorithm-IRCSRP2-0.501 - Algorithm-IRCSRP2-0.501 - AFLOTT
+FAIL (TODO: mx-types-common changes broke it): Algorithm-KernelKMeans-0.03 - Algorithm-KernelKMeans-0.03 - SEKIA
+PASS: Algorithm-Paxos-0.001 - Algorithm-Paxos-0.001 - PERIGRIN
+PASS: Algorithm-Shape-RandomTree-0.01 - Algorithm-Shape-RandomTree-0.01 - TLOUSKY
+PASS: Algorithm-Simplex-0.41 - Algorithm-Simplex-0.41 - MATEU
+FAIL (TODO: couldn't find on cpan): Alice - ??? - ???
+PASS: Alien-ActiveMQ-0.00004 - Alien-ActiveMQ-0.00004 - ZSTEVENS
+PASS: Alien-BWIPP-0.006 - Alien-BWIPP-0.006 - DAXIM
+PASS: Alien-Ditaa-0.002 - Alien-Ditaa-0.002 - BOBTFISH
+PASS: Announcements-0.01 - Announcements-0.01 - SARTAK
+PASS: Antispam-Toolkit-0.08 - Antispam-Toolkit-0.08 - DROLSKY
+PASS: Antispam-httpBL-0.02 - Antispam-httpBL-0.02 - DROLSKY
+PASS: Any-Mo-0.31 - Any-Mo-0.31 - TOBYINK
+WARN: Any-Moose-Convert-0.004 - Any-Moose-Convert-0.004 - GFUJI
+PASS: Any-Template-ProcessDir-0.06 - Any-Template-ProcessDir-0.06 - JSWARTZ
+PASS: AnyEvent-APNS-0.07 - AnyEvent-APNS-0.07 - TYPESTER
+FAIL (TODO: broken): AnyEvent-BitTorrent-v0.1.5 - AnyEvent-BitTorrent-v0.1.5 - SANKO
+WARN (TODO: intermittent failures): AnyEvent-Cron-0.03 - AnyEvent-Cron-0.03 - CORNELIUS
+PASS: AnyEvent-DAAP-Server-0.01 - AnyEvent-DAAP-Server-0.01 - MOTEMEN
+PASS: AnyEvent-Debounce-0.01 - AnyEvent-Debounce-0.01 - JROCKWAY
+WARN: AnyEvent-Filesys-Notify-0.06 - AnyEvent-Filesys-Notify-0.06 - MGRIMES
+WARN: AnyEvent-Gearman-0.09 - AnyEvent-Gearman-0.09 - TYPESTER
+FAIL (TODO: ??? (maybe issue with test::sweet)): AnyEvent-Inotify-Simple-0.02 - AnyEvent-Inotify-Simple-0.02 - JROCKWAY
+FAIL (TODO: tests require recommended deps): AnyEvent-JSONRPC-0.15 - AnyEvent-JSONRPC-0.15 - PMAKHOLM
+PASS: AnyEvent-JSONRPC-Lite-0.15 - AnyEvent-JSONRPC-Lite-0.15 - TYPESTER
+WARN: AnyEvent-MPRPC-0.14 - AnyEvent-MPRPC-0.14 - TOKUHIROM
+WARN: AnyEvent-MSN-0.002 - AnyEvent-MSN-0.002 - SANKO
+PASS: AnyEvent-Monitor-0.32 - AnyEvent-Monitor-0.32 - CLKAO
+WARN (TODO: requires multilog): AnyEvent-Multilog-1.102861 - AnyEvent-Multilog-1.102861 - JROCKWAY
+WARN (TODO: requires libcurl): AnyEvent-Net-Curl-Queued-0.019 - AnyEvent-Net-Curl-Queued-0.019 - SYP
+PASS: AnyEvent-Processor-0.003 - AnyEvent-Processor-0.003 - FREDERICD
+FAIL (TODO: mx-types-common changes broke it): AnyEvent-Retry-0.03 - AnyEvent-Retry-0.03 - JROCKWAY
+PASS: AnyEvent-ReverseHTTP-0.05 - AnyEvent-ReverseHTTP-0.05 - MIYAGAWA
+PASS: AnyEvent-Riak-0.02 - AnyEvent-Riak-0.02 - FRANCKC
+WARN: AnyEvent-Subprocess-1.102912 - AnyEvent-Subprocess-1.102912 - JROCKWAY
+PASS: AnyEvent-TFTPd-0.1303 - AnyEvent-TFTPd-0.1303 - JHTHORSEN
+FAIL (TODO: requires zeromq installation): AnyEvent-ZeroMQ-0.01 - AnyEvent-ZeroMQ-0.01 - JROCKWAY
+PASS: AnyMQ-0.34 - AnyMQ-0.34 - CLKAO
+PASS: AnyMQ-RawSocket-0.02 - AnyMQ-RawSocket-0.02 - REVMISCHA
+PASS (TODO: requires zeromq installation): AnyMQ-ZeroMQ-0.06 - AnyMQ-ZeroMQ-0.06 - REVMISCHA
+FAIL (TODO: doesn't compile): AnyMongo-0.03 - AnyMongo-0.03 - DOGGY
+PASS: Apache-SiteConfig-0.03 - Apache-SiteConfig-0.03 - CORNELIUS
+FAIL (TODO: requires apache (for mod_perl)): Apache2-HttpEquiv-0.01 - Apache2-HttpEquiv-0.01 - CJM
+PASS: App-Alice-0.19 - App-Alice-0.19 - LEEDO
+FAIL (TODO: depends on nonexistent testdata::setup): App-ArchiveDevelCover-1.000 - App-ArchiveDevelCover-1.000 - DOMM
+WARN (TODO: Mojo::Base isn't installed): App-Benchmark-Accessors-1.110100 - App-Benchmark-Accessors-1.110100 - MARCEL
+PASS: App-Bulkmail-0.02 - App-Bulkmail-0.02 - PMAKHOLM
+WARN: App-CSV-0.05 - App-CSV-0.05 - GAAL
+FAIL (TODO: bad M::I install in inc/): App-Dataninja-0.04 - App-Dataninja-0.04 - JASONMAY
+PASS: App-DuckDuckGo-0.006 - App-DuckDuckGo-0.006 - GETTY
+PASS: App-FileSummoner-0.005 - App-FileSummoner-0.005 - MAIO
+PASS: App-ForExample-0.024 - App-ForExample-0.024 - RKRIMEN
+UNKNOWN: App-Fotagger-0.001.1 (Installing prereqs for App-Fotagger-0.001.1 failed: Installing SDL-2.536 for App-Fotagger-0.001.1 failed: Can't execute ./Build install  --install_base /tmp/86dyDvvgRV: No such file or directory at /home/doy/perl5/perlbrew/perls/perl-5.14.2/lib/site_perl/5.14.2/Test/DependentModules.pm line 401.)
+PASS: App-GitHub-0.13 - App-GitHub-0.13 - WORR
+WARN: App-HistHub-0.01 - App-HistHub-0.01 - TYPESTER
+PASS: App-LDAP-0.06 - App-LDAP-0.06 - SHELLING
+FAIL (TODO: deps on URPM which doesn't exist): App-Magpie-1.120960 - App-Magpie-1.120960 - JQUELIN
+FAIL (TODO: git::repository is broken): App-MediaWiki2Git-0.003 - App-MediaWiki2Git-0.003 - MCAST
+FAIL (TODO: requires fastacmd): App-Mimosa-0.02 - App-Mimosa-0.02 - LETO
+FAIL (TODO: depends on XML::DTD): App-Munchies-0.7.1318 - App-Munchies-0.7.1318 - PJFL
+PASS: App-Nopaste-0.33 - App-Nopaste-0.33 - SARTAK
+PASS: App-Office-CMS-0.92 - App-Office-CMS-0.92 - RSAVAGE
+PASS: App-Office-Contacts-1.17 - App-Office-Contacts-1.17 - RSAVAGE
+PASS: App-Office-Contacts-Donations-1.10 - App-Office-Contacts-Donations-1.10 - RSAVAGE
+PASS: App-Office-Contacts-Import-vCards-1.12 - App-Office-Contacts-Import-vCards-1.12 - RSAVAGE
+WARN: App-PM-Announce-0.025 - App-PM-Announce-0.025 - RKRIMEN
+FAIL (TODO: requires postgres installation): App-PgCryobit-0.02 - App-PgCryobit-0.02 - JETEVE
+WARN: App-PipeFilter-0.005 - App-PipeFilter-0.005 - RCAPUTO
+PASS: App-Prolix-0.03 - App-Prolix-0.03 - GAAL
+WARN: App-QuoteCC-0.10 - App-QuoteCC-0.10 - AVAR
+PASS: App-RabbitTail-0.002 - App-RabbitTail-0.002 - BOBTFISH
+FAIL (TODO: no tests): App-Scrobble-0.01 - App-Scrobble-0.01 - AJCT
+PASS: App-Shotgun-0.001 - App-Shotgun-0.001 - GETTY
+PASS: App-SimplenoteSync-0.1.1 - App-SimplenoteSync-0.1.1 - IOANR
+PASS: App-SmokeBrew-Plugin-BINGOS-0.08 - App-SmokeBrew-Plugin-BINGOS-0.08 - BINGOS
+WARN: App-SnerpVortex-1.000 - App-SnerpVortex-1.000 - RCAPUTO
+PASS: App-Software-License-0.01 - App-Software-License-0.01 - FLORA
+PASS: App-StaticImageGallery-0.002 - App-StaticImageGallery-0.002 - RBO
+PASS: App-TailRabbit-0.003 - App-TailRabbit-0.003 - BOBTFISH
+FAIL (TODO: broken use of types): App-TemplateServer-0.04 - App-TemplateServer-0.04 - JROCKWAY
+FAIL (TODO: dep on app-templateserver): App-TemplateServer-Provider-HTML-Template-0.01 - App-TemplateServer-Provider-HTML-Template-0.01 - JROCKWAY
+FAIL (TODO: dep on app-templateserver): App-TemplateServer-Provider-Mason-0.01 - App-TemplateServer-Provider-Mason-0.01 - JROCKWAY
+FAIL (TODO: dep on app-templateserver): App-TemplateServer-Provider-TD-0.01 - App-TemplateServer-Provider-TD-0.01 - JROCKWAY
+PASS: App-Termcast-0.12 - App-Termcast-0.12 - DOY
+PASS: App-Test-Tapat-0.04 - App-Test-Tapat-0.04 - JEREMIAH
+WARN: App-TimeTracker-2.017 - App-TimeTracker-2.017 - DOMM
+PASS: App-Toodledo-2.14 - App-Toodledo-2.14 - PJS
+PASS: App-Ttyrec-0.01 - App-Ttyrec-0.01 - DOY
+FAIL (TODO: dep on Web::oEmbed::Common): App-Twimap-0.02 - App-Twimap-0.02 - LBROCARD
+PASS: App-Twitch-0.904 - App-Twitch-0.904 - GETTY
+FAIL (TODO: dep on Switch): App-Validation-Automation-0.01 - App-Validation-Automation-0.01 - LIBVENUS
+WARN (TODO: broken): App-Wubot-0.4.2 - App-Wubot-0.4.2 - VVU
+PASS: App-Xssh-0.8 - App-Xssh-0.8 - EGILES
+WARN: App-colourhexdump-0.01011316 - App-colourhexdump-0.01011316 - KENTNL
+PASS: App-iTan-1.03 - App-iTan-1.03 - MAROS
+WARN: App-locket-0.0022 - App-locket-0.0022 - ROKR
+FAIL (TODO: no tests): App-mkfeyorm-0.010 - App-mkfeyorm-0.010 - KEEDI
+FAIL (TODO: no tests): App-passmanager-1.113580 - App-passmanager-1.113580 - OLIVER
+PASS: Archive-Peek-0.35 - Archive-Peek-0.35 - LBROCARD
+PASS: Archive-Peek-External-0.35 - Archive-Peek-External-0.35 - LBROCARD
+FAIL (TODO: requires cpio): Archive-RPM-0.07 - Archive-RPM-0.07 - RSRCHBOY
+PASS: Array-Compare-2.02 - Array-Compare-2.02 - DAVECROSS
+WARN: Audio-MPD-1.120610 - Audio-MPD-1.120610 - JQUELIN
+WARN: Audio-MPD-Common-1.120881 - Audio-MPD-Common-1.120881 - JQUELIN
+PASS: Audio-Metadata-0.15 - Audio-Metadata-0.15 - EGORSH
+PASS: Authen-CAS-External-0.08 - Authen-CAS-External-0.08 - DOUGDUDE
+PASS: Authen-OATH-v1.0.0 - Authen-OATH-v1.0.0 - SIFUKURT
+PASS: Authen-OATH-OCRA-1.01 - Authen-OATH-OCRA-1.01 - PDR
+PASS: Autocache-0.004 - Autocache-0.004 - WIGGLY
+PASS: Barcode-Code93-0.02 - Barcode-Code93-0.02 - MSTRAT
+PASS: Barcode-DataMatrix-0.03 - Barcode-DataMatrix-0.03 - MSTRAT
+FAIL (TODO: depends on term::readline::perl): Beagle-0.01 - Beagle-0.01 - SUNNAVY
+WARN: Benchmark-Perl-Formance-0.26 - Benchmark-Perl-Formance-0.26 - SCHWIGON
+WARN: BerkeleyDB-Manager-0.12 - BerkeleyDB-Manager-0.12 - NUFFIN
+PASS: Bing-Search-1.121210 - Bing-Search-1.121210 - DHOUSTON
+PASS: Bio-MAGETAB-1.22 - Bio-MAGETAB-1.22 - TFRAYNER
+PASS: Bio-Protease-1.112980 - Bio-Protease-1.112980 - BRUNOV
+PASS: Bisect-Perl-UsingGit-0.33 - Bisect-Perl-UsingGit-0.33 - LBROCARD
+FAIL (TODO: no tests): Bot-Applebot-0.02 - Bot-Applebot-0.02 - SARTAK
+FAIL (TODO: Crypt::SaltedHash isn't installed): Bot-BasicBot-Pluggable-0.96 - Bot-BasicBot-Pluggable-0.96 - DIZ
+PASS: Bot-BasicBot-Pluggable-Module-JIRA-0.03 - Bot-BasicBot-Pluggable-Module-JIRA-0.03 - DIZ
+WARN: Bot-BasicBot-Pluggable-Module-Tea-0.01 - Bot-BasicBot-Pluggable-Module-Tea-0.01 - AJCT
+WARN (TODO: requires libidn): Bot-Jabbot-0.41 - Bot-Jabbot-0.41 - ISAGE
+WARN: Bot-Training-0.04 - Bot-Training-0.04 - AVAR
+PASS: Bot-Training-MegaHAL-0.02 - Bot-Training-MegaHAL-0.02 - AVAR
+PASS: Bot-Training-StarCraft-0.02 - Bot-Training-StarCraft-0.02 - AVAR
+PASS: Bot-Twatterhose-0.04 - Bot-Twatterhose-0.04 - AVAR
+PASS: Bread-Board-0.25 - Bread-Board-0.25 - STEVAN
+PASS: Bread-Board-Declare-0.12 - Bread-Board-Declare-0.12 - DOY
+PASS: Brightcove-MAPI-0.1 - Brightcove-MAPI-0.1 - BARTENDER
+PASS: Buffer-Transactional-0.02 - Buffer-Transactional-0.02 - STEVAN
+PASS: Business-AU-Ledger-0.88 - Business-AU-Ledger-0.88 - RSAVAGE
+WARN: Business-CA-GST-0.02 - Business-CA-GST-0.02 - OALDERS
+PASS: Business-CardInfo-0.12 - Business-CardInfo-0.12 - ELLIOTT
+PASS: Business-Cart-Generic-0.83 - Business-Cart-Generic-0.83 - RSAVAGE
+WARN: Business-CyberSource-0.004003 - Business-CyberSource-0.004003 - XENO
+PASS: Business-LCCN-1.01 - Business-LCCN-1.01 - ANIRVAN
+PASS: Business-OnlinePayment-Iridium-0.11 - Business-OnlinePayment-Iridium-0.11 - GHENRY
+PASS: Business-Payment-0.02 - Business-Payment-0.02 - GPHAT
+PASS: Business-Payment-ClearingHouse-0.01 - Business-Payment-ClearingHouse-0.01 - GPHAT
+PASS: Business-RO-CNP-0.03 - Business-RO-CNP-0.03 - TEDDY
+WARN: Business-UPS-Tracking-1.09 - Business-UPS-Tracking-1.09 - MAROS
+PASS: CHI-0.52 - CHI-0.52 - JSWARTZ
+FAIL (TODO: requires redis server): CHI-Driver-Redis-0.04 - CHI-Driver-Redis-0.04 - GPHAT
+FAIL (TODO: requires DBD::SQLite): CPAN-Digger-0.02 - CPAN-Digger-0.02 - SZABGAB
+PASS: CPAN-Faker-0.007 - CPAN-Faker-0.007 - RJBS
+PASS: CPAN-Mini-Inject-REST-0.03 - CPAN-Mini-Inject-REST-0.03 - JONALLEN
+PASS: CPAN-Mini-Webserver-0.57 - CPAN-Mini-Webserver-0.57 - MITHALDU
+PASS: CPAN-Patches-0.04 - CPAN-Patches-0.04 - JKUTEJ
+PASS: CPAN-Patches-Plugin-Debian-0.03 - CPAN-Patches-Plugin-Debian-0.03 - JKUTEJ
+PASS: CPAN-Search-Tester-0.02 - CPAN-Search-Tester-0.02 - MANWAR
+PASS: CPAN-Testers-Metabase-1.999001 - CPAN-Testers-Metabase-1.999001 - DAGOLDEN
+PASS: CPAN-Testers-Metabase-Feed-0.001 - CPAN-Testers-Metabase-Feed-0.001 - DAGOLDEN
+PASS: CPAN-Testers-Reports-Query-JSON-0.04 - CPAN-Testers-Reports-Query-JSON-0.04 - LLAP
+PASS: CPAN-Visitor-0.003 - CPAN-Visitor-0.003 - DAGOLDEN
+PASS: CPAN-WWW-Top100-Retrieve-0.01 - CPAN-WWW-Top100-Retrieve-0.01 - APOCAL
+PASS: Cache-Cascade-0.05 - Cache-Cascade-0.05 - NUFFIN
+FAIL (TODO: broken): Cache-Profile-0.02 - Cache-Profile-0.02 - NUFFIN
+WARN: Cache-Ref-0.04 - Cache-Ref-0.04 - BRUNOV
+PASS: Calculator-MortgagePayment-0.02 - Calculator-MortgagePayment-0.02 - MANWAR
+PASS: Calendar-Slots-0.05 - Calendar-Slots-0.05 - RODRIGO
+PASS: Cantella-Store-UUID-0.003003 - Cantella-Store-UUID-0.003003 - ARCANEZ
+PASS: Cantella-Worker-0.002003 - Cantella-Worker-0.002003 - GRODITI
+WARN: Cantella-Worker-Role-Beanstalk-0.001000 - Cantella-Worker-Role-Beanstalk-0.001000 - GRODITI
+PASS: Capture-Attribute-0.001 - Capture-Attribute-0.001 - TOBYINK
+PASS: Cassandra-Lite-0.4.0 - Cassandra-Lite-0.4.0 - GSLIN
+PASS: Catalyst-Action-Fixup-XHTML-0.05 - Catalyst-Action-Fixup-XHTML-0.05 - FAYLAND
+PASS: Catalyst-Action-REST-1.00 - Catalyst-Action-REST-1.00 - BOBTFISH
+WARN: Catalyst-Action-RenderView-ErrorHandler-0.100165 - Catalyst-Action-RenderView-ErrorHandler-0.100165 - PROFANTER
+PASS: Catalyst-Action-RenderView-ErrorHandler-Action-Email-0.04 - Catalyst-Action-RenderView-ErrorHandler-Action-Email-0.04 - PROFANTER
+WARN: Catalyst-ActionRole-ACL-0.06 - Catalyst-ActionRole-ACL-0.06 - BOBTFISH
+WARN: Catalyst-ActionRole-BuildDBICResult-0.04 - Catalyst-ActionRole-BuildDBICResult-0.04 - JJNAPIORK
+PASS: Catalyst-ActionRole-CheckTrailingSlash-0.01 - Catalyst-ActionRole-CheckTrailingSlash-0.01 - NUCLON
+PASS: Catalyst-ActionRole-ExpiresHeader-0.01 - Catalyst-ActionRole-ExpiresHeader-0.01 - AJGB
+WARN: Catalyst-ActionRole-FindViewByIsa-0.000003 - Catalyst-ActionRole-FindViewByIsa-0.000003 - BOBTFISH
+PASS: Catalyst-ActionRole-JMS-1.0 - Catalyst-ActionRole-JMS-1.0 - DAKKAR
+PASS: Catalyst-ActionRole-MatchHost-0.03 - Catalyst-ActionRole-MatchHost-0.03 - NUCLON
+PASS: Catalyst-ActionRole-MatchRequestAccepts-0.05 - Catalyst-ActionRole-MatchRequestAccepts-0.05 - JJNAPIORK
+PASS: Catalyst-ActionRole-MatchRequestMethod-0.03 - Catalyst-ActionRole-MatchRequestMethod-0.03 - FLORA
+PASS: Catalyst-ActionRole-NotCacheableHeaders-0.02 - Catalyst-ActionRole-NotCacheableHeaders-0.02 - AJGB
+PASS: Catalyst-ActionRole-QueryParameter-0.04 - Catalyst-ActionRole-QueryParameter-0.04 - JJNAPIORK
+WARN: Catalyst-ActionRole-RequireSSL-0.06 - Catalyst-ActionRole-RequireSSL-0.06 - ELLIOTT
+PASS: Catalyst-ActionRole-Tabs-0.003000 - Catalyst-ActionRole-Tabs-0.003000 - GRAF
+WARN: Catalyst-Authentication-AuthTkt-0.12 - Catalyst-Authentication-AuthTkt-0.12 - KARMAN
+WARN: Catalyst-Authentication-Credential-CAS-0.02 - Catalyst-Authentication-Credential-CAS-0.02 - PRAVUS
+PASS: Catalyst-Authentication-Credential-FBConnect-0.01 - Catalyst-Authentication-Credential-FBConnect-0.01 - COSMIN
+FAIL (TODO: no tests): Catalyst-Authentication-Credential-Facebook-OAuth2-0.02 - Catalyst-Authentication-Credential-Facebook-OAuth2-0.02 - FLORA
+PASS: Catalyst-Authentication-Credential-OAuth-0.04 - Catalyst-Authentication-Credential-OAuth-0.04 - BOBTFISH
+WARN: Catalyst-Authentication-Credential-RPX-0.10053906 - Catalyst-Authentication-Credential-RPX-0.10053906 - KENTNL
+WARN: Catalyst-Authentication-Credential-RemoteHTTP-0.05 - Catalyst-Authentication-Credential-RemoteHTTP-0.05 - NIGELM
+PASS: Catalyst-Authentication-Credential-TypeKey-0.004 - Catalyst-Authentication-Credential-TypeKey-0.004 - ZDK
+WARN: Catalyst-Authentication-Credential-YubiKey-0.06 - Catalyst-Authentication-Credential-YubiKey-0.06 - TJC
+PASS: Catalyst-Authentication-Realm-Adaptor-0.02 - Catalyst-Authentication-Realm-Adaptor-0.02 - FLORA
+PASS: Catalyst-Authentication-Store-CouchDB-0.001 - Catalyst-Authentication-Store-CouchDB-0.001 - CBRADFORD
+PASS: Catalyst-Authentication-Store-DBIx-Class-0.1503 - Catalyst-Authentication-Store-DBIx-Class-0.1503 - BOBTFISH
+FAIL (TODO: no tests): Catalyst-Authentication-Store-Fey-ORM-0.001 - Catalyst-Authentication-Store-Fey-ORM-0.001 - KEEDI
+FAIL (TODO: pod coverage fail): Catalyst-Authentication-Store-LDAP-AD-Class-0.06 - Catalyst-Authentication-Store-LDAP-AD-Class-0.06 - FILIN
+WARN: Catalyst-Authentication-Store-Proxy-0.0.1 - Catalyst-Authentication-Store-Proxy-0.0.1 - PERLER
+PASS: Catalyst-Component-InstancePerContext-0.001001 - Catalyst-Component-InstancePerContext-0.001001 - GRODITI
+PASS: Catalyst-Controller-Accessors-0.003000 - Catalyst-Controller-Accessors-0.003000 - FREW
+PASS: Catalyst-Controller-ActionRole-0.15 - Catalyst-Controller-ActionRole-0.15 - FLORA
+PASS: Catalyst-Controller-Combine-0.14 - Catalyst-Controller-Combine-0.14 - WKI
+PASS: Catalyst-Controller-DirectoryDispatch-1.0 - Catalyst-Controller-DirectoryDispatch-1.0 - AGORMAN
+PASS: Catalyst-Controller-HTML-FormFu-0.09003 - Catalyst-Controller-HTML-FormFu-0.09003 - PERLER
+PASS: Catalyst-Controller-Imager-0.04 - Catalyst-Controller-Imager-0.04 - WKI
+FAIL (TODO: no tests): Catalyst-Controller-MovableType-0.004 - Catalyst-Controller-MovableType-0.004 - OKKO
+FAIL (TODO: broken): Catalyst-Controller-SOAP-1.23 - Catalyst-Controller-SOAP-1.23 - DRUOSO
+PASS: Catalyst-Controller-WrapCGI-0.034 - Catalyst-Controller-WrapCGI-0.034 - RKITOVER
+WARN: Catalyst-Devel-1.36 - Catalyst-Devel-1.36 - BOBTFISH
+WARN: Catalyst-Engine-Embeddable-0.000003 - Catalyst-Engine-Embeddable-0.000003 - BOBTFISH
+FAIL (TODO: depends on alien::activemq): Catalyst-Engine-Stomp-0.17 - Catalyst-Engine-Stomp-0.17 - PMOONEY
+PASS: Catalyst-Model-Akismet-0.04 - Catalyst-Model-Akismet-0.04 - BOBTFISH
+PASS: Catalyst-Model-Bitcoin-0.02 - Catalyst-Model-Bitcoin-0.02 - PKAROUKIN
+PASS: Catalyst-Model-DBIC-Schema-0.59 - Catalyst-Model-DBIC-Schema-0.59 - RKITOVER
+PASS: Catalyst-Model-DBIC-Schema-QueryLog-0.10 - Catalyst-Model-DBIC-Schema-QueryLog-0.10 - FAYLAND
+PASS: Catalyst-Model-DBIxResultSet-0.02 - Catalyst-Model-DBIxResultSet-0.02 - BLUEFEET
+PASS: Catalyst-Model-File-0.10 - Catalyst-Model-File-0.10 - ASH
+PASS: Catalyst-Model-FormFu-0.004 - Catalyst-Model-FormFu-0.004 - PSHANGOV
+PASS: Catalyst-Model-KiokuDB-0.12 - Catalyst-Model-KiokuDB-0.12 - FLORA
+PASS: Catalyst-Model-LDAP-FromAuthentication-0.02 - Catalyst-Model-LDAP-FromAuthentication-0.02 - BOBTFISH
+FAIL (TODO: no tests): Catalyst-Model-MenuGrinder-0.06 - Catalyst-Model-MenuGrinder-0.06 - ARODLAND
+PASS: Catalyst-Model-MultiAdaptor-0.11 - Catalyst-Model-MultiAdaptor-0.11 - KITANO
+PASS: Catalyst-Model-PayPal-IPN-0.02 - Catalyst-Model-PayPal-IPN-0.02 - RKITOVER
+WARN: Catalyst-Model-RDF-0.02 - Catalyst-Model-RDF-0.02 - TBR
+PASS: Catalyst-Model-REST-0.27 - Catalyst-Model-REST-0.27 - KAARE
+WARN: Catalyst-Model-SOAP-1.5 - Catalyst-Model-SOAP-1.5 - DRUOSO
+PASS: Catalyst-Model-Search-ElasticSearch-1.120200 - Catalyst-Model-Search-ElasticSearch-1.120200 - DHOSS
+FAIL (TODO: deps on Alien-Sedna which doesn't exist): Catalyst-Model-Sedna-0.004 - Catalyst-Model-Sedna-0.004 - DRUOSO
+PASS: Catalyst-Model-WebService-Solr-0.04 - Catalyst-Model-WebService-Solr-0.04 - BRICAS
+WARN: Catalyst-Plugin-AccessLog-1.05 - Catalyst-Plugin-AccessLog-1.05 - ARODLAND
+WARN: Catalyst-Plugin-Authentication-0.10019 - Catalyst-Plugin-Authentication-0.10019 - JJNAPIORK
+PASS: Catalyst-Plugin-Authorization-ACL-0.15 - Catalyst-Plugin-Authorization-ACL-0.15 - RKITOVER
+PASS: Catalyst-Plugin-Bread-Board-0.03 - Catalyst-Plugin-Bread-Board-0.03 - FLORA
+PASS: Catalyst-Plugin-Browser-0.08 - Catalyst-Plugin-Browser-0.08 - FLORA
+PASS: Catalyst-Plugin-ConfigComponents-0.6.128 - Catalyst-Plugin-ConfigComponents-0.6.128 - PJFL
+FAIL (TODO: undeclared dep): Catalyst-Plugin-Continuation-0.01 - Catalyst-Plugin-Continuation-0.01 - NUFFIN
+PASS: Catalyst-Plugin-EnableMiddleware-0.006 - Catalyst-Plugin-EnableMiddleware-0.006 - JJNAPIORK
+WARN: Catalyst-Plugin-ErrorCatcher-0.0.8.12 - Catalyst-Plugin-ErrorCatcher-0.0.8.12 - CHISEL
+WARN: Catalyst-Plugin-ErrorCatcher-ActiveMQ-Stomp-0.1.5 - Catalyst-Plugin-ErrorCatcher-ActiveMQ-Stomp-0.1.5 - JTANG
+PASS: Catalyst-Plugin-FormValidator-0.094 - Catalyst-Plugin-FormValidator-0.094 - DHOSS
+PASS: Catalyst-Plugin-I18N-DBI-v0.2.5 - Catalyst-Plugin-I18N-DBI-v0.2.5 - MDIETRICH
+WARN: Catalyst-Plugin-I18N-PathPrefix-0.07 - Catalyst-Plugin-I18N-PathPrefix-0.07 - MENDEL
+PASS: Catalyst-Plugin-Log-Log4perl-0.01 - Catalyst-Plugin-Log-Log4perl-0.01 - PRAVUS
+PASS: Catalyst-Plugin-Log-Log4perlSimple-0.3 - Catalyst-Plugin-Log-Log4perlSimple-0.3 - MSMITH
+PASS: Catalyst-Plugin-Log4perl-Simple-0.005 - Catalyst-Plugin-Log4perl-Simple-0.005 - MOOLI
+WARN: Catalyst-Plugin-MemoryUsage-0.3.1 - Catalyst-Plugin-MemoryUsage-0.3.1 - YANICK
+PASS: Catalyst-Plugin-Navigation-1.002 - Catalyst-Plugin-Navigation-1.002 - DWUEPPEL
+PASS: Catalyst-Plugin-RunAfterRequest-0.04 - Catalyst-Plugin-RunAfterRequest-0.04 - FLORA
+WARN: Catalyst-Plugin-Session-0.35 - Catalyst-Plugin-Session-0.35 - BOBTFISH
+PASS: Catalyst-Plugin-Session-PerUser-0.05 - Catalyst-Plugin-Session-PerUser-0.05 - BOBTFISH
+PASS: Catalyst-Plugin-Session-State-Auth-0.0005 - Catalyst-Plugin-Session-State-Auth-0.0005 - ZDK
+FAIL (TODO: broken): Catalyst-Plugin-Session-State-Cookie-0.17 - Catalyst-Plugin-Session-State-Cookie-0.17 - MSTROUT
+PASS: Catalyst-Plugin-Session-State-URI-0.15 - Catalyst-Plugin-Session-State-URI-0.15 - BOBTFISH
+WARN: Catalyst-Plugin-Session-Store-Delegate-0.06 - Catalyst-Plugin-Session-Store-Delegate-0.06 - BOBTFISH
+FAIL (TODO: requires memcached): Catalyst-Plugin-Session-Store-Memcached-0.05 - Catalyst-Plugin-Session-Store-Memcached-0.05 - JJNAPIORK
+PASS: Catalyst-Plugin-Session-Store-MongoDB-0.02 - Catalyst-Plugin-Session-Store-MongoDB-0.02 - SVOELKEL
+FAIL (TODO: dep with corrupt archive): Catalyst-Plugin-Session-Store-TestMemcached-0.001 - Catalyst-Plugin-Session-Store-TestMemcached-0.001 - JJNAPIORK
+WARN: Catalyst-Plugin-Sitemap-1.0.0 - Catalyst-Plugin-Sitemap-1.0.0 - YANICK
+PASS: Catalyst-Plugin-SmartURI-0.036 - Catalyst-Plugin-SmartURI-0.036 - RKITOVER
+PASS: Catalyst-Plugin-Spark-Form-0.01000001 - Catalyst-Plugin-Spark-Form-0.01000001 - KENTNL
+PASS: Catalyst-Plugin-SpecialAction-Trail-0.01 - Catalyst-Plugin-SpecialAction-Trail-0.01 - MENDEL
+PASS: Catalyst-Plugin-Static-Simple-0.29 - Catalyst-Plugin-Static-Simple-0.29 - MSTROUT
+WARN (TODO: undeclared dep): Catalyst-Plugin-SwiffUploaderCookieHack-0.01 - Catalyst-Plugin-SwiffUploaderCookieHack-0.01 - TRWWW
+PASS: Catalyst-Plugin-URLMap-0.002 - Catalyst-Plugin-URLMap-0.002 - JJNAPIORK
+PASS: Catalyst-Plugin-UploadProgress-0.05 - Catalyst-Plugin-UploadProgress-0.05 - MRAMBERG
+WARN: Catalyst-Plugin-VersionedURI-1.1.1 - Catalyst-Plugin-VersionedURI-1.1.1 - YANICK
+WARN: Catalyst-Runtime-5.90011 - Catalyst-Runtime-5.90011 - BOBTFISH
+WARN: Catalyst-TraitFor-Component-ConfigPerSite-0.10 - Catalyst-TraitFor-Component-ConfigPerSite-0.10 - TEEJAY
+PASS: Catalyst-TraitFor-Controller-Breadcrumb-Followed-0.02 - Catalyst-TraitFor-Controller-Breadcrumb-Followed-0.02 - ICYDEE
+WARN: Catalyst-TraitFor-Controller-PermissionCheck-0.04 - Catalyst-TraitFor-Controller-PermissionCheck-0.04 - JSHIRLEY
+PASS: Catalyst-TraitFor-Controller-RenderView-0.002 - Catalyst-TraitFor-Controller-RenderView-0.002 - BOBTFISH
+PASS: Catalyst-TraitFor-Controller-jQuery-jqGrid-0.04 - Catalyst-TraitFor-Controller-jQuery-jqGrid-0.04 - ICYDEE
+PASS: Catalyst-TraitFor-Controller-reCAPTCHA-1.113630 - Catalyst-TraitFor-Controller-reCAPTCHA-1.113630 - DIEGOK
+PASS: Catalyst-TraitFor-Log-Audio-0.02 - Catalyst-TraitFor-Log-Audio-0.02 - RJURNEY
+PASS: Catalyst-TraitFor-Model-DBIC-Schema-QueryLog-AdoptPlack-0.07 - Catalyst-TraitFor-Model-DBIC-Schema-QueryLog-AdoptPlack-0.07 - JJNAPIORK
+PASS: Catalyst-TraitFor-Model-DBIC-Schema-ResultRoles-0.011 - Catalyst-TraitFor-Model-DBIC-Schema-ResultRoles-0.011 - LUKAST
+PASS: Catalyst-TraitFor-Model-DBIC-Schema-WithCurrentUser-0.04 - Catalyst-TraitFor-Model-DBIC-Schema-WithCurrentUser-0.04 - AMIRI
+PASS: Catalyst-TraitFor-Request-BrowserDetect-0.02 - Catalyst-TraitFor-Request-BrowserDetect-0.02 - FLORA
+PASS: Catalyst-TraitFor-Request-DecodedParams-0.02 - Catalyst-TraitFor-Request-DecodedParams-0.02 - WREIS
+FAIL (TODO: dep on ::State::Cookie): Catalyst-TraitFor-Request-PerLanguageDomains-0.03 - Catalyst-TraitFor-Request-PerLanguageDomains-0.03 - BOBTFISH
+PASS: Catalyst-TraitFor-Request-ProxyBase-0.000005 - Catalyst-TraitFor-Request-ProxyBase-0.000005 - BOBTFISH
+PASS: Catalyst-TraitFor-Request-XMLHttpRequest-0.01 - Catalyst-TraitFor-Request-XMLHttpRequest-0.01 - FLORA
+WARN: Catalyst-TraitFor-View-MarkupValidation-0.003 - Catalyst-TraitFor-View-MarkupValidation-0.003 - DORWARD
+PASS: Catalyst-View-Bio-SeqIO-0.02 - Catalyst-View-Bio-SeqIO-0.02 - RBUELS
+WARN: Catalyst-View-ByCode-0.17 - Catalyst-View-ByCode-0.17 - WKI
+PASS: Catalyst-View-CSS-Minifier-XS-2.000000 - Catalyst-View-CSS-Minifier-XS-2.000000 - FREW
+PASS: Catalyst-View-Clevery-0.002 - Catalyst-View-Clevery-0.002 - GETTY
+PASS: Catalyst-View-Component-ESI-0.02 - Catalyst-View-Component-ESI-0.02 - BOLAV
+PASS: Catalyst-View-Component-SubInclude-0.10 - Catalyst-View-Component-SubInclude-0.10 - BOBTFISH
+WARN: Catalyst-View-Component-jQuery-0.05 - Catalyst-View-Component-jQuery-0.05 - CONVERTER
+WARN: Catalyst-View-Email-0.31 - Catalyst-View-Email-0.31 - DHOSS
+WARN: Catalyst-View-Graphics-Primitive-0.05 - Catalyst-View-Graphics-Primitive-0.05 - GPHAT
+PASS: Catalyst-View-HTML-Mason-0.18 - Catalyst-View-HTML-Mason-0.18 - FLORA
+PASS: Catalyst-View-HTML-Zoom-0.003 - Catalyst-View-HTML-Zoom-0.003 - CYCLES
+PASS: Catalyst-View-Haml-0.01 - Catalyst-View-Haml-0.01 - GARU
+PASS: Catalyst-View-JavaScript-Minifier-XS-2.101000 - Catalyst-View-JavaScript-Minifier-XS-2.101000 - FREW
+WARN: Catalyst-View-MicroTemplate-0.00002 - Catalyst-View-MicroTemplate-0.00002 - DMAKI
+PASS: Catalyst-View-PDFBoxer-0.001 - Catalyst-View-PDFBoxer-0.001 - LECSTOR
+WARN: Catalyst-View-RDF-0.01 - Catalyst-View-RDF-0.01 - TBR
+WARN: Catalyst-View-SVG-TT-Graph-0.0225 - Catalyst-View-SVG-TT-Graph-0.0225 - TERENCEMO
+PASS: Catalyst-View-Tenjin-0.050001 - Catalyst-View-Tenjin-0.050001 - IDOPEREL
+PASS: Catalyst-View-XML-Feed-0.05 - Catalyst-View-XML-Feed-0.05 - MSTRAT
+PASS: CatalystX-AppBuilder-0.00009 - CatalystX-AppBuilder-0.00009 - DMAKI
+PASS: CatalystX-AuthenCookie-0.02 - CatalystX-AuthenCookie-0.02 - DROLSKY
+WARN: CatalystX-CRUD-0.52 - CatalystX-CRUD-0.52 - KARMAN
+WARN: CatalystX-ComponentsFromConfig-1.001 - CatalystX-ComponentsFromConfig-1.001 - DAKKAR
+PASS: CatalystX-ConsumesJMS-1.0 - CatalystX-ConsumesJMS-1.0 - DAKKAR
+WARN: CatalystX-Controller-ExtJS-REST-SimpleExcel-0.1.1 - CatalystX-Controller-ExtJS-REST-SimpleExcel-0.1.1 - PERLER
+PASS: CatalystX-Controller-Sugar-0.0901 - CatalystX-Controller-Sugar-0.0901 - JHTHORSEN
+WARN: CatalystX-Controller-Sugar-ActionPack-0.0401 - CatalystX-Controller-Sugar-ActionPack-0.0401 - JHTHORSEN
+WARN: CatalystX-Controller-Verifier-0.02 - CatalystX-Controller-Verifier-0.02 - JSHIRLEY
+PASS: CatalystX-CrudGenerator-0.02 - CatalystX-CrudGenerator-0.02 - HERNAN
+PASS: CatalystX-Debug-RequestHeaders-0.002 - CatalystX-Debug-RequestHeaders-0.002 - BOBTFISH
+PASS: CatalystX-Debug-ResponseHeaders-0.002 - CatalystX-Debug-ResponseHeaders-0.002 - BOBTFISH
+PASS: CatalystX-DebugFilter-0.09 - CatalystX-DebugFilter-0.09 - BPHILLIPS
+PASS: CatalystX-Declare-0.015 - CatalystX-Declare-0.015 - JJNAPIORK
+WARN: CatalystX-ExtJS-Direct-2.1.4 - CatalystX-ExtJS-Direct-2.1.4 - PERLER
+WARN: CatalystX-ExtJS-REST-2.1.1 - CatalystX-ExtJS-REST-2.1.1 - PERLER
+PASS: CatalystX-FacebookURI-0.02 - CatalystX-FacebookURI-0.02 - NACHBAUR
+PASS: CatalystX-Features-0.21 - CatalystX-Features-0.21 - RODRIGO
+PASS: CatalystX-FeedbackMessages-0.0603 - CatalystX-FeedbackMessages-0.0603 - DHOSS
+FAIL (TODO: dep on ::State::Cookie): CatalystX-I18N-1.11 - CatalystX-I18N-1.11 - MAROS
+WARN: CatalystX-LeakChecker-0.06 - CatalystX-LeakChecker-0.06 - FLORA
+FAIL (TODO: broken): CatalystX-MooseComponent-0.004 - CatalystX-MooseComponent-0.004 - HDP
+PASS: CatalystX-OAuth2-Provider-0.0005 - CatalystX-OAuth2-Provider-0.0005 - ZDK
+PASS: CatalystX-PathContext-v0.0.1 - CatalystX-PathContext-v0.0.1 - ACID
+WARN: CatalystX-Profile-0.02 - CatalystX-Profile-0.02 - JJNAPIORK
+PASS: CatalystX-RoleApplicator-0.005 - CatalystX-RoleApplicator-0.005 - HDP
+PASS: CatalystX-Routes-0.02 - CatalystX-Routes-0.02 - DROLSKY
+PASS: CatalystX-Script-FCGI-Engine-0.003 - CatalystX-Script-FCGI-Engine-0.003 - BOBTFISH
+PASS: CatalystX-Script-Server-Starman-0.01 - CatalystX-Script-Server-Starman-0.01 - BOBTFISH
+WARN: CatalystX-SimpleAPI-0.04 - CatalystX-SimpleAPI-0.04 - WREIS
+PASS (TODO: broken): CatalystX-SimpleLogin-0.15 - CatalystX-SimpleLogin-0.15 - BOBTFISH
+PASS: CatalystX-Starter-0.07 - CatalystX-Starter-0.07 - BOBTFISH
+PASS: CatalystX-Syntax-Action-0.01 - CatalystX-Syntax-Action-0.01 - JJNAPIORK
+PASS: CatalystX-Test-MockContext-0.000001 - CatalystX-Test-MockContext-0.000001 - EDENC
+WARN: CatalystX-Test-Recorder-1.0.0 - CatalystX-Test-Recorder-1.0.0 - PERLER
+PASS: CatalystX-UriForStatic-0.01_ - CatalystX-UriForStatic-0.01_ - MDIETRICH
+FAIL (TODO: proc::processtable doesn't load): CatalystX-Usul-0.7.1184 - CatalystX-Usul-0.7.1184 - PJFL
+PASS: CatalystX-VirtualComponents-0.00004 - CatalystX-VirtualComponents-0.00004 - DMAKI
+FAIL (TODO: requires cave to be installed): Cave-Wrapper-0.01000003 - Cave-Wrapper-0.01000003 - KENTNL
+PASS: Chart-Clicker-2.81 - Chart-Clicker-2.81 - GPHAT
+PASS: Chart-OFC-0.11 - Chart-OFC-0.11 - DROLSKY
+WARN: Chart-OFC2-0.07 - Chart-OFC2-0.07 - JKUTEJ
+PASS: Chart-Weather-Forecast-0.04 - Chart-Weather-Forecast-0.04 - MATEU
+PASS: Chat-Envolve-1.0007 - Chat-Envolve-1.0007 - RIZEN
+FAIL (TODO: parse::randgen is broken): Cheater-0.10 - Cheater-0.10 - AGENT
+PASS: Checkout-CyberSource-SOAP-0.07 - Checkout-CyberSource-SOAP-0.07 - AMIRI
+FAIL (TODO: no tests): Chef-0.01 - Chef-0.01 - HOLOWAY
+PASS: Chloro-0.06 - Chloro-0.06 - DROLSKY
+PASS: Clarity-XOG-Merge-1.001 - Clarity-XOG-Merge-1.001 - SCHWIGON
+FAIL (TODO: uses CMOP::Class without loading cmop): Class-OWL-0.0.6 - Class-OWL-0.0.6 - LEIFJ
+PASS: Class-Workflow-0.11 - Class-Workflow-0.11 - NUFFIN
+WARN: CloudApp-REST-0.02 - CloudApp-REST-0.02 - MDIETRICH
+PASS (TODO: MooseX::HasDefaults::RO isn't installed): Code-Statistics-1.112980 - Code-Statistics-1.112980 - MITHALDU
+FAIL (TODO: uses ancient moose apis): Cogwheel-0.03 - Cogwheel-0.03 - STYPNOW
+PASS: Color-Palette-0.100002 - Color-Palette-0.100002 - RJBS
+PASS: ConditionSystem-0.02 - ConditionSystem-0.02 - CYCLES
+PASS: Config-GitLike-1.08 - Config-GitLike-1.08 - ALEXMV
+PASS: Config-JFDI-0.065 - Config-JFDI-0.065 - ROKR
+PASS: Config-JSON-1.5100 - Config-JSON-1.5100 - RIZEN
+PASS: Config-LDAPClient-0.01 - Config-LDAPClient-0.01 - MFOWLER
+PASS: Config-Locale-0.01 - Config-Locale-0.01 - BLUEFEET
+PASS: Config-MVP-2.200002 - Config-MVP-2.200002 - RJBS
+PASS: Config-MVP-Reader-INI-2.101461 - Config-MVP-Reader-INI-2.101461 - RJBS
+WARN: Config-MVP-Slicer-0.301 - Config-MVP-Slicer-0.301 - RWSTAUNER
+FAIL (TODO: broken): Config-Model-2.013 - Config-Model-2.013 - DDUMONT
+UNKNOWN: Config-Model-Backend-Augeas-0.110 (Installing prereqs for Config-Model-Backend-Augeas-0.110 failed: Installing Config-Augeas-0.903 for Config-Model-Backend-Augeas-0.110 failed: Can't execute ./Build install  --install_base /tmp/86dyDvvgRV: No such file or directory at /home/doy/perl5/perlbrew/perls/perl-5.14.2/lib/site_perl/5.14.2/Test/DependentModules.pm line 401.)
+FAIL (TODO: deps on Config::Model): Config-Model-OpenSsh-1.221 - Config-Model-OpenSsh-1.221 - DDUMONT
+PASS: Config-Path-0.11 - Config-Path-0.11 - GPHAT
+PASS: Config-Role-0.1.0 - Config-Role-0.1.0 - ROBINS
+FAIL (TODO: GD::SVG is a broken dist): Constructible-0.02 - Constructible-0.02 - WSDOOKADR
+PASS: Convert-AnyBase-0.010 - Convert-AnyBase-0.010 - RKRIMEN
+FAIL (TODO: amazon::simpledb::client doesn't exist): Coro-Amazon-SimpleDB-0.04 - Coro-Amazon-SimpleDB-0.04 - DTRISCHUK
+PASS: Courriel-0.29 - Courriel-0.29 - DROLSKY
+PASS: Crixa-0.03 - Crixa-0.03 - PERIGRIN
+WARN: Crypt-EAX-0.04 - Crypt-EAX-0.04 - NUFFIN
+PASS: Crypt-OpenToken-0.06 - Crypt-OpenToken-0.06 - GTERMARS
+PASS: Crypt-PBKDF2-0.112020 - Crypt-PBKDF2-0.112020 - ARODLAND
+WARN: Crypt-Random-Source-0.07 - Crypt-Random-Source-0.07 - NUFFIN
+PASS: Crypt-Random-Source-SSLeay-0.02 - Crypt-Random-Source-SSLeay-0.02 - NUFFIN
+FAIL (TODO: windows only): Crypt-Random-Source-Strong-Win32-0.07 - Crypt-Random-Source-Strong-Win32-0.07 - MKANAT
+PASS: Crypt-Random-Source-Weak-openssl-0.02 - Crypt-Random-Source-Weak-openssl-0.02 - NUFFIN
+WARN: Crypt-Util-0.11 - Crypt-Util-0.11 - NUFFIN
+PASS (TODO: requires Curses which requires ncurses library): Curses-Toolkit-0.207 - Curses-Toolkit-0.207 - DAMS
+PASS: DB-CouchDB-Schema-0.3.04_remove_blib - DB-CouchDB-Schema-0.3.04_remove_blib - ZAPHAR
+PASS: DBICx-MapMaker-0.03 - DBICx-MapMaker-0.03 - JROCKWAY
+PASS: DBICx-Modeler-0.005 - DBICx-Modeler-0.005 - RKRIMEN
+FAIL (TODO: broken (weirdly)): DBICx-Modeler-Generator-0.02 - DBICx-Modeler-Generator-0.02 - MORIYA
+PASS: DBIx-BlackBox-0.02 - DBIx-BlackBox-0.02 - AJGB
+PASS: DBIx-Class-DeploymentHandler-0.002112 - DBIx-Class-DeploymentHandler-0.002112 - FREW
+WARN: DBIx-Class-FormTools-0.000007 - DBIx-Class-FormTools-0.000007 - DJO
+WARN: DBIx-Class-Graph-1.05 - DBIx-Class-Graph-1.05 - PERLER
+WARN: DBIx-Class-Migration-0.022 - DBIx-Class-Migration-0.022 - JJNAPIORK
+WARN: DBIx-Class-MooseColumns-0.22 - DBIx-Class-MooseColumns-0.22 - MENDEL
+PASS: DBIx-Class-QueryLog-1.3.1 - DBIx-Class-QueryLog-1.3.1 - GPHAT
+PASS: DBIx-Class-Result-Validation-0.11 - DBIx-Class-Result-Validation-0.11 - NOUDARD
+PASS: DBIx-Class-ResultSet-Faceter-0.04 - DBIx-Class-ResultSet-Faceter-0.04 - GPHAT
+PASS: DBIx-Class-Row-Delta-0.0.4 - DBIx-Class-Row-Delta-0.0.4 - JOHANL
+PASS: DBIx-Class-Schema-Loader-0.07022 - DBIx-Class-Schema-Loader-0.07022 - RKITOVER
+WARN: DBIx-Class-Schema-PopulateMore-0.17 - DBIx-Class-Schema-PopulateMore-0.17 - JJNAPIORK
+WARN: DBIx-DBH-1.0 - DBIx-DBH-1.0 - TBONE
+PASS: DBIx-DoMore-0.01003 - DBIx-DoMore-0.01003 - EMAZEP
+PASS: DBIx-Factory-0.09 - DBIx-Factory-0.09 - BAHOOTYPR
+PASS: DBIx-MultiStatementDo-1.00009 - DBIx-MultiStatementDo-1.00009 - EMAZEP
+PASS: DBIx-MySQL-Replication-Slave-0.02 - DBIx-MySQL-Replication-Slave-0.02 - OALDERS
+WARN: DBIx-NoSQL-0.0018 - DBIx-NoSQL-0.0018 - ROKR
+WARN: DBIx-ObjectMapper-0.3013 - DBIx-ObjectMapper-0.3013 - OISHI
+PASS: DBIx-ResultSet-0.17 - DBIx-ResultSet-0.17 - BLUEFEET
+PASS: DBIx-SQLite-Deploy-0.011 - DBIx-SQLite-Deploy-0.011 - RKRIMEN
+FAIL (TODO: broken): DBIx-SchemaChecksum-0.25 - DBIx-SchemaChecksum-0.25 - DOMM
+PASS: DBIx-VersionedDDL-0.16 - DBIx-VersionedDDL-0.16 - DHORNE
+WARN: DBR-1.5 - DBR-1.5 - IMPIOUS
+PASS: DCOLLINS-ANN-Locals-0.004 - DCOLLINS-ANN-Locals-0.004 - DCOLLINS
+PASS: DNS-Oterica-0.100001 - DNS-Oterica-0.100001 - RJBS
+FAIL (TODO: missing dep on YAML): Data-AMF-0.09 - Data-AMF-0.09 - TYPESTER
+FAIL (TODO: invalid characters in type name): Data-Apache-mod_status-0.01 - Data-Apache-mod_status-0.01 - JKUTEJ
+PASS: Data-ArrayList-0.01 - Data-ArrayList-0.01 - AJGB
+PASS: Data-Classifier-NaiveBayes-0.001 - Data-Classifier-NaiveBayes-0.001 - LOGIE
+PASS: Data-CloudWeights-0.7.143 - Data-CloudWeights-0.7.143 - PJFL
+PASS: Data-Context-v0.0.1 - Data-Context-v0.0.1 - IVANWILLS
+WARN: Data-Couplet-0.02004314 - Data-Couplet-0.02004314 - KENTNL
+PASS: Data-DPath-Validator-0.093411 - Data-DPath-Validator-0.093411 - NPEREZ
+FAIL (TODO: dist is missing some modules): Data-Edit-0.01 - Data-Edit-0.01 - DLAMBLEY
+FAIL (TODO: broken (only sometimes?)): Data-Feed-0.00015 - Data-Feed-0.00015 - DMAKI
+PASS: Data-FlexSerializer-1.04 - Data-FlexSerializer-1.04 - SMUELLER
+WARN: Data-Keys-0.02 - Data-Keys-0.02 - JKUTEJ
+PASS: Data-LUID-0.014 - Data-LUID-0.014 - RKRIMEN
+PASS: Data-Localize-0.00022 - Data-Localize-0.00022 - DMAKI
+PASS: Data-Maker-0.28 - Data-Maker-0.28 - JINGRAM
+PASS: Data-Manager-0.10 - Data-Manager-0.10 - GPHAT
+PASS: Data-Money-0.04 - Data-Money-0.04 - ANELSON
+PASS: Data-Money-Converter-0.01 - Data-Money-Converter-0.01 - GPHAT
+PASS: Data-Money-Converter-WebserviceX-0.02 - Data-Money-Converter-WebserviceX-0.02 - GPHAT
+PASS: Data-Morph-1.113280 - Data-Morph-1.113280 - NPEREZ
+PASS: Data-Object-0.004 - Data-Object-0.004 - FRIED
+FAIL (TODO: broken): Data-PackageName-0.01 - Data-PackageName-0.01 - PHAYLON
+PASS: Data-Page-Pagination-0.005 - Data-Page-Pagination-0.005 - STEFFENW
+PASS: Data-Paginator-0.05 - Data-Paginator-0.05 - GPHAT
+PASS: Data-Password-passwdqc-0.05 - Data-Password-passwdqc-0.05 - SHERWIN
+FAIL (TODO: uses ancient moose apis): Data-Pipeline-0.01 - Data-Pipeline-0.01 - JSMITH
+WARN: Data-Printer-0.3 - Data-Printer-0.3 - GARU
+PASS: Data-Pulp-0.01 - Data-Pulp-0.01 - RKRIMEN
+PASS: Data-Random-Contact-0.05 - Data-Random-Contact-0.05 - DROLSKY
+PASS: Data-ResourceSet-0.00003 - Data-ResourceSet-0.00003 - DMAKI
+PASS: Data-Rx-Type-MooseTC-0.002 - Data-Rx-Type-MooseTC-0.002 - RJBS
+FAIL (TODO: pod coverage fail): Data-SCORM-0.06 - Data-SCORM-0.06 - OSFAMERON
+PASS: Data-Schema-0.133 - Data-Schema-0.133 - SHARYANTO
+PASS: Data-SearchEngine-0.33 - Data-SearchEngine-0.33 - ANELSON
+FAIL (TODO: no tests): Data-SearchEngine-ElasticSearch-0.19 - Data-SearchEngine-ElasticSearch-0.19 - ANELSON
+PASS: Data-SearchEngine-Solr-0.20 - Data-SearchEngine-Solr-0.20 - GPHAT
+PASS: Data-Serializable-0.40.1 - Data-Serializable-0.40.1 - ROBINS
+PASS: Data-Stream-Bulk-0.11 - Data-Stream-Bulk-0.11 - DOY
+PASS: Data-TreeValidator-0.03 - Data-TreeValidator-0.03 - CYCLES
+PASS: Data-Validation-0.7.151 - Data-Validation-0.7.151 - PJFL
+WARN: Data-Valve-0.00010 - Data-Valve-0.00010 - DMAKI
+PASS: Data-Verifier-0.53 - Data-Verifier-0.53 - GPHAT
+PASS: Data-Visitor-0.28 - Data-Visitor-0.28 - DOY
+PASS: Data-Zipper-0.02 - Data-Zipper-0.02 - CYCLES
+PASS: DataExtract-FixedWidth-0.09 - DataExtract-FixedWidth-0.09 - ECARROLL
+WARN: DataFlow-1.112100 - DataFlow-1.112100 - RUSSOZ
+PASS: DataFlow-Proc-DBF-0.02 - DataFlow-Proc-DBF-0.02 - GARU
+WARN: DataFlow-Proc-DPath-1.112100 - DataFlow-Proc-DPath-1.112100 - RUSSOZ
+WARN: DataFlow-Proc-HTMLFilter-1.112100 - DataFlow-Proc-HTMLFilter-1.112100 - RUSSOZ
+WARN: DataFlow-Proc-JSON-1.112100 - DataFlow-Proc-JSON-1.112100 - RUSSOZ
+WARN: DataFlow-Proc-MessagePack-1.112100 - DataFlow-Proc-MessagePack-1.112100 - RUSSOZ
+WARN: DataFlow-Proc-URLRetriever-1.112100 - DataFlow-Proc-URLRetriever-1.112100 - RUSSOZ
+WARN: DataFlow-Proc-YAML-1.112100 - DataFlow-Proc-YAML-1.112100 - RUSSOZ
+PASS: Database-Migrator-0.04 - Database-Migrator-0.04 - DROLSKY
+PASS: Database-Migrator-mysql-0.01 - Database-Migrator-mysql-0.01 - DROLSKY
+PASS: Date-HolidayParser-0.41 - Date-HolidayParser-0.41 - ZERODOGG
+PASS: DateTime-Format-Czech-0.2 - DateTime-Format-Czech-0.2 - ZOUL
+PASS: DateTime-Format-Duration-DurationString-0.03 - DateTime-Format-Duration-DurationString-0.03 - BOLAV
+PASS: DateTimeX-Format-1.04 - DateTimeX-Format-1.04 - ECARROLL
+PASS: DateTimeX-Seinfeld-0.02 - DateTimeX-Seinfeld-0.02 - CJM
+FAIL (TODO: MojoX-Fixup-XHTML doesn't exist): DayDayUp-0.95 - DayDayUp-0.95 - FAYLAND
+FAIL (TODO: configure time failures): Debian-Apt-PM-0.08 - Debian-Apt-PM-0.08 - JKUTEJ
+PASS: Debian-Packages-0.03 - Debian-Packages-0.03 - JEREMIAH
+PASS: Debian-Snapshot-0.003 - Debian-Snapshot-0.003 - ANSGAR
+WARN: Devel-CoverX-Covered-0.012 - Devel-CoverX-Covered-0.012 - JOHANL
+FAIL (TODO: broken (role conflict)): Devel-Events-0.08 - Devel-Events-0.08 - NUFFIN
+PASS: Devel-InheritNamespace-0.00002 - Devel-InheritNamespace-0.00002 - DMAKI
+WARN: Devel-IntelliPerl-0.04 - Devel-IntelliPerl-0.04 - PERLER
+PASS: Devel-PackagePath-0.03 - Devel-PackagePath-0.03 - PERIGRIN
+PASS: Devel-PartialDump-0.15 - Devel-PartialDump-0.15 - FLORA
+PASS: Devel-Profit-0.34 - Devel-Profit-0.34 - LBROCARD
+PASS: Devel-REPL-1.003012 - Devel-REPL-1.003012 - DOY
+PASS: Devel-STDERR-Indent-0.06 - Devel-STDERR-Indent-0.06 - NUFFIN
+PASS: Devel-StringInfo-0.04 - Devel-StringInfo-0.04 - NUFFIN
+PASS: Device-MAC-1.00 - Device-MAC-1.00 - JASONK
+PASS: Device-WWN-1.01 - Device-WWN-1.01 - JASONK
+PASS: Directory-Deploy-0.003 - Directory-Deploy-0.003 - RKRIMEN
+PASS: Directory-Transactional-0.09 - Directory-Transactional-0.09 - NUFFIN
+PASS: Dist-Dzpl-0.0020 - Dist-Dzpl-0.0020 - ROKR
+WARN: Dist-Maker-0.05 - Dist-Maker-0.05 - GFUJI
+PASS: Dist-Requires-0.005 - Dist-Requires-0.005 - THALJEF
+PASS: Dist-Zilla-4.300015 - Dist-Zilla-4.300015 - RJBS
+PASS: Dist-Zilla-App-Command-weaverconf-0.01 - Dist-Zilla-App-Command-weaverconf-0.01 - FLORA
+WARN: Dist-Zilla-BeLike-CSJEWELL-0.901 - Dist-Zilla-BeLike-CSJEWELL-0.901 - CSJEWELL
+WARN: Dist-Zilla-Config-Slicer-0.200 - Dist-Zilla-Config-Slicer-0.200 - RWSTAUNER
+FAIL (TODO: pod coverage fail): Dist-Zilla-Deb-0.03 - Dist-Zilla-Deb-0.03 - MMCLERIC
+FAIL (TODO: no tests): Dist-Zilla-MintingProfile-Author-ARODLAND-0.01 - Dist-Zilla-MintingProfile-Author-ARODLAND-0.01 - ARODLAND
+PASS: Dist-Zilla-MintingProfile-SYP-0.002 - Dist-Zilla-MintingProfile-SYP-0.002 - SYP
+PASS: Dist-Zilla-Plugin-ApacheTest-0.01 - Dist-Zilla-Plugin-ApacheTest-0.01 - MSCHOUT
+WARN: Dist-Zilla-Plugin-ApocalypseTests-1.001 - Dist-Zilla-Plugin-ApocalypseTests-1.001 - APOCAL
+PASS: Dist-Zilla-Plugin-AppendExternalData-0.003 - Dist-Zilla-Plugin-AppendExternalData-0.003 - DAGOLDEN
+WARN: Dist-Zilla-Plugin-Authority-1.006 - Dist-Zilla-Plugin-Authority-1.006 - APOCAL
+PASS: Dist-Zilla-Plugin-AutoMetaResources-1.110050 - Dist-Zilla-Plugin-AutoMetaResources-1.110050 - AJGB
+WARN: Dist-Zilla-Plugin-AutoVersion-Relative-0.03000001 - Dist-Zilla-Plugin-AutoVersion-Relative-0.03000001 - KENTNL
+WARN: Dist-Zilla-Plugin-Bugtracker-1.111080 - Dist-Zilla-Plugin-Bugtracker-1.111080 - MARCEL
+WARN: Dist-Zilla-Plugin-BuildSelf-0.002 - Dist-Zilla-Plugin-BuildSelf-0.002 - LEONT
+PASS: Dist-Zilla-Plugin-BumpVersionFromGit-0.009 - Dist-Zilla-Plugin-BumpVersionFromGit-0.009 - DAGOLDEN
+WARN: Dist-Zilla-Plugin-CPANChangesTests-1.002 - Dist-Zilla-Plugin-CPANChangesTests-1.002 - RWSTAUNER
+WARN: Dist-Zilla-Plugin-Catalyst-0.15 - Dist-Zilla-Plugin-Catalyst-0.15 - XENO
+PASS: Dist-Zilla-Plugin-ChangelogFromGit-CPAN-Changes-0.0.2 - Dist-Zilla-Plugin-ChangelogFromGit-CPAN-Changes-0.0.2 - IOANR
+FAIL (TODO: git::repository is broken): Dist-Zilla-Plugin-ChangelogFromGit-Debian-0.08 - Dist-Zilla-Plugin-ChangelogFromGit-Debian-0.08 - GPHAT
+PASS: Dist-Zilla-Plugin-CheckChangesHasContent-0.005 - Dist-Zilla-Plugin-CheckChangesHasContent-0.005 - DAGOLDEN
+WARN: Dist-Zilla-Plugin-CheckEmacsChangeLog-0.0.1 - Dist-Zilla-Plugin-CheckEmacsChangeLog-0.0.1 - TULSOFT
+PASS: Dist-Zilla-Plugin-CheckExtraTests-0.004 - Dist-Zilla-Plugin-CheckExtraTests-0.004 - DAGOLDEN
+PASS: Dist-Zilla-Plugin-CheckPrereqsIndexed-0.007 - Dist-Zilla-Plugin-CheckPrereqsIndexed-0.007 - RJBS
+WARN: Dist-Zilla-Plugin-CheckVersionIncrement-0.120080 - Dist-Zilla-Plugin-CheckVersionIncrement-0.120080 - RTHOMPSON
+WARN: Dist-Zilla-Plugin-Clean-0.03 - Dist-Zilla-Plugin-Clean-0.03 - ALEXBIO
+WARN: Dist-Zilla-Plugin-CoalescePod-0.1.0 - Dist-Zilla-Plugin-CoalescePod-0.1.0 - YANICK
+WARN: Dist-Zilla-Plugin-CopyFilesFromBuild-0.103510 - Dist-Zilla-Plugin-CopyFilesFromBuild-0.103510 - RTHOMPSON
+WARN: Dist-Zilla-Plugin-Covenant-0.1.0 - Dist-Zilla-Plugin-Covenant-0.1.0 - YANICK
+PASS: Dist-Zilla-Plugin-CustomLicense-1.0.2 - Dist-Zilla-Plugin-CustomLicense-1.0.2 - POLETTIX
+PASS: Dist-Zilla-Plugin-Doppelgaenger-0.002 - Dist-Zilla-Plugin-Doppelgaenger-0.002 - DAGOLDEN
+PASS: Dist-Zilla-Plugin-Dpkg-0.03 - Dist-Zilla-Plugin-Dpkg-0.03 - GPHAT
+PASS: Dist-Zilla-Plugin-Dpkg-PerlbrewStarman-0.11 - Dist-Zilla-Plugin-Dpkg-PerlbrewStarman-0.11 - GPHAT
+WARN: Dist-Zilla-Plugin-DualBuilders-1.001 - Dist-Zilla-Plugin-DualBuilders-1.001 - APOCAL
+FAIL (TODO: no tests): Dist-Zilla-Plugin-DualLife-0.01 - Dist-Zilla-Plugin-DualLife-0.01 - FLORA
+PASS: Dist-Zilla-Plugin-EOLTests-0.02 - Dist-Zilla-Plugin-EOLTests-0.02 - FLORA
+PASS: Dist-Zilla-Plugin-EmailNotify-0.002 - Dist-Zilla-Plugin-EmailNotify-0.002 - XSAWYERX
+WARN: Dist-Zilla-Plugin-FatPacker-1.100841 - Dist-Zilla-Plugin-FatPacker-1.100841 - MARCEL
+WARN: Dist-Zilla-Plugin-FindDirByRegex-1.102640 - Dist-Zilla-Plugin-FindDirByRegex-1.102640 - MARCEL
+PASS: Dist-Zilla-Plugin-GatherFromManifest-1.001 - Dist-Zilla-Plugin-GatherFromManifest-1.001 - STRO
+WARN: Dist-Zilla-Plugin-Git-1.121010 - Dist-Zilla-Plugin-Git-1.121010 - SSCAFFIDI
+WARN: Dist-Zilla-Plugin-Git-DescribeVersion-1.003 - Dist-Zilla-Plugin-Git-DescribeVersion-1.003 - RWSTAUNER
+WARN: Dist-Zilla-Plugin-Git-Remote-Check-0.1.2 - Dist-Zilla-Plugin-Git-Remote-Check-0.1.2 - KENTNL
+FAIL (TODO: no tests): Dist-Zilla-Plugin-GitFlow-0.010 - Dist-Zilla-Plugin-GitFlow-0.010 - KEEDI
+FAIL (TODO: no tests): Dist-Zilla-Plugin-GitFmtChanges-0.005 - Dist-Zilla-Plugin-GitFmtChanges-0.005 - RUBYKAT
+PASS: Dist-Zilla-Plugin-GitHub-0.19 - Dist-Zilla-Plugin-GitHub-0.19 - ALEXBIO
+PASS: Dist-Zilla-Plugin-GitObtain-0.06 - Dist-Zilla-Plugin-GitObtain-0.06 - DUFF
+PASS: Dist-Zilla-Plugin-GithubMeta-0.28 - Dist-Zilla-Plugin-GithubMeta-0.28 - BINGOS
+WARN: Dist-Zilla-Plugin-HasVersionTests-1.101420 - Dist-Zilla-Plugin-HasVersionTests-1.101420 - MARCEL
+WARN: Dist-Zilla-Plugin-Homepage-1.101420 - Dist-Zilla-Plugin-Homepage-1.101420 - MARCEL
+WARN: Dist-Zilla-Plugin-Inject-0.001 - Dist-Zilla-Plugin-Inject-0.001 - PSHANGOV
+PASS: Dist-Zilla-Plugin-InsertCopyright-0.001 - Dist-Zilla-Plugin-InsertCopyright-0.001 - DAGOLDEN
+WARN: Dist-Zilla-Plugin-InstallGuide-1.101461 - Dist-Zilla-Plugin-InstallGuide-1.101461 - MARCEL
+PASS: Dist-Zilla-Plugin-InstallRelease-0.008 - Dist-Zilla-Plugin-InstallRelease-0.008 - DOHERTY
+PASS: Dist-Zilla-Plugin-LocaleMsgfmt-1.203 - Dist-Zilla-Plugin-LocaleMsgfmt-1.203 - JQUELIN
+PASS: Dist-Zilla-Plugin-MakeMaker-Awesome-0.12 - Dist-Zilla-Plugin-MakeMaker-Awesome-0.12 - AVAR
+PASS: Dist-Zilla-Plugin-MatchManifest-4.00 - Dist-Zilla-Plugin-MatchManifest-4.00 - CJM
+WARN: Dist-Zilla-Plugin-MetaData-BuiltWith-0.03000000 - Dist-Zilla-Plugin-MetaData-BuiltWith-0.03000000 - KENTNL
+WARN: Dist-Zilla-Plugin-MetaProvides-1.14000000 - Dist-Zilla-Plugin-MetaProvides-1.14000000 - KENTNL
+WARN: Dist-Zilla-Plugin-MetaProvides-Class-1.12060501 - Dist-Zilla-Plugin-MetaProvides-Class-1.12060501 - KENTNL
+WARN: Dist-Zilla-Plugin-MetaProvides-FromFile-1.11060209 - Dist-Zilla-Plugin-MetaProvides-FromFile-1.11060209 - KENTNL
+WARN: Dist-Zilla-Plugin-MetaProvides-Package-1.14000001 - Dist-Zilla-Plugin-MetaProvides-Package-1.14000001 - KENTNL
+FAIL (TODO: no tests): Dist-Zilla-Plugin-MetaResourcesFromGit-1.103620 - Dist-Zilla-Plugin-MetaResourcesFromGit-1.103620 - OLIVER
+WARN: Dist-Zilla-Plugin-MinimumPerl-1.003 - Dist-Zilla-Plugin-MinimumPerl-1.003 - APOCAL
+FAIL (TODO: no tests): Dist-Zilla-Plugin-ModuleBuild-OptionalXS-0.01 - Dist-Zilla-Plugin-ModuleBuild-OptionalXS-0.01 - ARODLAND
+PASS: Dist-Zilla-Plugin-ModuleBuild-XSOrPP-0.04 - Dist-Zilla-Plugin-ModuleBuild-XSOrPP-0.04 - DROLSKY
+WARN: Dist-Zilla-Plugin-ModuleBuildTiny-0.002 - Dist-Zilla-Plugin-ModuleBuildTiny-0.002 - LEONT
+WARN: Dist-Zilla-Plugin-ModuleInstall-0.01054021 - Dist-Zilla-Plugin-ModuleInstall-0.01054021 - KENTNL
+WARN: Dist-Zilla-Plugin-NextVersion-Semantic-0.1.0 - Dist-Zilla-Plugin-NextVersion-Semantic-0.1.0 - YANICK
+WARN: Dist-Zilla-Plugin-NoSmartCommentsTests-0.006 - Dist-Zilla-Plugin-NoSmartCommentsTests-0.006 - RSRCHBOY
+PASS: Dist-Zilla-Plugin-NoTabsTests-0.01 - Dist-Zilla-Plugin-NoTabsTests-0.01 - FLORA
+PASS: Dist-Zilla-Plugin-OSPrereqs-0.002 - Dist-Zilla-Plugin-OSPrereqs-0.002 - DAGOLDEN
+WARN: Dist-Zilla-Plugin-OurPkgVersion-0.003002 - Dist-Zilla-Plugin-OurPkgVersion-0.003002 - XENO
+WARN: Dist-Zilla-Plugin-PPPort-0.004 - Dist-Zilla-Plugin-PPPort-0.004 - LEONT
+PASS: Dist-Zilla-Plugin-Pinto-Add-0.033 - Dist-Zilla-Plugin-Pinto-Add-0.033 - THALJEF
+WARN: Dist-Zilla-Plugin-Pod2Html-0.1.1 - Dist-Zilla-Plugin-Pod2Html-0.1.1 - TULSOFT
+WARN: Dist-Zilla-Plugin-PodLinkTests-1.006 - Dist-Zilla-Plugin-PodLinkTests-1.006 - RWSTAUNER
+PASS: Dist-Zilla-Plugin-PodLoom-4.10 - Dist-Zilla-Plugin-PodLoom-4.10 - CJM
+PASS: Dist-Zilla-Plugin-PodPurler-0.093400 - Dist-Zilla-Plugin-PodPurler-0.093400 - RJBS
+PASS: Dist-Zilla-Plugin-PodWeaver-3.101641 - Dist-Zilla-Plugin-PodWeaver-3.101641 - RJBS
+WARN: Dist-Zilla-Plugin-Prepender-1.112280 - Dist-Zilla-Plugin-Prepender-1.112280 - JQUELIN
+WARN: Dist-Zilla-Plugin-Prereqs-DarkPAN-0.2.0 - Dist-Zilla-Plugin-Prereqs-DarkPAN-0.2.0 - KENTNL
+FAIL (TODO: broken): Dist-Zilla-Plugin-ProgCriticTests-1.111750 - Dist-Zilla-Plugin-ProgCriticTests-1.111750 - MITHALDU
+PASS: Dist-Zilla-Plugin-RPM-0.005 - Dist-Zilla-Plugin-RPM-0.005 - SCLOUSE
+WARN: Dist-Zilla-Plugin-ReadmeAnyFromPod-0.120120 - Dist-Zilla-Plugin-ReadmeAnyFromPod-0.120120 - RTHOMPSON
+PASS: Dist-Zilla-Plugin-ReadmeFromPod-0.16 - Dist-Zilla-Plugin-ReadmeFromPod-0.16 - FAYLAND
+WARN: Dist-Zilla-Plugin-ReadmeMarkdownFromPod-0.120120 - Dist-Zilla-Plugin-ReadmeMarkdownFromPod-0.120120 - RTHOMPSON
+WARN: Dist-Zilla-Plugin-ReportVersions-1.110730 - Dist-Zilla-Plugin-ReportVersions-1.110730 - MARCEL
+WARN: Dist-Zilla-Plugin-ReportVersions-Tiny-1.03 - Dist-Zilla-Plugin-ReportVersions-Tiny-1.03 - DANIELP
+WARN: Dist-Zilla-Plugin-RequiresExternal-1.004 - Dist-Zilla-Plugin-RequiresExternal-1.004 - MJGARDNER
+FAIL (TODO: no tests): Dist-Zilla-Plugin-Rsync-0.1 - Dist-Zilla-Plugin-Rsync-0.1 - ZOUL
+PASS: Dist-Zilla-Plugin-Run-0.013 - Dist-Zilla-Plugin-Run-0.013 - RWSTAUNER
+FAIL (TODO: requires svn bindings): Dist-Zilla-Plugin-SVK-0.10 - Dist-Zilla-Plugin-SVK-0.10 - DRBEAN
+PASS: Dist-Zilla-Plugin-SanityTests-0.03 - Dist-Zilla-Plugin-SanityTests-0.03 - FLORA
+WARN: Dist-Zilla-Plugin-SchwartzRatio-0.2.0 - Dist-Zilla-Plugin-SchwartzRatio-0.2.0 - YANICK
+PASS: Dist-Zilla-Plugin-ScpDeploy-1.20110709 - Dist-Zilla-Plugin-ScpDeploy-1.20110709 - CHROMATIC
+WARN: Dist-Zilla-Plugin-SpellingCommonMistakesTests-1.001000 - Dist-Zilla-Plugin-SpellingCommonMistakesTests-1.001000 - LESPEA
+WARN: Dist-Zilla-Plugin-StaticVersion-0.103521 - Dist-Zilla-Plugin-StaticVersion-0.103521 - RTHOMPSON
+WARN: Dist-Zilla-Plugin-SubmittingPatches-0.03 - Dist-Zilla-Plugin-SubmittingPatches-0.03 - XENO
+FAIL (TODO: requires svn bindings): Dist-Zilla-Plugin-Subversion-1.101590 - Dist-Zilla-Plugin-Subversion-1.101590 - MJGARDNER
+FAIL (TODO: requires svn bindings): Dist-Zilla-Plugin-SvnObtain-0.02 - Dist-Zilla-Plugin-SvnObtain-0.02 - DUFF
+PASS: Dist-Zilla-Plugin-TaskWeaver-0.101624 - Dist-Zilla-Plugin-TaskWeaver-0.101624 - RJBS
+FAIL (TODO: no tests): Dist-Zilla-Plugin-TemplateFile-0.01 - Dist-Zilla-Plugin-TemplateFile-0.01 - DUFF
+PASS: Dist-Zilla-Plugin-Test-CPAN-Changes-0.005 - Dist-Zilla-Plugin-Test-CPAN-Changes-0.005 - DOHERTY
+PASS: Dist-Zilla-Plugin-Test-CPAN-Meta-JSON-0.003 - Dist-Zilla-Plugin-Test-CPAN-Meta-JSON-0.003 - DOHERTY
+PASS: Dist-Zilla-Plugin-Test-CheckChanges-2.000001 - Dist-Zilla-Plugin-Test-CheckChanges-2.000001 - DOHERTY
+PASS: Dist-Zilla-Plugin-Test-CheckDeps-0.003 - Dist-Zilla-Plugin-Test-CheckDeps-0.003 - LEONT
+PASS: Dist-Zilla-Plugin-Test-CheckManifest-0.02 - Dist-Zilla-Plugin-Test-CheckManifest-0.02 - ALEXBIO
+WARN: Dist-Zilla-Plugin-Test-Compile-1.112820 - Dist-Zilla-Plugin-Test-Compile-1.112820 - JQUELIN
+PASS: Dist-Zilla-Plugin-Test-DistManifest-2.0.1 - Dist-Zilla-Plugin-Test-DistManifest-2.0.1 - DOHERTY
+WARN: Dist-Zilla-Plugin-Test-EOL-0.07 - Dist-Zilla-Plugin-Test-EOL-0.07 - XENO
+WARN: Dist-Zilla-Plugin-Test-Kwalitee-2.03 - Dist-Zilla-Plugin-Test-Kwalitee-2.03 - AYOUNG
+WARN: Dist-Zilla-Plugin-Test-Legal-0.01 - Dist-Zilla-Plugin-Test-Legal-0.01 - AYOUNG
+PASS: Dist-Zilla-Plugin-Test-MinimumVersion-2.0.1 - Dist-Zilla-Plugin-Test-MinimumVersion-2.0.1 - DOHERTY
+WARN: Dist-Zilla-Plugin-Test-Perl-Critic-2.112410 - Dist-Zilla-Plugin-Test-Perl-Critic-2.112410 - JQUELIN
+WARN: Dist-Zilla-Plugin-Test-Pod-LinkCheck-1.001 - Dist-Zilla-Plugin-Test-Pod-LinkCheck-1.001 - RWSTAUNER
+WARN: Dist-Zilla-Plugin-Test-Pod-No404s-1.001 - Dist-Zilla-Plugin-Test-Pod-No404s-1.001 - RWSTAUNER
+WARN: Dist-Zilla-Plugin-Test-PodSpelling-2.002004 - Dist-Zilla-Plugin-Test-PodSpelling-2.002004 - XENO
+PASS: Dist-Zilla-Plugin-Test-Portability-2.0.2 - Dist-Zilla-Plugin-Test-Portability-2.0.2 - DOHERTY
+PASS: Dist-Zilla-Plugin-Test-Synopsis-2.0.1 - Dist-Zilla-Plugin-Test-Synopsis-2.0.1 - DOHERTY
+PASS: Dist-Zilla-Plugin-Test-UnusedVars-2.0.1 - Dist-Zilla-Plugin-Test-UnusedVars-2.0.1 - DOHERTY
+WARN: Dist-Zilla-Plugin-Test-UseAllModules-0.002 - Dist-Zilla-Plugin-Test-UseAllModules-0.002 - RUSSOZ
+WARN: Dist-Zilla-Plugin-Test-Version-0.002004 - Dist-Zilla-Plugin-Test-Version-0.002004 - XENO
+PASS: Dist-Zilla-Plugin-Twitter-0.014 - Dist-Zilla-Plugin-Twitter-0.014 - DAGOLDEN
+FAIL (TODO: no tests): Dist-Zilla-Plugin-UploadToDuckPAN-0.001 - Dist-Zilla-Plugin-UploadToDuckPAN-0.001 - GETTY
+WARN: Dist-Zilla-Plugin-UploadToSFTP-0.002 - Dist-Zilla-Plugin-UploadToSFTP-0.002 - MJGARDNER
+PASS: Dist-Zilla-Plugin-Version-FromSubversion-1.000019 - Dist-Zilla-Plugin-Version-FromSubversion-1.000019 - DOLMEN
+PASS: Dist-Zilla-Plugin-Version-Git-Flowish-0.09 - Dist-Zilla-Plugin-Version-Git-Flowish-0.09 - GPHAT
+PASS: Dist-Zilla-Plugin-VersionFromScript-0.017 - Dist-Zilla-Plugin-VersionFromScript-0.017 - REID
+WARN: Dist-Zilla-Plugin-WSDL-0.205 - Dist-Zilla-Plugin-WSDL-0.205 - MJGARDNER
+PASS: Dist-Zilla-PluginBundle-AJGB-1.103270 - Dist-Zilla-PluginBundle-AJGB-1.103270 - AJGB
+PASS: Dist-Zilla-PluginBundle-AMD-0.003 - Dist-Zilla-PluginBundle-AMD-0.003 - AMD
+PASS: Dist-Zilla-PluginBundle-ARJONES-1.120690 - Dist-Zilla-PluginBundle-ARJONES-1.120690 - ARJONES
+FAIL (TODO: no tests): Dist-Zilla-PluginBundle-ARODLAND-0.03 - Dist-Zilla-PluginBundle-ARODLAND-0.03 - ARODLAND
+PASS: Dist-Zilla-PluginBundle-AVAR-0.26 - Dist-Zilla-PluginBundle-AVAR-0.26 - HINRIK
+WARN: Dist-Zilla-PluginBundle-Apocalyptic-0.003 - Dist-Zilla-PluginBundle-Apocalyptic-0.003 - APOCAL
+PASS: Dist-Zilla-PluginBundle-Author-ALEXBIO-1.4 - Dist-Zilla-PluginBundle-Author-ALEXBIO-1.4 - ALEXBIO
+PASS: Dist-Zilla-PluginBundle-Author-CJM-4.13 - Dist-Zilla-PluginBundle-Author-CJM-4.13 - CJM
+PASS: Dist-Zilla-PluginBundle-Author-DOHERTY-0.26 - Dist-Zilla-PluginBundle-Author-DOHERTY-0.26 - DOHERTY
+WARN: Dist-Zilla-PluginBundle-Author-JQUELIN-2.120971 - Dist-Zilla-PluginBundle-Author-JQUELIN-2.120971 - JQUELIN
+WARN: Dist-Zilla-PluginBundle-Author-KENTNL-1.4.1 - Dist-Zilla-PluginBundle-Author-KENTNL-1.4.1 - KENTNL
+WARN: Dist-Zilla-PluginBundle-Author-KENTNL-Lite-1.3.0 - Dist-Zilla-PluginBundle-Author-KENTNL-Lite-1.3.0 - KENTNL
+WARN: Dist-Zilla-PluginBundle-Author-LESPEA-1.004000 - Dist-Zilla-PluginBundle-Author-LESPEA-1.004000 - LESPEA
+PASS: Dist-Zilla-PluginBundle-Author-MELO-0.003 - Dist-Zilla-PluginBundle-Author-MELO-0.003 - MELO
+FAIL (TODO: no tests): Dist-Zilla-PluginBundle-Author-OLIVER-1.112770 - Dist-Zilla-PluginBundle-Author-OLIVER-1.112770 - OLIVER
+WARN: Dist-Zilla-PluginBundle-Author-RTHOMPSON-0.120160 - Dist-Zilla-PluginBundle-Author-RTHOMPSON-0.120160 - RTHOMPSON
+WARN: Dist-Zilla-PluginBundle-Author-RUSSOZ-0.016 - Dist-Zilla-PluginBundle-Author-RUSSOZ-0.016 - RUSSOZ
+WARN: Dist-Zilla-PluginBundle-Author-RWSTAUNER-3.203 - Dist-Zilla-PluginBundle-Author-RWSTAUNER-3.203 - RWSTAUNER
+PASS: Dist-Zilla-PluginBundle-BINGOS-0.14 - Dist-Zilla-PluginBundle-BINGOS-0.14 - BINGOS
+PASS: Dist-Zilla-PluginBundle-BasicWithoutMM-0.001 - Dist-Zilla-PluginBundle-BasicWithoutMM-0.001 - LEONT
+PASS: Dist-Zilla-PluginBundle-BioPerl-0.02 - Dist-Zilla-PluginBundle-BioPerl-0.02 - CJFIELDS
+PASS: Dist-Zilla-PluginBundle-Bioperl-0.01 - Dist-Zilla-PluginBundle-Bioperl-0.01 - RBUELS
+PASS: Dist-Zilla-PluginBundle-CEBJYRE-0.2.0 - Dist-Zilla-PluginBundle-CEBJYRE-0.2.0 - CEBJYRE
+PASS: Dist-Zilla-PluginBundle-DAGOLDEN-0.028 - Dist-Zilla-PluginBundle-DAGOLDEN-0.028 - DAGOLDEN
+WARN: Dist-Zilla-PluginBundle-DANIELP-1.04 - Dist-Zilla-PluginBundle-DANIELP-1.04 - DANIELP
+PASS: Dist-Zilla-PluginBundle-FLORA-0.14 - Dist-Zilla-PluginBundle-FLORA-0.14 - FLORA
+PASS: Dist-Zilla-PluginBundle-GENEHACK-0.5 - Dist-Zilla-PluginBundle-GENEHACK-0.5 - GENEHACK
+PASS: Dist-Zilla-PluginBundle-GPHAT-0.04 - Dist-Zilla-PluginBundle-GPHAT-0.04 - GPHAT
+WARN: Dist-Zilla-PluginBundle-Git-CheckFor-0.002 - Dist-Zilla-PluginBundle-Git-CheckFor-0.002 - RSRCHBOY
+WARN: Dist-Zilla-PluginBundle-IDOPEREL-0.701 - Dist-Zilla-PluginBundle-IDOPEREL-0.701 - IDOPEREL
+WARN: Dist-Zilla-PluginBundle-JQUELIN-1.111710 - Dist-Zilla-PluginBundle-JQUELIN-1.111710 - JQUELIN
+PASS: Dist-Zilla-PluginBundle-JROCKWAY-1.102911 - Dist-Zilla-PluginBundle-JROCKWAY-1.102911 - JROCKWAY
+PASS: Dist-Zilla-PluginBundle-LEONT-Base-0.005 - Dist-Zilla-PluginBundle-LEONT-Base-0.005 - LEONT
+PASS: Dist-Zilla-PluginBundle-LEONT-PP-0.003 - Dist-Zilla-PluginBundle-LEONT-PP-0.003 - LEONT
+PASS: Dist-Zilla-PluginBundle-LEONT-XS-0.004 - Dist-Zilla-PluginBundle-LEONT-XS-0.004 - LEONT
+WARN: Dist-Zilla-PluginBundle-MARCEL-1.120860 - Dist-Zilla-PluginBundle-MARCEL-1.120860 - DOLMEN
+PASS (TODO: List::AllUtils isn't installed): Dist-Zilla-PluginBundle-MITHALDU-1.120300 - Dist-Zilla-PluginBundle-MITHALDU-1.120300 - MITHALDU
+PASS: Dist-Zilla-PluginBundle-MSCHOUT-0.22 - Dist-Zilla-PluginBundle-MSCHOUT-0.22 - MSCHOUT
+WARN: Dist-Zilla-PluginBundle-NIGELM-0.16 - Dist-Zilla-PluginBundle-NIGELM-0.16 - NIGELM
+FAIL (TODO: no tests): Dist-Zilla-PluginBundle-NUFFIN-0.01 - Dist-Zilla-PluginBundle-NUFFIN-0.01 - NUFFIN
+PASS: Dist-Zilla-PluginBundle-PDONELAN-1.201 - Dist-Zilla-PluginBundle-PDONELAN-1.201 - PDONELAN
+PASS: Dist-Zilla-PluginBundle-RBUELS-0.1 - Dist-Zilla-PluginBundle-RBUELS-0.1 - RBUELS
+PASS: Dist-Zilla-PluginBundle-RJBS-1.009 - Dist-Zilla-PluginBundle-RJBS-1.009 - RJBS
+WARN: Dist-Zilla-PluginBundle-RSRCHBOY-0.019 - Dist-Zilla-PluginBundle-RSRCHBOY-0.019 - RSRCHBOY
+PASS: Dist-Zilla-PluginBundle-SCHWIGON-0.006 - Dist-Zilla-PluginBundle-SCHWIGON-0.006 - SCHWIGON
+PASS: Dist-Zilla-PluginBundle-TestingMania-0.15 - Dist-Zilla-PluginBundle-TestingMania-0.15 - DOHERTY
+WARN: Dist-Zilla-Plugins-CJM-4.08 - Dist-Zilla-Plugins-CJM-4.08 - CJM
+WARN: Dist-Zilla-Role-DynamicConfig-1.002 - Dist-Zilla-Role-DynamicConfig-1.002 - RWSTAUNER
+PASS: Dist-Zilla-Role-ModuleIncluder-0.002 - Dist-Zilla-Role-ModuleIncluder-0.002 - LEONT
+WARN: Dist-Zilla-Role-PluginBundle-PluginRemover-0.101 - Dist-Zilla-Role-PluginBundle-PluginRemover-0.101 - RWSTAUNER
+WARN: Dist-Zilla-Role-Stash-Plugins-1.004 - Dist-Zilla-Role-Stash-Plugins-1.004 - RWSTAUNER
+WARN: Dist-Zilla-Role-Tempdir-0.01053721 - Dist-Zilla-Role-Tempdir-0.01053721 - KENTNL
+WARN: Dist-Zilla-Stash-PodWeaver-1.003 - Dist-Zilla-Stash-PodWeaver-1.003 - RWSTAUNER
+WARN: Dist-Zilla-Util-EmulatePhase-0.01025801 - Dist-Zilla-Util-EmulatePhase-0.01025801 - KENTNL
+PASS (TODO: MooseX::HasDefaults::RO isn't installed): Dist-Zilla-Util-FileGenerator-0.120090 - Dist-Zilla-Util-FileGenerator-0.120090 - MITHALDU
+PASS: Dist-Zooky-0.10 - Dist-Zooky-0.10 - BINGOS
+PASS: Doc-Simply-0.032 - Doc-Simply-0.032 - ROKR
+PASS: Document-Maker-0.022 - Document-Maker-0.022 - RKRIMEN
+PASS: Document-Stembolt-0.012 - Document-Stembolt-0.012 - RKRIMEN
+PASS: Document-Transform-1.110530 - Document-Transform-1.110530 - NPEREZ
+PASS: Document-TriPart-0.024 - Document-TriPart-0.024 - ROKR
+PASS: Document-TriPart-Cabinet-0.011 - Document-TriPart-Cabinet-0.011 - ROKR
+PASS: Document-Writer-0.13 - Document-Writer-0.13 - GPHAT
+PASS: Doxygen-Lua-0.02 - Doxygen-Lua-0.02 - ALEC
+WARN: Drupal-Admin-0.04 - Drupal-Admin-0.04 - DURIST
+FAIL (TODO: uses old moose apis): DustyDB-0.06 - DustyDB-0.06 - HANENKAMP
+FAIL (TODO: broken): Dwimmer-0.27 - Dwimmer-0.27 - SZABGAB
+FAIL (TODO: GO::Parser isn't installed): EBI-FGPT-FuzzyRecogniser-0.07 - EBI-FGPT-FuzzyRecogniser-0.07 - EHASTINGS
+PASS: EBook-EPUB-0.6 - EBook-EPUB-0.6 - OTY
+PASS: EBook-FB2-0.2 - EBook-FB2-0.2 - OTY
+WARN: ELF-Extract-Sections-0.02071411 - ELF-Extract-Sections-0.02071411 - KENTNL
+WARN: ETLp-0.03 - ETLp-0.03 - DHORNE
+PASS: EWS-Client-1.113000 - EWS-Client-1.113000 - OLIVER
+WARN: ElasticSearchX-Model-0.1.0 - ElasticSearchX-Model-0.1.0 - PERLER
+PASS: Email-MIME-Kit-2.102010 - Email-MIME-Kit-2.102010 - RJBS
+PASS: Email-MIME-Kit-Assembler-Markdown-0.100000 - Email-MIME-Kit-Assembler-Markdown-0.100000 - RJBS
+PASS: Email-MIME-Kit-KitReader-SWAK-1.093061 - Email-MIME-Kit-KitReader-SWAK-1.093061 - RJBS
+PASS: Email-MIME-Kit-Renderer-TT-1.000 - Email-MIME-Kit-Renderer-TT-1.000 - RJBS
+PASS: Email-MIME-Kit-Renderer-Text-Template-1.101300 - Email-MIME-Kit-Renderer-Text-Template-1.101300 - RJBS
+PASS: Email-MIME-Kit-Validator-Rx-0.102010 - Email-MIME-Kit-Validator-Rx-0.102010 - RJBS
+PASS: Email-Sender-0.110005 - Email-Sender-0.110005 - RJBS
+PASS: Email-Sender-Transport-SQLite-0.092000 - Email-Sender-Transport-SQLite-0.092000 - RJBS
+WARN: Entities-0.2 - Entities-0.2 - IDOPEREL
+PASS: Env-Sanctify-Moosified-1.04 - Env-Sanctify-Moosified-1.04 - BINGOS
+FAIL (TODO: Parse::Yapp::Driver isn't installed): Erlang-Parser-0.5 - Erlang-Parser-0.5 - ANNELI
+PASS: Event-Join-0.06 - Event-Join-0.06 - JROCKWAY
+PASS: Event-ScreenSaver-0.0.3 - Event-ScreenSaver-0.0.3 - IVANWILLS
+PASS: Excel-Template-Plus-0.05 - Excel-Template-Plus-0.05 - STEVAN
+PASS: ExtJS-AutoForm-Moose-0.01 - ExtJS-AutoForm-Moose-0.01 - MET
+PASS: FCGI-Client-0.08 - FCGI-Client-0.08 - TOKUHIROM
+WARN: FCGI-Engine-0.19 - FCGI-Engine-0.19 - BOBTFISH
+FAIL (TODO: undeclared dep): FFmpeg-Thumbnail-0.02 - FFmpeg-Thumbnail-0.02 - BBQSAULS
+PASS: FSA-Engine-0.01 - FSA-Engine-0.01 - ICYDEE
+PASS: Facebook-0.102 - Facebook-0.102 - FRANKS
+PASS (TODO: broken): Facebook-Graph-1.0400 - Facebook-Graph-1.0400 - RIZEN
+FAIL (TODO: requires rpm to be installed): Fedora-App-MaintainerTools-0.006 - Fedora-App-MaintainerTools-0.006 - RSRCHBOY
+FAIL (TODO: requires koji to be installed): Fedora-App-ReviewTool-0.10 - Fedora-App-ReviewTool-0.10 - RSRCHBOY
+FAIL (TODO: deps on nonexistent things): Fedora-Bugzilla-0.13 - Fedora-Bugzilla-0.13 - RSRCHBOY
+PASS: Feed-Pipe-1.003 - Feed-Pipe-1.003 - VESELOSKY
+WARN: Fey-0.40 - Fey-0.40 - DROLSKY
+PASS: Fey-DBIManager-0.16 - Fey-DBIManager-0.16 - DROLSKY
+PASS: Fey-Loader-0.13 - Fey-Loader-0.13 - DROLSKY
+PASS: Fey-ORM-0.43 - Fey-ORM-0.43 - DROLSKY
+PASS: Fey-ORM-Mock-0.05 - Fey-ORM-Mock-0.05 - DROLSKY
+PASS: Fey-SQL-Pg-0.005 - Fey-SQL-Pg-0.005 - CYCLES
+PASS: File-Butler-v4.0.0 - File-Butler-v4.0.0 - SIFUKURT
+WARN: File-ChangeNotify-0.22 - File-ChangeNotify-0.22 - DROLSKY
+PASS: File-CodeSearch-v0.5.5 - File-CodeSearch-v0.5.5 - IVANWILLS
+WARN: File-Corresponding-0.003 - File-Corresponding-0.003 - JOHANL
+FAIL (TODO: XML::DTD is a broken dist): File-DataClass-0.9.368 - File-DataClass-0.9.368 - PJFL
+PASS: File-DigestStore-1.008 - File-DigestStore-1.008 - MOOLI
+PASS: File-Find-Declare-0.62 - File-Find-Declare-0.62 - RPKELLY
+PASS: File-List-Object-0.202 - File-List-Object-0.202 - CSJEWELL
+FAIL (TODO: old moose apis): File-Stat-Moose-0.06 - File-Stat-Moose-0.06 - DEXTER
+PASS: File-Stat-Trigger-0.05 - File-Stat-Trigger-0.05 - AKIHITO
+WARN (TODO: intermittent fails (i think)): File-Tail-Dir-0.10 - File-Tail-Dir-0.10 - JJSCHUTZ
+WARN: File-Tail-Scribe-0.13 - File-Tail-Scribe-0.13 - JJSCHUTZ
+WARN: Finance-Bank-SentinelBenefits-Csv401kConverter-0.5 - Finance-Bank-SentinelBenefits-Csv401kConverter-0.5 - DSOLIMANO
+FAIL (TODO: no tests): Finance-Bank-SuomenVerkkomaksut-0.004 - Finance-Bank-SuomenVerkkomaksut-0.004 - OKKO
+PASS: Finance-Bitcoin-0.004 - Finance-Bitcoin-0.004 - TOBYINK
+PASS: Finance-TW-TAIFEX-0.37 - Finance-TW-TAIFEX-0.37 - CLKAO
+PASS: Finance-Wesabe-0.02 - Finance-Wesabe-0.02 - BRICAS
+PASS: Fir-0.33 - Fir-0.33 - LBROCARD
+FAIL (TODO: Sphinx::Search isn't installed): Foorum-1.001000 - Foorum-1.001000 - FAYLAND
+PASS: Forest-0.09 - Forest-0.09 - STEVAN
+PASS: Form-DemonCore-0.101 - Form-DemonCore-0.101 - GETTY
+FAIL (TODO: uses old moose apis): Form-Factory-0.020 - Form-Factory-0.020 - HANENKAMP
+PASS: Form-Sensible-0.20023 - Form-Sensible-0.20023 - JAYK
+WARN: Form-Sensible-Reflector-DBIC-0.349 - Form-Sensible-Reflector-DBIC-0.349 - DHOSS
+PASS: FormValidator-Lite-Constraint-Moose-0.05 - FormValidator-Lite-Constraint-Moose-0.05 - HIDEAKIO
+FAIL (TODO: broken): FormValidator-Nested-0.07 - FormValidator-Nested-0.07 - CHIBA
+FAIL (TODO: broken): Frost-0.70 - Frost-0.70 - ERNESTO
+FAIL (TODO: requires libfuse): Fuse-Template-0.0201 - Fuse-Template-0.0201 - JHTHORSEN
+PASS: GIS-Distance-0.08 - GIS-Distance-0.08 - BLUEFEET
+FAIL (TODO: coerce with no coercion): GOBO-0.03 - GOBO-0.03 - CMUNGALL
+PASS: Games-AssaultCube-0.04 - Games-AssaultCube-0.04 - APOCAL
+PASS (TODO: flaky tests): Games-Dice-Loaded-0.001 - Games-Dice-Loaded-0.001 - MGOULD
+WARN: Games-EveOnline-API-0.02 - Games-EveOnline-API-0.02 - BLUEFEET
+WARN: Games-Go-Coordinate-1.100860 - Games-Go-Coordinate-1.100860 - MARCEL
+WARN: Games-Go-Rank-1.100860 - Games-Go-Rank-1.100860 - MARCEL
+FAIL (TODO: requires sdl): Games-HotPotato-0.110020 - Games-HotPotato-0.110020 - HANENKAMP
+PASS: Games-Lacuna-Client-0.003 - Games-Lacuna-Client-0.003 - HALKEYE
+PASS: Games-Lacuna-Task-2.05 - Games-Lacuna-Task-2.05 - MAROS
+PASS: Games-Mastermind-Cracker-0.03 - Games-Mastermind-Cracker-0.03 - SARTAK
+PASS: Games-NES-ROM-0.07 - Games-NES-ROM-0.07 - BRICAS
+WARN: Games-Risk-ExtraMaps-Countries-3.112691 - Games-Risk-ExtraMaps-Countries-3.112691 - JQUELIN
+WARN: Games-Risk-ExtraMaps-History-3.112691 - Games-Risk-ExtraMaps-History-3.112691 - JQUELIN
+WARN: Games-Risk-ExtraMaps-Imaginary-3.113460 - Games-Risk-ExtraMaps-Imaginary-3.113460 - JQUELIN
+PASS: Games-TMX-Parser-0.91 - Games-TMX-Parser-0.91 - EILARA
+FAIL (TODO: requires threads): Games-Tetris-Complete-0.03-withoutworldwriteables - Games-Tetris-Complete-0.03-withoutworldwriteables - BLAKEW
+WARN: Gentoo-ChangeLog-Parser-Eventual-0.1.1 - Gentoo-ChangeLog-Parser-Eventual-0.1.1 - KENTNL
+WARN: Gentoo-MetaEbuild-Spec-Base-0.1.4 - Gentoo-MetaEbuild-Spec-Base-0.1.4 - KENTNL
+WARN: Gentoo-MetaEbuild-Spec-MiniSpec-0.1.0 - Gentoo-MetaEbuild-Spec-MiniSpec-0.1.0 - KENTNL
+WARN: Gentoo-MirrorList-1.0.1 - Gentoo-MirrorList-1.0.1 - KENTNL
+WARN: Gentoo-Overlay-1.0.1 - Gentoo-Overlay-1.0.1 - KENTNL
+WARN: Gentoo-PerlMod-Version-FixEbuild-0.1.1 - Gentoo-PerlMod-Version-FixEbuild-0.1.1 - KENTNL
+PASS: Geo-Address-Mail-0.04 - Geo-Address-Mail-0.04 - GPHAT
+PASS: Geo-Address-Mail-Standardizer-0.02 - Geo-Address-Mail-Standardizer-0.02 - GPHAT
+PASS: Geo-Address-Mail-Standardizer-USPS-0.03 - Geo-Address-Mail-Standardizer-USPS-0.03 - GPHAT
+WARN: Geo-CEP-0.4 - Geo-CEP-0.4 - SYP
+PASS: Geo-Calc-0.12 - Geo-Calc-0.12 - ASP
+WARN: Geo-OSM-StaticMap-0.3 - Geo-OSM-StaticMap-0.3 - PEPL
+WARN: Geo-Routing-0.11 - Geo-Routing-0.11 - AVAR
+WARN: Geometry-Primitive-0.22 - Geometry-Primitive-0.22 - GPHAT
+PASS: Gesture-Simple-0.01 - Gesture-Simple-0.01 - SARTAK
+WARN: Getopt-Chain-0.017 - Getopt-Chain-0.017 - ROKR
+WARN: Getopt-Chain-0.017 - Getopt-Chain-0.017 - ROKR
+PASS: Getopt-Flex-1.07 - Getopt-Flex-1.07 - RPKELLY
+WARN: Git-CPAN-Patch-0.7.0 - Git-CPAN-Patch-0.7.0 - YANICK
+PASS: Git-Class-0.12 - Git-Class-0.12 - ISHIGAKI
+WARN: Git-PurePerl-0.48 - Git-PurePerl-0.48 - BROQ
+PASS: GitStore-0.07 - GitStore-0.07 - YANICK
+FAIL (TODO: broken): Gitalist-0.003009 - Gitalist-0.003009 - BROQ
+PASS: Github-Import-0.07 - Github-Import-0.07 - JROCKWAY
+WARN: Github-Score-0.2.0 - Github-Score-0.2.0 - CNRDEEIO
+PASS: Gitosis-Config-0.06 - Gitosis-Config-0.06 - PERIGRIN
+PASS: Global-Context-0.002 - Global-Context-0.002 - RJBS
+WARN: GnuPG-Interface-0.44 - GnuPG-Interface-0.44 - JESSE
+WARN: Google-AJAX-Library-0.022 - Google-AJAX-Library-0.022 - ROKR
+FAIL (TODO: recreating type constraints): Google-Chart-0.05014 - Google-Chart-0.05014 - DMAKI
+PASS: Google-Directions-0.08 - Google-Directions-0.08 - RCL
+PASS: Google-Fusion-0.10 - Google-Fusion-0.10 - RCL
+WARN: Google-Search-0.027 - Google-Search-0.027 - ROKR
+FAIL (TODO: pod::coverage fail): Google-Spreadsheet-Agent-0.02 - Google-Spreadsheet-Agent-0.02 - DMLOND
+WARN: Grades-0.12 - Grades-0.12 - DRBEAN
+PASS: Graph-ChartSVG-2.06 - Graph-ChartSVG-2.06 - FDULAU
+PASS: Graphics-Color-0.29 - Graphics-Color-0.29 - GPHAT
+WARN: Graphics-DZI-0.05 - Graphics-DZI-0.05 - DRRHO
+PASS: Graphics-Primitive-0.61 - Graphics-Primitive-0.61 - GPHAT
+PASS: Graphics-Primitive-CSS-0.02 - Graphics-Primitive-CSS-0.02 - GPHAT
+PASS: Graphics-Primitive-Driver-Cairo-0.44 - Graphics-Primitive-Driver-Cairo-0.44 - GPHAT
+PASS: Graphics-Primitive-Driver-CairoPango-0.62 - Graphics-Primitive-Driver-CairoPango-0.62 - GPHAT
+FAIL (TODO: DBIx::Class::EncodedColumn isn't installed): Grimlock-0.11 - Grimlock-0.11 - DHOSS
+PASS: Guardian-OpenPlatform-API-0.05 - Guardian-OpenPlatform-API-0.05 - DAVECROSS
+PASS: HTML-Barcode-0.10 - HTML-Barcode-0.10 - MSTRAT
+PASS: HTML-Barcode-Code128-0.10 - HTML-Barcode-Code128-0.10 - MSTRAT
+PASS: HTML-Barcode-Code93-0.10 - HTML-Barcode-Code93-0.10 - MSTRAT
+PASS: HTML-Barcode-DataMatrix-0.02 - HTML-Barcode-DataMatrix-0.02 - MSTRAT
+FAIL (TODO: requires libqrencode): HTML-Barcode-QRCode-0.09 - HTML-Barcode-QRCode-0.09 - MSTRAT
+PASS: HTML-EasyForm-0.101 - HTML-EasyForm-0.101 - GETTY
+PASS: HTML-Element-Replacer-0.06 - HTML-Element-Replacer-0.06 - TBONE
+PASS: HTML-FormFu-0.09007 - HTML-FormFu-0.09007 - PERLER
+WARN: HTML-FormFu-ExtJS-0.090 - HTML-FormFu-ExtJS-0.090 - PERLER
+PASS: HTML-FormHandler-0.40007 - HTML-FormHandler-0.40007 - GSHANK
+PASS: HTML-FormHandler-Model-DBIC-0.19 - HTML-FormHandler-Model-DBIC-0.19 - GSHANK
+PASS: HTML-FormHandlerX-Field-DateTimeNatural-v0.5 - HTML-FormHandlerX-Field-DateTimeNatural-v0.5 - ROMANF
+PASS: HTML-FormHandlerX-Field-URI-HTTP-v0.2 - HTML-FormHandlerX-Field-URI-HTTP-v0.2 - ROMANF
+PASS: HTML-FormWidgets-0.13.358 - HTML-FormWidgets-0.13.358 - PJFL
+FAIL (TODO: pod::coverage fail): HTML-Grabber-0.4 - HTML-Grabber-0.4 - MSMITH
+PASS: HTML-HTML5-ToText-0.002 - HTML-HTML5-ToText-0.002 - TOBYINK
+PASS: HTML-MobileJp-Filter-0.02 - HTML-MobileJp-Filter-0.02 - TOMITA
+WARN: HTML-Shakan-0.15 - HTML-Shakan-0.15 - TOKUHIROM
+FAIL (TODO: broken): HTML-TreeBuilderX-ASP_NET-0.09 - HTML-TreeBuilderX-ASP_NET-0.09 - ECARROLL
+PASS: HTML-Untemplate-0.004 - HTML-Untemplate-0.004 - SYP
+PASS: HTML-Video-Embed-0.007 - HTML-Video-Embed-0.007 - NOBODY
+PASS: HTTP-DAV-Browse-0.05 - HTTP-DAV-Browse-0.05 - JKUTEJ
+WARN: HTTP-Engine-0.03005 - HTTP-Engine-0.03005 - YAPPO
+FAIL (TODO: missing dep on yaml): HTTP-Engine-Middleware-0.22 - HTTP-Engine-Middleware-0.22 - YAPPO
+PASS: HTTP-Server-Simple-Dispatched-0.06 - HTTP-Server-Simple-Dispatched-0.06 - FRODWITH
+PASS: HTTP-Session-Store-DBI-0.02 - HTTP-Session-Store-DBI-0.02 - FAYLAND
+PASS: HTTP-Throwable-0.016 - HTTP-Throwable-0.016 - RJBS
+WARN: HTTP-Tiny-Mech-0.1.2 - HTTP-Tiny-Mech-0.1.2 - KENTNL
+PASS: Hadoop-Admin-0.4 - Hadoop-Admin-0.4 - CWIMMER
+WARN: Hadoop-Streaming-0.113160 - Hadoop-Streaming-0.113160 - SPAZM
+WARN: Hailo-0.70 - Hailo-0.70 - HINRIK
+PASS: Ham-Packet-DXSpider-0.04 - Ham-Packet-DXSpider-0.04 - CUSTARD
+PASS: Hash-Dispatch-0.0010 - Hash-Dispatch-0.0010 - ROKR
+WARN: Hash-Param-0.04 - Hash-Param-0.04 - RKRIMEN
+WARN: Hessian-Translator-1.02 - Hessian-Translator-1.02 - HEYTRAV
+FAIL (TODO: configure_requires needs EU::CChecker): Hobocamp-0.600 - Hobocamp-0.600 - AFLOTT
+FAIL (TODO: couldn't find on cpan): Hopkins - ??? - ???
+FAIL (TODO: App::Horris isn't on cpan): Horris-v0.1.2 - Horris-v0.1.2 - AANOAA
+PASS: Hostfile-Manager-0.08 - Hostfile-Manager-0.08 - MIRABELLA
+PASS: I18N-Handle-0.051 - I18N-Handle-0.051 - CORNELIUS
+PASS: IM-Engine-0.06 - IM-Engine-0.06 - SARTAK
+PASS: IM-Engine-Plugin-Dispatcher-0.02 - IM-Engine-Plugin-Dispatcher-0.02 - SARTAK
+PASS: IM-Engine-Plugin-State-0.01 - IM-Engine-Plugin-State-0.01 - SARTAK
+PASS: IMS-CP-Manifest-0.0.2 - IMS-CP-Manifest-0.0.2 - ROBINS
+PASS: IO-Multiplex-Intermediary-0.06 - IO-Multiplex-Intermediary-0.06 - JASONMAY
+FAIL (TODO: no tests): IO-Storm-0.01 - IO-Storm-0.01 - GPHAT
+PASS: IOC-Slinky-Container-0.1001 - IOC-Slinky-Container-0.1001 - DTADY
+PASS: IPC-Lock-RabbitMQ-0.006 - IPC-Lock-RabbitMQ-0.006 - BOBTFISH
+PASS: IPC-RunSession-Simple-0.002 - IPC-RunSession-Simple-0.002 - RKRIMEN
+PASS: IPC-SRLock-0.7.191 - IPC-SRLock-0.7.191 - PJFL
+WARN: IRC-Bot-Log-Extended-0.03 - IRC-Bot-Log-Extended-0.03 - FAYLAND
+WARN (TODO: requires libssh2): IRC-RemoteControl-0.04 - IRC-RemoteControl-0.04 - WOOSTER
+PASS: Image-Placeholder-v1.0.0 - Image-Placeholder-v1.0.0 - MNF
+FAIL (TODO: Graphics::Magick doesn't exist): Image-Robohash-0.02 - Image-Robohash-0.02 - JWANG
+PASS: Image-TextMode-0.18 - Image-TextMode-0.18 - BRICAS
+WARN: InterMine-Model-0.9901 - InterMine-Model-0.9901 - INTERMINE
+FAIL (TODO: no tests): JIRA-Client-REST-0.06 - JIRA-Client-REST-0.06 - GPHAT
+WARN: JS-YUI-Loader-0.06 - JS-YUI-Loader-0.06 - RKRIMEN
+WARN: JSON-RPC-Common-0.10 - JSON-RPC-Common-0.10 - DOY
+PASS: JSON-RPC-Dispatcher-0.0505 - JSON-RPC-Dispatcher-0.0505 - RIZEN
+PASS: JSON-RPC-Dispatcher-ClassMapping-0.03 - JSON-RPC-Dispatcher-ClassMapping-0.03 - SHERWIN
+PASS: JSON-RPC-LWP-0.006 - JSON-RPC-LWP-0.006 - BGILLS
+FAIL (TODO: broken): JSORB-0.04 - JSORB-0.04 - STEVAN
+FAIL (TODO: coerce with no coercion): JavaScript-Framework-jQuery-0.07 - JavaScript-Framework-jQuery-0.07 - CONVERTER
+FAIL (TODO: requires sprocketize): JavaScript-Sprockets-0.03 - JavaScript-Sprockets-0.03 - LEEDO
+FAIL (TODO: requires v8): JavaScript-V8x-TestMoreish-0.013 - JavaScript-V8x-TestMoreish-0.013 - RKRIMEN
+FAIL (TODO: Test::WWW::Selenium needs devel::repl): Jifty-1.10518 - Jifty-1.10518 - SARTAK
+FAIL (TODO: requires kx): K-0.09 - K-0.09 - WHITNEY
+FAIL (TODO: no tests): Kafka-Client-0.02 - Kafka-Client-0.02 - GPHAT
+FAIL (TODO: pod::coverage fail): Kamaitachi-0.05 - Kamaitachi-0.05 - TYPESTER
+PASS: KiokuDB-0.52 - KiokuDB-0.52 - DOY
+PASS: KiokuDB-Backend-BDB-0.15 - KiokuDB-Backend-BDB-0.15 - NUFFIN
+PASS: KiokuDB-Backend-CouchDB-0.10 - KiokuDB-Backend-CouchDB-0.10 - MADZ
+PASS: KiokuDB-Backend-DBI-1.21 - KiokuDB-Backend-DBI-1.21 - DOY
+FAIL (TODO: broken): KiokuDB-Backend-Files-0.06 - KiokuDB-Backend-Files-0.06 - NUFFIN
+PASS: KiokuDB-Backend-MongoDB-0.03 - KiokuDB-Backend-MongoDB-0.03 - ABH
+PASS: KiokuX-Model-Role-Annotations-0.01 - KiokuX-Model-Role-Annotations-0.01 - NUFFIN
+PASS: KiokuX-User-0.02 - KiokuX-User-0.02 - FLORA
+FAIL (TODO: requires yaz): Koha-Contrib-Tamil-0.020 - Koha-Contrib-Tamil-0.020 - FREDERICD
+PASS: LCFG-Build-PkgSpec-0.0.34 - LCFG-Build-PkgSpec-0.0.34 - SJQUINNEY
+PASS: LCFG-Build-Skeleton-0.1.0 - LCFG-Build-Skeleton-0.1.0 - SJQUINNEY
+WARN: LCFG-Build-Tools-0.2.2 - LCFG-Build-Tools-0.2.2 - SJQUINNEY
+PASS: LCFG-Build-VCS-0.1.1 - LCFG-Build-VCS-0.1.1 - SJQUINNEY
+PASS: LWP-ConnCache-MaxKeepAliveRequests-0.33 - LWP-ConnCache-MaxKeepAliveRequests-0.33 - LBROCARD
+FAIL (TODO: no tests): LWP-UserAgent-OfflineCache-0.02 - LWP-UserAgent-OfflineCache-0.02 - GDM
+PASS: LaTeX-Table-v1.0.6 - LaTeX-Table-v1.0.6 - LIMAONE
+FAIL (TODO: broken (with moose)): LaTeX-TikZ-0.02 - LaTeX-TikZ-0.02 - VPIT
+PASS: LastFM-Export-0.01 - LastFM-Export-0.01 - DOY
+PASS: Layout-Manager-0.34 - Layout-Manager-0.34 - GPHAT
+PASS: Leyland-0.001007 - Leyland-0.001007 - IDOPEREL
+FAIL (TODO: requires lighttpd): Lighttpd-Control-0.03 - Lighttpd-Control-0.03 - STEVAN
+PASS: Lingua-Charsets-0.003 - Lingua-Charsets-0.003 - JWANG
+PASS: Lingua-Diversity-0.06 - Lingua-Diversity-0.06 - AXANTHOS
+WARN: Lingua-IT-Ita2heb-0.01 - Lingua-IT-Ita2heb-0.01 - AHARONI
+PASS: Lingua-JA-Yomi-0.01 - Lingua-JA-Yomi-0.01 - MASH
+PASS: Lingua-LO-Romanize-0.09 - Lingua-LO-Romanize-0.09 - JOKKE
+FAIL (TODO: requires treetagger to be installed): Lingua-TreeTagger-0.03 - Lingua-TreeTagger-0.03 - AXANTHOS
+PASS: Locale-File-PO-Header-0.003 - Locale-File-PO-Header-0.003 - STEFFENW
+FAIL (TODO: MooseX::Types::VariantTable::Declare isn't installed): Locale-Handle-Pluggable-0.01 - Locale-Handle-Pluggable-0.01 - NUFFIN
+PASS: Locale-MO-File-0.02 - Locale-MO-File-0.02 - STEFFENW
+WARN: Locale-Maketext-AutoTranslate-0.1 - Locale-Maketext-AutoTranslate-0.1 - XERN
+PASS: Locale-POFileManager-0.04 - Locale-POFileManager-0.04 - DOY
+PASS: Locale-Utils-PlaceholderMaketext-0.002 - Locale-Utils-PlaceholderMaketext-0.002 - STEFFENW
+PASS: Locale-Utils-PlaceholderNamed-0.003 - Locale-Utils-PlaceholderNamed-0.003 - STEFFENW
+PASS: Locale-Utils-PluralForms-0.001 - Locale-Utils-PluralForms-0.001 - STEFFENW
+PASS: Log-Deep-v0.3.2 - Log-Deep-v0.3.2 - IVANWILLS
+PASS: Log-JSON-0.001 - Log-JSON-0.001 - KABLAMO
+WARN: Log-Message-Structured-0.007 - Log-Message-Structured-0.007 - DAMS
+WARN: Log-UDP-Client-0.20.0 - Log-UDP-Client-0.20.0 - ROBINS
+PASS: LucyX-Simple-0.003 - LucyX-Simple-0.003 - NOBODY
+FAIL (TODO: requires abiword to be installed): MSWord-ToHTML-0.005 - MSWord-ToHTML-0.005 - AMIRI
+PASS: Mac-iPhoto-Exif-1.00 - Mac-iPhoto-Exif-1.00 - MAROS
+PASS: Mail-Builder-2.07 - Mail-Builder-2.07 - MAROS
+PASS: Mail-Chimp-0.50 - Mail-Chimp-0.50 - DPIROTTE
+FAIL (TODO: DT::Format::DateManip is broken): Mail-Summary-Tools-0.06 - Mail-Summary-Tools-0.06 - NUFFIN
+PASS: Markdent-0.19 - Markdent-0.19 - DROLSKY
+FAIL (TODO: no tests): Markdown-Pod-0.001 - Markdown-Pod-0.001 - KEEDI
+FAIL: Mason-2.18 - Mason-2.18 - JSWARTZ
+PASS: MasonX-Resolver-Multiplex-0.001 - MasonX-Resolver-Multiplex-0.001 - HDP
+PASS: MasonX-Resolver-WidgetFactory-0.008 - MasonX-Resolver-WidgetFactory-0.008 - RJBS
+PASS: Math-Geometry-Construction-0.020 - Math-Geometry-Construction-0.020 - LGEHLEN
+FAIL (TODO: requires f77): Math-Lsoda-0.04 - Math-Lsoda-0.04 - SYNCLOVER
+WARN: Math-Pell-0.6-withoutworldwriteables - Math-Pell-0.6-withoutworldwriteables - WSDOOKADR
+PASS: Math-Random-Secure-0.06 - Math-Random-Secure-0.06 - MKANAT
+PASS: MeSH-Parser-ASCII-0.03 - MeSH-Parser-ASCII-0.03 - TOMASZ
+FAIL (TODO: broken): MediaWiki-USERINFO-0.04 - MediaWiki-USERINFO-0.04 - AVAR
+PASS: Mesoderm-0.121140 - Mesoderm-0.121140 - GBARR
+PASS: Message-Stack-0.22 - Message-Stack-0.22 - GPHAT
+PASS: Message-Stack-Parser-0.06 - Message-Stack-Parser-0.06 - GPHAT
+PASS: MetaCPAN-API-0.43 - MetaCPAN-API-0.43 - XSAWYERX
+PASS: Metabase-0.016 - Metabase-0.016 - DAGOLDEN
+FAIL (TODO: doesn't like ANY_MOOSE=Moose): Method-Signatures-20111125 - Method-Signatures-20111125 - BAREFOOT
+PASS: Mildew-0.05 - Mildew-0.05 - PMURIAS
+PASS: Mo-0.31 - Mo-0.31 - INGY
+PASS: Module-Faker-0.009 - Module-Faker-0.009 - RJBS
+PASS: Module-Install-ProvidesClass-1.000000 - Module-Install-ProvidesClass-1.000000 - ASH
+WARN: Module-Packaged-Generator-1.111930 - Module-Packaged-Generator-1.111930 - JQUELIN
+WARN: MojoMojo-1.05 - MojoMojo-1.05 - MRAMBERG
+PASS: Mojolicious-Plugin-ValidateMoose-0.02 - Mojolicious-Plugin-ValidateMoose-0.02 - JHTHORSEN
+FAIL (TODO: requires mongo): MongoDB-0.45 - MongoDB-0.45 - KRISTINA
+FAIL (TODO: requires mongo): MongoDBI-0.0.12 - MongoDBI-0.0.12 - AWNCORP
+PASS: MongoDBx-AutoDeref-1.110560 - MongoDBx-AutoDeref-1.110560 - NPEREZ
+PASS: MongoDBx-Class-0.91 - MongoDBx-Class-0.91 - IDOPEREL
+PASS: Mongoose-0.13 - Mongoose-0.13 - RODRIGO
+PASS: Monitoring-Livestatus-Class-0.03 - Monitoring-Livestatus-Class-0.03 - RBO
+PASS: Moose-Autobox-0.12 - Moose-Autobox-0.12 - RJBS
+PASS: Moose-Micro-0.002 - Moose-Micro-0.002 - HDP
+PASS: Moose-Policy-0.05 - Moose-Policy-0.05 - DROLSKY
+WARN: Moose-Tiny-0.04 - Moose-Tiny-0.04 - PERIGRIN
+PASS: MooseX-ABC-0.06 - MooseX-ABC-0.06 - DOY
+PASS: MooseX-APIRole-0.01 - MooseX-APIRole-0.01 - JROCKWAY
+WARN: MooseX-AbstractFactory-0.004000 - MooseX-AbstractFactory-0.004000 - XENO
+WARN: MooseX-AbstractMethod-0.003 - MooseX-AbstractMethod-0.003 - RSRCHBOY
+PASS: MooseX-Accessors-ReadWritePrivate-v1.4.0 - MooseX-Accessors-ReadWritePrivate-v1.4.0 - ELLIOTJS
+PASS: MooseX-Aliases-0.10 - MooseX-Aliases-0.10 - DOY
+PASS: MooseX-Alien-1.01 - MooseX-Alien-1.01 - GBARR
+PASS: MooseX-AlwaysCoerce-0.16 - MooseX-AlwaysCoerce-0.16 - ETHER
+WARN: MooseX-App-1.02 - MooseX-App-1.02 - MAROS
+WARN: MooseX-App-Cmd-0.09 - MooseX-App-Cmd-0.09 - MJGARDNER
+PASS: MooseX-App-Cmd-Command-BashComplete-0.04 - MooseX-App-Cmd-Command-BashComplete-0.04 - KJELLM
+PASS: MooseX-Async-0.07 - MooseX-Async-0.07 - PERIGRIN
+PASS: MooseX-Atom-0.02 - MooseX-Atom-0.02 - ADAMK
+WARN: MooseX-Attribute-Chained-1.0.1 - MooseX-Attribute-Chained-1.0.1 - PERLER
+WARN: MooseX-Attribute-Deflator-2.2.1 - MooseX-Attribute-Deflator-2.2.1 - PERLER
+WARN: MooseX-Attribute-Dependent-1.1.2 - MooseX-Attribute-Dependent-1.1.2 - PERLER
+PASS: MooseX-Attribute-ENV-0.02 - MooseX-Attribute-ENV-0.02 - JJNAPIORK
+FAIL (TODO: uses old moose apis): MooseX-Attribute-Prototype-0.10 - MooseX-Attribute-Prototype-0.10 - CTBROWN
+WARN: MooseX-Attribute-ValidateWithException-0.2.1 - MooseX-Attribute-ValidateWithException-0.2.1 - KENTNL
+PASS: MooseX-AttributeCloner-0.25 - MooseX-AttributeCloner-0.25 - SETITESUK
+PASS: MooseX-AttributeDefaults-0.02 - MooseX-AttributeDefaults-0.02 - FRODWITH
+PASS: MooseX-AttributeHelpers-0.23 - MooseX-AttributeHelpers-0.23 - DROLSKY
+WARN: MooseX-AttributeIndexes-1.0.2 - MooseX-AttributeIndexes-1.0.2 - KENTNL
+PASS: MooseX-AttributeInflate-0.03 - MooseX-AttributeInflate-0.03 - STASH
+WARN: MooseX-AttributeShortcuts-0.010 - MooseX-AttributeShortcuts-0.010 - RSRCHBOY
+PASS: MooseX-AttributeTree-0.04 - MooseX-AttributeTree-0.04 - CJM
+PASS: MooseX-Attributes-Curried-0.03 - MooseX-Attributes-Curried-0.03 - SARTAK
+PASS: MooseX-AuthorizedMethods-0.006 - MooseX-AuthorizedMethods-0.006 - DRUOSO
+WARN: MooseX-AutoDestruct-0.009 - MooseX-AutoDestruct-0.009 - RSRCHBOY
+PASS: MooseX-AutoImmute-0.001 - MooseX-AutoImmute-0.001 - EXODIST
+PASS: MooseX-BatmanBeforeRobin-0.03 - MooseX-BatmanBeforeRobin-0.03 - JHTHORSEN
+PASS: MooseX-Blessed-Reconstruct-0.04 - MooseX-Blessed-Reconstruct-0.04 - NUFFIN
+PASS: MooseX-BuildArgs-0.04 - MooseX-BuildArgs-0.04 - BLUEFEET
+PASS: MooseX-CachingProxy-0.001 - MooseX-CachingProxy-0.001 - KABLAMO
+PASS: MooseX-Callbacks-0.01 - MooseX-Callbacks-0.01 - REVMISCHA
+PASS: MooseX-CascadeClearing-0.04 - MooseX-CascadeClearing-0.04 - RSRCHBOY
+PASS: MooseX-ClassAttribute-0.26 - MooseX-ClassAttribute-0.26 - DROLSKY
+PASS: MooseX-ClassCompositor-0.004 - MooseX-ClassCompositor-0.004 - RJBS
+PASS: MooseX-Clone-0.05 - MooseX-Clone-0.05 - NUFFIN
+PASS: MooseX-Collect-0.92 - MooseX-Collect-0.92 - AAR
+WARN: MooseX-Compile-0.01 - MooseX-Compile-0.01 - NUFFIN
+PASS: MooseX-ComposedBehavior-0.003 - MooseX-ComposedBehavior-0.003 - RJBS
+PASS: MooseX-ConfigFromFile-0.04 - MooseX-ConfigFromFile-0.04 - BOBTFISH
+PASS: MooseX-Configuration-0.02 - MooseX-Configuration-0.02 - DROLSKY
+PASS: MooseX-Constructor-AllErrors-0.020 - MooseX-Constructor-AllErrors-0.020 - ETHER
+PASS: MooseX-Contract-0.01 - MooseX-Contract-0.01 - BPHILLIPS
+PASS: MooseX-Control-0.03 - MooseX-Control-0.03 - FAYLAND
+WARN: MooseX-CurriedDelegation-0.001 - MooseX-CurriedDelegation-0.001 - RSRCHBOY
+PASS: MooseX-CurriedHandles-0.03 - MooseX-CurriedHandles-0.03 - RATAXIS
+FAIL (TODO: needs unreleased sql-translator): MooseX-DBIC-Scaffold-0.102881 - MooseX-DBIC-Scaffold-0.102881 - GBARR
+FAIL (TODO: "no Moose" unimports confess): MooseX-DOM-0.00004 - MooseX-DOM-0.00004 - DMAKI
+PASS: MooseX-Daemonize-0.13 - MooseX-Daemonize-0.13 - STEVAN
+PASS: MooseX-Declare-0.35 - MooseX-Declare-0.35 - FLORA
+PASS: MooseX-DeepAccessors-0.02 - MooseX-DeepAccessors-0.02 - RATAXIS
+FAIL (TODO: broken): MooseX-Documenter-0.01 - MooseX-Documenter-0.01 - DSBIKE
+WARN: MooseX-EasyAcc-0.001 - MooseX-EasyAcc-0.001 - EALLENIII
+PASS: MooseX-Emulate-Class-Accessor-Fast-0.00903 - MooseX-Emulate-Class-Accessor-Fast-0.00903 - FLORA
+FAIL (TODO: metaclass compat breakage): MooseX-Error-Exception-Class-0.099 - MooseX-Error-Exception-Class-0.099 - CSJEWELL
+PASS: MooseX-Error-Trap-0.021 - MooseX-Error-Trap-0.021 - NOTBENH
+PASS: MooseX-Event-v0.2.0 - MooseX-Event-v0.2.0 - WINTER
+WARN: MooseX-FSM-0.01 - MooseX-FSM-0.01 - GORAXE
+PASS: MooseX-FileAttribute-0.02 - MooseX-FileAttribute-0.02 - JROCKWAY
+PASS: MooseX-FollowPBP-0.05 - MooseX-FollowPBP-0.05 - DROLSKY
+PASS: MooseX-Getopt-0.43 - MooseX-Getopt-0.43 - ETHER
+PASS: MooseX-Getopt-Defanged-v1.18.0 - MooseX-Getopt-Defanged-v1.18.0 - ELLIOTJS
+FAIL (TODO: missing dep on Test::Class): MooseX-Getopt-Usage-0.09 - MooseX-Getopt-Usage-0.09 - PITCHLESS
+PASS: MooseX-GlobRef-0.0701 - MooseX-GlobRef-0.0701 - DEXTER
+PASS: MooseX-Has-Options-0.002 - MooseX-Has-Options-0.002 - PSHANGOV
+WARN: MooseX-Has-Sugar-0.05070420 - MooseX-Has-Sugar-0.05070420 - KENTNL
+PASS: MooseX-HasDefaults-0.03 - MooseX-HasDefaults-0.03 - SARTAK
+PASS: MooseX-IOC-0.03 - MooseX-IOC-0.03 - STEVAN
+PASS: MooseX-InsideOut-0.106 - MooseX-InsideOut-0.106 - DOY
+PASS: MooseX-InstanceTracking-0.06 - MooseX-InstanceTracking-0.06 - SARTAK
+PASS: MooseX-Iterator-0.11 - MooseX-Iterator-0.11 - RLB
+PASS: MooseX-KeyedMutex-0.00003 - MooseX-KeyedMutex-0.00003 - DMAKI
+PASS: MooseX-LazyLogDispatch-0.02 - MooseX-LazyLogDispatch-0.02 - BLBLACK
+PASS: MooseX-LazyRequire-0.07 - MooseX-LazyRequire-0.07 - FLORA
+PASS: MooseX-LeakCheck-0.003 - MooseX-LeakCheck-0.003 - EXODIST
+PASS: MooseX-Lexical-Types-0.01 - MooseX-Lexical-Types-0.01 - FLORA
+PASS: MooseX-LexicalRoleApplication-0.03 - MooseX-LexicalRoleApplication-0.03 - FLORA
+PASS: MooseX-Lists-0.05 - MooseX-Lists-0.05 - KARASIK
+PASS: MooseX-Locked-1.01 - MooseX-Locked-1.01 - CHIPS
+PASS: MooseX-Log-Log4perl-0.43 - MooseX-Log-Log4perl-0.43 - LAMMEL
+PASS: MooseX-LogDispatch-1.2002 - MooseX-LogDispatch-1.2002 - JGOULAH
+PASS: MooseX-MakeImmutable-0.02 - MooseX-MakeImmutable-0.02 - RKRIMEN
+PASS: MooseX-Mangle-0.02 - MooseX-Mangle-0.02 - DOY
+WARN: MooseX-MarkAsMethods-0.14 - MooseX-MarkAsMethods-0.14 - RSRCHBOY
+FAIL (TODO: old moose apis): MooseX-Meta-Attribute-Index-0.04 - MooseX-Meta-Attribute-Index-0.04 - CTBROWN
+FAIL (TODO: old moose apis): MooseX-Meta-Attribute-Lvalue-0.05 - MooseX-Meta-Attribute-Lvalue-0.05 - CTBROWN
+PASS: MooseX-Meta-Attribute-Searchable-0.01 - MooseX-Meta-Attribute-Searchable-0.01 - GPHAT
+PASS: MooseX-Meta-TypeConstraint-ForceCoercion-0.01 - MooseX-Meta-TypeConstraint-ForceCoercion-0.01 - FLORA
+PASS: MooseX-Meta-TypeConstraint-Intersection-0.03 - MooseX-Meta-TypeConstraint-Intersection-0.03 - FLORA
+PASS: MooseX-MetaDescription-0.05 - MooseX-MetaDescription-0.05 - BOBTFISH
+WARN: MooseX-Method-0.44 - MooseX-Method-0.44 - GPHAT
+PASS: MooseX-Method-Signatures-0.42 - MooseX-Method-Signatures-0.42 - ETHER
+PASS: MooseX-MethodAttributes-0.27 - MooseX-MethodAttributes-0.27 - BOBTFISH
+WARN: MooseX-MultiInitArg-0.01 - MooseX-MultiInitArg-0.01 - FRODWITH
+PASS: MooseX-MultiMethods-0.10 - MooseX-MultiMethods-0.10 - FLORA
+WARN: MooseX-MultiObject-0.03 - MooseX-MultiObject-0.03 - JROCKWAY
+PASS: MooseX-MutatorAttributes-0.12 - MooseX-MutatorAttributes-0.12 - NOTBENH
+WARN: MooseX-Net-API-0.12 - MooseX-Net-API-0.12 - FRANCKC
+WARN: MooseX-NewDefaults-0.003 - MooseX-NewDefaults-0.003 - RSRCHBOY
+PASS: MooseX-NonMoose-0.22 - MooseX-NonMoose-0.22 - DOY
+PASS: MooseX-Object-Pluggable-0.0011 - MooseX-Object-Pluggable-0.0011 - GRODITI
+PASS: MooseX-Observer-0.007 - MooseX-Observer-0.007 - TMUELLER
+PASS: MooseX-OmniTrigger-0.06 - MooseX-OmniTrigger-0.06 - TRLORENZ
+PASS: MooseX-OneArgNew-0.002 - MooseX-OneArgNew-0.002 - RJBS
+PASS: MooseX-POE-0.215 - MooseX-POE-0.215 - GETTY
+PASS: MooseX-Param-0.02 - MooseX-Param-0.02 - STEVAN
+PASS: MooseX-Params-0.010 - MooseX-Params-0.010 - PSHANGOV
+PASS: MooseX-Params-Validate-0.16 - MooseX-Params-Validate-0.16 - DROLSKY
+PASS: MooseX-Plaggerize-0.07 - MooseX-Plaggerize-0.07 - TOKUHIROM
+WARN: MooseX-Policy-SemiAffordanceAccessor-0.02 - MooseX-Policy-SemiAffordanceAccessor-0.02 - DROLSKY
+PASS: MooseX-Privacy-0.05 - MooseX-Privacy-0.05 - FRANCKC
+WARN: MooseX-PrivateSetters-0.08 - MooseX-PrivateSetters-0.08 - BRIANG
+WARN: MooseX-Prototype-0.001 - MooseX-Prototype-0.001 - TOBYINK
+PASS: MooseX-Q4MLog-0.00002 - MooseX-Q4MLog-0.00002 - DMAKI
+PASS: MooseX-RW-0.003 - MooseX-RW-0.003 - FREDERICD
+PASS: MooseX-RelatedClassRoles-0.004 - MooseX-RelatedClassRoles-0.004 - HDP
+PASS: MooseX-RememberHistory-0.001 - MooseX-RememberHistory-0.001 - JBERGER
+WARN: MooseX-Role-AttributeOverride-0.0.9 - MooseX-Role-AttributeOverride-0.0.9 - EALLENIII
+PASS: MooseX-Role-BuildInstanceOf-0.08 - MooseX-Role-BuildInstanceOf-0.08 - JJNAPIORK
+PASS: MooseX-Role-Cmd-0.10 - MooseX-Role-Cmd-0.10 - EDENC
+PASS: MooseX-Role-DBIC-0.01 - MooseX-Role-DBIC-0.01 - RBUELS
+PASS: MooseX-Role-DBIx-Connector-0.11 - MooseX-Role-DBIx-Connector-0.11 - RBUELS
+PASS: MooseX-Role-Data-Verifier-0.01 - MooseX-Role-Data-Verifier-0.01 - GPHAT
+WARN: MooseX-Role-Debugger-1.112680 - MooseX-Role-Debugger-1.112680 - DHOUSTON
+PASS: MooseX-Role-Listenable-0.005 - MooseX-Role-Listenable-0.005 - EILARA
+PASS: MooseX-Role-LogHandler-0.006 - MooseX-Role-LogHandler-0.006 - NJWALKER
+PASS: MooseX-Role-Loggable-0.007 - MooseX-Role-Loggable-0.007 - XSAWYERX
+PASS: MooseX-Role-Matcher-0.05 - MooseX-Role-Matcher-0.05 - DOY
+PASS: MooseX-Role-MissingMethodUtils-0.02 - MooseX-Role-MissingMethodUtils-0.02 - LOGIE
+PASS: MooseX-Role-Parameterized-1.00 - MooseX-Role-Parameterized-1.00 - SARTAK
+PASS: MooseX-Role-Pluggable-0.02 - MooseX-Role-Pluggable-0.02 - GENEHACK
+PASS: MooseX-Role-Restricted-1.03 - MooseX-Role-Restricted-1.03 - GBARR
+PASS: MooseX-Role-Strict-0.05 - MooseX-Role-Strict-0.05 - OVID
+PASS: MooseX-Role-Timer-0.03 - MooseX-Role-Timer-0.03 - MILA
+PASS: MooseX-Role-TraitConstructor-0.01 - MooseX-Role-TraitConstructor-0.01 - NUFFIN
+PASS: MooseX-Role-WithOverloading-0.09 - MooseX-Role-WithOverloading-0.09 - FLORA
+PASS: MooseX-Role-WithWorkingDirectory-0.02 - MooseX-Role-WithWorkingDirectory-0.02 - RHOELZ
+WARN: MooseX-Role-XMLRPC-Client-0.06 - MooseX-Role-XMLRPC-Client-0.06 - RSRCHBOY
+PASS: MooseX-Runnable-0.03 - MooseX-Runnable-0.03 - JROCKWAY
+FAIL: MooseX-Scaffold-0.05 - MooseX-Scaffold-0.05 - RKRIMEN
+WARN: MooseX-Semantic-0.004 - MooseX-Semantic-0.004 - KBA
+PASS: MooseX-SemiAffordanceAccessor-0.09 - MooseX-SemiAffordanceAccessor-0.09 - DROLSKY
+PASS: MooseX-SetOnce-0.200001 - MooseX-SetOnce-0.200001 - RJBS
+PASS: MooseX-SimpleConfig-0.09 - MooseX-SimpleConfig-0.09 - BOBTFISH
+PASS: MooseX-SingleArg-0.04 - MooseX-SingleArg-0.04 - BLUEFEET
+PASS: MooseX-Singleton-0.29 - MooseX-Singleton-0.29 - KAARE
+PASS: MooseX-SingletonMethod-0.03 - MooseX-SingletonMethod-0.03 - DRAEGTUN
+PASS: MooseX-SlurpyConstructor-1.2 - MooseX-SlurpyConstructor-1.2 - ETHER
+WARN: MooseX-Storage-0.31 - MooseX-Storage-0.31 - BOBTFISH
+PASS: MooseX-Storage-Format-JSONpm-0.093092 - MooseX-Storage-Format-JSONpm-0.093092 - RJBS
+PASS: MooseX-Storage-Format-XML-Simple-0.04 - MooseX-Storage-Format-XML-Simple-0.04 - BRUNORC
+PASS: MooseX-StrictConstructor-0.19 - MooseX-StrictConstructor-0.19 - DROLSKY
+FAIL (TODO: ancient moose apis): MooseX-Struct-0.06 - MooseX-Struct-0.06 - JSOVERSON
+PASS: MooseX-Test-Role-0.02 - MooseX-Test-Role-0.02 - PBOYD
+PASS: MooseX-Timestamp-0.07 - MooseX-Timestamp-0.07 - SAMV
+WARN: MooseX-TrackDirty-Attributes-2.000 - MooseX-TrackDirty-Attributes-2.000 - RSRCHBOY
+PASS: MooseX-Traits-0.11 - MooseX-Traits-0.11 - FLORA
+WARN: MooseX-Traits-Attribute-MergeHashRef-1.002 - MooseX-Traits-Attribute-MergeHashRef-1.002 - PERLER
+PASS: MooseX-Traits-Pluggable-0.10 - MooseX-Traits-Pluggable-0.10 - RKITOVER
+PASS: MooseX-TransactionalMethods-0.008 - MooseX-TransactionalMethods-0.008 - DRUOSO
+WARN: MooseX-TypeArray-0.1.0 - MooseX-TypeArray-0.1.0 - KENTNL
+PASS: MooseX-TypeMap-0.003000 - MooseX-TypeMap-0.003000 - GRODITI
+PASS: MooseX-Types-0.31 - MooseX-Types-0.31 - DROLSKY
+PASS: MooseX-Types-Buf-0.01 - MooseX-Types-Buf-0.01 - AUDREYT
+PASS: MooseX-Types-Common-0.001007 - MooseX-Types-Common-0.001007 - ARCANEZ
+WARN: MooseX-Types-CreditCard-0.001004 - MooseX-Types-CreditCard-0.001004 - XENO
+PASS: MooseX-Types-Data-GUID-0.001000 - MooseX-Types-Data-GUID-0.001000 - GRODITI
+PASS: MooseX-Types-Data-Serializer-0.02 - MooseX-Types-Data-Serializer-0.02 - BLUEFEET
+PASS: MooseX-Types-DateTime-0.07 - MooseX-Types-DateTime-0.07 - ILMARI
+PASS: MooseX-Types-DateTime-ButMaintained-0.14 - MooseX-Types-DateTime-ButMaintained-0.14 - ECARROLL
+PASS: MooseX-Types-DateTime-MoreCoercions-0.09 - MooseX-Types-DateTime-MoreCoercions-0.09 - ILMARI
+PASS: MooseX-Types-DateTime-W3C-1.103360 - MooseX-Types-DateTime-W3C-1.103360 - AJGB
+FAIL (TODO: no tests): MooseX-Types-DateTimeX-0.10 - MooseX-Types-DateTimeX-0.10 - ECARROLL
+PASS: MooseX-Types-Digest-0.03 - MooseX-Types-Digest-0.03 - MILA
+PASS: MooseX-Types-Email-0.004 - MooseX-Types-Email-0.004 - BOBTFISH
+WARN: MooseX-Types-FakeHash-0.1.0 - MooseX-Types-FakeHash-0.1.0 - KENTNL
+WARN: MooseX-Types-GTIN-0.01 - MooseX-Types-GTIN-0.01 - DLAMBLEY
+PASS: MooseX-Types-ISO8601-0.10 - MooseX-Types-ISO8601-0.10 - DLAMBLEY
+PASS: MooseX-Types-Implements-1.103350 - MooseX-Types-Implements-1.103350 - AJGB
+PASS: MooseX-Types-JSON-0.02 - MooseX-Types-JSON-0.02 - MILA
+PASS: MooseX-Types-LoadableClass-0.008 - MooseX-Types-LoadableClass-0.008 - BOBTFISH
+PASS: MooseX-Types-Locale-Country-0.04 - MooseX-Types-Locale-Country-0.04 - MORIYA
+WARN: MooseX-Types-Locale-Currency-0.001003 - MooseX-Types-Locale-Currency-0.001003 - XENO
+PASS: MooseX-Types-Locale-Language-0.06 - MooseX-Types-Locale-Language-0.06 - MORIYA
+PASS: MooseX-Types-Log-Dispatch-0.002000 - MooseX-Types-Log-Dispatch-0.002000 - GRODITI
+PASS: MooseX-Types-Meta-0.01 - MooseX-Types-Meta-0.01 - FLORA
+PASS: MooseX-Types-Moose-MutualCoercion-0.03 - MooseX-Types-Moose-MutualCoercion-0.03 - MORIYA
+PASS: MooseX-Types-NetAddr-IP-0.04 - MooseX-Types-NetAddr-IP-0.04 - TCAINE
+PASS: MooseX-Types-NumUnit-0.03 - MooseX-Types-NumUnit-0.03 - JBERGER
+FAIL (TODO: broken): MooseX-Types-Parameterizable-0.08 - MooseX-Types-Parameterizable-0.08 - JJNAPIORK
+PASS: MooseX-Types-Path-Class-0.06 - MooseX-Types-Path-Class-0.06 - THEPLER
+PASS: MooseX-Types-Path-Class-MoreCoercions-0.001 - MooseX-Types-Path-Class-MoreCoercions-0.001 - DAGOLDEN
+WARN: MooseX-Types-Set-Object-0.03 - MooseX-Types-Set-Object-0.03 - FLORA
+PASS: MooseX-Types-Signal-1.101932 - MooseX-Types-Signal-1.101932 - JROCKWAY
+PASS: MooseX-Types-Stringlike-0.001 - MooseX-Types-Stringlike-0.001 - DAGOLDEN
+PASS: MooseX-Types-Structured-0.28 - MooseX-Types-Structured-0.28 - JJNAPIORK
+WARN: MooseX-Types-Tied-0.003 - MooseX-Types-Tied-0.003 - RSRCHBOY
+PASS: MooseX-Types-URI-0.03 - MooseX-Types-URI-0.03 - FLORA
+PASS: MooseX-Types-UniStr-0.01 - MooseX-Types-UniStr-0.01 - AUDREYT
+PASS: MooseX-Types-Varchar-0.05 - MooseX-Types-Varchar-0.05 - CHRISA
+WARN: MooseX-Types-VariantTable-0.04 - MooseX-Types-VariantTable-0.04 - FLORA
+PASS: MooseX-Types-XMLSchema-0.04 - MooseX-Types-XMLSchema-0.04 - AJGB
+PASS: MooseX-UndefTolerant-0.13 - MooseX-UndefTolerant-0.13 - ETHER
+WARN: MooseX-Unique-0.005 - MooseX-Unique-0.005 - EALLENIII
+WARN: MooseX-WithCache-0.01002 - MooseX-WithCache-0.01002 - DMAKI
+PASS: MooseX-Workers-0.16 - MooseX-Workers-0.16 - JHANNAH
+PASS: MooseX-amine-0.3 - MooseX-amine-0.3 - GENEHACK
+PASS: MooseX-hasn-t-0.001 - MooseX-hasn-t-0.001 - TOBYINK
+PASS: MorboDB-0.001001 - MorboDB-0.001001 - IDOPEREL
+PASS: MouseX-AttributeHelpers-0.06 - MouseX-AttributeHelpers-0.06 - MASAKI
+WARN: MouseX-Foreign-0.007 - MouseX-Foreign-0.007 - GFUJI
+WARN: MouseX-NativeTraits-1.07 - MouseX-NativeTraits-1.07 - GFUJI
+FAIL (TODO: broken (with moose)): MouseX-Types-0.06 - MouseX-Types-0.06 - GFUJI
+WARN: Muldis-Rosetta-0.16.0 - Muldis-Rosetta-0.16.0 - DUNCAND
+WARN: Mvalve-0.00014 - Mvalve-0.00014 - DMAKI
+WARN: MySQL-Slurp-0.28 - MySQL-Slurp-0.28 - CTBROWN
+FAIL (TODO: pod-coverage fail): MySQL-Util-0.03 - MySQL-Util-0.03 - GRAVATTJ
+FAIL (TODO: requires javac): NLP-Service-0.02 - NLP-Service-0.02 - VIKAS
+WARN: NSMS-API-0.006 - NSMS-API-0.006 - TBR
+WARN: Nagios-Interface-0.01 - Nagios-Interface-0.01 - SAMV
+FAIL (TODO: broken): Nagios-Passive-v0.3.3 - Nagios-Passive-v0.3.3 - DATA
+WARN: Nagios-Plugin-OverHTTP-0.15 - Nagios-Plugin-OverHTTP-0.15 - DOUGDUDE
+WARN: Net-APE-0.003 - Net-APE-0.003 - GETTY
+WARN: Net-API-RPX-0.01 - Net-API-RPX-0.01 - KONOBI
+FAIL (TODO: broken (with moose)): Net-APNS-0.0202 - Net-APNS-0.0202 - HAOYAYOI
+PASS: Net-Akamai-0.14 - Net-Akamai-0.14 - JGOULAH
+PASS: Net-Akismet-Protocol-0.02 - Net-Akismet-Protocol-0.02 - MRAMBERG
+PASS: Net-Amazon-DynamoDB-v0.1.10 - Net-Amazon-DynamoDB-v0.1.10 - UKAUTZ
+PASS: Net-Amazon-EC2-0.18 - Net-Amazon-EC2-0.18 - MALLEN
+PASS: Net-Amazon-HadoopEC2-0.02 - Net-Amazon-HadoopEC2-0.02 - DANJOU
+PASS: Net-Amazon-HadoopEC2-S3fs-0.02 - Net-Amazon-HadoopEC2-S3fs-0.02 - DANJOU
+PASS: Net-Amazon-S3-0.56 - Net-Amazon-S3-0.56 - PFIG
+PASS: Net-Appliance-Session-3.120560 - Net-Appliance-Session-3.120560 - OLIVER
+FAIL (TODO: no tests): Net-Azure-BlobService-0.35 - Net-Azure-BlobService-0.35 - LBROCARD
+PASS: Net-Backtype-0.03 - Net-Backtype-0.03 - FRANCKC
+FAIL (TODO: XML::Tidy isn't installed): Net-Bamboo-0.01 - Net-Bamboo-0.01 - DIZ
+PASS: Net-Bullfinch-0.10 - Net-Bullfinch-0.10 - GPHAT
+PASS: Net-CLI-Interact-1.120670 - Net-CLI-Interact-1.120670 - OLIVER
+PASS: Net-Cassandra-0.35 - Net-Cassandra-0.35 - LBROCARD
+PASS: Net-Cassandra-Easy-0.15 - Net-Cassandra-Easy-0.15 - TEODOR
+PASS: Net-ClientServer-0.0007 - Net-ClientServer-0.0007 - ROKR
+WARN (TODO: requires dbus): Net-DBus-Skype-0.02 - Net-DBus-Skype-0.02 - ECARROLL
+PASS: Net-DNS-Dynamic-Adfilter-0.063 - Net-DNS-Dynamic-Adfilter-0.063 - DWATSON
+PASS: Net-DNS-Dynamic-Proxyserver-1.2 - Net-DNS-Dynamic-Proxyserver-1.2 - MAJA
+WARN: Net-Douban-1.14 - Net-Douban-1.14 - REDICAPS
+FAIL (TODO: no tests): Net-Dropbox-1.091510 - Net-Dropbox-1.091510 - SUNGO
+PASS: Net-FTP-Mock-0.103300 - Net-FTP-Mock-0.103300 - MITHALDU
+FAIL (TODO: no tests): Net-Flowdock-0.03 - Net-Flowdock-0.03 - GPHAT
+PASS: Net-Flowdock-Stream-0.01 - Net-Flowdock-Stream-0.01 - DOY
+FAIL (TODO: broken): Net-Fluidinfo-0.45 - Net-Fluidinfo-0.45 - FXN
+WARN: Net-FreshBooks-API-0.23 - Net-FreshBooks-API-0.23 - OALDERS
+PASS: Net-Gandi-0.9 - Net-Gandi-0.9 - HOBBESTIG
+PASS: Net-GitHub-0.44 - Net-GitHub-0.44 - FAYLAND
+FAIL (TODO: broken): Net-Google-Blogger-0.09 - Net-Google-Blogger-0.09 - EGORSH
+WARN: Net-Google-Code-0.19 - Net-Google-Code-0.19 - SUNNAVY
+PASS: Net-Google-DataAPI-0.2801 - Net-Google-DataAPI-0.2801 - DANJOU
+PASS: Net-Google-DocumentsList-0.08 - Net-Google-DocumentsList-0.08 - DANJOU
+PASS (TODO: broken): Net-Google-FederatedLogin-0.7.1 - Net-Google-FederatedLogin-0.7.1 - CEBJYRE
+PASS: Net-Google-PicasaWeb-0.11 - Net-Google-PicasaWeb-0.11 - HANENKAMP
+PASS: Net-Google-Spreadsheets-0.1501 - Net-Google-Spreadsheets-0.1501 - DANJOU
+PASS: Net-GraphSpace-0.0009 - Net-GraphSpace-0.0009 - IRONCAMEL
+PASS: Net-HAProxy-0.001 - Net-HAProxy-0.001 - RGE
+PASS: Net-HTTP-API-0.14 - Net-HTTP-API-0.14 - FRANCKC
+FAIL (TODO: broken): Net-HTTP-Factual-0.110030 - Net-HTTP-Factual-0.110030 - SPAZM
+PASS: Net-HTTP-Spore-0.04 - Net-HTTP-Spore-0.04 - FRANCKC
+PASS: Net-Hiveminder-0.08 - Net-Hiveminder-0.08 - SARTAK
+WARN: Net-ISC-DHCPd-0.13 - Net-ISC-DHCPd-0.13 - JHTHORSEN
+WARN: Net-Jabber-Bot-2.1.5 - Net-Jabber-Bot-2.1.5 - TODDR
+PASS: Net-Jifty-0.14 - Net-Jifty-0.14 - SARTAK
+FAIL (TODO: broken): Net-Journyx-0.12 - Net-Journyx-0.12 - SARTAK
+PASS: Net-Kestrel-0.08 - Net-Kestrel-0.08 - GPHAT
+PASS: Net-LCDproc-0.1.1 - Net-LCDproc-0.1.1 - IOANR
+PASS: Net-LastFM-0.34 - Net-LastFM-0.34 - LBROCARD
+PASS: Net-Lighthouse-0.06 - Net-Lighthouse-0.06 - SUNNAVY
+PASS: Net-LimeLight-Purge-0.03 - Net-LimeLight-Purge-0.03 - GPHAT
+PASS: Net-Magrathea-0.03 - Net-Magrathea-0.03 - GHENRY
+FAIL (TODO: broken): Net-Mollom-0.08 - Net-Mollom-0.08 - WONKO
+PASS: Net-Mosso-CloudFiles-0.44 - Net-Mosso-CloudFiles-0.44 - CKRAS
+PASS: Net-MythTV-0.33 - Net-MythTV-0.33 - LBROCARD
+PASS: Net-MythWeb-0.33 - Net-MythWeb-0.33 - LBROCARD
+WARN: Net-NSCA-Client-0.009002 - Net-NSCA-Client-0.009002 - DOUGDUDE
+PASS: Net-OAuth2-Moosey-Client-0.02 - Net-OAuth2-Moosey-Client-0.02 - RCL
+FAIL (TODO: no tests): Net-OpenStack-Attack-1.0500 - Net-OpenStack-Attack-1.0500 - IRONCAMEL
+PASS: Net-OpenXchange-0.001 - Net-OpenXchange-0.001 - MXEY
+FAIL (TODO: no tests): Net-Ostrich-0.01 - Net-Ostrich-0.01 - GPHAT
+FAIL (TODO: broken): Net-Parliament-0.03 - Net-Parliament-0.03 - LUKEC
+WARN: Net-PingFM-0.6 - Net-PingFM-0.6 - DRAXIL
+FAIL (TODO: broken): Net-Plurk-0.11 - Net-Plurk-0.11 - CLSUNG
+PASS: Net-RabbitFoot-1.03 - Net-RabbitFoot-1.03 - IKUTA
+PASS: Net-RackSpace-CloudServers-0.14 - Net-RackSpace-CloudServers-0.14 - MFONTANI
+PASS: Net-Rackspace-Notes-1.0000 - Net-Rackspace-Notes-1.0000 - IRONCAMEL
+FAIL (TODO: no tests): Net-Recurly-0.001 - Net-Recurly-0.001 - LUKEC
+PASS: Net-Redmine-0.09 - Net-Redmine-0.09 - GUGOD
+WARN: Net-Riak-0.1600 - Net-Riak-0.1600 - RGE
+FAIL (TODO: requires route): Net-Route-v0.02 - Net-Route-v0.02 - TEQUETER
+WARN: Net-SAJAX-0.107 - Net-SAJAX-0.107 - DOUGDUDE
+PASS: Net-SAML2-0.17 - Net-SAML2-0.17 - CHRISA
+PASS: Net-SMS-TxtLocal-0.03 - Net-SMS-TxtLocal-0.03 - EVDB
+WARN: Net-SSH-Mechanize-v0.1.1 - Net-SSH-Mechanize-v0.1.1 - WULEE
+PASS (TODO: broken): Net-SSLeay-OO-0.02 - Net-SSLeay-OO-0.02 - SAMV
+PASS: Net-Songkick-0.04 - Net-Songkick-0.04 - DAVECROSS
+FAIL (TODO: broken): Net-StackExchange-0.102740 - Net-StackExchange-0.102740 - HAGGAI
+PASS: Net-Stomp-MooseHelpers-1.0 - Net-Stomp-MooseHelpers-1.0 - DAKKAR
+PASS: Net-Stomp-Producer-1.001 - Net-Stomp-Producer-1.001 - DAKKAR
+PASS: Net-Stripe-0.07 - Net-Stripe-0.07 - LUKEC
+PASS: Net-SugarCRM-1.15262 - Net-SugarCRM-1.15262 - NITO
+PASS: Net-TextMessage-Canada-0.02 - Net-TextMessage-Canada-0.02 - LUKEC
+PASS: Net-Topsy-0.03 - Net-Topsy-0.03 - LETO
+WARN: Net-Trac-0.16 - Net-Trac-0.16 - SPANG
+WARN: Net-Twitter-3.18002 - Net-Twitter-3.18002 - MMIMS
+PASS: Net-Twitter-Queue-0.2 - Net-Twitter-Queue-0.2 - DINOMITE
+WARN (TODO: requires curl): Net-UpYun-0.001 - Net-UpYun-0.001 - DOGGY
+PASS: Net-WOT-0.02 - Net-WOT-0.02 - XSAWYERX
+PASS (TODO: requires curl): Net-ZooTool-0.0031 - Net-ZooTool-0.0031 - QUELCOM
+PASS: Net-isoHunt-0.102770 - Net-isoHunt-0.102770 - HAGGAI
+FAIL (TODO: NH::Monster::Spoiler is broken): NetHack-Item-0.13 - NetHack-Item-0.13 - SARTAK
+PASS: NetHack-Logfile-1.00 - NetHack-Logfile-1.00 - SARTAK
+PASS: NetHack-Menu-0.06 - NetHack-Menu-0.06 - SOREAR
+FAIL (TODO: broken (MX::CA issues)): NetHack-Monster-Spoiler-0.03 - NetHack-Monster-Spoiler-0.03 - SOREAR
+FAIL (TODO: requires nginx to be installed): Nginx-Control-0.04 - Nginx-Control-0.04 - NACHBAUR
+PASS: Norma-0.02 - Norma-0.02 - DCHESTER
+PASS: Notification-Center-0.0.5 - Notification-Center-0.0.5 - RLB
+WARN: Number-Closest-0.04 - Number-Closest-0.04 - TBONE
+PASS: Number-Phone-NANP-Vanity-0.06 - Number-Phone-NANP-Vanity-0.06 - ROMANF
+FAIL (TODO: Test::Benchmark broken): ODG-Record-0.30 - ODG-Record-0.30 - CTBROWN
+PASS: ONE-v0.2.0 - ONE-v0.2.0 - WINTER
+PASS: OWL-Simple-0.51 - OWL-Simple-0.51 - TOMASZ
+PASS: Object-Deferred-0.001 - Object-Deferred-0.001 - EDENC
+PASS: Olson-Abbreviations-0.02 - Olson-Abbreviations-0.02 - ECARROLL
+FAIL (TODO: no tests): OpenDocument-Template-0.002 - OpenDocument-Template-0.002 - KEEDI
+PASS: OpenID-Login-0.1.0 - OpenID-Login-0.1.0 - REALHOLGI
+PASS: Opsview-REST-0.004 - Opsview-REST-0.004 - MRUIZ
+WARN: Orochi-0.00010 - Orochi-0.00010 - DMAKI
+PASS: Osgood-Client-2.0.7 - Osgood-Client-2.0.7 - GPHAT
+PASS: P2P-Transmission-Remote-0.02 - P2P-Transmission-Remote-0.02 - MIYAGAWA
+PASS: PDF-Boxer-0.004 - PDF-Boxer-0.004 - LECSTOR
+PASS: PDF-FromImage-0.000003 - PDF-FromImage-0.000003 - TYPESTER
+WARN: PDF-WebKit-0.91 - PDF-WebKit-0.91 - PHILIP
+PASS: PGXN-API-v0.16.2 - PGXN-API-v0.16.2 - DWHEELER
+WARN: PJob-0.41 - PJob-0.41 - REDICAPS
+FAIL (TODO: broken): POE-Component-CPAN-Mirror-Multiplexer-0.04 - POE-Component-CPAN-Mirror-Multiplexer-0.04 - BINGOS
+PASS: POE-Component-Client-CouchDB-0.05 - POE-Component-Client-CouchDB-0.05 - FRODWITH
+PASS: POE-Component-Client-HTTPDeferred-0.02 - POE-Component-Client-HTTPDeferred-0.02 - TYPESTER
+WARN: POE-Component-Client-MPD-1.100430 - POE-Component-Client-MPD-1.100430 - JQUELIN
+WARN (TODO: intermittent failures): POE-Component-DirWatch-0.300000 - POE-Component-DirWatch-0.300000 - ARCANEZ
+FAIL (TODO: intermittent failures): POE-Component-DirWatch-Object-0.10 - POE-Component-DirWatch-Object-0.10 - GRODITI
+PASS: POE-Component-Github-0.08 - POE-Component-Github-0.08 - BINGOS
+WARN: POE-Component-IRC-Plugin-Karma-0.003 - POE-Component-IRC-Plugin-Karma-0.003 - APOCAL
+PASS: POE-Component-IRC-Plugin-Role-0.06 - POE-Component-IRC-Plugin-Role-0.06 - BINGOS
+WARN: POE-Component-MessageQueue-0.2.12 - POE-Component-MessageQueue-0.2.12 - DSNOPEK
+PASS: POE-Component-Metabase-Relay-Server-0.24 - POE-Component-Metabase-Relay-Server-0.24 - BINGOS
+FAIL (TODO: broken): POE-Component-ResourcePool-0.04 - POE-Component-ResourcePool-0.04 - NUFFIN
+FAIL (TODO: no tests): POE-Component-Server-MySQL-0.02 - POE-Component-Server-MySQL-0.02 - ERIAM
+FAIL (TODO: broken deps): POE-Component-Server-PSGI-0.6 - POE-Component-Server-PSGI-0.6 - FRODWITH
+WARN: POE-Component-Server-SimpleHTTP-2.14 - POE-Component-Server-SimpleHTTP-2.14 - BINGOS
+PASS: POE-Filter-Hessian-1.00 - POE-Filter-Hessian-1.00 - HEYTRAV
+PASS: POE-Filter-JSON-Incr-0.03 - POE-Filter-JSON-Incr-0.03 - NUFFIN
+PASS: POE-Filter-SimpleHTTP-0.091710 - POE-Filter-SimpleHTTP-0.091710 - NPEREZ
+PASS: POE-Test-Helpers-1.11 - POE-Test-Helpers-1.11 - XSAWYERX
+FAIL (TODO: broken deps): POEx-ProxySession-1.102760 - POEx-ProxySession-1.102760 - NPEREZ
+FAIL (TODO: broken deps): POEx-PubSub-1.102740 - POEx-PubSub-1.102740 - NPEREZ
+FAIL (TODO: broken deps): POEx-WorkerPool-1.102740 - POEx-WorkerPool-1.102740 - NPEREZ
+PASS (TODO: broken): PRANG-0.16 - PRANG-0.16 - MUTANT
+PASS: Package-Locator-0.004 - Package-Locator-0.004 - THALJEF
+WARN: Package-Strictures-0.01001318 - Package-Strictures-0.01001318 - KENTNL
+FAIL (TODO: requires threaded perl): Padre-Plugin-Moose-0.21 - Padre-Plugin-Moose-0.21 - AZAWAWI
+FAIL (TODO: requires threaded perl): Padre-Plugin-PDL-0.05 - Padre-Plugin-PDL-0.05 - AZAWAWI
+FAIL (TODO: requires threaded perl): Padre-Plugin-Snippet-0.01 - Padre-Plugin-Snippet-0.01 - AZAWAWI
+PASS: PagSeguro-Status-0.02 - PagSeguro-Status-0.02 - MANTOVANI
+FAIL (TODO: depends on cave::wrapper): Paludis-UseCleaner-0.01000307 - Paludis-UseCleaner-0.01000307 - KENTNL
+PASS: Parallel-QueueWorker-0.001 - Parallel-QueueWorker-0.001 - DOGGY
+PASS: Parse-CPAN-Packages-2.35 - Parse-CPAN-Packages-2.35 - MITHALDU
+PASS: Parse-CPAN-Ratings-0.33 - Parse-CPAN-Ratings-0.33 - LBROCARD
+PASS: Parse-Constructor-Arguments-0.091570 - Parse-Constructor-Arguments-0.091570 - NPEREZ
+WARN: Parse-FieldPath-0.005 - Parse-FieldPath-0.005 - PBOYD
+PASS: Parse-FixedRecord-0.05 - Parse-FixedRecord-0.05 - DOY
+PASS: Parse-Method-Signatures-1.003014 - Parse-Method-Signatures-1.003014 - ILMARI
+PASS: Parse-PAUSE-1.001 - Parse-PAUSE-1.001 - ATOM
+PASS: Parse-RPM-Spec-0.08 - Parse-RPM-Spec-0.08 - DAVECROSS
+PASS: Parse-Selenese-0.006 - Parse-Selenese-0.006 - TRCJR
+PASS: Parse-StackTrace-0.08 - Parse-StackTrace-0.08 - MKANAT
+PASS: Path-Class-Versioned-0.04 - Path-Class-Versioned-0.04 - STEVAN
+PASS: Path-Dispatcher-1.04 - Path-Dispatcher-1.04 - SARTAK
+PASS: Path-Dispatcher-Declarative-0.03 - Path-Dispatcher-Declarative-0.03 - SARTAK
+PASS: Path-Mapper-0.012 - Path-Mapper-0.012 - ROKR
+PASS: Path-Resolver-3.100452 - Path-Resolver-3.100452 - RJBS
+PASS: Path-Router-0.11 - Path-Router-0.11 - DOY
+PASS: Patterns-ChainOfResponsibility-0.02 - Patterns-ChainOfResponsibility-0.02 - JJNAPIORK
+WARN: Perl-Achievements-0.2.2 - Perl-Achievements-0.2.2 - YANICK
+UNKNOWN: Perl-Dist-Strawberry-BuildPerl-5123-2.5001 (Installing prereqs for Perl-Dist-Strawberry-BuildPerl-5123-2.5001 failed: Installing Perl-Dist-Strawberry-2.5001 for Perl-Dist-Strawberry-BuildPerl-5123-2.5001 failed: Can't execute ./Build install  --install_base /tmp/86dyDvvgRV: No such file or directory at /home/doy/perl5/perlbrew/perls/perl-5.14.2/lib/site_perl/5.14.2/Test/DependentModules.pm line 401.)
+FAIL (TODO: windows only): Perl-Dist-WiX-1.500002 - Perl-Dist-WiX-1.500002 - CSJEWELL
+FAIL (TODO: windows only): Perl-Dist-WiX-BuildPerl-5123-1.500001 - Perl-Dist-WiX-BuildPerl-5123-1.500001 - CSJEWELL
+PASS: Perl-PrereqScanner-1.011 - Perl-PrereqScanner-1.011 - JQUELIN
+WARN: Perl6-Signature-0.03 - Perl6-Signature-0.03 - GAAL
+FAIL (TODO: HTML::Tidy requires tidyp): Perlanet-0.56 - Perlanet-0.56 - DAVECROSS
+FAIL (TODO: proc::processtable doesn't load): Perlbal-Control-0.02 - Perlbal-Control-0.02 - FAYLAND
+FAIL (TODO: hardcodes /usr/bin/perl): Pg-BulkCopy-0.16 - Pg-BulkCopy-0.16 - BRAINBUZ
+PASS: Pg-CLI-0.07 - Pg-CLI-0.07 - DROLSKY
+PASS: Pg-DatabaseManager-0.05 - Pg-DatabaseManager-0.05 - DROLSKY
+WARN: Pinto-0.038 - Pinto-0.038 - THALJEF
+PASS (TODO: broken): Pinto-Common-0.038 - Pinto-Common-0.038 - THALJEF
+PASS: Pinto-Remote-0.039 - Pinto-Remote-0.039 - THALJEF
+FAIL (TODO: deps on pinto::common): Pinto-Server-0.037 - Pinto-Server-0.037 - THALJEF
+PASS: Plack-App-Path-Router-0.05 - Plack-App-Path-Router-0.05 - DOY
+WARN: Plack-Handler-CLI-0.04 - Plack-Handler-CLI-0.04 - GFUJI
+WARN: Plack-Handler-Stomp-1.0 - Plack-Handler-Stomp-1.0 - DAKKAR
+FAIL (TODO: Image::Scale is broken): Plack-Middleware-Image-Scale-0.008 - Plack-Middleware-Image-Scale-0.008 - PNU
+PASS: Plack-Middleware-Throttle-0.01 - Plack-Middleware-Throttle-0.01 - FRANCKC
+PASS: Plone-UserAgent-0.01 - Plone-UserAgent-0.01 - DROLSKY
+PASS: Pod-CYOA-0.001 - Pod-CYOA-0.001 - RJBS
+PASS: Pod-Coverage-Moose-0.04 - Pod-Coverage-Moose-0.04 - MMCLERIC
+PASS: Pod-Elemental-0.102361 - Pod-Elemental-0.102361 - RJBS
+PASS: Pod-Elemental-PerlMunger-0.093331 - Pod-Elemental-PerlMunger-0.093331 - RJBS
+PASS: Pod-Elemental-Transfomer-VimHTML-0.093581 - Pod-Elemental-Transfomer-VimHTML-0.093581 - RJBS
+WARN: Pod-Elemental-Transformer-ExampleRunner-0.002 - Pod-Elemental-Transformer-ExampleRunner-0.002 - FOOLISH
+PASS: Pod-Elemental-Transformer-List-0.101620 - Pod-Elemental-Transformer-List-0.101620 - RJBS
+WARN: Pod-Elemental-Transformer-List-Converter-0.001 - Pod-Elemental-Transformer-List-Converter-0.001 - RSRCHBOY
+PASS: Pod-Elemental-Transformer-SynHi-0.100890 - Pod-Elemental-Transformer-SynHi-0.100890 - RJBS
+PASS: Pod-Elemental-Transformer-WikiDoc-0.093002 - Pod-Elemental-Transformer-WikiDoc-0.093002 - RJBS
+WARN: Pod-HTMLEmbed-0.04 - Pod-HTMLEmbed-0.04 - TYPESTER
+PASS: Pod-Loom-0.05 - Pod-Loom-0.05 - CJM
+PASS: Pod-Parser-Groffmom-0.042 - Pod-Parser-Groffmom-0.042 - OVID
+WARN (TODO: missing dep on Data::Localize): Pod-Parser-I18N-0.00001 - Pod-Parser-I18N-0.00001 - DMAKI
+PASS: Pod-Weaver-3.101635 - Pod-Weaver-3.101635 - RJBS
+PASS: Pod-Weaver-Plugin-Encoding-0.01 - Pod-Weaver-Plugin-Encoding-0.01 - FLORA
+WARN: Pod-Weaver-Plugin-EnsureUniqueSections-0.111220 - Pod-Weaver-Plugin-EnsureUniqueSections-0.111220 - RTHOMPSON
+WARN: Pod-Weaver-Plugin-StopWords-1.004 - Pod-Weaver-Plugin-StopWords-1.004 - RWSTAUNER
+PASS: Pod-Weaver-PluginBundle-ReplaceBoilerplate-1.00 - Pod-Weaver-PluginBundle-ReplaceBoilerplate-1.00 - SGRAHAM
+PASS: Pod-Weaver-Role-SectionReplacer-1.00 - Pod-Weaver-Role-SectionReplacer-1.00 - SGRAHAM
+PASS: Pod-Weaver-Section-Availability-1.20 - Pod-Weaver-Section-Availability-1.20 - DOHERTY
+PASS: Pod-Weaver-Section-BugsAndLimitations-1.20 - Pod-Weaver-Section-BugsAndLimitations-1.20 - DOHERTY
+PASS: Pod-Weaver-Section-BugsRT-0.52 - Pod-Weaver-Section-BugsRT-0.52 - MSCHOUT
+PASS: Pod-Weaver-Section-ClassMopper-1.120100 - Pod-Weaver-Section-ClassMopper-1.120100 - DHOUSTON
+WARN: Pod-Weaver-Section-Collect-FromOther-0.002 - Pod-Weaver-Section-Collect-FromOther-0.002 - RSRCHBOY
+WARN: Pod-Weaver-Section-CollectWithAutoDoc-1.100980 - Pod-Weaver-Section-CollectWithAutoDoc-1.100980 - MARCEL
+FAIL (TODO: no tests): Pod-Weaver-Section-Consumes-0.007 - Pod-Weaver-Section-Consumes-0.007 - FRIEDO
+FAIL (TODO: no tests): Pod-Weaver-Section-Encoding-0.100830 - Pod-Weaver-Section-Encoding-0.100830 - KEEDI
+FAIL (TODO: no tests): Pod-Weaver-Section-Extends-0.008 - Pod-Weaver-Section-Extends-0.008 - FRIEDO
+WARN: Pod-Weaver-Section-Installation-1.101420 - Pod-Weaver-Section-Installation-1.101420 - MARCEL
+WARN: Pod-Weaver-Section-SeeAlso-1.002 - Pod-Weaver-Section-SeeAlso-1.002 - APOCAL
+PASS: Pod-Weaver-Section-SourceGitHub-0.54 - Pod-Weaver-Section-SourceGitHub-0.54 - MSCHOUT
+WARN: Pod-Weaver-Section-Support-1.005 - Pod-Weaver-Section-Support-1.005 - APOCAL
+WARN: Pod-Weaver-Section-WarrantyDisclaimer-0.111290 - Pod-Weaver-Section-WarrantyDisclaimer-0.111290 - RTHOMPSON
+FAIL (TODO: missing dep on Log::Any::Adapter::Log4perl): Poet-0.04 - Poet-0.04 - JSWARTZ
+FAIL (TODO: couldn't find on cpan): PostScript-Barcode - ??? - ???
+PASS: PostScript-Report-0.10 - PostScript-Report-0.10 - CJM
+PASS: PostScript-ScheduleGrid-0.02 - PostScript-ScheduleGrid-0.02 - CJM
+FAIL (TODO: XMLTV doesn't exist): PostScript-ScheduleGrid-XMLTV-0.02 - PostScript-ScheduleGrid-XMLTV-0.02 - CJM
+PASS: PowerDNS-API-Client-0.10 - PowerDNS-API-Client-0.10 - ABH
+PASS: Proc-Class-0.05 - Proc-Class-0.05 - TOKUHIROM
+WARN: Proc-Safetynet-0.04 - Proc-Safetynet-0.04 - DTADY
+PASS: Proc-Supervised-Convenience-1.01 - Proc-Supervised-Convenience-1.01 - RHESA
+WARN: Project-Euler-0.20 - Project-Euler-0.20 - LESPEA
+PASS: Proliphix-0.01 - Proliphix-0.01 - NEBULOUS
+PASS: Prompt-ReadKey-0.03 - Prompt-ReadKey-0.03 - NUFFIN
+FAIL (TODO: depends on term::readline::perl): Prophet-0.750 - Prophet-0.750 - SPANG
+PASS: Prosody-0.007 - Prosody-0.007 - GETTY
+FAIL (TODO: broken): Queue-Leaky-0.01 - Queue-Leaky-0.01 - TAWAN
+WARN: Queue-Q4M-0.00019 - Queue-Q4M-0.00019 - DMAKI
+WARN: Queue-Q4Pg-Lite-0.03 - Queue-Q4Pg-Lite-0.03 - FUJIWARA
+WARN: RDF-Helper-2.0 - RDF-Helper-2.0 - KHAMPTON
+PASS: RDF-Helper-Properties-0.10 - RDF-Helper-Properties-0.10 - KJETILK
+WARN: RDF-LinkedData-0.40 - RDF-LinkedData-0.40 - KJETILK
+FAIL (TODO: "no Moose" unimports confess): RDF-Server-0.08 - RDF-Server-0.08 - JSMITH
+PASS: RDF-Trine-Serializer-SparqlUpdate-0.002 - RDF-Trine-Serializer-SparqlUpdate-0.002 - KBA
+FAIL (TODO: broken): RPC-Any-1.00 - RPC-Any-1.00 - MKANAT
+PASS: RPC-Any-Interface-PSGI-0.03 - RPC-Any-Interface-PSGI-0.03 - SHERWIN
+WARN: RPM-Spec-0.05 - RPM-Spec-0.05 - RSRCHBOY
+PASS: RT-ClientX-GrabBugs-0.001 - RT-ClientX-GrabBugs-0.001 - TOBYINK
+WARN: RTDevSys-0.06 - RTDevSys-0.06 - EXODIST
+WARN: RTSP-Client-0.4 - RTSP-Client-0.4 - REVMISCHA
+WARN: RTSP-Proxy-0.07 - RTSP-Proxy-0.07 - REVMISCHA
+WARN: RTSP-Server-0.06 - RTSP-Server-0.06 - REVMISCHA
+FAIL (TODO: dep on nonexistent dist): Railsish-0.21 - Railsish-0.21 - GUGOD
+FAIL (TODO: no tests): Random-Quantum-0.04 - Random-Quantum-0.04 - EGOR
+WARN (TODO: signatures is broken): Reaction-0.002005 - Reaction-0.002005 - ARCANEZ
+WARN: Redis-Client-0.013 - Redis-Client-0.013 - FRIEDO
+WARN: Redis-Dump-0.016 - Redis-Dump-0.016 - TBR
+WARN: Reflex-0.097 - Reflex-0.097 - RCAPUTO
+PASS: Reflexive-Role-Collective-1.113340 - Reflexive-Role-Collective-1.113340 - NPEREZ
+FAIL (TODO: broken (reflex::role changes?)): Reflexive-Role-DataMover-1.110030 - Reflexive-Role-DataMover-1.110030 - NPEREZ
+FAIL (TODO: broken (reflex::role changes?)): Reflexive-Role-TCPServer-1.110100 - Reflexive-Role-TCPServer-1.110100 - NPEREZ
+FAIL (TODO: broken): Reflexive-Stream-Filtering-1.103450 - Reflexive-Stream-Filtering-1.103450 - NPEREZ
+WARN: Reindeer-0.011 - Reindeer-0.011 - RSRCHBOY
+PASS: Resource-Pack-0.03 - Resource-Pack-0.03 - DOY
+PASS: Resque-0.09 - Resque-0.09 - DIEGOK
+PASS: Retry-0.12 - Retry-0.12 - TJC
+PASS: Role-HasMessage-0.005 - Role-HasMessage-0.005 - RJBS
+PASS: Role-HasPayload-0.005 - Role-HasPayload-0.005 - RJBS
+PASS: Role-Identifiable-0.005 - Role-Identifiable-0.005 - RJBS
+PASS: Role-LibXSLT-Extender-1.101580 - Role-LibXSLT-Extender-1.101580 - KHAMPTON
+PASS: Role-REST-Client-0.05 - Role-REST-Client-0.05 - KAARE
+PASS: Role-REST-Client-Auth-Basic-0.04 - Role-REST-Client-Auth-Basic-0.04 - KAARE
+PASS: Role-Subsystem-0.101340 - Role-Subsystem-0.101340 - RJBS
+WARN: Rose-HTMLx-Form-DBIC-0.08 - Rose-HTMLx-Form-DBIC-0.08 - ZBY
+PASS: Router-Dumb-0.001 - Router-Dumb-0.001 - RJBS
+PASS: Rule-Engine-0.06 - Rule-Engine-0.06 - GPHAT
+WARN: SIOC-v1.0.0 - SIOC-v1.0.0 - GEEWIZ
+PASS: SMS-CPAGateway-0.01 - SMS-CPAGateway-0.01 - ZERODOGG
+PASS: SQL-Abstract-Query-0.03 - SQL-Abstract-Query-0.03 - BLUEFEET
+PASS: SQL-Dialect-0.02 - SQL-Dialect-0.02 - BLUEFEET
+FAIL (TODO: depends on xml::epp): SRS-EPP-Proxy-0.21 - SRS-EPP-Proxy-0.21 - CHILTS
+FAIL (TODO: no tests): STD-20101111 - STD-20101111 - SOREAR
+FAIL (TODO: requires svn): SVN-Simple-Hook-0.312 - SVN-Simple-Hook-0.312 - MJGARDNER
+FAIL (TODO: requires svn): SVN-Tree-0.005 - SVN-Tree-0.005 - MJGARDNER
+FAIL (TODO: has '+attr' in roles): Scene-Graph-0.01 - Scene-Graph-0.01 - GPHAT
+PASS: Schedule-Pluggable-0.0.4 - Schedule-Pluggable-0.0.4 - EDWARDSON
+FAIL (TODO: no tests): SchemaEvolution-0.03 - SchemaEvolution-0.03 - CYCLES
+WARN: Scrappy-0.94112090 - Scrappy-0.94112090 - AWNCORP
+PASS: Script-Remote-0.00001 - Script-Remote-0.00001 - DMAKI
+PASS: Search-GIN-0.08 - Search-GIN-0.08 - DRUOSO
+WARN: Search-GIN-Extract-AttributeIndexes-1.0.1 - Search-GIN-Extract-AttributeIndexes-1.0.1 - KENTNL
+WARN: Search-GIN-Extract-ClassMap-0.01060816 - Search-GIN-Extract-ClassMap-0.01060816 - KENTNL
+PASS: Search-Sitemap-2.13 - Search-Sitemap-2.13 - JASONK
+PASS: SecondLife-DataTypes-0.900 - SecondLife-DataTypes-0.900 - WINTER
+FAIL (TODO: proc::processtable doesn't load): Server-Control-0.17 - Server-Control-0.17 - JSWARTZ
+WARN: Set-Relation-0.12.7 - Set-Relation-0.12.7 - DUNCAND
+PASS: ShardedKV-0.08 - ShardedKV-0.08 - SMUELLER
+PASS: Shell-Amazon-S3-0.041 - Shell-Amazon-S3-0.041 - KITANO
+PASS (TODO: locale::subcountry is broken): Shipment-0.01120790 - Shipment-0.01120790 - BAERGAJ
+WARN: Siebel-Srvrmgr-0.04 - Siebel-Srvrmgr-0.04 - ARFREITAS
+FAIL (TODO: image::magick is broken): Silki-0.29 - Silki-0.29 - DROLSKY
+FAIL (TODO: file::mimeinfo expects (?-xism:): SilkiX-Converter-Kwiki-0.03 - SilkiX-Converter-Kwiki-0.03 - DROLSKY
+FAIL (TODO: requires memcached): SimpleDB-Class-1.0503 - SimpleDB-Class-1.0503 - RIZEN
+PASS: SimpleDB-Client-1.0500 - SimpleDB-Client-1.0500 - RIZEN
+PASS: Simulation-DiscreteEvent-0.09 - Simulation-DiscreteEvent-0.09 - ZWON
+FAIL (TODO: rest::utils is broken): Sloth-0.05 - Sloth-0.05 - CYCLES
+WARN: Smart-Dispatch-0.002 - Smart-Dispatch-0.002 - TOBYINK
+PASS: Software-Release-0.03 - Software-Release-0.03 - GPHAT
+WARN: Spark-Form-0.2102 - Spark-Form-0.2102 - KENTNL
+PASS: Sphinx-Control-0.04 - Sphinx-Control-0.04 - FAYLAND
+FAIL (TODO: couldn't fork server for testing): Sque-0.005 - Sque-0.005 - WWOLF
+FAIL (TODO: broken): String-Blender-0.04 - String-Blender-0.04 - SKORIKOV
+FAIL (TODO: broken): TAEB-0.03 - TAEB-0.03 - SARTAK
+WARN: TAP-Formatter-JUnit-0.09 - TAP-Formatter-JUnit-0.09 - GTERMARS
+WARN: TV-Mediathek-0.03 - TV-Mediathek-0.03 - RCL
+PASS: TV-ProgrammesSchedules-Colors-0.06 - TV-ProgrammesSchedules-Colors-0.06 - MANWAR
+PASS: TV-ProgrammesSchedules-SAB-0.03 - TV-ProgrammesSchedules-SAB-0.03 - MANWAR
+WARN: Table-Simple-0.02 - Table-Simple-0.02 - MALLEN
+FAIL (TODO: Getopt::Alt doesn't exist): Tail-Tool-v0.3.1 - Tail-Tool-v0.3.1 - IVANWILLS
+FAIL (TODO: sys::info::driver::linux is broken): Tapper-CLI-3.000010 - Tapper-CLI-3.000010 - AMD
+FAIL (TODO: sys::info::driver::linux is broken): Tapper-Installer-3.000010 - Tapper-Installer-3.000010 - AMD
+WARN: Tapper-MCP-3.000010 - Tapper-MCP-3.000010 - AMD
+FAIL (TODO: sys::info::driver::linux is broken): Tapper-MCP-MessageReceiver-3.000010 - Tapper-MCP-MessageReceiver-3.000010 - AMD
+WARN: Tapper-PRC-3.000010 - Tapper-PRC-3.000010 - AMD
+PASS: Tapper-Remote-3.000010 - Tapper-Remote-3.000010 - AMD
+FAIL (TODO: sys::info::driver::linux is broken): Tapper-Reports-API-3.000010 - Tapper-Reports-API-3.000010 - AMD
+WARN: Tapper-Reports-Receiver-3.000010 - Tapper-Reports-Receiver-3.000010 - AMD
+WARN: Tapper-TAP-Harness-3.000010 - Tapper-TAP-Harness-3.000010 - AMD
+PASS: Tapper-TestSuite-AutoTest-3.000012 - Tapper-TestSuite-AutoTest-3.000012 - AMD
+FAIL (TODO: sys::info::driver::linux is broken): Tapper-Testplan-3.000010 - Tapper-Testplan-3.000010 - AMD
+PASS: Tatsumaki-0.1013 - Tatsumaki-0.1013 - MIYAGAWA
+PASS (TODO: Tatsumaki::Template isn't installed): Tatsumaki-Template-Markapl-0.3 - Tatsumaki-Template-Markapl-0.3 - GSLIN
+WARN: Template-Caribou-0.1.0 - Template-Caribou-0.1.0 - YANICK
+FAIL (TODO: requires v8): Template-JavaScript-0.01 - Template-JavaScript-0.01 - AVAR
+PASS: Template-Plugin-DateTime-Format-0.02 - Template-Plugin-DateTime-Format-0.02 - JROCKWAY
+FAIL (TODO: weird dep issues (not test::dm related)): Template-Plugin-Heritable-0.05 - Template-Plugin-Heritable-0.05 - SAMV
+PASS: Template-Plugin-JSON-0.06 - Template-Plugin-JSON-0.06 - NUFFIN
+PASS: Template-Reverse-0.007 - Template-Reverse-0.007 - KHS
+PASS: Term-EditorEdit-0.0016 - Term-EditorEdit-0.0016 - ROKR
+PASS: Term-Filter-0.03 - Term-Filter-0.03 - DOY
+PASS: Term-GnuScreen-0.03 - Term-GnuScreen-0.03 - MDOM
+PASS: Term-Spinner-0.01 - Term-Spinner-0.01 - BLBLACK
+PASS: Term-VT102-Incremental-0.05 - Term-VT102-Incremental-0.05 - JASONMAY
+FAIL (TODO: broken): Test-A8N-0.06 - Test-A8N-0.06 - NACHBAUR
+WARN: Test-Able-0.11 - Test-Able-0.11 - JDV
+PASS: Test-Able-Runner-1.001 - Test-Able-Runner-1.001 - HANENKAMP
+PASS: Test-BDD-Cucumber-0.09 - Test-BDD-Cucumber-0.09 - SARGIE
+PASS: Test-Builder-Clutch-0.04 - Test-Builder-Clutch-0.04 - FRASE
+PASS: Test-Builder-Mock-Class-0.0203 - Test-Builder-Mock-Class-0.0203 - DEXTER
+PASS: Test-CleanNamespaces-0.03 - Test-CleanNamespaces-0.03 - FLORA
+PASS: Test-Cukes-0.10 - Test-Cukes-0.10 - GUGOD
+WARN: Test-DBIx-Class-0.32 - Test-DBIx-Class-0.32 - JJNAPIORK
+PASS: Test-DNS-0.13 - Test-DNS-0.13 - XSAWYERX
+FAIL (TODO: configure errors): Test-Daily-0.02 - Test-Daily-0.02 - JKUTEJ
+PASS: Test-Magpie-0.05 - Test-Magpie-0.05 - CYCLES
+PASS: Test-Mock-Class-0.0303 - Test-Mock-Class-0.0303 - DEXTER
+PASS: Test-Mock-LWP-Dispatch-0.03 - Test-Mock-LWP-Dispatch-0.03 - TADAM
+PASS: Test-Moose-MockObjectCompile-0.2.1 - Test-Moose-MockObjectCompile-0.2.1 - ZAPHAR
+WARN: Test-Moose-More-0.009 - Test-Moose-More-0.009 - RSRCHBOY
+PASS: Test-More-Prefix-0.002 - Test-More-Prefix-0.002 - SARGIE
+PASS: Test-Net-RabbitMQ-0.08 - Test-Net-RabbitMQ-0.08 - GPHAT
+FAIL (TODO: broken): Test-Pockito-0.02 - Test-Pockito-0.02 - EXUSSUM
+WARN: Test-Pod-LinkCheck-0.007 - Test-Pod-LinkCheck-0.007 - APOCAL
+PASS: Test-Routine-0.015 - Test-Routine-0.015 - RJBS
+PASS: Test-Run-0.0123 - Test-Run-0.0123 - SHLOMIF
+PASS: Test-Run-CmdLine-0.0123 - Test-Run-CmdLine-0.0123 - SHLOMIF
+PASS: Test-Run-Plugin-AlternateInterpreters-0.0121 - Test-Run-Plugin-AlternateInterpreters-0.0121 - SHLOMIF
+PASS: Test-Run-Plugin-BreakOnFailure-v0.0.1 - Test-Run-Plugin-BreakOnFailure-v0.0.1 - SHLOMIF
+PASS: Test-Run-Plugin-ColorFileVerdicts-0.0122 - Test-Run-Plugin-ColorFileVerdicts-0.0122 - SHLOMIF
+PASS: Test-Run-Plugin-TrimDisplayedFilenames-0.0122 - Test-Run-Plugin-TrimDisplayedFilenames-0.0122 - SHLOMIF
+WARN: Test-StructuredObject-0.01000009 - Test-StructuredObject-0.01000009 - KENTNL
+PASS: Test-Sweet-0.03 - Test-Sweet-0.03 - JROCKWAY
+FAIL (TODO: no tests): Test-System-0.17 - Test-System-0.17 - PFISCHER
+WARN: Test-TempDir-0.05 - Test-TempDir-0.05 - FLORA
+WARN: Test-WWW-Mechanize-Catalyst-0.57 - Test-WWW-Mechanize-Catalyst-0.57 - EDENC
+FAIL (TODO: no tests): Test-WWW-Mechanize-Dancer-0.001 - Test-WWW-Mechanize-Dancer-0.001 - WWOLF
+PASS (TODO: Test::WWW::Selenium needs devel::repl): Test-WWW-Selenium-More-0.09 - Test-WWW-Selenium-More-0.09 - KABLAMO
+WARN: Test-Wrapper-0.2.1 - Test-Wrapper-0.2.1 - YANICK
+PASS: Text-ASCIITable-TW-0.04 - Text-ASCIITable-TW-0.04 - ALEC
+PASS: Text-CSV-Auto-0.06 - Text-CSV-Auto-0.06 - BLUEFEET
+PASS: Text-CSV-Auto-ExportTo-MySQL-0.02 - Text-CSV-Auto-ExportTo-MySQL-0.02 - BLUEFEET
+FAIL (TODO: broken): Text-Clevery-0.0004 - Text-Clevery-0.0004 - GFUJI
+PASS: Text-Clip-0.0014 - Text-Clip-0.0014 - ROKR
+WARN: Text-Flow-0.01 - Text-Flow-0.01 - STEVAN
+WARN: Text-Format-Interview-0.03 - Text-Format-Interview-0.03 - ZARQUON
+WARN: Text-FromAny-0.21 - Text-FromAny-0.21 - ZERODOGG
+PASS: Text-Karma-0.05 - Text-Karma-0.05 - HINRIK
+WARN: Text-Padding-1.110170 - Text-Padding-1.110170 - JQUELIN
+WARN: Text-Password-Pronounceable-Harden-0.01 - Text-Password-Pronounceable-Harden-0.01 - MDOM
+PASS: Text-Phonetic-2.03 - Text-Phonetic-2.03 - MAROS
+PASS: Text-SimpleTable-AutoWidth-0.04 - Text-SimpleTable-AutoWidth-0.04 - CUB
+PASS: Text-Split-0.0013 - Text-Split-0.0013 - ROKR
+PASS: Text-SuDocs-0.014 - Text-SuDocs-0.014 - CFOUTS
+PASS: Text-TEI-Collate-2.1 - Text-TEI-Collate-2.1 - AURUM
+PASS: Text-TOC-0.08 - Text-TOC-0.08 - DROLSKY
+FAIL (TODO: Bio::Phylo::IO isn't installed): Text-Tradition-0.3 - Text-Tradition-0.3 - AURUM
+PASS: Text-UnicodeBox-0.01 - Text-UnicodeBox-0.01 - EWATERS
+WARN: Text-Xslate-1.5009 - Text-Xslate-1.5009 - GFUJI
+PASS: Text-Zilla-0.003 - Text-Zilla-0.003 - GETTY
+PASS (TODO: requires DBI::Pg ?): TheSchwartz-Moosified-0.06 - TheSchwartz-Moosified-0.06 - STASH
+FAIL (TODO: depends on Hobocamp): Thorium-0.510 - Thorium-0.510 - AFLOTT
+PASS: Throwable-0.102080 - Throwable-0.102080 - RJBS
+PASS: Throwable-X-0.006 - Throwable-X-0.006 - RJBS
+PASS: Tk-Action-1.093390 - Tk-Action-1.093390 - JQUELIN
+WARN: Tk-Role-HasWidgets-1.112380 - Tk-Role-HasWidgets-1.112380 - JQUELIN
+PASS: Transmission-Client-0.0602 - Transmission-Client-0.0602 - JHTHORSEN
+WARN: Tree-Path-Class-0.005 - Tree-Path-Class-0.005 - MJGARDNER
+PASS: Tree-Transform-XSLTish-0.3 - Tree-Transform-XSLTish-0.3 - DAKKAR
+PASS: Treex-Core-0.08663 - Treex-Core-0.08663 - TKR
+PASS: Treex-EN-0.08171 - Treex-EN-0.08171 - TKR
+PASS: Treex-Parser-MSTperl-0.08268 - Treex-Parser-MSTperl-0.08268 - RUR
+PASS: Treex-Unilang-0.08170 - Treex-Unilang-0.08170 - TKR
+PASS: TryCatch-1.003000 - TryCatch-1.003000 - ASH
+FAIL (TODO: broken): TryCatch-Error-0.01 - TryCatch-Error-0.01 - PFIG
+PASS: URI-Platonic-0.03 - URI-Platonic-0.03 - MASAKI
+PASS: URI-SmartURI-0.031 - URI-SmartURI-0.031 - RKITOVER
+PASS: URI-http-Dump-0.03 - URI-http-Dump-0.03 - ECARROLL
+WARN: VANAMBURG-SEMPROG-SimpleGraph-0.010 - VANAMBURG-SEMPROG-SimpleGraph-0.010 - VANAMBURG
+WARN: VCI-0.7.1 - VCI-0.7.1 - MKANAT
+PASS: VendorAPI-2Checkout-Client-0.1502 - VendorAPI-2Checkout-Client-0.1502 - LENJAFFE
+FAIL (TODO: deps on poe::component::resourcepool): Verby-0.05 - Verby-0.05 - NUFFIN
+WARN: Versionify-Dispatch-v0.2.4 - Versionify-Dispatch-v0.2.4 - CEBJYRE
+PASS: Vim-Debug-0.9 - Vim-Debug-0.9 - KABLAMO
+PASS: Voldemort-0.11 - Voldemort-0.11 - EXUSSUM
+PASS: WSDL-Compile-0.03 - WSDL-Compile-0.03 - AJGB
+PASS: WWW-3Taps-API-0.06 - WWW-3Taps-API-0.06 - EDENC
+PASS: WWW-AdventCalendar-1.108 - WWW-AdventCalendar-1.108 - RJBS
+PASS: WWW-AtMovies-0.03 - WWW-AtMovies-0.03 - ALEC
+PASS: WWW-AtMovies-TV-0.04 - WWW-AtMovies-TV-0.04 - ALEC
+WARN: WWW-Comix-0.1.1 - WWW-Comix-0.1.1 - POLETTIX
+PASS (TODO: depends on curl): WWW-Contact-0.47 - WWW-Contact-0.47 - FAYLAND
+PASS (TODO: requires curl): WWW-Curl-Simple-0.100185 - WWW-Curl-Simple-0.100185 - ANDREMAR
+FAIL (TODO: broken): WWW-DataWiki-0.001 - WWW-DataWiki-0.001 - TOBYINK
+WARN: WWW-DaysOfWonder-Memoir44-2.120510 - WWW-DaysOfWonder-Memoir44-2.120510 - JQUELIN
+PASS: WWW-EFA-0.04 - WWW-EFA-0.04 - RCL
+FAIL (TODO: broken): WWW-FMyLife-0.15 - WWW-FMyLife-0.15 - XSAWYERX
+FAIL (TODO: bad dist): WWW-Fandango-0.0.1.1 - WWW-Fandango-0.0.1.1 - DAMOG
+PASS: WWW-Formspring-0.03 - WWW-Formspring-0.03 - WORR
+PASS: WWW-FreshMeat-API-0.03 - WWW-FreshMeat-API-0.03 - DRAEGTUN
+WARN: WWW-Getsy-0.999005 - WWW-Getsy-0.999005 - JGOULAH
+PASS: WWW-GitHub-Gist-0.13 - WWW-GitHub-Gist-0.13 - ALEXBIO
+PASS: WWW-Google-APIDiscovery-0.05 - WWW-Google-APIDiscovery-0.05 - MANWAR
+PASS: WWW-Google-Contacts-0.34 - WWW-Google-Contacts-0.34 - MERIXZON
+PASS: WWW-Google-CustomSearch-0.05 - WWW-Google-CustomSearch-0.05 - MANWAR
+PASS: WWW-Google-Docs-Upload-0.02 - WWW-Google-Docs-Upload-0.02 - TYPESTER
+PASS: WWW-Google-Moderator-0.03 - WWW-Google-Moderator-0.03 - MANWAR
+PASS: WWW-Google-PageSpeedOnline-0.08 - WWW-Google-PageSpeedOnline-0.08 - MANWAR
+PASS: WWW-Google-Places-0.04 - WWW-Google-Places-0.04 - MANWAR
+PASS: WWW-LogicBoxes-0.0.4 - WWW-LogicBoxes-0.0.4 - DRZIGMAN
+PASS: WWW-Mailchimp-0.004 - WWW-Mailchimp-0.004 - ARCANEZ
+PASS: WWW-Mechanize-Boilerplate-0.03 - WWW-Mechanize-Boilerplate-0.03 - SARGIE
+FAIL (TODO: tries to read from wrong build dir?): WWW-Mechanize-Cached-1.40 - WWW-Mechanize-Cached-1.40 - OALDERS
+PASS (TODO: couldn't find on cpan): WWW-Mechanize-Query-0.01 - WWW-Mechanize-Query-0.01 - SUPERASN
+PASS: WWW-Mechanize-TreeBuilder-1.10003 - WWW-Mechanize-TreeBuilder-1.10003 - ASH
+FAIL (TODO: no tests): WWW-MenuGrinder-0.06 - WWW-MenuGrinder-0.06 - ARODLAND
+FAIL (TODO: Cache is broken): WWW-Metalgate-0.04 - WWW-Metalgate-0.04 - BOKUTIN
+PASS: WWW-Mixcloud-0.01 - WWW-Mixcloud-0.01 - AJCT
+PASS: WWW-NOS-Open-0.02 - WWW-NOS-Open-0.02 - IPENBURG
+PASS: WWW-NewsReach-0.06 - WWW-NewsReach-0.06 - AJCT
+PASS: WWW-NicoVideo-Download-0.06 - WWW-NicoVideo-Download-0.06 - MIYAGAWA
+PASS: WWW-NioTV-v0.04 - WWW-NioTV-v0.04 - ALEC
+PASS: WWW-PivotalTracker-0.17 - WWW-PivotalTracker-0.17 - JHELWIG
+PASS: WWW-ProximoBus-0.01 - WWW-ProximoBus-0.01 - KIMBREL
+PASS: WWW-SEOmoz-0.01 - WWW-SEOmoz-0.01 - AJCT
+PASS: WWW-SchneierFacts-0.02 - WWW-SchneierFacts-0.02 - NUFFIN
+FAIL (TODO: pod::coverage fail): WWW-Scramble-0.04 - WWW-Scramble-0.04 - CLSUNG
+PASS: WWW-Scraper-Typo3-1.01 - WWW-Scraper-Typo3-1.01 - RSAVAGE
+PASS: WWW-SearchWikipedia-0.02 - WWW-SearchWikipedia-0.02 - MANWAR
+PASS: WWW-Sitemap-XML-1.121160 - WWW-Sitemap-XML-1.121160 - AJGB
+PASS (TODO: broken): WWW-Sitemapper-1.121160 - WWW-Sitemapper-1.121160 - AJGB
+FAIL (TODO: time::sofar is broken): WWW-StaticBlog-0.02 - WWW-StaticBlog-0.02 - JHELWIG
+PASS: WWW-TubeUpdates-0.02 - WWW-TubeUpdates-0.02 - MANWAR
+PASS: WWW-Twitpic-0.02 - WWW-Twitpic-0.02 - DIEGOK
+PASS: WWW-Twitpic-Fetch-0.07 - WWW-Twitpic-Fetch-0.07 - TURUGINA
+PASS: WWW-TypePad-0.4002 - WWW-TypePad-0.4002 - SAYMEDIA
+WARN: WWW-USF-Directory-0.003001 - WWW-USF-Directory-0.003001 - DOUGDUDE
+WARN: WWW-USF-WebAuth-0.003001 - WWW-USF-WebAuth-0.003001 - DOUGDUDE
+PASS: WWW-Veoh-Download-0.01 - WWW-Veoh-Download-0.01 - YUSUKEBE
+PASS: WWW-Vimeo-Simple-0.11 - WWW-Vimeo-Simple-0.11 - ALEXBIO
+PASS: WWW-Wave-Sniff-0.1 - WWW-Wave-Sniff-0.1 - DRAXIL
+FAIL (TODO: missing configure_req on EU::PkgConfig): WWW-WebKit-0.01 - WWW-WebKit-0.01 - NINE
+WARN: WWW-Wookie-0.03 - WWW-Wookie-0.03 - IPENBURG
+FAIL (TODO: no tests): WWW-WuFoo-0.002 - WWW-WuFoo-0.002 - PLYTLE
+PASS: WWW-Wunderground-API-0.03 - WWW-Wunderground-API-0.03 - NEBULOUS
+FAIL (TODO: broken): WWW-Yahoo-Lyrics-JP-0.02 - WWW-Yahoo-Lyrics-JP-0.02 - YUSUKEBE
+PASS: Weather-Bug-0.25 - Weather-Bug-0.25 - GWADEJ
+FAIL (TODO: missing dep on Mojo::DOM): Weather-TW-0.500002 - Weather-TW-0.500002 - DRYMAN
+PASS: Weather-Underground-Forecast-0.07 - Weather-Underground-Forecast-0.07 - MATEU
+PASS: Weather-WWO-0.04 - Weather-WWO-0.04 - MATEU
+FAIL (TODO: broken): Web-API-Mapper-0.04 - Web-API-Mapper-0.04 - CORNELIUS
+PASS: Web-Atom-0.1.0 - Web-Atom-0.1.0 - GSLIN
+PASS: Web-oEmbed-0.04 - Web-oEmbed-0.04 - MIYAGAWA
+FAIL (TODO: broken): WebNano-Controller-CRUD-0.005 - WebNano-Controller-CRUD-0.005 - ZBY
+PASS: WebService-8tracks-0.01 - WebService-8tracks-0.01 - MOTEMEN
+PASS: WebService-Blogger-0.14 - WebService-Blogger-0.14 - EGORSH
+FAIL (TODO: no tests): WebService-Buxfer-0.01 - WebService-Buxfer-0.01 - NHEINRIC
+PASS: WebService-Cath-FuncNet-0.11 - WebService-Cath-FuncNet-0.11 - ISILLITOE
+PASS: WebService-CityGrid-Search-0.04 - WebService-CityGrid-Search-0.04 - PHRED
+FAIL (TODO: no tests): WebService-CloudFlare-Host-000100 - WebService-CloudFlare-Host-000100 - SYMKAT
+PASS: WebService-Edgecast-0.01.00 - WebService-Edgecast-0.01.00 - JCONERLY
+PASS: WebService-Embedly-0.06 - WebService-Embedly-0.06 - JWIELAND
+PASS: WebService-FuncNet-Predictor-0.11 - WebService-FuncNet-Predictor-0.11 - ISILLITOE
+PASS: WebService-GlucoseBuddy-1.113540 - WebService-GlucoseBuddy-1.113540 - CUBABIT
+PASS: WebService-Google-Closure-0.10 - WebService-Google-Closure-0.10 - MERIXZON
+PASS: WebService-KoreanSpeller-0.009 - WebService-KoreanSpeller-0.009 - AERO
+PASS: WebService-LOC-CongRec-0.4 - WebService-LOC-CongRec-0.4 - DINOMITE
+WARN: WebService-MyGengo-0.012 - WebService-MyGengo-0.012 - NHEINRIC
+PASS: WebService-Rackspace-CloudFiles-1.04 - WebService-Rackspace-CloudFiles-1.04 - CKRAS
+PASS: WebService-SOS-0.01 - WebService-SOS-0.01 - JDAVIS
+WARN: WebService-ScormCloud-0.03 - WebService-ScormCloud-0.03 - LARRYL
+PASS (TODO: requires curl): WebService-SendGrid-1.02 - WebService-SendGrid-1.02 - JLLOYD
+PASS: WebService-Simplenote-0.1.1 - WebService-Simplenote-0.1.1 - IOANR
+PASS: WebService-SlimTimer-0.005 - WebService-SlimTimer-0.005 - VADZ
+PASS: WebService-Solr-0.17 - WebService-Solr-0.17 - BRICAS
+PASS: WebService-Strava-0.01 - WebService-Strava-0.01 - PHRED
+PASS (TODO: requires curl): WebService-Tesco-API-1.110230 - WebService-Tesco-API-1.110230 - WBASSON
+PASS: WebService-Tumblr-0.0010 - WebService-Tumblr-0.0010 - ROKR
+WARN: WebService-Uptrack-v0.0.2 - WebService-Uptrack-v0.0.2 - SHUFF
+PASS: WebService-VaultPress-Partner-0.05 - WebService-VaultPress-Partner-0.05 - SYMKAT
+PASS: WebService-Yahoo-BOSS-0.07 - WebService-Yahoo-BOSS-0.07 - PHRED
+FAIL (TODO: broken): WebService-Yes24-0.100980 - WebService-Yes24-0.100980 - KEEDI
+PASS: WebService-Zoopla-API-0.001 - WebService-Zoopla-API-0.001 - WBASSON
+PASS: Webservice-InterMine-0.9913 - Webservice-InterMine-0.9913 - INTERMINE
+PASS: Webservice-InterMine-Bio-0.9900 - Webservice-InterMine-Bio-0.9900 - INTERMINE
+FAIL (TODO: broken): WiX3-0.011 - WiX3-0.011 - CSJEWELL
+PASS: Workflow-Lite-0.06 - Workflow-Lite-0.06 - PRAVUS
+WARN: X11-Terminal-0.4 - X11-Terminal-0.4 - EGILES
+FAIL (TODO: undeclared deps): XIRCD-0.0.1 - XIRCD-0.0.1 - MIKIHOSHI
+WARN: XML-Ant-BuildFile-0.215 - XML-Ant-BuildFile-0.215 - MJGARDNER
+WARN: XML-Assert-0.03 - XML-Assert-0.03 - CHILTS
+WARN: XML-Compare-0.04 - XML-Compare-0.04 - CHILTS
+FAIL (TODO: coerce without coercion): XML-EPP-0.04 - XML-EPP-0.04 - EGILES
+PASS: XML-Feed-Aggregator-0.0401 - XML-Feed-Aggregator-0.0401 - RGE
+PASS: XML-Feed-Deduper-0.05 - XML-Feed-Deduper-0.05 - TOKUHIROM
+WARN: XML-Grammar-Fiction-v0.8.0 - XML-Grammar-Fiction-v0.8.0 - SHLOMIF
+PASS: XML-LibXSLT-Easy-0.03 - XML-LibXSLT-Easy-0.03 - NUFFIN
+WARN: XML-Rabbit-0.1.1 - XML-Rabbit-0.1.1 - ROBINS
+FAIL (TODO: deps on prang): XML-SRS-0.09 - XML-SRS-0.09 - MUTANT
+PASS: XML-Schematron-1.09 - XML-Schematron-1.09 - KHAMPTON
+PASS: XML-Toolkit-0.15 - XML-Toolkit-0.15 - PERIGRIN
+WARN (TODO: broken tests): XML-Writer-Compiler-1.112060 - XML-Writer-Compiler-1.112060 - TBONE
+PASS: XML-Writer-Nest-1.0 - XML-Writer-Nest-1.0 - TBONE
+PASS: XML-XBMC-0.01 - XML-XBMC-0.01 - SAMV
+WARN: XML-XSS-0.3.1 - XML-XSS-0.3.1 - YANICK
+WARN: XS-Writer-0.02 - XS-Writer-0.02 - MSCHWERN
+PASS: YUI-Loader-0.071 - YUI-Loader-0.071 - ROKR
+WARN: YUM-RepoQuery-0.002 - YUM-RepoQuery-0.002 - RSRCHBOY
+PASS: Yahoo-Answers-0.02 - Yahoo-Answers-0.02 - MANTOVANI
+PASS: YellowBot-API-0.96 - YellowBot-API-0.96 - ABH
+FAIL (TODO: git::repository is broken): Yukki-0.112770 - Yukki-0.112770 - HANENKAMP
+FAIL (TODO: requires zmq): ZMQ-Declare-0.02 - ZMQ-Declare-0.02 - SMUELLER
+PASS: Zabbix-Sender-0.02 - Zabbix-Sender-0.02 - TEX
+PASS: Zenoss-1.11 - Zenoss-1.11 - PATBAKER
+FAIL (TODO: requires zmq): ZeroMQ-PubSub-0.08 - ZeroMQ-PubSub-0.08 - REVMISCHA
+PASS: iPod-Squish-0.02 - iPod-Squish-0.02 - NUFFIN
+WARN: jQuery-Loader-0.03 - jQuery-Loader-0.03 - RKRIMEN
+PASS (TODO: broken (only sometimes?)): marc-moose-0.026 - marc-moose-0.026 - FREDERICD
+FAIL (TODO: http::engine broken): mobirc-1.07 - mobirc-1.07 - TOKUHIROM
+PASS: namespace-alias-0.02 - namespace-alias-0.02 - FLORA
+PASS: namespace-autoclean-0.13 - namespace-autoclean-0.13 - BOBTFISH
+PASS: namespace-sweep-0.003 - namespace-sweep-0.003 - FRIEDO
+WARN: nextgen-0.06 - nextgen-0.06 - ECARROLL
+PASS: smokebrew-0.36 - smokebrew-0.36 - BINGOS
+PASS: v6-0.044 - v6-0.044 - FGLOCK

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exporter::VERSION = '2.0600';
+  $Moose::Exporter::VERSION = '2.0601';
 }
 
 use strict;
@@ -176,7 +176,7 @@ sub _make_exporter {
             $seen->{$package} = 1;
         }
 
-        return @also, map { _follow_also_real($_) } @also;
+        return map { $_, _follow_also_real($_) } @also;
     }
 }
 
@@ -765,7 +765,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.0600
+version 2.0601
 
 =head1 SYNOPSIS
 
