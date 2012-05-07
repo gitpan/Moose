@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exporter::VERSION = '2.0601';
+  $Moose::Exporter::VERSION = '2.0602';
 }
 
 use strict;
@@ -743,7 +743,11 @@ sub _make_init_meta {
 
     return unless %new_style_roles || %old_style_roles || %base_class_roles;
 
-    return sub { };
+    return sub {
+        shift;
+        my %opts = @_;
+        $meta_lookup->($opts{for_class});
+    };
 }
 
 sub import {
@@ -765,7 +769,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.0601
+version 2.0602
 
 =head1 SYNOPSIS
 

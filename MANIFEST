@@ -686,9 +686,6 @@ t/type_constraints/util_type_coercion.t
 t/type_constraints/util_type_constraints.t
 t/type_constraints/util_type_constraints_export.t
 t/type_constraints/util_type_reloading.t
-test-mydeps-14263-error.log
-test-mydeps-14263-prereq.log
-test-mydeps-14263-status.log
 xs/Attribute.xs
 xs/AttributeCore.xs
 xs/Class.xs

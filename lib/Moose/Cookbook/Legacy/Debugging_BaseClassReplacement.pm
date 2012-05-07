@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Cookbook::Legacy::Debugging_BaseClassReplacement::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Cookbook::Legacy::Debugging_BaseClassReplacement::VERSION = '2.0601';
+  $Moose::Cookbook::Legacy::Debugging_BaseClassReplacement::VERSION = '2.0602';
 }
 
 # ABSTRACT: Providing an alternate base object class
@@ -22,7 +22,7 @@ Moose::Cookbook::Legacy::Debugging_BaseClassReplacement - Providing an alternate
 
 =head1 VERSION
 
-version 2.0601
+version 2.0602
 
 =head1 SYNOPSIS
 

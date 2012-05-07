@@ -4,7 +4,7 @@ BEGIN {
   $metaclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $metaclass::VERSION = '2.0601';
+  $metaclass::VERSION = '2.0602';
 }
 
 use strict;
@@ -64,7 +64,7 @@ metaclass - a pragma for installing and using Class::MOP metaclasses
 
 =head1 VERSION
 
-version 2.0601
+version 2.0602
 
 =head1 SYNOPSIS
 
