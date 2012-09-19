@@ -314,9 +314,6 @@ t/attributes/no_slot_access.t
 t/attributes/non_alpha_attr_names.t
 t/attributes/numeric_defaults.t
 t/attributes/trigger_and_coerce.t
-t/author-debugger-duck_type.t
-t/author-memory_leaks.t
-t/author-test-my-dependents.t
 t/basics/always_strict_warnings.t
 t/basics/basic_class_setup.t
 t/basics/buildargs.t
@@ -581,11 +578,6 @@ t/recipes/meta_privateorpublic_methodmetaclass.t
 t/recipes/meta_table_metaclasstrait.t
 t/recipes/roles_applicationtoinstance.t
 t/recipes/roles_comparable_codereuse.t
-t/release-eol.t
-t/release-no-tabs.t
-t/release-pod-coverage.t
-t/release-pod-spell.t
-t/release-pod-syntax.t
 t/roles/anonymous_roles.t
 t/roles/application_toclass.t
 t/roles/apply_role.t
@@ -700,3 +692,11 @@ xs/Moose.xs
 xs/Overload.xs
 xs/Package.xs
 xs/typemap
+xt/author/debugger-duck_type.t
+xt/author/memory_leaks.t
+xt/author/test-my-dependents.t
+xt/release/eol.t
+xt/release/no-tabs.t
+xt/release/pod-coverage.t
+xt/release/pod-spell.t
+xt/release/pod-syntax.t
