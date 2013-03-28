@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0604';
+  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.0800';
 }
 use Moose::Role;
 
@@ -18,7 +18,7 @@ no Moose::Role;
 
 # ABSTRACT: Helper trait for ArrayRef attributes
 
-
+__END__
 
 =pod
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Array - Helper trait for ArrayRef attribu
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 SYNOPSIS
 
@@ -308,9 +308,11 @@ This method accepts one or two arguments.
 =item * B<natatime($n, $code)>
 
 This method returns an iterator which, on each call, returns C<$n> more items
-from the array, in order, like C<natatime> from L<List::MoreUtils>. A coderef
-can optionally be provided; it will be called on each group of C<$n> elements
-in the array.
+from the array, in order, like C<natatime> from L<List::MoreUtils>.
+
+If you pass a coderef as the second argument, then this code ref will be
+called on each group of C<$n> elements in the array until the array is
+exhausted.
 
 This method accepts one or two arguments.
 
@@ -333,13 +335,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

@@ -1,6 +1,24 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0800 Wed, Mar 27, 2013
+
+  [ENHANCEMENTS]
+
+  * The super() subroutine now carps if you pass it arguments. These arguments
+    are always ignored, but we used to ignore them silently. RT #77383.
+
+  * Roles can now override methods from other roles they consume directly,
+    without needing to manually exclude them (just like classes can). (mst)
+
+  [BUG FIXES]
+
+  * Fix false positive when checking for circular references for modules that
+    use the "also" parameter with Moose::Exporter. Reported by Jon
+    Swartz. Fixed by Matthew Wickline. RT #63818.
+
+  * Fix memory leak in type unions. (Karen Etheridge) RT#83929.
+
 2.0604 Wed, Sep 19, 2012
 
   [BUG FIXES]

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Role::VERSION = '2.0604';
+  $Moose::Role::VERSION = '2.0800';
 }
 use strict;
 use warnings;
@@ -45,7 +45,10 @@ sub has {
     my $meta = shift;
     my $name = shift;
     croak 'Usage: has \'name\' => ( key => value, ... )' if @_ == 1;
-    my %options = ( definition_context => Moose::Util::_caller_info(), @_ );
+    my %context = Moose::Util::_caller_info;
+    $context{context} = 'has declaration';
+    $context{type} = 'role';
+    my %options = ( definition_context => \%context, @_ );
     my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
     $meta->add_attribute( $_, %options ) for @$attrs;
 }
@@ -159,7 +162,7 @@ sub init_meta {
 
 # ABSTRACT: The Moose Role
 
-
+__END__
 
 =pod
 
@@ -169,7 +172,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 SYNOPSIS
 
@@ -317,13 +320,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

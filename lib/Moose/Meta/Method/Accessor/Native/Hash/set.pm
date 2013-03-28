@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::set::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.0604';
+  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.0800';
 }
 
 use strict;
@@ -14,19 +14,7 @@ use Scalar::Util qw( looks_like_number );
 
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Hash::Writer' => {
-    -excludes => [
-        qw(
-            _minimum_arguments
-            _maximum_arguments
-            _inline_process_arguments
-            _inline_check_arguments
-            _inline_coerce_new_values
-            _inline_optimized_set_new_value
-            _return_value
-            )
-    ],
-};
+with 'Moose::Meta::Method::Accessor::Native::Hash::Writer';
 
 sub _minimum_arguments { 2 }
 

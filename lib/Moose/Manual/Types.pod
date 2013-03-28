@@ -2,7 +2,7 @@ package Moose::Manual::Types;
 
 # ABSTRACT: Moose's type system
 
-
+__END__
 
 =pod
 
@@ -12,7 +12,7 @@ Moose::Manual::Types - Moose's type system
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 TYPES IN PERL?
 
@@ -42,26 +42,26 @@ data, and it also contributes greatly to code maintainability.
 The basic Moose type hierarchy looks like this
 
   Any
-  Item
-      Bool
-      Maybe[`a]
-      Undef
-      Defined
-          Value
-              Str
-                  Num
-                      Int
-                  ClassName
-                  RoleName
-          Ref
-              ScalarRef[`a]
-              ArrayRef[`a]
-              HashRef[`a]
-              CodeRef
-              RegexpRef
-              GlobRef
+      Item
+          Bool
+          Maybe[`a]
+          Undef
+          Defined
+              Value
+                  Str
+                      Num
+                          Int
+                      ClassName
+                      RoleName
+              Ref
+                  ScalarRef[`a]
+                  ArrayRef[`a]
+                  HashRef[`a]
+                  CodeRef
+                  RegexpRef
+                  GlobRef
                   FileHandle
-              Object
+                  Object
 
 In practice, the only difference between C<Any> and C<Item> is
 conceptual. C<Item> is used as the top-level type in the hierarchy.
@@ -438,13 +438,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

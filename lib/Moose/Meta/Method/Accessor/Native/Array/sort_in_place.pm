@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::VERSION = '2.0604';
+  $Moose::Meta::Method::Accessor::Native::Array::sort_in_place::VERSION = '2.0800';
 }
 
 use strict;
@@ -13,15 +13,7 @@ use Params::Util ();
 
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Array::Writer' => {
-    -excludes => [
-        qw(
-            _maximum_arguments
-            _inline_check_arguments
-            _return_value
-            )
-    ]
-};
+with 'Moose::Meta::Method::Accessor::Native::Array::Writer';
 
 sub _maximum_arguments { 1 }
 

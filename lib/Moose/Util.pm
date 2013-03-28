@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::VERSION = '2.0604';
+  $Moose::Util::VERSION = '2.0800';
 }
 
 use strict;
@@ -285,7 +285,7 @@ sub _caller_info {
     my $level = @_ ? ($_[0] + 1) : 2;
     my %info;
     @info{qw(package file line)} = caller($level);
-    return \%info;
+    return %info;
 }
 
 sub _create_alias {
@@ -480,7 +480,7 @@ sub _is_role_only_subclass {
 
 # ABSTRACT: Utilities for working with Moose classes
 
-
+__END__
 
 =pod
 
@@ -490,7 +490,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 SYNOPSIS
 
@@ -624,14 +624,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
-

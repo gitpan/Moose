@@ -3,7 +3,7 @@ BEGIN {
   $Test::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Test::Moose::VERSION = '2.0604';
+  $Test::Moose::VERSION = '2.0800';
 }
 
 use strict;
@@ -88,7 +88,7 @@ sub with_immutable (&@) {
 
 # ABSTRACT: Test functions for Moose specific features
 
-
+__END__
 
 =pod
 
@@ -98,7 +98,7 @@ Test::Moose - Test functions for Moose specific features
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 SYNOPSIS
 
@@ -179,14 +179,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
-

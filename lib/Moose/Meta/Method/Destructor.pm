@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Destructor::VERSION = '2.0604';
+  $Moose::Meta::Method::Destructor::VERSION = '2.0800';
 }
 
 use strict;
@@ -87,7 +87,6 @@ sub _initialize_body {
             'my $self = shift;',
             'return ' . $self->_generate_fallback_destructor('$self'),
                 'if Scalar::Util::blessed($self) ne \'' . $class . '\';',
-            'local $?;',
             $self->_generate_DEMOLISHALL('$self'),
             'return;',
         '}',
@@ -124,6 +123,7 @@ sub _generate_DEMOLISHALL {
     return unless @methods;
 
     return (
+        'local $?;',
         'my $igd = Devel::GlobalDestruction::in_global_destruction;',
         'Try::Tiny::try {',
             (map { $inv . '->' . $_->{class} . '::DEMOLISH($igd);' } @methods),
@@ -139,7 +139,7 @@ sub _generate_DEMOLISHALL {
 
 # ABSTRACT: Method Meta Object for destructors
 
-
+__END__
 
 =pod
 
@@ -149,7 +149,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -209,14 +209,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
-

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::splice::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.0604';
+  $Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.0800';
 }
 
 use strict;
@@ -11,17 +11,7 @@ use warnings;
 
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Array::Writer' => {
-    -excludes => [
-        qw(
-            _minimum_arguments
-            _inline_process_arguments
-            _inline_check_arguments
-            _inline_optimized_set_new_value
-            _return_value
-            )
-    ]
-};
+with 'Moose::Meta::Method::Accessor::Native::Array::Writer';
 
 sub _minimum_arguments { 1 }
 

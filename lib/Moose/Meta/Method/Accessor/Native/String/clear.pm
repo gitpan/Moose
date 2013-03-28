@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::clear::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::String::clear::VERSION = '2.0604';
+  $Moose::Meta::Method::Accessor::Native::String::clear::VERSION = '2.0800';
 }
 
 use strict;
@@ -11,14 +11,7 @@ use warnings;
 
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Writer' => {
-    -excludes => [
-        qw(
-            _maximum_arguments
-            _inline_optimized_set_new_value
-            )
-    ]
-};
+with 'Moose::Meta::Method::Accessor::Native::Writer';
 
 sub _maximum_arguments { 0 }
 

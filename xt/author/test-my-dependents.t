@@ -5,7 +5,26 @@ use Cwd qw( abs_path );
 use Test::More;
 
 BEGIN {
-    plan skip_all => 'This test will not run unless you set MOOSE_TEST_MD to a true value'
+    my $help = <<'EOF';
+This test will not run unless you set MOOSE_TEST_MD to a true value.
+
+  Valid values are:
+
+     all                  Test every dist which depends on Moose except those
+                          that we know cannot be tested. This is a lot of
+                          distros (thousands).
+
+     Dist::1,Dist::2,...  Test the individual dists listed.
+
+     MooseX               Test all Moose extension distros
+                          (MooseX modules plus a few others).
+
+     1                    Run the default tests. We pick 200 random dists and
+                          test them.
+
+EOF
+
+    plan skip_all => $help
         unless $ENV{MOOSE_TEST_MD};
 }
 
@@ -24,7 +43,7 @@ use Moose ();
 diag(     'Test run performed at: '
         . DateTime->now
         . ' with Moose '
-        . Moose->VERSION );
+        . (Moose->VERSION || 'git repo') );
 
 $ENV{PERL_TEST_DM_LOG_DIR} = abs_path('.');
 delete @ENV{ qw( AUTHOR_TESTING RELEASE_TESTING SMOKE_TESTING ) };
@@ -52,52 +71,25 @@ my $res = $mcpan->post(
     }
 );
 
-my %todo_reasons = map {
-    chomp;
-    /^(\S*)\s*(?:#\s*(.*)\s*)?$/;
-    defined($1) && length($1) ? ($1 => $2) : ()
-} <DATA>;
-my %todo = map { $_ => 1 } keys %todo_reasons;
-
 my @skip_prefix = qw(Acme Task Bundle);
-my %skip = map { $_ => 1 } (
-    'App-CPAN2Pkg',                 # tk tests are graphical
-    'App-USBKeyCopyCon',            # gtk tests are graphical
-    'Bot-Backbone',                 # poe-loop-ev prompts
-    'Cache-Ehcache',                # hangs if server exists on port 8080
-    'CatalystX-Imports',            # assumes it can write to /tmp/testapp
-    'CatalystX-Restarter-GTK',      # gtk tests are graphical
-    'CM-Permutation',               # OpenGL uses graphics in Makefile.PL
-    'CPAN-Source',                  # assumes it can write to /tmp/.cache
-    'Dackup',                       # depends on running ssh
-    'Data-Collector',               # depends on running ssh
-    'Date-Biorhythm',               # Date::Business prompts in Makefile.PL
-    'DBIx-PgLink',                  # prompts for a postgres password
-    'Forest-Tree-Viewer-Gtk2',      # gtk tests are graphical
-    'Games-Pandemic',               # tk tests are graphical
-    'Games-RailRoad',               # tk tests are graphical
-    'Games-Risk',                   # tk tests are graphical
-    'Gearman-Driver',               # spews tar errors
-    'helm',                         # depends on running ssh
-    'iTransact-Lite',               # tests rely on internet site
-    'Log-Dispatch-Gtk2-Notify',     # gtk tests are graphical
-    'LPDS',                         # gtk tests are graphical
-    'Net-SFTP-Foreign-Exceptional', # depends on running ssh
-    'Periscope',                    # gtk tests are graphical
-    'POE-Component-OpenSSH',        # depends on running ssh
-    'POE-Component-Server-SimpleHTTP-PreFork',  # ipc::shareable tests hang
-    'RDF-TrineX-RuleEngine-Jena',   # prompts in Makefile.PL
-    'Test-SFTP',                    # Term::ReadPassword prompts in tests
-    'Tk-Role-Dialog',               # tk tests are graphical
-    'Unicode-Emoji-E4U',            # tests rely on internet site
-    'Weaving-Tablet',               # tk tests are graphical
-    'WWW-eNom',                     # tests rely on internet site
-    'WWW-Finances-Bovespa',         # tests rely on internet site
-    'WWW-Hashdb',                   # test hangs, pegging cpu
-    'WWW-Vimeo-Download',           # tests rely on internet site
-    'WWW-YouTube-Download-Channel', # tests rely on internet site
-    'Zucchini',                     # File::Rsync prompts in Makefile.PL
-);
+my %skip;
+my %todo;
+
+my $hash;
+for my $line (<DATA>) {
+    chomp $line;
+    next unless $line =~ /\S/;
+    if ( $line =~ /^# (\w+)/ ) {
+        die "Invalid action in DATA section ($1)"
+            unless $1 eq 'SKIP' || $1 eq 'TODO';
+        $hash = $1 eq 'SKIP' ? \%skip : \%todo;
+    }
+
+    my ( $dist, $reason ) = $line =~ /^(\S*)\s*(?:#\s*(.*)\s*)?$/;
+    next unless defined $dist && length $dist;
+
+    $hash->{$dist} = $reason;
+}
 
 my %name_fix = (
     'App-passmanager'                => 'App::PassManager',
@@ -130,9 +122,17 @@ my @dists = sort
             map  { $_->{fields}{distribution} }
             @{ $res->{hits}{hits} };
 
-unless ( $ENV{MOOSE_TEST_MD} eq 'all' ) {
+if ( $ENV{MOOSE_TEST_MD} eq 'MooseX' ) {
+    @dists = grep {
+        /^(?:MooseX-|(?:Fey-ORM|KiokuDB|Bread-Board|Catalyst-Runtime|Reflex)$)/
+    } @dists;
+}
+elsif ( $ENV{MOOSE_TEST_MD} eq '1' ) {
     diag(
-        'Picking 200 random dependents to test. Set MOOSE_TEST_MD=all to test all dependents'
+        <<'EOF'
+  Picking 200 random dependents to test. Set MOOSE_TEST_MD=all to test all
+  dependents or MOOSE_TEST_MD=MooseX to test extension modules only.
+EOF
     );
 
     my %indexes;
@@ -142,6 +142,14 @@ unless ( $ENV{MOOSE_TEST_MD} eq 'all' ) {
 
     @dists = @dists[ sort keys %indexes ];
 }
+elsif ( $ENV{MOOSE_TEST_MD} ne 'all' ) {
+    my @chosen = split /,/, $ENV{MOOSE_TEST_MD};
+    my %dists = map { $_ => 1 } @dists;
+    if (my @unknown = grep { !$dists{$_} } @chosen) {
+        die "Unknown dists: @unknown";
+    }
+    @dists = @chosen;
+}
 
 plan tests => scalar @dists;
 for my $dist (@dists) {
@@ -149,7 +157,7 @@ for my $dist (@dists) {
     my $module = $dist;
     $module = $name_fix{$module} if exists $name_fix{$module};
     if ($todo{$dist}) {
-        my $reason = $todo_reasons{$dist};
+        my $reason = $todo{$dist};
         $reason = '???' unless defined $reason;
         local $TODO = $reason;
         eval { test_module($module); 1 }
@@ -162,13 +170,13 @@ for my $dist (@dists) {
 }
 
 __DATA__
-# indexing issues (test::dm bugs?)
+# SKIP: indexing issues (test::dm bugs?)
 Alice                                  # couldn't find on cpan
 Hopkins                                # couldn't find on cpan
 PostScript-Barcode                     # couldn't find on cpan
 WWW-Mechanize-Query                    # couldn't find on cpan
 
-# doesn't install deps properly (test::dm bugs?)
+# SKIP: doesn't install deps properly (test::dm bugs?)
 App-Benchmark-Accessors                # Mojo::Base isn't installed
 Bot-BasicBot-Pluggable                 # Crypt::SaltedHash isn't installed
 Code-Statistics                        # MooseX::HasDefaults::RO isn't installed
@@ -183,8 +191,9 @@ mobirc                                 # HTTP::Session::State::GUID isn't instal
 Net-Bamboo                             # XML::Tidy isn't installed
 Tatsumaki-Template-Markapl             # Tatsumaki::Template isn't installed
 Text-Tradition                         # Bio::Phylo::IO isn't installed
+WebService-Strava                      # Any::URI::Escape isn't installed
 
-# no tests
+# SKIP: no tests
 AI-ExpertSystem-Advanced               # no tests
 API-Assembla                           # no tests
 App-mkfeyorm                           # no tests
@@ -202,6 +211,7 @@ Dist-Zilla-PluginBundle-ARODLAND       # no tests
 Dist-Zilla-PluginBundle-Author-OLIVER  # no tests
 Dist-Zilla-PluginBundle-NUFFIN         # no tests
 Dist-Zilla-Plugin-DualLife             # no tests
+Dist-Zilla-Plugin-Git-Describe         # no tests
 Dist-Zilla-Plugin-GitFlow              # no tests
 Dist-Zilla-Plugin-GitFmtChanges        # no tests
 Dist-Zilla-Plugin-MetaResourcesFromGit # no tests
@@ -217,6 +227,7 @@ Kafka-Client                           # no tests
 LWP-UserAgent-OfflineCache             # no tests
 Markdown-Pod                           # no tests
 MooseX-Types-DateTimeX                 # no tests
+MooseX-Types-DateTime-MoreCoercions    # no tests unless DateTime::Format::DateManip is installed
 Net-Azure-BlobService                  # no tests
 Net-Dropbox                            # no tests
 Net-Flowdock                           # no tests
@@ -227,6 +238,7 @@ OpenDocument-Template                  # no tests
 Pod-Weaver-Section-Consumes            # no tests
 Pod-Weaver-Section-Encoding            # no tests
 Pod-Weaver-Section-Extends             # no tests
+P50Tools                               # no tests
 POE-Component-Server-MySQL             # no tests
 Random-Quantum                         # no tests
 SchemaEvolution                        # no tests
@@ -238,7 +250,10 @@ WebService-CloudFlare-Host             # no tests
 WWW-MenuGrinder                        # no tests
 WWW-WuFoo                              # no tests
 
-# external dependencies
+# SKIP: external dependencies
+Alien-Ditaa                            # runs java code
+Ambrosia                               # required mod_perl
+AnyEvent-MSN                           # requires Net::SSLeay (which requires libssl)
 AnyEvent-Multilog                      # requires multilog
 AnyEvent-Net-Curl-Queued               # requires libcurl
 AnyEvent-ZeroMQ                        # requires zeromq installation
@@ -246,6 +261,7 @@ AnyMQ-ZeroMQ                           # requires zeromq installation
 Apache2-HttpEquiv                      # requires apache (for mod_perl)
 App-Mimosa                             # requires fastacmd
 App-PgCryobit                          # requires postgres installation
+App-SimplenoteSync                     # requires File::ExtAttr which requires libattr
 Archive-RPM                            # requires cpio
 Bot-Jabbot                             # requires libidn
 Catalyst-Engine-Stomp                  # depends on alien::activemq
@@ -256,6 +272,7 @@ Crypt-Random-Source-Strong-Win32       # windows only
 Curses-Toolkit                         # requires Curses which requires ncurses library
 Dackup                                 # requires ssh
 Data-Collector                         # requires ssh
+Data-Riak                              # requires riak
 DBIx-PgLink                            # requires postgres installation
 Dist-Zilla-Plugin-Subversion           # requires svn bindings
 Dist-Zilla-Plugin-SVK                  # requires svn bindings
@@ -275,15 +292,18 @@ K                                      # requires kx
 Lighttpd-Control                       # requires lighttpd
 Lingua-TreeTagger                      # requires treetagger to be installed
 Math-Lsoda                             # requires f77
+Message-Passing-ZeroMQ                 # requires zeromq installation
 MongoDBI                               # requires mongo
 MongoDB                                # requires mongo
 MSWord-ToHTML                          # requires abiword to be installed
 Net-DBus-Skype                         # requires dbus
 Net-Route                              # requires route
+Net-SFTP-Foreign-Exceptional           # depends on running ssh
 Net-UpYun                              # requires curl
 Net-ZooTool                            # requires curl
 Nginx-Control                          # requires nginx to be installed
 NLP-Service                            # requires javac
+Padre-Plugin-Cookbook                  # requires Wx
 Padre-Plugin-Moose                     # requires threaded perl
 Padre-Plugin-PDL                       # requires threaded perl
 Padre-Plugin-Snippet                   # requires threaded perl
@@ -299,6 +319,7 @@ RDF-TrineX-RuleEngine-Jena             # requires Jena
 SimpleDB-Class                         # requires memcached
 SVN-Simple-Hook                        # requires svn
 SVN-Tree                               # requires svn
+Tapper-MCP                             # depends on everything under the sun - some of which is broken
 Template-JavaScript                    # requires v8
 TheSchwartz-Moosified                  # requires DBI::Pg ?
 WebService-SendGrid                    # requires curl
@@ -308,7 +329,7 @@ WWW-Curl-Simple                        # requires curl
 ZeroMQ-PubSub                          # requires zmq
 ZMQ-Declare                            # requires zmq
 
-# flaky internet tests
+# SKIP: flaky internet tests
 iTransact-Lite                         # tests rely on internet site
 Unicode-Emoji-E4U                      # tests rely on internet site
 WWW-eNom                               # tests rely on internet site
@@ -316,7 +337,7 @@ WWW-Finances-Bovespa                   # tests rely on internet site
 WWW-Vimeo-Download                     # tests rely on internet site
 WWW-YouTube-Download-Channel           # tests rely on internet site
 
-# graphical
+# SKIP: graphical
 App-CPAN2Pkg                           # tk tests are graphical
 App-USBKeyCopyCon                      # gtk tests are graphical
 CatalystX-Restarter-GTK                # gtk tests are graphical
@@ -330,7 +351,23 @@ Periscope                              # gtk tests are graphical
 Tk-Role-Dialog                         # tk tests are graphical
 Weaving-Tablet                         # tk tests are graphical
 
-# failing for a reason
+# SKIP: prompts (or a dep prompts) or does something else dumb
+Bot-Backbone                           # poe-loop-ev prompts
+Cache-Ehcache                          # hangs if server exists on port 8080
+CM-Permutation                         # OpenGL uses graphics in Makefile.PL
+Date-Biorhythm                         # Date::Business prompts in Makefile.PL
+DBIx-VersionedDDL                      # runs a script with /usr/bin/perl in the shbang line
+File-Tail-Scribe                       # tests hang
+Gearman-Driver                         # spews tar errors
+Gearman-SlotManager                    # tests hang
+IPC-AnyEvent-Gearman                   # tests hang
+Lingua-YALI                            # runs scripts with /usr/bin/env perl in the shbang line
+Net-SSH-Mechanize                      # the mock-ssh script it runs seems to spin endlessly
+POE-Component-Server-SimpleHTTP-PreFork # tests hang
+WWW-Hashdb                             # test hangs, pegging cpu
+Zucchini                               # File::Rsync prompts in Makefile.PL
+
+# TODO: failing for a reason
 Algorithm-KernelKMeans                 # mx-types-common changes broke it
 AnyEvent-BitTorrent                    # broken
 AnyEvent-Cron                          # intermittent failures
@@ -352,8 +389,6 @@ App-Twimap                             # dep on Web::oEmbed::Common
 App-Validation-Automation              # dep on Switch
 App-Wubot                              # broken
 Beagle                                 # depends on term::readline::perl
-Bot-Backbone                           # poe-loop-ev prompts
-Cache-Ehcache                          # hangs if server exists on port 8080
 Cache-Profile                          # broken
 Catalyst-Authentication-Store-LDAP-AD-Class  # pod coverage fail
 Catalyst-Controller-Resources          # broken
@@ -364,13 +399,13 @@ Catalyst-Plugin-Session-State-Cookie   # broken
 Catalyst-Plugin-Session-Store-TestMemcached # dep with corrupt archive
 Catalyst-Plugin-SwiffUploaderCookieHack  # undeclared dep
 Catalyst-TraitFor-Request-PerLanguageDomains # dep on ::State::Cookie
+CatalystX-ExtJS-Direct                 # broken
 CatalystX-I18N                         # dep on ::State::Cookie
 CatalystX-MooseComponent               # broken
 CatalystX-SimpleLogin                  # broken
 CatalystX-Usul                         # proc::processtable doesn't load
 Cheater                                # parse::randgen is broken
 Class-OWL                              # uses CMOP::Class without loading cmop
-CM-Permutation                         # OpenGL uses graphics in Makefile.PL
 Cogwheel                               # uses ancient moose apis
 Config-Model                           # broken
 Config-Model-Backend-Augeas            # deps on Config::Model
@@ -386,7 +421,6 @@ Data-Feed                              # broken (only sometimes?)
 Data-PackageName                       # broken
 Data-Pipeline                          # uses ancient moose apis
 Data-SCORM                             # pod coverage fail
-Date-Biorhythm                         # Date::Business prompts in Makefile.PL
 DayDayUp                               # MojoX-Fixup-XHTML doesn't exist
 DBICx-Modeler-Generator                # broken (weirdly)
 DBIx-SchemaChecksum                    # broken
@@ -394,16 +428,23 @@ Debian-Apt-PM                          # configure time failures
 Devel-Events                           # broken (role conflict)
 Dist-Zilla-Deb                         # pod coverage fail
 Dist-Zilla-Plugin-ChangelogFromGit-Debian # git::repository is broken
+Dist-Zilla-Plugin-CheckChangesHasContent  # broken
+Dist-Zilla-Plugin-Git                  # tests fail when run in a temp dir
+Dist-Zilla-Plugin-PerlTidy             # expects to find dzil in the path
+Dist-Zilla-Plugin-Pinto-Add            # deps on Pinto::Common
 Dist-Zilla-Plugin-ProgCriticTests      # broken
+Dist-Zilla-Plugin-Test-ReportPrereqs   # broken
 DustyDB                                # uses old moose apis
 Dwimmer                                # broken
 Facebook-Graph                         # broken
+FCGI-Engine                            # runs scripts without using $^X
 Fedora-Bugzilla                        # deps on nonexistent things
 FFmpeg-Thumbnail                       # undeclared dep
 File-DataClass                         # XML::DTD is a broken dist
 File-Stat-Moose                        # old moose apis
 File-Tail-Dir                          # intermittent fails (i think)
 Form-Factory                           # uses old moose apis
+Form-Sensible                          # broken
 FormValidator-Nested                   # broken
 Frost                                  # broken
 Games-Dice-Loaded                      # flaky tests
@@ -418,6 +459,7 @@ HTML-TreeBuilderX-ASP_NET              # broken
 HTTP-Engine-Middleware                 # missing dep on yaml
 Image-Robohash                         # Graphics::Magick doesn't exist
 JavaScript-Framework-jQuery            # coerce with no coercion
+Jenkins-NotificationListener           # missing dep on File::Read
 Jifty                                  # Test::WWW::Selenium needs devel::repl
 JSORB                                  # broken
 Jungle                                 # broken
@@ -427,6 +469,8 @@ LaTeX-TikZ                             # broken (with moose)
 marc-moose                             # broken (only sometimes?)
 Mail-Summary-Tools                     # DT::Format::DateManip is broken
 MediaWiki-USERINFO                     # broken
+Metabase-Backend-MongoDB               # broken
+Metabase-Backend-SQL                   # broken (I think)
 Method-Signatures                      # doesn't like ANY_MOOSE=Moose
 mobirc                                 # http::engine broken
 MooseX-Attribute-Prototype             # uses old moose apis
@@ -435,10 +479,14 @@ MooseX-Documenter                      # broken
 MooseX-DOM                             # "no Moose" unimports confess
 MooseX-Error-Exception-Class           # metaclass compat breakage
 MooseX-Getopt-Usage                    # missing dep on Test::Class
+MooseX-GTIN                            # broken (under jenkins, at least)
 MooseX-Meta-Attribute-Index            # old moose apis
 MooseX-Meta-Attribute-Lvalue           # old moose apis
+MooseX-Role-XMLRPC-Client              # requires LWP::Protocol::http which requires libssl
+MooseX-Scaffold                        # broken
 MooseX-Struct                          # ancient moose apis
 MooseX-Types-Parameterizable           # broken
+MooseX-WithCache                       # broken
 MouseX-Types                           # broken (with moose)
 MySQL-Util                             # pod-coverage fail
 Nagios-Passive                         # broken
@@ -450,17 +498,20 @@ Net-Google-FederatedLogin              # broken
 NetHack-Item                           # NH::Monster::Spoiler is broken
 NetHack-Monster-Spoiler                # broken (MX::CA issues)
 Net-HTTP-Factual                       # broken
+Net-Jabber-Bot                         # broken
 Net-Journyx                            # broken
 Net-Mollom                             # broken
 Net-Parliament                         # broken
 Net-Plurk                              # broken
 Net-SSLeay-OO                          # broken
 Net-StackExchange                      # broken
+Norma                                  # fails when trying to write to a read-only SQLite db file under jenkins, also fails when run manually
 ODG-Record                             # Test::Benchmark broken
 Perlbal-Control                        # proc::processtable doesn't load
 Pg-BulkCopy                            # hardcodes /usr/bin/perl
 Pinto-Common                           # broken
-Pinto-Server                           # deps on pinto::common
+Pinto-Remove                           # deps on Pinto::Common
+Pinto-Server                           # deps on Pinto::Common
 Plack-Middleware-Image-Scale           # Image::Scale is broken
 Pod-Parser-I18N                        # missing dep on Data::Localize
 POE-Component-CPAN-Mirror-Multiplexer  # broken
@@ -508,6 +559,7 @@ Test-Pockito                           # broken
 Test-SFTP                              # Term::ReadPassword prompts in tests
 Test-WWW-Selenium-More                 # Test::WWW::Selenium needs devel::repl
 Text-Clevery                           # broken
+Text-Zilla                             # broken
 Thorium                                # depends on Hobocamp
 TryCatch-Error                         # broken
 Verby                                  # deps on poe::component::resourcepool
@@ -518,10 +570,10 @@ Webservice-Intermine                   # broken tests
 WebService-Yes24                       # broken
 WiX3                                   # broken
 WWW-Alltop                             # XML::SimpleObject configure fail
+WWW-Comix                              # uses ancient Moose::Policy stuff
 WWW-DataWiki                           # broken
 WWW-Fandango                           # bad dist
 WWW-FMyLife                            # broken
-WWW-Hashdb                             # test hangs, pegging cpu
 WWW-Mechanize-Cached                   # tries to read from wrong build dir?
 WWW-Metalgate                          # Cache is broken
 WWW-Scramble                           # pod::coverage fail
@@ -534,4 +586,3 @@ XML-EPP                                # coerce without coercion
 XML-SRS                                # deps on prang
 XML-Writer-Compiler                    # broken tests
 Yukki                                  # git::repository is broken
-Zucchini                               # File::Rsync prompts in Makefile.PL

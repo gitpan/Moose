@@ -52,7 +52,6 @@ examples/Perl6Attribute.pod
 inc/CheckDelta.pm
 inc/Clean.pm
 inc/ExtractInlineTests.pm
-inc/GatherDir.pm
 inc/GitUpToDate.pm
 inc/MMHelper.pm
 inc/MakeMaker.pm
@@ -337,6 +336,7 @@ t/basics/override_augment_inner_super.t
 t/basics/rebless.t
 t/basics/require_superclasses.t
 t/basics/super_and_override.t
+t/basics/super_warns_on_args.t
 t/basics/universal_methods_wrappable.t
 t/basics/wrapped_method_cxt_propagation.t
 t/bugs/DEMOLISHALL.t
@@ -361,6 +361,7 @@ t/bugs/inheriting_from_roles.t
 t/bugs/inline_reader_bug.t
 t/bugs/instance_application_role_args.t
 t/bugs/lazybuild_required_undef.t
+t/bugs/moose_exporter_false_circular_reference_rt_63818.t
 t/bugs/moose_octal_defaults.t
 t/bugs/native_trait_handles_bad_value.t
 t/bugs/reader_precedence_bug.t
@@ -369,6 +370,7 @@ t/bugs/subclass_use_base_bug.t
 t/bugs/subtype_conflict_bug.t
 t/bugs/subtype_quote_bug.t
 t/bugs/super_recursion.t
+t/bugs/traits_with_exporter.t
 t/bugs/type_constraint_messages.t
 t/cmop/ArrayBasedStorage_test.t
 t/cmop/AttributesWithHistory_test.t
@@ -568,6 +570,7 @@ t/recipes/basics_bankaccount_methodmodifiersandsubclassing.t
 t/recipes/basics_binarytree_attributefeatures.t
 t/recipes/basics_company_subtypes.t
 t/recipes/basics_datetime_extendingnonmooseparent.t
+t/recipes/basics_geonome_overloadingsubtypesandcoercion.t
 t/recipes/basics_http_subtypesandcoercion.t
 t/recipes/basics_point_attributesandsubclassing.t
 t/recipes/extending_debugging_baseclassrole.t

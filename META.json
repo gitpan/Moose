@@ -4,7 +4,7 @@
       "Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details."
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300020, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300031, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -53,6 +53,7 @@
             "DateTime::Calendar::Mayan" : "0",
             "DateTime::Format::MySQL" : "0",
             "Declare::Constraints::Simple" : "0",
+            "ExtUtils::MakeMaker::Dist::Zilla::Develop" : "0",
             "File::Find::Rule" : "0",
             "HTTP::Headers" : "0",
             "IO::File" : "0",
@@ -67,9 +68,11 @@
             "Test::Deep" : "0",
             "Test::DependentModules" : "0.13",
             "Test::Inline" : "0",
+            "Test::Inline::Extract" : "0",
             "Test::LeakTrace" : "0",
             "Test::Memory::Cycle" : "0",
             "Test::Output" : "0",
+            "Test::Pod" : "1.41",
             "Test::Spelling" : "0",
             "URI" : "0"
          }
@@ -120,7 +123,7 @@
          "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/Moose.git;a=summary"
       }
    },
-   "version" : "2.0604",
+   "version" : "2.0800",
    "x_authority" : "cpan:STEVAN",
    "x_conflicts" : {
       "Catalyst" : "5.80028",

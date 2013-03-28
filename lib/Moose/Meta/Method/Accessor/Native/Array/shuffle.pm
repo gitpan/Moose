@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::shuffle::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.0604';
+  $Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.0800';
 }
 
 use strict;
@@ -13,8 +13,7 @@ use List::Util ();
 
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Reader' =>
-    { -excludes => ['_maximum_arguments'] };
+with 'Moose::Meta::Method::Accessor::Native::Reader';
 
 sub _maximum_arguments { 0 }
 

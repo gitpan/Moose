@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Generated::VERSION = '2.0604';
+  $Class::MOP::Method::Generated::VERSION = '2.0800';
 }
 
 use strict;
@@ -71,7 +71,7 @@ sub _compile_code {
 
 # ABSTRACT: Abstract base class for generated methods
 
-
+__END__
 
 =pod
 
@@ -81,7 +81,7 @@ Class::MOP::Method::Generated - Abstract base class for generated methods
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -97,14 +97,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
-

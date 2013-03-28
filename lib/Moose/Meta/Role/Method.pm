@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Role::Method::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Method::VERSION = '2.0604';
+  $Moose::Meta::Role::Method::VERSION = '2.0800';
 }
 
 use strict;
@@ -27,7 +27,7 @@ sub _make_compatible_with {
 
 # ABSTRACT: A Moose Method metaclass for Roles
 
-
+__END__
 
 =pod
 
@@ -37,7 +37,7 @@ Moose::Meta::Role::Method - A Moose Method metaclass for Roles
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -55,13 +55,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

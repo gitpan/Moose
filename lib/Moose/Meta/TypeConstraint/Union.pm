@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Union::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0604';
+  $Moose::Meta::TypeConstraint::Union::VERSION = '2.0800';
 }
 
 use strict;
@@ -35,7 +35,7 @@ sub new {
         %options,
     );
 
-    $self->_set_constraint(sub { $self->check($_[0]) });
+    $self->_set_constraint( $self->_compiled_type_constraint );
 
     return $self;
 }
@@ -203,7 +203,7 @@ sub create_child_type {
 
 # ABSTRACT: A union of Moose type constraints
 
-
+__END__
 
 =pod
 
@@ -213,7 +213,7 @@ Moose::Meta::TypeConstraint::Union - A union of Moose type constraints
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -303,13 +303,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

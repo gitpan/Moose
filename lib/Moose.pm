@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.0604';
+  $Moose::VERSION = '2.0800';
 }
 use strict;
 use warnings;
@@ -11,9 +11,8 @@ use warnings;
 use 5.008;
 
 use Scalar::Util 'blessed';
-use Carp         'confess';
+use Carp         'carp', 'confess';
 use Class::Load  'is_class_loaded';
-
 
 use Moose::Deprecated;
 use Moose::Exporter;
@@ -74,7 +73,10 @@ sub has {
     Moose->throw_error('Usage: has \'name\' => ( key => value, ... )')
         if @_ % 2 == 1;
 
-    my %options = ( definition_context => Moose::Util::_caller_info(), @_ );
+    my %context = Moose::Util::_caller_info;
+    $context{context} = 'has declaration';
+    $context{type} = 'class';
+    my %options = ( definition_context => \%context, @_ );
     my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
     $meta->add_attribute( $_, %options ) for @$attrs;
 }
@@ -96,6 +98,10 @@ our $SUPER_BODY;
 our @SUPER_ARGS;
 
 sub super {
+    if (@_) {
+        carp 'Arguments passed to super() are ignored';
+    }
+
     # This check avoids a recursion loop - see
     # t/bugs/super_recursion.t
     return if defined $SUPER_PACKAGE && $SUPER_PACKAGE ne caller();
@@ -278,7 +284,7 @@ $_->make_immutable(
 
 # ABSTRACT: A postmodern object system for Perl 5
 
-
+__END__
 
 =pod
 
@@ -288,7 +294,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 SYNOPSIS
 
@@ -958,6 +964,31 @@ You can also visit us at C<#moose> on L<irc://irc.perl.org/#moose>
 This channel is quite active, and questions at all levels (on Moose-related
 topics ;) are welcome.
 
+=head1 WHAT DOES MOOSE STAND FOR?
+
+Moose doesn't stand for one thing in particular, however, if you want, here
+are a few of our favorites. Feel free to contribute more!
+
+=over 4
+
+=item * Make Other Object Systems Envious
+
+=item * Makes Object Orientation So Easy
+
+=item * Makes Object Orientation Spiffy- Er (sorry ingy)
+
+=item * Most Other Object Systems Emasculate
+
+=item * Moose Often Ovulate Sorta Early
+
+=item * Moose Offers Often Super Extensions
+
+=item * Meta Object Obligates Salivary Excitation
+
+=item * Meta Object Orientation Syntax Extensions
+
+=back
+
 =head1 ACKNOWLEDGEMENTS
 
 =over 4
@@ -1082,6 +1113,8 @@ Florian Ragwitz E<lt>rafl@debian.orgE<gt>
 
 Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
 
+Karen (ether) Etheridge E<lt>ether@cpan.orgE<gt>
+
 =head1 CONTRIBUTORS
 
 Moose is a community project, and as such, involves the work of many, many
@@ -1188,13 +1221,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

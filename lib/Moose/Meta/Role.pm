@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::VERSION = '2.0604';
+  $Moose::Meta::Role::VERSION = '2.0800';
 }
 
 use strict;
@@ -733,7 +733,7 @@ sub _anon_cache_key {
 
 # ABSTRACT: The Moose Role metaclass
 
-
+__END__
 
 =pod
 
@@ -743,7 +743,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -1037,13 +1037,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

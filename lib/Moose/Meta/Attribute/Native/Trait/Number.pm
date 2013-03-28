@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Number::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::Number::VERSION = '2.0604';
+  $Moose::Meta::Attribute::Native::Trait::Number::VERSION = '2.0800';
 }
 use Moose::Role;
 
@@ -17,7 +17,7 @@ no Moose::Role;
 
 # ABSTRACT: Helper trait for Num attributes
 
-
+__END__
 
 =pod
 
@@ -27,7 +27,7 @@ Moose::Meta::Attribute::Native::Trait::Number - Helper trait for Num attributes
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 SYNOPSIS
 
@@ -108,13 +108,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

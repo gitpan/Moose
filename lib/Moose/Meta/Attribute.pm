@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.0604';
+  $Moose::Meta::Attribute::VERSION = '2.0800';
 }
 
 use strict;
@@ -100,7 +100,22 @@ sub new {
 
     if (@bad)
     {
-        Carp::cluck "Found unknown argument(s) passed to '$name' attribute constructor in '$class': @bad";
+        my $s = @bad > 1 ? 's' : '';
+        my $list = join "', '", @bad;
+
+        my $package = $options{definition_context}{package};
+        my $context = $options{definition_context}{context}
+                   || 'attribute constructor';
+        my $type = $options{definition_context}{type} || 'class';
+
+        my $location = '';
+        if (defined($package)) {
+            $location = " in ";
+            $location .= "$type " if $type;
+            $location .= $package;
+        }
+
+        Carp::cluck "Found unknown argument$s '$list' in the $context for '$name'$location";
     }
 
     return $class->SUPER::new($name, %options);
@@ -1283,7 +1298,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0604';
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0800';
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1291,7 +1306,7 @@ sub register_implementation { 'Moose::Meta::Attribute' }
 
 # ABSTRACT: The Moose attribute metaclass
 
-
+__END__
 
 =pod
 
@@ -1301,7 +1316,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -1326,7 +1341,7 @@ L<Class::MOP::Attribute> and add Moose specific features.
 
 =over 4
 
-=item B<< Moose::Meta::Attribute->new(%options) >>
+=item B<< Moose::Meta::Attribute->new($name, %options) >>
 
 This method overrides the L<Class::MOP::Attribute> constructor.
 
@@ -1686,13 +1701,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

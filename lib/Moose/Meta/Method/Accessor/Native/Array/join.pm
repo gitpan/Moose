@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::join::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::join::VERSION = '2.0604';
+  $Moose::Meta::Method::Accessor::Native::Array::join::VERSION = '2.0800';
 }
 
 use strict;
@@ -13,15 +13,7 @@ use Moose::Util ();
 
 use Moose::Role;
 
-with 'Moose::Meta::Method::Accessor::Native::Reader' => {
-    -excludes => [
-        qw(
-            _minimum_arguments
-            _maximum_arguments
-            _inline_check_arguments
-            )
-    ]
-};
+with 'Moose::Meta::Method::Accessor::Native::Reader';
 
 sub _minimum_arguments { 1 }
 

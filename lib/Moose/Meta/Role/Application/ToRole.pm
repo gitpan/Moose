@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::ToRole::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::ToRole::VERSION = '2.0604';
+  $Moose::Meta::Role::Application::ToRole::VERSION = '2.0800';
 }
 
 use strict;
@@ -91,12 +91,9 @@ sub apply_methods {
             if (   $role2_method
                 && $role2_method->body != $method->body ) {
 
-                # method conflicts between roles result in the method becoming
-                # a requirement
-                $role2->add_conflicting_method(
-                    name  => $method_name,
-                    roles => [ $role1->name, $role2->name ],
-                );
+                # method conflicts between roles used to result in the method
+                # becoming a requirement but now are permitted just like
+                # for classes, hence no code in this branch anymore.
             }
             else {
                 $role2->add_method(
@@ -188,7 +185,7 @@ sub apply_method_modifiers {
 
 # ABSTRACT: Compose a role into another role
 
-
+__END__
 
 =pod
 
@@ -198,7 +195,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.0604
+version 2.0800
 
 =head1 DESCRIPTION
 
@@ -238,14 +235,9 @@ Moose is maintained by the Moose Cabal, along with the help of many contributors
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive, Inc..
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
-
