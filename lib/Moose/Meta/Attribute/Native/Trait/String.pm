@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::String::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::String::VERSION = '2.0800';
+  $Moose::Meta::Attribute::Native::Trait::String::VERSION = '2.0801';
 }
 use Moose::Role;
 
@@ -29,7 +29,7 @@ Moose::Meta::Attribute::Native::Trait::String - Helper trait for Str attributes
 
 =head1 VERSION
 
-version 2.0800
+version 2.0801
 
 =head1 SYNOPSIS
 

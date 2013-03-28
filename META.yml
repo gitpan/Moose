@@ -61,7 +61,7 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Moose
   repository: git://git.moose.perl.org/Moose.git
-version: 2.0800
+version: 2.0801
 x_authority: cpan:STEVAN
 x_conflicts:
   Catalyst: 5.80028
@@ -75,6 +75,7 @@ x_conflicts:
   MooseX::ABC: 0.05
   MooseX::Aliases: 0.08
   MooseX::AlwaysCoerce: 0.13
+  MooseX::App: 1.18
   MooseX::Attribute::Deflator: 2.1.7
   MooseX::Attribute::Dependent: 1.1.0
   MooseX::Attribute::Prototype: 0.10
@@ -82,7 +83,7 @@ x_conflicts:
   MooseX::AttributeIndexes: 1.0.0
   MooseX::AttributeInflate: 0.02
   MooseX::CascadeClearing: 0.03
-  MooseX::ClassAttribute: 0.25
+  MooseX::ClassAttribute: 0.26
   MooseX::Constructor::AllErrors: 0.012
   MooseX::FollowPBP: 0.02
   MooseX::HasDefaults: 0.02

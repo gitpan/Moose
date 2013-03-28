@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Object::VERSION = '2.0800';
+  $Class::MOP::Object::VERSION = '2.0801';
 }
 
 use strict;
@@ -111,7 +111,7 @@ Class::MOP::Object - Base class for metaclasses
 
 =head1 VERSION
 
-version 2.0800
+version 2.0801
 
 =head1 DESCRIPTION
 

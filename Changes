@@ -1,6 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.0801 Thu, Mar 28, 2013
+
+  [BUG FIXES]
+
+  * properly apply traits at compile time (error introduced in 2.0800,
+    RT#77974). (doy)
+
 2.0800 Wed, Mar 27, 2013
 
   [ENHANCEMENTS]
@@ -18,6 +25,8 @@ for, noteworthy changes.
     Swartz. Fixed by Matthew Wickline. RT #63818.
 
   * Fix memory leak in type unions. (Karen Etheridge) RT#83929.
+
+  * Fix application of traits at compile time. (doy) RT#77974.
 
 2.0604 Wed, Sep 19, 2012
 

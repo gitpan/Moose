@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exporter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exporter::VERSION = '2.0800';
+  $Moose::Exporter::VERSION = '2.0801';
 }
 
 use strict;
@@ -648,7 +648,7 @@ sub _apply_meta_traits {
 
     my $meta = $meta_lookup->($class);
 
-    my $type = $meta->isa('Moose::Meta::Role') ? 'Trait'
+    my $type = $meta->isa('Moose::Meta::Role') ? 'Role'
              : $meta->isa('Class::MOP::Class') ? 'Class'
              : Moose->throw_error('Cannot determine metaclass type for '
                                 . 'trait application. Meta isa '
@@ -797,7 +797,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.0800
+version 2.0801
 
 =head1 SYNOPSIS
 
