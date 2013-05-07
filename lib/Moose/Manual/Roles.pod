@@ -12,7 +12,7 @@ Moose::Manual::Roles - Roles, an alternative to deep hierarchies and base classe
 
 =head1 VERSION
 
-version 2.0801
+version 2.0802
 
 =head1 WHAT IS A ROLE?
 
@@ -237,7 +237,7 @@ class is required to provide its I<own> method of the same name.
 
   package Breakdancer;
 
-  use Moose::Role
+  use Moose::Role;
 
   sub break {
 

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Composite::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Composite::VERSION = '2.0801';
+  $Moose::Meta::Role::Composite::VERSION = '2.0802';
 }
 
 use strict;
@@ -76,7 +76,7 @@ sub new {
 
 # This is largely a copy of what's in Moose::Meta::Role (itself
 # largely a copy of Class::MOP::Class). However, we can't actually
-# call add_package_symbol, because there's no package to which which
+# call add_package_symbol, because there's no package into which to
 # add the symbol.
 sub add_method {
     my ($self, $method_name, $method) = @_;
@@ -166,7 +166,7 @@ Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.0801
+version 2.0802
 
 =head1 DESCRIPTION
 

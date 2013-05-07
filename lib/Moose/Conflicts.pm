@@ -58,27 +58,34 @@ use Dist::CheckConflicts
         'Test::Able' => '0.10',
         'namespace::autoclean' => '0.08',
     },
-    -also => [ qw(
-        Carp
-        Class::Load
-        Class::Load::XS
-        Data::OptList
-        Devel::GlobalDestruction
-        Dist::CheckConflicts
-        Eval::Closure
-        List::MoreUtils
-        MRO::Compat
-        Package::DeprecationManager
-        Package::Stash
-        Package::Stash::XS
-        Params::Util
-        Scalar::Util
-        Sub::Exporter
-        Sub::Name
-        Task::Weaken
-        Try::Tiny
-    ) ],
 
 ;
 
 1;
+
+# ABSTRACT: Provide information on conflicts for Moose
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Moose::Conflicts - Provide information on conflicts for Moose
+
+=head1 VERSION
+
+version 2.0802
+
+=head1 AUTHOR
+
+Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Infinity Interactive, Inc..
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

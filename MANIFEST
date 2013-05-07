@@ -5,7 +5,7 @@ MANIFEST
 META.json
 META.yml
 Makefile.PL
-README
+README.md
 TODO
 author/convert-to-test-fatal
 author/extract-inline-tests
@@ -38,7 +38,6 @@ benchmarks/type_constraints.pl
 benchmarks/type_constraints2.pl
 bin/moose-outdated
 dist.ini
-doap.rdf
 doc/moosex-compile
 eg/class_browser.pl
 examples/ArrayBasedStorage.pod
@@ -636,6 +635,7 @@ t/test_moose/test_moose_does_ok.t
 t/test_moose/test_moose_has_attribute_ok.t
 t/test_moose/test_moose_meta_ok.t
 t/test_moose/with_immutable.t
+t/test_moose/with_immutable_tb2.t
 t/todo_tests/exception_reflects_failed_constraint.t
 t/todo_tests/immutable_n_around.t
 t/todo_tests/moose_and_threads.t
