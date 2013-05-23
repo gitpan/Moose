@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::VERSION = '2.0803';
+  $Moose::Util::VERSION = '2.1000';
 }
 
 use strict;
@@ -490,7 +490,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.0803
+version 2.1000
 
 =head1 SYNOPSIS
 

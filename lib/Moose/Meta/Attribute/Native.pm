@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::VERSION = '2.0803';
+  $Moose::Meta::Attribute::Native::VERSION = '2.1000';
 }
 
 use Class::Load qw(load_class);
@@ -44,7 +44,7 @@ Moose::Meta::Attribute::Native - Delegate to native Perl types
 
 =head1 VERSION
 
-version 2.0803
+version 2.1000
 
 =head1 SYNOPSIS
 

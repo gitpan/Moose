@@ -1,7 +1,7 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-2.0803 Thu, May 23, 2013
+2.1000 Thu, May 23, 2013
 
   [API CHANGES]
 
@@ -10,6 +10,9 @@ for, noteworthy changes.
     (MooseX::Types::LaxNum contains the old behaviour.)
 
 2.0802 Tue, May 07, 2013
+
+  [ENHANCEMENTS]
+
   * fix incompatibilities with Test::Builder 1.005+ (Karen Etheridge)
   * Moose::Manual::Contributing updated to reflect the change of primary
     repository from git.moose.perl.org to github.com

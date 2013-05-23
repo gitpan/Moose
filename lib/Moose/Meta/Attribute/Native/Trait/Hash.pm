@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Hash::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.0803';
+  $Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.1000';
 }
 use Moose::Role;
 
@@ -28,7 +28,7 @@ Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attribute
 
 =head1 VERSION
 
-version 2.0803
+version 2.1000
 
 =head1 SYNOPSIS
 
