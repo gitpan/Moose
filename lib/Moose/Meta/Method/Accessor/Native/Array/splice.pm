@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::splice::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1001';
+  $Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1002'; # TRIAL
 }
 
 use strict;
