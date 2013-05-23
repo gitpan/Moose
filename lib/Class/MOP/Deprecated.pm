@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Deprecated::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Deprecated::VERSION = '2.1000';
+  $Class::MOP::Deprecated::VERSION = '2.1001';
 }
 
 use strict;
@@ -26,7 +26,7 @@ Class::MOP::Deprecated - Manages deprecation warnings for Class::MOP
 
 =head1 VERSION
 
-version 2.1000
+version 2.1001
 
 =head1 DESCRIPTION
 

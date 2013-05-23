@@ -12,7 +12,7 @@ Moose::Cookbook::Extending::ExtensionOverview - Moose extension overview
 
 =head1 VERSION
 
-version 2.1000
+version 2.1001
 
 =head1 DESCRIPTION
 

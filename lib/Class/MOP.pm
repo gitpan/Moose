@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::VERSION = '2.1000';
+  $Class::MOP::VERSION = '2.1001';
 }
 
 use strict;
@@ -731,7 +731,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.1000
+version 2.1001
 
 =head1 DESCRIPTION
 
