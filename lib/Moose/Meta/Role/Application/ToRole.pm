@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::ToRole::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::ToRole::VERSION = '2.0802';
+  $Moose::Meta::Role::Application::ToRole::VERSION = '2.0803';
 }
 
 use strict;
@@ -146,7 +146,7 @@ sub apply_override_method_modifiers {
         }
         else {
             # if we are a role, we need to make sure
-            # we dont have a conflict with the role
+            # we don't have a conflict with the role
             # we are composing into
             if ($role2->has_override_method_modifier($method_name) &&
                 $role2->get_override_method_modifier($method_name) != $role2->get_override_method_modifier($method_name)) {
@@ -195,7 +195,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 

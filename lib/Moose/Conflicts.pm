@@ -75,7 +75,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 AUTHOR
 

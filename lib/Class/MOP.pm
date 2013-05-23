@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::VERSION = '2.0802';
+  $Class::MOP::VERSION = '2.0803';
 }
 
 use strict;
@@ -111,7 +111,7 @@ sub _definition_context {
 ## to extend the MOP through subclassing and such since now you can use the
 ## MOP itself to extend itself.
 ##
-## Yes, I know, thats weird and insane, but it's a good thing, trust me :)
+## Yes, I know, that's weird and insane, but it's a good thing, trust me :)
 ## ----------------------------------------------------------------------------
 
 # We need to add in the meta-attributes here so that
@@ -671,14 +671,14 @@ require Class::MOP::Deprecated unless our $no_deprecated;
 # for the constructor to be able to use it
 Class::MOP::Instance->meta->get_meta_instance;
 
-# pretend the add_method never happenned. it hasn't yet affected anything
+# pretend the add_method never happened. it hasn't yet affected anything
 undef Class::MOP::Instance->meta->{_package_cache_flag};
 
 ## --------------------------------------------------------
 ## Now close all the Class::MOP::* classes
 
-# NOTE: we don't need to inline the the accessors this only lengthens
-# the compile time of the MOP, and gives us no actual benefits.
+# NOTE: we don't need to inline the accessors this only lengthens the compile
+# time of the MOP, and gives us no actual benefits.
 
 $_->meta->make_immutable(
     inline_constructor  => 0,
@@ -731,7 +731,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 
@@ -790,7 +790,7 @@ method dispatch.
 
 =head2 What changes do I have to make to use this module?
 
-This module was designed to be as unintrusive as possible. Many of its
+This module was designed to be as unobtrusive as possible. Many of its
 features are accessible without B<any> change to your existing
 code. It is meant to be a complement to your existing code and not an
 intrusion on your code base. Unlike many other B<Class::> modules,

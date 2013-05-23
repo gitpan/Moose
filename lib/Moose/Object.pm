@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Object::VERSION = '2.0802';
+  $Moose::Object::VERSION = '2.0803';
 }
 
 use strict;
@@ -115,7 +115,7 @@ BEGIN {
 }
 
 # new does() methods will be created
-# as appropiate see Moose::Meta::Role
+# as appropriate see Moose::Meta::Role
 sub does {
     my ($self, $role_name) = @_;
     my $class = Scalar::Util::blessed($self) || $self;
@@ -147,7 +147,7 @@ Moose::Object - The base object for Moose
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 
@@ -190,7 +190,7 @@ This returns true if the object does the given role.
 
 =item B<< $object->DOES($class_or_role_name) >>
 
-This is a a Moose role-aware implementation of L<UNIVERSAL/DOES>.
+This is a Moose role-aware implementation of L<UNIVERSAL/DOES>.
 
 This is effectively the same as writing:
 

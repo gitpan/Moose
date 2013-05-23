@@ -96,8 +96,8 @@ lib/Moose/Cookbook/Basics/Point_AttributesAndSubclassing.pod
 lib/Moose/Cookbook/Extending/Debugging_BaseClassRole.pod
 lib/Moose/Cookbook/Extending/ExtensionOverview.pod
 lib/Moose/Cookbook/Extending/Mooseish_MooseSugar.pod
-lib/Moose/Cookbook/Legacy/Debugging_BaseClassReplacement.pm
-lib/Moose/Cookbook/Legacy/Labeled_AttributeMetaclass.pm
+lib/Moose/Cookbook/Legacy/Debugging_BaseClassReplacement.pod
+lib/Moose/Cookbook/Legacy/Labeled_AttributeMetaclass.pod
 lib/Moose/Cookbook/Legacy/Table_ClassMetaclass.pod
 lib/Moose/Cookbook/Meta/GlobRef_InstanceMetaclass.pod
 lib/Moose/Cookbook/Meta/Labeled_AttributeTrait.pod
@@ -269,6 +269,7 @@ lib/oose.pm
 mop.c
 mop.h
 ppport.h
+t/00-check-deps.t
 t/000_load.t
 t/attributes/accessor_context.t
 t/attributes/accessor_inlining.t
@@ -574,7 +575,9 @@ t/recipes/basics_http_subtypesandcoercion.t
 t/recipes/basics_point_attributesandsubclassing.t
 t/recipes/extending_debugging_baseclassrole.t
 t/recipes/extending_mooseish_moosesugar.t
+t/recipes/legacy_debugging_baseclassreplacement.t
 t/recipes/meta_globref_instancemetaclass.t
+t/recipes/meta_labeled_attributemetaclass.t
 t/recipes/meta_labeled_attributetrait.t
 t/recipes/meta_privateorpublic_methodmetaclass.t
 t/recipes/meta_table_metaclasstrait.t

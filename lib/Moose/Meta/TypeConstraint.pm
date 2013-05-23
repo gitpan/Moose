@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::VERSION = '2.0802';
+  $Moose::Meta::TypeConstraint::VERSION = '2.0803';
 }
 
 use strict;
@@ -354,7 +354,7 @@ sub _compile_hand_optimized_type_constraint {
 sub _compile_subtype {
     my ($self, $check) = @_;
 
-    # gather all the parent constraintss in order
+    # gather all the parent constraints in order
     my @parents;
     my $optimized_parent;
     foreach my $parent ($self->_collect_all_parents) {
@@ -446,7 +446,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 

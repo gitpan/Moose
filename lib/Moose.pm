@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.0802';
+  $Moose::VERSION = '2.0803';
 }
 use strict;
 use warnings;
@@ -294,7 +294,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 SYNOPSIS
 
@@ -845,7 +845,7 @@ details.
 
 By default, when given a trait name, Moose simply tries to load a
 class of the same name. If such a class does not exist, it then looks
-for for a class matching
+for a class matching
 B<Moose::Meta::$type::Custom::Trait::$trait_name>. The C<$type>
 variable here will be one of B<Attribute> or B<Class>, depending on
 what the trait is being applied to.

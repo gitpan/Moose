@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Attribute::VERSION = '2.0802';
+  $Class::MOP::Attribute::VERSION = '2.0803';
 }
 
 use strict;
@@ -94,7 +94,7 @@ sub _new {
 }
 
 # NOTE:
-# this is a primative (and kludgy) clone operation
+# this is a primitive (and kludgy) clone operation
 # for now, it will be replaced in the Class::MOP
 # bootstrap with a proper one, however we know
 # that this one will work fine for now.
@@ -486,7 +486,7 @@ Class::MOP::Attribute - Attribute Meta Object
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 SYNOPSIS
 

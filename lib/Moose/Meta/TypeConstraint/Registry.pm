@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Registry::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.0802';
+  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.0803';
 }
 
 use strict;
@@ -79,7 +79,7 @@ Moose::Meta::TypeConstraint::Registry - registry for type constraints
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 

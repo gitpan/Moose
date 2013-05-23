@@ -3,6 +3,7 @@ abstract: 'A postmodern object system for Perl 5'
 author:
   - 'Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.'
 build_requires:
+  Test::CheckDeps: 0.002
   Test::Fatal: 0.001
   Test::More: 0.88
   Test::Requires: 0.05
@@ -10,7 +11,7 @@ configure_requires:
   Dist::CheckConflicts: 0.02
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
+generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -61,7 +62,7 @@ requires:
 resources:
   bugtracker: https://rt.cpan.org/Dist/Display.html?Name=Moose
   repository: git://github.com/moose/moose.git
-version: 2.0802
+version: 2.0803
 x_authority: cpan:STEVAN
 x_conflicts:
   Catalyst: 5.80028

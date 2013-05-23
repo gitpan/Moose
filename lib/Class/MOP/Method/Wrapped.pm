@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Wrapped::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Wrapped::VERSION = '2.0802';
+  $Class::MOP::Method::Wrapped::VERSION = '2.0803';
 }
 
 use strict;
@@ -90,7 +90,7 @@ sub wrap {
     return $class->SUPER::wrap(
         sub { $modifier_table->{cache}->(@_) },
         # get these from the original
-        # unless explicitly overriden
+        # unless explicitly overridden
         package_name   => $params{package_name} || $code->package_name,
         name           => $params{name}         || $code->name,
         original_method => $code,
@@ -213,7 +213,7 @@ Class::MOP::Method::Wrapped - Method Meta Object for methods with before/after/a
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 

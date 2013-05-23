@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Code::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.0802';
+  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.0803';
 }
 use Moose::Role;
 
@@ -27,7 +27,7 @@ Moose::Meta::Attribute::Native::Trait::Code - Helper trait for CodeRef attribute
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 SYNOPSIS
 
@@ -68,7 +68,7 @@ Calls the coderef with the given args.
 
 =item * B<execute_method(@args)>
 
-Calls the coderef with the the instance as invocant and given args.
+Calls the coderef with the instance as invocant and given args.
 
 =back
 

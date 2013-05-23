@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::VERSION = '2.0802';
+  $Moose::Meta::Role::VERSION = '2.0803';
 }
 
 use strict;
@@ -33,7 +33,7 @@ Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 ## ------------------------------------------------------------------
 ## NOTE:
 ## I normally don't do this, but I am doing
-## a whole bunch of meta-programmin in this
+## a whole bunch of meta-programmin' in this
 ## module, so it just makes sense. For a clearer
 ## picture of what is going on in the next
 ## several lines of code, look at the really
@@ -53,7 +53,7 @@ my $META = __PACKAGE__->meta;
 # time when it is applied to a class. This means
 # keeping a lot of things in hash maps, so we are
 # using a little of that meta-programmin' magic
-# here an saving lots of extra typin. And since
+# here and saving lots of extra typin'. And since
 # many of these attributes above require similar
 # functionality to support them, so we again use
 # the wonders of meta-programmin' to deliver a
@@ -347,7 +347,7 @@ foreach my $modifier_type (qw[ before around after ]) {
 }
 
 ## ------------------------------------------------------------------
-## override method mofidiers
+## override method modifiers
 
 $META->add_attribute('override_method_modifiers' => (
     reader  => 'get_override_method_modifiers_map',
@@ -743,7 +743,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.0802
+version 2.0803
 
 =head1 DESCRIPTION
 

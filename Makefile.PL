@@ -10,6 +10,7 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'A postmodern object system for Perl 5',
   'AUTHOR' => 'Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.',
   'BUILD_REQUIRES' => {
+    'Test::CheckDeps' => '0.002',
     'Test::Fatal' => '0.001',
     'Test::More' => '0.88',
     'Test::Requires' => '0.05'
@@ -45,7 +46,7 @@ my %WriteMakefileArgs = (
     'Task::Weaken' => '0',
     'Try::Tiny' => '0.02'
   },
-  'VERSION' => '2.0802',
+  'VERSION' => '2.0803',
   'XS' => {
     'xs/Attribute.xs' => 'xs/Attribute.c',
     'xs/AttributeCore.xs' => 'xs/AttributeCore.c',
