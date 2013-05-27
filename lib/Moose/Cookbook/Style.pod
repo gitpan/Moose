@@ -12,7 +12,7 @@ Moose::Cookbook::Style - Expanded into Moose::Manual::BestPractices, so go read 
 
 =head1 VERSION
 
-version 2.1002
+version 2.0900
 
 =head1 DESCRIPTION
 
