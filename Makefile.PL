@@ -53,7 +53,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.0900",
+  "VERSION" => "2.0901",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",
@@ -163,6 +163,8 @@ sub check_conflicts {
 ***
 EOF
     }
+
+    return if $ENV{AUTOMATED_TESTING} || $ENV{NONINTERACTIVE_TESTING};
 
     # More or less copied from Module::Build
     return if $ENV{PERL_MM_USE_DEFAULT};

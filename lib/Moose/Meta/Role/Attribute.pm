@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Attribute::VERSION = '2.0900'; # TRIAL
+  $Moose::Meta::Role::Attribute::VERSION = '2.0901'; # TRIAL
 }
 
 use strict;
@@ -139,7 +139,7 @@ Moose::Meta::Role::Attribute - The Moose attribute metaclass for Roles
 
 =head1 VERSION
 
-version 2.0900
+version 2.0901
 
 =head1 DESCRIPTION
 
@@ -171,8 +171,8 @@ Returns the L<Moose::Meta::Role> to which this attribute belongs, if any.
 =item B<< $attr->original_role >>
 
 Returns the L<Moose::Meta::Role> in which this attribute was first
-defined. This may not be the same as the value C<associated_role()> in the
-case of composite role, or the case where one role consumes other roles.
+defined. This may not be the same as the value of C<associated_role()> for
+attributes in a composite role, or when one role consumes other roles.
 
 =item B<< $attr->original_options >>
 

@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Mixin::HasMethods::VERSION = '2.0900'; # TRIAL
+  $Class::MOP::Mixin::HasMethods::VERSION = '2.0901'; # TRIAL
 }
 
 use strict;
@@ -273,8 +273,13 @@ sub add_overloaded_operator {
 sub remove_overloaded_operator {
     my $self = shift;
     my ($op) = @_;
-    # ugh, overload.pm provides no api for this
-    $self->get_or_add_package_symbol('%OVERLOAD')->{dummy}++;
+
+    if ( $] < 5.018 ) {
+        # ugh, overload.pm provides no api for this - but the problem that
+        # makes this necessary has been fixed in 5.18
+        $self->get_or_add_package_symbol('%OVERLOAD')->{dummy}++;
+    }
+
     $self->remove_package_symbol('&(' . $op);
 }
 
@@ -309,7 +314,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.0900
+version 2.0901
 
 =head1 DESCRIPTION
 

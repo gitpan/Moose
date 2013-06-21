@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.0900'; # TRIAL
+  $Moose::Meta::Attribute::VERSION = '2.0901'; # TRIAL
 }
 
 use strict;
@@ -232,33 +232,8 @@ sub clone_and_inherit_options {
     (scalar @found_illegal_options == 0)
         || $self->throw_error("Illegal inherited options => (" . (join ', ' => @found_illegal_options) . ")", data => \%options);
 
-    if ($options{isa}) {
-        my $type_constraint;
-        if (blessed($options{isa}) && $options{isa}->isa('Moose::Meta::TypeConstraint')) {
-            $type_constraint = $options{isa};
-        }
-        else {
-            $type_constraint = Moose::Util::TypeConstraints::find_or_create_isa_type_constraint($options{isa}, { package_defined_in => $options{definition_context}->{package} });
-            (defined $type_constraint)
-                || $self->throw_error("Could not find the type constraint '" . $options{isa} . "'", data => $options{isa});
-        }
-
-        $options{type_constraint} = $type_constraint;
-    }
-
-    if ($options{does}) {
-        my $type_constraint;
-        if (blessed($options{does}) && $options{does}->isa('Moose::Meta::TypeConstraint')) {
-            $type_constraint = $options{does};
-        }
-        else {
-            $type_constraint = Moose::Util::TypeConstraints::find_or_create_does_type_constraint($options{does}, { package_defined_in => $options{definition_context}->{package} });
-            (defined $type_constraint)
-                || $self->throw_error("Could not find the type constraint '" . $options{does} . "'", data => $options{does});
-        }
-
-        $options{type_constraint} = $type_constraint;
-    }
+    $self->_process_isa_option( $self->name, \%options );
+    $self->_process_does_option( $self->name, \%options );
 
     # NOTE:
     # this doesn't apply to Class::MOP::Attributes,
@@ -376,8 +351,23 @@ sub _process_isa_option {
     }
 
     # allow for anon-subtypes here ...
+    #
+    # Checking for Specio explicitly is completely revolting. At some point
+    # this needs to be refactored so that Moose core defines a standard type
+    # API that all types must implement. Unfortunately, the current core API
+    # is _not_ the right API, so we probably need to A) come up with the new
+    # API (Specio is a good start); B) refactor the core types to implement
+    # that API; C) do duck type checking on type objects.
     if ( blessed( $options->{isa} )
         && $options->{isa}->isa('Moose::Meta::TypeConstraint') ) {
+        $options->{type_constraint} = $options->{isa};
+    }
+    elsif (
+        blessed( $options->{isa} )
+        && Moose::Util::does_role(
+            $options->{isa}, 'Specio::Constraint::Role::Interface'
+        )
+        ) {
         $options->{type_constraint} = $options->{isa};
     }
     else {
@@ -1298,7 +1288,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0900'; # TRIAL
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.0901'; # TRIAL
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1316,7 +1306,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.0900
+version 2.0901
 
 =head1 DESCRIPTION
 

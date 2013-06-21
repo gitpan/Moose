@@ -4,14 +4,15 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.0900'; # TRIAL
+  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.0901'; # TRIAL
 }
 use Moose::Role;
 
 use Class::Load qw(load_class);
 use List::MoreUtils qw( any uniq );
-use Moose::Util::TypeConstraints;
 use Moose::Deprecated;
+use Moose::Util;
+use Moose::Util::TypeConstraints;
 
 requires '_helper_type';
 
@@ -93,12 +94,29 @@ sub _check_helper_type {
     $options->{isa} = $type
         unless exists $options->{isa};
 
-    my $isa = Moose::Util::TypeConstraints::find_or_create_type_constraint(
-        $options->{isa} );
+    my $isa;
+    my $isa_name;
 
-    ( $isa->is_a_type_of($type) )
-        || confess
-        "The type constraint for $name must be a subtype of $type but it's a $isa";
+    if (
+        Moose::Util::does_role(
+            $options->{isa}, 'Specio::Constraint::Role::Interface'
+        )
+        ) {
+
+        $isa = $options->{isa};
+        require Specio::Library::Builtins;
+        return if $isa->is_a_type_of( Specio::Library::Builtins::t($type) );
+        $isa_name = $isa->name() || $isa->description();
+    }
+    else {
+        $isa = Moose::Util::TypeConstraints::find_or_create_type_constraint(
+            $options->{isa} );
+        return if $isa->is_a_type_of($type);
+        $isa_name = $isa->name();
+    }
+
+    confess
+        "The type constraint for $name must be a subtype of $type but it's a $isa_name";
 }
 
 before 'install_accessors' => sub { (shift)->_check_handles_values };
@@ -226,7 +244,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.0900
+version 2.0901
 
 =head1 BUGS
 

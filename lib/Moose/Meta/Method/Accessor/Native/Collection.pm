@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Collection::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Collection::VERSION = '2.0900'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Collection::VERSION = '2.0901'; # TRIAL
 }
 
 use strict;
@@ -93,7 +93,8 @@ sub _check_new_members_only {
     # constraint, so we need to check the whole value, not just the members.
     return 1
         if $self->_is_root_type( $tc->parent )
-            && $tc->isa('Moose::Meta::TypeConstraint::Parameterized');
+            && ( $tc->isa('Moose::Meta::TypeConstraint::Parameterized')
+                 || $tc->isa('Specio::Constraint::Parameterized') );
 
     return 0;
 }

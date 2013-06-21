@@ -268,6 +268,7 @@ lib/metaclass.pm
 lib/oose.pm
 mop.c
 mop.h
+perltidyrc
 ppport.h
 t/00-check-deps.t
 t/000_load.t
@@ -644,6 +645,7 @@ t/todo_tests/immutable_n_around.t
 t/todo_tests/moose_and_threads.t
 t/todo_tests/replacing_super_methods.t
 t/todo_tests/required_role_accessors.t
+t/todo_tests/role_attr_methods_original_package.t
 t/todo_tests/role_insertion_order.t
 t/todo_tests/various_role_features.t
 t/type_constraints/advanced_type_creation.t
@@ -666,6 +668,7 @@ t/type_constraints/name_conflicts.t
 t/type_constraints/normalize_type_name.t
 t/type_constraints/parameterize_from.t
 t/type_constraints/role_type_constraint.t
+t/type_constraints/specio.t
 t/type_constraints/subtype_auto_vivify_parent.t
 t/type_constraints/subtyping_parameterized_types.t
 t/type_constraints/subtyping_union_types.t
