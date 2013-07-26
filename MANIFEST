@@ -270,7 +270,6 @@ mop.c
 mop.h
 perltidyrc
 ppport.h
-t/00-check-deps.t
 t/000_load.t
 t/attributes/accessor_context.t
 t/attributes/accessor_inlining.t

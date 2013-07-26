@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Overload::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Overload::VERSION = '2.1003';
+  $Class::MOP::Method::Overload::VERSION = '2.1004';
 }
 
 use strict;
@@ -63,7 +63,7 @@ Class::MOP::Method::Overload - Method Meta Object for methods which implement ov
 
 =head1 VERSION
 
-version 2.1003
+version 2.1004
 
 =head1 DESCRIPTION
 

@@ -48,12 +48,11 @@ my %WriteMakefileArgs = (
     "Try::Tiny" => "0.02"
   },
   "TEST_REQUIRES" => {
-    "Test::CheckDeps" => "0.006",
     "Test::Fatal" => "0.001",
-    "Test::More" => "0.94",
+    "Test::More" => "0.88",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.1003",
+  "VERSION" => "2.1004",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",
