@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::VERSION = '2.0901'; # TRIAL
+  $Moose::Meta::TypeConstraint::VERSION = '2.1003';
 }
 
 use strict;
@@ -168,16 +168,7 @@ sub coerce {
 sub assert_coerce {
     my $self = shift;
 
-    my $coercion = $self->coercion;
-
-    unless ($coercion) {
-        require Moose;
-        Moose->throw_error("Cannot coerce without a type coercion");
-    }
-
-    return $_[0] if $self->check($_[0]);
-
-    my $result = $coercion->coerce(@_);
+    my $result = $self->coerce(@_);
 
     $self->assert_valid($result);
 
@@ -446,7 +437,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.0901
+version 2.1003
 
 =head1 DESCRIPTION
 

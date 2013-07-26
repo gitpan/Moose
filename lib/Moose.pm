@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.0901'; # TRIAL
+  $Moose::VERSION = '2.1003';
 }
 use strict;
 use warnings;
@@ -294,7 +294,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.0901
+version 2.1003
 
 =head1 SYNOPSIS
 
@@ -409,7 +409,8 @@ on the current class.
 
 =item B<extends (@superclasses)>
 
-This function will set the superclass(es) for the current class.
+This function will set the superclass(es) for the current class. If the parent
+classes are not yet loaded, then C<extends> tries to load them.
 
 This approach is recommended instead of C<use base>, because C<use base>
 actually C<push>es onto the class's C<@ISA>, whereas C<extends> will

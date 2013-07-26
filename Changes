@@ -1,6 +1,12 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1003 Fri, Jul 26, 2013
+
+  [OTHER]
+
+  * Releasing 2.0901 as stable.
+
 2.0901-TRIAL Fri, Jun 21, 2013
 
   [ENHANCEMENTS]
