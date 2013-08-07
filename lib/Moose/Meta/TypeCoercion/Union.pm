@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeCoercion::Union::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeCoercion::Union::VERSION = '2.1004';
+  $Moose::Meta::TypeCoercion::Union::VERSION = '2.1005';
 }
 
 use strict;
@@ -59,7 +59,7 @@ Moose::Meta::TypeCoercion::Union - The Moose Type Coercion metaclass for Unions
 
 =head1 VERSION
 
-version 2.1004
+version 2.1005
 
 =head1 DESCRIPTION
 

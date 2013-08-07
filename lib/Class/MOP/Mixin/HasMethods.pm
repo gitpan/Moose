@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Mixin::HasMethods::VERSION = '2.1004';
+  $Class::MOP::Mixin::HasMethods::VERSION = '2.1005';
 }
 
 use strict;
@@ -12,7 +12,7 @@ use warnings;
 use Class::MOP::Method::Meta;
 use Class::MOP::Method::Overload;
 
-use Scalar::Util 'blessed';
+use Scalar::Util 'blessed', 'reftype';
 use Carp         'confess';
 use Sub::Name    'subname';
 
@@ -42,7 +42,7 @@ sub _add_meta_method {
 sub wrap_method_body {
     my ( $self, %args ) = @_;
 
-    ( 'CODE' eq ref $args{body} )
+    ( 'CODE' eq reftype $args{body} )
         || confess "Your code block must be a CODE reference";
 
     $self->method_metaclass->wrap(
@@ -59,7 +59,7 @@ sub add_method {
     my $package_name = $self->name;
 
     my $body;
-    if ( blessed($method) ) {
+    if ( blessed($method) && $method->isa('Class::MOP::Method') ) {
         $body = $method->body;
         if ( $method->package_name ne $package_name ) {
             $method = $method->clone(
@@ -119,7 +119,7 @@ sub get_method {
     my $method = $self->_get_maybe_raw_method($method_name)
         or return;
 
-    return $method if blessed $method;
+    return $method if blessed($method) && $method->isa('Class::MOP::Method');
 
     return $self->_method_map->{$method_name} = $self->wrap_method_body(
         body                 => $method,
@@ -152,7 +152,7 @@ sub remove_method {
     $self->remove_package_symbol("&$method_name");
 
     $removed_method->detach_from_class
-        if blessed($removed_method);
+        if blessed($removed_method) && $removed_method->isa('Class::MOP::Method');
 
     # still valid, since we just removed the method from the map
     $self->update_package_cache_flag;
@@ -314,7 +314,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.1004
+version 2.1005
 
 =head1 DESCRIPTION
 

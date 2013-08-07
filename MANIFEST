@@ -270,6 +270,7 @@ mop.c
 mop.h
 perltidyrc
 ppport.h
+t/00-check-deps.t
 t/000_load.t
 t/attributes/accessor_context.t
 t/attributes/accessor_inlining.t
@@ -520,6 +521,7 @@ t/metaclasses/immutable_metaclass_compat_bug.t
 t/metaclasses/meta_name.t
 t/metaclasses/metaclass_compat.t
 t/metaclasses/metaclass_compat_no_fixing_bug.t
+t/metaclasses/metaclass_compat_role_conflicts.t
 t/metaclasses/metaclass_parameterized_traits.t
 t/metaclasses/metaclass_traits.t
 t/metaclasses/metarole.t
@@ -703,6 +705,7 @@ xs/typemap
 xt/author/debugger-duck_type.t
 xt/author/memory_leaks.t
 xt/author/test-my-dependents.t
+xt/release/changes_has_content.t
 xt/release/eol.t
 xt/release/no-tabs.t
 xt/release/pod-coverage.t

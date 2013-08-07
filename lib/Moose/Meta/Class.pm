@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Class::VERSION = '2.1004';
+  $Moose::Meta::Class::VERSION = '2.1005';
 }
 
 use strict;
@@ -216,6 +216,16 @@ sub calculate_all_roles {
     my $self = shift;
     my %seen;
     grep { !$seen{$_->name}++ } map { $_->calculate_all_roles } @{ $self->roles };
+}
+
+sub _roles_with_inheritance {
+    my $self = shift;
+    my %seen;
+    grep { !$seen{$_->name}++ }
+         map { Class::MOP::class_of($_)->can('roles')
+                   ? @{ Class::MOP::class_of($_)->roles }
+                   : () }
+             $self->linearized_isa;
 }
 
 sub calculate_all_roles_with_inheritance {
@@ -863,7 +873,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1004
+version 2.1005
 
 =head1 DESCRIPTION
 

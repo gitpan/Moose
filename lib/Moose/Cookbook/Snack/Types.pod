@@ -12,7 +12,7 @@ Moose::Cookbook::Snack::Types - Snippets of code for using Types and Type Constr
 
 =head1 VERSION
 
-version 2.1004
+version 2.1005
 
 =head1 SYNOPSIS
 
@@ -67,7 +67,7 @@ to check a value directly.
 
 =item L<Moose::Cookbook::Basics::Point_AttributesAndSubclassing>
 
-=item L<Moose::Utils::TypeConstraints>
+=item L<Moose::Util::TypeConstraints>
 
 =item L<Moose::Meta::Attribute>
 

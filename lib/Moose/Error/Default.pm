@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Error::Default::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Error::Default::VERSION = '2.1004';
+  $Moose::Error::Default::VERSION = '2.1005';
 }
 
 use strict;
@@ -65,7 +65,7 @@ Moose::Error::Default - L<Carp> based error generation for Moose.
 
 =head1 VERSION
 
-version 2.1004
+version 2.1005
 
 =head1 DESCRIPTION
 
