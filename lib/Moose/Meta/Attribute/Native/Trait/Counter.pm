@@ -4,14 +4,12 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Counter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::Counter::VERSION = '2.1005';
+  $Moose::Meta::Attribute::Native::Trait::Counter::VERSION = '2.1100'; # TRIAL
 }
 use Moose::Role;
 
 with 'Moose::Meta::Attribute::Native::Trait';
 
-sub _default_default { 0 }
-sub _default_is { 'ro' }
 sub _helper_type { 'Num' }
 sub _root_types { 'Num', 'Int' }
 
@@ -31,7 +29,7 @@ Moose::Meta::Attribute::Native::Trait::Counter - Helper trait for Int attributes
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -107,9 +105,51 @@ value.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::VERSION = '2.1005';
+  $Class::MOP::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -15,7 +15,6 @@ use 5.008;
 use MRO::Compat;
 
 use Carp          'confess';
-use Class::Load 0.07 ();
 use Scalar::Util  'weaken', 'isweak', 'reftype', 'blessed';
 use Data::OptList;
 use Try::Tiny;
@@ -74,14 +73,29 @@ XSLoader::load(
 }
 
 sub load_class {
+    Class::MOP::Deprecated::deprecated(
+        message => 'Class::MOP::load_class is deprecated',
+        feature => 'Class::Load wrapper functions',
+    );
+    require Class::Load;
     goto &Class::Load::load_class;
 }
 
 sub load_first_existing_class {
+    Class::MOP::Deprecated::deprecated(
+        message => 'Class::MOP::load_first_existing_class is deprecated',
+        feature => 'Class::Load wrapper functions',
+    );
+    require Class::Load;
     goto &Class::Load::load_first_existing_class;
 }
 
 sub is_class_loaded {
+    Class::MOP::Deprecated::deprecated(
+        message => 'Class::MOP::is_class_loaded is deprecated',
+        feature => 'Class::Load wrapper functions',
+    );
+    require Class::Load;
     goto &Class::Load::is_class_loaded;
 }
 
@@ -731,7 +745,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -1108,9 +1122,51 @@ Thanks to Rob for actually getting the development of this module kick-started.
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

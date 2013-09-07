@@ -3,13 +3,13 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::VERSION = '2.1005';
+  $Moose::Util::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Class::Load 0.07 qw(load_class load_first_existing_class);
+use Module::Runtime 'use_package_optimistically', 'module_notional_filename';
 use Data::OptList;
 use Params::Util qw( _STRING );
 use Sub::Exporter;
@@ -129,7 +129,7 @@ sub _apply_all_roles {
             $meta = $role->[0];
         }
         else {
-            load_class( $role->[0] , $role->[1] );
+            _load_user_class( $role->[0] , $role->[1] );
             $meta = find_meta( $role->[0] );
         }
 
@@ -149,7 +149,7 @@ sub _apply_all_roles {
 
     return unless @role_metas;
 
-    load_class($applicant)
+    _load_user_class($applicant)
         unless blessed($applicant)
             || Class::MOP::class_of($applicant);
 
@@ -222,15 +222,23 @@ sub _build_alias_package_name {
             $type, $metaclass_name, $options{trait}
         );
 
-        my $loaded_class = load_first_existing_class(
-            $possible_full_name,
-            $metaclass_name
-        );
+        my @possible = ($possible_full_name, $metaclass_name);
+        for my $package (@possible) {
+            use_package_optimistically($package);
+            if ($package->can('register_implementation')) {
+                return $cache{$cache_key}{$metaclass_name} =
+                    $package->register_implementation;
+            }
+            elsif (find_meta($package)) {
+                return $cache{$cache_key}{$metaclass_name} = $package;
+            }
+        }
 
-        return $cache{$cache_key}{$metaclass_name}
-            = $loaded_class->can('register_implementation')
-            ? $loaded_class->register_implementation
-            : $loaded_class;
+        require Moose;
+        Moose->throw_error(
+            "Can't locate " . _english_list_or(@possible) . " in \@INC "
+        . "(\@INC contains: @INC)."
+        );
     }
 }
 
@@ -269,14 +277,28 @@ sub add_method_modifier {
 }
 
 sub english_list {
-    my @items = sort @_;
+    _english_list_and(@_);
+}
+
+sub _english_list_and {
+    _english_list('and', \@_);
+}
+
+sub _english_list_or {
+    _english_list('or', \@_);
+}
+
+sub _english_list {
+    my ($conjunction, $items) = @_;
+
+    my @items = sort @$items;
 
     return $items[0] if @items == 1;
-    return "$items[0] and $items[1]" if @items == 2;
+    return "$items[0] $conjunction $items[1]" if @items == 2;
 
     my $tail = pop @items;
     my $list = join ', ', @items;
-    $list .= ', and ' . $tail;
+    $list .= ", $conjunction " . $tail;
 
     return $list;
 }
@@ -310,6 +332,14 @@ sub meta_class_alias {
     my $meta = Class::MOP::class_of($from);
     my $trait = $meta->isa('Moose::Meta::Role');
     _create_alias('Class', $to, $trait, $from);
+}
+
+sub _load_user_class {
+    my ($class, $opts) = @_;
+    use_package_optimistically(
+        $class,
+        $opts ? $opts->{-version} : ()
+    );
 }
 
 # XXX - this should be added to Params::Util
@@ -480,6 +510,11 @@ sub _is_role_only_subclass {
     return 1;
 }
 
+sub _is_package_loaded {
+    my ($package) = @_;
+    defined $INC{module_notional_filename($package)};
+}
+
 1;
 
 # ABSTRACT: Utilities for working with Moose classes
@@ -494,7 +529,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -622,9 +657,51 @@ Here is a list of possible functions to write
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

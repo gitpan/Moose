@@ -4,13 +4,12 @@ BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Class::VERSION = '2.1005';
+  $Moose::Meta::Class::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Class::Load qw(load_class);
 use Class::MOP;
 use Carp qw( confess );
 use Data::OptList;
@@ -561,7 +560,7 @@ sub superclasses {
     my $supers = Data::OptList::mkopt(\@_);
     foreach my $super (@{ $supers }) {
         my ($name, $opts) = @{ $super };
-        load_class($name, $opts);
+        Moose::Util::_load_user_class($name, $opts);
         my $meta = Class::MOP::class_of($name);
         $self->throw_error("You cannot inherit from a Moose Role ($name)")
             if $meta && $meta->isa('Moose::Meta::Role')
@@ -818,7 +817,7 @@ sub create_error {
 
     my $class = ref $self ? $self->error_class : "Moose::Error::Default";
 
-    load_class($class);
+    Moose::Util::_load_user_class($class);
 
     $class->new(
         Carp::caller_info($args{depth}),
@@ -840,7 +839,7 @@ sub _inline_create_error {
 
     my $class = ref $self ? $self->error_class : "Moose::Error::Default";
 
-    load_class($class);
+    Moose::Util::_load_user_class($class);
 
     # don't check inheritance here - the intention is that the class needs
     # to provide a non-inherited inlining method, because falling back to
@@ -873,7 +872,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -1024,9 +1023,51 @@ Throws the error created by C<create_error> using C<raise_error>
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

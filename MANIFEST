@@ -266,6 +266,7 @@ lib/Moose/Util/TypeConstraints/Builtins.pm
 lib/Test/Moose.pm
 lib/metaclass.pm
 lib/oose.pm
+moose-todo.txt
 mop.c
 mop.h
 perltidyrc
@@ -354,6 +355,7 @@ t/bugs/augment_recursion_bug.t
 t/bugs/coerce_without_coercion.t
 t/bugs/constructor_object_overload.t
 t/bugs/create_anon_recursion.t
+t/bugs/create_anon_role_pass.t
 t/bugs/delete_sub_stash.t
 t/bugs/handles_foreign_class_bug.t
 t/bugs/immutable_metaclass_does_role.t
@@ -387,6 +389,7 @@ t/cmop/RT_27329_fix.t
 t/cmop/RT_39001_fix.t
 t/cmop/RT_41255.t
 t/cmop/add_attribute_alternate.t
+t/cmop/add_method_debugmode.t
 t/cmop/add_method_modifier.t
 t/cmop/advanced_methods.t
 t/cmop/anon_class.t
@@ -464,6 +467,7 @@ t/cmop/universal_methods.t
 t/compat/composite_metaroles.t
 t/compat/extends_nonmoose_that_isa_moose_with_metarole.t
 t/compat/foreign_inheritence.t
+t/compat/inc_hash.t
 t/compat/module_refresh_compat.t
 t/compat/moose_respects_base.t
 t/examples/Child_Parent_attr_inherit.t
@@ -505,6 +509,8 @@ t/lib/MyMooseA.pm
 t/lib/MyMooseB.pm
 t/lib/MyMooseObject.pm
 t/lib/NoInlineAttribute.pm
+t/lib/Real/Package.pm
+t/lib/Role/BreakOnLoad.pm
 t/lib/Role/Child.pm
 t/lib/Role/Interface.pm
 t/lib/Role/Parent.pm
@@ -572,6 +578,7 @@ t/recipes/basics_bankaccount_methodmodifiersandsubclassing.t
 t/recipes/basics_binarytree_attributefeatures.t
 t/recipes/basics_company_subtypes.t
 t/recipes/basics_datetime_extendingnonmooseparent.t
+t/recipes/basics_document_augmentandinner.t
 t/recipes/basics_geonome_overloadingsubtypesandcoercion.t
 t/recipes/basics_http_subtypesandcoercion.t
 t/recipes/basics_point_attributesandsubclassing.t
@@ -585,6 +592,7 @@ t/recipes/meta_privateorpublic_methodmetaclass.t
 t/recipes/meta_table_metaclasstrait.t
 t/recipes/roles_applicationtoinstance.t
 t/recipes/roles_comparable_codereuse.t
+t/recipes/roles_restartable_advancedcomposition.t
 t/roles/anonymous_roles.t
 t/roles/application_toclass.t
 t/roles/apply_role.t
@@ -705,8 +713,8 @@ xs/typemap
 xt/author/debugger-duck_type.t
 xt/author/memory_leaks.t
 xt/author/test-my-dependents.t
-xt/release/changes_has_content.t
 xt/release/eol.t
+xt/release/new-version.t
 xt/release/no-tabs.t
 xt/release/pod-coverage.t
 xt/release/pod-spell.t

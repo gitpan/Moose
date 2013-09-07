@@ -4,13 +4,14 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::VERSION = '2.1005';
+  $Moose::Util::TypeConstraints::VERSION = '2.1100'; # TRIAL
 }
 
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
 use Moose::Exporter;
+use Moose::Deprecated;
 
 ## --------------------------------------------------------
 # Prototyped subs must be predeclared because we have a
@@ -23,7 +24,6 @@ use Moose::Exporter;
 sub where (&);
 sub via (&);
 sub message (&);
-sub optimize_as (&);
 sub inline_as (&);
 
 ## --------------------------------------------------------
@@ -45,7 +45,7 @@ Moose::Exporter->setup_import_methods(
     as_is => [
         qw(
             type subtype class_type role_type maybe_type duck_type
-            as where message optimize_as inline_as
+            as where message inline_as
             coerce from via
             enum union
             find_type_constraint
@@ -335,7 +335,7 @@ sub type {
 
     return _create_type_constraint(
         $name, undef, $p{where}, $p{message},
-        $p{optimize_as}, $p{inline_as},
+        $p{inline_as},
     );
 }
 
@@ -360,7 +360,7 @@ sub subtype {
 
     return _create_type_constraint(
         $name, $p{as}, $p{where}, $p{message},
-        $p{optimize_as}, $p{inline_as},
+        $p{inline_as},
     );
 }
 
@@ -383,11 +383,18 @@ sub maybe_type {
 sub duck_type {
     my ( $type_name, @methods ) = @_;
     if ( ref $type_name eq 'ARRAY' && !@methods ) {
-        @methods   = @$type_name;
+        @methods   = ($type_name);
         $type_name = undef;
     }
     if ( @methods == 1 && ref $methods[0] eq 'ARRAY' ) {
         @methods = @{ $methods[0] };
+    }
+    else {
+        Moose::Deprecated::deprecated(
+            feature => 'non-arrayref form of duck_type',
+            message => "Passing a list of values to duck_type is deprecated. "
+                     . "The method names should be wrapped in an arrayref.",
+        );
     }
 
     register_type_constraint(
@@ -419,7 +426,6 @@ sub coerce {
 sub as { { as => shift }, @_ }
 sub where (&)       { { where       => $_[0] } }
 sub message (&)     { { message     => $_[0] } }
-sub optimize_as (&) { { optimize_as => $_[0] } }
 sub inline_as (&)   { { inline_as   => $_[0] } }
 
 sub from    {@_}
@@ -436,11 +442,18 @@ sub enum {
         @values == 0
             || __PACKAGE__->_throw_error("enum called with an array reference and additional arguments. Did you mean to parenthesize the enum call's parameters?");
 
-        @values    = @$type_name;
+        @values    = ($type_name);
         $type_name = undef;
     }
     if ( @values == 1 && ref $values[0] eq 'ARRAY' ) {
         @values = @{ $values[0] };
+    }
+    else {
+        Moose::Deprecated::deprecated(
+            feature => 'non-arrayref form of enum',
+            message => "Passing a list of values to enum is deprecated. "
+                     . "Enum values should be wrapped in an arrayref.",
+        );
     }
 
     register_type_constraint(
@@ -525,12 +538,11 @@ sub match_on_type {
 ## desugaring functions ...
 ## --------------------------------------------------------
 
-sub _create_type_constraint ($$$;$$) {
+sub _create_type_constraint ($$$;$) {
     my $name      = shift;
     my $parent    = shift;
     my $check     = shift;
     my $message   = shift;
-    my $optimized = shift;
     my $inlined   = shift;
 
     my $pkg_defined_in = scalar( caller(1) );
@@ -557,7 +569,6 @@ sub _create_type_constraint ($$$;$$) {
 
         ( $check     ? ( constraint => $check )     : () ),
         ( $message   ? ( message    => $message )   : () ),
-        ( $optimized ? ( optimized  => $optimized ) : () ),
         ( $inlined   ? ( inlined    => $inlined )   : () ),
     );
 
@@ -771,7 +782,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -984,7 +995,7 @@ name and a hashref of parameters:
  subtype( 'Foo', { where => ..., message => ... } );
 
 The valid hashref keys are C<as> (the parent), C<where>, C<message>,
-and C<optimize_as>.
+and C<inline_as>.
 
 =item B<< subtype as 'Parent', where { } ... >>
 
@@ -1144,18 +1155,6 @@ C<Value> type, which is a subtype of C<Defined>:
         $_[0]->parent()->_inline_check($_[1])
         . ' && !ref(' . $_[1] . ')'
     }
-
-=item B<optimize_as { ... }>
-
-B<This feature is deprecated, use C<inline_as> instead.>
-
-This can be used to define a "hand optimized" version of your
-type constraint which can be used to avoid traversing a subtype
-constraint hierarchy.
-
-B<NOTE:> You should only use this if you know what you are doing.
-All the built in types use this, so your subtypes (assuming they
-are shallow) will not likely need to use this.
 
 =item B<< type 'Name', where { } ... >>
 
@@ -1416,9 +1415,51 @@ Adds C<$type> to the list of parameterizable types
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

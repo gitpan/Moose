@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
@@ -186,7 +184,7 @@ BEGIN {
         => as 'Str'
         => where { DateTime::Format::MySQL->parse_datetime($_) };
 
-    enum 'Status' => qw(draft posted pending archive);
+    enum 'Status' => [qw(draft posted pending archive)];
 
     has 'headline' => (is => 'rw', isa => 'Headline');
     has 'summary'  => (is => 'rw', isa => 'Summary');

@@ -4,14 +4,13 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.1005';
+  $Moose::Meta::Attribute::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
 use warnings;
 
 use B ();
-use Class::Load qw(is_class_loaded load_class);
 use Scalar::Util 'blessed', 'weaken';
 use List::MoreUtils 'any';
 use Try::Tiny;
@@ -122,10 +121,15 @@ sub new {
 }
 
 sub interpolate_class_and_new {
-    my ($class, $name, %args) = @_;
+    my $class = shift;
+    my $name  = shift;
+
+    $class->throw_error('You must pass an even number of attribute options')
+        if @_ % 2 == 1;
+
+    my %args = @_;
 
     my ( $new_class, @traits ) = $class->interpolate_class(\%args);
-
     $new_class->new($name, %args, ( scalar(@traits) ? ( traits => \@traits ) : () ) );
 }
 
@@ -416,10 +420,9 @@ sub _process_coerce_option {
     unless ( $options->{type_constraint}->has_coercion ) {
         my $type = $options->{type_constraint}->name;
 
-        Moose::Deprecated::deprecated(
-            feature => 'coerce without coercion',
-            message =>
-                "You cannot coerce an attribute ($name) unless its type ($type) has a coercion"
+        $class->throw_error(
+            "You cannot coerce an attribute ($name) unless its type ($type) has a coercion",
+            data => $options,
         );
     }
 }
@@ -1171,7 +1174,7 @@ sub _canonicalize_handles {
         }
     }
 
-    load_class($handles);
+    Moose::Util::_load_user_class($handles);
     my $role_meta = Class::MOP::class_of($handles);
 
     (blessed $role_meta && $role_meta->isa('Moose::Meta::Role'))
@@ -1204,7 +1207,7 @@ sub _get_delegate_method_list {
 sub _find_delegate_metaclass {
     my $self = shift;
     if (my $class = $self->_isa_metadata) {
-        unless ( is_class_loaded($class) ) {
+        unless (Moose::Util::_is_package_loaded($class)) {
             $self->throw_error(
                 sprintf(
                     'The %s attribute is trying to delegate to a class which has not been loaded - %s',
@@ -1218,7 +1221,7 @@ sub _find_delegate_metaclass {
         return Class::MOP::Class->initialize($class);
     }
     elsif (my $role = $self->_does_metadata) {
-        unless ( is_class_loaded($class) ) {
+        unless (Moose::Util::_is_package_loaded($role)) {
             $self->throw_error(
                 sprintf(
                     'The %s attribute is trying to delegate to a role which has not been loaded - %s',
@@ -1288,7 +1291,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1005';
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1100'; # TRIAL
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1306,7 +1309,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -1355,7 +1358,7 @@ name as the attribute, and a C<writer> with the name you provided.
 
 Use 'bare' when you are deliberately not installing any methods
 (accessor, reader, etc.) associated with this attribute; otherwise,
-Moose will issue a deprecation warning when this attribute is added to a
+Moose will issue a warning when this attribute is added to a
 metaclass.
 
 =item * isa => $type
@@ -1685,9 +1688,51 @@ Returns true if this attribute has any traits applied.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

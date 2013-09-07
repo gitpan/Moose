@@ -8,6 +8,9 @@ $| = 1;
 
 
 # =begin testing SETUP
+# because MooseX::NonMoose has a version requirement
+BEGIN { $Moose::Role::VERSION = 9999 unless $Moose::Role::VERSION }
+
 use Test::Requires {
     'DateTime'                  => '0',
     'DateTime::Calendar::Mayan' => '0',

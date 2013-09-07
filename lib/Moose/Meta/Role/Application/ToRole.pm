@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::ToRole::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::ToRole::VERSION = '2.1005';
+  $Moose::Meta::Role::Application::ToRole::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -149,7 +149,7 @@ sub apply_override_method_modifiers {
             # we don't have a conflict with the role
             # we are composing into
             if ($role2->has_override_method_modifier($method_name) &&
-                $role2->get_override_method_modifier($method_name) != $role2->get_override_method_modifier($method_name)) {
+                $role1->get_override_method_modifier($method_name) != $role2->get_override_method_modifier($method_name)) {
 
                 require Moose;
                 Moose->throw_error("Role '" . $role1->name . "' has encountered an 'override' method conflict " .
@@ -195,7 +195,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -229,9 +229,51 @@ version 2.1005
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

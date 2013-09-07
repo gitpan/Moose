@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Destructor::VERSION = '2.1005';
+  $Moose::Meta::Method::Destructor::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -63,12 +63,6 @@ sub is_needed {
         "The is_needed method expected a metaclass object as its arugment");
 
     return $metaclass->find_method_by_name("DEMOLISHALL");
-}
-
-sub initialize_body {
-    Carp::cluck('The initialize_body method has been made private.'
-        . " The public version is deprecated and will be removed in a future release.\n");
-    shift->_initialize_body;
 }
 
 sub _initialize_body {
@@ -149,7 +143,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -203,9 +197,51 @@ of its parents defines a C<DEMOLISH> method, it needs a destructor.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

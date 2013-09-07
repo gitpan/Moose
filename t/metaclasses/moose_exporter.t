@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
@@ -600,8 +598,6 @@ use Test::Requires {
     BEGIN {
         package AlsoTest::Role1;
         use Moose::Role;
-
-        $INC{'AlsoTest/Role1.pm'} = __FILE__;
     }
 
     BEGIN {

@@ -3,10 +3,10 @@ BEGIN {
   $Moose::Meta::Attribute::Native::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::VERSION = '2.1005';
+  $Moose::Meta::Attribute::Native::VERSION = '2.1100'; # TRIAL
 }
 
-use Class::Load qw(load_class);
+use Module::Runtime 'require_module';
 
 my @trait_names = qw(Bool Counter Number String Array Hash Code);
 
@@ -25,7 +25,7 @@ for my $trait_name (@trait_names) {
     $meta->add_method(register_implementation => sub {
         # resolve_metatrait_alias will load classes anyway, but throws away
         # their error message; we WANT to die if there's a problem
-        load_class($trait_class);
+        require_module($trait_class);
         return $trait_class;
     });
 }
@@ -44,7 +44,7 @@ Moose::Meta::Attribute::Native - Delegate to native Perl types
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -114,19 +114,6 @@ the associated trait. Currying works the same way as it does with any other
 delegation.
 
 See the docs for each native trait for details on what methods are available.
-
-=head2 is
-
-Some traits provide a default C<is> for historical reasons. This behavior is
-deprecated, and you are strongly encouraged to provide a value. If you don't
-plan to read and write the attribute value directly, not passing the C<is>
-option will prevent standard accessor generation.
-
-=head2 default or builder
-
-Some traits provide a default C<default> for historical reasons. This behavior
-is deprecated, and you are strongly encouraged to provide a default value or
-make the attribute required.
 
 =head1 TRAITS FOR NATIVE DELEGATIONS
 
@@ -258,9 +245,51 @@ the API were changed.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

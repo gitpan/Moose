@@ -12,7 +12,7 @@ Moose::Cookbook::Basics::DateTime_ExtendingNonMooseParent - Extending a non-Moos
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -51,11 +51,18 @@ something funkier, you should check out L<MooseX::NonMoose::InsideOut> and L<Moo
 The meat of this recipe is contained in L<MooseX::NonMoose>, which does all
 the grunt work for you.
 
-=for testing-SETUP use Test::Requires {
+=begin testing-SETUP
+
+# because MooseX::NonMoose has a version requirement
+BEGIN { $Moose::Role::VERSION = 9999 unless $Moose::Role::VERSION }
+
+use Test::Requires {
     'DateTime'                  => '0',
     'DateTime::Calendar::Mayan' => '0',
     'MooseX::NonMoose'          => '0',
 };
+
+=end testing-SETUP
 
 =begin testing
 
@@ -70,9 +77,51 @@ ok( ! $dt->has_mayan_date, 'mayan_date is cleared after call to ->set' );
 
 =end testing
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

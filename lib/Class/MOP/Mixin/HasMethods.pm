@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Mixin::HasMethods::VERSION = '2.1005';
+  $Class::MOP::Mixin::HasMethods::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -176,9 +176,32 @@ sub _restore_metamethods_from {
     my $self = shift;
     my ($old_meta) = @_;
 
+    my $package_name = $self->name;
+
+    # Check if Perl debugger is enabled
+    my $debugger_enabled = ($^P & 0x10);
+    my $debug_method_info;
+
     for my $method ($old_meta->_get_local_methods) {
+        my $method_name = $method->name;
+
+        # Track DB::sub information for this method if debugger is enabled.
+        # This contains original method filename and line numbers.
+        $debug_method_info = '';
+        if ($debugger_enabled) {
+            $debug_method_info = $DB::sub{$package_name . "::" . $method_name}
+        }
+
         $method->_make_compatible_with($self->method_metaclass);
-        $self->add_method($method->name => $method);
+        $self->add_method($method_name => $method);
+
+        # Restore method debug information, which can be clobbered by add_method.
+        # Note that we handle this here instead of in add_method, because we
+        # only want to preserve the original debug info in cases where we are
+        # restoring a method, not overwriting a method.
+        if ($debugger_enabled && $debug_method_info) {
+            $DB::sub{$package_name . "::" . $method_name} = $debug_method_info;
+        }
     }
 }
 
@@ -314,7 +337,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -322,9 +345,51 @@ This class implements methods for metaclasses which have methods
 (L<Class::MOP::Package> and L<Moose::Meta::Role>). See L<Class::MOP::Package>
 for API details.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

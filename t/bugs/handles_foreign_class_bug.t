@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
@@ -14,6 +12,8 @@ use Test::Fatal;
     }
 
     sub a { 'Foo::a' }
+
+    $INC{'Foo.pm'} = __FILE__;
 }
 
 {

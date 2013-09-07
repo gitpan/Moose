@@ -13,7 +13,7 @@ check_conflicts();
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "A postmodern object system for Perl 5",
-  "AUTHOR" => "Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.",
+  "AUTHOR" => "Stevan Little <stevan.little\@iinteractive.com>, Dave Rolsky <autarch\@urth.org>, Jesse Luehrs <doy\@tozt.net>, Shawn M Moore <code\@sartak.org>, Yuval Kogman <nothingmuch\@woobling.org>, Karen Etheridge <ether\@cpan.org>, Florian Ragwitz <rafl\@debian.org>, Hans Dieter Pearcey <hdp\@weftsoar.net>, Chris Prather <chris\@prather.org>, Matt S Trout <mst\@shadowcat.co.uk>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "Dist::CheckConflicts" => "0.02",
@@ -32,11 +32,12 @@ my %WriteMakefileArgs = (
     "Class::Load" => "0.09",
     "Class::Load::XS" => "0.01",
     "Data::OptList" => "0.107",
-    "Devel::GlobalDestruction" => "0",
+    "Devel::GlobalDestruction" => 0,
     "Dist::CheckConflicts" => "0.02",
     "Eval::Closure" => "0.04",
     "List::MoreUtils" => "0.28",
     "MRO::Compat" => "0.05",
+    "Module::Runtime" => "0.012",
     "Package::DeprecationManager" => "0.11",
     "Package::Stash" => "0.32",
     "Package::Stash::XS" => "0.24",
@@ -44,7 +45,7 @@ my %WriteMakefileArgs = (
     "Scalar::Util" => "1.19",
     "Sub::Exporter" => "0.980",
     "Sub::Name" => "0.05",
-    "Task::Weaken" => "0",
+    "Task::Weaken" => 0,
     "Try::Tiny" => "0.02"
   },
   "TEST_REQUIRES" => {
@@ -54,7 +55,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.94",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.1005",
+  "VERSION" => "2.1100",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",

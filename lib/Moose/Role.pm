@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Role::VERSION = '2.1005';
+  $Moose::Role::VERSION = '2.1100'; # TRIAL
 }
 use strict;
 use warnings;
@@ -11,6 +11,7 @@ use warnings;
 use Scalar::Util 'blessed';
 use Carp         'croak';
 use Class::Load  'is_class_loaded';
+use Module::Runtime 'module_notional_filename';
 
 use Sub::Exporter;
 
@@ -138,6 +139,9 @@ sub init_meta {
     }
     else {
         $meta = $metaclass->initialize($role);
+        my $filename = module_notional_filename($meta->name);
+        $INC{$filename} = '(set by Moose)'
+            unless exists $INC{$filename};
     }
 
     if (defined $meta_name) {
@@ -172,7 +176,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -314,9 +318,51 @@ ordering.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

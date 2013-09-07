@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::VERSION = '2.1005';
+  $Moose::Meta::TypeConstraint::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -17,7 +17,6 @@ use overload '0+'     => sub { refaddr(shift) }, # id an object
              fallback => 1;
 
 use Carp qw(confess);
-use Class::Load qw(load_class);
 use Eval::Closure;
 use Scalar::Util qw(blessed refaddr);
 use Sub::Name qw(subname);
@@ -63,7 +62,8 @@ my $_default_message_generator = sub {
         # have to load it late like this, since it uses Moose itself
         my $can_partialdump = try {
             # versions prior to 0.14 had a potential infinite loop bug
-            load_class('Devel::PartialDump', { -version => 0.14 });
+            require Devel::PartialDump;
+            Devel::PartialDump->VERSION(0.14);
             1;
         };
         if ($can_partialdump) {
@@ -78,13 +78,6 @@ my $_default_message_generator = sub {
 __PACKAGE__->meta->add_attribute('coercion'   => (
     accessor  => 'coercion',
     predicate => 'has_coercion',
-    Class::MOP::_definition_context(),
-));
-
-__PACKAGE__->meta->add_attribute('hand_optimized_type_constraint' => (
-    init_arg  => 'optimized',
-    accessor  => 'hand_optimized_type_constraint',
-    predicate => 'has_hand_optimized_type_constraint',
     Class::MOP::_definition_context(),
 ));
 
@@ -125,15 +118,6 @@ sub new {
     my ($first, @rest) = @_;
     my %args = ref $first ? %$first : $first ? ($first, @rest) : ();
     $args{name} = $args{name} ? "$args{name}" : "__ANON__";
-
-    if ( $args{optimized} ) {
-        Moose::Deprecated::deprecated(
-            feature => 'optimized type constraint sub ref',
-            message =>
-                'Providing an optimized subroutine ref for type constraints is deprecated.'
-                . ' Use the inlining feature (inline_as) instead.'
-        );
-    }
 
     if ( exists $args{message}
       && (!ref($args{message}) || ref($args{message}) ne 'CODE') ) {
@@ -254,10 +238,6 @@ sub equals {
 
     return 1 if $self == $other;
 
-    if ( $self->has_hand_optimized_type_constraint and $other->has_hand_optimized_type_constraint ) {
-        return 1 if $self->hand_optimized_type_constraint == $other->hand_optimized_type_constraint;
-    }
-
     return unless $self->constraint == $other->constraint;
 
     if ( $self->has_parent ) {
@@ -305,9 +285,6 @@ sub compile_type_constraint {
 sub _actually_compile_type_constraint {
     my $self = shift;
 
-    return $self->_compile_hand_optimized_type_constraint
-        if $self->has_hand_optimized_type_constraint;
-
     if ( $self->can_be_inlined ) {
         return eval_closure(
             source      => 'sub { ' . $self->_inline_check('$_[0]') . ' }',
@@ -329,54 +306,19 @@ sub _actually_compile_type_constraint {
     return $self->_compile_type($check);
 }
 
-sub _compile_hand_optimized_type_constraint {
-    my $self = shift;
-
-    my $type_constraint = $self->hand_optimized_type_constraint;
-
-    unless ( ref $type_constraint ) {
-        require Moose;
-        Moose->throw_error("Hand optimized type constraint is not a code reference");
-    }
-
-    return $type_constraint;
-}
-
 sub _compile_subtype {
     my ($self, $check) = @_;
 
     # gather all the parent constraints in order
     my @parents;
-    my $optimized_parent;
     foreach my $parent ($self->_collect_all_parents) {
-        # if a parent is optimized, the optimized constraint already includes
-        # all of its parents tcs, so we can break the loop
-        if ($parent->has_hand_optimized_type_constraint) {
-            push @parents => $optimized_parent = $parent->hand_optimized_type_constraint;
-            last;
-        }
-        else {
-            push @parents => $parent->constraint;
-        }
+        push @parents => $parent->constraint;
     }
 
     @parents = grep { $_ != $null_constraint } reverse @parents;
 
     unless ( @parents ) {
         return $self->_compile_type($check);
-    } elsif( $optimized_parent and @parents == 1 ) {
-        # the case of just one optimized parent is optimized to prevent
-        # looping and the unnecessary localization
-        if ( $check == $null_constraint ) {
-            return $optimized_parent;
-        } else {
-            return subname($self->name, sub {
-                return undef unless $optimized_parent->($_[0]);
-                my (@args) = @_;
-                local $_ = $args[0];
-                $check->(@args);
-            });
-        }
     } else {
         # general case, check all the constraints, from the first parent to ourselves
         my @checks = @parents;
@@ -437,7 +379,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -498,15 +440,6 @@ This is optional.
 
 A hash reference of variables to close over. The keys are variables names, and
 the values are I<references> to the variables.
-
-=item * optimized
-
-B<This option is deprecated.>
-
-This is a variant of the C<constraint> parameter that is somehow
-optimized. Typically, this means incorporating both the type's
-constraint and all of its parents' constraints into a single
-subroutine reference.
 
 =back
 
@@ -605,19 +538,6 @@ Returns true if this type constraint can be inlined. A type constraint which
 subtypes an inlinable constraint and does not add an additional constraint
 "inherits" its parent type's inlining.
 
-=item B<< $constraint->hand_optimized_type_constraint >>
-
-B<This method is deprecated.>
-
-Returns the type's hand optimized constraint, as provided to the
-constructor via the C<optimized> option.
-
-=item B<< $constraint->has_hand_optimized_type_constraint >>
-
-B<This method is deprecated.>
-
-Returns true if the type has an optimized constraint.
-
 =item B<< $constraint->create_child_type(%options) >>
 
 This returns a new type constraint of the same class using the
@@ -632,9 +552,51 @@ behavior and change how child types are created.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.1005';
+  $Moose::VERSION = '2.1100'; # TRIAL
 }
 use strict;
 use warnings;
@@ -13,6 +13,7 @@ use 5.008;
 use Scalar::Util 'blessed';
 use Carp         'carp', 'confess';
 use Class::Load  'is_class_loaded';
+use Module::Runtime 'module_notional_filename';
 
 use Moose::Deprecated;
 use Moose::Exporter;
@@ -70,15 +71,12 @@ sub has {
     my $meta = shift;
     my $name = shift;
 
-    Moose->throw_error('Usage: has \'name\' => ( key => value, ... )')
-        if @_ % 2 == 1;
-
     my %context = Moose::Util::_caller_info;
     $context{context} = 'has declaration';
     $context{type} = 'class';
-    my %options = ( definition_context => \%context, @_ );
+    my @options = ( definition_context => \%context, @_ );
     my $attrs = ( ref($name) eq 'ARRAY' ) ? $name : [ ($name) ];
-    $meta->add_attribute( $_, %options ) for @$attrs;
+    $meta->add_attribute( $_, @options ) for @$attrs;
 }
 
 sub before {
@@ -200,6 +198,9 @@ sub init_meta {
         }
 
         $meta = $metaclass->initialize($class);
+        my $filename = module_notional_filename($meta->name);
+        $INC{$filename} = '(set by Moose)'
+            unless exists $INC{$filename};
     }
 
     if (defined $meta_name) {
@@ -294,7 +295,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -350,7 +351,7 @@ features which interest you.
 
 The C<MooseX::> namespace is the official place to find Moose extensions.
 These extensions can be found on the CPAN.  The easiest way to find them
-is to search for them (L<http://search.cpan.org/search?query=MooseX::>),
+is to search for them (L<https://metacpan.org/search?q=MooseX::>),
 or to examine L<Task::Moose> which aims to keep an up-to-date, easily
 installable list of Moose extensions.
 
@@ -1015,7 +1016,7 @@ early ideas/feature-requests/encouragement/bug-finding.
 
 =over 4
 
-=item L<http://www.iinteractive.com/moose>
+=item L<http://moose.perl.org/>
 
 This is the official web home of Moose. It contains links to our public git
 repository, as well as links to a number of talks and articles on Moose and
@@ -1039,7 +1040,7 @@ Part 2 - L<http://www.stonehenge.com/merlyn/LinuxMag/col95.html>
 
 =item Several Moose extension modules in the C<MooseX::> namespace.
 
-See L<http://search.cpan.org/search?query=MooseX::> for extensions.
+See L<https://metacpan.org/search?q=MooseX::> for extensions.
 
 =back
 
@@ -1072,7 +1073,8 @@ All complex software has bugs lurking in it, and this module is no
 exception.
 
 Please report any bugs to C<bug-moose@rt.cpan.org>, or through the web
-interface at L<http://rt.cpan.org>.
+interface at L<http://rt.cpan.org>. You can also submit a C<TODO> test as a
+pull request at L<https://github.com/moose/moose>.
 
 You can also discuss feature requests or possible bugs on the Moose mailing
 list (moose@perl.org) or on IRC at L<irc://irc.perl.org/#moose>.
@@ -1096,25 +1098,7 @@ can contribute.
 There are only a few people with the rights to release a new version
 of Moose. The Moose Cabal are the people to go to with questions regarding
 the wider purview of Moose. They help maintain not just the code
-but the community as well.
-
-Stevan (stevan) Little E<lt>stevan@iinteractive.comE<gt>
-
-Jesse (doy) Luehrs E<lt>doy at tozt dot netE<gt>
-
-Yuval (nothingmuch) Kogman
-
-Shawn (sartak) Moore E<lt>sartak@bestpractical.comE<gt>
-
-Hans Dieter (confound) Pearcey E<lt>hdp@pobox.comE<gt>
-
-Chris (perigrin) Prather
-
-Florian Ragwitz E<lt>rafl@debian.orgE<gt>
-
-Dave (autarch) Rolsky E<lt>autarch@urth.orgE<gt>
-
-Karen (ether) Etheridge E<lt>ether@cpan.orgE<gt>
+but the community as well. See the list below under C<AUTHORS>.
 
 =head1 CONTRIBUTORS
 
@@ -1216,9 +1200,51 @@ Wallace (wreis) Reis
 
 ... and many other #moose folks
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

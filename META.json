@@ -1,10 +1,19 @@
 {
    "abstract" : "A postmodern object system for Perl 5",
    "author" : [
-      "Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details."
+      "Stevan Little <stevan.little@iinteractive.com>",
+      "Dave Rolsky <autarch@urth.org>",
+      "Jesse Luehrs <doy@tozt.net>",
+      "Shawn M Moore <code@sartak.org>",
+      "Yuval Kogman <nothingmuch@woobling.org>",
+      "Karen Etheridge <ether@cpan.org>",
+      "Florian Ragwitz <rafl@debian.org>",
+      "Hans Dieter Pearcey <hdp@weftsoar.net>",
+      "Chris Prather <chris@prather.org>",
+      "Matt S Trout <mst@shadowcat.co.uk>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Dist::Zilla version 4.300037, CPAN::Meta::Converter version 2.132140",
    "license" : [
       "perl_5"
    ],
@@ -50,19 +59,25 @@
          },
          "requires" : {
             "Algorithm::C3" : "0",
+            "CPAN::Meta" : "2.120920",
             "DBM::Deep" : "0",
             "Data::Visitor" : "0",
             "DateTime" : "0",
             "DateTime::Calendar::Mayan" : "0",
             "DateTime::Format::MySQL" : "0",
             "Declare::Constraints::Simple" : "0",
+            "Encode" : "0",
             "ExtUtils::MakeMaker::Dist::Zilla::Develop" : "0",
             "File::Find::Rule" : "0",
             "HTTP::Headers" : "0",
             "IO::File" : "0",
             "IO::String" : "0",
+            "JSON" : "0",
+            "LWP::UserAgent" : "0",
+            "List::Util" : "0",
             "Locale::US" : "0",
             "Module::Info" : "0",
+            "Module::Metadata" : "0",
             "Module::Refresh" : "0",
             "MooseX::NonMoose" : "0",
             "PadWalker" : "0",
@@ -76,6 +91,7 @@
             "Test::Inline::Extract" : "0",
             "Test::LeakTrace" : "0",
             "Test::Memory::Cycle" : "0",
+            "Test::More" : "0.88",
             "Test::Output" : "0",
             "Test::Pod" : "1.41",
             "Test::Spelling" : "0",
@@ -96,6 +112,7 @@
             "Eval::Closure" : "0.04",
             "List::MoreUtils" : "0.28",
             "MRO::Compat" : "0.05",
+            "Module::Runtime" : "0.012",
             "Package::DeprecationManager" : "0.11",
             "Package::Stash" : "0.32",
             "Package::Stash::XS" : "0.24",
@@ -121,485 +138,498 @@
    "provides" : {
       "Class::MOP" : {
          "file" : "lib/Class/MOP.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Attribute" : {
          "file" : "lib/Class/MOP/Attribute.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Class" : {
          "file" : "lib/Class/MOP/Class.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Instance" : {
          "file" : "lib/Class/MOP/Instance.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method" : {
          "file" : "lib/Class/MOP/Method.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Accessor" : {
          "file" : "lib/Class/MOP/Method/Accessor.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Constructor" : {
          "file" : "lib/Class/MOP/Method/Constructor.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Generated" : {
          "file" : "lib/Class/MOP/Method/Generated.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Inlined" : {
          "file" : "lib/Class/MOP/Method/Inlined.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Meta" : {
          "file" : "lib/Class/MOP/Method/Meta.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Overload" : {
          "file" : "lib/Class/MOP/Method/Overload.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Method::Wrapped" : {
          "file" : "lib/Class/MOP/Method/Wrapped.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Module" : {
          "file" : "lib/Class/MOP/Module.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Object" : {
          "file" : "lib/Class/MOP/Object.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Class::MOP::Package" : {
          "file" : "lib/Class/MOP/Package.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose" : {
          "file" : "lib/Moose.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook" : {
          "file" : "lib/Moose/Cookbook.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::BankAccount_MethodModifiersAndSubclassing" : {
          "file" : "lib/Moose/Cookbook/Basics/BankAccount_MethodModifiersAndSubclassing.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::BinaryTree_AttributeFeatures" : {
          "file" : "lib/Moose/Cookbook/Basics/BinaryTree_AttributeFeatures.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::BinaryTree_BuilderAndLazyBuild" : {
          "file" : "lib/Moose/Cookbook/Basics/BinaryTree_BuilderAndLazyBuild.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::Company_Subtypes" : {
          "file" : "lib/Moose/Cookbook/Basics/Company_Subtypes.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::DateTime_ExtendingNonMooseParent" : {
          "file" : "lib/Moose/Cookbook/Basics/DateTime_ExtendingNonMooseParent.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
+      },
+      "Moose::Cookbook::Basics::Document_AugmentAndInner" : {
+         "file" : "lib/Moose/Cookbook/Basics/Document_AugmentAndInner.pod",
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::Genome_OverloadingSubtypesAndCoercion" : {
          "file" : "lib/Moose/Cookbook/Basics/Genome_OverloadingSubtypesAndCoercion.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::HTTP_SubtypesAndCoercion" : {
          "file" : "lib/Moose/Cookbook/Basics/HTTP_SubtypesAndCoercion.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::Immutable" : {
          "file" : "lib/Moose/Cookbook/Basics/Immutable.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::Person_BUILDARGSAndBUILD" : {
          "file" : "lib/Moose/Cookbook/Basics/Person_BUILDARGSAndBUILD.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Basics::Point_AttributesAndSubclassing" : {
          "file" : "lib/Moose/Cookbook/Basics/Point_AttributesAndSubclassing.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Extending::Debugging_BaseClassRole" : {
          "file" : "lib/Moose/Cookbook/Extending/Debugging_BaseClassRole.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Extending::ExtensionOverview" : {
          "file" : "lib/Moose/Cookbook/Extending/ExtensionOverview.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Extending::Mooseish_MooseSugar" : {
          "file" : "lib/Moose/Cookbook/Extending/Mooseish_MooseSugar.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Legacy::Debugging_BaseClassReplacement" : {
          "file" : "lib/Moose/Cookbook/Legacy/Debugging_BaseClassReplacement.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::GlobRef_InstanceMetaclass" : {
          "file" : "lib/Moose/Cookbook/Meta/GlobRef_InstanceMetaclass.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::Labeled_AttributeMetaclass" : {
          "file" : "lib/Moose/Cookbook/Legacy/Labeled_AttributeMetaclass.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::Labeled_AttributeTrait" : {
          "file" : "lib/Moose/Cookbook/Meta/Labeled_AttributeTrait.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::PrivateOrPublic_MethodMetaclass" : {
          "file" : "lib/Moose/Cookbook/Meta/PrivateOrPublic_MethodMetaclass.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::Table_ClassMetaclass" : {
          "file" : "lib/Moose/Cookbook/Legacy/Table_ClassMetaclass.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::Table_MetaclassTrait" : {
          "file" : "lib/Moose/Cookbook/Meta/Table_MetaclassTrait.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Meta::WhyMeta" : {
          "file" : "lib/Moose/Cookbook/Meta/WhyMeta.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Roles::ApplicationToInstance" : {
          "file" : "lib/Moose/Cookbook/Roles/ApplicationToInstance.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Roles::Comparable_CodeReuse" : {
          "file" : "lib/Moose/Cookbook/Roles/Comparable_CodeReuse.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
+      },
+      "Moose::Cookbook::Roles::Restartable_AdvancedComposition" : {
+         "file" : "lib/Moose/Cookbook/Roles/Restartable_AdvancedComposition.pod",
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Snack::Keywords" : {
          "file" : "lib/Moose/Cookbook/Snack/Keywords.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Snack::Types" : {
          "file" : "lib/Moose/Cookbook/Snack/Types.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Cookbook::Style" : {
          "file" : "lib/Moose/Cookbook/Style.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Error::Confess" : {
          "file" : "lib/Moose/Error/Confess.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Error::Croak" : {
          "file" : "lib/Moose/Error/Croak.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Error::Default" : {
          "file" : "lib/Moose/Error/Default.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Exporter" : {
          "file" : "lib/Moose/Exporter.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Intro" : {
          "file" : "lib/Moose/Intro.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual" : {
          "file" : "lib/Moose/Manual.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Attributes" : {
          "file" : "lib/Moose/Manual/Attributes.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::BestPractices" : {
          "file" : "lib/Moose/Manual/BestPractices.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Classes" : {
          "file" : "lib/Moose/Manual/Classes.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Concepts" : {
          "file" : "lib/Moose/Manual/Concepts.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Construction" : {
          "file" : "lib/Moose/Manual/Construction.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Contributing" : {
          "file" : "lib/Moose/Manual/Contributing.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Delegation" : {
          "file" : "lib/Moose/Manual/Delegation.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Delta" : {
          "file" : "lib/Moose/Manual/Delta.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::FAQ" : {
          "file" : "lib/Moose/Manual/FAQ.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::MOP" : {
          "file" : "lib/Moose/Manual/MOP.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::MethodModifiers" : {
          "file" : "lib/Moose/Manual/MethodModifiers.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::MooseX" : {
          "file" : "lib/Moose/Manual/MooseX.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Roles" : {
          "file" : "lib/Moose/Manual/Roles.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
+      },
+      "Moose::Manual::Support" : {
+         "file" : "lib/Moose/Manual/Support.pod",
+         "version" : "2.1100"
       },
       "Moose::Manual::Types" : {
          "file" : "lib/Moose/Manual/Types.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Manual::Unsweetened" : {
          "file" : "lib/Moose/Manual/Unsweetened.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute" : {
          "file" : "lib/Moose/Meta/Attribute.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Custom::Moose" : {
          "file" : "lib/Moose/Meta/Attribute.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native" : {
          "file" : "lib/Moose/Meta/Attribute/Native.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::Array" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Array.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::Bool" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Bool.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::Code" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Code.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::Counter" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Counter.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::Hash" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Hash.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::Number" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Number.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Attribute::Native::Trait::String" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/String.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Class" : {
          "file" : "lib/Moose/Meta/Class.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Instance" : {
          "file" : "lib/Moose/Meta/Instance.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method" : {
          "file" : "lib/Moose/Meta/Method.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Accessor" : {
          "file" : "lib/Moose/Meta/Method/Accessor.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Augmented" : {
          "file" : "lib/Moose/Meta/Method/Augmented.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Constructor" : {
          "file" : "lib/Moose/Meta/Method/Constructor.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Delegation" : {
          "file" : "lib/Moose/Meta/Method/Delegation.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Destructor" : {
          "file" : "lib/Moose/Meta/Method/Destructor.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Meta" : {
          "file" : "lib/Moose/Meta/Method/Meta.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Method::Overridden" : {
          "file" : "lib/Moose/Meta/Method/Overridden.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role" : {
          "file" : "lib/Moose/Meta/Role.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Application" : {
          "file" : "lib/Moose/Meta/Role/Application.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Application::RoleSummation" : {
          "file" : "lib/Moose/Meta/Role/Application/RoleSummation.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Application::ToClass" : {
          "file" : "lib/Moose/Meta/Role/Application/ToClass.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Application::ToInstance" : {
          "file" : "lib/Moose/Meta/Role/Application/ToInstance.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Application::ToRole" : {
          "file" : "lib/Moose/Meta/Role/Application/ToRole.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Attribute" : {
          "file" : "lib/Moose/Meta/Role/Attribute.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Composite" : {
          "file" : "lib/Moose/Meta/Role/Composite.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Method" : {
          "file" : "lib/Moose/Meta/Role/Method.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Method::Conflicting" : {
          "file" : "lib/Moose/Meta/Role/Method/Conflicting.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::Role::Method::Required" : {
          "file" : "lib/Moose/Meta/Role/Method/Required.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeCoercion" : {
          "file" : "lib/Moose/Meta/TypeCoercion.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeCoercion::Union" : {
          "file" : "lib/Moose/Meta/TypeCoercion/Union.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint" : {
          "file" : "lib/Moose/Meta/TypeConstraint.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Class" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Class.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::DuckType" : {
          "file" : "lib/Moose/Meta/TypeConstraint/DuckType.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Enum" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Enum.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Parameterizable" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Parameterizable.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Parameterized" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Parameterized.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Registry" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Registry.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Role" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Role.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Meta::TypeConstraint::Union" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Union.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Object" : {
          "file" : "lib/Moose/Object.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Role" : {
          "file" : "lib/Moose/Role.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Spec::Role" : {
          "file" : "lib/Moose/Spec/Role.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Unsweetened" : {
          "file" : "lib/Moose/Unsweetened.pod",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Util" : {
          "file" : "lib/Moose/Util.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Util::MetaRole" : {
          "file" : "lib/Moose/Util/MetaRole.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Moose::Util::TypeConstraints" : {
          "file" : "lib/Moose/Util/TypeConstraints.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "Test::Moose" : {
          "file" : "lib/Test/Moose.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "metaclass" : {
          "file" : "lib/metaclass.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       },
       "oose" : {
          "file" : "lib/oose.pm",
-         "version" : "2.1005"
+         "version" : "2.1100"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-moose@rt.cpan.org",
          "web" : "https://rt.cpan.org/Dist/Display.html?Name=Moose"
       },
+      "homepage" : "http://moose.perl.org/",
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/moose/moose.git",
          "web" : "https://github.com/moose/moose"
       }
    },
-   "version" : "2.1005",
+   "version" : "2.1100",
    "x_Dist_Zilla" : {
       "perl" : {
-         "version" : "5.019002"
+         "version" : "5.019003"
       },
       "plugins" : [
          {
@@ -615,42 +645,42 @@
          {
             "class" : "Dist::Zilla::Plugin::GatherDir",
             "name" : "GatherDir",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
             "name" : "PruneCruft",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::ManifestSkip",
             "name" : "ManifestSkip",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
             "name" : "MetaYAML",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaJSON",
             "name" : "MetaJSON",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::License",
             "name" : "License",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::ExecDir",
             "name" : "ExecDir",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::ShareDir",
             "name" : "ShareDir",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "inc::MakeMaker",
@@ -660,37 +690,37 @@
          {
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "Manifest",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",
             "name" : "TestRelease",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::UploadToCPAN",
             "name" : "UploadToCPAN",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",
             "name" : "NextRelease",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneFiles",
             "name" : "PruneFiles",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::PkgVersion",
             "name" : "PkgVersion",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaConfig",
             "name" : "MetaConfig",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
@@ -700,7 +730,7 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaResources",
             "name" : "MetaResources",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaProvides::Package",
@@ -710,12 +740,12 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaNoIndex",
             "name" : "MetaNoIndex",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::SurgicalPodWeaver",
             "name" : "SurgicalPodWeaver",
-            "version" : "0.0020"
+            "version" : "0.0021"
          },
          {
             "class" : "inc::ExtractInlineTests",
@@ -730,7 +760,7 @@
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
             "name" : "PodSyntaxTests",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::NoTabsTests",
@@ -748,9 +778,9 @@
             "version" : "0.007"
          },
          {
-            "class" : "Dist::Zilla::Plugin::Test::ChangesHasContent",
-            "name" : "Test::ChangesHasContent",
-            "version" : "0.006"
+            "class" : "Dist::Zilla::Plugin::Test::NewVersion",
+            "name" : "Test::NewVersion",
+            "version" : "0.008"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckChangesHasContent",
@@ -766,7 +796,7 @@
                }
             },
             "name" : "Prereqs",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -777,7 +807,7 @@
                }
             },
             "name" : "TestRequires",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -788,7 +818,7 @@
                }
             },
             "name" : "DevelopRequires",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -799,7 +829,7 @@
                }
             },
             "name" : "RuntimeRecommends",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -810,12 +840,12 @@
                }
             },
             "name" : "DevelopConflicts",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Conflicts",
             "name" : "Conflicts",
-            "version" : "0.10"
+            "version" : "0.13"
          },
          {
             "class" : "inc::CheckDelta",
@@ -845,7 +875,7 @@
          {
             "class" : "Dist::Zilla::Plugin::ConfirmRelease",
             "name" : "ConfirmRelease",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Commit",
@@ -863,42 +893,47 @@
             "version" : "2.014"
          },
          {
+            "class" : "Dist::Zilla::Plugin::ContributorsFromGit",
+            "name" : "ContributorsFromGit",
+            "version" : "0.006"
+         },
+         {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":InstallModules",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":IncModules",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":TestFiles",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ExecFiles",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ShareFiles",
-            "version" : "4.300035"
+            "version" : "4.300037"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":MainModule",
-            "version" : "4.300035"
+            "version" : "4.300037"
          }
       ],
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : "0"
+            "is_trial" : "1"
          },
-         "version" : "4.300035"
+         "version" : "4.300037"
       }
    },
    "x_authority" : "cpan:STEVAN",
@@ -953,6 +988,107 @@
       "Reaction" : "0.002003",
       "Test::Able" : "0.10",
       "namespace::autoclean" : "0.08"
-   }
+   },
+   "x_contributors" : [
+      "2shortplanks <mark@twoshortplanks.com>",
+      "Aankhen <aankhen@gmail.com>",
+      "Adam J. Foxson <fhoxh@pobox.com>",
+      "Adam Kennedy <adamk@cpan.org>",
+      "Anders Nor Berle <berle@cpan.org>",
+      "Ansgar Burchardt <ansgar@43-1.org>",
+      "Aran Clary Deltac <bluefeet@cpan.org>",
+      "Ash Berlin <ash@cpan.org>",
+      "Brad Bowman <bsb@strategicdata.com.au>",
+      "Brian Manning <elspicyjack@gmail.com>",
+      "Chia-liang Kao <clkao@clkao.org>",
+      "Chip <chip@pobox.com>",
+      "Chris Weyl <cweyl@alumni.drew.edu>",
+      "Christian Hansen <chansen@cpan.org>",
+      "Christopher J. Madsen <perl@cjmweb.net>",
+      "Cory Watson <github@onemogin.com>",
+      "Curtis Jewell <perl@csjewell.fastmail.us>",
+      "Daisuke Maki (lestrrat) <daisuke@endeworks.jp>",
+      "Dan Dascalescu <ddascaNOSPAMlescu@gmail.com>",
+      "Dann <techmemo@gmail.com>",
+      "Dave Romano <dave.romano@ionzero.com>",
+      "David Leadbeater <dgl@dgl.cx>",
+      "David Steinbrunner <dsteinbrunner@MountainBook-Pro.local>",
+      "Dylan William Hardison <dylan@hardison.net>",
+      "Eric Wilhelm <ewilhelm@cpan.org>",
+      "Evan Carroll <evan@dealermade.com>",
+      "Frew Schmidt <frioux@gmail.com>",
+      "Gerda Shank <gerda.shank@gmail.com>",
+      "Graham Knop <haarg@haarg.org>",
+      "Guillermo Roditi <groditi@gmail.com>",
+      "Henry Van Styn <vanstyn@intellitree.com>",
+      "Jason May <jason.a.may@gmail.com>",
+      "Jay Allen <jay@endevver.com>",
+      "Jay Hannah <jay@jays.net>",
+      "Jay Kuri <jayk@jay-kuris-macbook.local>",
+      "Jeff Bisbee <jbisbee@biz.(none)>",
+      "Jess Robinson <cpan@desert-island.me.uk>",
+      "Jesse Vincent <jesse@bestpractical.com>",
+      "John Douglas Porter <jdporter@cpan.org>",
+      "John Goulah <jgoulah@cpan.org>",
+      "John Napiorkowski <jjnapiork@cpan.org>",
+      "Jonathan Rockway <jon@jrock.us>",
+      "Justin DeVuyst <justin@devuyst.com>",
+      "Justin Hunter <justin.d.hunter@gmail.com>",
+      "Kent Fredric <kentfredric@gmail.com>",
+      "Lars D\u026a\u1d07\u1d04\u1d0b\u1d0f\u1d21 \u8fea\u62c9\u65af <daxim@cpan.org>",
+      "Leon Brocard <acme@astray.com>",
+      "Marc Mims <marc@questright.com>",
+      "Marcel Gr\u00fcnauer <hanekomu@gmail.com>",
+      "Marcus Ramberg <marcus@nordaaker.com>",
+      "Mark A. Stratman <stratman@gmail.com>",
+      "Mark Allen <mrallen1@yahoo.com>",
+      "Mateu X Hunter <hunter@missoula.org>",
+      "Matt Kraai <kraai@ftbfs.org>",
+      "Matthew Horsfall <wolfsage@gmail.com>",
+      "Mike Whitaker <mike@altrion.org>",
+      "Moritz Onken <onken@houseofdesign.de>",
+      "Nathan Gray <kolibrie@graystudios.org>",
+      "Nelo Onyiah <io1@sanger.ac.uk>",
+      "Olaf Alders <olaf@wundersolutions.com>",
+      "Olof Johansson <olof@ethup.se>",
+      "Patrick Donelan <pat@patspam.com>",
+      "Paul Driver <frodwith@gmail.com>",
+      "Paul Jamieson Fenwick <pjf@perltraining.com.au>",
+      "Pawe\u0142 Murias <pawelmurias@gmail.com>",
+      "Pedro Melo <melo@simplicidade.org>",
+      "Perlover <perlover@perlover.com>",
+      "Peter Shangov <pshangov@yahoo.com>",
+      "Piotr Roszatycki <piotr.roszatycki@gmail.com>",
+      "Rafael Kitover <rkitover@cpan.org>",
+      "Ricardo Signes <rjbs@cpan.org>",
+      "Robert 'phaylon' Sedlacek <rs@474.at>",
+      "Robert Boone <robo4288@gmail.com>",
+      "Robert Buels <rmb32@cornell.edu>",
+      "Robin V <robinsp-gmail-com@nospam.com>",
+      "Sam Vilain <sam.vilain@catalyst.net.nz>",
+      "Scott McWhirter <konobi@cpan.org>",
+      "Shlomi Fish <shlomif@iglu.org.il>",
+      "Stefan O'Rear <stefanor@cox.net>",
+      "Todd Hepler <thepler@employees.org>",
+      "Tokuhiro Matsuno <tokuhirom@gp.ath.cx>",
+      "Tomas Doran <bobtfish@bobtfish.net>",
+      "Tuomas Jormola <tj@solitudo.net>",
+      "Upasana Shukla <me@upasana.me>",
+      "Wallace Reis <reis.wallace@gmail.com>",
+      "Zachary Lome <zachary.lome@baml.com>",
+      "chromatic <chromatic@wgz.org>",
+      "franck cuny <franck@lumberjaph.net>",
+      "gfx <gfuji@cpan.org>",
+      "gregor herrmann <gregoa@debian.org>",
+      "hakim <hakim.cassimally@gmail.com>",
+      "joel <joel@fysh.org>",
+      "matthof <rmhofmann@gmail.com>",
+      "michaelr <michaelr@michaelr-laptop.(none)>",
+      "nperez <nperez@cpan.org>",
+      "rodrigolive <rodrigolive@gmail.com>",
+      "shelling <navyblueshellingford@gmail.com>",
+      "wickline <m-s-w-github@wickline.org>",
+      "\u00c6var Arnfj\u00f6r\u00f0 Bjarmason <avarab@gmail.com>"
+   ]
 }
 

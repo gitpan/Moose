@@ -3,14 +3,13 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::VERSION = '2.1005';
+  $Moose::Meta::Role::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
 
-use Class::Load qw(load_class);
 use Scalar::Util 'blessed';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
@@ -456,7 +455,7 @@ sub apply {
         $application_class = $self->application_to_instance_class;
     }
 
-    load_class($application_class);
+    Moose::Util::_load_user_class($application_class);
 
     if ( exists $args{'-excludes'} ) {
         # I wish we had coercion here :)
@@ -743,7 +742,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -1031,9 +1030,51 @@ This will return a L<Class::MOP::Class> instance for this class.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

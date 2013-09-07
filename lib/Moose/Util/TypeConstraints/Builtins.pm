@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::Builtins::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::Builtins::VERSION = '2.1005';
+  $Moose::Util::TypeConstraints::Builtins::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -17,7 +17,6 @@ sub type { goto &Moose::Util::TypeConstraints::type }
 sub subtype { goto &Moose::Util::TypeConstraints::subtype }
 sub as { goto &Moose::Util::TypeConstraints::as }
 sub where (&) { goto &Moose::Util::TypeConstraints::where }
-sub optimize_as (&) { goto &Moose::Util::TypeConstraints::optimize_as }
 sub inline_as (&) { goto &Moose::Util::TypeConstraints::inline_as }
 
 sub define_builtins {

@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Package::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Package::VERSION = '2.1005';
+  $Class::MOP::Package::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -13,6 +13,7 @@ use warnings;
 use Scalar::Util 'blessed', 'reftype', 'weaken';
 use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
+use Module::Runtime 'module_notional_filename';
 use Package::Stash;
 
 use base 'Class::MOP::Object';
@@ -69,7 +70,12 @@ sub create {
     my $class = shift;
     my @args = @_;
 
-    return $class->initialize(@args);
+    my $meta = $class->initialize(@args);
+    my $filename = module_notional_filename($meta->name);
+    $INC{$filename} = '(set by Moose)'
+        unless exists $INC{$filename};
+
+    return $meta;
 }
 
 ## ANON packages
@@ -169,6 +175,8 @@ sub create {
         delete ${$first_fragments . '::'}{$last_fragment . '::'};
 
         Class::MOP::remove_metaclass_by_name($name);
+
+        delete $INC{module_notional_filename($name)};
     }
 
 }
@@ -272,7 +280,7 @@ Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -391,9 +399,51 @@ This will return a L<Class::MOP::Class> instance for this class.
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

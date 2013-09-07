@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Object::VERSION = '2.1005';
+  $Moose::Object::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -94,6 +94,10 @@ sub DESTROY {
 
     local $?;
 
+    # < doy> if the destructor is being called because an exception is thrown, then $@ will be set
+    # < doy> but if DEMOLISH does an eval which succeeds, that will clear $@
+    # < doy> which is broken
+    # < doy> try::tiny implicitly localizes $@ in the try block, which fixes that
     Try::Tiny::try {
         $self->DEMOLISHALL(Devel::GlobalDestruction::in_global_destruction);
     }
@@ -147,7 +151,7 @@ Moose::Object - The base object for Moose
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 DESCRIPTION
 
@@ -216,9 +220,51 @@ method in the inheritance hierarchy.
 
 See L<Moose/BUGS> for details on reporting bugs.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Class::VERSION = '2.1005';
+  $Class::MOP::Class::VERSION = '2.1100'; # TRIAL
 }
 
 use strict;
@@ -17,7 +17,7 @@ use Class::MOP::Method::Constructor;
 use Class::MOP::MiniTrait;
 
 use Carp         'confess';
-use Class::Load  'is_class_loaded', 'load_class';
+use Module::Runtime 'use_package_optimistically';
 use Scalar::Util 'blessed', 'reftype', 'weaken';
 use Sub::Name    'subname';
 use Try::Tiny;
@@ -1343,7 +1343,7 @@ sub _immutable_metaclass {
     }
 
     return $class_name
-        if is_class_loaded($class_name);
+        if Class::MOP::does_metaclass_exist($class_name);
 
     # If the metaclass is a subclass of CMOP::Class which has had
     # metaclass roles applied (via Moose), then we want to make sure
@@ -1433,7 +1433,10 @@ sub _inline_constructor {
 
     my $constructor_class = $args{constructor_class};
 
-    load_class($constructor_class);
+    {
+        local $@;
+        use_package_optimistically($constructor_class);
+    }
 
     my $constructor = $constructor_class->new(
         options      => \%args,
@@ -1470,7 +1473,10 @@ sub _inline_destructor {
 
     my $destructor_class = $args{destructor_class};
 
-    load_class($destructor_class);
+    {
+        local $@;
+        use_package_optimistically($destructor_class);
+    }
 
     return unless $destructor_class->is_needed($self);
 
@@ -1506,7 +1512,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SYNOPSIS
 
@@ -2222,9 +2228,51 @@ metaclass.
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

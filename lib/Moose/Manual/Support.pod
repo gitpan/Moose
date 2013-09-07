@@ -1,4 +1,4 @@
-package Moose::Manual::Support
+package Moose::Manual::Support;
 
 # ABSTRACT: Policies regarding support, releases, and compatibility.
 
@@ -12,7 +12,7 @@ Moose::Manual::Support - Policies regarding support, releases, and compatibility
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 SUPPORT POLICY
 
@@ -87,10 +87,9 @@ of the Perl install process these warnings may be easy to miss.
 
 =head1 BACKWARDS COMPATIBILITY
 
-We try to ensure compatibility by having a extensive test suite (last
-count just over around 5123 tests), as well as testing a number of
-packages (currently just under 100 packages) that depend on Moose before
-any release.
+We try to ensure compatibility by having a extensive test suite (last count
+over 18000 tests), as well as testing a number of packages (currently just
+under 100 packages) that depend on Moose before any release.
 
 The current list of downstream dependencies that are tested is in
 C<xt/author/test-my-dependents.t>.
@@ -146,9 +145,51 @@ dependency instead.
 Moose has an open contribution policy. Anybody is welcome to submit a
 patch. Please see L<Moose::Manual::Contributing> for more details.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

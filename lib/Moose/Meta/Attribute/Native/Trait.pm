@@ -4,11 +4,11 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.1005';
+  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.1100'; # TRIAL
 }
 use Moose::Role;
 
-use Class::Load qw(load_class);
+use Module::Runtime 'require_module';
 use List::MoreUtils qw( any uniq );
 use Moose::Deprecated;
 use Moose::Util;
@@ -16,75 +16,11 @@ use Moose::Util::TypeConstraints;
 
 requires '_helper_type';
 
-has _used_default_is => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
 before '_process_options' => sub {
     my ( $self, $name, $options ) = @_;
 
     $self->_check_helper_type( $options, $name );
-
-    if ( !( any { exists $options->{$_} } qw( is reader writer accessor ) )
-        && $self->can('_default_is') ) {
-
-        $options->{is} = $self->_default_is;
-
-        $options->{_used_default_is} = 1;
-    }
-
-    if (
-        !(
-            $options->{required}
-            || any { exists $options->{$_} } qw( default builder lazy_build )
-        )
-        && $self->can('_default_default')
-        ) {
-
-        $options->{default} = $self->_default_default;
-
-        Moose::Deprecated::deprecated(
-            feature => 'default default for Native Trait',
-            message =>
-                'Allowing a native trait to automatically supply a default is deprecated.'
-                . ' You can avoid this warning by supplying a default, builder, or making the attribute required'
-        );
-    }
 };
-
-after 'install_accessors' => sub {
-    my $self = shift;
-
-    return unless $self->_used_default_is;
-
-    my @methods
-        = $self->_default_is eq 'rw'
-        ? qw( reader writer accessor )
-        : 'reader';
-
-    my $name = $self->name;
-    my $class = $self->associated_class->name;
-
-    for my $meth ( uniq grep {defined} map { $self->$_ } @methods ) {
-
-        my $message
-            = "The $meth method in the $class class was automatically created"
-            . " by the native delegation trait for the $name attribute."
-            . q{ This "default is" feature is deprecated.}
-            . q{ Explicitly set "is" or define accessor names to avoid this};
-
-        $self->associated_class->add_before_method_modifier(
-            $meth => sub {
-                Moose::Deprecated::deprecated(
-                    feature => 'default is for Native Trait',
-                    message =>$message,
-                );
-            }
-        );
-    }
-    };
 
 sub _check_helper_type {
     my ( $self, $options, $name ) = @_;
@@ -201,7 +137,7 @@ sub _native_accessor_class_for {
         . $self->_native_type . '::'
         . $suffix;
 
-    load_class($role);
+    require_module($role);
     return Moose::Meta::Class->create_anon_class(
         superclasses =>
             [ $self->accessor_metaclass, $self->delegation_metaclass ],
@@ -244,7 +180,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.1005
+version 2.1100
 
 =head1 BUGS
 
@@ -255,9 +191,51 @@ See L<Moose/BUGS> for details on reporting bugs.
 Documentation for Moose native traits can be found in
 L<Moose::Meta::Attribute::Native>.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details.
+=over 4
+
+=item *
+
+Stevan Little <stevan.little@iinteractive.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Jesse Luehrs <doy@tozt.net>
+
+=item *
+
+Shawn M Moore <code@sartak.org>
+
+=item *
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=item *
+
+Hans Dieter Pearcey <hdp@weftsoar.net>
+
+=item *
+
+Chris Prather <chris@prather.org>
+
+=item *
+
+Matt S Trout <mst@shadowcat.co.uk>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
