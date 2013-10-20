@@ -4,17 +4,17 @@ BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use 5.008;
+use 5.008003;
 
 use MRO::Compat;
 
-use Carp          'confess';
+use Class::Load 0.07 ();
 use Scalar::Util  'weaken', 'isweak', 'reftype', 'blessed';
 use Data::OptList;
 use Try::Tiny;
@@ -739,13 +739,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -959,6 +961,9 @@ This will return the metaclass of the given instance or class name.  If the
 class lacks a metaclass, no metaclass will be initialized, and C<undef> will be
 returned.
 
+You should almost certainly be using
+L<C<Moose::Util::find_meta>|Moose::Util/find_meta> instead.
+
 =back
 
 =head2 Metaclass cache functions
@@ -1170,7 +1175,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -3,16 +3,15 @@ BEGIN {
   $Class::MOP::Method::Inlined::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Inlined::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Method::Inlined::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Carp         'confess';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number', 'refaddr';
 
-use base 'Class::MOP::Method::Generated';
+use parent 'Class::MOP::Method::Generated';
 
 sub _uninlined_body {
     my $self = shift;
@@ -117,13 +116,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Method::Inlined - Method base class for methods which have been inlined
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -191,7 +192,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

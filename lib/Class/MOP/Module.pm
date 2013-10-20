@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Module::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Module::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Module::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -13,7 +13,9 @@ use warnings;
 use Carp         'confess';
 use Scalar::Util 'blessed';
 
-use base 'Class::MOP::Package';
+use parent 'Class::MOP::Package';
+
+use Moose::Util 'throw_exception';
 
 sub _new {
     my $class = shift;
@@ -73,8 +75,15 @@ sub create {
 }
 
 sub _anon_package_prefix { 'Class::MOP::Module::__ANON__::SERIAL::' }
-sub _anon_cache_key      { confess "Modules are not cacheable" }
 
+sub _anon_cache_key {
+    my $class = shift;
+    my %options = @_;
+    throw_exception( PackagesAndModulesAreNotCachable => class_name => $class,
+                                                         params     => \%options,
+                                                         is_module  => 1
+                   );
+}
 
 sub _instantiate_module {
     my($self, $version, $authority) = @_;
@@ -96,13 +105,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Module - Module Meta Object
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -203,7 +214,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

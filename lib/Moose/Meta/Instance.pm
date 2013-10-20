@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Instance::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Instance::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Instance::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -12,7 +12,7 @@ use warnings;
 
 use Class::MOP::MiniTrait;
 
-use base "Class::MOP::Instance";
+use parent 'Class::MOP::Instance';
 
 Class::MOP::MiniTrait::apply(__PACKAGE__, 'Moose::Meta::Object::Trait');
 
@@ -24,13 +24,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Instance - The Moose Instance metaclass
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 SYNOPSIS
 
@@ -105,7 +107,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

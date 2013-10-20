@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeCoercion::Union::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeCoercion::Union::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::TypeCoercion::Union::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -13,15 +13,18 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-use base 'Moose::Meta::TypeCoercion';
+use parent 'Moose::Meta::TypeCoercion';
+
+use Moose::Util 'throw_exception';
 
 sub compile_type_coercion {
     my $self            = shift;
     my $type_constraint = $self->type_constraint;
 
     (blessed $type_constraint && $type_constraint->isa('Moose::Meta::TypeConstraint::Union'))
-     || Moose->throw_error("You can only create a Moose::Meta::TypeCoercion::Union for a " .
-                "Moose::Meta::TypeConstraint::Union, not a $type_constraint");
+     || throw_exception( NeedsTypeConstraintUnionForTypeCoercionUnion => type_coercion_union_object => $self,
+                                                                         type_name                  => $type_constraint
+                       );
 
     $self->_compiled_type_coercion(
         sub {
@@ -41,8 +44,8 @@ sub compile_type_coercion {
 sub has_coercion_for_type { 0 }
 
 sub add_type_coercions {
-    require Moose;
-    Moose->throw_error("Cannot add additional type coercions to Union types");
+    my $self = shift;
+    throw_exception( CannotAddAdditionalTypeCoercionsToUnion => type_coercion_union_object => $self );
 }
 
 1;
@@ -53,13 +56,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::TypeCoercion::Union - The Moose Type Coercion metaclass for Unions
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -137,7 +142,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

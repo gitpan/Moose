@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Enum::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::TypeConstraint::Enum::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -13,7 +13,9 @@ use metaclass;
 use B;
 use Moose::Util::TypeConstraints ();
 
-use base 'Moose::Meta::TypeConstraint';
+use parent 'Moose::Meta::TypeConstraint';
+
+use Moose::Util 'throw_exception';
 
 __PACKAGE__->meta->add_attribute('values' => (
     accessor => 'values',
@@ -43,18 +45,23 @@ sub new {
     $args{inlined} = $inliner;
 
     if ( scalar @{ $args{values} } < 1 ) {
-        require Moose;
-        Moose->throw_error("You must have at least one value to enumerate through");
+        throw_exception( MustHaveAtLeastOneValueToEnumerate => params => \%args,
+                                                               class  => $class
+                       );
     }
 
     for (@{ $args{values} }) {
         if (!defined($_)) {
-            require Moose;
-            Moose->throw_error("Enum values must be strings, not undef");
+            throw_exception( EnumValuesMustBeString => params => \%args,
+                                                       class  => $class,
+                                                       value  => $_
+                           );
         }
         elsif (ref($_)) {
-            require Moose;
-            Moose->throw_error("Enum values must be strings, not '$_'");
+            throw_exception( EnumValuesMustBeString => params => \%args,
+                                                       class  => $class,
+                                                       value  => $_
+                           );
         }
     }
 
@@ -116,13 +123,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::TypeConstraint::Enum - Type constraint for enumerated values.
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -218,7 +227,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

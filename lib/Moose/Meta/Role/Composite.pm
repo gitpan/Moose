@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Composite::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Composite::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Role::Composite::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -14,7 +14,9 @@ use Scalar::Util 'blessed';
 
 use Moose::Util;
 
-use base 'Moose::Meta::Role';
+use parent 'Moose::Meta::Role';
+
+use Moose::Util 'throw_exception';
 
 # NOTE:
 # we need to override the ->name
@@ -51,8 +53,10 @@ sub new {
     # the roles param is required ...
     foreach ( @{$params{roles}} ) {
         unless ( $_->isa('Moose::Meta::Role') ) {
-            require Moose;
-            Moose->throw_error("The list of roles must be instances of Moose::Meta::Role, not $_");
+            throw_exception( RolesListMustBeInstancesOfMooseMetaRole => params => \%params,
+                                                                        role   => $_,
+                                                                        class  => $class
+                           );
         }
     }
 
@@ -83,7 +87,7 @@ sub add_method {
     my ($self, $method_name, $method) = @_;
 
     unless ( defined $method_name && $method_name ) {
-        Moose->throw_error("You must define a method name");
+        throw_exception( MustDefineAMethodName => instance => $self );
     }
 
     my $body;
@@ -140,9 +144,10 @@ sub apply_params {
 sub reinitialize {
     my ( $class, $old_meta, @args ) = @_;
 
-    Moose->throw_error(
-        'Moose::Meta::Role::Composite instances can only be reinitialized from an existing metaclass instance'
-        )
+    throw_exception( CannotInitializeMooseMetaRoleComposite => old_meta       => $old_meta,
+                                                               args           => \@args,
+                                                               role_composite => $class
+                   )
         if !blessed $old_meta
             || !$old_meta->isa('Moose::Meta::Role::Composite');
 
@@ -161,13 +166,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -268,7 +275,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

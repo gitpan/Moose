@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Class::Immutable::Trait::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Class::Immutable::Trait::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -11,8 +11,9 @@ use warnings;
 
 use MRO::Compat;
 
-use Carp 'confess';
 use Scalar::Util 'blessed', 'weaken';
+
+use Moose::Util 'throw_exception';
 
 # the original class of the metaclass instance
 sub _get_mutable_metaclass_name { $_[0]{__immutable}{original_class} }
@@ -24,12 +25,12 @@ sub _immutable_metaclass { ref $_[1] }
 
 sub _immutable_read_only {
     my $name = shift;
-    confess "The '$name' method is read-only when called on an immutable instance";
+    throw_exception( CallingReadOnlyMethodOnAnImmutableInstance => method_name => $name );
 }
 
 sub _immutable_cannot_call {
     my $name = shift;
-    Carp::confess "The '$name' method cannot be called on an immutable instance";
+    throw_exception( CallingMethodOnAnImmutableInstance => method_name => $name );
 }
 
 for my $name (qw/superclasses/) {
@@ -98,13 +99,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Class::Immutable::Trait - Implements immutability for metaclass objects
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -161,7 +164,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

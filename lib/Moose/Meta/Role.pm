@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Role::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -11,7 +11,6 @@ use warnings;
 use metaclass;
 
 use Scalar::Util 'blessed';
-use Carp         'confess';
 use Devel::GlobalDestruction 'in_global_destruction';
 
 use Moose::Meta::Class;
@@ -20,10 +19,10 @@ use Moose::Meta::Role::Method;
 use Moose::Meta::Role::Method::Required;
 use Moose::Meta::Role::Method::Conflicting;
 use Moose::Meta::Method::Meta;
-use Moose::Util qw( ensure_all_roles );
+use Moose::Util qw/throw_exception/;
 use Class::MOP::MiniTrait;
 
-use base 'Class::MOP::Module',
+use parent 'Class::MOP::Module',
          'Class::MOP::Mixin::HasAttributes',
          'Class::MOP::Mixin::HasMethods';
 
@@ -243,10 +242,14 @@ sub add_attribute {
 
     if (blessed $_[0] && ! $_[0]->isa('Moose::Meta::Role::Attribute') ) {
         my $class = ref $_[0];
-        Moose->throw_error( "Cannot add a $class as an attribute to a role" );
+        throw_exception( CannotAddAsAnAttributeToARole => role            => $self,
+                                                          attribute_class => $class
+                       );
     }
     elsif (!blessed($_[0]) && defined($_[0]) && $_[0] =~ /^\+(.*)/) {
-        Moose->throw_error( "has '+attr' is not supported in roles" );
+        throw_exception( AttributeExtensionIsNotSupportedInRoles => attribute_name => $_[0],
+                                                                    role           => $self
+                       );
     }
 
     return $self->SUPER::add_attribute(@_);
@@ -363,8 +366,9 @@ $META->add_attribute('override_method_modifiers' => (
 sub add_override_method_modifier {
     my ($self, $method_name, $method) = @_;
     (!$self->has_method($method_name))
-        || Moose->throw_error("Cannot add an override of method '$method_name' " .
-                   "because there is a local version of '$method_name'");
+        || throw_exception( CannotOverrideALocalMethod => method_name => $method_name,
+                                                          role        => $self
+                          );
     $self->get_override_method_modifiers_map->{$method_name} = $method;
 }
 
@@ -403,7 +407,9 @@ $META->add_attribute('roles' => (
 sub add_role {
     my ($self, $role) = @_;
     (blessed($role) && $role->isa('Moose::Meta::Role'))
-        || Moose->throw_error("Roles must be instances of Moose::Meta::Role");
+        || throw_exception( AddRoleToARoleTakesAMooseMetaRole => role_to_be_added => $role,
+                                                                 role             => $self
+                          );
     push @{$self->get_roles} => $role;
     $self->reset_package_cache_flag;
 }
@@ -421,7 +427,7 @@ sub calculate_all_roles {
 sub does_role {
     my ($self, $role) = @_;
     (defined $role)
-        || Moose->throw_error("You must supply a role name to look for");
+        || throw_exception( RoleNameRequiredForMooseMetaRole => role => $self );
     my $role_name = blessed $role ? $role->name : $role;
     # if we are it,.. then return true
     return 1 if $role_name eq $self->name;
@@ -442,7 +448,9 @@ sub apply {
     my ($self, $other, %args) = @_;
 
     (blessed($other))
-        || Moose->throw_error("You must pass in an blessed instance");
+        || throw_exception( ApplyTakesABlessedInstance => param => $other,
+                                                          role  => $self
+                          );
 
     my $application_class;
     if ($other->isa('Moose::Meta::Role')) {
@@ -508,15 +516,21 @@ sub create {
     my %options = @args;
 
     (ref $options{attributes} eq 'HASH')
-        || confess "You must pass a HASH ref of attributes"
+        || throw_exception( CreateTakesHashRefOfAttributes => params           => \%options,
+                                                              attribute_class  => $class
+                          )
             if exists $options{attributes};
 
     (ref $options{methods} eq 'HASH')
-        || confess "You must pass a HASH ref of methods"
+        || throw_exception( CreateTakesHashRefOfMethods => params           => \%options,
+                                                           attribute_class  => $class
+                          )
             if exists $options{methods};
 
     (ref $options{roles} eq 'ARRAY')
-        || confess "You must pass an ARRAY ref of roles"
+        || throw_exception( CreateTakesArrayRefOfRoles => params           => \%options,
+                                                          attribute_class  => $class
+                          )
             if exists $options{roles};
 
     my $package      = delete $options{package};
@@ -736,13 +750,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -1078,7 +1094,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

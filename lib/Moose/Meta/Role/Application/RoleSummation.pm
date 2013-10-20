@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -14,7 +14,9 @@ use Scalar::Util 'blessed';
 
 use Moose::Meta::Role::Composite;
 
-use base 'Moose::Meta::Role::Application';
+use parent 'Moose::Meta::Role::Application';
+
+use Moose::Util 'throw_exception';
 
 __PACKAGE__->meta->add_attribute('role_params' => (
     reader  => 'role_params',
@@ -84,8 +86,9 @@ sub check_role_exclusions {
 
             my @excluding = @{ $excluded_roles{$excluded} };
 
-            require Moose;
-            Moose->throw_error(sprintf "Conflict detected: Role%s %s exclude%s role '%s'", (@excluding == 1 ? '' : 's'), join(', ', @excluding), (@excluding == 1 ? 's' : ''), $excluded);
+            throw_exception( RoleExclusionConflict => roles     => \@excluding,
+                                                      role_name => $excluded
+                           );
         }
     }
 
@@ -136,12 +139,10 @@ sub apply_attributes {
             my $role1 = $seen{$name}->associated_role->name;
             my $role2 = $attr->associated_role->name;
 
-            require Moose;
-            Moose->throw_error(
-                "We have encountered an attribute conflict with '$name' "
-                    . "during role composition. "
-                    . " This attribute is defined in both $role1 and $role2."
-                    . " This is a fatal error and cannot be disambiguated." );
+            throw_exception( AttributeConflictInSummation => attribute_name => $name,
+                                                             role_name      => $role1,
+                                                             second_role    => Class::MOP::class_of($role2)
+                           );
         }
 
         $seen{$name} = $attr;
@@ -221,17 +222,18 @@ sub apply_override_method_modifiers {
     my %seen;
     foreach my $override (@all_overrides) {
         if ( $c->has_method($override->{name}) ){
-            require Moose;
-            Moose->throw_error( "Role '" . $c->name . "' has encountered an 'override' method conflict " .
-                                "during composition (A local method of the same name as been found). This " .
-                                "is fatal error." )
+            throw_exception( OverrideConflictInSummation => roles            => $c->get_roles,
+                                                            role_application => $self,
+                                                            method_name      => $override->{name}
+                           );
         }
         if (exists $seen{$override->{name}}) {
             if ( $seen{$override->{name}} != $override->{method} ) {
-                require Moose;
-                Moose->throw_error( "We have encountered an 'override' method conflict during " .
-                                    "composition (Two 'override' methods of the same name encountered). " .
-                                    "This is fatal error.")
+                throw_exception( OverrideConflictInSummation => roles               => $c->get_roles,
+                                                                role_application    => $self,
+                                                                method_name         => $override->{name},
+                                                                two_overrides_found => 1
+                               );
             }
         }
         $seen{$override->{name}} = $override->{method};
@@ -265,13 +267,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -368,7 +372,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

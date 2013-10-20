@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Accessor::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -12,8 +12,10 @@ use warnings;
 
 use Try::Tiny;
 
-use base 'Moose::Meta::Method',
+use parent 'Moose::Meta::Method',
          'Class::MOP::Method::Accessor';
+
+use Moose::Util 'throw_exception';
 
 # multiple inheritance is terrible
 sub new {
@@ -38,12 +40,10 @@ sub _compile_code {
         $self->SUPER::_compile_code(@args);
     }
     catch {
-        $self->throw_error(
-            'Could not create writer for '
-          . "'" . $self->associated_attribute->name . "' "
-          . 'because ' . $_,
-            error => $_,
-        );
+        throw_exception( CouldNotCreateWriter => attribute      => $self->associated_attribute,
+                                                 error          => $_,
+                                                 instance       => $self
+                       );
     };
 }
 
@@ -135,13 +135,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Method::Accessor - A Moose Method metaclass for accessors
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -204,7 +206,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.1101'; # TRIAL
 }
 use Moose::Role;
 
@@ -13,6 +13,8 @@ use List::MoreUtils qw( any uniq );
 use Moose::Deprecated;
 use Moose::Util;
 use Moose::Util::TypeConstraints;
+
+use Moose::Util 'throw_exception';
 
 requires '_helper_type';
 
@@ -51,8 +53,11 @@ sub _check_helper_type {
         $isa_name = $isa->name();
     }
 
-    confess
-        "The type constraint for $name must be a subtype of $type but it's a $isa_name";
+    throw_exception( WrongTypeConstraintGiven => required_type  => $type,
+                                                 given_type     => $isa_name,
+                                                 attribute_name => $name,
+                                                 params         => $options
+                   );
 }
 
 before 'install_accessors' => sub { (shift)->_check_handles_values };
@@ -81,8 +86,9 @@ around '_canonicalize_handles' => sub {
     return unless $handles;
 
     unless ( 'HASH' eq ref $handles ) {
-        $self->throw_error(
-            "The 'handles' option must be a HASH reference, not $handles");
+       throw_exception( HandlesMustBeAHashRef => instance      => $self,
+                                                 given_handles => $handles
+                      );
     }
 
     return
@@ -95,9 +101,9 @@ sub _canonicalize_handles_value {
     my $value = shift;
 
     if ( ref $value && 'ARRAY' ne ref $value ) {
-        $self->throw_error(
-            "All values passed to handles must be strings or ARRAY references, not $value"
-        );
+        throw_exception( InvalidHandleValue => instance     => $self,
+                                               handle_value => $value
+                       );
     }
 
     return ref $value ? $value : [$value];
@@ -153,7 +159,7 @@ sub _build_native_type {
         return $1 if $role_name =~ /::Native::Trait::(\w+)$/;
     }
 
-    die "Cannot calculate native type for " . ref $self;
+    throw_exception( CannotCalculateNativeType => instance => $self );
 }
 
 has '_native_type' => (
@@ -174,13 +180,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 BUGS
 
@@ -239,7 +247,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

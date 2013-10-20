@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Mixin::HasMethods::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Mixin::HasMethods::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -13,12 +13,12 @@ use Class::MOP::Method::Meta;
 use Class::MOP::Method::Overload;
 
 use Scalar::Util 'blessed', 'reftype';
-use Carp         'confess';
 use Sub::Name    'subname';
 
 use overload ();
 
-use base 'Class::MOP::Mixin';
+use parent 'Class::MOP::Mixin';
+require Moose::Util;
 
 sub _meta_method_class { 'Class::MOP::Method::Meta' }
 
@@ -42,9 +42,10 @@ sub _add_meta_method {
 sub wrap_method_body {
     my ( $self, %args ) = @_;
 
-    ( 'CODE' eq reftype $args{body} )
-        || confess "Your code block must be a CODE reference";
-
+    ( $args{body} && 'CODE' eq reftype $args{body} )
+        || Moose::Util::throw_exception( CodeBlockMustBeACodeRef => instance => $self,
+                                                                    params   => \%args
+                                       );
     $self->method_metaclass->wrap(
         package_name => $self->name,
         %args,
@@ -54,7 +55,7 @@ sub wrap_method_body {
 sub add_method {
     my ( $self, $method_name, $method ) = @_;
     ( defined $method_name && length $method_name )
-        || confess "You must define a method name";
+        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
 
     my $package_name = $self->name;
 
@@ -102,7 +103,7 @@ sub has_method {
     my ( $self, $method_name ) = @_;
 
     ( defined $method_name && length $method_name )
-        || confess "You must define a method name";
+        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
 
     my $method = $self->_get_maybe_raw_method($method_name)
         or return;
@@ -114,7 +115,7 @@ sub get_method {
     my ( $self, $method_name ) = @_;
 
     ( defined $method_name && length $method_name )
-        || confess "You must define a method name";
+        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
 
     my $method = $self->_get_maybe_raw_method($method_name)
         or return;
@@ -145,7 +146,7 @@ sub remove_method {
     my ( $self, $method_name ) = @_;
 
     ( defined $method_name && length $method_name )
-        || confess "You must define a method name";
+        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
 
     my $removed_method = delete $self->_method_map->{$method_name};
 
@@ -331,13 +332,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -393,7 +396,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

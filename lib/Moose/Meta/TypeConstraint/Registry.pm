@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Registry::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::TypeConstraint::Registry::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -13,7 +13,9 @@ use metaclass;
 
 use Scalar::Util 'blessed';
 
-use base 'Class::MOP::Object';
+use parent 'Class::MOP::Object';
+
+use Moose::Util 'throw_exception';
 
 __PACKAGE__->meta->add_attribute('parent_registry' => (
     reader    => 'get_parent_registry',
@@ -49,8 +51,9 @@ sub add_type_constraint {
     my ($self, $type) = @_;
 
     unless ( $type && blessed $type && $type->isa('Moose::Meta::TypeConstraint') ) {
-        require Moose;
-        Moose->throw_error("No type supplied / type is not a valid type constraint");
+        throw_exception( InvalidTypeConstraint => registry_object => $self,
+                                                  type            => $type
+                       );
     }
 
     $self->type_constraints->{$type->name} = $type;
@@ -73,13 +76,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::TypeConstraint::Registry - registry for type constraints
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -203,7 +208,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

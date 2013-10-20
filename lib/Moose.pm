@@ -3,17 +3,17 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.1100'; # TRIAL
+  $Moose::VERSION = '2.1101'; # TRIAL
 }
 use strict;
 use warnings;
 
-use 5.008;
+use 5.008003;
 
 use Scalar::Util 'blessed';
 use Carp         'carp', 'confess';
-use Class::Load  'is_class_loaded';
 use Module::Runtime 'module_notional_filename';
+use Class::Load  'is_class_loaded', 'load_class';
 
 use Moose::Deprecated;
 use Moose::Exporter;
@@ -42,21 +42,17 @@ use Moose::Meta::Role::Application::ToRole;
 use Moose::Meta::Role::Application::ToInstance;
 
 use Moose::Util::TypeConstraints;
-use Moose::Util ();
+use Moose::Util 'throw_exception';
 
 use Moose::Meta::Attribute::Native;
-
-sub throw_error {
-    # FIXME This
-    shift;
-    goto \&confess
-}
 
 sub extends {
     my $meta = shift;
 
-    Moose->throw_error("Must derive at least one class") unless @_;
-
+    unless ( @_ )
+    {
+        throw_exception( ExtendsMissingArgs => class => $meta );
+    }
     # this checks the metaclass to make sure
     # it is correct, sometimes it can get out
     # of sync when the classes are being built
@@ -148,15 +144,16 @@ sub init_meta {
     my %args = @_;
 
     my $class = $args{for_class}
-        or Moose->throw_error("Cannot call init_meta without specifying a for_class");
+        or throw_exception( InitMetaRequiresClass => params => \%args );
+
     my $base_class = $args{base_class} || 'Moose::Object';
     my $metaclass  = $args{metaclass}  || 'Moose::Meta::Class';
     my $meta_name  = exists $args{meta_name} ? $args{meta_name} : 'meta';
 
-    Moose->throw_error("The Metaclass $metaclass must be loaded. (Perhaps you forgot to 'use $metaclass'?)")
+    throw_exception( MetaclassNotLoaded => class_name => $metaclass )
         unless is_class_loaded($metaclass);
 
-    Moose->throw_error("The Metaclass $metaclass must be a subclass of Moose::Meta::Class.")
+    throw_exception( MetaclassMustBeASubclassOfMooseMetaClass => class_name => $metaclass )
         unless $metaclass->isa('Moose::Meta::Class');
 
     # make a subtype for each Moose class
@@ -167,11 +164,16 @@ sub init_meta {
 
     if ( $meta = Class::MOP::get_metaclass_by_name($class) ) {
         unless ( $meta->isa("Moose::Meta::Class") ) {
-            my $error_message = "$class already has a metaclass, but it does not inherit $metaclass ($meta).";
             if ( $meta->isa('Moose::Meta::Role') ) {
-                Moose->throw_error($error_message . ' You cannot make the same thing a role and a class. Remove either Moose or Moose::Role.');
+                throw_exception( MetaclassIsARoleNotASubclassOfGivenMetaclass => role_name => $class,
+                                                                                 metaclass => $metaclass,
+                                                                                 role      => $meta
+                               );
             } else {
-                Moose->throw_error($error_message);
+                throw_exception( MetaclassIsNotASubclassOfGivenMetaclass => class_name => $class,
+                                                                            metaclass  => $metaclass,
+                                                                            class      => $meta
+                               );
             }
         }
     } else {
@@ -289,13 +291,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 SYNOPSIS
 
@@ -413,8 +417,8 @@ on the current class.
 This function will set the superclass(es) for the current class. If the parent
 classes are not yet loaded, then C<extends> tries to load them.
 
-This approach is recommended instead of C<use base>, because C<use base>
-actually C<push>es onto the class's C<@ISA>, whereas C<extends> will
+This approach is recommended instead of C<use L<base>>/C<use L<parent>>, because
+C<use base> actually C<push>es onto the class's C<@ISA>, whereas C<extends> will
 replace it. This is important to ensure that classes which do not have
 superclasses still properly inherit from L<Moose::Object>.
 
@@ -1074,7 +1078,7 @@ exception.
 
 Please report any bugs to C<bug-moose@rt.cpan.org>, or through the web
 interface at L<http://rt.cpan.org>. You can also submit a C<TODO> test as a
-pull request at L<https://github.com/moose/moose>.
+pull request at L<https://github.com/moose/Moose>.
 
 You can also discuss feature requests or possible bugs on the Moose mailing
 list (moose@perl.org) or on IRC at L<irc://irc.perl.org/#moose>.
@@ -1248,7 +1252,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

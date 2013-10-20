@@ -4,25 +4,26 @@ BEGIN {
   $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Generated::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Method::Generated::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Carp 'confess';
 use Eval::Closure;
 
-use base 'Class::MOP::Method';
+use parent 'Class::MOP::Method';
+
+use Moose::Util 'throw_exception';
 
 ## accessors
 
 sub new {
-    confess __PACKAGE__ . " is an abstract base class, you must provide a constructor.";
+    throw_exception( CannotCallAnAbstractBaseMethod => package_name => __PACKAGE__ );
 }
 
 sub _initialize_body {
-    confess "No body to initialize, " . __PACKAGE__ . " is an abstract base class";
+    throw_exception( NoBodyToInitializeInAnAbstractBaseClass => package_name => __PACKAGE__ );
 }
 
 sub _generate_description {
@@ -75,13 +76,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Method::Generated - Abstract base class for generated methods
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -139,7 +142,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

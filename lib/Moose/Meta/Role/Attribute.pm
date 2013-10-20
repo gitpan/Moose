@@ -3,17 +3,18 @@ BEGIN {
   $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Attribute::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Role::Attribute::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Carp 'confess';
 use List::MoreUtils 'all';
 use Scalar::Util 'blessed', 'weaken';
 
-use base 'Moose::Meta::Mixin::AttributeCore', 'Class::MOP::Object';
+use parent 'Moose::Meta::Mixin::AttributeCore', 'Class::MOP::Object';
+
+use Moose::Util 'throw_exception';
 
 __PACKAGE__->meta->add_attribute(
     'metaclass' => (
@@ -54,7 +55,9 @@ sub new {
     my ( $class, $name, %options ) = @_;
 
     (defined $name)
-        || confess "You must provide a name for the attribute";
+        || throw_exception( MustProvideANameForTheAttribute => params => \%options,
+                                                               class  => $class
+                          );
 
     my $role = delete $options{_original_role};
 
@@ -70,8 +73,9 @@ sub attach_to_role {
     my ( $self, $role ) = @_;
 
     ( blessed($role) && $role->isa('Moose::Meta::Role') )
-        || confess
-        "You must pass a Moose::Meta::Role instance (or a subclass)";
+        || throw_exception( MustPassAMooseMetaRoleInstanceOrSubclass => class  => $self,
+                                                                        role   => $role
+                          );
 
     weaken( $self->{'associated_role'} = $role );
 }
@@ -133,13 +137,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Role::Attribute - The Moose attribute metaclass for Roles
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -254,7 +260,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

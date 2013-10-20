@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Meta::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Meta::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Method::Meta::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -15,7 +15,7 @@ use Scalar::Util 'blessed', 'weaken';
 
 use constant DEBUG_NO_META => $ENV{DEBUG_NO_META} ? 1 : 0;
 
-use base 'Class::MOP::Method';
+use parent 'Class::MOP::Method';
 
 sub _is_caller_mop_internal {
     my $self = shift;
@@ -54,7 +54,10 @@ sub wrap {
 
     unshift @args, 'body' if @args % 2 == 1;
     my %params = @args;
-    confess "Overriding the body of meta methods is not allowed"
+    require Moose::Util;
+    Moose::Util::throw_exception( CannotOverrideBodyOfMetaMethods => params => \%params,
+                                                                     class  => $class
+                                )
         if $params{body};
 
     my $metaclass_class = $params{associated_metaclass}->meta;
@@ -89,13 +92,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Method::Meta - Method Meta Object for C<meta> methods
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -163,7 +168,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -4,18 +4,20 @@ BEGIN {
   $metaclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $metaclass::VERSION = '2.1100'; # TRIAL
+  $metaclass::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Carp         'confess';
 use Module::Runtime 'use_package_optimistically';
+use Class::Load  'load_class';
 use Scalar::Util 'blessed';
 use Try::Tiny;
 
 use Class::MOP;
+
+use Moose::Util 'throw_exception';
 
 sub import {
     my ( $class, @args ) = @_;
@@ -33,7 +35,7 @@ sub import {
     }
 
     ($metaclass->isa('Class::MOP::Class'))
-        || confess "The metaclass ($metaclass) must be derived from Class::MOP::Class";
+        || throw_exception( MetaclassMustBeDerivedFromClassMOPClass => class_name => $metaclass );
 
     # make sure the custom metaclasses get loaded
     foreach my $key (grep { /_(?:meta)?class$/ } keys %options) {
@@ -58,13 +60,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 metaclass - a pragma for installing and using Class::MOP metaclasses
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 SYNOPSIS
 
@@ -155,7 +159,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

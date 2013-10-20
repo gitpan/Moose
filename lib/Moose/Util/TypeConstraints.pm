@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::VERSION = '2.1100'; # TRIAL
+  $Moose::Util::TypeConstraints::VERSION = '2.1101'; # TRIAL
 }
 
 use Carp ();
@@ -40,6 +40,8 @@ use Moose::Meta::TypeConstraint::DuckType;
 use Moose::Meta::TypeCoercion;
 use Moose::Meta::TypeCoercion::Union;
 use Moose::Meta::TypeConstraint::Registry;
+
+use Moose::Util 'throw_exception';
 
 Moose::Exporter->setup_import_methods(
     as_is => [
@@ -98,13 +100,11 @@ sub _create_type_constraint_union {
     }
 
     ( scalar @type_constraint_names >= 2 )
-        || __PACKAGE__->_throw_error(
-        "You must pass in at least 2 type names to make a union");
+        || throw_exception("UnionTakesAtleastTwoTypeNames");
 
     my @type_constraints = map {
         find_or_parse_type_constraint($_)
-            || __PACKAGE__->_throw_error(
-            "Could not locate type constraint ($_) for the union");
+            || throw_exception( CouldNotLocateTypeConstraintForUnion => type_name => $_ );
     } @type_constraint_names;
 
     my %options = (
@@ -122,8 +122,7 @@ sub create_parameterized_type_constraint {
         = _parse_parameterized_type_constraint($type_constraint_name);
 
     ( defined $base_type && defined $type_parameter )
-        || __PACKAGE__->_throw_error(
-        "Could not parse type name ($type_constraint_name) correctly");
+        || throw_exception( InvalidTypeGivenToCreateParameterizedTypeConstraint => type_name => $type_constraint_name );
 
     if ( $REGISTRY->has_type_constraint($base_type) ) {
         my $base_type_tc = $REGISTRY->get_type_constraint($base_type);
@@ -133,8 +132,7 @@ sub create_parameterized_type_constraint {
         );
     }
     else {
-        __PACKAGE__->_throw_error(
-            "Could not locate the base type ($base_type)");
+        throw_exception( InvalidBaseTypeGivenToCreateParameterizedTypeConstraint => type_name => $base_type );
     }
 }
 
@@ -165,11 +163,9 @@ sub create_class_type_constraint {
 
     if (my $type = $REGISTRY->get_type_constraint($class)) {
         if (!($type->isa('Moose::Meta::TypeConstraint::Class') && $type->class eq $class)) {
-            _confess(
-                "The type constraint '$class' has already been created in "
-              . $type->_package_defined_in
-              . " and cannot be created again in "
-              . $pkg_defined_in )
+            throw_exception( TypeConstraintIsAlreadyCreated => package_defined_in => $pkg_defined_in,
+                                                               type               => $type
+                           );
         }
         else {
             return $type;
@@ -201,11 +197,9 @@ sub create_role_type_constraint {
 
     if (my $type = $REGISTRY->get_type_constraint($role)) {
         if (!($type->isa('Moose::Meta::TypeConstraint::Role') && $type->role eq $role)) {
-            _confess(
-                "The type constraint '$role' has already been created in "
-              . $type->_package_defined_in
-              . " and cannot be created again in "
-              . $pkg_defined_in )
+            throw_exception( TypeConstraintIsAlreadyCreated => type               => $type,
+                                                               package_defined_in => $pkg_defined_in
+                           );
         }
         else {
             return $type;
@@ -320,7 +314,7 @@ sub find_type_constraint {
 
 sub register_type_constraint {
     my $constraint = shift;
-    __PACKAGE__->_throw_error("can't register an unnamed type constraint")
+    throw_exception( CannotRegisterUnnamedTypeConstraint => type => $constraint )
         unless defined $constraint->name;
     $REGISTRY->add_type_constraint($constraint);
     return $constraint;
@@ -341,9 +335,7 @@ sub type {
 
 sub subtype {
     if ( @_ == 1 && !ref $_[0] ) {
-        __PACKAGE__->_throw_error(
-            'A subtype cannot consist solely of a name, it must have a parent'
-        );
+        throw_exception( NoParentGivenToSubtype => name => $_[0] );
     }
 
     # The blessed check is mostly to accommodate MooseX::Types, which
@@ -440,8 +432,9 @@ sub enum {
     # - SL
     if ( ref $type_name eq 'ARRAY' ) {
         @values == 0
-            || __PACKAGE__->_throw_error("enum called with an array reference and additional arguments. Did you mean to parenthesize the enum call's parameters?");
-
+            || throw_exception( EnumCalledWithAnArrayRefAndAdditionalArgs => array => $type_name,
+                                                                             args  => \@values
+                              );
         @values    = ($type_name);
         $type_name = undef;
     }
@@ -468,7 +461,9 @@ sub union {
   my ( $type_name, @constraints ) = @_;
   if ( ref $type_name eq 'ARRAY' ) {
     @constraints == 0
-      || __PACKAGE__->_throw_error("union called with an array reference and additional arguments.");
+      || throw_exception( UnionCalledWithAnArrayRefAndAdditionalArgs => array => $type_name,
+                                                                        args  => \@constraints
+                        );
     @constraints = @$type_name;
     $type_name   = undef;
   }
@@ -507,18 +502,27 @@ sub match_on_type {
     if (@cases % 2 != 0) {
         $default = pop @cases;
         (ref $default eq 'CODE')
-            || __PACKAGE__->_throw_error("Default case must be a CODE ref, not $default");
+            || throw_exception( DefaultToMatchOnTypeMustBeCodeRef => to_match            => $to_match,
+                                                                     default_action      => $default,
+                                                                     cases_to_be_matched => \@cases
+                              );
     }
     while (@cases) {
         my ($type, $action) = splice @cases, 0, 2;
 
         unless (blessed $type && $type->isa('Moose::Meta::TypeConstraint')) {
             $type = find_or_parse_type_constraint($type)
-                 || __PACKAGE__->_throw_error("Cannot find or parse the type '$type'")
+                 || throw_exception( CannotFindTypeGivenToMatchOnType => type     => $type,
+                                                                         to_match => $to_match,
+                                                                         action   => $action
+                                   );
         }
 
         (ref $action eq 'CODE')
-            || __PACKAGE__->_throw_error("Match action must be a CODE ref, not $action");
+            || throw_exception( MatchActionMustBeACodeRef => type     => $type,
+                                                             action   => $action,
+                                                             to_match => $to_match
+                              );
 
         if ($type->check($to_match)) {
             local $_ = $to_match;
@@ -526,7 +530,9 @@ sub match_on_type {
         }
     }
     (defined $default)
-        || __PACKAGE__->_throw_error("No cases matched for $to_match");
+        || throw_exception( NoCasesMatched => to_match            => $to_match,
+                                              cases_to_be_matched => \@cases
+                          );
     {
         local $_ = $to_match;
         return $default->($to_match);
@@ -551,16 +557,14 @@ sub _create_type_constraint ($$$;$) {
         my $type = $REGISTRY->get_type_constraint($name);
 
         ( $type->_package_defined_in eq $pkg_defined_in )
-            || _confess(
-                  "The type constraint '$name' has already been created in "
-                . $type->_package_defined_in
-                . " and cannot be created again in "
-                . $pkg_defined_in )
+            || throw_exception( TypeConstraintIsAlreadyCreated => package_defined_in => $pkg_defined_in,
+                                                                  type               => $type
+                              )
             if defined $type;
 
-        $name =~ /^[\w:\.]+$/
-            or die qq{$name contains invalid characters for a type name.}
-            . qq{ Names can contain alphanumeric character, ":", and "."\n};
+        if( $name !~ /^[\w:\.]+$/ ) {
+	    throw_exception( InvalidNameForType => name => $name );
+        }
     }
 
     my %opts = (
@@ -596,8 +600,8 @@ sub _install_type_coercions ($$) {
     my ( $type_name, $coercion_map ) = @_;
     my $type = find_type_constraint($type_name);
     ( defined $type )
-        || __PACKAGE__->_throw_error(
-        "Cannot find type '$type_name', perhaps you forgot to load it");
+        || throw_exception( CannotFindType => type_name => $type_name );
+
     if ( $type->has_coercion ) {
         $type->coercion->add_type_coercions(@$coercion_map);
     }
@@ -693,11 +697,9 @@ sub _install_type_coercions ($$) {
             push @rv => $1;
         }
         ( pos($given) eq length($given) )
-            || __PACKAGE__->_throw_error( "'$given' didn't parse (parse-pos="
-                . pos($given)
-                . " and str-length="
-                . length($given)
-                . ")" );
+            || throw_exception( CouldNotParseType => type     => $given,
+                                                     position => pos($given)
+                              );
         @rv;
     }
 
@@ -746,9 +748,8 @@ sub add_parameterizable_type {
     my $type = shift;
     ( blessed $type
             && $type->isa('Moose::Meta::TypeConstraint::Parameterizable') )
-        || __PACKAGE__->_throw_error(
-        "Type must be a Moose::Meta::TypeConstraint::Parameterizable not $type"
-        );
+        || throw_exception( AddParameterizableTypeTakesParameterizableType => type_name => $type );
+
     push @PARAMETERIZABLE_TYPES => $type;
 }
 
@@ -761,13 +762,6 @@ sub add_parameterizable_type {
     sub list_all_builtin_type_constraints {@BUILTINS}
 }
 
-sub _throw_error {
-    shift;
-    require Moose;
-    unshift @_, 'Moose';
-    goto &Moose::throw_error;
-}
-
 1;
 
 # ABSTRACT: Type constraint system for Moose
@@ -776,13 +770,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 SYNOPSIS
 
@@ -1463,7 +1459,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

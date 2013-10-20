@@ -9,28 +9,13 @@ $| = 1;
 
 # =begin testing SETUP
 {
-    package My::Meta::Instance;
-    use Moose;
-
-    # This needs to be in a BEGIN block so to avoid a metaclass
-    # incompatibility error from Moose. In normal usage,
-    # My::Meta::Instance would be in a separate file from MyApp::User,
-    # and this would be a non-issue.
-    BEGIN { extends 'Moose::Meta::Instance' }
-}
-
-
-
-# =begin testing SETUP
-{
 
   package My::Meta::Instance;
 
   use Scalar::Util qw( weaken );
   use Symbol qw( gensym );
 
-  use Moose;
-  extends 'Moose::Meta::Instance';
+  use Moose::Role;
 
   sub create_instance {
       my $self = shift;
@@ -84,10 +69,13 @@ $| = 1;
 
   package MyApp::User;
 
-  use metaclass 'Moose::Meta::Class' =>
-      ( instance_metaclass => 'My::Meta::Instance' );
-
   use Moose;
+  Moose::Util::MetaRole::apply_metaroles(
+      for => __PACKAGE__,
+      class_metaroles => {
+          instance => ['My::Meta::Instance'],
+      },
+  );
 
   has 'name' => (
       is  => 'rw',

@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Instance::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Instance::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Instance::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -12,7 +12,7 @@ use warnings;
 
 use Scalar::Util 'isweak', 'weaken', 'blessed';
 
-use base 'Class::MOP::Object';
+use parent 'Class::MOP::Object';
 
 # make this not a valid method name, to avoid (most) attribute conflicts
 my $RESERVED_MOP_SLOT = '<<MOP>>';
@@ -283,13 +283,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Instance - Instance Meta Object
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -529,7 +531,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

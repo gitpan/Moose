@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Array::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -19,9 +19,12 @@ sub _inline_check_var_is_valid_index {
 
     return (
         'if (!defined(' . $var . ') || ' . $var . ' !~ /^-?\d+$/) {',
-            $self->_inline_throw_error(
-                '"The index passed to ' . $self->delegate_to_method
-              . ' must be an integer"',
+            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                                            'argument                => '.$var.','.
+                                            'method_name             => "'.$self->delegate_to_method.'",'.
+                                            'type_of_argument        => "integer",'.
+                                            'type                    => "Int",'.
+                                            'argument_noun           => "index"',
             ) . ';',
         '}',
     );

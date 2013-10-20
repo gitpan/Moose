@@ -3,16 +3,18 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Parameterizable::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
 
-use base 'Moose::Meta::TypeConstraint';
+use parent 'Moose::Meta::TypeConstraint';
 use Moose::Meta::TypeConstraint::Parameterized;
 use Moose::Util::TypeConstraints ();
+
+use Moose::Util 'throw_exception';
 
 use Carp 'confess';
 
@@ -56,8 +58,10 @@ sub _can_coerce_constraint_from {
 sub generate_inline_for {
     my ($self, $type, $val) = @_;
 
-    confess "Can't generate an inline constraint for $type, since none "
-          . "was defined"
+    throw_exception( CannotGenerateInlineConstraint => parameterizable_type_object => $self,
+                                                       type                        => $type,
+                                                       value                       => $val
+                   )
         unless $self->has_inline_generator;
 
     return '( do { ' . $self->inline_generator->( $self, $type, $val ) . ' } )';
@@ -79,8 +83,9 @@ sub parameterize {
     if(my $parent = $self->parent) {
         if($parent->can('type_parameter')) {
             unless ( $contained_tc->is_a_type_of($parent->type_parameter) ) {
-                require Moose;
-                Moose->throw_error("$type_parameter is not a subtype of ".$parent->type_parameter);
+                throw_exception( ParameterIsNotSubtypeOfParent => type_parameter => $type_parameter,
+                                                                  type           => $self
+                               );
             }
         }
     }
@@ -95,8 +100,7 @@ sub parameterize {
         );
     }
     else {
-        require Moose;
-        Moose->throw_error("The type parameter must be a Moose meta type");
+        confess("The type parameter must be a Moose meta type");
     }
 }
 
@@ -109,13 +113,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::TypeConstraint::Parameterizable - Type constraints which can take a parameter (ArrayRef)
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -191,7 +197,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

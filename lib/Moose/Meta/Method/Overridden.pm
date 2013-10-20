@@ -3,13 +3,15 @@ BEGIN {
   $Moose::Meta::Method::Overridden::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Overridden::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Overridden::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use base 'Moose::Meta::Method';
+use parent 'Moose::Meta::Method';
+
+use Moose::Util 'throw_exception';
 
 sub new {
     my ( $class, %args ) = @_;
@@ -25,7 +27,10 @@ sub new {
     my $super = $args{class}->find_next_method_by_name($name);
 
     (defined $super)
-        || $class->throw_error("You cannot override '$name' because it has no super method", data => $name);
+        || throw_exception( CannotOverrideNoSuperMethod => class       => $class,
+                                                           params      => \%args,
+                                                           method_name => $name
+                          );
 
     my $super_body = $super->body;
 
@@ -57,13 +62,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Method::Overridden - A Moose Method metaclass for overridden methods
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -154,7 +161,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

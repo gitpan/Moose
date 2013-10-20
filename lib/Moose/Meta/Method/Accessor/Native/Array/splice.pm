@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::splice::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -30,8 +30,12 @@ sub _inline_check_arguments {
     return (
         $self->_inline_check_var_is_valid_index('$idx'),
         'if (defined($len) && $len !~ /^-?\d+$/) {',
-            $self->_inline_throw_error(
-                '"The length argument passed to splice must be an integer"',
+            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                                            'argument                => $len,'.
+                                            'method_name             => "splice",'.
+                                            'type_of_argument        => "integer",'.
+                                            'type                    => "Int",'.
+                                            'argument_noun           => "length argument"',
             ) . ';',
         '}',
     );

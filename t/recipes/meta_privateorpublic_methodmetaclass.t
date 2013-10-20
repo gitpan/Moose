@@ -81,6 +81,8 @@ $| = 1;
 # =begin testing
 {
 package main;
+use strict;
+use warnings;
 
 use Test::Fatal;
 

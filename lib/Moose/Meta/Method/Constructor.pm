@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Constructor::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Constructor::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -15,8 +15,10 @@ use List::MoreUtils 'any';
 use Scalar::Util 'blessed', 'weaken', 'looks_like_number', 'refaddr';
 use Try::Tiny;
 
-use base 'Moose::Meta::Method',
+use parent 'Moose::Meta::Method',
          'Class::MOP::Method::Constructor';
+
+use Moose::Util 'throw_exception';
 
 sub new {
     my $class   = shift;
@@ -25,10 +27,14 @@ sub new {
     my $meta = $options{metaclass};
 
     (ref $options{options} eq 'HASH')
-        || $class->throw_error("You must pass a hash of options", data => $options{options});
+        || throw_exception( MustPassAHashOfOptions => params => \%options,
+                                                      class  => $class
+                          );
 
     ($options{package_name} && $options{name})
-        || $class->throw_error("You must supply the package_name and name parameters $Class::MOP::Method::UPGRADE_ERROR_TEXT");
+        || throw_exception( MustSupplyPackageNameAndName => params => \%options,
+                                                            class  => $class
+                          );
 
     my $self = bless {
         'body'          => undef,
@@ -65,13 +71,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -138,7 +146,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

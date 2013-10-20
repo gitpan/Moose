@@ -3,12 +3,14 @@ BEGIN {
   $Moose::Meta::Role::Application::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Role::Application::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
 use warnings;
 use metaclass;
+
+use Moose::Util 'throw_exception';
 
 __PACKAGE__->meta->add_attribute('method_exclusions' => (
     init_arg => '-excludes',
@@ -65,14 +67,14 @@ sub apply {
     $self->apply_after_method_modifiers(@_);
 }
 
-sub check_role_exclusions           { Carp::croak "Abstract Method" }
-sub check_required_methods          { Carp::croak "Abstract Method" }
-sub check_required_attributes       { Carp::croak "Abstract Method" }
+sub check_role_exclusions           { throw_exception( "CannotCallAnAbstractMethod" ); }
+sub check_required_methods          { throw_exception( "CannotCallAnAbstractMethod" ); }
+sub check_required_attributes       { throw_exception( "CannotCallAnAbstractMethod" ); }
 
-sub apply_attributes                { Carp::croak "Abstract Method" }
-sub apply_methods                   { Carp::croak "Abstract Method" }
-sub apply_override_method_modifiers { Carp::croak "Abstract Method" }
-sub apply_method_modifiers          { Carp::croak "Abstract Method" }
+sub apply_attributes                { throw_exception( "CannotCallAnAbstractMethod" ); }
+sub apply_methods                   { throw_exception( "CannotCallAnAbstractMethod" ); }
+sub apply_override_method_modifiers { throw_exception( "CannotCallAnAbstractMethod" ); }
+sub apply_method_modifiers          { throw_exception( "CannotCallAnAbstractMethod" ); }
 
 sub apply_before_method_modifiers   { (shift)->apply_method_modifiers('before' => @_) }
 sub apply_around_method_modifiers   { (shift)->apply_method_modifiers('around' => @_) }
@@ -86,13 +88,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -195,7 +199,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

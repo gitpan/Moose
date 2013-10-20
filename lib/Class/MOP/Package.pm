@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Package::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Package::VERSION = '2.1100'; # TRIAL
+  $Class::MOP::Package::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -16,7 +16,9 @@ use Devel::GlobalDestruction 'in_global_destruction';
 use Module::Runtime 'module_notional_filename';
 use Package::Stash;
 
-use base 'Class::MOP::Object';
+use parent 'Class::MOP::Object';
+
+use Moose::Util 'throw_exception';
 
 # creation ...
 
@@ -27,7 +29,6 @@ sub initialize {
 
     my %options = @args;
     my $package_name = delete $options{package};
-
 
     # we hand-construct the class until we can bootstrap it
     if ( my $meta = Class::MOP::get_metaclass_by_name($package_name) ) {
@@ -56,7 +57,9 @@ sub reinitialize {
 
     (defined $package_name && $package_name
       && (!blessed $package_name || $package_name->isa('Class::MOP::Package')))
-        || confess "You must pass a package name or an existing Class::MOP::Package instance";
+        || throw_exception( MustPassAPackageNameOrAnExistingClassMOPPackageInstance => params => \%options,
+                                                                                       class  => $class
+                          );
 
     $package_name = $package_name->name
         if blessed $package_name;
@@ -133,7 +136,14 @@ sub create {
         return $meta;
     }
 
-    sub _anon_cache_key { confess "Packages are not cacheable" }
+    sub _anon_cache_key {
+        my $class = shift;
+        my %options = @_;
+        throw_exception( PackagesAndModulesAreNotCachable => class_name => $class,
+                                                             params     => \%options,
+                                                             is_module  => 0
+                       );
+    }
 
     sub DESTROY {
         my $self = shift;
@@ -274,13 +284,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -447,7 +459,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

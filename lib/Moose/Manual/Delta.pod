@@ -1,4 +1,6 @@
 package Moose::Manual::Delta;
+use strict;
+use warnings;
 
 # ABSTRACT: Important Changes in Moose
 
@@ -6,13 +8,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -120,6 +124,16 @@ replace
 in your code with
 
   enum MyType => [qw(foo bar baz)];
+
+=item Moose string exceptions have been replaced by Moose exception objects
+
+Previously, Moose threw string exceptions on error conditions, which were not
+so verbose. All those string exceptions have now been converted to exception
+objects, which provide very detailed information about the exceptions.
+
+For learning about the usage of Moose exception objects, read
+L<Moose::Manual::Exceptions>. Individual exceptions are documented in
+L<Moose::Manual::Exceptions::Manifest>.
 
 =back
 
@@ -1216,7 +1230,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

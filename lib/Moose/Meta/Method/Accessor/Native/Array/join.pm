@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::join::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Array::join::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Array::join::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -24,8 +24,11 @@ sub _inline_check_arguments {
 
     return (
         'if (!Moose::Util::_STRINGLIKE0($_[0])) {',
-            $self->_inline_throw_error(
-                '"The argument passed to join must be a string"',
+            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                                            'argument                => $_[0],'.
+                                            'method_name             => "join",'.
+                                            'type_of_argument        => "string",'.
+                                            'type                    => "Str",',
             ) . ';',
         '}',
     );

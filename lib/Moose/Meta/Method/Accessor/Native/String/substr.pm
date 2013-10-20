@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::substr::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::String::substr::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::String::substr::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -59,13 +59,21 @@ sub _inline_check_arguments {
 
     my @code = (
         'if ($offset !~ /^-?\d+$/) {',
-            $self->_inline_throw_error(
-                '"The first argument passed to substr must be an integer"'
+            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                                            'argument                => $offset,'.
+                                            'ordinal                 => "first",'.
+                                            'type_of_argument        => "integer",'.
+                                            'method_name             => "substr",'.
+                                            'type                    => "Int"',
             ) . ';',
         '}',
         'if ($length !~ /^-?\d+$/) {',
-            $self->_inline_throw_error(
-                '"The second argument passed to substr must be an integer"'
+            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                                            'argument                => $length,'.
+                                            'ordinal                 => "second",'.
+                                            'type_of_argument        => "integer",'.
+                                            'method_name             => "substr",'.
+                                            'type                    => "Int"',
             ) . ';',
         '}',
     );
@@ -73,8 +81,12 @@ sub _inline_check_arguments {
     if ($for_writer) {
         push @code, (
             'if (!Moose::Util::_STRINGLIKE0($replacement)) {',
-                $self->_inline_throw_error(
-                    '"The third argument passed to substr must be a string"'
+                $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                                                'argument                => $replacement,'.
+                                                'ordinal                 => "third",'.
+                                                'type_of_argument        => "string",'.
+                                                'method_name             => "substr",'.
+                                                'type                    => "Str"',
                 ) . ';',
             '}',
         );

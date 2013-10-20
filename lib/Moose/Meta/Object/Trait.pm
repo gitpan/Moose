@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Object::Trait::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Object::Trait::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Object::Trait::VERSION = '2.1101'; # TRIAL
 }
 
 use Scalar::Util qw(blessed);
@@ -38,13 +38,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Moose::Meta::Object::Trait - Some overrides for L<Class::MOP::Object> functionality
 
 =head1 VERSION
 
-version 2.1100
+version 2.1101
 
 =head1 DESCRIPTION
 
@@ -103,7 +105,7 @@ Matt S Trout <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Infinity Interactive, Inc..
+This software is copyright (c) 2006 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

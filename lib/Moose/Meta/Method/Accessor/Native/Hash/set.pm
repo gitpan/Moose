@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::set::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.1100'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::Hash::set::VERSION = '2.1101'; # TRIAL
 }
 
 use strict;
@@ -27,11 +27,9 @@ around _inline_check_argument_count => sub {
     return (
         $self->$orig(@_),
         'if (@_ % 2) {',
-            $self->_inline_throw_error(
-                sprintf(
-                    '"You must pass an even number of arguments to %s"',
-                    $self->delegate_to_method,
-                ),
+            $self->_inline_throw_exception( "MustPassEvenNumberOfArguments => ".
+                                            "method_name => '".$self->delegate_to_method."',".
+                                            'args        => \@_',
             ) . ';',
         '}',
     );
@@ -52,11 +50,9 @@ sub _inline_check_arguments {
     return (
         'for (@keys_idx) {',
             'if (!defined($_[$_])) {',
-                $self->_inline_throw_error(
-                    sprintf(
-                        '"Hash keys passed to %s must be defined"',
-                        $self->delegate_to_method,
-                    ),
+                $self->_inline_throw_exception( "UndefinedHashKeysPassedToMethod => ".
+                                                'hash_keys                       => \@keys_idx,'.
+                                                "method_name                     => '".$self->delegate_to_method."'",
                 ) . ';',
             '}',
         '}',
