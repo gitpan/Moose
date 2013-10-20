@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

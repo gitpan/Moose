@@ -3,13 +3,13 @@ BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::VERSION = '2.1101'; # TRIAL
+  $Moose::Util::VERSION = '2.1102'; # TRIAL
 }
 
 use strict;
 use warnings;
 
-use Module::Runtime 'use_package_optimistically', 'module_notional_filename';
+use Module::Runtime 'use_package_optimistically', 'use_module', 'module_notional_filename';
 use Data::OptList;
 use Params::Util qw( _STRING );
 use Sub::Exporter;
@@ -137,7 +137,7 @@ sub _apply_all_roles {
             $meta = $role->[0];
         }
         else {
-            _load_user_class( $role->[0] , $role->[1] );
+            use_module($role->[0], $role->[1] ? $role->[1]{-version} : ());
             $meta = find_meta( $role->[0] );
         }
 
@@ -534,7 +534,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.1101
+version 2.1102
 
 =head1 SYNOPSIS
 

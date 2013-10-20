@@ -8,6 +8,7 @@ Makefile.PL
 README.md
 TODO
 author/convert-to-test-fatal
+author/docGenerator.pl
 author/extract-inline-tests
 author/find-dupe-test-numbers
 benchmarks/caf_vs_moose.pl
@@ -39,7 +40,6 @@ benchmarks/type_constraints2.pl
 bin/moose-outdated
 dist.ini
 doc/moosex-compile
-docGenerator.pl
 inc/CheckDelta.pm
 inc/Clean.pm
 inc/ExtractInlineTests.pm

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AttributeValueIsNotDefined::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AttributeValueIsNotDefined::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::AttributeValueIsNotDefined::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

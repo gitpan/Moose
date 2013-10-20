@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::Role::RoleForCreateMOPClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::Role::RoleForCreateMOPClass::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::Role::RoleForCreateMOPClass::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose::Role;

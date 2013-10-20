@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AttributeMustBeAnClassMOPMixinAttributeCoreOrSubclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AttributeMustBeAnClassMOPMixinAttributeCoreOrSubclass::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::AttributeMustBeAnClassMOPMixinAttributeCoreOrSubclass::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

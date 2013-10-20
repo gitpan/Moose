@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Composite::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Composite::VERSION = '2.1101'; # TRIAL
+  $Moose::Meta::Role::Composite::VERSION = '2.1102'; # TRIAL
 }
 
 use strict;
@@ -174,7 +174,7 @@ Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.1101
+version 2.1102
 
 =head1 DESCRIPTION
 

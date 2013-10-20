@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotOverrideLocalMethodIsPresent::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotOverrideLocalMethodIsPresent::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::CannotOverrideLocalMethodIsPresent::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

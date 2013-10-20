@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotRegisterUnnamedTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotRegisterUnnamedTypeConstraint::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::CannotRegisterUnnamedTypeConstraint::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

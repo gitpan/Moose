@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::RoleNamesDoNotMatch::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::RoleNamesDoNotMatch::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::RoleNamesDoNotMatch::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

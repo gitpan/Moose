@@ -16,7 +16,7 @@ Moose::Manual::Classes - Making your classes use Moose (and subclassing)
 
 =head1 VERSION
 
-version 2.1101
+version 2.1102
 
 =head1 USING MOOSE
 

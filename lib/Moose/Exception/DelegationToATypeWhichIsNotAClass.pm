@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::DelegationToATypeWhichIsNotAClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::DelegationToATypeWhichIsNotAClass::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::DelegationToATypeWhichIsNotAClass::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

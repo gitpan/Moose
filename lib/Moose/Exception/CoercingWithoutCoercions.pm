@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CoercingWithoutCoercions::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Exception::IncompatibleMetaclassOfSuperclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::IncompatibleMetaclassOfSuperclass::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::IncompatibleMetaclassOfSuperclass::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

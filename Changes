@@ -1,6 +1,15 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1102-TRIAL  2013-10-20
+
+  [BUG FIXES]
+
+  * die if a role to consume can't be found -- this restores behaviour as in
+    2.1005 (doy)
+  * fix test to accomodate Devel::PartialDump possibly not being installed
+    (Upasana)
+
 2.1101-TRIAL  2013-10-20
 
   [ENHANCEMENTS]
@@ -91,7 +100,7 @@ for, noteworthy changes.
 
   * Fixed the Num builtin type to reject NaN, Inf, numbers with whitespace,
     and other questionable strings. The MooseX::Types::LaxNum distro
-    implements the old behavior. RT#70539 (Upasana Shukla)
+    implements the old behavior. RT#70539 (Upasana)
 
 2.0802   2013-05-07
 

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InvalidRoleApplication::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InvalidRoleApplication::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::InvalidRoleApplication::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

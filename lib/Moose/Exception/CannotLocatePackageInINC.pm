@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotLocatePackageInINC::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotLocatePackageInINC::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::CannotLocatePackageInINC::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

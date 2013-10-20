@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

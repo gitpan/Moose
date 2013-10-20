@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::ValidationFailedForInlineTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::ValidationFailedForInlineTypeConstraint::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::ValidationFailedForInlineTypeConstraint::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

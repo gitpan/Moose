@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1101'; # TRIAL
+  $Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1102'; # TRIAL
 }
 
 use Moose;

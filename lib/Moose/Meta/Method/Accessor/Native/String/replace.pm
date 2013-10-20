@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::replace::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Accessor::Native::String::replace::VERSION = '2.1101'; # TRIAL
+  $Moose::Meta::Method::Accessor::Native::String::replace::VERSION = '2.1102'; # TRIAL
 }
 
 use strict;
