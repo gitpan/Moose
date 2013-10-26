@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -356,28 +355,6 @@ close_over_ok('Foo::Sub::Sub', $_) for qw(new blah);
 close_over_ok('WithInitializer', 'foo');
 { local $TODO = "initializer still closes over things";
 close_over_ok('WithInitializer', $_) for qw(new bar);
-}
-
-BEGIN {
-    package CustomErrorClass;
-    use Moose;
-    extends 'Moose::Error::Default';
-}
-
-{
-    package WithCustomErrorClass;
-    use metaclass (
-        metaclass => 'Moose::Meta::Class',
-        error_class => 'CustomErrorClass',
-    );
-    use Moose;
-
-    has foo => (
-        is  => 'ro',
-        isa => 'Str',
-    );
-
-    __PACKAGE__->meta->make_immutable;
 }
 
 done_testing;

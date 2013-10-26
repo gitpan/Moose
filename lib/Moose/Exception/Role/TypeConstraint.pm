@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::Role::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::Role::TypeConstraint::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::Role::TypeConstraint::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose::Role;

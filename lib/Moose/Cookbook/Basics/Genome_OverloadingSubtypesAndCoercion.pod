@@ -16,7 +16,7 @@ Moose::Cookbook::Basics::Genome_OverloadingSubtypesAndCoercion - Operator overlo
 
 =head1 VERSION
 
-version 2.1102
+version 2.1103
 
 =head1 SYNOPSIS
 

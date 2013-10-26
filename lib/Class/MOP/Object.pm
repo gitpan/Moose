@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Object::VERSION = '2.1102'; # TRIAL
+  $Class::MOP::Object::VERSION = '2.1103'; # TRIAL
 }
 
 use strict;
@@ -13,6 +13,12 @@ use warnings;
 use Scalar::Util 'blessed';
 
 # introspection
+
+sub throw_error {
+    shift;
+    require Moose::Util;
+    Moose::Util::throw_exception( Legacy => message => @_ );
+}
 
 sub meta {
     require Class::MOP::Class;
@@ -116,7 +122,7 @@ Class::MOP::Object - Base class for metaclasses
 
 =head1 VERSION
 
-version 2.1102
+version 2.1103
 
 =head1 DESCRIPTION
 
@@ -137,6 +143,11 @@ This returns a L<Class::MOP::Class> object.
 This method uses L<Data::Dumper> to dump the object. You can pass an
 optional maximum depth, which will set C<$Data::Dumper::Maxdepth>. The
 default maximum depth is 1.
+
+=item B<< $metaclass->throw_error($message) >>
+
+This method calls L<Moose::Util::throw_exception> internally, with an object
+of class Moose::Exception::Legacy.
 
 =back
 

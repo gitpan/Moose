@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustHaveAtLeastOneValueToEnumerate::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustHaveAtLeastOneValueToEnumerate::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::MustHaveAtLeastOneValueToEnumerate::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

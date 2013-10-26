@@ -180,6 +180,7 @@ my @files = (
     'lib/Moose/Exception/IsaDoesNotDoTheRole.pm',
     'lib/Moose/Exception/IsaLacksDoesMethod.pm',
     'lib/Moose/Exception/LazyAttributeNeedsADefault.pm',
+    'lib/Moose/Exception/Legacy.pm',
     'lib/Moose/Exception/MOPAttributeNewNeedsAttributeName.pm',
     'lib/Moose/Exception/MatchActionMustBeACodeRef.pm',
     'lib/Moose/Exception/MessageParameterMustBeCodeRef.pm',

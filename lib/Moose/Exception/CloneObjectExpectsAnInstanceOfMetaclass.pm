@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

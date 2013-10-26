@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::NeitherClassNorClassNameIsGiven::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::NeitherClassNorClassNameIsGiven::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::NeitherClassNorClassNameIsGiven::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

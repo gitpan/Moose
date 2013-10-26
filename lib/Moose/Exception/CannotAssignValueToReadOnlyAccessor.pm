@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotAssignValueToReadOnlyAccessor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotAssignValueToReadOnlyAccessor::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CannotAssignValueToReadOnlyAccessor::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

@@ -221,6 +221,7 @@ lib/Moose/Exception/InvalidValueForIs.pm
 lib/Moose/Exception/IsaDoesNotDoTheRole.pm
 lib/Moose/Exception/IsaLacksDoesMethod.pm
 lib/Moose/Exception/LazyAttributeNeedsADefault.pm
+lib/Moose/Exception/Legacy.pm
 lib/Moose/Exception/MOPAttributeNewNeedsAttributeName.pm
 lib/Moose/Exception/MatchActionMustBeACodeRef.pm
 lib/Moose/Exception/MessageParameterMustBeCodeRef.pm
@@ -710,6 +711,7 @@ t/exceptions/class-mop-method.t
 t/exceptions/class-mop-mixin-hasattributes.t
 t/exceptions/class-mop-mixin-hasmethods.t
 t/exceptions/class-mop-module.t
+t/exceptions/class-mop-object.t
 t/exceptions/class-mop-package.t
 t/exceptions/class.t
 t/exceptions/exception-attributeisrequired.t

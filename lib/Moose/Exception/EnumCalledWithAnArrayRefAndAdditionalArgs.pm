@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

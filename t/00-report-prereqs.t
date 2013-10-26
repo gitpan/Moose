@@ -21,6 +21,7 @@ my @modules = qw(
   Data::OptList
   Devel::GlobalDestruction
   Devel::PartialDump
+  Devel::StackTrace
   Dist::CheckConflicts
   Eval::Closure
   ExtUtils::MakeMaker

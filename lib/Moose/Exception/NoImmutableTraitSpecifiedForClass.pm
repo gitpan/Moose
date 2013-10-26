@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::NoImmutableTraitSpecifiedForClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::NoImmutableTraitSpecifiedForClass::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::NoImmutableTraitSpecifiedForClass::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

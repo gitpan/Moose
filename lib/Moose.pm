@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.1102'; # TRIAL
+  $Moose::VERSION = '2.1103'; # TRIAL
 }
 use strict;
 use warnings;
@@ -61,6 +61,11 @@ sub extends {
 
 sub with {
     Moose::Util::apply_all_roles(shift, @_);
+}
+
+sub throw_error {
+    shift;
+    Class::MOP::Object->throw_error(@_);
 }
 
 sub has {
@@ -299,7 +304,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1102
+version 2.1103
 
 =head1 SYNOPSIS
 

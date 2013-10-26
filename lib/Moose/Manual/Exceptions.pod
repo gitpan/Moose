@@ -1,7 +1,7 @@
 package Moose::Manual::Exceptions;
 use strict;
 use warnings;
- 
+
 # ABSTRACT: Moose's exceptions
 
 __END__
@@ -16,7 +16,7 @@ Moose::Manual::Exceptions - Moose's exceptions
 
 =head1 VERSION
 
-version 2.1102
+version 2.1103
 
 =head1 Exceptions in Moose
 
@@ -43,7 +43,7 @@ L<Moose::Exception::ExtendsMissingArgs>.
     use warnings;
     use strict;
     use Try::Tiny;
- 
+
     try {
         package Example::Exception;
         use Moose;
@@ -52,7 +52,7 @@ L<Moose::Exception::ExtendsMissingArgs>.
         # $_ contains the instance of the exception thrown by the above try block
         # $_ may get clobbered, so we should copy its value to another variable
         my $exception = $_;
- 
+
         # exception objects are not ubiquitous in Perl, so we must check whether $exception is blessed
         # we also need to ensure that $exception is actually the kind of exception we were expecting
         if ( blessed $exception && $exception->isa("Moose::Exception::ExtendsMissingArgs") ) {

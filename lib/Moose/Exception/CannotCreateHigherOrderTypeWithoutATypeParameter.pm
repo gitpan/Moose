@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

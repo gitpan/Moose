@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CreateMOPClassTakesHashRefOfMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CreateMOPClassTakesHashRefOfMethods::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CreateMOPClassTakesHashRefOfMethods::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

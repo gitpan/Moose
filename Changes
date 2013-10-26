@@ -1,6 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1103-TRIAL  2013-10-25
+
+  [BUG FIXES]
+
+  * fix errors in last trial release relating to Moose::Error::Default,
+    Moose::Util::throw_error (Upasana)
+
 2.1102-TRIAL  2013-10-20
 
   [BUG FIXES]

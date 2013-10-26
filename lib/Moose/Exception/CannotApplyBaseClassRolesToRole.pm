@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotApplyBaseClassRolesToRole::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotApplyBaseClassRolesToRole::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CannotApplyBaseClassRolesToRole::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

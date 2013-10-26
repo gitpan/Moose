@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CouldNotGenerateInlineAttributeMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CouldNotGenerateInlineAttributeMethod::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CouldNotGenerateInlineAttributeMethod::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

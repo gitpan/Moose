@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::PackageDoesNotUseMooseExporter::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::PackageDoesNotUseMooseExporter::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::PackageDoesNotUseMooseExporter::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

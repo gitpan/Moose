@@ -33,6 +33,7 @@ my %WriteMakefileArgs = (
     "Class::Load::XS" => "0.01",
     "Data::OptList" => "0.107",
     "Devel::GlobalDestruction" => 0,
+    "Devel::StackTrace" => "1.30",
     "Dist::CheckConflicts" => "0.02",
     "Eval::Closure" => "0.04",
     "List::MoreUtils" => "0.28",
@@ -55,7 +56,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.1102",
+  "VERSION" => "2.1103",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",

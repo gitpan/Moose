@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotAugmentIfLocalMethodPresent::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotAugmentIfLocalMethodPresent::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::CannotAugmentIfLocalMethodPresent::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;

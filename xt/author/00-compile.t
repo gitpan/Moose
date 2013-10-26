@@ -3,7 +3,7 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.037
 
-use Test::More 0.94 tests => 357 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More 0.94 tests => 358 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -142,6 +142,7 @@ my @module_files = (
     'Moose/Exception/IsaDoesNotDoTheRole.pm',
     'Moose/Exception/IsaLacksDoesMethod.pm',
     'Moose/Exception/LazyAttributeNeedsADefault.pm',
+    'Moose/Exception/Legacy.pm',
     'Moose/Exception/MOPAttributeNewNeedsAttributeName.pm',
     'Moose/Exception/MatchActionMustBeACodeRef.pm',
     'Moose/Exception/MessageParameterMustBeCodeRef.pm',

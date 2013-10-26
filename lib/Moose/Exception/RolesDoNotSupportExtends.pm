@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::RolesDoNotSupportExtends::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::RolesDoNotSupportExtends::VERSION = '2.1102'; # TRIAL
+  $Moose::Exception::RolesDoNotSupportExtends::VERSION = '2.1103'; # TRIAL
 }
 
 use Moose;
