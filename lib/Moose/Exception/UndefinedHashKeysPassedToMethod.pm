@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::UndefinedHashKeysPassedToMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::UndefinedHashKeysPassedToMethod::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::UndefinedHashKeysPassedToMethod::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

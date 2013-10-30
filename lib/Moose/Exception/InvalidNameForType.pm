@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InvalidNameForType::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InvalidNameForType::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::InvalidNameForType::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

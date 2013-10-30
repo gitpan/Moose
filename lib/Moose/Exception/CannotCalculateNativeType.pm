@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotCalculateNativeType::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotCalculateNativeType::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::CannotCalculateNativeType::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

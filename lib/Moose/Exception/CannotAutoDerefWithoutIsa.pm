@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotAutoDerefWithoutIsa::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotAutoDerefWithoutIsa::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::CannotAutoDerefWithoutIsa::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

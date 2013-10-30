@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Object::VERSION = '2.1103'; # TRIAL
+  $Class::MOP::Object::VERSION = '2.1104'; # TRIAL
 }
 
 use strict;
@@ -18,6 +18,11 @@ sub throw_error {
     shift;
     require Moose::Util;
     Moose::Util::throw_exception( Legacy => message => @_ );
+}
+
+sub _inline_throw_error {
+    my ( $self, $message ) = @_;
+    return 'Moose->throw_error('.$message.')';
 }
 
 sub meta {
@@ -122,7 +127,7 @@ Class::MOP::Object - Base class for metaclasses
 
 =head1 VERSION
 
-version 2.1103
+version 2.1104
 
 =head1 DESCRIPTION
 

@@ -16,7 +16,7 @@ Moose::Cookbook::Meta::Labeled_AttributeMetaclass - A meta-attribute, attributes
 
 =head1 VERSION
 
-version 2.1103
+version 2.1104
 
 =head1 SYNOPSIS
 

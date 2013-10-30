@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Module::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Module::VERSION = '2.1103'; # TRIAL
+  $Class::MOP::Module::VERSION = '2.1104'; # TRIAL
 }
 
 use strict;
@@ -113,7 +113,7 @@ Class::MOP::Module - Module Meta Object
 
 =head1 VERSION
 
-version 2.1103
+version 2.1104
 
 =head1 DESCRIPTION
 

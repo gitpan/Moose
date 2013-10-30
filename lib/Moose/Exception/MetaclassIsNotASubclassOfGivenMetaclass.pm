@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

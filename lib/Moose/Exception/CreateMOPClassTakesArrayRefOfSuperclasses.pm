@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

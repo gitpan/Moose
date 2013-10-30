@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CanReblessOnlyIntoASubclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CanReblessOnlyIntoASubclass::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::CanReblessOnlyIntoASubclass::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

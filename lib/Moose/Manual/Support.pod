@@ -16,7 +16,7 @@ Moose::Manual::Support - Policies regarding support, releases, and compatibility
 
 =head1 VERSION
 
-version 2.1103
+version 2.1104
 
 =head1 SUPPORT POLICY
 

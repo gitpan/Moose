@@ -1,6 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1104-TRIAL  2013-10-29
+
+  [BUG FIXES]
+
+  * Class::MOP::Object::_inline_throw_error is back, used by some MooseX
+    modules (Upasana)
+
 2.1103-TRIAL  2013-10-25
 
   [BUG FIXES]

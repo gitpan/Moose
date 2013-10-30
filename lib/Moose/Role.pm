@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Role::VERSION = '2.1103'; # TRIAL
+  $Moose::Role::VERSION = '2.1104'; # TRIAL
 }
 use strict;
 use warnings;
@@ -187,7 +187,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.1103
+version 2.1104
 
 =head1 SYNOPSIS
 

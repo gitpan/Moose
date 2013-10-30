@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

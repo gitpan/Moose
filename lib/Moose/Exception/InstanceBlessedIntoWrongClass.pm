@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InstanceBlessedIntoWrongClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InstanceBlessedIntoWrongClass::VERSION = '2.1103'; # TRIAL
+  $Moose::Exception::InstanceBlessedIntoWrongClass::VERSION = '2.1104'; # TRIAL
 }
 
 use Moose;

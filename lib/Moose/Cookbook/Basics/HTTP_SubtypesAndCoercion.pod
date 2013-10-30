@@ -16,7 +16,7 @@ Moose::Cookbook::Basics::HTTP_SubtypesAndCoercion - Demonstrates subtypes and co
 
 =head1 VERSION
 
-version 2.1103
+version 2.1104
 
 =head1 SYNOPSIS
 
