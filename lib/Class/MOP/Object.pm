@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Object::VERSION = '2.1104'; # TRIAL
+  $Class::MOP::Object::VERSION = '2.1105'; # TRIAL
 }
 
 use strict;
@@ -17,7 +17,7 @@ use Scalar::Util 'blessed';
 sub throw_error {
     shift;
     require Moose::Util;
-    Moose::Util::throw_exception( Legacy => message => @_ );
+    Moose::Util::throw_exception( Legacy => message => join('', @_) );
 }
 
 sub _inline_throw_error {
@@ -127,7 +127,7 @@ Class::MOP::Object - Base class for metaclasses
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 DESCRIPTION
 

@@ -16,7 +16,7 @@ Moose::Cookbook::Meta::GlobRef_InstanceMetaclass - Creating a glob reference met
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 SYNOPSIS
 

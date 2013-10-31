@@ -16,7 +16,7 @@ Moose::Cookbook::Meta::Table_MetaclassTrait - Adding a "table" attribute as a me
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 SYNOPSIS
 

@@ -16,7 +16,7 @@ Moose::Cookbook::Basics::BinaryTree_AttributeFeatures - Demonstrates various att
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 SYNOPSIS
 

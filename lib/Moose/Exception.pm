@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::VERSION = '2.1104'; # TRIAL
+  $Moose::Exception::VERSION = '2.1105'; # TRIAL
 }
 
 use Moose;
@@ -66,7 +66,7 @@ Moose::Exception - Superclass of all Moose exceptions
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 DESCRIPTION
 

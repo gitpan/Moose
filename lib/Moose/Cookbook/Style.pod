@@ -16,7 +16,7 @@ Moose::Cookbook::Style - Expanded into Moose::Manual::BestPractices, so go read 
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 DESCRIPTION
 

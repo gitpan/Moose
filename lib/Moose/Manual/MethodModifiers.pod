@@ -16,7 +16,7 @@ Moose::Manual::MethodModifiers - Moose's method modifiers
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 WHAT IS A METHOD MODIFIER?
 

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotGenerateInlineConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotGenerateInlineConstraint::VERSION = '2.1104'; # TRIAL
+  $Moose::Exception::CannotGenerateInlineConstraint::VERSION = '2.1105'; # TRIAL
 }
 
 use Moose;

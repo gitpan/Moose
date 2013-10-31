@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::TypeConstraint::Parameterized::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.1104'; # TRIAL
+  $Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.1105'; # TRIAL
 }
 
 use strict;
@@ -119,7 +119,7 @@ Moose::Meta::TypeConstraint::Parameterized - Type constraints with a bound param
 
 =head1 VERSION
 
-version 2.1104
+version 2.1105
 
 =head1 METHODS
 

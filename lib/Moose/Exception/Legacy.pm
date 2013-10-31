@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::Legacy::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::Legacy::VERSION = '2.1104'; # TRIAL
+  $Moose::Exception::Legacy::VERSION = '2.1105'; # TRIAL
 }
 
 use Moose;

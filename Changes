@@ -1,6 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1105-TRIAL  2013-10-30
+
+  [BUG FIXES]
+
+  * legacy throw_error now takes multiple arguments, like confess does
+    (Karen Etheridge)
+
 2.1104-TRIAL  2013-10-29
 
   [BUG FIXES]

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotFindDelegateMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotFindDelegateMetaclass::VERSION = '2.1104'; # TRIAL
+  $Moose::Exception::CannotFindDelegateMetaclass::VERSION = '2.1105'; # TRIAL
 }
 
 use Moose;
