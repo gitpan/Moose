@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::Builtins::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::Builtins::VERSION = '2.1105'; # TRIAL
+  $Moose::Util::TypeConstraints::Builtins::VERSION = '2.1106'; # TRIAL
 }
 
 use strict;

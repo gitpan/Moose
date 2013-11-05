@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotAugmentNoSuperMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotAugmentNoSuperMethod::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::CannotAugmentNoSuperMethod::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::NoAttributeFoundInSuperClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::NoAttributeFoundInSuperClass::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::NoAttributeFoundInSuperClass::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

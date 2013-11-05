@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustPassEvenNumberOfArguments::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustPassEvenNumberOfArguments::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::MustPassEvenNumberOfArguments::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

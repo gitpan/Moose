@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::VERSION = '2.1105'; # TRIAL
+  $Moose::Util::TypeConstraints::VERSION = '2.1106'; # TRIAL
 }
 
 use Carp ();
@@ -778,7 +778,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1105
+version 2.1106
 
 =head1 SYNOPSIS
 
@@ -1318,7 +1318,7 @@ L<Moose::Meta::TypeConstraint::Union> object.
 
 Given a C<$type_name> in the form of C<'BaseType[ContainerType]'>,
 this will create a new L<Moose::Meta::TypeConstraint::Parameterized>
-object. The C<BaseType> must exist already exist as a parameterizable
+object. The C<BaseType> must already exist as a parameterizable
 type.
 
 =item B<create_class_type_constraint($class, $options)>

@@ -13,7 +13,6 @@ use List::Util qw/max/;
 
 my @modules = qw(
   CPAN::Meta
-  CPAN::Meta::Check
   CPAN::Meta::Requirements
   Carp
   Class::Load

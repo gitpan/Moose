@@ -16,7 +16,7 @@ Moose::Cookbook::Extending::Mooseish_MooseSugar - Acting like Moose.pm and provi
 
 =head1 VERSION
 
-version 2.1105
+version 2.1106
 
 =head1 SYNOPSIS
 

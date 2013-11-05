@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::UnionTakesAtleastTwoTypeNames::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::UnionTakesAtleastTwoTypeNames::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::UnionTakesAtleastTwoTypeNames::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

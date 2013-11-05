@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

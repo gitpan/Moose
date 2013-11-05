@@ -16,7 +16,7 @@ Moose::Manual::MooseX - Recommended Moose extensions
 
 =head1 VERSION
 
-version 2.1105
+version 2.1106
 
 =head1 MooseX?
 

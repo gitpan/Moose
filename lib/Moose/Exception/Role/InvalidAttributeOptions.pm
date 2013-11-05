@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::Role::InvalidAttributeOptions::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::Role::InvalidAttributeOptions::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::Role::InvalidAttributeOptions::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose::Role;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

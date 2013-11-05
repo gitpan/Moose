@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::WrapTakesACodeRefToBless::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::WrapTakesACodeRefToBless::VERSION = '2.1105'; # TRIAL
+  $Moose::Exception::WrapTakesACodeRefToBless::VERSION = '2.1106'; # TRIAL
 }
 
 use Moose;

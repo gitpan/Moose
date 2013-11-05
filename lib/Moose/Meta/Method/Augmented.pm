@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::Augmented::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::Augmented::VERSION = '2.1105'; # TRIAL
+  $Moose::Meta::Method::Augmented::VERSION = '2.1106'; # TRIAL
 }
 
 use strict;
@@ -77,7 +77,7 @@ Moose::Meta::Method::Augmented - A Moose Method metaclass for augmented methods
 
 =head1 VERSION
 
-version 2.1105
+version 2.1106
 
 =head1 DESCRIPTION
 

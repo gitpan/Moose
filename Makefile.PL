@@ -51,12 +51,11 @@ my %WriteMakefileArgs = (
     "parent" => "0.223"
   },
   "TEST_REQUIRES" => {
-    "CPAN::Meta::Check" => "0.007",
     "Test::Fatal" => "0.001",
     "Test::More" => "0.88",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.1105",
+  "VERSION" => "2.1106",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",
