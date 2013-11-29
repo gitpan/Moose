@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::OnlyInstancesCanBeCloned::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::OnlyInstancesCanBeCloned::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::OnlyInstancesCanBeCloned::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::PackageNameAndNameParamsNotGivenToWrap::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::PackageNameAndNameParamsNotGivenToWrap::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::PackageNameAndNameParamsNotGivenToWrap::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

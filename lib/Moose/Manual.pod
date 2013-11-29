@@ -16,7 +16,7 @@ Moose::Manual - What is Moose, and how do I use it?
 
 =head1 VERSION
 
-version 2.1106
+version 2.1107
 
 =head1 WHAT IS MOOSE?
 

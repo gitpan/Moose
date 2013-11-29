@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Generated::VERSION = '2.1106'; # TRIAL
+  $Class::MOP::Method::Generated::VERSION = '2.1107'; # TRIAL
 }
 
 use strict;
@@ -84,7 +84,7 @@ Class::MOP::Method::Generated - Abstract base class for generated methods
 
 =head1 VERSION
 
-version 2.1106
+version 2.1107
 
 =head1 DESCRIPTION
 

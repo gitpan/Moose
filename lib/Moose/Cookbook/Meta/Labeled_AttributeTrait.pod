@@ -16,7 +16,7 @@ Moose::Cookbook::Meta::Labeled_AttributeTrait - Labels implemented via attribute
 
 =head1 VERSION
 
-version 2.1106
+version 2.1107
 
 =head1 SYNOPSIS
 

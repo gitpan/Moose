@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustSupplyPackageNameAndName::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustSupplyPackageNameAndName::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::MustSupplyPackageNameAndName::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

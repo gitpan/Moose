@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

@@ -23,7 +23,9 @@ my @modules = qw(
   Devel::StackTrace
   Dist::CheckConflicts
   Eval::Closure
+  ExtUtils::CBuilder
   ExtUtils::MakeMaker
+  File::Spec
   List::MoreUtils
   MRO::Compat
   Module::Runtime

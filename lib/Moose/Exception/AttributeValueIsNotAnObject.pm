@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AttributeValueIsNotAnObject::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AttributeValueIsNotAnObject::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::AttributeValueIsNotAnObject::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

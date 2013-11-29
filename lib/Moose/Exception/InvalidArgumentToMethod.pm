@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InvalidArgumentToMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InvalidArgumentToMethod::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::InvalidArgumentToMethod::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

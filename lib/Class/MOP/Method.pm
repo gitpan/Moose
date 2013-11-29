@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::VERSION = '2.1106'; # TRIAL
+  $Class::MOP::Method::VERSION = '2.1107'; # TRIAL
 }
 
 use strict;
@@ -162,7 +162,7 @@ Class::MOP::Method - Method Meta Object
 
 =head1 VERSION
 
-version 2.1106
+version 2.1107
 
 =head1 DESCRIPTION
 

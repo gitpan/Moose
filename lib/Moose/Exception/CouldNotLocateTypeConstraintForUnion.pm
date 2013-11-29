@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CouldNotLocateTypeConstraintForUnion::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CouldNotLocateTypeConstraintForUnion::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::CouldNotLocateTypeConstraintForUnion::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

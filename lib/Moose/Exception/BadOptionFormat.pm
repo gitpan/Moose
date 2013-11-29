@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::BadOptionFormat::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::BadOptionFormat::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::BadOptionFormat::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

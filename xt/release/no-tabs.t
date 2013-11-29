@@ -295,7 +295,6 @@ my @files = (
     'lib/Moose/Manual/Delegation.pod',
     'lib/Moose/Manual/Delta.pod',
     'lib/Moose/Manual/Exceptions.pod',
-    'lib/Moose/Manual/Exceptions/Manifest.pod',
     'lib/Moose/Manual/FAQ.pod',
     'lib/Moose/Manual/MOP.pod',
     'lib/Moose/Manual/MethodModifiers.pod',

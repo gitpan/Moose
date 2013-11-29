@@ -16,7 +16,7 @@ Moose::Cookbook::Legacy::Debugging_BaseClassReplacement - Providing an alternate
 
 =head1 VERSION
 
-version 2.1106
+version 2.1107
 
 =head1 SYNOPSIS
 

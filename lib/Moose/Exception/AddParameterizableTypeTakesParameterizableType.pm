@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AddParameterizableTypeTakesParameterizableType::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AddParameterizableTypeTakesParameterizableType::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::AddParameterizableTypeTakesParameterizableType::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

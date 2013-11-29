@@ -16,7 +16,7 @@ Moose::Cookbook::Basics::Person_BUILDARGSAndBUILD - Using BUILDARGS and BUILD to
 
 =head1 VERSION
 
-version 2.1106
+version 2.1107
 
 =head1 SYNOPSIS
 

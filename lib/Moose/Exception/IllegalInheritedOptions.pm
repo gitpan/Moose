@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::IllegalInheritedOptions::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::IllegalInheritedOptions::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::IllegalInheritedOptions::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

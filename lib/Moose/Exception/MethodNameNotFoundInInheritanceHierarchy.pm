@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::UnableToCanonicalizeNonRolePackage::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::UnableToCanonicalizeNonRolePackage::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::UnableToCanonicalizeNonRolePackage::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

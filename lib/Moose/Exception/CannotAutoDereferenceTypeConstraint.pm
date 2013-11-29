@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotAutoDereferenceTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotAutoDereferenceTypeConstraint::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::CannotAutoDereferenceTypeConstraint::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

@@ -43,6 +43,7 @@ doc/moosex-compile
 inc/CheckDelta.pm
 inc/Clean.pm
 inc/ExtractInlineTests.pm
+inc/GenerateDocs.pm
 inc/GitUpToDate.pm
 inc/MMHelper.pm
 inc/MakeMaker.pm
@@ -336,7 +337,6 @@ lib/Moose/Manual/Contributing.pod
 lib/Moose/Manual/Delegation.pod
 lib/Moose/Manual/Delta.pod
 lib/Moose/Manual/Exceptions.pod
-lib/Moose/Manual/Exceptions/Manifest.pod
 lib/Moose/Manual/FAQ.pod
 lib/Moose/Manual/MOP.pod
 lib/Moose/Manual/MethodModifiers.pod

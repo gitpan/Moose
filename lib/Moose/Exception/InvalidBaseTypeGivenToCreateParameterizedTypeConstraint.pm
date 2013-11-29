@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InvalidBaseTypeGivenToCreateParameterizedTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InvalidBaseTypeGivenToCreateParameterizedTypeConstraint::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::InvalidBaseTypeGivenToCreateParameterizedTypeConstraint::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

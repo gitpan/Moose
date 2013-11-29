@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotOverrideBodyOfMetaMethods::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotOverrideBodyOfMetaMethods::VERSION = '2.1106'; # TRIAL
+  $Moose::Exception::CannotOverrideBodyOfMetaMethods::VERSION = '2.1107'; # TRIAL
 }
 
 use Moose;

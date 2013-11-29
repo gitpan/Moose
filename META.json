@@ -13,7 +13,7 @@
       "Matt S Trout <mst@shadowcat.co.uk>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.005, CPAN::Meta::Converter version 2.132830",
+   "generated_by" : "Dist::Zilla version 5.006, CPAN::Meta::Converter version 2.132830",
    "license" : [
       "perl_5"
    ],
@@ -50,7 +50,9 @@
       "configure" : {
          "requires" : {
             "Dist::CheckConflicts" : "0.02",
-            "ExtUtils::MakeMaker" : "6.30"
+            "ExtUtils::CBuilder" : "0.27",
+            "ExtUtils::MakeMaker" : "6.30",
+            "File::Spec" : "0"
          }
       },
       "develop" : {
@@ -59,6 +61,7 @@
          },
          "requires" : {
             "Algorithm::C3" : "0",
+            "Class::Load" : "0.07",
             "DBM::Deep" : "0",
             "Data::Visitor" : "0",
             "DateTime" : "0",
@@ -97,7 +100,8 @@
             "Test::Output" : "0",
             "Test::Pod" : "1.41",
             "Test::Spelling" : "0",
-            "URI" : "0"
+            "URI" : "0",
+            "blib" : "0"
          }
       },
       "runtime" : {
@@ -144,1155 +148,1155 @@
    "provides" : {
       "Class::MOP" : {
          "file" : "lib/Class/MOP.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Attribute" : {
          "file" : "lib/Class/MOP/Attribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Class" : {
          "file" : "lib/Class/MOP/Class.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Instance" : {
          "file" : "lib/Class/MOP/Instance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method" : {
          "file" : "lib/Class/MOP/Method.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Accessor" : {
          "file" : "lib/Class/MOP/Method/Accessor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Constructor" : {
          "file" : "lib/Class/MOP/Method/Constructor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Generated" : {
          "file" : "lib/Class/MOP/Method/Generated.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Inlined" : {
          "file" : "lib/Class/MOP/Method/Inlined.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Meta" : {
          "file" : "lib/Class/MOP/Method/Meta.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Overload" : {
          "file" : "lib/Class/MOP/Method/Overload.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Method::Wrapped" : {
          "file" : "lib/Class/MOP/Method/Wrapped.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Module" : {
          "file" : "lib/Class/MOP/Module.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Object" : {
          "file" : "lib/Class/MOP/Object.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Class::MOP::Package" : {
          "file" : "lib/Class/MOP/Package.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose" : {
          "file" : "lib/Moose.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception" : {
          "file" : "lib/Moose/Exception.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AccessorMustReadWrite" : {
          "file" : "lib/Moose/Exception/AccessorMustReadWrite.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AddParameterizableTypeTakesParameterizableType" : {
          "file" : "lib/Moose/Exception/AddParameterizableTypeTakesParameterizableType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AddRoleTakesAMooseMetaRoleInstance" : {
          "file" : "lib/Moose/Exception/AddRoleTakesAMooseMetaRoleInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AddRoleToARoleTakesAMooseMetaRole" : {
          "file" : "lib/Moose/Exception/AddRoleToARoleTakesAMooseMetaRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ApplyTakesABlessedInstance" : {
          "file" : "lib/Moose/Exception/ApplyTakesABlessedInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass" : {
          "file" : "lib/Moose/Exception/AttachToClassNeedsAClassMOPClassInstanceOrASubclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeConflictInRoles" : {
          "file" : "lib/Moose/Exception/AttributeConflictInRoles.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeConflictInSummation" : {
          "file" : "lib/Moose/Exception/AttributeConflictInSummation.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeExtensionIsNotSupportedInRoles" : {
          "file" : "lib/Moose/Exception/AttributeExtensionIsNotSupportedInRoles.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeIsRequired" : {
          "file" : "lib/Moose/Exception/AttributeIsRequired.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeMustBeAnClassMOPMixinAttributeCoreOrSubclass" : {
          "file" : "lib/Moose/Exception/AttributeMustBeAnClassMOPMixinAttributeCoreOrSubclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeNamesDoNotMatch" : {
          "file" : "lib/Moose/Exception/AttributeNamesDoNotMatch.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeValueIsNotAnObject" : {
          "file" : "lib/Moose/Exception/AttributeValueIsNotAnObject.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AttributeValueIsNotDefined" : {
          "file" : "lib/Moose/Exception/AttributeValueIsNotDefined.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef" : {
          "file" : "lib/Moose/Exception/AutoDeRefNeedsArrayRefOrHashRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::BadOptionFormat" : {
          "file" : "lib/Moose/Exception/BadOptionFormat.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::BothBuilderAndDefaultAreNotAllowed" : {
          "file" : "lib/Moose/Exception/BothBuilderAndDefaultAreNotAllowed.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::BuilderDoesNotExist" : {
          "file" : "lib/Moose/Exception/BuilderDoesNotExist.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::BuilderMethodNotSupportedForAttribute" : {
          "file" : "lib/Moose/Exception/BuilderMethodNotSupportedForAttribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::BuilderMethodNotSupportedForInlineAttribute" : {
          "file" : "lib/Moose/Exception/BuilderMethodNotSupportedForInlineAttribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::BuilderMustBeAMethodName" : {
          "file" : "lib/Moose/Exception/BuilderMustBeAMethodName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CallingMethodOnAnImmutableInstance" : {
          "file" : "lib/Moose/Exception/CallingMethodOnAnImmutableInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CallingReadOnlyMethodOnAnImmutableInstance" : {
          "file" : "lib/Moose/Exception/CallingReadOnlyMethodOnAnImmutableInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CanExtendOnlyClasses" : {
          "file" : "lib/Moose/Exception/CanExtendOnlyClasses.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CanOnlyConsumeRole" : {
          "file" : "lib/Moose/Exception/CanOnlyConsumeRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CanOnlyWrapBlessedCode" : {
          "file" : "lib/Moose/Exception/CanOnlyWrapBlessedCode.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CanReblessOnlyIntoASubclass" : {
          "file" : "lib/Moose/Exception/CanReblessOnlyIntoASubclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CanReblessOnlyIntoASuperclass" : {
          "file" : "lib/Moose/Exception/CanReblessOnlyIntoASuperclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion" : {
          "file" : "lib/Moose/Exception/CannotAddAdditionalTypeCoercionsToUnion.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAddAsAnAttributeToARole" : {
          "file" : "lib/Moose/Exception/CannotAddAsAnAttributeToARole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotApplyBaseClassRolesToRole" : {
          "file" : "lib/Moose/Exception/CannotApplyBaseClassRolesToRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAssignValueToReadOnlyAccessor" : {
          "file" : "lib/Moose/Exception/CannotAssignValueToReadOnlyAccessor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAugmentIfLocalMethodPresent" : {
          "file" : "lib/Moose/Exception/CannotAugmentIfLocalMethodPresent.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAugmentNoSuperMethod" : {
          "file" : "lib/Moose/Exception/CannotAugmentNoSuperMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAutoDerefWithoutIsa" : {
          "file" : "lib/Moose/Exception/CannotAutoDerefWithoutIsa.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotAutoDereferenceTypeConstraint" : {
          "file" : "lib/Moose/Exception/CannotAutoDereferenceTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCalculateNativeType" : {
          "file" : "lib/Moose/Exception/CannotCalculateNativeType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCallAnAbstractBaseMethod" : {
          "file" : "lib/Moose/Exception/CannotCallAnAbstractBaseMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCallAnAbstractMethod" : {
          "file" : "lib/Moose/Exception/CannotCallAnAbstractMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCoerceAWeakRef" : {
          "file" : "lib/Moose/Exception/CannotCoerceAWeakRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion" : {
          "file" : "lib/Moose/Exception/CannotCoerceAttributeWhichHasNoCoercion.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter" : {
          "file" : "lib/Moose/Exception/CannotCreateHigherOrderTypeWithoutATypeParameter.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent" : {
          "file" : "lib/Moose/Exception/CannotCreateMethodAliasLocalMethodIsPresent.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresentInClass" : {
          "file" : "lib/Moose/Exception/CannotCreateMethodAliasLocalMethodIsPresentInClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotDelegateLocalMethodIsPresent" : {
          "file" : "lib/Moose/Exception/CannotDelegateLocalMethodIsPresent.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotDelegateWithoutIsa" : {
          "file" : "lib/Moose/Exception/CannotDelegateWithoutIsa.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotFindDelegateMetaclass" : {
          "file" : "lib/Moose/Exception/CannotFindDelegateMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotFindType" : {
          "file" : "lib/Moose/Exception/CannotFindType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotFindTypeGivenToMatchOnType" : {
          "file" : "lib/Moose/Exception/CannotFindTypeGivenToMatchOnType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotFixMetaclassCompatibility" : {
          "file" : "lib/Moose/Exception/CannotFixMetaclassCompatibility.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotGenerateInlineConstraint" : {
          "file" : "lib/Moose/Exception/CannotGenerateInlineConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotInitializeMooseMetaRoleComposite" : {
          "file" : "lib/Moose/Exception/CannotInitializeMooseMetaRoleComposite.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotInlineTypeConstraintCheck" : {
          "file" : "lib/Moose/Exception/CannotInlineTypeConstraintCheck.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotLocatePackageInINC" : {
          "file" : "lib/Moose/Exception/CannotLocatePackageInINC.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotMakeMetaclassCompatible" : {
          "file" : "lib/Moose/Exception/CannotMakeMetaclassCompatible.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotOverrideALocalMethod" : {
          "file" : "lib/Moose/Exception/CannotOverrideALocalMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotOverrideBodyOfMetaMethods" : {
          "file" : "lib/Moose/Exception/CannotOverrideBodyOfMetaMethods.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotOverrideLocalMethodIsPresent" : {
          "file" : "lib/Moose/Exception/CannotOverrideLocalMethodIsPresent.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotOverrideNoSuperMethod" : {
          "file" : "lib/Moose/Exception/CannotOverrideNoSuperMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotRegisterUnnamedTypeConstraint" : {
          "file" : "lib/Moose/Exception/CannotRegisterUnnamedTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously" : {
          "file" : "lib/Moose/Exception/CannotUseLazyBuildAndDefaultSimultaneously.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CircularReferenceInAlso" : {
          "file" : "lib/Moose/Exception/CircularReferenceInAlso.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ClassDoesNotHaveInitMeta" : {
          "file" : "lib/Moose/Exception/ClassDoesNotHaveInitMeta.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ClassDoesTheExcludedRole" : {
          "file" : "lib/Moose/Exception/ClassDoesTheExcludedRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ClassNamesDoNotMatch" : {
          "file" : "lib/Moose/Exception/ClassNamesDoNotMatch.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass" : {
          "file" : "lib/Moose/Exception/CloneObjectExpectsAnInstanceOfMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CodeBlockMustBeACodeRef" : {
          "file" : "lib/Moose/Exception/CodeBlockMustBeACodeRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CoercingWithoutCoercions" : {
          "file" : "lib/Moose/Exception/CoercingWithoutCoercions.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CoercionAlreadyExists" : {
          "file" : "lib/Moose/Exception/CoercionAlreadyExists.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CoercionNeedsTypeConstraint" : {
          "file" : "lib/Moose/Exception/CoercionNeedsTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ConflictDetectedInCheckRoleExclusions" : {
          "file" : "lib/Moose/Exception/ConflictDetectedInCheckRoleExclusions.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ConflictDetectedInCheckRoleExclusionsInToClass" : {
          "file" : "lib/Moose/Exception/ConflictDetectedInCheckRoleExclusionsInToClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ConstructClassInstanceTakesPackageName" : {
          "file" : "lib/Moose/Exception/ConstructClassInstanceTakesPackageName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotCreateMethod" : {
          "file" : "lib/Moose/Exception/CouldNotCreateMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotCreateWriter" : {
          "file" : "lib/Moose/Exception/CouldNotCreateWriter.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotEvalConstructor" : {
          "file" : "lib/Moose/Exception/CouldNotEvalConstructor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotEvalDestructor" : {
          "file" : "lib/Moose/Exception/CouldNotEvalDestructor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom" : {
          "file" : "lib/Moose/Exception/CouldNotFindTypeConstraintToCoerceFrom.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotGenerateInlineAttributeMethod" : {
          "file" : "lib/Moose/Exception/CouldNotGenerateInlineAttributeMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotLocateTypeConstraintForUnion" : {
          "file" : "lib/Moose/Exception/CouldNotLocateTypeConstraintForUnion.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CouldNotParseType" : {
          "file" : "lib/Moose/Exception/CouldNotParseType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes" : {
          "file" : "lib/Moose/Exception/CreateMOPClassTakesArrayRefOfAttributes.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses" : {
          "file" : "lib/Moose/Exception/CreateMOPClassTakesArrayRefOfSuperclasses.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CreateMOPClassTakesHashRefOfMethods" : {
          "file" : "lib/Moose/Exception/CreateMOPClassTakesHashRefOfMethods.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CreateTakesArrayRefOfRoles" : {
          "file" : "lib/Moose/Exception/CreateTakesArrayRefOfRoles.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CreateTakesHashRefOfAttributes" : {
          "file" : "lib/Moose/Exception/CreateTakesHashRefOfAttributes.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::CreateTakesHashRefOfMethods" : {
          "file" : "lib/Moose/Exception/CreateTakesHashRefOfMethods.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::DefaultToMatchOnTypeMustBeCodeRef" : {
          "file" : "lib/Moose/Exception/DefaultToMatchOnTypeMustBeCodeRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::DelegationToAClassWhichIsNotLoaded" : {
          "file" : "lib/Moose/Exception/DelegationToAClassWhichIsNotLoaded.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::DelegationToARoleWhichIsNotLoaded" : {
          "file" : "lib/Moose/Exception/DelegationToARoleWhichIsNotLoaded.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::DelegationToATypeWhichIsNotAClass" : {
          "file" : "lib/Moose/Exception/DelegationToATypeWhichIsNotAClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::DoesRequiresRoleName" : {
          "file" : "lib/Moose/Exception/DoesRequiresRoleName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs" : {
          "file" : "lib/Moose/Exception/EnumCalledWithAnArrayRefAndAdditionalArgs.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::EnumValuesMustBeString" : {
          "file" : "lib/Moose/Exception/EnumValuesMustBeString.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ExtendsMissingArgs" : {
          "file" : "lib/Moose/Exception/ExtendsMissingArgs.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::HandlesMustBeAHashRef" : {
          "file" : "lib/Moose/Exception/HandlesMustBeAHashRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::IllegalInheritedOptions" : {
          "file" : "lib/Moose/Exception/IllegalInheritedOptions.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::IllegalMethodTypeToAddMethodModifier" : {
          "file" : "lib/Moose/Exception/IllegalMethodTypeToAddMethodModifier.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::IncompatibleMetaclassOfSuperclass" : {
          "file" : "lib/Moose/Exception/IncompatibleMetaclassOfSuperclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InitMetaRequiresClass" : {
          "file" : "lib/Moose/Exception/InitMetaRequiresClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InitializeTakesUnBlessedPackageName" : {
          "file" : "lib/Moose/Exception/InitializeTakesUnBlessedPackageName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InstanceBlessedIntoWrongClass" : {
          "file" : "lib/Moose/Exception/InstanceBlessedIntoWrongClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InstanceMustBeABlessedReference" : {
          "file" : "lib/Moose/Exception/InstanceMustBeABlessedReference.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidArgPassedToMooseUtilMetaRole" : {
          "file" : "lib/Moose/Exception/InvalidArgPassedToMooseUtilMetaRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidArgumentToMethod" : {
          "file" : "lib/Moose/Exception/InvalidArgumentToMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidArgumentsToTraitAliases" : {
          "file" : "lib/Moose/Exception/InvalidArgumentsToTraitAliases.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidBaseTypeGivenToCreateParameterizedTypeConstraint" : {
          "file" : "lib/Moose/Exception/InvalidBaseTypeGivenToCreateParameterizedTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidHandleValue" : {
          "file" : "lib/Moose/Exception/InvalidHandleValue.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidHasProvidedInARole" : {
          "file" : "lib/Moose/Exception/InvalidHasProvidedInARole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidNameForType" : {
          "file" : "lib/Moose/Exception/InvalidNameForType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidRoleApplication" : {
          "file" : "lib/Moose/Exception/InvalidRoleApplication.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidTypeConstraint" : {
          "file" : "lib/Moose/Exception/InvalidTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidTypeGivenToCreateParameterizedTypeConstraint" : {
          "file" : "lib/Moose/Exception/InvalidTypeGivenToCreateParameterizedTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::InvalidValueForIs" : {
          "file" : "lib/Moose/Exception/InvalidValueForIs.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::IsaDoesNotDoTheRole" : {
          "file" : "lib/Moose/Exception/IsaDoesNotDoTheRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::IsaLacksDoesMethod" : {
          "file" : "lib/Moose/Exception/IsaLacksDoesMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::LazyAttributeNeedsADefault" : {
          "file" : "lib/Moose/Exception/LazyAttributeNeedsADefault.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Legacy" : {
          "file" : "lib/Moose/Exception/Legacy.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MOPAttributeNewNeedsAttributeName" : {
          "file" : "lib/Moose/Exception/MOPAttributeNewNeedsAttributeName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MatchActionMustBeACodeRef" : {
          "file" : "lib/Moose/Exception/MatchActionMustBeACodeRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MessageParameterMustBeCodeRef" : {
          "file" : "lib/Moose/Exception/MessageParameterMustBeCodeRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassIsAClassNotASubclassOfGivenMetaclass" : {
          "file" : "lib/Moose/Exception/MetaclassIsAClassNotASubclassOfGivenMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassIsARoleNotASubclassOfGivenMetaclass" : {
          "file" : "lib/Moose/Exception/MetaclassIsARoleNotASubclassOfGivenMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass" : {
          "file" : "lib/Moose/Exception/MetaclassIsNotASubclassOfGivenMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassMustBeASubclassOfMooseMetaClass" : {
          "file" : "lib/Moose/Exception/MetaclassMustBeASubclassOfMooseMetaClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassMustBeASubclassOfMooseMetaRole" : {
          "file" : "lib/Moose/Exception/MetaclassMustBeASubclassOfMooseMetaRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass" : {
          "file" : "lib/Moose/Exception/MetaclassMustBeDerivedFromClassMOPClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassNotLoaded" : {
          "file" : "lib/Moose/Exception/MetaclassNotLoaded.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MetaclassTypeIncompatible" : {
          "file" : "lib/Moose/Exception/MetaclassTypeIncompatible.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodExpectedAMetaclassObject" : {
          "file" : "lib/Moose/Exception/MethodExpectedAMetaclassObject.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodExpectsFewerArgs" : {
          "file" : "lib/Moose/Exception/MethodExpectsFewerArgs.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodExpectsMoreArgs" : {
          "file" : "lib/Moose/Exception/MethodExpectsMoreArgs.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodModifierNeedsMethodName" : {
          "file" : "lib/Moose/Exception/MethodModifierNeedsMethodName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodNameConflictInRoles" : {
          "file" : "lib/Moose/Exception/MethodNameConflictInRoles.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodNameNotFoundInInheritanceHierarchy" : {
          "file" : "lib/Moose/Exception/MethodNameNotFoundInInheritanceHierarchy.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MethodNameNotGiven" : {
          "file" : "lib/Moose/Exception/MethodNameNotGiven.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustDefineAMethodName" : {
          "file" : "lib/Moose/Exception/MustDefineAMethodName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustDefineAnAttributeName" : {
          "file" : "lib/Moose/Exception/MustDefineAnAttributeName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustHaveAtLeastOneValueToEnumerate" : {
          "file" : "lib/Moose/Exception/MustHaveAtLeastOneValueToEnumerate.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustPassAHashOfOptions" : {
          "file" : "lib/Moose/Exception/MustPassAHashOfOptions.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustPassAMooseMetaRoleInstanceOrSubclass" : {
          "file" : "lib/Moose/Exception/MustPassAMooseMetaRoleInstanceOrSubclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance" : {
          "file" : "lib/Moose/Exception/MustPassAPackageNameOrAnExistingClassMOPPackageInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustPassEvenNumberOfArguments" : {
          "file" : "lib/Moose/Exception/MustPassEvenNumberOfArguments.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustPassEvenNumberOfAttributeOptions" : {
          "file" : "lib/Moose/Exception/MustPassEvenNumberOfAttributeOptions.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustProvideANameForTheAttribute" : {
          "file" : "lib/Moose/Exception/MustProvideANameForTheAttribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSpecifyAtleastOneMethod" : {
          "file" : "lib/Moose/Exception/MustSpecifyAtleastOneMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSpecifyAtleastOneRole" : {
          "file" : "lib/Moose/Exception/MustSpecifyAtleastOneRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSpecifyAtleastOneRoleToApplicant" : {
          "file" : "lib/Moose/Exception/MustSpecifyAtleastOneRoleToApplicant.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyAClassMOPAttributeInstance" : {
          "file" : "lib/Moose/Exception/MustSupplyAClassMOPAttributeInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyADelegateToMethod" : {
          "file" : "lib/Moose/Exception/MustSupplyADelegateToMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyAMetaclass" : {
          "file" : "lib/Moose/Exception/MustSupplyAMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyAMooseMetaAttributeInstance" : {
          "file" : "lib/Moose/Exception/MustSupplyAMooseMetaAttributeInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyAnAccessorTypeToConstructWith" : {
          "file" : "lib/Moose/Exception/MustSupplyAnAccessorTypeToConstructWith.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyAnAttributeToConstructWith" : {
          "file" : "lib/Moose/Exception/MustSupplyAnAttributeToConstructWith.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyArrayRefAsCurriedArguments" : {
          "file" : "lib/Moose/Exception/MustSupplyArrayRefAsCurriedArguments.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::MustSupplyPackageNameAndName" : {
          "file" : "lib/Moose/Exception/MustSupplyPackageNameAndName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion" : {
          "file" : "lib/Moose/Exception/NeedsTypeConstraintUnionForTypeCoercionUnion.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NeitherAttributeNorAttributeNameIsGiven" : {
          "file" : "lib/Moose/Exception/NeitherAttributeNorAttributeNameIsGiven.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NeitherClassNorClassNameIsGiven" : {
          "file" : "lib/Moose/Exception/NeitherClassNorClassNameIsGiven.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NeitherRoleNorRoleNameIsGiven" : {
          "file" : "lib/Moose/Exception/NeitherRoleNorRoleNameIsGiven.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NeitherTypeNorTypeNameIsGiven" : {
          "file" : "lib/Moose/Exception/NeitherTypeNorTypeNameIsGiven.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoAttributeFoundInSuperClass" : {
          "file" : "lib/Moose/Exception/NoAttributeFoundInSuperClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass" : {
          "file" : "lib/Moose/Exception/NoBodyToInitializeInAnAbstractBaseClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoCasesMatched" : {
          "file" : "lib/Moose/Exception/NoCasesMatched.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoConstraintCheckForTypeConstraint" : {
          "file" : "lib/Moose/Exception/NoConstraintCheckForTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoDestructorClassSpecified" : {
          "file" : "lib/Moose/Exception/NoDestructorClassSpecified.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoImmutableTraitSpecifiedForClass" : {
          "file" : "lib/Moose/Exception/NoImmutableTraitSpecifiedForClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::NoParentGivenToSubtype" : {
          "file" : "lib/Moose/Exception/NoParentGivenToSubtype.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::OnlyInstancesCanBeCloned" : {
          "file" : "lib/Moose/Exception/OnlyInstancesCanBeCloned.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::OperatorIsRequired" : {
          "file" : "lib/Moose/Exception/OperatorIsRequired.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::OverrideConflictInComposition" : {
          "file" : "lib/Moose/Exception/OverrideConflictInComposition.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::OverrideConflictInSummation" : {
          "file" : "lib/Moose/Exception/OverrideConflictInSummation.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::PackageDoesNotUseMooseExporter" : {
          "file" : "lib/Moose/Exception/PackageDoesNotUseMooseExporter.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::PackageNameAndNameParamsNotGivenToWrap" : {
          "file" : "lib/Moose/Exception/PackageNameAndNameParamsNotGivenToWrap.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::PackagesAndModulesAreNotCachable" : {
          "file" : "lib/Moose/Exception/PackagesAndModulesAreNotCachable.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ParameterIsNotSubtypeOfParent" : {
          "file" : "lib/Moose/Exception/ParameterIsNotSubtypeOfParent.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ReferencesAreNotAllowedAsDefault" : {
          "file" : "lib/Moose/Exception/ReferencesAreNotAllowedAsDefault.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RequiredAttributeLacksInitialization" : {
          "file" : "lib/Moose/Exception/RequiredAttributeLacksInitialization.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RequiredAttributeNeedsADefault" : {
          "file" : "lib/Moose/Exception/RequiredAttributeNeedsADefault.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RequiredMethodsImportedByClass" : {
          "file" : "lib/Moose/Exception/RequiredMethodsImportedByClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RequiredMethodsNotImplementedByClass" : {
          "file" : "lib/Moose/Exception/RequiredMethodsNotImplementedByClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::Attribute" : {
          "file" : "lib/Moose/Exception/Role/Attribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::AttributeName" : {
          "file" : "lib/Moose/Exception/Role/AttributeName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::Class" : {
          "file" : "lib/Moose/Exception/Role/Class.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::EitherAttributeOrAttributeName" : {
          "file" : "lib/Moose/Exception/Role/EitherAttributeOrAttributeName.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::Instance" : {
          "file" : "lib/Moose/Exception/Role/Instance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::InvalidAttributeOptions" : {
          "file" : "lib/Moose/Exception/Role/InvalidAttributeOptions.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::Method" : {
          "file" : "lib/Moose/Exception/Role/Method.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::ParamsHash" : {
          "file" : "lib/Moose/Exception/Role/ParamsHash.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::Role" : {
          "file" : "lib/Moose/Exception/Role/Role.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::RoleForCreate" : {
          "file" : "lib/Moose/Exception/Role/RoleForCreate.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::RoleForCreateMOPClass" : {
          "file" : "lib/Moose/Exception/Role/RoleForCreateMOPClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::Role::TypeConstraint" : {
          "file" : "lib/Moose/Exception/Role/TypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RoleDoesTheExcludedRole" : {
          "file" : "lib/Moose/Exception/RoleDoesTheExcludedRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RoleExclusionConflict" : {
          "file" : "lib/Moose/Exception/RoleExclusionConflict.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RoleNameRequired" : {
          "file" : "lib/Moose/Exception/RoleNameRequired.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RoleNameRequiredForMooseMetaRole" : {
          "file" : "lib/Moose/Exception/RoleNameRequiredForMooseMetaRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RoleNamesDoNotMatch" : {
          "file" : "lib/Moose/Exception/RoleNamesDoNotMatch.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RolesDoNotSupportAugment" : {
          "file" : "lib/Moose/Exception/RolesDoNotSupportAugment.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RolesDoNotSupportExtends" : {
          "file" : "lib/Moose/Exception/RolesDoNotSupportExtends.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RolesDoNotSupportInner" : {
          "file" : "lib/Moose/Exception/RolesDoNotSupportInner.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers" : {
          "file" : "lib/Moose/Exception/RolesDoNotSupportRegexReferencesForMethodModifiers.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RolesInCreateTakesAnArrayRef" : {
          "file" : "lib/Moose/Exception/RolesInCreateTakesAnArrayRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole" : {
          "file" : "lib/Moose/Exception/RolesListMustBeInstancesOfMooseMetaRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::SingleParamsToNewMustBeHashRef" : {
          "file" : "lib/Moose/Exception/SingleParamsToNewMustBeHashRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::TriggerMustBeACodeRef" : {
          "file" : "lib/Moose/Exception/TriggerMustBeACodeRef.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType" : {
          "file" : "lib/Moose/Exception/TypeConstraintCannotBeUsedForAParameterizableType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::TypeConstraintIsAlreadyCreated" : {
          "file" : "lib/Moose/Exception/TypeConstraintIsAlreadyCreated.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::TypeNamesDoNotMatch" : {
          "file" : "lib/Moose/Exception/TypeNamesDoNotMatch.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::TypeParameterMustBeMooseMetaType" : {
          "file" : "lib/Moose/Exception/TypeParameterMustBeMooseMetaType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::UnableToCanonicalizeHandles" : {
          "file" : "lib/Moose/Exception/UnableToCanonicalizeHandles.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::UnableToCanonicalizeNonRolePackage" : {
          "file" : "lib/Moose/Exception/UnableToCanonicalizeNonRolePackage.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::UnableToRecognizeDelegateMetaclass" : {
          "file" : "lib/Moose/Exception/UnableToRecognizeDelegateMetaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::UndefinedHashKeysPassedToMethod" : {
          "file" : "lib/Moose/Exception/UndefinedHashKeysPassedToMethod.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs" : {
          "file" : "lib/Moose/Exception/UnionCalledWithAnArrayRefAndAdditionalArgs.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::UnionTakesAtleastTwoTypeNames" : {
          "file" : "lib/Moose/Exception/UnionTakesAtleastTwoTypeNames.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ValidationFailedForInlineTypeConstraint" : {
          "file" : "lib/Moose/Exception/ValidationFailedForInlineTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::ValidationFailedForTypeConstraint" : {
          "file" : "lib/Moose/Exception/ValidationFailedForTypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::WrapTakesACodeRefToBless" : {
          "file" : "lib/Moose/Exception/WrapTakesACodeRefToBless.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exception::WrongTypeConstraintGiven" : {
          "file" : "lib/Moose/Exception/WrongTypeConstraintGiven.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Exporter" : {
          "file" : "lib/Moose/Exporter.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute" : {
          "file" : "lib/Moose/Meta/Attribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Custom::Moose" : {
          "file" : "lib/Moose/Meta/Attribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native" : {
          "file" : "lib/Moose/Meta/Attribute/Native.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::Array" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Array.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::Bool" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Bool.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::Code" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Code.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::Counter" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Counter.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::Hash" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Hash.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::Number" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/Number.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Attribute::Native::Trait::String" : {
          "file" : "lib/Moose/Meta/Attribute/Native/Trait/String.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Class" : {
          "file" : "lib/Moose/Meta/Class.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Instance" : {
          "file" : "lib/Moose/Meta/Instance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method" : {
          "file" : "lib/Moose/Meta/Method.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Accessor" : {
          "file" : "lib/Moose/Meta/Method/Accessor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Augmented" : {
          "file" : "lib/Moose/Meta/Method/Augmented.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Constructor" : {
          "file" : "lib/Moose/Meta/Method/Constructor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Delegation" : {
          "file" : "lib/Moose/Meta/Method/Delegation.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Destructor" : {
          "file" : "lib/Moose/Meta/Method/Destructor.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Meta" : {
          "file" : "lib/Moose/Meta/Method/Meta.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Method::Overridden" : {
          "file" : "lib/Moose/Meta/Method/Overridden.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role" : {
          "file" : "lib/Moose/Meta/Role.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Application" : {
          "file" : "lib/Moose/Meta/Role/Application.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Application::RoleSummation" : {
          "file" : "lib/Moose/Meta/Role/Application/RoleSummation.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Application::ToClass" : {
          "file" : "lib/Moose/Meta/Role/Application/ToClass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Application::ToInstance" : {
          "file" : "lib/Moose/Meta/Role/Application/ToInstance.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Application::ToRole" : {
          "file" : "lib/Moose/Meta/Role/Application/ToRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Attribute" : {
          "file" : "lib/Moose/Meta/Role/Attribute.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Composite" : {
          "file" : "lib/Moose/Meta/Role/Composite.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Method" : {
          "file" : "lib/Moose/Meta/Role/Method.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Method::Conflicting" : {
          "file" : "lib/Moose/Meta/Role/Method/Conflicting.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::Role::Method::Required" : {
          "file" : "lib/Moose/Meta/Role/Method/Required.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeCoercion" : {
          "file" : "lib/Moose/Meta/TypeCoercion.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeCoercion::Union" : {
          "file" : "lib/Moose/Meta/TypeCoercion/Union.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint" : {
          "file" : "lib/Moose/Meta/TypeConstraint.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Class" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Class.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::DuckType" : {
          "file" : "lib/Moose/Meta/TypeConstraint/DuckType.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Enum" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Enum.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Parameterizable" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Parameterizable.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Parameterized" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Parameterized.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Registry" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Registry.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Role" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Role.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Meta::TypeConstraint::Union" : {
          "file" : "lib/Moose/Meta/TypeConstraint/Union.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Object" : {
          "file" : "lib/Moose/Object.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Role" : {
          "file" : "lib/Moose/Role.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Util" : {
          "file" : "lib/Moose/Util.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Util::MetaRole" : {
          "file" : "lib/Moose/Util/MetaRole.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Moose::Util::TypeConstraints" : {
          "file" : "lib/Moose/Util/TypeConstraints.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "Test::Moose" : {
          "file" : "lib/Test/Moose.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "metaclass" : {
          "file" : "lib/metaclass.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       },
       "oose" : {
          "file" : "lib/oose.pm",
-         "version" : "2.1106"
+         "version" : "2.1107"
       }
    },
    "release_status" : "testing",
@@ -1308,10 +1312,10 @@
          "web" : "https://github.com/moose/Moose"
       }
    },
-   "version" : "2.1106",
+   "version" : "2.1107",
    "x_Dist_Zilla" : {
       "perl" : {
-         "version" : "5.019005"
+         "version" : "5.019006"
       },
       "plugins" : [
          {
@@ -1327,42 +1331,42 @@
          {
             "class" : "Dist::Zilla::Plugin::GatherDir",
             "name" : "GatherDir",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
             "name" : "PruneCruft",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::ManifestSkip",
             "name" : "ManifestSkip",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
             "name" : "MetaYAML",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaJSON",
             "name" : "MetaJSON",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::License",
             "name" : "License",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::ExecDir",
             "name" : "ExecDir",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::ShareDir",
             "name" : "ShareDir",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "inc::MakeMaker",
@@ -1372,37 +1376,37 @@
          {
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "Manifest",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",
             "name" : "TestRelease",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::UploadToCPAN",
             "name" : "UploadToCPAN",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",
             "name" : "NextRelease",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneFiles",
             "name" : "PruneFiles",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::PkgVersion",
             "name" : "PkgVersion",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaConfig",
             "name" : "MetaConfig",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
@@ -1412,12 +1416,12 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaResources",
             "name" : "MetaResources",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : "MetaProvides::Package/AUTOVIV/:InstallModulesPM",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaProvides::Package",
@@ -1430,12 +1434,12 @@
                }
             },
             "name" : "MetaProvides::Package",
-            "version" : "1.15000000"
+            "version" : "1.15000001"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaNoIndex",
             "name" : "MetaNoIndex",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::SurgicalPodWeaver",
@@ -1444,6 +1448,88 @@
                   "finder" : [
                      ":InstallModules",
                      ":ExecFiles"
+                  ],
+                  "plugins" : [
+                     {
+                        "class" : "Pod::Weaver::Plugin::EnsurePod5",
+                        "name" : "@CorePrep/EnsurePod5",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Plugin::H1Nester",
+                        "name" : "@CorePrep/H1Nester",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Plugin::SingleEncoding",
+                        "name" : "@Default/SingleEncoding",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Name",
+                        "name" : "@Default/Name",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Version",
+                        "name" : "@Default/Version",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Region",
+                        "name" : "@Default/prelude",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Generic",
+                        "name" : "SYNOPSIS",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Generic",
+                        "name" : "DESCRIPTION",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Generic",
+                        "name" : "OVERVIEW",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Collect",
+                        "name" : "ATTRIBUTES",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Collect",
+                        "name" : "METHODS",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Collect",
+                        "name" : "FUNCTIONS",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Leftovers",
+                        "name" : "@Default/Leftovers",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Region",
+                        "name" : "@Default/postlude",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Authors",
+                        "name" : "@Default/Authors",
+                        "version" : "4.004"
+                     },
+                     {
+                        "class" : "Pod::Weaver::Section::Legal",
+                        "name" : "@Default/Legal",
+                        "version" : "4.004"
+                     }
                   ]
                }
             },
@@ -1457,8 +1543,17 @@
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
+            "config" : {
+               "Dist::Zilla::Plugin::PromptIfStale" : {
+                  "check_all_plugins" : "1",
+                  "check_all_prereqs" : "1",
+                  "modules" : [],
+                  "phase" : "release",
+                  "skip" : []
+               }
+            },
             "name" : "PromptIfStale",
-            "version" : "0.010"
+            "version" : "0.014"
          },
          {
             "class" : "Dist::Zilla::Plugin::EOLTests",
@@ -1468,7 +1563,7 @@
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
             "name" : "PodSyntaxTests",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::NoTabs",
@@ -1488,7 +1583,7 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaTests",
             "name" : "MetaTests",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::Kwalitee",
@@ -1503,7 +1598,7 @@
          {
             "class" : "Dist::Zilla::Plugin::RunExtraTests",
             "name" : "RunExtraTests",
-            "version" : "0.015"
+            "version" : "0.016"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::ReportPrereqs",
@@ -1529,7 +1624,7 @@
                }
             },
             "name" : "Test::Compile",
-            "version" : "2.037"
+            "version" : "2.038"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckChangesHasContent",
@@ -1545,7 +1640,7 @@
                }
             },
             "name" : "Prereqs",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -1556,7 +1651,18 @@
                }
             },
             "name" : "TestRequires",
-            "version" : "5.005"
+            "version" : "5.006"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "configure",
+                  "type" : "requires"
+               }
+            },
+            "name" : "ConfigureRequires",
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -1567,7 +1673,7 @@
                }
             },
             "name" : "DevelopRequires",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -1578,7 +1684,7 @@
                }
             },
             "name" : "RuntimeRecommends",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",
@@ -1589,7 +1695,7 @@
                }
             },
             "name" : "DevelopConflicts",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Conflicts",
@@ -1614,7 +1720,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch",
             "name" : "Git::CheckFor::CorrectBranch",
-            "version" : "0.007"
+            "version" : "0.008"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Check",
@@ -1624,7 +1730,7 @@
          {
             "class" : "Dist::Zilla::Plugin::ConfirmRelease",
             "name" : "ConfirmRelease",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Commit",
@@ -1647,34 +1753,39 @@
             "version" : "0.006"
          },
          {
+            "class" : "inc::GenerateDocs",
+            "name" : "=inc::GenerateDocs",
+            "version" : null
+         },
+         {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":InstallModules",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":IncModules",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":TestFiles",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ExecFiles",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ShareFiles",
-            "version" : "5.005"
+            "version" : "5.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":MainModule",
-            "version" : "5.005"
+            "version" : "5.006"
          }
       ],
       "zilla" : {
@@ -1682,23 +1793,26 @@
          "config" : {
             "is_trial" : "1"
          },
-         "version" : "5.005"
+         "version" : "5.006"
       }
    },
    "x_authority" : "cpan:STEVAN",
    "x_breaks" : {
-      "Catalyst" : "5.80028",
-      "Devel::REPL" : "1.003008",
+      "Catalyst" : "5.9049999",
+      "Config::MVP" : "2.200004",
+      "Devel::REPL" : "1.003020",
+      "Dist::Zilla::Plugin::Git" : "2.016",
       "Fey" : "0.36",
       "Fey::ORM" : "0.42",
       "File::ChangeNotify" : "0.15",
+      "HTTP::Throwable" : "0.017",
       "KiokuDB" : "0.51",
       "Markdent" : "0.16",
       "Mason" : "2.18",
       "MooseX::ABC" : "0.05",
       "MooseX::Aliases" : "0.08",
       "MooseX::AlwaysCoerce" : "0.13",
-      "MooseX::App" : "1.18",
+      "MooseX::App" : "1.22",
       "MooseX::Attribute::Deflator" : "2.1.7",
       "MooseX::Attribute::Dependent" : "1.1.0",
       "MooseX::Attribute::Prototype" : "0.10",
@@ -1707,35 +1821,45 @@
       "MooseX::AttributeInflate" : "0.02",
       "MooseX::CascadeClearing" : "0.03",
       "MooseX::ClassAttribute" : "0.26",
-      "MooseX::Constructor::AllErrors" : "0.012",
+      "MooseX::Constructor::AllErrors" : "0.021",
+      "MooseX::Declare" : "0.35",
       "MooseX::FollowPBP" : "0.02",
+      "MooseX::Getopt" : "0.56",
       "MooseX::HasDefaults" : "0.02",
       "MooseX::InstanceTracking" : "0.04",
       "MooseX::LazyRequire" : "0.06",
       "MooseX::Meta::Attribute::Index" : "0.04",
       "MooseX::Meta::Attribute::Lvalue" : "0.05",
+      "MooseX::Method::Signatures" : "0.44",
       "MooseX::MethodAttributes" : "0.22",
-      "MooseX::NonMoose" : "0.17",
+      "MooseX::NonMoose" : "0.22",
+      "MooseX::Object::Pluggable" : "0.0011",
       "MooseX::POE" : "0.214",
       "MooseX::Params::Validate" : "0.05",
       "MooseX::PrivateSetters" : "0.03",
       "MooseX::Role::Cmd" : "0.06",
-      "MooseX::Role::Parameterized" : "0.23",
+      "MooseX::Role::Parameterized" : "1.00",
       "MooseX::Role::WithOverloading" : "0.07",
+      "MooseX::Runnable" : "0.03",
       "MooseX::Scaffold" : "0.05",
       "MooseX::SemiAffordanceAccessor" : "0.05",
       "MooseX::SetOnce" : "0.100473",
       "MooseX::Singleton" : "0.25",
       "MooseX::SlurpyConstructor" : "1.1",
+      "MooseX::Storage" : "0.42",
       "MooseX::StrictConstructor" : "0.12",
+      "MooseX::Traits" : "0.11",
       "MooseX::Types" : "0.19",
       "MooseX::Types::Parameterizable" : "0.05",
       "MooseX::Types::Signal" : "1.101930",
       "MooseX::UndefTolerant" : "0.11",
       "PRANG" : "0.14",
       "Pod::Elemental" : "0.093280",
+      "Pod::Weaver" : "3.101638",
       "Reaction" : "0.002003",
       "Test::Able" : "0.10",
+      "Test::CleanNamespaces" : "0.03",
+      "Test::TempDir" : "0.05",
       "namespace::autoclean" : "0.08"
    },
    "x_contributors" : [
