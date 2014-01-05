@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CanExtendOnlyClasses::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CanExtendOnlyClasses::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::CanExtendOnlyClasses::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

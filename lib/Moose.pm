@@ -3,7 +3,7 @@ BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::VERSION = '2.1107'; # TRIAL
+  $Moose::VERSION = '2.1108'; # TRIAL
 }
 use strict;
 use warnings;
@@ -304,7 +304,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 SYNOPSIS
 
@@ -998,6 +998,8 @@ are a few of our favorites. Feel free to contribute more!
 
 =item * Meta Object Orientation Syntax Extensions
 
+=item * Moo, Only Overengineered, Slow, and Execrable (blame rjbs!)
+
 =back
 
 =head1 ACKNOWLEDGEMENTS
@@ -1231,7 +1233,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

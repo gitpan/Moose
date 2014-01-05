@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotOverrideNoSuperMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotOverrideNoSuperMethod::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::CannotOverrideNoSuperMethod::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

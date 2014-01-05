@@ -3,7 +3,7 @@ BEGIN {
   $Test::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Test::Moose::VERSION = '2.1107'; # TRIAL
+  $Test::Moose::VERSION = '2.1108'; # TRIAL
 }
 
 use strict;
@@ -106,7 +106,7 @@ Test::Moose - Test functions for Moose specific features
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 SYNOPSIS
 
@@ -206,7 +206,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

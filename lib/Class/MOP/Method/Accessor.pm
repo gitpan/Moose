@@ -4,7 +4,7 @@ BEGIN {
   $Class::MOP::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Method::Accessor::VERSION = '2.1107'; # TRIAL
+  $Class::MOP::Method::Accessor::VERSION = '2.1108'; # TRIAL
 }
 
 use strict;
@@ -283,7 +283,7 @@ Class::MOP::Method::Accessor - Method Meta Object for accessors
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 SYNOPSIS
 
@@ -384,7 +384,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

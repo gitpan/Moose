@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AttributeConflictInRoles::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AttributeConflictInRoles::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::AttributeConflictInRoles::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

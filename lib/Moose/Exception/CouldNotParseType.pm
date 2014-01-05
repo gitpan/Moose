@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CouldNotParseType::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CouldNotParseType::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::CouldNotParseType::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

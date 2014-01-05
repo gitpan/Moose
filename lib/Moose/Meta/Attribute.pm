@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::VERSION = '2.1107'; # TRIAL
+  $Moose::Meta::Attribute::VERSION = '2.1108'; # TRIAL
 }
 
 use strict;
@@ -1281,7 +1281,7 @@ BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1107'; # TRIAL
+  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1108'; # TRIAL
 }
 sub register_implementation { 'Moose::Meta::Attribute' }
 
@@ -1301,7 +1301,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 DESCRIPTION
 
@@ -1376,7 +1376,7 @@ This option is only valid for objects with a type constraint
 (C<isa>) that defined a coercion. If this is true, then coercions will be applied whenever
 this attribute is set.
 
-You can make both this and the C<weak_ref> option true.
+You cannot make both this and the C<weak_ref> option true.
 
 =item * trigger => $sub
 
@@ -1702,7 +1702,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

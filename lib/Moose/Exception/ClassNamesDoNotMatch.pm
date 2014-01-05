@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::ClassNamesDoNotMatch::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::ClassNamesDoNotMatch::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::ClassNamesDoNotMatch::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

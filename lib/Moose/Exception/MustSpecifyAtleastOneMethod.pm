@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustSpecifyAtleastOneMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustSpecifyAtleastOneMethod::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::MustSpecifyAtleastOneMethod::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

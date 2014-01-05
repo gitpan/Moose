@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Util::TypeConstraints::VERSION = '2.1107'; # TRIAL
+  $Moose::Util::TypeConstraints::VERSION = '2.1108'; # TRIAL
 }
 
 use Carp ();
@@ -176,7 +176,7 @@ sub create_class_type_constraint {
         class              => $class,
         name               => $class,
         package_defined_in => $pkg_defined_in,
-        %{ $options || {} },
+        %{ $options || {} },    # overrides options from above
     );
 
     $options{name} ||= "__ANON__";
@@ -778,7 +778,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 SYNOPSIS
 
@@ -1433,7 +1433,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

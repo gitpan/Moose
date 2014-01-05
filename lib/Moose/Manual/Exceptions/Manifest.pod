@@ -16,7 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 Moose::Exception::AccessorMustReadWrite
 
@@ -3954,8 +3954,6 @@ L<Moose::Exception::Role::ParamsHash>.
 =item B<< $exception->illegal_options >>
 
 This attribute is read-only, isa ArrayRef and is required.
-
-This attribute has handles as follows:
 
 =item B<< $exception->message >>
 
@@ -8427,7 +8425,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

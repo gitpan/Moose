@@ -16,7 +16,7 @@ Moose::Manual::Roles - Roles, an alternative to deep hierarchies and base classe
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 WHAT IS A ROLE?
 
@@ -115,6 +115,16 @@ We could use this same role in a C<Bone> class:
   );
 
 See also L<Moose::Cookbook::Roles::Comparable_CodeReuse> for an example.
+
+It's possible to compose existing roles into new roles. For example, we can
+have a C<HandleWithCare> class which applies both the C<Breakable> and
+C<Package> roles to any class which consumes it:
+
+  package HandleWithCare;
+
+  use Moose::Role;
+
+  with 'Breakable', 'Package';
 
 =head1 REQUIRED METHODS
 
@@ -360,7 +370,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::BuilderDoesNotExist::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::BuilderDoesNotExist::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::BuilderDoesNotExist::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

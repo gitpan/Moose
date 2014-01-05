@@ -2,10 +2,6 @@
 - add delegations for 'get', 'set' in all native attr traits.
 e.g. bool has no 'get'.
 
-- evals -> Test::Requires in t/000_recipes tests generated from pods.
- Search for DateTime::Calendar::Mayan to get started
-
-- use Test::Requires?
 
 - more native attr handlers:
     is_member -- pass in an equality sub that compares $_[0] and $_[1]

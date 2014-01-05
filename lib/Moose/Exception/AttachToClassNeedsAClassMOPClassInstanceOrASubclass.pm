@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

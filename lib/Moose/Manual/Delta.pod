@@ -16,7 +16,7 @@ Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.1107
+version 2.1108
 
 =head1 DESCRIPTION
 
@@ -129,11 +129,15 @@ in your code with
 
 Previously, Moose threw string exceptions on error conditions, which were not
 so verbose. All those string exceptions have now been converted to exception
-objects, which provide very detailed information about the exceptions.
+objects, which provide very detailed information about the exceptions. These
+exception objects provide a string overload that matches the previous exception
+message, so in most cases you should not have to change your code.
 
 For learning about the usage of Moose exception objects, read
 L<Moose::Manual::Exceptions>. Individual exceptions are documented in
 L<Moose::Manual::Exceptions::Manifest>.
+
+This work was funded as part of the GNOME Outreach Program for Women.
 
 =back
 
@@ -1204,7 +1208,7 @@ Shawn M Moore <code@sartak.org>
 
 =item *
 
-Yuval Kogman <nothingmuch@woobling.org>
+יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
 
 =item *
 

@@ -59,7 +59,7 @@ check_conflicts();
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "A postmodern object system for Perl 5",
-  "AUTHOR" => "Stevan Little <stevan.little\@iinteractive.com>, Dave Rolsky <autarch\@urth.org>, Jesse Luehrs <doy\@tozt.net>, Shawn M Moore <code\@sartak.org>, Yuval Kogman <nothingmuch\@woobling.org>, Karen Etheridge <ether\@cpan.org>, Florian Ragwitz <rafl\@debian.org>, Hans Dieter Pearcey <hdp\@weftsoar.net>, Chris Prather <chris\@prather.org>, Matt S Trout <mst\@shadowcat.co.uk>",
+  "AUTHOR" => "Stevan Little <stevan.little\@iinteractive.com>, Dave Rolsky <autarch\@urth.org>, Jesse Luehrs <doy\@tozt.net>, Shawn M Moore <code\@sartak.org>, \x{5d9}\x{5d5}\x{5d1}\x{5dc} \x{5e7}\x{5d5}\x{5d2}'\x{5de}\x{5df} (Yuval Kogman) <nothingmuch\@woobling.org>, Karen Etheridge <ether\@cpan.org>, Florian Ragwitz <rafl\@debian.org>, Hans Dieter Pearcey <hdp\@weftsoar.net>, Chris Prather <chris\@prather.org>, Matt S Trout <mst\@shadowcat.co.uk>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "Dist::CheckConflicts" => "0.02",
@@ -102,7 +102,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.1107",
+  "VERSION" => "2.1108",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::ExtendsMissingArgs::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::ExtendsMissingArgs::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::ExtendsMissingArgs::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;

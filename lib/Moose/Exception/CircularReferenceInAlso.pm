@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CircularReferenceInAlso::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CircularReferenceInAlso::VERSION = '2.1107'; # TRIAL
+  $Moose::Exception::CircularReferenceInAlso::VERSION = '2.1108'; # TRIAL
 }
 
 use Moose;
