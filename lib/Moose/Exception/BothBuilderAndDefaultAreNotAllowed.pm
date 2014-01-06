@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::BothBuilderAndDefaultAreNotAllowed::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::BothBuilderAndDefaultAreNotAllowed::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::BothBuilderAndDefaultAreNotAllowed::VERSION = '2.1200';
 }
 
 use Moose;

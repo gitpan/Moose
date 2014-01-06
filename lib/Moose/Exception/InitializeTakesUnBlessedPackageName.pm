@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InitializeTakesUnBlessedPackageName::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InitializeTakesUnBlessedPackageName::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::InitializeTakesUnBlessedPackageName::VERSION = '2.1200';
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::RolesInCreateTakesAnArrayRef::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::RolesInCreateTakesAnArrayRef::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::RolesInCreateTakesAnArrayRef::VERSION = '2.1200';
 }
 
 use Moose;

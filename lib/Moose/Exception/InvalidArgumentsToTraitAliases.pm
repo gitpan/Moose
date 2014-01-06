@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InvalidArgumentsToTraitAliases::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InvalidArgumentsToTraitAliases::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::InvalidArgumentsToTraitAliases::VERSION = '2.1200';
 }
 
 use Moose;

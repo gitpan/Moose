@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotDelegateWithoutIsa::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotDelegateWithoutIsa::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::CannotDelegateWithoutIsa::VERSION = '2.1200';
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Class::MOP::Mixin::AttributeCore::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Class::MOP::Mixin::AttributeCore::VERSION = '2.1108'; # TRIAL
+  $Class::MOP::Mixin::AttributeCore::VERSION = '2.1200';
 }
 
 use strict;
@@ -67,7 +67,7 @@ Class::MOP::Mixin::AttributeCore - Core attributes shared by attribute metaclass
 
 =head1 VERSION
 
-version 2.1108
+version 2.1200
 
 =head1 DESCRIPTION
 

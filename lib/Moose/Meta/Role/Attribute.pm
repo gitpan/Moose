@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Attribute::VERSION = '2.1108'; # TRIAL
+  $Moose::Meta::Role::Attribute::VERSION = '2.1200';
 }
 
 use strict;
@@ -145,7 +145,7 @@ Moose::Meta::Role::Attribute - The Moose attribute metaclass for Roles
 
 =head1 VERSION
 
-version 2.1108
+version 2.1200
 
 =head1 DESCRIPTION
 

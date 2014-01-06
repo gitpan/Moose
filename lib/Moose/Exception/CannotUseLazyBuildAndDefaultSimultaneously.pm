@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::VERSION = '2.1200';
 }
 
 use Moose;

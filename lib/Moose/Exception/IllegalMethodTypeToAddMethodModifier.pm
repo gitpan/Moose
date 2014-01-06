@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::IllegalMethodTypeToAddMethodModifier::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::IllegalMethodTypeToAddMethodModifier::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::IllegalMethodTypeToAddMethodModifier::VERSION = '2.1200';
 }
 
 use Moose;

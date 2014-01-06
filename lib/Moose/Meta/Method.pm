@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Method::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Method::VERSION = '2.1108'; # TRIAL
+  $Moose::Meta::Method::VERSION = '2.1200';
 }
 
 use strict;
@@ -31,7 +31,7 @@ Moose::Meta::Method - A Moose Method metaclass
 
 =head1 VERSION
 
-version 2.1108
+version 2.1200
 
 =head1 DESCRIPTION
 

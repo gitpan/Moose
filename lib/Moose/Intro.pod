@@ -16,7 +16,7 @@ Moose::Intro - Expanded into Moose::Manual, so go read that
 
 =head1 VERSION
 
-version 2.1108
+version 2.1200
 
 =head1 DESCRIPTION
 

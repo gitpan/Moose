@@ -1,6 +1,12 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1200   2014-01-06
+
+  [OTHER]
+
+  - Releasing 2.1108 as stable (last stable release was 2.1005).
+
 2.1108   2014-01-04 (TRIAL RELEASE)
 
   [OTHER]

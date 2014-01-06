@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotCoerceAWeakRef::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotCoerceAWeakRef::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::CannotCoerceAWeakRef::VERSION = '2.1200';
 }
 
 use Moose;

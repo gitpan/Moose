@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1108'; # TRIAL
+  $Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1200';
 }
 
 use strict;
@@ -275,7 +275,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.1108
+version 2.1200
 
 =head1 DESCRIPTION
 

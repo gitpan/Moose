@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotInitializeMooseMetaRoleComposite::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotInitializeMooseMetaRoleComposite::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::CannotInitializeMooseMetaRoleComposite::VERSION = '2.1200';
 }
 
 use Moose;

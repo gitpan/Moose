@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::VERSION = '2.1200';
 }
 
 use Moose;

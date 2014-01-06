@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::VERSION = '2.1200';
 }
 
 use Moose;

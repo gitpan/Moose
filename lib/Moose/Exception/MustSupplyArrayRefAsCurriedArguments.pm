@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustSupplyArrayRefAsCurriedArguments::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustSupplyArrayRefAsCurriedArguments::VERSION = '2.1108'; # TRIAL
+  $Moose::Exception::MustSupplyArrayRefAsCurriedArguments::VERSION = '2.1200';
 }
 
 use Moose;

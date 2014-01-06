@@ -16,7 +16,7 @@ Moose::Manual::Unsweetened - Moose idioms in plain old Perl 5 without the sugar
 
 =head1 VERSION
 
-version 2.1108
+version 2.1200
 
 =head1 DESCRIPTION
 
