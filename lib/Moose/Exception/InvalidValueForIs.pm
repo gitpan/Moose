@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InvalidValueForIs::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InvalidValueForIs::VERSION = '2.1200';
+  $Moose::Exception::InvalidValueForIs::VERSION = '2.1201';
 }
 
 use Moose;

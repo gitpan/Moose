@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MustSupplyAnAccessorTypeToConstructWith::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MustSupplyAnAccessorTypeToConstructWith::VERSION = '2.1200';
+  $Moose::Exception::MustSupplyAnAccessorTypeToConstructWith::VERSION = '2.1201';
 }
 
 use Moose;

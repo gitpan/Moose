@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::Role::Class::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::Role::Class::VERSION = '2.1200';
+  $Moose::Exception::Role::Class::VERSION = '2.1201';
 }
 
 use Moose::Util 'throw_exception';

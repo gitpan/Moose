@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::DoesRequiresRoleName::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::DoesRequiresRoleName::VERSION = '2.1200';
+  $Moose::Exception::DoesRequiresRoleName::VERSION = '2.1201';
 }
 
 use Moose;

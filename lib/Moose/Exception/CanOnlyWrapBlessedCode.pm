@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CanOnlyWrapBlessedCode::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CanOnlyWrapBlessedCode::VERSION = '2.1200';
+  $Moose::Exception::CanOnlyWrapBlessedCode::VERSION = '2.1201';
 }
 
 use Moose;

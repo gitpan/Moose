@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::UnableToCanonicalizeHandles::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::UnableToCanonicalizeHandles::VERSION = '2.1200';
+  $Moose::Exception::UnableToCanonicalizeHandles::VERSION = '2.1201';
 }
 
 use Moose;

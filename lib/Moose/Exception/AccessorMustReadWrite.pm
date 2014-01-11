@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::AccessorMustReadWrite::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::AccessorMustReadWrite::VERSION = '2.1200';
+  $Moose::Exception::AccessorMustReadWrite::VERSION = '2.1201';
 }
 
 use Moose;

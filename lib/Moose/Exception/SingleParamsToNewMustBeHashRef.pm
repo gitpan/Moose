@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::SingleParamsToNewMustBeHashRef::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::SingleParamsToNewMustBeHashRef::VERSION = '2.1200';
+  $Moose::Exception::SingleParamsToNewMustBeHashRef::VERSION = '2.1201';
 }
 
 use Moose;

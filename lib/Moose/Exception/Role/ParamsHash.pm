@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::Role::ParamsHash::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::Role::ParamsHash::VERSION = '2.1200';
+  $Moose::Exception::Role::ParamsHash::VERSION = '2.1201';
 }
 
 use Moose::Role;

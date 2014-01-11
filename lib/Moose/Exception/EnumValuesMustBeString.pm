@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::EnumValuesMustBeString::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::EnumValuesMustBeString::VERSION = '2.1200';
+  $Moose::Exception::EnumValuesMustBeString::VERSION = '2.1201';
 }
 
 use Moose;

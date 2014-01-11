@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::BuilderMethodNotSupportedForAttribute::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::BuilderMethodNotSupportedForAttribute::VERSION = '2.1200';
+  $Moose::Exception::BuilderMethodNotSupportedForAttribute::VERSION = '2.1201';
 }
 
 use Moose;

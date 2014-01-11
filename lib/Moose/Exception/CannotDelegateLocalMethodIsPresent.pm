@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotDelegateLocalMethodIsPresent::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotDelegateLocalMethodIsPresent::VERSION = '2.1200';
+  $Moose::Exception::CannotDelegateLocalMethodIsPresent::VERSION = '2.1201';
 }
 
 use Moose;

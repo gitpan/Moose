@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MatchActionMustBeACodeRef::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MatchActionMustBeACodeRef::VERSION = '2.1200';
+  $Moose::Exception::MatchActionMustBeACodeRef::VERSION = '2.1201';
 }
 
 use Moose;

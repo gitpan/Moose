@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::VERSION = '2.1200';
+  $Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::VERSION = '2.1201';
 }
 
 use Moose;

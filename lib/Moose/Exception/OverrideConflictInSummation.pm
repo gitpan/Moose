@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::OverrideConflictInSummation::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::OverrideConflictInSummation::VERSION = '2.1200';
+  $Moose::Exception::OverrideConflictInSummation::VERSION = '2.1201';
 }
 
 use Moose;

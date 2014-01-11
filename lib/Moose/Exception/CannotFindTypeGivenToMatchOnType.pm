@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotFindTypeGivenToMatchOnType::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotFindTypeGivenToMatchOnType::VERSION = '2.1200';
+  $Moose::Exception::CannotFindTypeGivenToMatchOnType::VERSION = '2.1201';
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CouldNotEvalDestructor::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CouldNotEvalDestructor::VERSION = '2.1200';
+  $Moose::Exception::CouldNotEvalDestructor::VERSION = '2.1201';
 }
 
 use Moose;

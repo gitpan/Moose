@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MOPAttributeNewNeedsAttributeName::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MOPAttributeNewNeedsAttributeName::VERSION = '2.1200';
+  $Moose::Exception::MOPAttributeNewNeedsAttributeName::VERSION = '2.1201';
 }
 
 use Moose;

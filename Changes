@@ -1,6 +1,12 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1201   2014-01-11
+
+  [OTHER]
+
+  - re-release to index pod files (Moose::Cookbook::*, Moose::Manual::* etc).
+
 2.1200   2014-01-06
 
   [OTHER]

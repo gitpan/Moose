@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::MessageParameterMustBeCodeRef::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::MessageParameterMustBeCodeRef::VERSION = '2.1200';
+  $Moose::Exception::MessageParameterMustBeCodeRef::VERSION = '2.1201';
 }
 
 use Moose;

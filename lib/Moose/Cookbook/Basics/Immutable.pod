@@ -16,7 +16,7 @@ Moose::Cookbook::Basics::Immutable - Making Moose fast by making your class immu
 
 =head1 VERSION
 
-version 2.1200
+version 2.1201
 
 =head1 SYNOPSIS
 

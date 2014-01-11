@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::PackagesAndModulesAreNotCachable::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::PackagesAndModulesAreNotCachable::VERSION = '2.1200';
+  $Moose::Exception::PackagesAndModulesAreNotCachable::VERSION = '2.1201';
 }
 
 use Moose;

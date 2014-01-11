@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::ReferencesAreNotAllowedAsDefault::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::ReferencesAreNotAllowedAsDefault::VERSION = '2.1200';
+  $Moose::Exception::ReferencesAreNotAllowedAsDefault::VERSION = '2.1201';
 }
 
 use Moose;

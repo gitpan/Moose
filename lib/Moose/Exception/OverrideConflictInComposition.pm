@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::OverrideConflictInComposition::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::OverrideConflictInComposition::VERSION = '2.1200';
+  $Moose::Exception::OverrideConflictInComposition::VERSION = '2.1201';
 }
 
 use Moose;

@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::ClassDoesNotHaveInitMeta::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::ClassDoesNotHaveInitMeta::VERSION = '2.1200';
+  $Moose::Exception::ClassDoesNotHaveInitMeta::VERSION = '2.1201';
 }
 
 use Moose;

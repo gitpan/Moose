@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::InstanceMustBeABlessedReference::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::InstanceMustBeABlessedReference::VERSION = '2.1200';
+  $Moose::Exception::InstanceMustBeABlessedReference::VERSION = '2.1201';
 }
 
 use Moose;

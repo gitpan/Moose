@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::ParameterIsNotSubtypeOfParent::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::ParameterIsNotSubtypeOfParent::VERSION = '2.1200';
+  $Moose::Exception::ParameterIsNotSubtypeOfParent::VERSION = '2.1201';
 }
 
 use Moose;

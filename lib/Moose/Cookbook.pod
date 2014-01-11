@@ -1,4 +1,6 @@
 package Moose::Cookbook;
+use strict;
+use warnings;
 
 # ABSTRACT: How to cook a Moose
 
@@ -14,7 +16,7 @@ Moose::Cookbook - How to cook a Moose
 
 =head1 VERSION
 
-version 2.1200
+version 2.1201
 
 =head1 DESCRIPTION
 

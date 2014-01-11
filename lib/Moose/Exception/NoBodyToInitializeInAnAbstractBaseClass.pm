@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::VERSION = '2.1200';
+  $Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::VERSION = '2.1201';
 }
 
 use Moose;

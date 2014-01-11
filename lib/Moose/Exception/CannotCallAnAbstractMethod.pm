@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotCallAnAbstractMethod::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotCallAnAbstractMethod::VERSION = '2.1200';
+  $Moose::Exception::CannotCallAnAbstractMethod::VERSION = '2.1201';
 }
 
 use Moose;

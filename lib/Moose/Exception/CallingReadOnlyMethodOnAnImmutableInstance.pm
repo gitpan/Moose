@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CallingReadOnlyMethodOnAnImmutableInstance::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CallingReadOnlyMethodOnAnImmutableInstance::VERSION = '2.1200';
+  $Moose::Exception::CallingReadOnlyMethodOnAnImmutableInstance::VERSION = '2.1201';
 }
 
 use Moose;

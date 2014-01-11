@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::VERSION = '2.1200';
+  $Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::VERSION = '2.1201';
 }
 
 use Moose;

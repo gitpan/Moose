@@ -60,6 +60,7 @@ use Dist::CheckConflicts
         'MooseX::Traits' => '0.11',
         'MooseX::Types' => '0.19',
         'MooseX::Types::Parameterizable' => '0.05',
+        'MooseX::Types::Set::Object' => '0.03',
         'MooseX::Types::Signal' => '1.101930',
         'MooseX::UndefTolerant' => '0.11',
         'PRANG' => '0.14',
@@ -90,7 +91,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1200
+version 2.1201
 
 =head1 AUTHORS
 

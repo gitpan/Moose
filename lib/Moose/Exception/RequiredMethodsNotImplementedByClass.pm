@@ -3,7 +3,7 @@ BEGIN {
   $Moose::Exception::RequiredMethodsNotImplementedByClass::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Exception::RequiredMethodsNotImplementedByClass::VERSION = '2.1200';
+  $Moose::Exception::RequiredMethodsNotImplementedByClass::VERSION = '2.1201';
 }
 
 use Moose;

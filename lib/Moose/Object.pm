@@ -4,7 +4,7 @@ BEGIN {
   $Moose::Object::AUTHORITY = 'cpan:STEVAN';
 }
 {
-  $Moose::Object::VERSION = '2.1200';
+  $Moose::Object::VERSION = '2.1201';
 }
 
 use strict;
@@ -153,7 +153,7 @@ Moose::Object - The base object for Moose
 
 =head1 VERSION
 
-version 2.1200
+version 2.1201
 
 =head1 DESCRIPTION
 
