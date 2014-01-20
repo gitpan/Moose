@@ -2,10 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Hash::is_empty;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::is_empty::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Hash::is_empty::VERSION = '2.1201';
-}
-
+$Moose::Meta::Method::Accessor::Native::Hash::is_empty::VERSION = '2.1202';
 use strict;
 use warnings;
 

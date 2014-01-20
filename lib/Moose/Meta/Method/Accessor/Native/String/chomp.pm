@@ -2,10 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::chomp;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::chomp::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::String::chomp::VERSION = '2.1201';
-}
-
+$Moose::Meta::Method::Accessor::Native::String::chomp::VERSION = '2.1202';
 use strict;
 use warnings;
 

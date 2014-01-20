@@ -2,10 +2,7 @@ package Moose::Exception::IllegalInheritedOptions;
 BEGIN {
   $Moose::Exception::IllegalInheritedOptions::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::IllegalInheritedOptions::VERSION = '2.1201';
-}
-
+$Moose::Exception::IllegalInheritedOptions::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

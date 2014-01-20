@@ -7,7 +7,7 @@ use warnings;
 use Dist::CheckConflicts
     -dist      => 'Moose',
     -conflicts => {
-        'Catalyst' => '5.9049999',
+        'Catalyst' => '5.90049999',
         'Config::MVP' => '2.200004',
         'Devel::REPL' => '1.003020',
         'Dist::Zilla::Plugin::Git' => '2.016',
@@ -91,7 +91,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 AUTHORS
 

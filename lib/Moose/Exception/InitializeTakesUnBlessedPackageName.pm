@@ -2,10 +2,7 @@ package Moose::Exception::InitializeTakesUnBlessedPackageName;
 BEGIN {
   $Moose::Exception::InitializeTakesUnBlessedPackageName::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::InitializeTakesUnBlessedPackageName::VERSION = '2.1201';
-}
-
+$Moose::Exception::InitializeTakesUnBlessedPackageName::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

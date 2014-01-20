@@ -2,10 +2,7 @@ package Moose::Exception::AccessorMustReadWrite;
 BEGIN {
   $Moose::Exception::AccessorMustReadWrite::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::AccessorMustReadWrite::VERSION = '2.1201';
-}
-
+$Moose::Exception::AccessorMustReadWrite::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

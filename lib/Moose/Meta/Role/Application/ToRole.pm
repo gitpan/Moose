@@ -2,10 +2,7 @@ package Moose::Meta::Role::Application::ToRole;
 BEGIN {
   $Moose::Meta::Role::Application::ToRole::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Role::Application::ToRole::VERSION = '2.1201';
-}
-
+$Moose::Meta::Role::Application::ToRole::VERSION = '2.1202';
 use strict;
 use warnings;
 use metaclass;
@@ -201,7 +198,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 DESCRIPTION
 

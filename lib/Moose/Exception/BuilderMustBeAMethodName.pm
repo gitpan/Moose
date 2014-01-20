@@ -2,10 +2,7 @@ package Moose::Exception::BuilderMustBeAMethodName;
 BEGIN {
   $Moose::Exception::BuilderMustBeAMethodName::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::BuilderMustBeAMethodName::VERSION = '2.1201';
-}
-
+$Moose::Exception::BuilderMustBeAMethodName::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

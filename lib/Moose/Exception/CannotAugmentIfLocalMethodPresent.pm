@@ -2,10 +2,7 @@ package Moose::Exception::CannotAugmentIfLocalMethodPresent;
 BEGIN {
   $Moose::Exception::CannotAugmentIfLocalMethodPresent::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::CannotAugmentIfLocalMethodPresent::VERSION = '2.1201';
-}
-
+$Moose::Exception::CannotAugmentIfLocalMethodPresent::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Method';

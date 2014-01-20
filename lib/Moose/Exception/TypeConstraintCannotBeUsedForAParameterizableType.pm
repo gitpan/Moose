@@ -2,10 +2,7 @@ package Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType;
 BEGIN {
   $Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::VERSION = '2.1201';
-}
-
+$Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

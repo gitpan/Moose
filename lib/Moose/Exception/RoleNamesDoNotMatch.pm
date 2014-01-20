@@ -2,10 +2,7 @@ package Moose::Exception::RoleNamesDoNotMatch;
 BEGIN {
   $Moose::Exception::RoleNamesDoNotMatch::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::RoleNamesDoNotMatch::VERSION = '2.1201';
-}
-
+$Moose::Exception::RoleNamesDoNotMatch::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

@@ -2,10 +2,7 @@ package Moose::Exception::CoercingWithoutCoercions;
 BEGIN {
   $Moose::Exception::CoercingWithoutCoercions::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1201';
-}
-
+$Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

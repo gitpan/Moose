@@ -2,11 +2,8 @@ package Moose::Meta::Attribute::Native::Trait::Code;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Code::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.1201';
-}
+$Moose::Meta::Attribute::Native::Trait::Code::VERSION = '2.1202';
 use Moose::Role;
-
 with 'Moose::Meta::Attribute::Native::Trait';
 
 sub _helper_type { 'CodeRef' }
@@ -29,7 +26,7 @@ Moose::Meta::Attribute::Native::Trait::Code - Helper trait for CodeRef attribute
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 SYNOPSIS
 

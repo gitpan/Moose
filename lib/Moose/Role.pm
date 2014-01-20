@@ -1,13 +1,10 @@
+use strict;
+use warnings;
 package Moose::Role;
 BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Role::VERSION = '2.1201';
-}
-use strict;
-use warnings;
-
+$Moose::Role::VERSION = '2.1202';
 use Scalar::Util 'blessed';
 use Carp         'croak';
 use Class::Load  'is_class_loaded';
@@ -187,7 +184,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 SYNOPSIS
 

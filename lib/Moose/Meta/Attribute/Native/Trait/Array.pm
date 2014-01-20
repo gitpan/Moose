@@ -1,13 +1,9 @@
-
 package Moose::Meta::Attribute::Native::Trait::Array;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.1201';
-}
+$Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.1202';
 use Moose::Role;
-
 with 'Moose::Meta::Attribute::Native::Trait';
 
 sub _helper_type { 'ArrayRef' }
@@ -30,7 +26,7 @@ Moose::Meta::Attribute::Native::Trait::Array - Helper trait for ArrayRef attribu
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 SYNOPSIS
 
@@ -153,6 +149,7 @@ This method returns the first matching item in the array, just like
 L<List::Util>'s C<first> function. The matching is done with a subroutine
 reference you pass to this method. The subroutine will be called against each
 element in the array until one matches or all elements have been checked.
+Each list element will be available to the sub in C<$_>.
 
   my $found = $stuff->find_option( sub {/^b/} );
   print "$found\n";    # prints "bar"
@@ -165,7 +162,7 @@ This method returns the index of the first matching item in the array, just
 like L<List::MoreUtils>'s C<first_index> function. The matching is done with a
 subroutine reference you pass to this method. The subroutine will be called
 against each element in the array until one matches or all elements have been
-checked.
+checked. Each list element will be available to the sub in C<$_>.
 
 This method requires a single argument.
 
@@ -173,7 +170,7 @@ This method requires a single argument.
 
 This method returns every element matching a given criteria, just like Perl's
 core C<grep> function. This method requires a subroutine which implements the
-matching logic.
+matching logic; each list element will be available to the sub in C<$_>.
 
   my @found = $stuff->filter_options( sub {/^b/} );
   print "@found\n";    # prints "bar baz boo"
@@ -184,7 +181,8 @@ This method requires a single argument.
 
 This method transforms every element in the array and returns a new array,
 just like Perl's core C<map> function. This method requires a subroutine which
-implements the transformation.
+implements the transformation; each list element will be available to the sub
+in C<$_>.
 
   my @mod_options = $stuff->map_options( sub { $_ . "-tag" } );
   print "@mod_options\n";    # prints "foo-tag bar-tag baz-tag boo-tag"
@@ -196,7 +194,7 @@ This method requires a single argument.
 This method turns an array into a single value, by passing a function the
 value so far and the next value in the array, just like L<List::Util>'s
 C<reduce> function. The reducing is done with a subroutine reference you pass
-to this method.
+to this method; each list element will be available to the sub in C<$_>.
 
   my $found = $stuff->reduce_options( sub { $_[0] . $_[1] } );
   print "$found\n";    # prints "foobarbazboo"

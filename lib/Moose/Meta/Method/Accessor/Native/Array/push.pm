@@ -2,10 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::push;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::push::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Array::push::VERSION = '2.1201';
-}
-
+$Moose::Meta::Method::Accessor::Native::Array::push::VERSION = '2.1202';
 use strict;
 use warnings;
 

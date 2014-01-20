@@ -1,15 +1,10 @@
-
+use strict;
+use warnings;
 package Moose::Meta::Attribute;
 BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::VERSION = '2.1201';
-}
-
-use strict;
-use warnings;
-
+$Moose::Meta::Attribute::VERSION = '2.1202';
 use B ();
 use Scalar::Util 'blessed', 'weaken';
 use List::MoreUtils 'any';
@@ -1280,11 +1275,8 @@ package Moose::Meta::Attribute::Custom::Moose;
 BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1201';
-}
+$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1202';
 sub register_implementation { 'Moose::Meta::Attribute' }
-
 1;
 
 # ABSTRACT: The Moose attribute metaclass
@@ -1301,7 +1293,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 DESCRIPTION
 

@@ -2,10 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Code::execute;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Code::execute::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Code::execute::VERSION = '2.1201';
-}
-
+$Moose::Meta::Method::Accessor::Native::Code::execute::VERSION = '2.1202';
 use strict;
 use warnings;
 

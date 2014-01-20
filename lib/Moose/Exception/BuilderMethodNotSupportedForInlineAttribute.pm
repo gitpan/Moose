@@ -2,10 +2,7 @@ package Moose::Exception::BuilderMethodNotSupportedForInlineAttribute;
 BEGIN {
   $Moose::Exception::BuilderMethodNotSupportedForInlineAttribute::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::BuilderMethodNotSupportedForInlineAttribute::VERSION = '2.1201';
-}
-
+$Moose::Exception::BuilderMethodNotSupportedForInlineAttribute::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::Class';

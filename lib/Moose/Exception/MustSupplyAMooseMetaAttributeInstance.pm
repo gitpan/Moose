@@ -2,10 +2,7 @@ package Moose::Exception::MustSupplyAMooseMetaAttributeInstance;
 BEGIN {
   $Moose::Exception::MustSupplyAMooseMetaAttributeInstance::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::MustSupplyAMooseMetaAttributeInstance::VERSION = '2.1201';
-}
-
+$Moose::Exception::MustSupplyAMooseMetaAttributeInstance::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

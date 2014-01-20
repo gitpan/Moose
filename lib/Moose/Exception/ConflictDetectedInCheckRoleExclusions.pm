@@ -2,10 +2,7 @@ package Moose::Exception::ConflictDetectedInCheckRoleExclusions;
 BEGIN {
   $Moose::Exception::ConflictDetectedInCheckRoleExclusions::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::ConflictDetectedInCheckRoleExclusions::VERSION = '2.1201';
-}
-
+$Moose::Exception::ConflictDetectedInCheckRoleExclusions::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

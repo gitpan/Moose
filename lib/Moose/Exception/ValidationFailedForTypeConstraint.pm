@@ -2,10 +2,7 @@ package Moose::Exception::ValidationFailedForTypeConstraint;
 BEGIN {
   $Moose::Exception::ValidationFailedForTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::ValidationFailedForTypeConstraint::VERSION = '2.1201';
-}
-
+$Moose::Exception::ValidationFailedForTypeConstraint::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

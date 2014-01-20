@@ -2,10 +2,7 @@ package Moose::Exception::TriggerMustBeACodeRef;
 BEGIN {
   $Moose::Exception::TriggerMustBeACodeRef::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::TriggerMustBeACodeRef::VERSION = '2.1201';
-}
-
+$Moose::Exception::TriggerMustBeACodeRef::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

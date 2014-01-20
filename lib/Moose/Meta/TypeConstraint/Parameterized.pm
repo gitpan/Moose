@@ -2,10 +2,7 @@ package Moose::Meta::TypeConstraint::Parameterized;
 BEGIN {
   $Moose::Meta::TypeConstraint::Parameterized::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.1201';
-}
-
+$Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.1202';
 use strict;
 use warnings;
 use metaclass;
@@ -119,7 +116,7 @@ Moose::Meta::TypeConstraint::Parameterized - Type constraints with a bound param
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 METHODS
 

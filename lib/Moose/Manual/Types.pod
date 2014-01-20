@@ -16,7 +16,7 @@ Moose::Manual::Types - Moose's type system
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 TYPES IN PERL?
 

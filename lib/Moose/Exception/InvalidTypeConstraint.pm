@@ -2,10 +2,7 @@ package Moose::Exception::InvalidTypeConstraint;
 BEGIN {
   $Moose::Exception::InvalidTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::InvalidTypeConstraint::VERSION = '2.1201';
-}
-
+$Moose::Exception::InvalidTypeConstraint::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

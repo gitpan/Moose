@@ -1,13 +1,10 @@
+use strict;
+use warnings;
 package Moose;
 BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::VERSION = '2.1201';
-}
-use strict;
-use warnings;
-
+$Moose::VERSION = '2.1202';
 use 5.008003;
 
 use Scalar::Util 'blessed';
@@ -304,7 +301,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 SYNOPSIS
 

@@ -2,10 +2,7 @@ package Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion;
 BEGIN {
   $Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion::VERSION = '2.1201';
-}
-
+$Moose::Exception::NeedsTypeConstraintUnionForTypeCoercionUnion::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

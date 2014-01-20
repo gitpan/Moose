@@ -2,10 +2,7 @@ package Moose::Exception::OperatorIsRequired;
 BEGIN {
   $Moose::Exception::OperatorIsRequired::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::OperatorIsRequired::VERSION = '2.1201';
-}
-
+$Moose::Exception::OperatorIsRequired::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

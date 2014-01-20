@@ -2,10 +2,7 @@ package Moose::Exception::MatchActionMustBeACodeRef;
 BEGIN {
   $Moose::Exception::MatchActionMustBeACodeRef::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::MatchActionMustBeACodeRef::VERSION = '2.1201';
-}
-
+$Moose::Exception::MatchActionMustBeACodeRef::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

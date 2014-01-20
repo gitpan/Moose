@@ -2,10 +2,7 @@ package Moose::Exception;
 BEGIN {
   $Moose::Exception::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::VERSION = '2.1201';
-}
-
+$Moose::Exception::VERSION = '2.1202';
 use Moose;
 use Devel::StackTrace;
 
@@ -30,8 +27,10 @@ has 'message' => (
 use overload
     '""' => sub {
         my $self = shift;
-        return $self->trace->as_string;
-};
+        return $self->trace->as_string,
+    },
+    fallback => 1,
+;
 
 sub _build_trace {
     my $self = shift;
@@ -66,7 +65,7 @@ Moose::Exception - Superclass of all Moose exceptions
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 DESCRIPTION
 

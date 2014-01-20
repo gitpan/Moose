@@ -1,13 +1,9 @@
-
 package Moose::Meta::Attribute::Native::Trait;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Attribute::Native::Trait::VERSION = '2.1201';
-}
+$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1202';
 use Moose::Role;
-
 use Module::Runtime 'require_module';
 use List::MoreUtils qw( any uniq );
 use Moose::Deprecated;
@@ -188,7 +184,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 BUGS
 

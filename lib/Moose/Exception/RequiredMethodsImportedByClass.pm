@@ -2,10 +2,7 @@ package Moose::Exception::RequiredMethodsImportedByClass;
 BEGIN {
   $Moose::Exception::RequiredMethodsImportedByClass::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::RequiredMethodsImportedByClass::VERSION = '2.1201';
-}
-
+$Moose::Exception::RequiredMethodsImportedByClass::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Role';

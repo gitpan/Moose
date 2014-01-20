@@ -2,10 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Bool::not;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Bool::not::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Method::Accessor::Native::Bool::not::VERSION = '2.1201';
-}
-
+$Moose::Meta::Method::Accessor::Native::Bool::not::VERSION = '2.1202';
 use strict;
 use warnings;
 

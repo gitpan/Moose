@@ -2,10 +2,7 @@ package Moose::Exception::DefaultToMatchOnTypeMustBeCodeRef;
 BEGIN {
   $Moose::Exception::DefaultToMatchOnTypeMustBeCodeRef::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::DefaultToMatchOnTypeMustBeCodeRef::VERSION = '2.1201';
-}
-
+$Moose::Exception::DefaultToMatchOnTypeMustBeCodeRef::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

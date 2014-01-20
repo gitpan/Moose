@@ -2,10 +2,7 @@ package Moose::Exception::CouldNotGenerateInlineAttributeMethod;
 BEGIN {
   $Moose::Exception::CouldNotGenerateInlineAttributeMethod::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::CouldNotGenerateInlineAttributeMethod::VERSION = '2.1201';
-}
-
+$Moose::Exception::CouldNotGenerateInlineAttributeMethod::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

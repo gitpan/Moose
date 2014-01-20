@@ -2,10 +2,7 @@ package Moose::Exception::NeitherClassNorClassNameIsGiven;
 BEGIN {
   $Moose::Exception::NeitherClassNorClassNameIsGiven::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::NeitherClassNorClassNameIsGiven::VERSION = '2.1201';
-}
-
+$Moose::Exception::NeitherClassNorClassNameIsGiven::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 

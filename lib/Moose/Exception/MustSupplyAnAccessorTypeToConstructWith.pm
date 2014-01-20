@@ -2,10 +2,7 @@ package Moose::Exception::MustSupplyAnAccessorTypeToConstructWith;
 BEGIN {
   $Moose::Exception::MustSupplyAnAccessorTypeToConstructWith::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::MustSupplyAnAccessorTypeToConstructWith::VERSION = '2.1201';
-}
-
+$Moose::Exception::MustSupplyAnAccessorTypeToConstructWith::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

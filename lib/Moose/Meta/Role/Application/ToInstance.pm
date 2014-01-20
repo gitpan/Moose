@@ -2,10 +2,7 @@ package Moose::Meta::Role::Application::ToInstance;
 BEGIN {
   $Moose::Meta::Role::Application::ToInstance::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Meta::Role::Application::ToInstance::VERSION = '2.1201';
-}
-
+$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1202';
 use strict;
 use warnings;
 use metaclass;
@@ -57,7 +54,7 @@ Moose::Meta::Role::Application::ToInstance - Compose a role into an instance
 
 =head1 VERSION
 
-version 2.1201
+version 2.1202
 
 =head1 DESCRIPTION
 

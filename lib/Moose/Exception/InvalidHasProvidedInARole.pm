@@ -2,10 +2,7 @@ package Moose::Exception::InvalidHasProvidedInARole;
 BEGIN {
   $Moose::Exception::InvalidHasProvidedInARole::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::InvalidHasProvidedInARole::VERSION = '2.1201';
-}
-
+$Moose::Exception::InvalidHasProvidedInARole::VERSION = '2.1202';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

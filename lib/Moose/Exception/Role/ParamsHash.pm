@@ -2,10 +2,7 @@ package Moose::Exception::Role::ParamsHash;
 BEGIN {
   $Moose::Exception::Role::ParamsHash::AUTHORITY = 'cpan:STEVAN';
 }
-{
-  $Moose::Exception::Role::ParamsHash::VERSION = '2.1201';
-}
-
+$Moose::Exception::Role::ParamsHash::VERSION = '2.1202';
 use Moose::Role;
 
 has 'params' => (
