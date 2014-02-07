@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::pop;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::pop::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::pop::VERSION = '2.1203';
+$Moose::Meta::Method::Accessor::Native::Array::pop::VERSION = '2.1204';
 use strict;
 use warnings;
 

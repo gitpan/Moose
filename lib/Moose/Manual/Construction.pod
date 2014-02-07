@@ -16,7 +16,7 @@ Moose::Manual::Construction - Object construction (and destruction) with Moose
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 WHERE'S THE CONSTRUCTOR?
 

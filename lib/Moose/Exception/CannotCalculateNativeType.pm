@@ -2,7 +2,7 @@ package Moose::Exception::CannotCalculateNativeType;
 BEGIN {
   $Moose::Exception::CannotCalculateNativeType::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotCalculateNativeType::VERSION = '2.1203';
+$Moose::Exception::CannotCalculateNativeType::VERSION = '2.1204';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

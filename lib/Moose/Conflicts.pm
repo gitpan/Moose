@@ -41,7 +41,7 @@ use Dist::CheckConflicts
         'MooseX::Meta::Attribute::Lvalue' => '0.05',
         'MooseX::Method::Signatures' => '0.44',
         'MooseX::MethodAttributes' => '0.22',
-        'MooseX::NonMoose' => '0.22',
+        'MooseX::NonMoose' => '0.24',
         'MooseX::Object::Pluggable' => '0.0011',
         'MooseX::POE' => '0.214',
         'MooseX::Params::Validate' => '0.05',
@@ -92,7 +92,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 AUTHORS
 

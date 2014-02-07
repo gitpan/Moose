@@ -16,7 +16,7 @@ Moose::Spec::Role - Formal spec for Role behavior
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 DESCRIPTION
 

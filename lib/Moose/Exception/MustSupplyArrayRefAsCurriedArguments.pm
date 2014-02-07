@@ -2,7 +2,7 @@ package Moose::Exception::MustSupplyArrayRefAsCurriedArguments;
 BEGIN {
   $Moose::Exception::MustSupplyArrayRefAsCurriedArguments::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSupplyArrayRefAsCurriedArguments::VERSION = '2.1203';
+$Moose::Exception::MustSupplyArrayRefAsCurriedArguments::VERSION = '2.1204';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class';

@@ -16,7 +16,7 @@ Moose::Cookbook::Roles::Comparable_CodeReuse - Using roles for code reuse
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 SYNOPSIS
 

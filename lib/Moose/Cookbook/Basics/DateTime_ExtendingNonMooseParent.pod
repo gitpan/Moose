@@ -16,7 +16,7 @@ Moose::Cookbook::Basics::DateTime_ExtendingNonMooseParent - Extending a non-Moos
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 SYNOPSIS
 
@@ -63,7 +63,7 @@ BEGIN { $Moose::Role::VERSION = 9999 unless $Moose::Role::VERSION }
 use Test::Requires {
     'DateTime'                  => '0',
     'DateTime::Calendar::Mayan' => '0',
-    'MooseX::NonMoose'          => '0',
+    'MooseX::NonMoose'          => '0.25',
 };
 
 =end testing-SETUP

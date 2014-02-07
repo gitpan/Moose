@@ -16,7 +16,7 @@ Moose::Manual::Delegation - Attribute delegation
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 WHAT IS DELEGATION?
 

@@ -2,7 +2,7 @@ package Moose::Exception::CannotDelegateWithoutIsa;
 BEGIN {
   $Moose::Exception::CannotDelegateWithoutIsa::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotDelegateWithoutIsa::VERSION = '2.1203';
+$Moose::Exception::CannotDelegateWithoutIsa::VERSION = '2.1204';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

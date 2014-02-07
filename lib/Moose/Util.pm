@@ -2,7 +2,7 @@ package Moose::Util;
 BEGIN {
   $Moose::Util::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::VERSION = '2.1203';
+$Moose::Util::VERSION = '2.1204';
 use strict;
 use warnings;
 
@@ -535,7 +535,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 SYNOPSIS
 

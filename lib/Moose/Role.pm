@@ -4,7 +4,7 @@ package Moose::Role;
 BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Role::VERSION = '2.1203';
+$Moose::Role::VERSION = '2.1204';
 use Scalar::Util 'blessed';
 use Carp         'croak';
 use Class::Load  'is_class_loaded';
@@ -184,7 +184,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 SYNOPSIS
 

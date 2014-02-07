@@ -2,7 +2,7 @@ package Moose::Exception::BuilderDoesNotExist;
 BEGIN {
   $Moose::Exception::BuilderDoesNotExist::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::BuilderDoesNotExist::VERSION = '2.1203';
+$Moose::Exception::BuilderDoesNotExist::VERSION = '2.1204';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute', 'Moose::Exception::Role::Instance';

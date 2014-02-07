@@ -3,7 +3,7 @@ package Class::MOP::Attribute;
 BEGIN {
   $Class::MOP::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Attribute::VERSION = '2.1203';
+$Class::MOP::Attribute::VERSION = '2.1204';
 use strict;
 use warnings;
 
@@ -515,7 +515,7 @@ Class::MOP::Attribute - Attribute Meta Object
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 SYNOPSIS
 

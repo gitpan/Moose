@@ -3,7 +3,7 @@ package Class::MOP::Instance;
 BEGIN {
   $Class::MOP::Instance::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Instance::VERSION = '2.1203';
+$Class::MOP::Instance::VERSION = '2.1204';
 use strict;
 use warnings;
 
@@ -288,7 +288,7 @@ Class::MOP::Instance - Instance Meta Object
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 DESCRIPTION
 

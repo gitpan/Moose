@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::clear;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::clear::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::clear::VERSION = '2.1203';
+$Moose::Meta::Method::Accessor::Native::Array::clear::VERSION = '2.1204';
 use strict;
 use warnings;
 

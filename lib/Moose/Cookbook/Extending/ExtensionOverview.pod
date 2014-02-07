@@ -16,7 +16,7 @@ Moose::Cookbook::Extending::ExtensionOverview - Moose extension overview
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 DESCRIPTION
 

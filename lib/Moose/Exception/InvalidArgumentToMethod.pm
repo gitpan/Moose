@@ -2,7 +2,7 @@ package Moose::Exception::InvalidArgumentToMethod;
 BEGIN {
   $Moose::Exception::InvalidArgumentToMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InvalidArgumentToMethod::VERSION = '2.1203';
+$Moose::Exception::InvalidArgumentToMethod::VERSION = '2.1204';
 use Moose;
 extends 'Moose::Exception';
 

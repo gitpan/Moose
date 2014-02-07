@@ -16,7 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 NAME
 
@@ -24,7 +24,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1203
+version 2.1204
 
 =head1 AUTHORS
 

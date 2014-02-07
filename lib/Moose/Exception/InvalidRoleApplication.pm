@@ -2,7 +2,7 @@ package Moose::Exception::InvalidRoleApplication;
 BEGIN {
   $Moose::Exception::InvalidRoleApplication::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InvalidRoleApplication::VERSION = '2.1203';
+$Moose::Exception::InvalidRoleApplication::VERSION = '2.1204';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';
