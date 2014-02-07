@@ -2,7 +2,7 @@ package Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass;
 BEGIN {
   $Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::VERSION = '2.1202';
+$Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 

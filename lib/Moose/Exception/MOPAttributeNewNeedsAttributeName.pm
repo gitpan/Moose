@@ -2,7 +2,7 @@ package Moose::Exception::MOPAttributeNewNeedsAttributeName;
 BEGIN {
   $Moose::Exception::MOPAttributeNewNeedsAttributeName::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MOPAttributeNewNeedsAttributeName::VERSION = '2.1202';
+$Moose::Exception::MOPAttributeNewNeedsAttributeName::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

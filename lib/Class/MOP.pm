@@ -3,7 +3,7 @@ package Class::MOP;
 BEGIN {
   $Class::MOP::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::VERSION = '2.1202';
+$Class::MOP::VERSION = '2.1203';
 use strict;
 use warnings;
 
@@ -744,7 +744,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.1202
+version 2.1203
 
 =head1 DESCRIPTION
 
@@ -844,11 +844,11 @@ incompatibility; upwards and downwards.
 
 Upwards metaclass compatibility means that the metaclass of a
 given class is either the same as (or a subclass of) all of the
-class's ancestors.
+metaclasses of the class's ancestors.
 
 Downward metaclass compatibility means that the metaclasses of a
 given class's ancestors are all the same as (or a subclass of) that
-metaclass.
+class's metaclass.
 
 Here is a diagram showing a set of two classes (C<A> and C<B>) and
 two metaclasses (C<Meta::A> and C<Meta::B>) which have correct

@@ -2,7 +2,7 @@ package Moose::Exception::InvalidArgumentsToTraitAliases;
 BEGIN {
   $Moose::Exception::InvalidArgumentsToTraitAliases::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InvalidArgumentsToTraitAliases::VERSION = '2.1202';
+$Moose::Exception::InvalidArgumentsToTraitAliases::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

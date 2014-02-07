@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Number::sub;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Number::sub::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Number::sub::VERSION = '2.1202';
+$Moose::Meta::Method::Accessor::Native::Number::sub::VERSION = '2.1203';
 use strict;
 use warnings;
 

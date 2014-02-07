@@ -2,7 +2,7 @@ package Moose::Exception::BothBuilderAndDefaultAreNotAllowed;
 BEGIN {
   $Moose::Exception::BothBuilderAndDefaultAreNotAllowed::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::BothBuilderAndDefaultAreNotAllowed::VERSION = '2.1202';
+$Moose::Exception::BothBuilderAndDefaultAreNotAllowed::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

@@ -2,7 +2,7 @@ package Moose::Exception::InstanceBlessedIntoWrongClass;
 BEGIN {
   $Moose::Exception::InstanceBlessedIntoWrongClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InstanceBlessedIntoWrongClass::VERSION = '2.1202';
+$Moose::Exception::InstanceBlessedIntoWrongClass::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Instance';

@@ -1,11 +1,18 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1203   2014-02-06
+
+  [BUG FIXES]
+
+  - bump prereq on Module::Runtime to properly detect when a module fails to
+    load, and fix how we call these subs (Zefram, RT#92770, RT#86394, RT#92791)
+
 2.1202   2014-01-19
 
   [BUG FIXES]
 
-  - string comparisons are now possible with Moose exceptions (#92232)
+  - string comparisons are now possible with Moose exceptions (RT#92232)
 
 2.1201   2014-01-11
 

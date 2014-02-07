@@ -2,7 +2,7 @@ package Moose::Exception::InvalidValueForIs;
 BEGIN {
   $Moose::Exception::InvalidValueForIs::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InvalidValueForIs::VERSION = '2.1202';
+$Moose::Exception::InvalidValueForIs::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

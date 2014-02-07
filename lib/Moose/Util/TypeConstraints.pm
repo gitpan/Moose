@@ -1,9 +1,8 @@
-
 package Moose::Util::TypeConstraints;
 BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::TypeConstraints::VERSION = '2.1202';
+$Moose::Util::TypeConstraints::VERSION = '2.1203';
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
@@ -775,7 +774,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1202
+version 2.1203
 
 =head1 SYNOPSIS
 
@@ -800,7 +799,7 @@ version 2.1202
 
   enum 'RGBColors', [qw(red green blue)];
 
-  union 'StringOrArray', [qw( String Array )];
+  union 'StringOrArray', [qw( String ArrayRef )];
 
   no Moose::Util::TypeConstraints;
 

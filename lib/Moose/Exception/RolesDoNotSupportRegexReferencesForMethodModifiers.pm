@@ -2,7 +2,7 @@ package Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers;
 BEGIN {
   $Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::VERSION = '2.1202';
+$Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

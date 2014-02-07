@@ -2,7 +2,7 @@ package Moose::Exception::CanExtendOnlyClasses;
 BEGIN {
   $Moose::Exception::CanExtendOnlyClasses::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CanExtendOnlyClasses::VERSION = '2.1202';
+$Moose::Exception::CanExtendOnlyClasses::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 

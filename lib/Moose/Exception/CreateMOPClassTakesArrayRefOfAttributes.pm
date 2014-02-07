@@ -2,7 +2,7 @@ package Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes;
 BEGIN {
   $Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::VERSION = '2.1202';
+$Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::RoleForCreateMOPClass';

@@ -2,7 +2,7 @@ package Moose::Exception::WrapTakesACodeRefToBless;
 BEGIN {
   $Moose::Exception::WrapTakesACodeRefToBless::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::WrapTakesACodeRefToBless::VERSION = '2.1202';
+$Moose::Exception::WrapTakesACodeRefToBless::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

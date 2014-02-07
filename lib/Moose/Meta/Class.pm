@@ -3,7 +3,7 @@ package Moose::Meta::Class;
 BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Class::VERSION = '2.1202';
+$Moose::Meta::Class::VERSION = '2.1203';
 use strict;
 use warnings;
 
@@ -806,7 +806,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1202
+version 2.1203
 
 =head1 DESCRIPTION
 
@@ -891,12 +891,12 @@ This adds an C<augment> method modifier to the package.
 
 =item B<< $metaclass->calculate_all_roles >>
 
-This will return a unique array of C<Moose::Meta::Role> instances
+This will return a unique array of L<Moose::Meta::Role> instances
 which are attached to this class.
 
 =item B<< $metaclass->calculate_all_roles_with_inheritance >>
 
-This will return a unique array of C<Moose::Meta::Role> instances
+This will return a unique array of L<Moose::Meta::Role> instances
 which are attached to this class, and each of this class's ancestors.
 
 =item B<< $metaclass->add_role($role) >>

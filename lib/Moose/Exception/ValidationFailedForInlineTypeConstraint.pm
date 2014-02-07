@@ -2,7 +2,7 @@ package Moose::Exception::ValidationFailedForInlineTypeConstraint;
 BEGIN {
   $Moose::Exception::ValidationFailedForInlineTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::ValidationFailedForInlineTypeConstraint::VERSION = '2.1202';
+$Moose::Exception::ValidationFailedForInlineTypeConstraint::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

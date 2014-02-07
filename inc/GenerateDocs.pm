@@ -16,7 +16,16 @@ sub gather_files {
 
     $self->add_file(Dist::Zilla::File::InMemory->new(
         name    => $filename->stringify,
-        content => '',  # to fill in later
+        # more to fill in later
+        content => <<'END_POD',
+package Moose::Manual::Exceptions::Manifest;
+use strict;
+use warnings;
+
+# ABSTRACT: Moose's Exception Types
+__END__
+
+END_POD
     ));
 }
 
@@ -38,7 +47,7 @@ sub after_build {
     my $text = capturex($^X, "author/docGenerator.pl");
 
     my $file_obj = first { $_->name eq $filename } @{$self->zilla->files};
-    $file_obj->content($text);
+    $file_obj->content($file_obj->content . $text);
 
     $self->zilla->plugin_named('SurgicalPodWeaver')->munge_file($file_obj);
 

@@ -2,7 +2,7 @@ package Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses;
 BEGIN {
   $Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses::VERSION = '2.1202';
+$Moose::Exception::CreateMOPClassTakesArrayRefOfSuperclasses::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::RoleForCreateMOPClass';

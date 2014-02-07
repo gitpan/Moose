@@ -2,7 +2,7 @@ package Moose::Exception::NeitherRoleNorRoleNameIsGiven;
 BEGIN {
   $Moose::Exception::NeitherRoleNorRoleNameIsGiven::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::NeitherRoleNorRoleNameIsGiven::VERSION = '2.1202';
+$Moose::Exception::NeitherRoleNorRoleNameIsGiven::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 

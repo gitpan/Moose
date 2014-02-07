@@ -2,7 +2,7 @@ package Moose::Exception::CannotInitializeMooseMetaRoleComposite;
 BEGIN {
   $Moose::Exception::CannotInitializeMooseMetaRoleComposite::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotInitializeMooseMetaRoleComposite::VERSION = '2.1202';
+$Moose::Exception::CannotInitializeMooseMetaRoleComposite::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 

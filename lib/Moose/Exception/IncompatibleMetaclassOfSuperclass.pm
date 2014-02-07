@@ -3,7 +3,7 @@ package Moose::Exception::IncompatibleMetaclassOfSuperclass;
 BEGIN {
   $Moose::Exception::IncompatibleMetaclassOfSuperclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::IncompatibleMetaclassOfSuperclass::VERSION = '2.1202';
+$Moose::Exception::IncompatibleMetaclassOfSuperclass::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

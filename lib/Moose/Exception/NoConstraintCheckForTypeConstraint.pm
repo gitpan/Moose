@@ -2,7 +2,7 @@ package Moose::Exception::NoConstraintCheckForTypeConstraint;
 BEGIN {
   $Moose::Exception::NoConstraintCheckForTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::NoConstraintCheckForTypeConstraint::VERSION = '2.1202';
+$Moose::Exception::NoConstraintCheckForTypeConstraint::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

@@ -2,7 +2,7 @@ package Moose::Exception::InstanceMustBeABlessedReference;
 BEGIN {
   $Moose::Exception::InstanceMustBeABlessedReference::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InstanceMustBeABlessedReference::VERSION = '2.1202';
+$Moose::Exception::InstanceMustBeABlessedReference::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class';

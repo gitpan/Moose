@@ -2,7 +2,7 @@ package Class::MOP::Method::Inlined;
 BEGIN {
   $Class::MOP::Method::Inlined::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::Inlined::VERSION = '2.1202';
+$Class::MOP::Method::Inlined::VERSION = '2.1203';
 use strict;
 use warnings;
 
@@ -121,7 +121,7 @@ Class::MOP::Method::Inlined - Method base class for methods which have been inli
 
 =head1 VERSION
 
-version 2.1202
+version 2.1203
 
 =head1 DESCRIPTION
 

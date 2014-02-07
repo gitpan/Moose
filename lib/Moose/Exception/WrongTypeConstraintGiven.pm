@@ -2,7 +2,7 @@ package Moose::Exception::WrongTypeConstraintGiven;
 BEGIN {
   $Moose::Exception::WrongTypeConstraintGiven::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::WrongTypeConstraintGiven::VERSION = '2.1202';
+$Moose::Exception::WrongTypeConstraintGiven::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

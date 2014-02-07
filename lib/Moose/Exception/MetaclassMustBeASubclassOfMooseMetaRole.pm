@@ -2,7 +2,7 @@ package Moose::Exception::MetaclassMustBeASubclassOfMooseMetaRole;
 BEGIN {
   $Moose::Exception::MetaclassMustBeASubclassOfMooseMetaRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MetaclassMustBeASubclassOfMooseMetaRole::VERSION = '2.1202';
+$Moose::Exception::MetaclassMustBeASubclassOfMooseMetaRole::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

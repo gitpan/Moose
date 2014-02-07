@@ -2,7 +2,7 @@ package Moose::Exception::RoleDoesTheExcludedRole;
 BEGIN {
   $Moose::Exception::RoleDoesTheExcludedRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RoleDoesTheExcludedRole::VERSION = '2.1202';
+$Moose::Exception::RoleDoesTheExcludedRole::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

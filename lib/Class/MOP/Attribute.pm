@@ -3,7 +3,7 @@ package Class::MOP::Attribute;
 BEGIN {
   $Class::MOP::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Attribute::VERSION = '2.1202';
+$Class::MOP::Attribute::VERSION = '2.1203';
 use strict;
 use warnings;
 
@@ -515,7 +515,7 @@ Class::MOP::Attribute - Attribute Meta Object
 
 =head1 VERSION
 
-version 2.1202
+version 2.1203
 
 =head1 SYNOPSIS
 
@@ -959,7 +959,7 @@ and by metaclass instances.
 
 =item B<< $attr->associated_class >>
 
-This returns the C<Class::MOP::Class> with which this attribute is
+This returns the L<Class::MOP::Class> with which this attribute is
 associated, if any.
 
 =item B<< $attr->attach_to_class($metaclass) >>

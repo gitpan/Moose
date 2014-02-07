@@ -2,7 +2,7 @@ package Moose::Exception::RequiredAttributeLacksInitialization;
 BEGIN {
   $Moose::Exception::RequiredAttributeLacksInitialization::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RequiredAttributeLacksInitialization::VERSION = '2.1202';
+$Moose::Exception::RequiredAttributeLacksInitialization::VERSION = '2.1203';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

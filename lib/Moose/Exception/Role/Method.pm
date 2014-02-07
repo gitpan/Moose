@@ -2,7 +2,7 @@ package Moose::Exception::Role::Method;
 BEGIN {
   $Moose::Exception::Role::Method::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::Role::Method::VERSION = '2.1202';
+$Moose::Exception::Role::Method::VERSION = '2.1203';
 use Moose::Role;
 
 has 'method' => (

@@ -2,7 +2,7 @@ package Moose::Exception;
 BEGIN {
   $Moose::Exception::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::VERSION = '2.1202';
+$Moose::Exception::VERSION = '2.1203';
 use Moose;
 use Devel::StackTrace;
 
@@ -65,7 +65,7 @@ Moose::Exception - Superclass of all Moose exceptions
 
 =head1 VERSION
 
-version 2.1202
+version 2.1203
 
 =head1 DESCRIPTION
 
