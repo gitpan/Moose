@@ -1,7 +1,4 @@
-package Moose::Manual::BestPractices;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::BestPractices
 # ABSTRACT: Get the most out of Moose
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::BestPractices - Get the most out of Moose
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 RECOMMENDATIONS
 

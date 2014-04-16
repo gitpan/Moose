@@ -1,7 +1,4 @@
-package Moose::Manual::Construction;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::Construction
 # ABSTRACT: Object construction (and destruction) with Moose
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::Construction - Object construction (and destruction) with Moose
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 WHERE'S THE CONSTRUCTOR?
 

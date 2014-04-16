@@ -1,6 +1,23 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1205   2014-04-15
+
+  [ENHANCEMENTS]
+
+  - new utility interface: Moose::Util::is_role
+
+  [BUG FIXES]
+
+  - better error message provided when trying to load a trait class that does
+    not exist in @INC (Upasana, RT#94731)
+
+  [OTHER]
+
+  - new test added, to run last, which runs `moose-outdated` as a possibly
+    more visible mechanism to provide important information to the user
+    (re RT#92780)
+
 2.1204   2014-02-06
 
   [BUG FIXES]

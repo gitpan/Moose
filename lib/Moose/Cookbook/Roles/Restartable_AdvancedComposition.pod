@@ -1,7 +1,4 @@
-package Moose::Cookbook::Roles::Restartable_AdvancedComposition;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Cookbook::Roles::Restartable_AdvancedComposition
 # ABSTRACT: Advanced Role Composition - method exclusion and aliasing
 
 __END__
@@ -16,7 +13,7 @@ Moose::Cookbook::Roles::Restartable_AdvancedComposition - Advanced Role Composit
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 SYNOPSIS
 

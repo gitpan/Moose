@@ -52,9 +52,6 @@ my $static_prereqs = do { my $x = {
                                       }
                       },
        'develop' => {
-                      'conflicts' => {
-                                       'Dist::Zilla::Plugin::Conflicts' => '== 0.11'
-                                     },
                       'requires' => {
                                       'Algorithm::C3' => '0',
                                       'CPAN::Meta::Requirements' => '0',
@@ -65,14 +62,16 @@ my $static_prereqs = do { my $x = {
                                       'DateTime::Calendar::Mayan' => '0',
                                       'DateTime::Format::MySQL' => '0',
                                       'Declare::Constraints::Simple' => '0',
-                                      'Dist::Zilla' => '5.012',
+                                      'Dist::Zilla' => '5.015',
                                       'Dist::Zilla::Plugin::Authority' => '0',
                                       'Dist::Zilla::Plugin::CheckChangesHasContent' => '0',
                                       'Dist::Zilla::Plugin::ConfirmRelease' => '0',
-                                      'Dist::Zilla::Plugin::Conflicts' => '0',
+                                      'Dist::Zilla::Plugin::Conflicts' => '0.13001',
                                       'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
                                       'Dist::Zilla::Plugin::EOLTests' => '0',
                                       'Dist::Zilla::Plugin::ExecDir' => '0',
+                                      'Dist::Zilla::Plugin::FileFinder::ByName' => '0',
+                                      'Dist::Zilla::Plugin::FileFinder::Filter' => '0',
                                       'Dist::Zilla::Plugin::GatherDir' => '0',
                                       'Dist::Zilla::Plugin::Git::Check' => '0',
                                       'Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch' => '0',
@@ -105,6 +104,7 @@ my $static_prereqs = do { my $x = {
                                       'Dist::Zilla::Plugin::ShareDir' => '0',
                                       'Dist::Zilla::Plugin::SurgicalPodWeaver' => '0',
                                       'Dist::Zilla::Plugin::Test::CPAN::Changes' => '0',
+                                      'Dist::Zilla::Plugin::Test::CheckBreaks' => '0',
                                       'Dist::Zilla::Plugin::Test::Compile' => '2.037',
                                       'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
                                       'Dist::Zilla::Plugin::Test::NoTabs' => '0',
@@ -186,6 +186,8 @@ my $static_prereqs = do { my $x = {
                                      'CPAN::Meta::Requirements' => '2.120900'
                                    },
                    'requires' => {
+                                   'CPAN::Meta::Check' => '0.007',
+                                   'CPAN::Meta::Requirements' => '0',
                                    'Test::Fatal' => '0.001',
                                    'Test::More' => '0.88',
                                    'Test::Requires' => '0.05'

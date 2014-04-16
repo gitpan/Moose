@@ -3,7 +3,7 @@ package Class::MOP::Method;
 BEGIN {
   $Class::MOP::Method::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::VERSION = '2.1204';
+$Class::MOP::Method::VERSION = '2.1205';
 use strict;
 use warnings;
 
@@ -159,7 +159,7 @@ Class::MOP::Method - Method Meta Object
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 DESCRIPTION
 
@@ -213,7 +213,7 @@ This returns a reference to the method's subroutine.
 
 =item B<< $metamethod->name >>
 
-This returns the method's name
+This returns the method's name.
 
 =item B<< $metamethod->package_name >>
 

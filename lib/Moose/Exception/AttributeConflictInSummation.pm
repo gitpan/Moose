@@ -2,7 +2,7 @@ package Moose::Exception::AttributeConflictInSummation;
 BEGIN {
   $Moose::Exception::AttributeConflictInSummation::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::AttributeConflictInSummation::VERSION = '2.1204';
+$Moose::Exception::AttributeConflictInSummation::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role', 'Moose::Exception::Role::AttributeName';

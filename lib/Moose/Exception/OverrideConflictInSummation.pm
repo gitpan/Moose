@@ -2,7 +2,7 @@ package Moose::Exception::OverrideConflictInSummation;
 BEGIN {
   $Moose::Exception::OverrideConflictInSummation::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::OverrideConflictInSummation::VERSION = '2.1204';
+$Moose::Exception::OverrideConflictInSummation::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 

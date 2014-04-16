@@ -4,7 +4,7 @@ package Moose;
 BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::VERSION = '2.1204';
+$Moose::VERSION = '2.1205';
 use 5.008003;
 
 use Scalar::Util 'blessed';
@@ -301,7 +301,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 SYNOPSIS
 
@@ -996,6 +996,8 @@ are a few of our favorites. Feel free to contribute more!
 =item * Meta Object Orientation Syntax Extensions
 
 =item * Moo, Only Overengineered, Slow, and Execrable (blame rjbs!)
+
+=item * Massive Object-Oriented Stacktrace Emitter
 
 =back
 

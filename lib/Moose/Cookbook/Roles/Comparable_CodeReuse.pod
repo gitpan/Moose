@@ -1,7 +1,4 @@
-package Moose::Cookbook::Roles::Comparable_CodeReuse;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Cookbook::Roles::Comparable_CodeReuse
 # ABSTRACT: Using roles for code reuse
 
 __END__
@@ -16,7 +13,7 @@ Moose::Cookbook::Roles::Comparable_CodeReuse - Using roles for code reuse
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 SYNOPSIS
 

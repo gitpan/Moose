@@ -2,7 +2,7 @@ package Moose::Exception::CircularReferenceInAlso;
 BEGIN {
   $Moose::Exception::CircularReferenceInAlso::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CircularReferenceInAlso::VERSION = '2.1204';
+$Moose::Exception::CircularReferenceInAlso::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 

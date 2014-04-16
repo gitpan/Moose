@@ -2,7 +2,7 @@ package Moose::Exception::PackageDoesNotUseMooseExporter;
 BEGIN {
   $Moose::Exception::PackageDoesNotUseMooseExporter::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::PackageDoesNotUseMooseExporter::VERSION = '2.1204';
+$Moose::Exception::PackageDoesNotUseMooseExporter::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 

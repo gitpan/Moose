@@ -1,7 +1,4 @@
-package Moose::Manual::Delegation;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::Delegation
 # ABSTRACT: Attribute delegation
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::Delegation - Attribute delegation
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 WHAT IS DELEGATION?
 

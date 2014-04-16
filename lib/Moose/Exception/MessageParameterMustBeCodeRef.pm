@@ -2,7 +2,7 @@ package Moose::Exception::MessageParameterMustBeCodeRef;
 BEGIN {
   $Moose::Exception::MessageParameterMustBeCodeRef::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MessageParameterMustBeCodeRef::VERSION = '2.1204';
+$Moose::Exception::MessageParameterMustBeCodeRef::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

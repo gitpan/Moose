@@ -1,7 +1,4 @@
-package Moose::Manual::MOP;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::MOP
 # ABSTRACT: The Moose (and Class::MOP) meta API
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::MOP - The Moose (and Class::MOP) meta API
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 INTRODUCTION
 

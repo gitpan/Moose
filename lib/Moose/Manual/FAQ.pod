@@ -1,7 +1,4 @@
-package Moose::Manual::FAQ;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::FAQ
 # ABSTRACT: Frequently asked questions about Moose
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::FAQ - Frequently asked questions about Moose
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 FREQUENTLY ASKED QUESTIONS
 

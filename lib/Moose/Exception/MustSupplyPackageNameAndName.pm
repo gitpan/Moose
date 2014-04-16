@@ -2,7 +2,7 @@ package Moose::Exception::MustSupplyPackageNameAndName;
 BEGIN {
   $Moose::Exception::MustSupplyPackageNameAndName::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSupplyPackageNameAndName::VERSION = '2.1204';
+$Moose::Exception::MustSupplyPackageNameAndName::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

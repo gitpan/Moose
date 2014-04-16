@@ -34,7 +34,6 @@ use Dist::CheckConflicts
         'MooseX::Declare' => '0.35',
         'MooseX::FollowPBP' => '0.02',
         'MooseX::Getopt' => '0.56',
-        'MooseX::HasDefaults' => '0.02',
         'MooseX::InstanceTracking' => '0.04',
         'MooseX::LazyRequire' => '0.06',
         'MooseX::Meta::Attribute::Index' => '0.04',
@@ -92,7 +91,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 AUTHORS
 

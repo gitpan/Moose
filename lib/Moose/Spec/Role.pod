@@ -1,7 +1,4 @@
-package Moose::Spec::Role;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Spec::Role
 # ABSTRACT: Formal spec for Role behavior
 
 __END__
@@ -16,7 +13,7 @@ Moose::Spec::Role - Formal spec for Role behavior
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 DESCRIPTION
 

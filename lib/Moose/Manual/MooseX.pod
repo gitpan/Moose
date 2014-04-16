@@ -1,7 +1,4 @@
-package Moose::Manual::MooseX;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::MooseX
 # ABSTRACT: Recommended Moose extensions
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::MooseX - Recommended Moose extensions
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 MooseX?
 

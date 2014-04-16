@@ -1,7 +1,4 @@
-package Moose::Cookbook::Style;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Cookbook::Style
 # ABSTRACT: Expanded into Moose::Manual::BestPractices, so go read that
 
 __END__
@@ -16,7 +13,7 @@ Moose::Cookbook::Style - Expanded into Moose::Manual::BestPractices, so go read 
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 DESCRIPTION
 

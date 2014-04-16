@@ -2,7 +2,7 @@ package Moose::Exception::DoesRequiresRoleName;
 BEGIN {
   $Moose::Exception::DoesRequiresRoleName::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::DoesRequiresRoleName::VERSION = '2.1204';
+$Moose::Exception::DoesRequiresRoleName::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 

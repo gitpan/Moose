@@ -4,7 +4,7 @@ package Moose::Role;
 BEGIN {
   $Moose::Role::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Role::VERSION = '2.1204';
+$Moose::Role::VERSION = '2.1205';
 use Scalar::Util 'blessed';
 use Carp         'croak';
 use Class::Load  'is_class_loaded';
@@ -184,7 +184,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 SYNOPSIS
 
@@ -275,6 +275,9 @@ This is very similar to the attribute traits feature. When you do
 this, your class's C<meta> object will have the specified traits
 applied to it. See L<Moose/Metaclass and Trait Name Resolution> for more
 details.
+
+All role metaclasses (note, not the role itself) extend L<Moose::Meta::Role>.
+You can test if a package is a role or not using L<Moose::Util/is_role>.
 
 =head1 APPLYING ROLES
 

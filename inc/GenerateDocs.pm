@@ -18,13 +18,14 @@ sub gather_files {
         name    => $filename->stringify,
         # more to fill in later
         content => <<'END_POD',
-package Moose::Manual::Exceptions::Manifest;
 use strict;
 use warnings;
-
+package Moose::Manual::Exceptions::Manifest;
 # ABSTRACT: Moose's Exception Types
+
 __END__
 
+=for comment insert generated content here
 END_POD
     ));
 }
@@ -47,11 +48,11 @@ sub after_build {
     my $text = capturex($^X, "author/docGenerator.pl");
 
     my $file_obj = first { $_->name eq $filename } @{$self->zilla->files};
-    $file_obj->content($file_obj->content . $text);
 
-    $self->zilla->plugin_named('SurgicalPodWeaver')->munge_file($file_obj);
+    my $content = $file_obj->content;
+    my $pos = index($content, "\n\n=for comment insert generated content here");
+    $file_obj->content(substr($content, 0, $pos) . "\n\n" . $text . substr($content, $pos, -1));
 
-    $filename->touchpath;
     $filename->spew_raw($file_obj->encoded_content);
 }
 

@@ -2,7 +2,7 @@ package Moose::Exception::ExtendsMissingArgs;
 BEGIN {
   $Moose::Exception::ExtendsMissingArgs::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::ExtendsMissingArgs::VERSION = '2.1204';
+$Moose::Exception::ExtendsMissingArgs::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

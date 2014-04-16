@@ -1,7 +1,4 @@
-package Moose::Intro;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Intro
 # ABSTRACT: Expanded into Moose::Manual, so go read that
 
 __END__
@@ -16,7 +13,7 @@ Moose::Intro - Expanded into Moose::Manual, so go read that
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 DESCRIPTION
 

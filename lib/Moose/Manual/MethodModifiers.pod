@@ -1,7 +1,4 @@
-package Moose::Manual::MethodModifiers;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::MethodModifiers
 # ABSTRACT: Moose's method modifiers
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::MethodModifiers - Moose's method modifiers
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 WHAT IS A METHOD MODIFIER?
 

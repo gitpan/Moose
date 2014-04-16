@@ -1,8 +1,8 @@
-package Moose::Manual::Exceptions::Manifest;
 use strict;
 use warnings;
-
+package Moose::Manual::Exceptions::Manifest;
 # ABSTRACT: Moose's Exception Types
+$Moose::Manual::Exceptions::Manifest::VERSION = '2.1205';
 
 __END__
 
@@ -16,68 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1204
-
-=head1 NAME
-
-Moose::Manual::Exceptions::Manifest - Moose's Exception Types
-
-=head1 VERSION
-
-version 2.1204
-
-=head1 AUTHORS
-
-=over 4
-
-=item *
-
-Stevan Little <stevan.little@iinteractive.com>
-
-=item *
-
-Dave Rolsky <autarch@urth.org>
-
-=item *
-
-Jesse Luehrs <doy@tozt.net>
-
-=item *
-
-Shawn M Moore <code@sartak.org>
-
-=item *
-
-יובל קוג'מן (Yuval Kogman) <nothingmuch@woobling.org>
-
-=item *
-
-Karen Etheridge <ether@cpan.org>
-
-=item *
-
-Florian Ragwitz <rafl@debian.org>
-
-=item *
-
-Hans Dieter Pearcey <hdp@weftsoar.net>
-
-=item *
-
-Chris Prather <chris@prather.org>
-
-=item *
-
-Matt S Trout <mst@shadowcat.co.uk>
-
-=back
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2006 by Infinity Interactive, Inc..
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+version 2.1205
 
 =head1 Moose::Exception::AccessorMustReadWrite
 
@@ -2104,8 +2043,8 @@ This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
 
 =head1 Moose::Exception::CannotLocatePackageInINC
 
-This class is a subclass of L<Moose::Exception> and consume roles
-L<Moose::Exception::Role::ParamsHash>, L<Moose::Exception::Role::TypeConstraint>.
+This class is a subclass of L<Moose::Exception> and consumes role
+L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
@@ -2143,19 +2082,14 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =item B<< $exception->type >>
 
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
-=item B<< $exception->type_name >>
-
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute is read-only, isa Str and is required.
 
 =back
 
 =head4 Sample Error Message:
 
-    Can't locate Moose::Meta::Int::Custom::Xyz or Xyz in \@INC \(\@INC contains:
+    Can't locate Moose::Meta::Attribute::Custom::Trait::Xyz or Xyz in \@INC \(\@
+INC contains:
 
 =head1 Moose::Exception::CannotMakeMetaclassCompatible
 
@@ -8463,6 +8397,10 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 =head4 Sample Error Message:
 
     The type constraint for foo must be a subtype of ArrayRef but it's a Int
+
+
+
+=for comment insert generated content here
 
 =head1 AUTHORS
 

@@ -99,11 +99,13 @@ my %WriteMakefileArgs = (
     "parent" => "0.223"
   },
   "TEST_REQUIRES" => {
+    "CPAN::Meta::Check" => "0.007",
+    "CPAN::Meta::Requirements" => 0,
     "Test::Fatal" => "0.001",
     "Test::More" => "0.88",
     "Test::Requires" => "0.05"
   },
-  "VERSION" => "2.1204",
+  "VERSION" => "2.1205",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",
@@ -129,6 +131,8 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "CPAN::Meta::Check" => "0.007",
+  "CPAN::Meta::Requirements" => 0,
   "Carp" => "1.22",
   "Class::Load" => "0.09",
   "Class::Load::XS" => "0.01",

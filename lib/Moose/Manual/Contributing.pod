@@ -1,7 +1,4 @@
-package Moose::Manual::Contributing;
-use strict;
-use warnings;
-
+# PODNAME: Moose::Manual::Contributing
 # ABSTRACT: How to get involved in Moose
 
 __END__
@@ -16,7 +13,7 @@ Moose::Manual::Contributing - How to get involved in Moose
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 GETTING INVOLVED
 

@@ -2,7 +2,7 @@ package Moose::Exception::ClassNamesDoNotMatch;
 BEGIN {
   $Moose::Exception::ClassNamesDoNotMatch::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::ClassNamesDoNotMatch::VERSION = '2.1204';
+$Moose::Exception::ClassNamesDoNotMatch::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 

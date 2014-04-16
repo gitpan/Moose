@@ -2,7 +2,7 @@ package Moose::Util::TypeConstraints::Builtins;
 BEGIN {
   $Moose::Util::TypeConstraints::Builtins::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1204';
+$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1205';
 use strict;
 use warnings;
 

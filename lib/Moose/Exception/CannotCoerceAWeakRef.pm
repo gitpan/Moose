@@ -2,7 +2,7 @@ package Moose::Exception::CannotCoerceAWeakRef;
 BEGIN {
   $Moose::Exception::CannotCoerceAWeakRef::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotCoerceAWeakRef::VERSION = '2.1204';
+$Moose::Exception::CannotCoerceAWeakRef::VERSION = '2.1205';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

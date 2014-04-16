@@ -2,7 +2,7 @@ package Moose::Meta::Role::Application::ToClass;
 BEGIN {
   $Moose::Meta::Role::Application::ToClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Application::ToClass::VERSION = '2.1204';
+$Moose::Meta::Role::Application::ToClass::VERSION = '2.1205';
 use strict;
 use warnings;
 use metaclass;
@@ -228,7 +228,7 @@ Moose::Meta::Role::Application::ToClass - Compose a role into a class
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 DESCRIPTION
 

@@ -3,7 +3,7 @@ package Class::MOP::Class;
 BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Class::VERSION = '2.1204';
+$Class::MOP::Class::VERSION = '2.1205';
 use strict;
 use warnings;
 
@@ -1528,7 +1528,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.1204
+version 2.1205
 
 =head1 SYNOPSIS
 
@@ -1604,6 +1604,7 @@ An optional version number for the newly created package.
 =item * authority
 
 An optional authority for the newly created package.
+See L<Class::MOP::Module/authority> for more details.
 
 =item * superclasses
 
