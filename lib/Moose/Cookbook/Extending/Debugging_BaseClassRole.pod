@@ -13,7 +13,7 @@ Moose::Cookbook::Extending::Debugging_BaseClassRole - Providing a role for the b
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 
@@ -77,9 +77,7 @@ together rather than being overridden. Method modifiers require that a method
 exists in order to wrap, however, so we also provide a stub method to wrap if
 no C<BUILD> method exists in the class.
 
-=for testing-SETUP use Test::Requires {
-    'Test::Output' => '0',
-};
+=for testing-SETUP use Test::Requires 'Test::Output';
 
 =begin testing
 

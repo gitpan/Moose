@@ -2,7 +2,7 @@ package Moose::Meta::Role::Application::RoleSummation;
 BEGIN {
   $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1205';
+$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -136,9 +136,9 @@ sub apply_attributes {
             my $role1 = $seen{$name}->associated_role->name;
             my $role2 = $attr->associated_role->name;
 
-            throw_exception( AttributeConflictInSummation => attribute_name => $name,
-                                                             role_name      => $role1,
-                                                             second_role    => Class::MOP::class_of($role2)
+            throw_exception( AttributeConflictInSummation => attribute_name   => $name,
+                                                             role_name        => $role1,
+                                                             second_role_name => $role2,
                            );
         }
 
@@ -218,15 +218,16 @@ sub apply_override_method_modifiers {
 
     my %seen;
     foreach my $override (@all_overrides) {
+        my @role_names = map { $_->name } @{$c->get_roles};
         if ( $c->has_method($override->{name}) ){
-            throw_exception( OverrideConflictInSummation => roles            => $c->get_roles,
+            throw_exception( OverrideConflictInSummation => role_names       => \@role_names,
                                                             role_application => $self,
                                                             method_name      => $override->{name}
                            );
         }
         if (exists $seen{$override->{name}}) {
             if ( $seen{$override->{name}} != $override->{method} ) {
-                throw_exception( OverrideConflictInSummation => roles               => $c->get_roles,
+                throw_exception( OverrideConflictInSummation => role_names          => \@role_names,
                                                                 role_application    => $self,
                                                                 method_name         => $override->{name},
                                                                 two_overrides_found => 1
@@ -272,7 +273,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

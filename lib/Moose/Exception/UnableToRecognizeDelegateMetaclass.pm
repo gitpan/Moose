@@ -2,7 +2,7 @@ package Moose::Exception::UnableToRecognizeDelegateMetaclass;
 BEGIN {
   $Moose::Exception::UnableToRecognizeDelegateMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::UnableToRecognizeDelegateMetaclass::VERSION = '2.1205';
+$Moose::Exception::UnableToRecognizeDelegateMetaclass::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

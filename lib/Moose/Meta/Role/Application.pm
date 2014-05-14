@@ -2,7 +2,7 @@ package Moose::Meta::Role::Application;
 BEGIN {
   $Moose::Meta::Role::Application::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Application::VERSION = '2.1205';
+$Moose::Meta::Role::Application::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -93,7 +93,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

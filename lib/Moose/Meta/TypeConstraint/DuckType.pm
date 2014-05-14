@@ -2,7 +2,7 @@ package Moose::Meta::TypeConstraint::DuckType;
 BEGIN {
   $Moose::Meta::TypeConstraint::DuckType::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::TypeConstraint::DuckType::VERSION = '2.1205';
+$Moose::Meta::TypeConstraint::DuckType::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -119,7 +119,7 @@ Moose::Meta::TypeConstraint::DuckType - Type constraint for duck typing
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

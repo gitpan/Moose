@@ -2,7 +2,7 @@ package Moose::Meta::Attribute::Native::Trait::Bool;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Bool::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Native::Trait::Bool::VERSION = '2.1205';
+$Moose::Meta::Attribute::Native::Trait::Bool::VERSION = '2.1206';
 use Moose::Role;
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -26,7 +26,7 @@ Moose::Meta::Attribute::Native::Trait::Bool - Helper trait for Bool attributes
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 

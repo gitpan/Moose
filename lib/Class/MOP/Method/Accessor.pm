@@ -3,7 +3,7 @@ package Class::MOP::Method::Accessor;
 BEGIN {
   $Class::MOP::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::Accessor::VERSION = '2.1205';
+$Class::MOP::Method::Accessor::VERSION = '2.1206';
 use strict;
 use warnings;
 
@@ -139,9 +139,9 @@ sub _generate_reader_method {
     my $class = $attr->associated_class;
 
     return sub {
-        throw_exception( CannotAssignValueToReadOnlyAccessor => class     => $class,
-                                                                value     => $_[1],
-                                                                attribute => $attr
+        throw_exception( CannotAssignValueToReadOnlyAccessor => class_name => $class->name,
+                                                                value      => $_[1],
+                                                                attribute  => $attr
                        )
             if @_ > 1;
         $attr->get_value($_[0]);
@@ -280,7 +280,7 @@ Class::MOP::Method::Accessor - Method Meta Object for accessors
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 

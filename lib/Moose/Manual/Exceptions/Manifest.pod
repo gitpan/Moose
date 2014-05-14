@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Moose::Manual::Exceptions::Manifest;
 # ABSTRACT: Moose's Exception Types
-$Moose::Manual::Exceptions::Manifest::VERSION = '2.1205';
+$Moose::Manual::Exceptions::Manifest::VERSION = '2.1206';
 
 __END__
 
@@ -16,7 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 Moose::Exception::AccessorMustReadWrite
 
@@ -102,15 +102,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -150,15 +146,11 @@ L<Moose::Exception::Role::Role>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->role_to_be_added >>
 
@@ -197,15 +189,11 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa Any and is required.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -278,19 +266,15 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
 
-=item B<< $exception->second_role >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+=item B<< $exception->second_role_name >>
+
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->trace >>
 
@@ -327,19 +311,15 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
 
-=item B<< $exception->second_role >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+=item B<< $exception->second_role_name >>
+
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->trace >>
 
@@ -376,15 +356,11 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -410,25 +386,18 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->attribute >>
-
-This attribute is read-only, isa L<Class::MOP::Attribute>, has a predicate
-C<has_attribute> and is optional.
-
 =item B<< $exception->attribute_name >>
 
-This attribute is read-only, isa Str, has a predicate C<has_attribute_name> and
-is optional.
+This attribute can be used for fetching attribute instance:
+    my $class = Moose::Util::find_meta( $exception->class_name );
+    my $attribute = $class->get_attribute( $exception->attribute_name );
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
 
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -453,7 +422,6 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
     Attribute (bar) is required
     Attribute (foo_required) is required
     Attribute (baz) is required
-    Attribute (foo) is required
 
 =head1 Moose::Exception::AttributeMustBeAnClassMOPMixinAttributeCoreOrSubclass
 
@@ -472,15 +440,11 @@ L<Moose::Exception::Role::Class>.
 
 This attribute is read-only, isa Any and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -531,9 +495,8 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =back
 
-=head4 Sample Error Messages:
+=head4 Sample Error Message:
 
-    attribute_name (foo1) does not match attribute->name (foo)
     attribute_name (foo) does not match attribute->name (bar)
 
 =head1 Moose::Exception::AttributeValueIsNotAnObject
@@ -843,15 +806,11 @@ This attribute is read-only, isa Str and is required.
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
@@ -977,7 +936,8 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =head1 Moose::Exception::CanExtendOnlyClasses
 
-This class is a subclass of L<Moose::Exception>.
+This class is a subclass of L<Moose::Exception> and consumes role
+L<Moose::Exception::Role::Role>.
 
 =over 4
 
@@ -992,9 +952,11 @@ This class is a subclass of L<Moose::Exception>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
+=item B<< $exception->role_name >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -1062,15 +1024,11 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -1105,15 +1063,11 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa HashRef and is required.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -1150,15 +1104,11 @@ C<has_attribute> and is optional.
 This attribute is read-only, isa Str, has a predicate C<has_attribute_name> and
 is optional.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -1198,15 +1148,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Method>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -1302,15 +1248,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -1484,15 +1427,12 @@ This attribute is read-only, isa HashRef and is required.
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -1561,15 +1501,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -1603,19 +1540,15 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa L<Moose::Meta::Method> and is required.
 
-=item B<< $exception->role >>
+=item B<< $exception->role_being_applied_name >>
 
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
-=item B<< $exception->role_being_applied >>
-
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -1646,15 +1579,11 @@ L<Moose::Exception::Role::Role>.
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -1665,15 +1594,11 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa L<Moose::Meta::Method> and is required.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -1877,15 +1802,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -1931,25 +1852,26 @@ L<Moose::Exception::Role::TypeConstraint>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->parameterizable_type_object >>
+=item B<< $exception->parameterizable_type_object_name >>
 
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint::Parameterizable>
- and is required.
+This attribute can be used for fetching parameterizable type
+constraint(Moose::Meta::TypeConstraint::Parameterizable):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
+
 
 =item B<< $exception->trace >>
 
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
+
 
 =item B<< $exception->value >>
 
@@ -2025,15 +1947,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -2104,15 +2023,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -2154,15 +2069,11 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -2226,15 +2137,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Method>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -2299,8 +2206,7 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =head1 Moose::Exception::CannotRegisterUnnamedTypeConstraint
 
-This class is a subclass of L<Moose::Exception> and consumes role
-L<Moose::Exception::Role::TypeConstraint>.
+This class is a subclass of L<Moose::Exception>.
 
 =over 4
 
@@ -2319,16 +2225,6 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
-
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
-=item B<< $exception->type_name >>
-
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
 
 =back
 
@@ -2451,7 +2347,7 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 This class is a subclass of L<Moose::Exception> and consume roles
 L<Moose::Exception::Role::Class>, L<Moose::Exception::Role::Instance>,
-L<Moose::Exception::Role::ParamsHash>.
+L<Moose::Exception::Role::InstanceClass>, L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
@@ -2461,19 +2357,19 @@ L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
 This attribute is read-only, isa Object and is required.
+
+=item B<< $exception->instance_class >>
+
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->message >>
 
@@ -2498,7 +2394,8 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 =head1 Moose::Exception::CanReblessOnlyIntoASuperclass
 
 This class is a subclass of L<Moose::Exception> and consume roles
-L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Instance>.
+L<Moose::Exception::Role::Class>, L<Moose::Exception::Role::Instance> and
+L<Moose::Exception::Role::InstanceClass>.
 
 =over 4
 
@@ -2508,19 +2405,19 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Instance>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
 This attribute is read-only, isa Object and is required.
+
+=item B<< $exception->instance_class >>
+
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->message >>
 
@@ -2588,15 +2485,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -2632,34 +2525,26 @@ L<Moose::Exception::Role::Class>, L<Moose::Exception::Role::Role>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
 
-=item B<< $exception->excluded_role >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+=item B<< $exception->excluded_role_name >>
+
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->message >>
 
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -2704,10 +2589,7 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =back
 
-=head4 Sample Error Messages:
-
-    class_name (TestClass1) does not match class->name (TestClass)
-    class_name (Foo) does not match class->name (DoesClassRole)
+=head4 Sample Error Message:
 
 =head1 Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass
 
@@ -2722,15 +2604,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
@@ -2791,7 +2669,8 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =head1 Moose::Exception::CoercingWithoutCoercions
 
-This class is a subclass of L<Moose::Exception>.
+This class is a subclass of L<Moose::Exception> and consumes role
+L<Moose::Exception::Role::TypeConstraint>.
 
 =over 4
 
@@ -2811,9 +2690,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
+=item B<< $exception->type_name >>
 
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint> and is required.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -2910,24 +2792,20 @@ L<Moose::Exception::Role::Role>.
 
 =over 4
 
-=item B<< $exception->excluded_role >>
+=item B<< $exception->excluded_role_name >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->message >>
 
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -2953,30 +2831,22 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Role>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -3311,15 +3181,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -3748,7 +3615,8 @@ backed by a class
 
 =head1 Moose::Exception::DoesRequiresRoleName
 
-This class is a subclass of L<Moose::Exception>.
+This class is a subclass of L<Moose::Exception> and consumes role
+L<Moose::Exception::Role::Class>.
 
 =over 4
 
@@ -3758,9 +3626,11 @@ This class is a subclass of L<Moose::Exception>.
 
 =over 4
 
-=item B<< $exception->class >>
+=item B<< $exception->class_name >>
 
-This attribute is read-only, isa L<Moose::Meta::Class> and is required.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -3870,15 +3740,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -4024,15 +3890,15 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
+=item B<< $exception->class_meta_type >>
 
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -4138,15 +4004,11 @@ L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
@@ -4186,15 +4048,11 @@ L<Moose::Exception::Role::Class>, L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
@@ -4279,15 +4137,11 @@ L<Moose::Exception::Role::Class>.
 
 This attribute is read-only, isa Any and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -4405,15 +4259,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -4481,15 +4332,11 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -4551,15 +4398,11 @@ L<Moose::Exception::Role::Class>.
 
 This attribute is read-only, isa Any and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -4638,15 +4481,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -4845,7 +4685,8 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =head1 Moose::Exception::MatchActionMustBeACodeRef
 
-This class is a subclass of L<Moose::Exception>.
+This class is a subclass of L<Moose::Exception> and consumes role
+L<Moose::Exception::Role::TypeConstraint>.
 
 =over 4
 
@@ -4873,9 +4714,12 @@ This attribute is read-only, isa Any and is required.
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
+=item B<< $exception->type_name >>
 
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint> and is required.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -4933,15 +4777,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -4987,15 +4827,11 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -5023,15 +4859,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5069,15 +4901,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5113,15 +4941,11 @@ L<Moose::Exception::Role::Role>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -5179,15 +5003,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5218,15 +5038,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5375,15 +5191,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5414,15 +5226,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->conflict >>
 
@@ -5467,15 +5275,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5510,15 +5314,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5619,15 +5419,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -5919,15 +5715,11 @@ L<Moose::Exception::Role::Role>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -5958,15 +5750,11 @@ L<Moose::Exception::Role::Role>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -6249,15 +6037,11 @@ L<Moose::Exception::Role::Class>, L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -6339,11 +6123,6 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_coercion_union_object >>
 
 This attribute is read-only, isa L<Moose::Meta::TypeCoercion::Union> and is
@@ -6351,8 +6130,10 @@ required.
 
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -6415,8 +6196,6 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =head4 Sample Error Message:
 
-    You need to give class or class_name or both
-
 =head1 Moose::Exception::NeitherRoleNorRoleNameIsGiven
 
 This class is a subclass of L<Moose::Exception>.
@@ -6442,8 +6221,6 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 =back
 
 =head4 Sample Error Message:
-
-    You need to give role or role_name or both
 
 =head1 Moose::Exception::NeitherTypeNorTypeNameIsGiven
 
@@ -6471,8 +6248,6 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
 =head4 Sample Error Message:
 
-    You need to give type or type_name or both
-
 =head1 Moose::Exception::NoAttributeFoundInSuperClass
 
 This class is a subclass of L<Moose::Exception> and consume roles
@@ -6492,15 +6267,11 @@ L<Moose::Exception::Role::ParamsHash>.
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -6614,15 +6385,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -6644,15 +6412,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -6688,15 +6452,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -6763,15 +6523,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->instance >>
 
@@ -6856,19 +6612,15 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->role >>
+=item B<< $exception->role_being_applied_name >>
 
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
-=item B<< $exception->role_being_applied >>
-
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -6914,12 +6666,11 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only, isa
 L<Moose::Meta::Role::Application::RoleSummation> and is required.
 
-=item B<< $exception->roles >>
+=item B<< $exception->role_names >>
 
-This attribute is read-only, isa ArrayRef[Moose::Meta::Role] and is required.
+This attribute is an ArrayRef containing role names, if you want metaobjects
+associated with these role names, then call method roles on the exception object.
 
-This attribute has handles as follows:
-    roles                    => elements
 
 =item B<< $exception->trace >>
 
@@ -7031,15 +6782,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::ParamsHash>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->is_module >>
 
@@ -7089,15 +6836,13 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
+
 
 =item B<< $exception->type_parameter >>
 
@@ -7240,15 +6985,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Role>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->imported_method >>
 
@@ -7270,15 +7011,11 @@ This attribute has handles as follows:
     get_method_at            => get
     method_count             => count
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -7302,15 +7039,11 @@ L<Moose::Exception::Role::Class> and L<Moose::Exception::Role::Role>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -7327,15 +7060,11 @@ This attribute has handles as follows:
     get_method_at            => get
     method_count             => count
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -7362,28 +7091,24 @@ L<Moose::Exception::Role::Role>.
 
 =over 4
 
-=item B<< $exception->excluded_role >>
+=item B<< $exception->excluded_role_name >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->message >>
 
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
 
-=item B<< $exception->second_role >>
 
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
+=item B<< $exception->second_role_name >>
+
+This attribute is read-only, isa Str and is required.
 
 =item B<< $exception->trace >>
 
@@ -7414,15 +7139,11 @@ L<Moose::Exception::Role::Role>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->roles >>
 
@@ -7453,15 +7174,11 @@ L<Moose::Exception::Role::Class>.
 
 =over 4
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 
@@ -7497,15 +7214,11 @@ L<Moose::Exception::Role::Role>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -7517,42 +7230,6 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 =head4 Sample Error Message:
 
     You must supply a role name to look for
-
-=head1 Moose::Exception::RoleNamesDoNotMatch
-
-This class is a subclass of L<Moose::Exception>.
-
-=over 4
-
-=back
-
-=head2 ATTRIBUTES
-
-=over 4
-
-=item B<< $exception->message >>
-
-This attribute is read-only and isa Str. It is lazy and has a default value
-'Error'.
-
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role> and is required.
-
-=item B<< $exception->role_name >>
-
-This attribute is read-only, isa Str and is required.
-
-=item B<< $exception->trace >>
-
-This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
- on $exception->message.
-
-=back
-
-=head4 Sample Error Message:
-
-    role_name (Foo) does not match role->name (JustATestRole)
 
 =head1 Moose::Exception::RolesDoNotSupportAugment
 
@@ -7660,15 +7337,11 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->role >>
-
-This attribute is read-only, isa L<Moose::Meta::Role>, has a predicate
-C<is_role_set> and is optional.
-
 =item B<< $exception->role_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_role_name_set> and is
- optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
 
 =item B<< $exception->trace >>
 
@@ -7839,20 +7512,25 @@ L<Moose::Exception::Role::TypeConstraint>.
 This attribute is read-only and isa Str. It is lazy and has a default value
 'Error'.
 
+=item B<< $exception->parent_type_name >>
+
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->parent_type_name );
+
+
 =item B<< $exception->trace >>
 
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -7888,15 +7566,12 @@ This attribute is read-only, isa Str and is required.
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -7908,42 +7583,6 @@ cannot be created again in main
 created again in main
     The type constraint 'Foo3' has already been created in Moose and cannot be
 created again in main
-
-=head1 Moose::Exception::TypeNamesDoNotMatch
-
-This class is a subclass of L<Moose::Exception>.
-
-=over 4
-
-=back
-
-=head2 ATTRIBUTES
-
-=over 4
-
-=item B<< $exception->message >>
-
-This attribute is read-only and isa Str. It is lazy and has a default value
-'Error'.
-
-=item B<< $exception->trace >>
-
-This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
- on $exception->message.
-
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint> and is required.
-
-=item B<< $exception->type_name >>
-
-This attribute is read-only, isa Str and is required.
-
-=back
-
-=head4 Sample Error Message:
-
-    type_name (foo) does not match type->name (bar)
 
 =head1 Moose::Exception::TypeParameterMustBeMooseMetaType
 
@@ -7968,15 +7607,12 @@ This attribute is read-only and isa Str. It is lazy and has a default value
 This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
  on $exception->message.
 
-=item B<< $exception->type >>
-
-This attribute is read-only, isa L<Moose::Meta::TypeConstraint>, has a predicate
- C<is_type_set> and is optional.
-
 =item B<< $exception->type_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_type_name_set> and is
- optional.
+This attribute can be used for fetching type
+constraint(Moose::Meta::TypeConstraint):
+    my $type_constraint =  Moose::Util::TypeConstraints::find_type_constraint(
+$exception->type_name );
 
 =back
 
@@ -8216,15 +7852,11 @@ L<Moose::Exception::Role::Class>.
 
 This attribute is read-only, isa Str and is required.
 
-=item B<< $exception->class >>
-
-This attribute is read-only, isa L<Class::MOP::Class>, has a predicate
-C<is_class_set> and is optional.
-
 =item B<< $exception->class_name >>
 
-This attribute is read-only, isa Str, has a predicate C<is_class_name_set> and
-is optional.
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->class_name );
+
 
 =item B<< $exception->message >>
 

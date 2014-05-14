@@ -8,9 +8,7 @@ $| = 1;
 
 
 # =begin testing SETUP
-use Test::Requires {
-    'Test::Output' => '0',
-};
+use Test::Requires 'Test::Output';
 
 
 

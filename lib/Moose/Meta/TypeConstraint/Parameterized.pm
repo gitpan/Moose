@@ -2,7 +2,7 @@ package Moose::Meta::TypeConstraint::Parameterized;
 BEGIN {
   $Moose::Meta::TypeConstraint::Parameterized::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.1205';
+$Moose::Meta::TypeConstraint::Parameterized::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -44,13 +44,13 @@ sub compile_type_constraint {
     my $self = shift;
 
     unless ( $self->has_type_parameter ) {
-        throw_exception( CannotCreateHigherOrderTypeWithoutATypeParameter => type => $self );
+        throw_exception( CannotCreateHigherOrderTypeWithoutATypeParameter => type_name => $self->name );
     }
 
     my $type_parameter = $self->type_parameter;
 
     unless ( blessed $type_parameter && $type_parameter->isa('Moose::Meta::TypeConstraint') ) {
-        throw_exception( TypeParameterMustBeMooseMetaType => type => $self );
+        throw_exception( TypeParameterMustBeMooseMetaType => type_name => $self->name );
     }
 
     foreach my $type (Moose::Util::TypeConstraints::get_all_parameterizable_types()) {
@@ -62,7 +62,9 @@ sub compile_type_constraint {
 
     # if we get here, then we couldn't
     # find a way to parameterize this type
-    throw_exception( TypeConstraintCannotBeUsedForAParameterizableType => type => $self );
+    throw_exception( TypeConstraintCannotBeUsedForAParameterizableType => type_name        => $self->name,
+                                                                          parent_type_name => $self->parent->name,
+                   );
 }
 
 sub can_be_inlined {
@@ -116,7 +118,7 @@ Moose::Meta::TypeConstraint::Parameterized - Type constraints with a bound param
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 METHODS
 

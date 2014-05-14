@@ -3,7 +3,7 @@ package Moose::Meta::Class;
 BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Class::VERSION = '2.1205';
+$Moose::Meta::Class::VERSION = '2.1206';
 use strict;
 use warnings;
 
@@ -184,7 +184,7 @@ sub add_role {
     my ($self, $role) = @_;
     (blessed($role) && $role->isa('Moose::Meta::Role'))
         || throw_exception( AddRoleTakesAMooseMetaRoleInstance => role_to_be_added => $role,
-                                                                  class            => $self
+                                                                  class_name       => $self->name,
                           );
     push @{$self->roles} => $role;
 }
@@ -199,7 +199,7 @@ sub add_role_application {
     my ($self, $application) = @_;
 
     (blessed($application) && $application->isa('Moose::Meta::Role::Application::ToClass'))
-        || throw_exception( InvalidRoleApplication => class       => $self,
+        || throw_exception( InvalidRoleApplication => class_name  => $self->name,
                                                       application => $application,
                           );
 
@@ -236,7 +236,7 @@ sub does_role {
     my ($self, $role_name) = @_;
 
     (defined $role_name)
-        || throw_exception( RoleNameRequired => class => $self );
+        || throw_exception( RoleNameRequired => class_name => $self->name );
 
     foreach my $class ($self->class_precedence_list) {
         my $meta = Class::MOP::class_of($class);
@@ -256,7 +256,7 @@ sub excludes_role {
     my ($self, $role_name) = @_;
 
     (defined $role_name)
-        || throw_exception( RoleNameRequired => class => $self );
+        || throw_exception( RoleNameRequired => class_name => $self->name );
 
     foreach my $class ($self->class_precedence_list) {
         my $meta = Class::MOP::class_of($class);
@@ -560,7 +560,7 @@ sub superclasses {
         my ($name, $opts) = @{ $super };
         Moose::Util::_load_user_class($name, $opts);
         my $meta = Class::MOP::class_of($name);
-        throw_exception( CanExtendOnlyClasses => role => $meta )
+        throw_exception( CanExtendOnlyClasses => role_name => $meta->name )
             if $meta && $meta->isa('Moose::Meta::Role')
     }
     return $self->SUPER::superclasses(map { $_->[0] } @{ $supers });
@@ -588,8 +588,8 @@ sub add_override_method_modifier {
 
     my $existing_method = $self->get_method($name);
     (!$existing_method)
-        || throw_exception( CannotOverrideLocalMethodIsPresent => class  => $self,
-                                                                  method => $existing_method,
+        || throw_exception( CannotOverrideLocalMethodIsPresent => class_name => $self->name,
+                                                                  method     => $existing_method,
                           );
     $self->add_method($name => Moose::Meta::Method::Overridden->new(
         method  => $method,
@@ -602,8 +602,8 @@ sub add_override_method_modifier {
 sub add_augment_method_modifier {
     my ($self, $name, $method) = @_;
     my $existing_method = $self->get_method($name);
-    throw_exception( CannotAugmentIfLocalMethodPresent => class  => $self,
-                                                          method => $existing_method,
+    throw_exception( CannotAugmentIfLocalMethodPresent => class_name => $self->name,
+                                                          method     => $existing_method,
                    )
         if( $existing_method );
 
@@ -721,7 +721,7 @@ sub _process_inherited_attribute {
 
     my $inherited_attr = $self->find_attribute_by_name($attr_name);
     (defined $inherited_attr)
-        || throw_exception( NoAttributeFoundInSuperClass => class          => $self,
+        || throw_exception( NoAttributeFoundInSuperClass => class_name     => $self->name,
                                                             attribute_name => $attr_name,
                                                             params         => \%options
                           );
@@ -806,7 +806,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

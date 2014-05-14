@@ -2,7 +2,7 @@ package Moose::Exception::MethodNameNotFoundInInheritanceHierarchy;
 BEGIN {
   $Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::VERSION = '2.1205';
+$Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';
@@ -15,7 +15,7 @@ has 'method_name' => (
 
 sub _build_message {
     my $self = shift;
-    "The method '".$self->method_name."' was not found in the inheritance hierarchy for ".$self->class->name;
+    "The method '".$self->method_name."' was not found in the inheritance hierarchy for ".$self->class_name;
 }
 
 1;

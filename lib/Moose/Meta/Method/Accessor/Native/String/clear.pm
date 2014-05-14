@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::clear;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::clear::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::String::clear::VERSION = '2.1205';
+$Moose::Meta::Method::Accessor::Native::String::clear::VERSION = '2.1206';
 use strict;
 use warnings;
 

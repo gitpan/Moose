@@ -2,7 +2,7 @@ package Moose::Meta::Attribute::Native::Trait::Hash;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Hash::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.1205';
+$Moose::Meta::Attribute::Native::Trait::Hash::VERSION = '2.1206';
 use Moose::Role;
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -26,7 +26,7 @@ Moose::Meta::Attribute::Native::Trait::Hash - Helper trait for HashRef attribute
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 
@@ -128,7 +128,7 @@ This method does not accept any arguments.
 
 =item B<count>
 
-Returns the number of elements in the hash. Also useful for not empty:
+Returns the number of elements in the hash. Also useful to check for a nonempty hash, because C<count> returns a true (nonzero) value if there is something in the hash:
 C<< has_options => 'count' >>.
 
 This method does not accept any arguments.

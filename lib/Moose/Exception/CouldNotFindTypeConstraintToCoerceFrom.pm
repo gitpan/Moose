@@ -2,7 +2,7 @@ package Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom;
 BEGIN {
   $Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::VERSION = '2.1205';
+$Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

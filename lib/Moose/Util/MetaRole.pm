@@ -2,7 +2,7 @@ package Moose::Util::MetaRole;
 BEGIN {
   $Moose::Util::MetaRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::MetaRole::VERSION = '2.1205';
+$Moose::Util::MetaRole::VERSION = '2.1206';
 use strict;
 use warnings;
 use Scalar::Util 'blessed';
@@ -82,8 +82,8 @@ sub apply_base_class_roles {
     my %args = @_;
 
     my $meta = _metathing_for( $args{for} || $args{for_class} );
-    throw_exception( CannotApplyBaseClassRolesToRole => params => \%args,
-                                                        role   => $meta
+    throw_exception( CannotApplyBaseClassRolesToRole => params    => \%args,
+                                                        role_name => $meta->name,
                    )
         if $meta->isa('Moose::Meta::Role');
 
@@ -133,7 +133,7 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ package Moose::Exception::MustSupplyAClassMOPAttributeInstance;
 BEGIN {
   $Moose::Exception::MustSupplyAClassMOPAttributeInstance::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSupplyAClassMOPAttributeInstance::VERSION = '2.1205';
+$Moose::Exception::MustSupplyAClassMOPAttributeInstance::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

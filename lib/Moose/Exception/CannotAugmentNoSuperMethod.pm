@@ -2,7 +2,7 @@ package Moose::Exception::CannotAugmentNoSuperMethod;
 BEGIN {
   $Moose::Exception::CannotAugmentNoSuperMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotAugmentNoSuperMethod::VERSION = '2.1205';
+$Moose::Exception::CannotAugmentNoSuperMethod::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

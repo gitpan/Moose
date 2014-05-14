@@ -2,7 +2,7 @@ package Moose::Exception::Legacy;
 BEGIN {
   $Moose::Exception::Legacy::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::Legacy::VERSION = '2.1205';
+$Moose::Exception::Legacy::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 

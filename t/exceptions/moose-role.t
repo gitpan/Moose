@@ -7,6 +7,8 @@ use Test::Fatal;
 
 use Moose();
 
+use Moose::Util 'find_meta';
+
 {
     my $exception = exception {
         package Bar;
@@ -43,7 +45,7 @@ use Moose();
         "requires expects atleast one method name");
 
     is(
-        $exception->role->name,
+        $exception->role_name,
         'Bar',
         'requires expects atleast one method name');
 }
@@ -66,7 +68,7 @@ use Moose();
         "excludes expects atleast one role name");
 
     is(
-        $exception->role->name,
+        $exception->role_name,
         'Bar',
         'excludes expects atleast one role name');
 }
@@ -134,7 +136,7 @@ use Moose();
         "has takes a hash");
 
     is(
-        $exception->role->name,
+        $exception->role_name,
         'Foo1',
         "has takes a hash");
 }
@@ -180,8 +182,8 @@ use Moose();
 
 {
     {
-	package Foo3;
-	use Moose;
+        package Foo3;
+        use Moose;
     }
 
     my $exception = exception {
@@ -207,8 +209,8 @@ use Moose();
 
 {
     {
-	package Foo3;
-	use Moose;
+        package Foo3;
+        use Moose;
     }
 
     my $exception = exception {
@@ -235,7 +237,7 @@ use Moose();
         "Foo3 is a Moose class");
 
     is(
-        $exception->class,
+        find_meta($exception->class_name),
         Foo3->meta,
         "Foo3 is a Moose class");
 
@@ -273,7 +275,7 @@ use Moose();
         "Foo4 is a Class::MOP::Class, not a Moose::Meta::Role");
 
     is(
-        $exception->class,
+        find_meta( $exception->class_name ),
         $foo,
         "Foo4 is a Class::MOP::Class, not a Moose::Meta::Role");
 
@@ -285,10 +287,10 @@ use Moose();
 
 {
     my $exception = exception {
-	package Foo;
-	use Moose::Role;
+        package Foo;
+        use Moose::Role;
 
-	before qr/foo/;
+        before qr/foo/;
     };
 
     like(
@@ -307,7 +309,7 @@ use Moose();
         "a regex reference is given to before");
 
     is(
-        $exception->role,
+        find_meta($exception->role_name),
         Foo->meta,
         "a regex reference is given to before");
 

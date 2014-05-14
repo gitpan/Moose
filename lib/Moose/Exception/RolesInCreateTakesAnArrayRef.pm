@@ -2,7 +2,7 @@ package Moose::Exception::RolesInCreateTakesAnArrayRef;
 BEGIN {
   $Moose::Exception::RolesInCreateTakesAnArrayRef::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RolesInCreateTakesAnArrayRef::VERSION = '2.1205';
+$Moose::Exception::RolesInCreateTakesAnArrayRef::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

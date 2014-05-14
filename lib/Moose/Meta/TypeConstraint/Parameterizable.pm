@@ -2,7 +2,7 @@ package Moose::Meta::TypeConstraint::Parameterizable;
 BEGIN {
   $Moose::Meta::TypeConstraint::Parameterizable::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.1205';
+$Moose::Meta::TypeConstraint::Parameterizable::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -55,9 +55,9 @@ sub _can_coerce_constraint_from {
 sub generate_inline_for {
     my ($self, $type, $val) = @_;
 
-    throw_exception( CannotGenerateInlineConstraint => parameterizable_type_object => $self,
-                                                       type                        => $type,
-                                                       value                       => $val
+    throw_exception( CannotGenerateInlineConstraint => parameterizable_type_object_name => $self->name,
+                                                       type_name                        => $type->name,
+                                                       value                            => $val,
                    )
         unless $self->has_inline_generator;
 
@@ -81,7 +81,7 @@ sub parameterize {
         if($parent->can('type_parameter')) {
             unless ( $contained_tc->is_a_type_of($parent->type_parameter) ) {
                 throw_exception( ParameterIsNotSubtypeOfParent => type_parameter => $type_parameter,
-                                                                  type           => $self
+                                                                  type_name      => $self->name,
                                );
             }
         }
@@ -118,7 +118,7 @@ Moose::Meta::TypeConstraint::Parameterizable - Type constraints which can take a
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

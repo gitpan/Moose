@@ -2,10 +2,12 @@ package Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass;
 BEGIN {
   $Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass::VERSION = '2.1205';
+$Moose::Exception::MetaclassIsNotASubclassOfGivenMetaclass::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';
+
+use Moose::Util 'find_meta';
 
 has 'metaclass' => (
     is       => 'ro',
@@ -15,7 +17,8 @@ has 'metaclass' => (
 
 sub _build_message {
     my $self = shift;
-    $self->class_name." already has a metaclass, but it does not inherit ".$self->metaclass.' ('.$self->class.').';
+    my $class = find_meta( $self->class_name );
+    $self->class_name." already has a metaclass, but it does not inherit ".$self->metaclass." ($class).";
 }
 
 1;

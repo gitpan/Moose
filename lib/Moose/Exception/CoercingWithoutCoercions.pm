@@ -2,15 +2,10 @@ package Moose::Exception::CoercingWithoutCoercions;
 BEGIN {
   $Moose::Exception::CoercingWithoutCoercions::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1205';
+$Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
-
-has 'type' => (
-    is       => 'ro',
-    isa      => "Moose::Meta::TypeConstraint",
-    required => 1,
-);
+with 'Moose::Exception::Role::TypeConstraint';
 
 sub _build_message {
     my $self = shift;

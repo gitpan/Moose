@@ -2,20 +2,22 @@ package Moose::Exception::ConflictDetectedInCheckRoleExclusions;
 BEGIN {
   $Moose::Exception::ConflictDetectedInCheckRoleExclusions::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::ConflictDetectedInCheckRoleExclusions::VERSION = '2.1205';
+$Moose::Exception::ConflictDetectedInCheckRoleExclusions::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';
 
-has 'excluded_role' => (
+has 'excluded_role_name' => (
     is       => 'ro',
-    isa      => 'Moose::Meta::Role',
+    isa      => 'Str',
     required => 1
 );
 
 sub _build_message {
-    my $self = shift;
-    "Conflict detected: " . $self->role->name . " excludes role '" . $self->excluded_role->name . "'";
+    my $self               = shift;
+    my $role_name          = $self->role_name;
+    my $excluded_role_name = $self->excluded_role_name;
+    return "Conflict detected: $role_name excludes role '$excluded_role_name'";
 }
 
 1;

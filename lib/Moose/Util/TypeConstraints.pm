@@ -2,7 +2,7 @@ package Moose::Util::TypeConstraints;
 BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::TypeConstraints::VERSION = '2.1205';
+$Moose::Util::TypeConstraints::VERSION = '2.1206';
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
@@ -159,7 +159,7 @@ sub create_class_type_constraint {
     if (my $type = $REGISTRY->get_type_constraint($class)) {
         if (!($type->isa('Moose::Meta::TypeConstraint::Class') && $type->class eq $class)) {
             throw_exception( TypeConstraintIsAlreadyCreated => package_defined_in => $pkg_defined_in,
-                                                               type               => $type
+                                                               type_name          => $type->name,
                            );
         }
         else {
@@ -192,7 +192,7 @@ sub create_role_type_constraint {
 
     if (my $type = $REGISTRY->get_type_constraint($role)) {
         if (!($type->isa('Moose::Meta::TypeConstraint::Role') && $type->role eq $role)) {
-            throw_exception( TypeConstraintIsAlreadyCreated => type               => $type,
+            throw_exception( TypeConstraintIsAlreadyCreated => type_name          => $type->name,
                                                                package_defined_in => $pkg_defined_in
                            );
         }
@@ -514,9 +514,9 @@ sub match_on_type {
         }
 
         (ref $action eq 'CODE')
-            || throw_exception( MatchActionMustBeACodeRef => type     => $type,
-                                                             action   => $action,
-                                                             to_match => $to_match
+            || throw_exception( MatchActionMustBeACodeRef => type_name => $type->name,
+                                                             action    => $action,
+                                                             to_match  => $to_match
                               );
 
         if ($type->check($to_match)) {
@@ -553,7 +553,7 @@ sub _create_type_constraint ($$$;$) {
 
         ( $type->_package_defined_in eq $pkg_defined_in )
             || throw_exception( TypeConstraintIsAlreadyCreated => package_defined_in => $pkg_defined_in,
-                                                                  type               => $type
+                                                                  type_name          => $type->name,
                               )
             if defined $type;
 
@@ -773,7 +773,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 

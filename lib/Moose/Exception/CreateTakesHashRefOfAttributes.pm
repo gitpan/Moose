@@ -2,7 +2,7 @@ package Moose::Exception::CreateTakesHashRefOfAttributes;
 BEGIN {
   $Moose::Exception::CreateTakesHashRefOfAttributes::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CreateTakesHashRefOfAttributes::VERSION = '2.1205';
+$Moose::Exception::CreateTakesHashRefOfAttributes::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::RoleForCreate';

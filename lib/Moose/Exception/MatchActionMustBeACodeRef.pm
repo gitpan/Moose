@@ -2,25 +2,20 @@ package Moose::Exception::MatchActionMustBeACodeRef;
 BEGIN {
   $Moose::Exception::MatchActionMustBeACodeRef::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MatchActionMustBeACodeRef::VERSION = '2.1205';
+$Moose::Exception::MatchActionMustBeACodeRef::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
+with 'Moose::Exception::Role::TypeConstraint';
 
 has 'to_match' => (
     is       => 'ro',
     isa      => 'Any',
-    required => 1
+    required => 1,
 );
 
 has 'action' => (
     is       => 'ro',
     isa      => 'Any',
-    required => 1
-);
-
-has 'type' => (
-    is       => 'ro',
-    isa      => 'Moose::Meta::TypeConstraint',
     required => 1
 );
 

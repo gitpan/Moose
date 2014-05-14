@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Hash::get;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::get::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Hash::get::VERSION = '2.1205';
+$Moose::Meta::Method::Accessor::Native::Hash::get::VERSION = '2.1206';
 use strict;
 use warnings;
 

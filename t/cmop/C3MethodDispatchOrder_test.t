@@ -1,19 +1,12 @@
 use strict;
 use warnings;
 
-use FindBin;
-use File::Spec::Functions;
-
 use Test::More;
-
-use lib catdir($FindBin::Bin, 'lib');
+use Test::Requires 'Algorithm::C3'; # skip all if not installed
 
 use Class::MOP;
 
-use Test::Requires {
-    'Algorithm::C3' => '0.01', # skip all if not installed
-};
-
+use lib 't/cmop/lib';
 use C3MethodDispatchOrder;
 
 {

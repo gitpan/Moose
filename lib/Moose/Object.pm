@@ -3,7 +3,7 @@ package Moose::Object;
 BEGIN {
   $Moose::Object::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Object::VERSION = '2.1205';
+$Moose::Object::VERSION = '2.1206';
 use strict;
 use warnings;
 
@@ -122,7 +122,7 @@ sub does {
     my $class = Scalar::Util::blessed($self) || $self;
     my $meta = Class::MOP::Class->initialize($class);
     (defined $role_name)
-        || Moose::Util::throw_exception( DoesRequiresRoleName => class => $meta );
+        || Moose::Util::throw_exception( DoesRequiresRoleName => class_name => $meta->name );
     return 1 if $meta->can('does_role') && $meta->does_role($role_name);
     return 0;
 }
@@ -150,7 +150,7 @@ Moose::Object - The base object for Moose
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

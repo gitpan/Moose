@@ -4,7 +4,7 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.040
 
-use Test::More 0.94 tests => 358 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More 0.94 tests => 357 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -212,6 +212,7 @@ my @module_files = (
     'Moose/Exception/Role/Class.pm',
     'Moose/Exception/Role/EitherAttributeOrAttributeName.pm',
     'Moose/Exception/Role/Instance.pm',
+    'Moose/Exception/Role/InstanceClass.pm',
     'Moose/Exception/Role/InvalidAttributeOptions.pm',
     'Moose/Exception/Role/Method.pm',
     'Moose/Exception/Role/ParamsHash.pm',
@@ -223,7 +224,6 @@ my @module_files = (
     'Moose/Exception/RoleExclusionConflict.pm',
     'Moose/Exception/RoleNameRequired.pm',
     'Moose/Exception/RoleNameRequiredForMooseMetaRole.pm',
-    'Moose/Exception/RoleNamesDoNotMatch.pm',
     'Moose/Exception/RolesDoNotSupportAugment.pm',
     'Moose/Exception/RolesDoNotSupportExtends.pm',
     'Moose/Exception/RolesDoNotSupportInner.pm',
@@ -234,7 +234,6 @@ my @module_files = (
     'Moose/Exception/TriggerMustBeACodeRef.pm',
     'Moose/Exception/TypeConstraintCannotBeUsedForAParameterizableType.pm',
     'Moose/Exception/TypeConstraintIsAlreadyCreated.pm',
-    'Moose/Exception/TypeNamesDoNotMatch.pm',
     'Moose/Exception/TypeParameterMustBeMooseMetaType.pm',
     'Moose/Exception/UnableToCanonicalizeHandles.pm',
     'Moose/Exception/UnableToCanonicalizeNonRolePackage.pm',

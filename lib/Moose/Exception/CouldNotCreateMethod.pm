@@ -2,7 +2,7 @@ package Moose::Exception::CouldNotCreateMethod;
 BEGIN {
   $Moose::Exception::CouldNotCreateMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CouldNotCreateMethod::VERSION = '2.1205';
+$Moose::Exception::CouldNotCreateMethod::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

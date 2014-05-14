@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::grep;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::grep::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::grep::VERSION = '2.1205';
+$Moose::Meta::Method::Accessor::Native::Array::grep::VERSION = '2.1206';
 use strict;
 use warnings;
 

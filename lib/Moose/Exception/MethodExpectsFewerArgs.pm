@@ -2,7 +2,7 @@ package Moose::Exception::MethodExpectsFewerArgs;
 BEGIN {
   $Moose::Exception::MethodExpectsFewerArgs::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MethodExpectsFewerArgs::VERSION = '2.1205';
+$Moose::Exception::MethodExpectsFewerArgs::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 

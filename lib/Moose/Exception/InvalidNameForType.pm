@@ -2,7 +2,7 @@ package Moose::Exception::InvalidNameForType;
 BEGIN {
   $Moose::Exception::InvalidNameForType::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InvalidNameForType::VERSION = '2.1205';
+$Moose::Exception::InvalidNameForType::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 

@@ -34,7 +34,27 @@ sub _merge_requires {
 }
 
 my %include = map {; $_ => 1 } qw(
-
+  Dist::CheckConflicts
+  MooseX::NonMoose
+  Algorithm::C3
+  DateTime
+  DateTime::Calendar::Mayan
+  DateTime::Format::MySQL
+  Declare::Constraints::Simple
+  DBM::Deep
+  HTTP::Headers
+  IO::File
+  IO::String
+  Locale::US
+  Module::Refresh
+  Params::Coerce
+  Regexp::Common
+  SUPER
+  Test::Deep
+  Test::DependentModules
+  Test::LeakTrace
+  Test::Output
+  URI
 );
 
 my %exclude = map {; $_ => 1 } qw(
@@ -52,75 +72,81 @@ my $static_prereqs = do { my $x = {
                                       }
                       },
        'develop' => {
+                      'recommends' => {
+                                        'Class::Load' => '0',
+                                        'Dist::Zilla' => '5.016',
+                                        'Dist::Zilla::Plugin::Authority' => '0',
+                                        'Dist::Zilla::Plugin::CheckChangesHasContent' => '0',
+                                        'Dist::Zilla::Plugin::ConfirmRelease' => '0',
+                                        'Dist::Zilla::Plugin::Conflicts' => '0.13001',
+                                        'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
+                                        'Dist::Zilla::Plugin::EOLTests' => '0',
+                                        'Dist::Zilla::Plugin::EnsurePrereqsInstalled' => '0',
+                                        'Dist::Zilla::Plugin::ExecDir' => '0',
+                                        'Dist::Zilla::Plugin::FileFinder::ByName' => '0',
+                                        'Dist::Zilla::Plugin::FileFinder::Filter' => '0',
+                                        'Dist::Zilla::Plugin::GatherDir' => '0',
+                                        'Dist::Zilla::Plugin::Git::Check' => '0',
+                                        'Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch' => '0',
+                                        'Dist::Zilla::Plugin::Git::Commit' => '0',
+                                        'Dist::Zilla::Plugin::Git::Push' => '0',
+                                        'Dist::Zilla::Plugin::Git::Remote::Check' => '0',
+                                        'Dist::Zilla::Plugin::Git::Tag' => '0',
+                                        'Dist::Zilla::Plugin::License' => '0',
+                                        'Dist::Zilla::Plugin::MakeMaker::Awesome' => '0',
+                                        'Dist::Zilla::Plugin::Manifest' => '0',
+                                        'Dist::Zilla::Plugin::ManifestSkip' => '0',
+                                        'Dist::Zilla::Plugin::MetaConfig' => '0',
+                                        'Dist::Zilla::Plugin::MetaJSON' => '0',
+                                        'Dist::Zilla::Plugin::MetaNoIndex' => '0',
+                                        'Dist::Zilla::Plugin::MetaProvides::Package' => '1.15000002',
+                                        'Dist::Zilla::Plugin::MetaResources' => '0',
+                                        'Dist::Zilla::Plugin::MetaTests' => '0',
+                                        'Dist::Zilla::Plugin::MetaYAML' => '0',
+                                        'Dist::Zilla::Plugin::MojibakeTests' => '0',
+                                        'Dist::Zilla::Plugin::NextRelease' => '0',
+                                        'Dist::Zilla::Plugin::PkgVersion' => '0',
+                                        'Dist::Zilla::Plugin::PodSyntaxTests' => '0',
+                                        'Dist::Zilla::Plugin::PodWeaver' => '4.004',
+                                        'Dist::Zilla::Plugin::Prereqs' => '0',
+                                        'Dist::Zilla::Plugin::Prereqs::AuthorDeps' => '0',
+                                        'Dist::Zilla::Plugin::PromptIfStale' => '0',
+                                        'Dist::Zilla::Plugin::PruneCruft' => '0',
+                                        'Dist::Zilla::Plugin::RunExtraTests' => '0',
+                                        'Dist::Zilla::Plugin::ShareDir' => '0',
+                                        'Dist::Zilla::Plugin::SurgicalPodWeaver' => '0',
+                                        'Dist::Zilla::Plugin::Test::CPAN::Changes' => '0',
+                                        'Dist::Zilla::Plugin::Test::CheckBreaks' => '0',
+                                        'Dist::Zilla::Plugin::Test::Compile' => '2.037',
+                                        'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
+                                        'Dist::Zilla::Plugin::Test::NoTabs' => '0',
+                                        'Dist::Zilla::Plugin::Test::ReportPrereqs' => '0',
+                                        'Dist::Zilla::Plugin::TestRelease' => '0',
+                                        'Dist::Zilla::Plugin::UploadToCPAN' => '0',
+                                        'File::Find::Rule' => '0',
+                                        'File::pushd' => '0',
+                                        'IPC::System::Simple' => '0',
+                                        'Path::Tiny' => '0',
+                                        'Pod::Elemental::PerlMunger' => '0.200001',
+                                        'Test::Inline' => '0'
+                                      },
                       'requires' => {
                                       'Algorithm::C3' => '0',
-                                      'CPAN::Meta::Requirements' => '0',
                                       'Class::Load' => '0.07',
-                                      'DBM::Deep' => '0',
+                                      'DBM::Deep' => '1.003',
                                       'Data::Visitor' => '0',
                                       'DateTime' => '0',
                                       'DateTime::Calendar::Mayan' => '0',
                                       'DateTime::Format::MySQL' => '0',
                                       'Declare::Constraints::Simple' => '0',
-                                      'Dist::Zilla' => '5.015',
-                                      'Dist::Zilla::Plugin::Authority' => '0',
-                                      'Dist::Zilla::Plugin::CheckChangesHasContent' => '0',
-                                      'Dist::Zilla::Plugin::ConfirmRelease' => '0',
-                                      'Dist::Zilla::Plugin::Conflicts' => '0.13001',
-                                      'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
-                                      'Dist::Zilla::Plugin::EOLTests' => '0',
-                                      'Dist::Zilla::Plugin::ExecDir' => '0',
-                                      'Dist::Zilla::Plugin::FileFinder::ByName' => '0',
-                                      'Dist::Zilla::Plugin::FileFinder::Filter' => '0',
-                                      'Dist::Zilla::Plugin::GatherDir' => '0',
-                                      'Dist::Zilla::Plugin::Git::Check' => '0',
-                                      'Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch' => '0',
-                                      'Dist::Zilla::Plugin::Git::Commit' => '0',
-                                      'Dist::Zilla::Plugin::Git::Push' => '0',
-                                      'Dist::Zilla::Plugin::Git::Remote::Check' => '0',
-                                      'Dist::Zilla::Plugin::Git::Tag' => '0',
-                                      'Dist::Zilla::Plugin::License' => '0',
-                                      'Dist::Zilla::Plugin::MakeMaker::Awesome' => '0',
-                                      'Dist::Zilla::Plugin::Manifest' => '0',
-                                      'Dist::Zilla::Plugin::ManifestSkip' => '0',
-                                      'Dist::Zilla::Plugin::MetaConfig' => '0',
-                                      'Dist::Zilla::Plugin::MetaJSON' => '0',
-                                      'Dist::Zilla::Plugin::MetaNoIndex' => '0',
-                                      'Dist::Zilla::Plugin::MetaProvides::Package' => '1.15000002',
-                                      'Dist::Zilla::Plugin::MetaResources' => '0',
-                                      'Dist::Zilla::Plugin::MetaTests' => '0',
-                                      'Dist::Zilla::Plugin::MetaYAML' => '0',
-                                      'Dist::Zilla::Plugin::MojibakeTests' => '0',
-                                      'Dist::Zilla::Plugin::NextRelease' => '0',
-                                      'Dist::Zilla::Plugin::PkgVersion' => '0',
-                                      'Dist::Zilla::Plugin::PodSyntaxTests' => '0',
-                                      'Dist::Zilla::Plugin::PodWeaver' => '4.004',
-                                      'Dist::Zilla::Plugin::Prereqs' => '0',
-                                      'Dist::Zilla::Plugin::Prereqs::AuthorDeps' => '0',
-                                      'Dist::Zilla::Plugin::PromptIfStale' => '0',
-                                      'Dist::Zilla::Plugin::PruneCruft' => '0',
-                                      'Dist::Zilla::Plugin::PruneFiles' => '0',
-                                      'Dist::Zilla::Plugin::RunExtraTests' => '0',
-                                      'Dist::Zilla::Plugin::ShareDir' => '0',
-                                      'Dist::Zilla::Plugin::SurgicalPodWeaver' => '0',
-                                      'Dist::Zilla::Plugin::Test::CPAN::Changes' => '0',
-                                      'Dist::Zilla::Plugin::Test::CheckBreaks' => '0',
-                                      'Dist::Zilla::Plugin::Test::Compile' => '2.037',
-                                      'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
-                                      'Dist::Zilla::Plugin::Test::NoTabs' => '0',
-                                      'Dist::Zilla::Plugin::Test::ReportPrereqs' => '0',
-                                      'Dist::Zilla::Plugin::TestRelease' => '0',
-                                      'Dist::Zilla::Plugin::UploadToCPAN' => '0',
                                       'ExtUtils::MakeMaker::Dist::Zilla::Develop' => '0',
                                       'File::Find::Rule' => '0',
                                       'File::Spec' => '0',
-                                      'File::pushd' => '0',
                                       'HTTP::Headers' => '0',
                                       'IO::File' => '0',
                                       'IO::Handle' => '0',
                                       'IO::String' => '0',
                                       'IPC::Open3' => '0',
-                                      'IPC::System::Simple' => '0',
                                       'Locale::US' => '0',
                                       'Module::CPANTS::Analyse' => '0.92',
                                       'Module::Info' => '0',
@@ -128,10 +154,8 @@ my $static_prereqs = do { my $x = {
                                       'MooseX::NonMoose' => '0',
                                       'PadWalker' => '0',
                                       'Params::Coerce' => '0',
-                                      'Path::Tiny' => '0',
-                                      'Pod::Elemental::PerlMunger' => '0.200001',
                                       'Regexp::Common' => '0',
-                                      'SUPER' => '0',
+                                      'SUPER' => '1.10',
                                       'Specio' => '0.07',
                                       'Test::CPAN::Changes' => '0.19',
                                       'Test::CPAN::Meta' => '0',
@@ -146,6 +170,7 @@ my $static_prereqs = do { my $x = {
                                       'Test::NoTabs' => '0',
                                       'Test::Output' => '0',
                                       'Test::Pod' => '1.41',
+                                      'Test::Pod::Coverage' => '1.04',
                                       'Test::Spelling' => '0',
                                       'URI' => '0',
                                       'blib' => '0'

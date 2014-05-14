@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/moose/Moose.png?branch=master,stable/2.08)](https://travis-ci.org/moose/Moose)
+[![CPAN version](https://badge.fury.io/pl/Moose.svg)](http://badge.fury.io/pl/Moose)
+[![Build Status](https://travis-ci.org/moose/Moose.png?branch=master,stable/2.12)](https://travis-ci.org/moose/Moose)
 
 Moose
 =====

@@ -2,7 +2,7 @@ package Moose::Exception::LazyAttributeNeedsADefault;
 BEGIN {
   $Moose::Exception::LazyAttributeNeedsADefault::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::LazyAttributeNeedsADefault::VERSION = '2.1205';
+$Moose::Exception::LazyAttributeNeedsADefault::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::EitherAttributeOrAttributeName';

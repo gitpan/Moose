@@ -57,7 +57,7 @@ use Test::Fatal;
         has 'foo' => (
             is  => 'ro',
             isa => 'Int[Xyz]',
-	);
+        );
     };
 
     like(
@@ -73,6 +73,11 @@ use Test::Fatal;
     is(
         $exception->type_name,
         "Int[Xyz]",
+        "invalid isa given to foo");
+
+    is(
+        $exception->parent_type_name,
+        'Int',
         "invalid isa given to foo");
 }
 

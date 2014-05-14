@@ -23,7 +23,7 @@ use Moose();
         "You cannot coerce a type unless coercion is supported by that type");
 
     is(
-        $exception->type->name,
+        $exception->type_name,
         'HexNum',
         "You cannot coerce a type unless coercion is supported by that type");
 
@@ -41,12 +41,12 @@ use Moose();
     like(
         $exception,
         qr/The 'message' parameter must be a coderef/,
-	"'foo' is not a CODE ref");
+        "'foo' is not a CODE ref");
 
     isa_ok(
         $exception,
         "Moose::Exception::MessageParameterMustBeCodeRef",
-	"'foo' is not a CODE ref");
+        "'foo' is not a CODE ref");
 }
 
 {
@@ -75,7 +75,7 @@ use Moose();
         "cannot inline NotInlinable");
 
     is(
-        $exception->type,
+        find_type_constraint( $exception->type_name ),
         $not_inlinable,
         "cannot inline NotInlinable");
 }

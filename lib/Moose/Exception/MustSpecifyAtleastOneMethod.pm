@@ -2,7 +2,7 @@ package Moose::Exception::MustSpecifyAtleastOneMethod;
 BEGIN {
   $Moose::Exception::MustSpecifyAtleastOneMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSpecifyAtleastOneMethod::VERSION = '2.1205';
+$Moose::Exception::MustSpecifyAtleastOneMethod::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

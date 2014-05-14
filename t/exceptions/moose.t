@@ -5,6 +5,8 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
+use Moose::Util 'find_meta';
+
 # tests for extends without arguments
 {
     my $exception = exception {
@@ -58,15 +60,15 @@ use Test::Fatal;
         "Foo2 is not loaded");
 
     is(
-	$exception->class_name,
-	"Foo2",
-	"Foo2 is not loaded");
+        $exception->class_name,
+        "Foo2",
+        "Foo2 is not loaded");
 }
 
 {
     {
-	package Foo3;
-	use Moose::Role;
+        package Foo3;
+        use Moose::Role;
     }
 
     my $exception = exception {
@@ -92,8 +94,8 @@ use Test::Fatal;
 
 {
     {
-	package Foo3;
-	use Moose::Role;
+        package Foo3;
+        use Moose::Role;
     }
 
     my $exception = exception {
@@ -120,7 +122,7 @@ use Test::Fatal;
         "Foo3 is a Moose::Role");
 
     is(
-        $exception->role,
+        find_meta($exception->role_name),
         Foo3->meta,
         "Foo3 is a Moose::Role");
 
@@ -133,8 +135,8 @@ use Test::Fatal;
 {
     my $foo;
     {
-	use Moose;
-	$foo = Class::MOP::Class->create("Foo4");
+        use Moose;
+        $foo = Class::MOP::Class->create("Foo4");
     }
 
     my $exception = exception {
@@ -159,7 +161,7 @@ use Test::Fatal;
         "Foo4 is a Class::MOP::Class, not a Moose::Meta::Class");
 
     is(
-        $exception->class,
+        find_meta($exception->class_name),
         $foo,
         "Foo4 is a Class::MOP::Class, not a Moose::Meta::Class");
 

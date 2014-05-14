@@ -2,7 +2,7 @@ package Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass;
 BEGIN {
   $Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::VERSION = '2.1205';
+$Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';
@@ -15,7 +15,7 @@ has 'instance' => (
 
 sub _build_message {
     my $self = shift;
-    "You must pass an instance of the metaclass (" .$self->class->name. "), not (".$self->instance.")";
+    "You must pass an instance of the metaclass (" .$self->class_name. "), not (".$self->instance.")";
 }
 
 1;

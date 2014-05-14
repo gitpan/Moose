@@ -2,7 +2,7 @@ package Moose::Exception::RequiredMethodsImportedByClass;
 BEGIN {
   $Moose::Exception::RequiredMethodsImportedByClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RequiredMethodsImportedByClass::VERSION = '2.1205';
+$Moose::Exception::RequiredMethodsImportedByClass::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Role';
@@ -31,7 +31,7 @@ sub _build_message {
     my $list = Moose::Util::english_list( map { q{'} . $_ . q{'} } $self->get_all_methods );
 
     my ($class, $role, $method) = ($self->class_name,
-                                   $self->role->name,
+                                   $self->role_name,
                                    $self->imported_method);
 
     my ($class_quoted, $role_quoted) = ("'".$class."'","'".$role."'");

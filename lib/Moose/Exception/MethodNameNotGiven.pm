@@ -2,7 +2,7 @@ package Moose::Exception::MethodNameNotGiven;
 BEGIN {
   $Moose::Exception::MethodNameNotGiven::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MethodNameNotGiven::VERSION = '2.1205';
+$Moose::Exception::MethodNameNotGiven::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

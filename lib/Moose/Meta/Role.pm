@@ -2,7 +2,7 @@ package Moose::Meta::Role;
 BEGIN {
   $Moose::Meta::Role::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::VERSION = '2.1205';
+$Moose::Meta::Role::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -239,13 +239,13 @@ sub add_attribute {
 
     if (blessed $_[0] && ! $_[0]->isa('Moose::Meta::Role::Attribute') ) {
         my $class = ref $_[0];
-        throw_exception( CannotAddAsAnAttributeToARole => role            => $self,
-                                                          attribute_class => $class
+        throw_exception( CannotAddAsAnAttributeToARole => role_name       => $self->name,
+                                                          attribute_class => $class,
                        );
     }
     elsif (!blessed($_[0]) && defined($_[0]) && $_[0] =~ /^\+(.*)/) {
         throw_exception( AttributeExtensionIsNotSupportedInRoles => attribute_name => $_[0],
-                                                                    role           => $self
+                                                                    role_name      => $self->name,
                        );
     }
 
@@ -364,7 +364,7 @@ sub add_override_method_modifier {
     my ($self, $method_name, $method) = @_;
     (!$self->has_method($method_name))
         || throw_exception( CannotOverrideALocalMethod => method_name => $method_name,
-                                                          role        => $self
+                                                          role_name   => $self->name,
                           );
     $self->get_override_method_modifiers_map->{$method_name} = $method;
 }
@@ -405,7 +405,7 @@ sub add_role {
     my ($self, $role) = @_;
     (blessed($role) && $role->isa('Moose::Meta::Role'))
         || throw_exception( AddRoleToARoleTakesAMooseMetaRole => role_to_be_added => $role,
-                                                                 role             => $self
+                                                                 role_name        => $self->name,
                           );
     push @{$self->get_roles} => $role;
     $self->reset_package_cache_flag;
@@ -424,7 +424,7 @@ sub calculate_all_roles {
 sub does_role {
     my ($self, $role) = @_;
     (defined $role)
-        || throw_exception( RoleNameRequiredForMooseMetaRole => role => $self );
+        || throw_exception( RoleNameRequiredForMooseMetaRole => role_name => $self->name );
     my $role_name = blessed $role ? $role->name : $role;
     # if we are it,.. then return true
     return 1 if $role_name eq $self->name;
@@ -445,8 +445,8 @@ sub apply {
     my ($self, $other, %args) = @_;
 
     (blessed($other))
-        || throw_exception( ApplyTakesABlessedInstance => param => $other,
-                                                          role  => $self
+        || throw_exception( ApplyTakesABlessedInstance => param     => $other,
+                                                          role_name => $self->name,
                           );
 
     my $application_class;
@@ -755,7 +755,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

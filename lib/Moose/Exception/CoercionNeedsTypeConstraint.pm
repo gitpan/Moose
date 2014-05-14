@@ -2,7 +2,7 @@ package Moose::Exception::CoercionNeedsTypeConstraint;
 BEGIN {
   $Moose::Exception::CoercionNeedsTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CoercionNeedsTypeConstraint::VERSION = '2.1205';
+$Moose::Exception::CoercionNeedsTypeConstraint::VERSION = '2.1206';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

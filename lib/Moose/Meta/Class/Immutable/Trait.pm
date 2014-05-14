@@ -2,7 +2,7 @@ package Moose::Meta::Class::Immutable::Trait;
 BEGIN {
   $Moose::Meta::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Class::Immutable::Trait::VERSION = '2.1205';
+$Moose::Meta::Class::Immutable::Trait::VERSION = '2.1206';
 use strict;
 use warnings;
 
@@ -33,7 +33,7 @@ sub does_role {
     my $role = shift;
 
     (defined $role)
-        || throw_exception( RoleNameRequired => class => $self );
+        || throw_exception( RoleNameRequired => class_name => $self->name );
 
     $self->{__immutable}{does_role} ||= { map { $_->name => 1 } $self->calculate_all_roles_with_inheritance };
 
@@ -58,7 +58,7 @@ Moose::Meta::Class::Immutable::Trait - Implements immutability for metaclass obj
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

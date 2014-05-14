@@ -3,7 +3,7 @@ package Moose::Meta::TypeCoercion::Union;
 BEGIN {
   $Moose::Meta::TypeCoercion::Union::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::TypeCoercion::Union::VERSION = '2.1205';
+$Moose::Meta::TypeCoercion::Union::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -20,7 +20,7 @@ sub compile_type_coercion {
 
     (blessed $type_constraint && $type_constraint->isa('Moose::Meta::TypeConstraint::Union'))
      || throw_exception( NeedsTypeConstraintUnionForTypeCoercionUnion => type_coercion_union_object => $self,
-                                                                         type_name                  => $type_constraint
+                                                                         type_name                  => $type_constraint->name
                        );
 
     $self->_compiled_type_coercion(
@@ -61,12 +61,13 @@ Moose::Meta::TypeCoercion::Union - The Moose Type Coercion metaclass for Unions
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 
 This is a subclass of L<Moose::Meta::TypeCoercion> that is used for
 L<Moose::Meta::TypeConstraint::Union> objects.
+
 =head1 METHODS
 
 =over 4

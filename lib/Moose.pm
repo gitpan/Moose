@@ -4,7 +4,7 @@ package Moose;
 BEGIN {
   $Moose::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::VERSION = '2.1205';
+$Moose::VERSION = '2.1206';
 use 5.008003;
 
 use Scalar::Util 'blessed';
@@ -48,7 +48,7 @@ sub extends {
 
     unless ( @_ )
     {
-        throw_exception( ExtendsMissingArgs => class => $meta );
+        throw_exception( ExtendsMissingArgs => class_name => $meta->name );
     }
     # this checks the metaclass to make sure
     # it is correct, sometimes it can get out
@@ -301,7 +301,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 SYNOPSIS
 

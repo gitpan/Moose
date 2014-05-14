@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::splice;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::splice::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1205';
+$Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1206';
 use strict;
 use warnings;
 

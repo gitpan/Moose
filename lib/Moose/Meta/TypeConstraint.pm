@@ -3,7 +3,7 @@ package Moose::Meta::TypeConstraint;
 BEGIN {
   $Moose::Meta::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::TypeConstraint::VERSION = '2.1205';
+$Moose::Meta::TypeConstraint::VERSION = '2.1206';
 use strict;
 use warnings;
 use metaclass;
@@ -141,7 +141,7 @@ sub coerce {
     my $coercion = $self->coercion;
 
     unless ($coercion) {
-        throw_exception( CoercingWithoutCoercions => type => $self );
+        throw_exception( CoercingWithoutCoercions => type_name => $self->name );
     }
 
     return $_[0] if $self->check($_[0]);
@@ -189,7 +189,7 @@ sub _inline_check {
     my $self = shift;
 
     unless ( $self->can_be_inlined ) {
-        throw_exception( CannotInlineTypeConstraintCheck => type => $self );
+        throw_exception( CannotInlineTypeConstraintCheck => type_name => $self->name );
     }
 
     if ( $self->has_parent && $self->constraint == $null_constraint ) {
@@ -295,7 +295,7 @@ sub _actually_compile_type_constraint {
 
     my $check = $self->constraint;
     unless ( defined $check ) {
-        throw_exception( NoConstraintCheckForTypeConstraint => type => $self );
+        throw_exception( NoConstraintCheckForTypeConstraint => type_name => $self->name );
     }
 
     return $self->_compile_subtype($check)
@@ -379,7 +379,7 @@ Moose::Meta::TypeConstraint - The Moose Type Constraint metaclass
 
 =head1 VERSION
 
-version 2.1205
+version 2.1206
 
 =head1 DESCRIPTION
 

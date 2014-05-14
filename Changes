@@ -1,6 +1,21 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1206   2014-05-14
+
+  [BUG FIXES]
+
+  - exceptions should not throw other exceptions; fixes cases where exceptions
+    were reporting the wrong error (Upasana, RT#92818 and RT#94795)
+
+  [OTHER]
+
+  - prereqs needed strictly for building with Dist::Zilla have been moved from
+    develop requires to develop recommends, to simplify automated testing on
+    older perls that cannot install all Dist::Zilla components
+  - removed instances of metaobjects in exception classes where they're not
+    really required
+
 2.1205   2014-04-15
 
   [ENHANCEMENTS]
@@ -32,6 +47,11 @@ for, noteworthy changes.
 
   - bump prereq on Module::Runtime to properly detect when a module fails to
     load, and fix how we call these subs (Zefram, RT#92770, RT#86394, RT#92791)
+
+  [ENHANCEMENTS]
+
+ - line numbers in shipped code are now almost the same (within 3) as the
+   repository source, for easier debugging
 
 2.1202   2014-01-19
 
