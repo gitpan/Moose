@@ -2,7 +2,7 @@ package Moose::Exception::IsaDoesNotDoTheRole;
 BEGIN {
   $Moose::Exception::IsaDoesNotDoTheRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::IsaDoesNotDoTheRole::VERSION = '2.1206';
+$Moose::Exception::IsaDoesNotDoTheRole::VERSION = '2.1207';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

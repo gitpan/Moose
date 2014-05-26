@@ -1,9 +1,8 @@
-
 package Moose::Meta::Object::Trait;
 BEGIN {
   $Moose::Meta::Object::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Object::Trait::VERSION = '2.1206';
+$Moose::Meta::Object::Trait::VERSION = '2.1207';
 use Scalar::Util qw(blessed);
 
 sub _get_compatible_metaclass {
@@ -43,7 +42,7 @@ Moose::Meta::Object::Trait - Some overrides for L<Class::MOP::Object> functional
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

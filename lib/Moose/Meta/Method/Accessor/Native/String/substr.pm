@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::substr;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::substr::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::String::substr::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::String::substr::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -56,7 +56,7 @@ sub _inline_check_arguments {
 
     my @code = (
         'if ($offset !~ /^-?\d+$/) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => $offset,'.
                                             'ordinal                 => "first",'.
                                             'type_of_argument        => "integer",'.
@@ -65,7 +65,7 @@ sub _inline_check_arguments {
             ) . ';',
         '}',
         'if ($length !~ /^-?\d+$/) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => $length,'.
                                             'ordinal                 => "second",'.
                                             'type_of_argument        => "integer",'.
@@ -78,7 +78,7 @@ sub _inline_check_arguments {
     if ($for_writer) {
         push @code, (
             'if (!Moose::Util::_STRINGLIKE0($replacement)) {',
-                $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+                $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                                 'argument                => $replacement,'.
                                                 'ordinal                 => "third",'.
                                                 'type_of_argument        => "string",'.

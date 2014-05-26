@@ -1,9 +1,8 @@
-
 package Class::MOP::Class;
 BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Class::VERSION = '2.1206';
+$Class::MOP::Class::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -24,8 +23,6 @@ use parent 'Class::MOP::Module',
          'Class::MOP::Mixin::HasAttributes',
          'Class::MOP::Mixin::HasMethods';
 
-use Moose::Util 'throw_exception';
-
 # Creation
 
 sub initialize {
@@ -41,7 +38,7 @@ sub initialize {
     }
 
     ($package_name && !ref($package_name))
-        || throw_exception( InitializeTakesUnBlessedPackageName => package_name => $package_name );
+        || ($class||__PACKAGE__)->_throw_exception( InitializeTakesUnBlessedPackageName => package_name => $package_name );
     return Class::MOP::get_metaclass_by_name($package_name)
         || $class->_construct_class_instance(package => $package_name, @_);
 }
@@ -76,7 +73,7 @@ sub _construct_class_instance {
     my $options      = @_ == 1 ? $_[0] : {@_};
     my $package_name = $options->{package};
     (defined $package_name && $package_name)
-        || throw_exception("ConstructClassInstanceTakesPackageName");
+        || $class->_throw_exception("ConstructClassInstanceTakesPackageName");
     # NOTE:
     # return the metaclass if we have it cached,
     # and it is still defined (it has not been
@@ -236,7 +233,7 @@ sub _check_class_metaclass_compatibility {
 
         my $super_meta_type = $super_meta->_real_ref_name;
 
-        throw_exception( IncompatibleMetaclassOfSuperclass => class_name           => $self->name,
+        $self->_throw_exception( IncompatibleMetaclassOfSuperclass => class_name           => $self->name,
                                                               class_meta_type      => ref( $self ),
                                                               superclass_name      => $superclass_name,
                                                               superclass_meta_type => $super_meta_type
@@ -263,7 +260,7 @@ sub _check_single_metaclass_compatibility {
     if (!$self->_single_metaclass_is_compatible($metaclass_type, $superclass_name)) {
         my $super_meta = Class::MOP::get_metaclass_by_name($superclass_name);
 
-        throw_exception( MetaclassTypeIncompatible => class_name      => $self->name,
+        $self->_throw_exception( MetaclassTypeIncompatible => class_name      => $self->name,
                                                       superclass_name => $superclass_name,
                                                       metaclass_type  => $metaclass_type
                        );
@@ -366,7 +363,7 @@ sub _fix_class_metaclass_incompatibility {
 
     if ($self->_class_metaclass_can_be_made_compatible($super_meta)) {
         ($self->is_pristine)
-            || throw_exception( CannotFixMetaclassCompatibility => class_name => $self->name,
+            || $self->_throw_exception( CannotFixMetaclassCompatibility => class_name => $self->name,
                                                                    superclass => $super_meta
                               );
 
@@ -382,7 +379,7 @@ sub _fix_single_metaclass_incompatibility {
 
     if ($self->_single_metaclass_can_be_made_compatible($super_meta, $metaclass_type)) {
         ($self->is_pristine)
-            || throw_exception( CannotFixMetaclassCompatibility => class_name     => $self->name,
+            || $self->_throw_exception( CannotFixMetaclassCompatibility => class_name     => $self->name,
                                                                    superclass     => $super_meta,
                                                                    metaclass_type => $metaclass_type
                               );
@@ -420,19 +417,19 @@ sub create {
     my %options = @args;
 
     (ref $options{superclasses} eq 'ARRAY')
-        || throw_exception( CreateMOPClassTakesArrayRefOfSuperclasses => class  => $class,
+        || __PACKAGE__->_throw_exception( CreateMOPClassTakesArrayRefOfSuperclasses => class  => $class,
                                                                          params => \%options
                           )
             if exists $options{superclasses};
 
     (ref $options{attributes} eq 'ARRAY')
-        || throw_exception( CreateMOPClassTakesArrayRefOfAttributes => class  => $class,
+        || __PACKAGE__->_throw_exception( CreateMOPClassTakesArrayRefOfAttributes => class  => $class,
                                                                        params => \%options
                           )
             if exists $options{attributes};
 
     (ref $options{methods} eq 'HASH')
-        || throw_exception( CreateMOPClassTakesHashRefOfMethods => class  => $class,
+        || __PACKAGE__->_throw_exception( CreateMOPClassTakesHashRefOfMethods => class  => $class,
                                                                    params => \%options
                           )
             if exists $options{methods};
@@ -511,14 +508,14 @@ sub _construct_instance {
     my $instance;
     if (my $instance_class = blessed($params->{__INSTANCE__})) {
         ($instance_class eq $class->name)
-            || throw_exception( InstanceBlessedIntoWrongClass => class_name => $class->name,
+            || $class->_throw_exception( InstanceBlessedIntoWrongClass => class_name => $class->name,
                                                                  params     => $params,
                                                                  instance   => $params->{__INSTANCE__}
                               );
         $instance = $params->{__INSTANCE__};
     }
     elsif (exists $params->{__INSTANCE__}) {
-        throw_exception( InstanceMustBeABlessedReference => class_name => $class->name,
+        $class->_throw_exception( InstanceMustBeABlessedReference => class_name => $class->name,
                                                             params     => $params,
                                                             instance   => $params->{__INSTANCE__}
                        );
@@ -768,7 +765,7 @@ sub clone_object {
     my $class    = shift;
     my $instance = shift;
     (blessed($instance) && $instance->isa($class->name))
-        || throw_exception( CloneObjectExpectsAnInstanceOfMetaclass => class_name => $class->name,
+        || $class->_throw_exception( CloneObjectExpectsAnInstanceOfMetaclass => class_name => $class->name,
                                                                        instance   => $instance,
                           );
     # NOTE:
@@ -782,7 +779,7 @@ sub clone_object {
 sub _clone_instance {
     my ($class, $instance, %params) = @_;
     (blessed($instance))
-        || throw_exception( OnlyInstancesCanBeCloned => class_name => $class->name,
+        || $class->_throw_exception( OnlyInstancesCanBeCloned => class_name => $class->name,
                                                         instance   => $instance,
                                                         params     => \%params
                           );
@@ -829,7 +826,7 @@ sub rebless_instance {
 
     my $old_class = $old_metaclass ? $old_metaclass->name : blessed($instance);
     $self->name->isa($old_class)
-        || throw_exception( CanReblessOnlyIntoASubclass => class_name     => $self->name,
+        || $self->_throw_exception( CanReblessOnlyIntoASubclass => class_name     => $self->name,
                                                            instance       => $instance,
                                                            instance_class => blessed( $instance ),
                                                            params         => \%params,
@@ -846,7 +843,7 @@ sub rebless_instance_back {
     my $old_class
         = $old_metaclass ? $old_metaclass->name : blessed($instance);
     $old_class->isa( $self->name )
-        || throw_exception( CanReblessOnlyIntoASuperclass => class_name     => $self->name,
+        || $self->_throw_exception( CanReblessOnlyIntoASuperclass => class_name     => $self->name,
                                                              instance       => $instance,
                                                              instance_class => blessed( $instance ),
                           );
@@ -1063,7 +1060,7 @@ sub _method_lookup_order {
             $method = $self->find_next_method_by_name($method_name);
             # die if it does not exist
             (defined $method)
-                || throw_exception( MethodNameNotFoundInInheritanceHierarchy => class_name  => $self->name,
+                || $self->_throw_exception( MethodNameNotFoundInInheritanceHierarchy => class_name  => $self->name,
                                                                                 method_name => $method_name
                                   );
             # and now make sure to wrap it
@@ -1088,7 +1085,7 @@ sub _method_lookup_order {
     sub add_before_method_modifier {
         my ($self, $method_name, $method_modifier) = @_;
         (defined $method_name && length $method_name)
-            || throw_exception( MethodModifierNeedsMethodName => class_name => $self->name );
+            || $self->_throw_exception( MethodModifierNeedsMethodName => class_name => $self->name );
         my $method = $fetch_and_prepare_method->($self, $method_name);
         $method->add_before_modifier(
             subname(':before' => $method_modifier)
@@ -1098,7 +1095,7 @@ sub _method_lookup_order {
     sub add_after_method_modifier {
         my ($self, $method_name, $method_modifier) = @_;
         (defined $method_name && length $method_name)
-            || throw_exception( MethodModifierNeedsMethodName => class_name => $self->name );
+            || $self->_throw_exception( MethodModifierNeedsMethodName => class_name => $self->name );
         my $method = $fetch_and_prepare_method->($self, $method_name);
         $method->add_after_modifier(
             subname(':after' => $method_modifier)
@@ -1108,7 +1105,7 @@ sub _method_lookup_order {
     sub add_around_method_modifier {
         my ($self, $method_name, $method_modifier) = @_;
         (defined $method_name && length $method_name)
-            || throw_exception( MethodModifierNeedsMethodName => class_name => $self->name );
+            || $self->_throw_exception( MethodModifierNeedsMethodName => class_name => $self->name );
         my $method = $fetch_and_prepare_method->($self, $method_name);
         $method->add_around_modifier(
             subname(':around' => $method_modifier)
@@ -1132,7 +1129,7 @@ sub _method_lookup_order {
 sub find_method_by_name {
     my ($self, $method_name) = @_;
     (defined $method_name && length $method_name)
-        || throw_exception( MethodNameNotGiven => class_name => $self->name );
+        || $self->_throw_exception( MethodNameNotGiven => class_name => $self->name );
     foreach my $class ($self->_method_lookup_order) {
         my $method = Class::MOP::Class->initialize($class)->get_method($method_name);
         return $method if defined $method;
@@ -1161,7 +1158,7 @@ sub get_all_method_names {
 sub find_all_methods_by_name {
     my ($self, $method_name) = @_;
     (defined $method_name && length $method_name)
-        || throw_exception( MethodNameNotGiven => class_name => $self->name );
+        || $self->_throw_exception( MethodNameNotGiven => class_name => $self->name );
     my @methods;
     foreach my $class ($self->_method_lookup_order) {
         # fetch the meta-class ...
@@ -1178,7 +1175,7 @@ sub find_all_methods_by_name {
 sub find_next_method_by_name {
     my ($self, $method_name) = @_;
     (defined $method_name && length $method_name)
-        || throw_exception( MethodNameNotGiven => class_name => $self->name );
+        || $self->_throw_exception( MethodNameNotGiven => class_name => $self->name );
     my @cpl = ($self->_method_lookup_order);
     shift @cpl; # discard ourselves
     foreach my $class (@cpl) {
@@ -1339,7 +1336,7 @@ sub _immutable_metaclass {
     }
 
     my $trait = $args{immutable_trait} = $self->immutable_trait
-        || throw_exception( NoImmutableTraitSpecifiedForClass => class_name => $self->name,
+        || $self->_throw_exception( NoImmutableTraitSpecifiedForClass => class_name => $self->name,
                                                                  params     => \%args
                           );
 
@@ -1477,7 +1474,7 @@ sub _inline_destructor {
     my ( $self, %args ) = @_;
 
     ( exists $args{destructor_class} && defined $args{destructor_class} )
-        || throw_exception( NoDestructorClassSpecified => class_name => $self->name,
+        || $self->_throw_exception( NoDestructorClassSpecified => class_name => $self->name,
                                                           params     => \%args,
                           );
 
@@ -1531,7 +1528,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ package Moose::Exception::Role::Role;
 BEGIN {
   $Moose::Exception::Role::Role::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::Role::Role::VERSION = '2.1206';
+$Moose::Exception::Role::Role::VERSION = '2.1207';
 # use Moose::Util 'throw_exception';
 use Moose::Role;
 

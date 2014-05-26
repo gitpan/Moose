@@ -1,30 +1,24 @@
-
 package Class::MOP::Object;
 BEGIN {
   $Class::MOP::Object::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Object::VERSION = '2.1206';
+$Class::MOP::Object::VERSION = '2.1207';
 use strict;
 use warnings;
 
+use parent 'Class::MOP::Mixin';
 use Scalar::Util 'blessed';
+use Module::Runtime 'use_module';
 
 # introspection
 
 sub throw_error {
-    shift;
-    require Moose::Util;
-    Moose::Util::throw_exception( Legacy => message => join('', @_) );
+    shift->_throw_exception( Legacy => message => join('', @_) );
 }
 
 sub _inline_throw_error {
     my ( $self, $message ) = @_;
-    return 'Moose->throw_error('.$message.')';
-}
-
-sub meta {
-    require Class::MOP::Class;
-    Class::MOP::Class->initialize(blessed($_[0]) || $_[0]);
+    return 'die Module::Runtime::use_module("Moose::Exception::Legacy")->new(message => ' . $message. ')';
 }
 
 sub _new {
@@ -72,8 +66,7 @@ sub _make_compatible_with {
     my $new_metaclass = $self->_get_compatible_metaclass($other_name);
 
     unless ( defined $new_metaclass ) {
-        require Moose::Util;
-        Moose::Util::throw_exception( CannotMakeMetaclassCompatible => superclass_name => $other_name,
+        $self->_throw_exception( CannotMakeMetaclassCompatible => superclass_name => $other_name,
                                                                        class           => $self,
                                     );
     }
@@ -124,7 +117,7 @@ Class::MOP::Object - Base class for metaclasses
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 
@@ -148,8 +141,8 @@ default maximum depth is 1.
 
 =item B<< $metaclass->throw_error($message) >>
 
-This method calls L<Moose::Util::throw_exception> internally, with an object
-of class Moose::Exception::Legacy.
+This method calls L<Class::MOP::Mixin/_throw_exception> internally, with an object
+of class L<Moose::Exception::Legacy>.
 
 =back
 

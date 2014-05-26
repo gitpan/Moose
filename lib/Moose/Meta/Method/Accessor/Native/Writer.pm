@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Writer;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Writer::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Writer::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::Writer::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -91,8 +91,9 @@ sub _is_root_type {
     my $self = shift;
     my $type = shift;
 
-    if (
-        Moose::Util::does_role( $type, 'Specio::Constraint::Role::Interface' ) )
+    if (   blessed($type)
+        && $type->can('does')
+        && $type->does('Specio::Constraint::Role::Interface') )
     {
         require Specio::Library::Builtins;
         return

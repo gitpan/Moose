@@ -1,9 +1,8 @@
-
 package Class::MOP::Module;
 BEGIN {
   $Class::MOP::Module::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Module::VERSION = '2.1206';
+$Class::MOP::Module::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -11,8 +10,6 @@ use Carp         'confess';
 use Scalar::Util 'blessed';
 
 use parent 'Class::MOP::Package';
-
-use Moose::Util 'throw_exception';
 
 sub _new {
     my $class = shift;
@@ -76,7 +73,7 @@ sub _anon_package_prefix { 'Class::MOP::Module::__ANON__::SERIAL::' }
 sub _anon_cache_key {
     my $class = shift;
     my %options = @_;
-    throw_exception( PackagesAndModulesAreNotCachable => class_name => $class,
+    $class->_throw_exception( PackagesAndModulesAreNotCachable => class_name => $class,
                                                          params     => \%options,
                                                          is_module  => 1
                    );
@@ -110,7 +107,7 @@ Class::MOP::Module - Module Meta Object
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

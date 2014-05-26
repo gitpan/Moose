@@ -2,7 +2,7 @@ package Moose::Exception::CanOnlyWrapBlessedCode;
 BEGIN {
   $Moose::Exception::CanOnlyWrapBlessedCode::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CanOnlyWrapBlessedCode::VERSION = '2.1206';
+$Moose::Exception::CanOnlyWrapBlessedCode::VERSION = '2.1207';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

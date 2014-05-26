@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Collection;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Collection::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Collection::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::Collection::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -111,7 +111,7 @@ sub _inline_check_member_constraint {
         'for my $new_val (' . $new_value . ') {',
             "if ($check) {",
                 'my $msg = do { local $_ = $new_val; $member_message->($new_val) };'.
-                $self->_inline_throw_exception( "ValidationFailedForInlineTypeConstraint => ".
+                $self->_inline_throw_exception( ValidationFailedForInlineTypeConstraint =>
                                                 "attribute_name          => '".$attr_name."',".
                                                 'type_constraint_message => $msg,'.
                                                 'class_name              => $class_name,'.

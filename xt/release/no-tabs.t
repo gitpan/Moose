@@ -667,6 +667,7 @@ my @files = (
     't/exceptions/class-mop-object.t',
     't/exceptions/class-mop-package.t',
     't/exceptions/class.t',
+    't/exceptions/cmop.t',
     't/exceptions/exception-lazyattributeneedsadefault.t',
     't/exceptions/meta-role.t',
     't/exceptions/metaclass.t',
@@ -908,7 +909,6 @@ my @files = (
     't/type_constraints/normalize_type_name.t',
     't/type_constraints/parameterize_from.t',
     't/type_constraints/role_type_constraint.t',
-    't/type_constraints/specio.t',
     't/type_constraints/subtype_auto_vivify_parent.t',
     't/type_constraints/subtyping_parameterized_types.t',
     't/type_constraints/subtyping_union_types.t',
@@ -927,6 +927,7 @@ my @files = (
     't/type_constraints/util_type_constraints.t',
     't/type_constraints/util_type_constraints_export.t',
     't/type_constraints/util_type_reloading.t',
+    't/type_constraints/with-specio.t',
     't/zzz-check-breaks.t'
 );
 

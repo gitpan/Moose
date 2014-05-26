@@ -1,9 +1,8 @@
-
 package Moose::Meta::Method::Destructor;
 BEGIN {
   $Moose::Meta::Method::Destructor::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Destructor::VERSION = '2.1206';
+$Moose::Meta::Method::Destructor::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -148,7 +147,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

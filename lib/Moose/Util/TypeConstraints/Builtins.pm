@@ -2,7 +2,7 @@ package Moose::Util::TypeConstraints::Builtins;
 BEGIN {
   $Moose::Util::TypeConstraints::Builtins::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1206';
+$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -305,4 +305,3 @@ __END__
 =for pod_coverage_needs_some_pod
 
 =cut
-

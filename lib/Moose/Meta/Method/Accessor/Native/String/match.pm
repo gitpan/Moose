@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::match;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::match::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::String::match::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::String::match::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -22,7 +22,7 @@ sub _inline_check_arguments {
 
     return (
         'if (!Moose::Util::_STRINGLIKE0($_[0]) && !Params::Util::_REGEX($_[0])) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => $_[0],'.
                                             'type                    => "Str|RegexpRef",'.
                                             'type_of_argument        => "string or regexp reference",'.

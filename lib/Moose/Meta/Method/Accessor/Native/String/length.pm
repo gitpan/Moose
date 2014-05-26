@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::length;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::length::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::String::length::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::String::length::VERSION = '2.1207';
 use strict;
 use warnings;
 

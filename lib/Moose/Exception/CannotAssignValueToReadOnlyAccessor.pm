@@ -2,7 +2,7 @@ package Moose::Exception::CannotAssignValueToReadOnlyAccessor;
 BEGIN {
   $Moose::Exception::CannotAssignValueToReadOnlyAccessor::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotAssignValueToReadOnlyAccessor::VERSION = '2.1206';
+$Moose::Exception::CannotAssignValueToReadOnlyAccessor::VERSION = '2.1207';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::EitherAttributeOrAttributeName';

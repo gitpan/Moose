@@ -4,7 +4,7 @@ package Moose::Meta::Attribute;
 BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::VERSION = '2.1206';
+$Moose::Meta::Attribute::VERSION = '2.1207';
 use B ();
 use Scalar::Util 'blessed', 'weaken';
 use List::MoreUtils 'any';
@@ -44,8 +44,8 @@ sub does {
 }
 
 sub _inline_throw_exception {
-    my ( $self, $throw_args ) = @_;
-    return 'require Moose::Util; Moose::Util::throw_exception('.$throw_args.')';
+    my ( $self, $exception_type, $throw_args ) = @_;
+    return 'die Module::Runtime::use_module("Moose::Exception::' . $exception_type . '")->new(' . ($throw_args || '') . ')';
 }
 
 sub new {
@@ -338,9 +338,8 @@ sub _process_isa_option {
     }
     elsif (
         blessed( $options->{isa} )
-        && Moose::Util::does_role(
-            $options->{isa}, 'Specio::Constraint::Role::Interface'
-        )
+        && $options->{isa}->can('does')
+        && $options->{isa}->does('Specio::Constraint::Role::Interface')
         ) {
         $options->{type_constraint} = $options->{isa};
     }
@@ -635,7 +634,7 @@ sub _inline_check_required {
 
     return (
         'if (@_ < 2) {',
-            $self->_inline_throw_exception( "AttributeIsRequired => ".
+            $self->_inline_throw_exception( AttributeIsRequired =>
                                             'attribute_name      => "'.$attr_name.'",'.
                                             'class_name          => $class_name'
             ) . ';',
@@ -692,7 +691,7 @@ sub _inline_check_constraint {
                 'my $msg = do { local $_ = ' . $value . '; '
                 . $message . '->(' . $value . ');'
                 . '};'.
-                $self->_inline_throw_exception( 'ValidationFailedForInlineTypeConstraint => '.
+                $self->_inline_throw_exception( ValidationFailedForInlineTypeConstraint =>
                                                 'type_constraint_message => $msg , '.
                                                 'class_name              => $class_name, '.
                                                 'attribute_name          => "'.$attr_name.'",'.
@@ -707,7 +706,7 @@ sub _inline_check_constraint {
                 'my $msg = do { local $_ = ' . $value . '; '
                 . $message . '->(' . $value . ');'
                 . '};'.
-                $self->_inline_throw_exception( 'ValidationFailedForInlineTypeConstraint => '.
+                $self->_inline_throw_exception( ValidationFailedForInlineTypeConstraint =>
                                                 'type_constraint_message => $msg , '.
                                                 'class_name              => $class_name, '.
                                                 'attribute_name          => "'.$attr_name.'",'.
@@ -926,7 +925,7 @@ sub _inline_generate_default {
             'else {',
                 'my $class = ref(' . $instance . ') || ' . $instance . ';',
                 $self->_inline_throw_exception(
-                    "BuilderMethodNotSupportedForInlineAttribute => ".
+                    BuilderMethodNotSupportedForInlineAttribute =>
                     'class_name     => $class,'.
                     'attribute_name => "'.$attr_name_str.'",'.
                     'instance       => '.$instance.','.
@@ -1277,7 +1276,7 @@ package Moose::Meta::Attribute::Custom::Moose;
 BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1206';
+$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1207';
 sub register_implementation { 'Moose::Meta::Attribute' }
 1;
 
@@ -1295,7 +1294,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

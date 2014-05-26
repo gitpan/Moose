@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::grep;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::grep::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::grep::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::Array::grep::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -21,7 +21,7 @@ sub _inline_check_arguments {
 
     return (
         'if (!Params::Util::_CODELIKE($_[0])) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => $_[0],'.
                                             'method_name             => "grep",'.
                                             'type_of_argument        => "code reference",'.

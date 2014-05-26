@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Moose::Manual::Exceptions::Manifest;
 # ABSTRACT: Moose's Exception Types
-$Moose::Manual::Exceptions::Manifest::VERSION = '2.1206';
+$Moose::Manual::Exceptions::Manifest::VERSION = '2.1207';
 
 __END__
 
@@ -16,7 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 Moose::Exception::AccessorMustReadWrite
 

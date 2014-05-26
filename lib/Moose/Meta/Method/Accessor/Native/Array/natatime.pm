@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::natatime;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::natatime::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::natatime::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::Array::natatime::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -22,7 +22,7 @@ sub _inline_check_arguments {
 
     return (
         'if (!defined($_[0]) || $_[0] !~ /^\d+$/) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => $_[0],'.
                                             'method_name             => "natatime",'.
                                             'type_of_argument        => "integer",'.
@@ -31,7 +31,7 @@ sub _inline_check_arguments {
             ) . ';',
         '}',
         'if (@_ == 2 && !Params::Util::_CODELIKE($_[1])) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => $_[1],'.
                                             'method_name             => "natatime",'.
                                             'type_of_argument        => "code reference",'.

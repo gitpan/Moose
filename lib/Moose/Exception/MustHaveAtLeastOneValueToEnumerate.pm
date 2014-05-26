@@ -2,7 +2,7 @@ package Moose::Exception::MustHaveAtLeastOneValueToEnumerate;
 BEGIN {
   $Moose::Exception::MustHaveAtLeastOneValueToEnumerate::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustHaveAtLeastOneValueToEnumerate::VERSION = '2.1206';
+$Moose::Exception::MustHaveAtLeastOneValueToEnumerate::VERSION = '2.1207';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

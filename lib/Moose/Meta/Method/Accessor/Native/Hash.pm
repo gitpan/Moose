@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Hash;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Hash::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::Hash::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -14,7 +14,7 @@ sub _inline_check_var_is_valid_key {
 
     return (
         'if (!defined(' . $var . ')) {',
-            $self->_inline_throw_exception( "InvalidArgumentToMethod => ".
+            $self->_inline_throw_exception( InvalidArgumentToMethod =>
                                             'argument                => '.$var.','.
                                             'method_name             => "'.$self->delegate_to_method.'",'.
                                             'type_of_argument        => "defined value",'.

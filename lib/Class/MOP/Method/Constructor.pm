@@ -1,9 +1,8 @@
-
 package Class::MOP::Method::Constructor;
 BEGIN {
   $Class::MOP::Method::Constructor::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::Constructor::VERSION = '2.1206';
+$Class::MOP::Method::Constructor::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -13,19 +12,18 @@ use Try::Tiny;
 
 use parent 'Class::MOP::Method::Inlined';
 
-use Moose::Util 'throw_exception';
 sub new {
     my $class   = shift;
     my %options = @_;
 
     (blessed $options{metaclass} && $options{metaclass}->isa('Class::MOP::Class'))
-        || throw_exception( MustSupplyAMetaclass => params => \%options,
+        || $class->_throw_exception( MustSupplyAMetaclass => params => \%options,
                                                     class  => $class
                           )
             if $options{is_inline};
 
     ($options{package_name} && $options{name})
-        || throw_exception( MustSupplyPackageNameAndName => params => \%options,
+        || $class->_throw_exception( MustSupplyPackageNameAndName => params => \%options,
                                                             class  => $class
                           );
 
@@ -113,7 +111,7 @@ sub _generate_constructor_method_inline {
     }
     catch {
         my $source = join("\n", @source);
-        throw_exception( CouldNotEvalConstructor => constructor_method => $self,
+        $self->_throw_exception( CouldNotEvalConstructor => constructor_method => $self,
                                                     source             => $source,
                                                     error              => $_
                        );
@@ -138,7 +136,7 @@ Class::MOP::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 SYNOPSIS
 

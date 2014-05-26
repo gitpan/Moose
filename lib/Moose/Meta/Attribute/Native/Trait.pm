@@ -2,7 +2,7 @@ package Moose::Meta::Attribute::Native::Trait;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1206';
+$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1207';
 use Moose::Role;
 use Module::Runtime 'require_module';
 use List::MoreUtils qw( any uniq );
@@ -31,11 +31,9 @@ sub _check_helper_type {
     my $isa;
     my $isa_name;
 
-    if (
-        Moose::Util::does_role(
-            $options->{isa}, 'Specio::Constraint::Role::Interface'
-        )
-        ) {
+    if (   blessed( $options->{isa} )
+        && $options->{isa}->can('does')
+        && $options->{isa}->does('Specio::Constraint::Role::Interface') ) {
 
         $isa = $options->{isa};
         require Specio::Library::Builtins;
@@ -184,7 +182,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 BUGS
 

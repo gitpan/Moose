@@ -1,9 +1,8 @@
-
 package Class::MOP::Method::Meta;
 BEGIN {
   $Class::MOP::Method::Meta::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::Meta::VERSION = '2.1206';
+$Class::MOP::Method::Meta::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -51,8 +50,7 @@ sub wrap {
 
     unshift @args, 'body' if @args % 2 == 1;
     my %params = @args;
-    require Moose::Util;
-    Moose::Util::throw_exception( CannotOverrideBodyOfMetaMethods => params => \%params,
+    $class->_throw_exception( CannotOverrideBodyOfMetaMethods => params => \%params,
                                                                      class  => $class
                                 )
         if $params{body};
@@ -97,7 +95,7 @@ Class::MOP::Method::Meta - Method Meta Object for C<meta> methods
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

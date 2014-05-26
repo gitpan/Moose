@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Counter::reset;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Counter::reset::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Counter::reset::VERSION = '2.1206';
+$Moose::Meta::Method::Accessor::Native::Counter::reset::VERSION = '2.1207';
 use strict;
 use warnings;
 

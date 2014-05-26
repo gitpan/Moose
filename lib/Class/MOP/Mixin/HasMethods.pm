@@ -2,7 +2,7 @@ package Class::MOP::Mixin::HasMethods;
 BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Mixin::HasMethods::VERSION = '2.1206';
+$Class::MOP::Mixin::HasMethods::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -15,7 +15,6 @@ use Sub::Name    'subname';
 use overload ();
 
 use parent 'Class::MOP::Mixin';
-require Moose::Util;
 
 sub _meta_method_class { 'Class::MOP::Method::Meta' }
 
@@ -40,7 +39,7 @@ sub wrap_method_body {
     my ( $self, %args ) = @_;
 
     ( $args{body} && 'CODE' eq reftype $args{body} )
-        || Moose::Util::throw_exception( CodeBlockMustBeACodeRef => instance => $self,
+        || $self->_throw_exception( CodeBlockMustBeACodeRef => instance => $self,
                                                                     params   => \%args
                                        );
     $self->method_metaclass->wrap(
@@ -52,7 +51,7 @@ sub wrap_method_body {
 sub add_method {
     my ( $self, $method_name, $method ) = @_;
     ( defined $method_name && length $method_name )
-        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
+        || $self->_throw_exception( MustDefineAMethodName => instance => $self );
 
     my $package_name = $self->name;
 
@@ -100,7 +99,7 @@ sub has_method {
     my ( $self, $method_name ) = @_;
 
     ( defined $method_name && length $method_name )
-        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
+        || $self->_throw_exception( MustDefineAMethodName => instance => $self );
 
     my $method = $self->_get_maybe_raw_method($method_name)
         or return;
@@ -112,7 +111,7 @@ sub get_method {
     my ( $self, $method_name ) = @_;
 
     ( defined $method_name && length $method_name )
-        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
+        || $self->_throw_exception( MustDefineAMethodName => instance => $self );
 
     my $method = $self->_get_maybe_raw_method($method_name)
         or return;
@@ -143,7 +142,7 @@ sub remove_method {
     my ( $self, $method_name ) = @_;
 
     ( defined $method_name && length $method_name )
-        || Moose::Util::throw_exception( MustDefineAMethodName => instance => $self );
+        || $self->_throw_exception( MustDefineAMethodName => instance => $self );
 
     my $removed_method = delete $self->_method_map->{$method_name};
 
@@ -337,7 +336,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

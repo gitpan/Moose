@@ -2,7 +2,7 @@ package Moose::Exception::Role::EitherAttributeOrAttributeName;
 BEGIN {
   $Moose::Exception::Role::EitherAttributeOrAttributeName::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::Role::EitherAttributeOrAttributeName::VERSION = '2.1206';
+$Moose::Exception::Role::EitherAttributeOrAttributeName::VERSION = '2.1207';
 use Moose::Util 'throw_exception';
 use Moose::Role;
 

@@ -1,9 +1,8 @@
-
 package Class::MOP::Method::Generated;
 BEGIN {
   $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::Generated::VERSION = '2.1206';
+$Class::MOP::Method::Generated::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -11,16 +10,14 @@ use Eval::Closure;
 
 use parent 'Class::MOP::Method';
 
-use Moose::Util 'throw_exception';
-
 ## accessors
 
 sub new {
-    throw_exception( CannotCallAnAbstractBaseMethod => package_name => __PACKAGE__ );
+    $_[0]->_throw_exception( CannotCallAnAbstractBaseMethod => package_name => __PACKAGE__ );
 }
 
 sub _initialize_body {
-    throw_exception( NoBodyToInitializeInAnAbstractBaseClass => package_name => __PACKAGE__ );
+    $_[0]->_throw_exception( NoBodyToInitializeInAnAbstractBaseClass => package_name => __PACKAGE__ );
 }
 
 sub _generate_description {
@@ -81,7 +78,7 @@ Class::MOP::Method::Generated - Abstract base class for generated methods
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

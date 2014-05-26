@@ -2,7 +2,7 @@ package Moose::Exception::AttributeExtensionIsNotSupportedInRoles;
 BEGIN {
   $Moose::Exception::AttributeExtensionIsNotSupportedInRoles::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::AttributeExtensionIsNotSupportedInRoles::VERSION = '2.1206';
+$Moose::Exception::AttributeExtensionIsNotSupportedInRoles::VERSION = '2.1207';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

@@ -2,7 +2,7 @@ package Moose::Exception::Role::RoleForCreateMOPClass;
 BEGIN {
   $Moose::Exception::Role::RoleForCreateMOPClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::Role::RoleForCreateMOPClass::VERSION = '2.1206';
+$Moose::Exception::Role::RoleForCreateMOPClass::VERSION = '2.1207';
 use Moose::Role;
 with 'Moose::Exception::Role::ParamsHash';
 
@@ -13,4 +13,3 @@ has 'class' => (
 );
 
 1;
-

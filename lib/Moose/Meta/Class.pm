@@ -1,9 +1,8 @@
-
 package Moose::Meta::Class;
 BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Class::VERSION = '2.1206';
+$Moose::Meta::Class::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -336,7 +335,7 @@ sub _inline_BUILDARGS {
                 'if (scalar @_ == 1) {',
                     'if (!defined($_[0]) || ref($_[0]) ne \'HASH\') {',
                         $self->_inline_throw_exception(
-                            '"SingleParamsToNewMustBeHashRef"'
+                            'SingleParamsToNewMustBeHashRef'
                         ) . ';',
                     '}',
                     '$params = { %{ $_[0] } };',
@@ -383,7 +382,7 @@ sub _inline_check_required_attr {
     return (
         'if (!exists $params->{\'' . $attr->init_arg . '\'}) {',
             $self->_inline_throw_exception(
-                'AttributeIsRequired => '.
+                AttributeIsRequired =>
                 'params         => $params, '.
                 'class_name     => $class_name, '.
                 'attribute_name => "'.quotemeta($attr->name).'"'
@@ -786,8 +785,8 @@ sub _fixup_attributes_after_rebless {
 our $error_level;
 
 sub _inline_throw_exception {
-    my ( $self, $throw_args ) = @_;
-    return 'Moose::Util::throw_exception('.$throw_args.')';
+    my ( $self, $exception_type, $throw_args ) = @_;
+    return 'die Module::Runtime::use_module("Moose::Exception::' . $exception_type . '")->new(' . ($throw_args || '') . ')';
 }
 
 1;
@@ -806,7 +805,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

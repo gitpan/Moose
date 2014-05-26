@@ -1,9 +1,8 @@
-
 package Class::MOP::Package;
 BEGIN {
   $Class::MOP::Package::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Package::VERSION = '2.1206';
+$Class::MOP::Package::VERSION = '2.1207';
 use strict;
 use warnings;
 
@@ -14,8 +13,6 @@ use Module::Runtime 'module_notional_filename';
 use Package::Stash;
 
 use parent 'Class::MOP::Object';
-
-use Moose::Util 'throw_exception';
 
 # creation ...
 
@@ -54,7 +51,7 @@ sub reinitialize {
 
     (defined $package_name && $package_name
       && (!blessed $package_name || $package_name->isa('Class::MOP::Package')))
-        || throw_exception( MustPassAPackageNameOrAnExistingClassMOPPackageInstance => params => \%options,
+        || $class->_throw_exception( MustPassAPackageNameOrAnExistingClassMOPPackageInstance => params => \%options,
                                                                                        class  => $class
                           );
 
@@ -136,7 +133,7 @@ sub create {
     sub _anon_cache_key {
         my $class = shift;
         my %options = @_;
-        throw_exception( PackagesAndModulesAreNotCachable => class_name => $class,
+        $class->_throw_exception( PackagesAndModulesAreNotCachable => class_name => $class,
                                                              params     => \%options,
                                                              is_module  => 0
                        );
@@ -289,7 +286,7 @@ Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.1206
+version 2.1207
 
 =head1 DESCRIPTION
 

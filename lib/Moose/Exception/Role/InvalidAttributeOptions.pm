@@ -2,7 +2,7 @@ package Moose::Exception::Role::InvalidAttributeOptions;
 BEGIN {
   $Moose::Exception::Role::InvalidAttributeOptions::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::Role::InvalidAttributeOptions::VERSION = '2.1206';
+$Moose::Exception::Role::InvalidAttributeOptions::VERSION = '2.1207';
 use Moose::Role;
 with 'Moose::Exception::Role::ParamsHash';
 
