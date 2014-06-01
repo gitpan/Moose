@@ -2,7 +2,7 @@ package Moose::Exception::UnionTakesAtleastTwoTypeNames;
 BEGIN {
   $Moose::Exception::UnionTakesAtleastTwoTypeNames::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::UnionTakesAtleastTwoTypeNames::VERSION = '2.1207';
+$Moose::Exception::UnionTakesAtleastTwoTypeNames::VERSION = '2.1208';
 use Moose;
 extends 'Moose::Exception';
 

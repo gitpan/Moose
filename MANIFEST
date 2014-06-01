@@ -756,6 +756,7 @@ t/exceptions/object.t
 t/exceptions/overload.t
 t/exceptions/rt-92818.t
 t/exceptions/rt-94795.t
+t/exceptions/traits.t
 t/exceptions/typeconstraints.t
 t/exceptions/util.t
 t/immutable/apply_roles_to_immutable.t
@@ -999,7 +1000,6 @@ xt/release/distmeta.t
 xt/release/eol.t
 xt/release/kwalitee.t
 xt/release/mojibake.t
-xt/release/new-version.t
 xt/release/no-tabs.t
 xt/release/pod-coverage.t
 xt/release/pod-spell.t

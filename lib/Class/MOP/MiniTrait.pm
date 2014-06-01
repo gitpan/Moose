@@ -2,7 +2,7 @@ package Class::MOP::MiniTrait;
 BEGIN {
   $Class::MOP::MiniTrait::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::MiniTrait::VERSION = '2.1207';
+$Class::MOP::MiniTrait::VERSION = '2.1208';
 use strict;
 use warnings;
 
@@ -18,6 +18,7 @@ sub apply {
 
     for my $meth ( grep { $_->package_name ne 'UNIVERSAL' } $trait->get_all_methods ) {
         my $meth_name = $meth->name;
+        next if index($meth_name, '__') == 0;   # skip private subs
 
         if ( $to_class->find_method_by_name($meth_name) ) {
             $to_class->add_around_method_modifier( $meth_name, $meth->body );
@@ -50,7 +51,7 @@ Class::MOP::MiniTrait - Extremely limited trait application
 
 =head1 VERSION
 
-version 2.1207
+version 2.1208
 
 =head1 DESCRIPTION
 

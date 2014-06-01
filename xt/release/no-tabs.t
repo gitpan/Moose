@@ -710,6 +710,7 @@ my @files = (
     't/exceptions/overload.t',
     't/exceptions/rt-92818.t',
     't/exceptions/rt-94795.t',
+    't/exceptions/traits.t',
     't/exceptions/typeconstraints.t',
     't/exceptions/util.t',
     't/immutable/apply_roles_to_immutable.t',

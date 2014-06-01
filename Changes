@@ -1,6 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1208   2014-06-01
+
+  [BUG FIXES]
+
+  - fix implementation of throw_exception in internal Class::MOP traits,
+    caused by changes in 2.1207 (ether, RT#96112)
+
 2.1207   2014-05-26
 
   [OTHER]

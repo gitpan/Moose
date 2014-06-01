@@ -77,6 +77,7 @@ my $static_prereqs = do { my $x = {
                                         'Dist::Zilla' => '5',
                                         'Dist::Zilla::Plugin::Authority' => '0',
                                         'Dist::Zilla::Plugin::CheckChangesHasContent' => '0',
+                                        'Dist::Zilla::Plugin::CheckVersionIncrement' => '0',
                                         'Dist::Zilla::Plugin::ConfirmRelease' => '0',
                                         'Dist::Zilla::Plugin::Conflicts' => '0.13001',
                                         'Dist::Zilla::Plugin::ContributorsFromGit' => '0',
@@ -119,7 +120,6 @@ my $static_prereqs = do { my $x = {
                                         'Dist::Zilla::Plugin::Test::CheckBreaks' => '0',
                                         'Dist::Zilla::Plugin::Test::Compile' => '2.037',
                                         'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
-                                        'Dist::Zilla::Plugin::Test::NewVersion' => '0.008',
                                         'Dist::Zilla::Plugin::Test::NoTabs' => '0',
                                         'Dist::Zilla::Plugin::Test::ReportPrereqs' => '0',
                                         'Dist::Zilla::Plugin::TestRelease' => '0',
@@ -129,11 +129,11 @@ my $static_prereqs = do { my $x = {
                                         'IPC::System::Simple' => '0',
                                         'Path::Tiny' => '0',
                                         'Pod::Elemental::PerlMunger' => '0.200001',
-                                        'Test::Inline' => '0'
+                                        'Test::Inline' => '0',
+                                        'Test::Inline::Extract' => '0'
                                       },
                       'requires' => {
                                       'Algorithm::C3' => '0',
-                                      'CPAN::Meta' => '2.120920',
                                       'Class::Load' => '0.07',
                                       'DBM::Deep' => '1.003',
                                       'Data::Visitor' => '0',
@@ -141,22 +141,17 @@ my $static_prereqs = do { my $x = {
                                       'DateTime::Calendar::Mayan' => '0',
                                       'DateTime::Format::MySQL' => '0',
                                       'Declare::Constraints::Simple' => '0',
-                                      'Encode' => '0',
                                       'ExtUtils::MakeMaker::Dist::Zilla::Develop' => '0',
                                       'File::Find::Rule' => '0',
                                       'File::Spec' => '0',
                                       'HTTP::Headers' => '0',
-                                      'HTTP::Tiny' => '0',
                                       'IO::File' => '0',
                                       'IO::Handle' => '0',
                                       'IO::String' => '0',
                                       'IPC::Open3' => '0',
-                                      'JSON' => '0',
-                                      'List::Util' => '0',
                                       'Locale::US' => '0',
                                       'Module::CPANTS::Analyse' => '0.92',
                                       'Module::Info' => '0',
-                                      'Module::Metadata' => '0',
                                       'Module::Refresh' => '0',
                                       'MooseX::NonMoose' => '0',
                                       'PadWalker' => '0',
@@ -180,8 +175,7 @@ my $static_prereqs = do { my $x = {
                                       'Test::Pod::Coverage' => '1.04',
                                       'Test::Spelling' => '0',
                                       'URI' => '0',
-                                      'blib' => '0',
-                                      'version' => '0'
+                                      'blib' => '0'
                                     }
                     },
        'runtime' => {

@@ -2,7 +2,7 @@ package Class::MOP::Class::Immutable::Trait;
 BEGIN {
   $Class::MOP::Class::Immutable::Trait::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Class::Immutable::Trait::VERSION = '2.1207';
+$Class::MOP::Class::Immutable::Trait::VERSION = '2.1208';
 use strict;
 use warnings;
 
@@ -20,12 +20,12 @@ sub _immutable_metaclass { ref $_[1] }
 
 sub _immutable_read_only {
     my $name = shift;
-    __PACKAGE__->_throw_exception( CallingReadOnlyMethodOnAnImmutableInstance => method_name => $name );
+    __throw_exception( CallingReadOnlyMethodOnAnImmutableInstance => method_name => $name );
 }
 
 sub _immutable_cannot_call {
     my $name = shift;
-    __PACKAGE__->_throw_exception( CallingMethodOnAnImmutableInstance => method_name => $name );
+    __throw_exception( CallingMethodOnAnImmutableInstance => method_name => $name );
 }
 
 for my $name (qw/superclasses/) {
@@ -86,8 +86,11 @@ sub _method_map {
     $self->{__immutable}{_method_map} ||= $self->$orig;
 }
 
-sub _throw_exception {
-    my ($class, $exception_type, @args_to_exception) = @_;
+# private method, for this file only -
+# if we declare a method here, it will behave differently depending on what
+# class this trait is applied to, so we won't have a reliable parameter list.
+sub __throw_exception {
+    my ($exception_type, @args_to_exception) = @_;
     die use_module( "Moose::Exception::$exception_type" )->new( @args_to_exception );
 }
 
@@ -107,7 +110,7 @@ Class::MOP::Class::Immutable::Trait - Implements immutability for metaclass obje
 
 =head1 VERSION
 
-version 2.1207
+version 2.1208
 
 =head1 DESCRIPTION
 

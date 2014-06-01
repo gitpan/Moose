@@ -2,7 +2,7 @@ package Class::MOP::Mixin::HasMethods;
 BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Mixin::HasMethods::VERSION = '2.1207';
+$Class::MOP::Mixin::HasMethods::VERSION = '2.1208';
 use strict;
 use warnings;
 
@@ -336,7 +336,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.1207
+version 2.1208
 
 =head1 DESCRIPTION
 

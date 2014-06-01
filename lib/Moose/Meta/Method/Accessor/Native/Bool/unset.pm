@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Bool::unset;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Bool::unset::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Bool::unset::VERSION = '2.1207';
+$Moose::Meta::Method::Accessor::Native::Bool::unset::VERSION = '2.1208';
 use strict;
 use warnings;
 

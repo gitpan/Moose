@@ -2,7 +2,7 @@ package Class::MOP::Module;
 BEGIN {
   $Class::MOP::Module::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Module::VERSION = '2.1207';
+$Class::MOP::Module::VERSION = '2.1208';
 use strict;
 use warnings;
 
@@ -107,7 +107,7 @@ Class::MOP::Module - Module Meta Object
 
 =head1 VERSION
 
-version 2.1207
+version 2.1208
 
 =head1 DESCRIPTION
 

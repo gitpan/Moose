@@ -13,7 +13,7 @@ Moose::Cookbook::Basics::DateTime_ExtendingNonMooseParent - Extending a non-Moos
 
 =head1 VERSION
 
-version 2.1207
+version 2.1208
 
 =head1 SYNOPSIS
 

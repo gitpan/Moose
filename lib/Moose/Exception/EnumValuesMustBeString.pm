@@ -2,7 +2,7 @@ package Moose::Exception::EnumValuesMustBeString;
 BEGIN {
   $Moose::Exception::EnumValuesMustBeString::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::EnumValuesMustBeString::VERSION = '2.1207';
+$Moose::Exception::EnumValuesMustBeString::VERSION = '2.1208';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

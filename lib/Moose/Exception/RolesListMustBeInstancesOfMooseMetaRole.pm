@@ -2,7 +2,7 @@ package Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole;
 BEGIN {
   $Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole::VERSION = '2.1207';
+$Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole::VERSION = '2.1208';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

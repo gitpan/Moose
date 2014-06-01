@@ -2,7 +2,7 @@ package Moose::Exception::MetaclassNotLoaded;
 BEGIN {
   $Moose::Exception::MetaclassNotLoaded::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MetaclassNotLoaded::VERSION = '2.1207';
+$Moose::Exception::MetaclassNotLoaded::VERSION = '2.1208';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

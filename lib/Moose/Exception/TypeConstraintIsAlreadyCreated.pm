@@ -2,7 +2,7 @@ package Moose::Exception::TypeConstraintIsAlreadyCreated;
 BEGIN {
   $Moose::Exception::TypeConstraintIsAlreadyCreated::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::TypeConstraintIsAlreadyCreated::VERSION = '2.1207';
+$Moose::Exception::TypeConstraintIsAlreadyCreated::VERSION = '2.1208';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';
