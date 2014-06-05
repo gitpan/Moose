@@ -2,7 +2,7 @@ package Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstanc
 BEGIN {
   $Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance::VERSION = '2.1208';
+$Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

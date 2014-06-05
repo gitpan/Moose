@@ -2,7 +2,7 @@ package Moose::Exception::PackagesAndModulesAreNotCachable;
 BEGIN {
   $Moose::Exception::PackagesAndModulesAreNotCachable::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::PackagesAndModulesAreNotCachable::VERSION = '2.1208';
+$Moose::Exception::PackagesAndModulesAreNotCachable::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

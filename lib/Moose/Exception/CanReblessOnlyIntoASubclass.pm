@@ -2,7 +2,7 @@ package Moose::Exception::CanReblessOnlyIntoASubclass;
 BEGIN {
   $Moose::Exception::CanReblessOnlyIntoASubclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CanReblessOnlyIntoASubclass::VERSION = '2.1208';
+$Moose::Exception::CanReblessOnlyIntoASubclass::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::InstanceClass';

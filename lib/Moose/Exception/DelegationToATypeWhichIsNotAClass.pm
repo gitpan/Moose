@@ -2,7 +2,7 @@ package Moose::Exception::DelegationToATypeWhichIsNotAClass;
 BEGIN {
   $Moose::Exception::DelegationToATypeWhichIsNotAClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::DelegationToATypeWhichIsNotAClass::VERSION = '2.1208';
+$Moose::Exception::DelegationToATypeWhichIsNotAClass::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

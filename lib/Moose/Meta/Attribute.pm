@@ -4,7 +4,7 @@ package Moose::Meta::Attribute;
 BEGIN {
   $Moose::Meta::Attribute::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::VERSION = '2.1208';
+$Moose::Meta::Attribute::VERSION = '2.1209';
 use B ();
 use Scalar::Util 'blessed', 'weaken';
 use List::MoreUtils 'any';
@@ -1276,7 +1276,7 @@ package Moose::Meta::Attribute::Custom::Moose;
 BEGIN {
   $Moose::Meta::Attribute::Custom::Moose::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1208';
+$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1209';
 sub register_implementation { 'Moose::Meta::Attribute' }
 1;
 
@@ -1294,7 +1294,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.1208
+version 2.1209
 
 =head1 DESCRIPTION
 

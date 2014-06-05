@@ -2,7 +2,7 @@ package Moose::Exception::MustSupplyAMetaclass;
 BEGIN {
   $Moose::Exception::MustSupplyAMetaclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSupplyAMetaclass::VERSION = '2.1208';
+$Moose::Exception::MustSupplyAMetaclass::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

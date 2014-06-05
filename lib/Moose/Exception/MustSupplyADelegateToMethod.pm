@@ -2,7 +2,7 @@ package Moose::Exception::MustSupplyADelegateToMethod;
 BEGIN {
   $Moose::Exception::MustSupplyADelegateToMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSupplyADelegateToMethod::VERSION = '2.1208';
+$Moose::Exception::MustSupplyADelegateToMethod::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

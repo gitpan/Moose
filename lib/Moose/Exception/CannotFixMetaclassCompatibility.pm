@@ -2,7 +2,7 @@ package Moose::Exception::CannotFixMetaclassCompatibility;
 BEGIN {
   $Moose::Exception::CannotFixMetaclassCompatibility::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotFixMetaclassCompatibility::VERSION = '2.1208';
+$Moose::Exception::CannotFixMetaclassCompatibility::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Hash::kv;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Hash::kv::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Hash::kv::VERSION = '2.1208';
+$Moose::Meta::Method::Accessor::Native::Hash::kv::VERSION = '2.1209';
 use strict;
 use warnings;
 

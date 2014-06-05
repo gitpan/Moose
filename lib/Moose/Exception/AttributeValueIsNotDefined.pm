@@ -2,7 +2,7 @@ package Moose::Exception::AttributeValueIsNotDefined;
 BEGIN {
   $Moose::Exception::AttributeValueIsNotDefined::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::AttributeValueIsNotDefined::VERSION = '2.1208';
+$Moose::Exception::AttributeValueIsNotDefined::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::Attribute';

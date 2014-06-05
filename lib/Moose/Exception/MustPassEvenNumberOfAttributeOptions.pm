@@ -2,7 +2,7 @@ package Moose::Exception::MustPassEvenNumberOfAttributeOptions;
 BEGIN {
   $Moose::Exception::MustPassEvenNumberOfAttributeOptions::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustPassEvenNumberOfAttributeOptions::VERSION = '2.1208';
+$Moose::Exception::MustPassEvenNumberOfAttributeOptions::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 

@@ -2,7 +2,7 @@ package Moose::Exception::OnlyInstancesCanBeCloned;
 BEGIN {
   $Moose::Exception::OnlyInstancesCanBeCloned::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::OnlyInstancesCanBeCloned::VERSION = '2.1208';
+$Moose::Exception::OnlyInstancesCanBeCloned::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

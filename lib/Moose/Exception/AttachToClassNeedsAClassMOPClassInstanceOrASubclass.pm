@@ -2,7 +2,7 @@ package Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass;
 BEGIN {
   $Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass::VERSION = '2.1208';
+$Moose::Exception::AttachToClassNeedsAClassMOPClassInstanceOrASubclass::VERSION = '2.1209';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

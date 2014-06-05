@@ -2,7 +2,7 @@ package Moose::Meta::Role::Composite;
 BEGIN {
   $Moose::Meta::Role::Composite::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Composite::VERSION = '2.1208';
+$Moose::Meta::Role::Composite::VERSION = '2.1209';
 use strict;
 use warnings;
 use metaclass;
@@ -75,6 +75,12 @@ sub new {
     $params{name} ||= (join "|" => map { $_->name } @{$params{roles}});
     $class->_new(\%params);
 }
+
+# There's no such thing as an anonymous composite role since composites are an
+# artifact of Moose's internals. However, a composite role that contains an
+# anon role may _look_ like an anon role since $self->name =~ /$anon_key/ can
+# return true if the first role in the composite is anonymous itself.
+sub is_anon { 0 }
 
 # This is largely a copy of what's in Moose::Meta::Role (itself
 # largely a copy of Class::MOP::Class). However, we can't actually
@@ -171,7 +177,7 @@ Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.1208
+version 2.1209
 
 =head1 DESCRIPTION
 

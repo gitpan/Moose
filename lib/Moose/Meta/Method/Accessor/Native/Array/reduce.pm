@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::reduce;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::reduce::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::reduce::VERSION = '2.1208';
+$Moose::Meta::Method::Accessor::Native::Array::reduce::VERSION = '2.1209';
 use strict;
 use warnings;
 
