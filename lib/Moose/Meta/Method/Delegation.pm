@@ -2,7 +2,7 @@ package Moose::Meta::Method::Delegation;
 BEGIN {
   $Moose::Meta::Method::Delegation::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Delegation::VERSION = '2.1209';
+$Moose::Meta::Method::Delegation::VERSION = '2.1210';
 use strict;
 use warnings;
 
@@ -151,7 +151,7 @@ Moose::Meta::Method::Delegation - A Moose Method metaclass for delegation method
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 DESCRIPTION
 

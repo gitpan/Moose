@@ -2,7 +2,7 @@ package Moose::Meta::Method::Overridden;
 BEGIN {
   $Moose::Meta::Method::Overridden::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Overridden::VERSION = '2.1209';
+$Moose::Meta::Method::Overridden::VERSION = '2.1210';
 use strict;
 use warnings;
 
@@ -67,7 +67,7 @@ Moose::Meta::Method::Overridden - A Moose Method metaclass for overridden method
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 DESCRIPTION
 

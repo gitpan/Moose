@@ -2,7 +2,7 @@ package Moose::Exception::NeitherAttributeNorAttributeNameIsGiven;
 BEGIN {
   $Moose::Exception::NeitherAttributeNorAttributeNameIsGiven::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::NeitherAttributeNorAttributeNameIsGiven::VERSION = '2.1209';
+$Moose::Exception::NeitherAttributeNorAttributeNameIsGiven::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 

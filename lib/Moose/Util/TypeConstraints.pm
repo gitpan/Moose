@@ -2,7 +2,7 @@ package Moose::Util::TypeConstraints;
 BEGIN {
   $Moose::Util::TypeConstraints::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Util::TypeConstraints::VERSION = '2.1209';
+$Moose::Util::TypeConstraints::VERSION = '2.1210';
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
@@ -773,7 +773,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 SYNOPSIS
 

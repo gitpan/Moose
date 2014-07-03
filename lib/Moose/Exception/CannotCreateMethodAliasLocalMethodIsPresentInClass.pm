@@ -2,7 +2,7 @@ package Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresentInClass;
 BEGIN {
   $Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresentInClass::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresentInClass::VERSION = '2.1209';
+$Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresentInClass::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role', 'Moose::Exception::Role::Method', 'Moose::Exception::Role::Class';

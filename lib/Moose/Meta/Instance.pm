@@ -2,7 +2,7 @@ package Moose::Meta::Instance;
 BEGIN {
   $Moose::Meta::Instance::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Instance::VERSION = '2.1209';
+$Moose::Meta::Instance::VERSION = '2.1210';
 use strict;
 use warnings;
 
@@ -28,7 +28,7 @@ Moose::Meta::Instance - The Moose Instance metaclass
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 SYNOPSIS
 

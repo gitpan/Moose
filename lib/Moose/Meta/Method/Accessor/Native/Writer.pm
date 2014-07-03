@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Writer;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Writer::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Writer::VERSION = '2.1209';
+$Moose::Meta::Method::Accessor::Native::Writer::VERSION = '2.1210';
 use strict;
 use warnings;
 

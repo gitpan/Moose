@@ -2,7 +2,7 @@ package Moose::Exception::PackageNameAndNameParamsNotGivenToWrap;
 BEGIN {
   $Moose::Exception::PackageNameAndNameParamsNotGivenToWrap::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::PackageNameAndNameParamsNotGivenToWrap::VERSION = '2.1209';
+$Moose::Exception::PackageNameAndNameParamsNotGivenToWrap::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

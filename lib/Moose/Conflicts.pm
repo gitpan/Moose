@@ -70,6 +70,7 @@ use Dist::CheckConflicts
         'Test::CleanNamespaces' => '0.03',
         'Test::Moose::More' => '0.022',
         'Test::TempDir' => '0.05',
+        'Throwable' => '0.102080',
         'namespace::autoclean' => '0.08',
     },
 
@@ -91,7 +92,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 AUTHORS
 

@@ -2,7 +2,7 @@ package Moose::Exception;
 BEGIN {
   $Moose::Exception::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::VERSION = '2.1209';
+$Moose::Exception::VERSION = '2.1210';
 use Moose;
 use Devel::StackTrace;
 
@@ -51,7 +51,7 @@ sub BUILD {
 
 1;
 
-# ABSTRACT: Superclass of all Moose exceptions
+# ABSTRACT: Superclass for Moose internal exceptions
 
 __END__
 
@@ -61,16 +61,26 @@ __END__
 
 =head1 NAME
 
-Moose::Exception - Superclass of all Moose exceptions
+Moose::Exception - Superclass for Moose internal exceptions
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 DESCRIPTION
 
-This class contains attributes which are common to all Moose exceptions
-classes.
+This class contains attributes which are common to all Moose internal
+exception classes.
+
+=head1 WARNING WARNING WARNING
+
+If you're writing your own exception classes, you should instead prefer
+the L<Throwable> role or the L<Throwable::Error> superclass - this is
+effectively a cut-down internal fork of the latter, and not designed
+for use in user code.
+
+Of course if you're writing metaclass traits, it would then make sense to
+subclass the relevant Moose exceptions - but only then.
 
 =head1 ATTRIBUTES
 

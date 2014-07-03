@@ -2,7 +2,7 @@ package Moose::Exception::MustDefineAMethodName;
 BEGIN {
   $Moose::Exception::MustDefineAMethodName::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustDefineAMethodName::VERSION = '2.1209';
+$Moose::Exception::MustDefineAMethodName::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

@@ -2,7 +2,7 @@ package Class::MOP::Mixin::HasAttributes;
 BEGIN {
   $Class::MOP::Mixin::HasAttributes::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Mixin::HasAttributes::VERSION = '2.1209';
+$Class::MOP::Mixin::HasAttributes::VERSION = '2.1210';
 use strict;
 use warnings;
 
@@ -109,7 +109,7 @@ Class::MOP::Mixin::HasAttributes - Methods for metaclasses which have attributes
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 DESCRIPTION
 

@@ -2,7 +2,7 @@ package Moose::Exception::CreateTakesHashRefOfMethods;
 BEGIN {
   $Moose::Exception::CreateTakesHashRefOfMethods::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CreateTakesHashRefOfMethods::VERSION = '2.1209';
+$Moose::Exception::CreateTakesHashRefOfMethods::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::RoleForCreate';

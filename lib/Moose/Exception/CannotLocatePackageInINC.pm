@@ -2,7 +2,7 @@ package Moose::Exception::CannotLocatePackageInINC;
 BEGIN {
   $Moose::Exception::CannotLocatePackageInINC::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotLocatePackageInINC::VERSION = '2.1209';
+$Moose::Exception::CannotLocatePackageInINC::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

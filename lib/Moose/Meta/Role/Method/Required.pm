@@ -2,7 +2,7 @@ package Moose::Meta::Role::Method::Required;
 BEGIN {
   $Moose::Meta::Role::Method::Required::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Method::Required::VERSION = '2.1209';
+$Moose::Meta::Role::Method::Required::VERSION = '2.1210';
 use strict;
 use warnings;
 use metaclass;
@@ -39,7 +39,7 @@ Moose::Meta::Role::Method::Required - A Moose metaclass for required methods in 
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 DESCRIPTION
 

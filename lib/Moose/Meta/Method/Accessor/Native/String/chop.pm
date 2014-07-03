@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::chop;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::chop::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::String::chop::VERSION = '2.1209';
+$Moose::Meta::Method::Accessor::Native::String::chop::VERSION = '2.1210';
 use strict;
 use warnings;
 

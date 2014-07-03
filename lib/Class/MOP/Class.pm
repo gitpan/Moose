@@ -2,7 +2,7 @@ package Class::MOP::Class;
 BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Class::VERSION = '2.1209';
+$Class::MOP::Class::VERSION = '2.1210';
 use strict;
 use warnings;
 
@@ -1528,7 +1528,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 SYNOPSIS
 

@@ -880,7 +880,6 @@ my @files = (
     't/test_moose/test_moose_has_attribute_ok.t',
     't/test_moose/test_moose_meta_ok.t',
     't/test_moose/with_immutable.t',
-    't/test_moose/with_immutable_tb2.t',
     't/todo_tests/exception_reflects_failed_constraint.t',
     't/todo_tests/immutable_n_around.t',
     't/todo_tests/moose_and_threads.t',

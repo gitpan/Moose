@@ -2,7 +2,7 @@ package Moose::Exception::MethodExpectedAMetaclassObject;
 BEGIN {
   $Moose::Exception::MethodExpectedAMetaclassObject::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MethodExpectedAMetaclassObject::VERSION = '2.1209';
+$Moose::Exception::MethodExpectedAMetaclassObject::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 

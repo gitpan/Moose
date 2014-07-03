@@ -2,7 +2,7 @@ package Moose::Exception::MethodNameNotFoundInInheritanceHierarchy;
 BEGIN {
   $Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::VERSION = '2.1209';
+$Moose::Exception::MethodNameNotFoundInInheritanceHierarchy::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

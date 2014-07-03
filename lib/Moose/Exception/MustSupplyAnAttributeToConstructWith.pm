@@ -2,7 +2,7 @@ package Moose::Exception::MustSupplyAnAttributeToConstructWith;
 BEGIN {
   $Moose::Exception::MustSupplyAnAttributeToConstructWith::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSupplyAnAttributeToConstructWith::VERSION = '2.1209';
+$Moose::Exception::MustSupplyAnAttributeToConstructWith::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

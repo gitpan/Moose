@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::Test::CheckBreaks 0.007
+# this test was generated with Dist::Zilla::Plugin::Test::CheckBreaks 0.009
 
 use Test::More;
 
@@ -77,6 +77,7 @@ my $breaks = {
   "Test::CleanNamespaces" => "<= 0.03",
   "Test::Moose::More" => "<= 0.022",
   "Test::TempDir" => "<= 0.05",
+  "Throwable" => "<= 0.102080",
   "namespace::autoclean" => "<= 0.08"
 };
 
@@ -87,10 +88,10 @@ $reqs->add_string_requirement($_, $breaks->{$_}) foreach keys %$breaks;
 use CPAN::Meta::Check 0.007 'check_requirements';
 our $result = check_requirements($reqs, 'conflicts');
 
-if (my @breaks = sort grep { defined $result->{$_} } keys %$result)
+if (my @breaks = grep { defined $result->{$_} } keys %$result)
 {
     diag 'Breakages found with Moose:';
-    diag "$result->{$_}" for @breaks;
+    diag "$result->{$_}" for sort @breaks;
     diag "\n", 'You should now update these modules!';
 }
 

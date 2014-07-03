@@ -2,7 +2,7 @@ package Moose::Meta::Attribute::Native::Trait::Array;
 BEGIN {
   $Moose::Meta::Attribute::Native::Trait::Array::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.1209';
+$Moose::Meta::Attribute::Native::Trait::Array::VERSION = '2.1210';
 use Moose::Role;
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -26,7 +26,7 @@ Moose::Meta::Attribute::Native::Trait::Array - Helper trait for ArrayRef attribu
 
 =head1 VERSION
 
-version 2.1209
+version 2.1210
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ package Moose::Exception::CouldNotCreateWriter;
 BEGIN {
   $Moose::Exception::CouldNotCreateWriter::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CouldNotCreateWriter::VERSION = '2.1209';
+$Moose::Exception::CouldNotCreateWriter::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::EitherAttributeOrAttributeName', 'Moose::Exception::Role::Instance';

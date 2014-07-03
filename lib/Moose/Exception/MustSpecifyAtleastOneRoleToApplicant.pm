@@ -2,7 +2,7 @@ package Moose::Exception::MustSpecifyAtleastOneRoleToApplicant;
 BEGIN {
   $Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::VERSION = '2.1209';
+$Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 

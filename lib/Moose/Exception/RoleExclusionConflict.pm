@@ -2,7 +2,7 @@ package Moose::Exception::RoleExclusionConflict;
 BEGIN {
   $Moose::Exception::RoleExclusionConflict::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::RoleExclusionConflict::VERSION = '2.1209';
+$Moose::Exception::RoleExclusionConflict::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

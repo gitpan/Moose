@@ -2,7 +2,7 @@ package Moose::Exception::CannotFindTypeGivenToMatchOnType;
 BEGIN {
   $Moose::Exception::CannotFindTypeGivenToMatchOnType::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotFindTypeGivenToMatchOnType::VERSION = '2.1209';
+$Moose::Exception::CannotFindTypeGivenToMatchOnType::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 

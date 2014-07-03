@@ -2,7 +2,7 @@ package Moose::Exception::CannotOverrideBodyOfMetaMethods;
 BEGIN {
   $Moose::Exception::CannotOverrideBodyOfMetaMethods::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotOverrideBodyOfMetaMethods::VERSION = '2.1209';
+$Moose::Exception::CannotOverrideBodyOfMetaMethods::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

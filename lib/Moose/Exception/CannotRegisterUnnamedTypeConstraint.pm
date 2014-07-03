@@ -2,7 +2,7 @@ package Moose::Exception::CannotRegisterUnnamedTypeConstraint;
 BEGIN {
   $Moose::Exception::CannotRegisterUnnamedTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotRegisterUnnamedTypeConstraint::VERSION = '2.1209';
+$Moose::Exception::CannotRegisterUnnamedTypeConstraint::VERSION = '2.1210';
 use Moose;
 extends 'Moose::Exception';
 
