@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::insert;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::insert::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::insert::VERSION = '2.1210';
+$Moose::Meta::Method::Accessor::Native::Array::insert::VERSION = '2.1211';
 use strict;
 use warnings;
 

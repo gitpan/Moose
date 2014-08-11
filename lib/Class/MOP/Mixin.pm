@@ -2,7 +2,7 @@ package Class::MOP::Mixin;
 BEGIN {
   $Class::MOP::Mixin::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Mixin::VERSION = '2.1210';
+$Class::MOP::Mixin::VERSION = '2.1211';
 use strict;
 use warnings;
 
@@ -35,7 +35,7 @@ Class::MOP::Mixin - Base class for mixin classes
 
 =head1 VERSION
 
-version 2.1210
+version 2.1211
 
 =head1 DESCRIPTION
 

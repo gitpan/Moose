@@ -2,7 +2,7 @@ package Moose::Exception::CannotAutoDereferenceTypeConstraint;
 BEGIN {
   $Moose::Exception::CannotAutoDereferenceTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotAutoDereferenceTypeConstraint::VERSION = '2.1210';
+$Moose::Exception::CannotAutoDereferenceTypeConstraint::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute', 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::TypeConstraint';

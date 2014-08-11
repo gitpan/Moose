@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::uniq;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::uniq::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::uniq::VERSION = '2.1210';
+$Moose::Meta::Method::Accessor::Native::Array::uniq::VERSION = '2.1211';
 use strict;
 use warnings;
 

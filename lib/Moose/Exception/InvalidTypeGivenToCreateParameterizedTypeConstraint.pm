@@ -2,7 +2,7 @@ package Moose::Exception::InvalidTypeGivenToCreateParameterizedTypeConstraint;
 BEGIN {
   $Moose::Exception::InvalidTypeGivenToCreateParameterizedTypeConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::InvalidTypeGivenToCreateParameterizedTypeConstraint::VERSION = '2.1210';
+$Moose::Exception::InvalidTypeGivenToCreateParameterizedTypeConstraint::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

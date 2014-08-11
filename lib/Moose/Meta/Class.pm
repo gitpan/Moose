@@ -2,7 +2,7 @@ package Moose::Meta::Class;
 BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Class::VERSION = '2.1210';
+$Moose::Meta::Class::VERSION = '2.1211';
 use strict;
 use warnings;
 
@@ -805,7 +805,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1210
+version 2.1211
 
 =head1 DESCRIPTION
 
@@ -879,6 +879,9 @@ the class.
 Each superclass can be followed by a hash reference containing a
 L<-version|Class::MOP/Class Loading Options> value. If the version
 requirement is not satisfied an error will be thrown.
+
+When you pass classes to this method, we will attempt to load them if they are
+not already loaded.
 
 =item B<< $metaclass->add_override_method_modifier($name, $sub) >>
 

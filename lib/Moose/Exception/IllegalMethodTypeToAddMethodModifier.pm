@@ -2,7 +2,7 @@ package Moose::Exception::IllegalMethodTypeToAddMethodModifier;
 BEGIN {
   $Moose::Exception::IllegalMethodTypeToAddMethodModifier::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::IllegalMethodTypeToAddMethodModifier::VERSION = '2.1210';
+$Moose::Exception::IllegalMethodTypeToAddMethodModifier::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 

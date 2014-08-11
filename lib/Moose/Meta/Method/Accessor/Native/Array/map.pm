@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::map;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::map::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::map::VERSION = '2.1210';
+$Moose::Meta::Method::Accessor::Native::Array::map::VERSION = '2.1211';
 use strict;
 use warnings;
 

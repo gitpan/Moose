@@ -2,7 +2,7 @@ package Moose::Exception::BuilderMethodNotSupportedForAttribute;
 BEGIN {
   $Moose::Exception::BuilderMethodNotSupportedForAttribute::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::BuilderMethodNotSupportedForAttribute::VERSION = '2.1210';
+$Moose::Exception::BuilderMethodNotSupportedForAttribute::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute', 'Moose::Exception::Role::Instance';

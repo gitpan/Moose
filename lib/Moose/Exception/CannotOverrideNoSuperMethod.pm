@@ -2,7 +2,7 @@ package Moose::Exception::CannotOverrideNoSuperMethod;
 BEGIN {
   $Moose::Exception::CannotOverrideNoSuperMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotOverrideNoSuperMethod::VERSION = '2.1210';
+$Moose::Exception::CannotOverrideNoSuperMethod::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

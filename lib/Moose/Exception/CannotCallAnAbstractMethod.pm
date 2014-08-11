@@ -2,7 +2,7 @@ package Moose::Exception::CannotCallAnAbstractMethod;
 BEGIN {
   $Moose::Exception::CannotCallAnAbstractMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotCallAnAbstractMethod::VERSION = '2.1210';
+$Moose::Exception::CannotCallAnAbstractMethod::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 

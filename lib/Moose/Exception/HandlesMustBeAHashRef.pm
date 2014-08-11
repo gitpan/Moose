@@ -2,7 +2,7 @@ package Moose::Exception::HandlesMustBeAHashRef;
 BEGIN {
   $Moose::Exception::HandlesMustBeAHashRef::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::HandlesMustBeAHashRef::VERSION = '2.1210';
+$Moose::Exception::HandlesMustBeAHashRef::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

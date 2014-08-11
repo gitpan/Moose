@@ -2,7 +2,7 @@ package Moose::Exception::CannotGenerateInlineConstraint;
 BEGIN {
   $Moose::Exception::CannotGenerateInlineConstraint::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotGenerateInlineConstraint::VERSION = '2.1210';
+$Moose::Exception::CannotGenerateInlineConstraint::VERSION = '2.1211';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

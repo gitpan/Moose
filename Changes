@@ -1,12 +1,27 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1211   2014-08-11
+
+  [DOCUMENTATION]
+
+  - Updated Changes and Moose::Manual::Delta to note when we started removing
+    lazy_build from docs. Also added a note in the Moose::Meta::Attribute docs
+    stating that use of this feature is discouraged.
+  - Added a pointer from the auto_deref feature to
+    Moose::Meta::Attribute::Native. This is often a better choice.
+
+  [OTHER]
+
+  - The subs installed by Moose::Exporter->setup_import_methods are now named
+    using Sub::Name (Dave Rolsky, RT#97572)
+
 2.1210   2014-07-03
 
   [DOCUMENTATION]
 
   - Clarify that Moose::Exception exists for internal usage and that user
-    code is better using the Throwable role or Throwable::Error superclass.
+    code is better off using the Throwable role or Throwable::Error superclass.
   - Moose::Manual::Support policy clarified regarding legacy Perl versions
 
   [OTHER]
@@ -245,9 +260,8 @@ for, noteworthy changes.
     Rolsky)
 
   - You can now use Specio types instead of Moose builtins or
-    MooseX::Types. As a bonus, Specio types inline coercion. However, this
-    support is still experimental (as is Specio), so use it with care. (Dave
-    Rolsky)
+    MooseX::Types. However, this support is still experimental (as is Specio),
+    so use it with care. (Dave Rolsky)
 
 2.0900   2013-05-26 (TRIAL RELEASE)
 
@@ -322,6 +336,11 @@ for, noteworthy changes.
     never been tested or documented, but since the generated init_meta is
     nothing more than a compatibility shim at this point, there's no reason to
     not make it as compatible as possible. Reported by Moritz Onken. (doy)
+
+  [DOCUMENTATION]
+
+  - The lazy_build attribute feature was removed from
+    Moose::Manual::BestPractices.
 
 2.0601   2012-05-01
 
@@ -781,6 +800,11 @@ for, noteworthy changes.
     other classes, such as those found in pluggable regexp engines.
     Additionally the 'Object' constraint no longer rejects objects implemented
     as a blessed regular expression. (David Leadbeater)
+
+  [DOCUMENTATION]
+
+  - The lazy_build attribute feature was mostly removed from the docs and is
+    no longer encouraged.
 
   [OTHER]
 

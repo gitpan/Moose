@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::delete;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::delete::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::delete::VERSION = '2.1210';
+$Moose::Meta::Method::Accessor::Native::Array::delete::VERSION = '2.1211';
 use strict;
 use warnings;
 
