@@ -2,7 +2,7 @@ package Moose::Meta::Class;
 BEGIN {
   $Moose::Meta::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Class::VERSION = '2.1211';
+$Moose::Meta::Class::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 
@@ -805,7 +805,7 @@ Moose::Meta::Class - The Moose metaclass
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 DESCRIPTION
 

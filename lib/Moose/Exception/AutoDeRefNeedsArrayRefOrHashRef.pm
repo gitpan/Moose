@@ -2,7 +2,7 @@ package Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef;
 BEGIN {
   $Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::VERSION = '2.1211';
+$Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

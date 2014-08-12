@@ -47,7 +47,7 @@ use Dist::CheckConflicts
         'MooseX::PrivateSetters' => '0.03',
         'MooseX::Role::Cmd' => '0.06',
         'MooseX::Role::Parameterized' => '1.00',
-        'MooseX::Role::WithOverloading' => '0.07',
+        'MooseX::Role::WithOverloading' => '0.14',
         'MooseX::Runnable' => '0.03',
         'MooseX::Scaffold' => '0.05',
         'MooseX::SemiAffordanceAccessor' => '0.05',
@@ -92,7 +92,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 AUTHORS
 

@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::String::inc;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::String::inc::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::String::inc::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::String::inc::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

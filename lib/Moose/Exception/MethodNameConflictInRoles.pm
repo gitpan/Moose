@@ -2,7 +2,7 @@ package Moose::Exception::MethodNameConflictInRoles;
 BEGIN {
   $Moose::Exception::MethodNameConflictInRoles::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MethodNameConflictInRoles::VERSION = '2.1211';
+$Moose::Exception::MethodNameConflictInRoles::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

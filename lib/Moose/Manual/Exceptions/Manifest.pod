@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Moose::Manual::Exceptions::Manifest;
 # ABSTRACT: Moose's Exception Types
-$Moose::Manual::Exceptions::Manifest::VERSION = '2.1211';
+$Moose::Manual::Exceptions::Manifest::VERSION = '2.1300'; # TRIAL
 
 __END__
 
@@ -16,7 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 Moose::Exception::AccessorMustReadWrite
 
@@ -6589,6 +6589,88 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 =head4 Sample Error Message:
 
     operator is required
+
+=head1 Moose::Exception::OverloadConflictInComposition
+
+This class is a subclass of L<Moose::Exception> and consumes role
+L<Moose::Exception::Role::Role>.
+
+=over 4
+
+=back
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item B<< $exception->message >>
+
+This attribute is read-only and isa Str. It is lazy and has a default value
+'Error'.
+
+=item B<< $exception->overloaded_op >>
+
+This attribute is read-only, isa Str and is required.
+
+=item B<< $exception->role_being_applied_name >>
+
+This attribute is read-only, isa Str and is required.
+
+=item B<< $exception->role_name >>
+
+This attribute can be used for fetching metaclass instance:
+    my $metaclass_instance = Moose::Util::find_meta( $exception->role_name );
+
+
+=item B<< $exception->trace >>
+
+This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
+ on $exception->message.
+
+=back
+
+=head4 Sample Error Message:
+
+=head1 Moose::Exception::OverloadConflictInSummation
+
+This class is a subclass of L<Moose::Exception>.
+
+=over 4
+
+=back
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item B<< $exception->message >>
+
+This attribute is read-only and isa Str. It is lazy and has a default value
+'Error'.
+
+=item B<< $exception->overloaded_op >>
+
+This attribute is read-only, isa Str and is required.
+
+=item B<< $exception->role_application >>
+
+This attribute is read-only, isa
+L<Moose::Meta::Role::Application::RoleSummation> and is required.
+
+=item B<< $exception->role_names >>
+
+This attribute is an ArrayRef containing role names, if you want metaobjects
+associated with these role names, then call method roles on the exception object.
+
+
+=item B<< $exception->trace >>
+
+This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
+ on $exception->message.
+
+=back
+
+=head4 Sample Error Message:
 
 =head1 Moose::Exception::OverrideConflictInComposition
 

@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Number::div;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Number::div::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Number::div::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::Number::div::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

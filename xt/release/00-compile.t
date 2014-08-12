@@ -4,7 +4,7 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.045
 
-use Test::More 0.94 tests => 357 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More 0.94 tests => 359 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -196,6 +196,8 @@ my @module_files = (
     'Moose/Exception/NoParentGivenToSubtype.pm',
     'Moose/Exception/OnlyInstancesCanBeCloned.pm',
     'Moose/Exception/OperatorIsRequired.pm',
+    'Moose/Exception/OverloadConflictInComposition.pm',
+    'Moose/Exception/OverloadConflictInSummation.pm',
     'Moose/Exception/OverrideConflictInComposition.pm',
     'Moose/Exception/OverrideConflictInSummation.pm',
     'Moose/Exception/PackageDoesNotUseMooseExporter.pm',

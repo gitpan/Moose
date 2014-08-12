@@ -4,7 +4,7 @@ package Moose::Meta::Attribute::Native;
 BEGIN {
   $Moose::Meta::Attribute::Native::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Attribute::Native::VERSION = '2.1211';
+$Moose::Meta::Attribute::Native::VERSION = '2.1300'; # TRIAL
 use Module::Runtime 'require_module';
 
 my @trait_names = qw(Bool Counter Number String Array Hash Code);
@@ -44,7 +44,7 @@ Moose::Meta::Attribute::Native - Delegate to native Perl types
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 SYNOPSIS
 

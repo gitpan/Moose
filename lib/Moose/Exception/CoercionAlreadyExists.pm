@@ -2,7 +2,7 @@ package Moose::Exception::CoercionAlreadyExists;
 BEGIN {
   $Moose::Exception::CoercionAlreadyExists::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CoercionAlreadyExists::VERSION = '2.1211';
+$Moose::Exception::CoercionAlreadyExists::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

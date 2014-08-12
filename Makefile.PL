@@ -73,7 +73,7 @@ my %WriteMakefileArgs = (
   ],
   "LICENSE" => "perl",
   "NAME" => "Moose",
-  "OBJECT" => "xs/Attribute\$(OBJ_EXT) xs/AttributeCore\$(OBJ_EXT) xs/Class\$(OBJ_EXT) xs/Generated\$(OBJ_EXT) xs/HasAttributes\$(OBJ_EXT) xs/HasMethods\$(OBJ_EXT) xs/Inlined\$(OBJ_EXT) xs/Instance\$(OBJ_EXT) xs/Method\$(OBJ_EXT) xs/Moose\$(OBJ_EXT) xs/MOP\$(OBJ_EXT) xs/Overload\$(OBJ_EXT) xs/Package\$(OBJ_EXT) mop\$(OBJ_EXT)",
+  "OBJECT" => "xs/Attribute\$(OBJ_EXT) xs/AttributeCore\$(OBJ_EXT) xs/Class\$(OBJ_EXT) xs/Generated\$(OBJ_EXT) xs/HasAttributes\$(OBJ_EXT) xs/HasMethods\$(OBJ_EXT) xs/Inlined\$(OBJ_EXT) xs/Instance\$(OBJ_EXT) xs/Method\$(OBJ_EXT) xs/Moose\$(OBJ_EXT) xs/MOP\$(OBJ_EXT) xs/Overload\$(OBJ_EXT) xs/Package\$(OBJ_EXT) xs/ToInstance\$(OBJ_EXT) mop\$(OBJ_EXT)",
   "PREREQ_PM" => {
     "Carp" => "1.22",
     "Class::Load" => "0.09",
@@ -105,9 +105,10 @@ my %WriteMakefileArgs = (
     "Test::CleanNamespaces" => "0.13",
     "Test::Fatal" => "0.001",
     "Test::More" => "0.88",
-    "Test::Requires" => "0.05"
+    "Test::Requires" => "0.05",
+    "Test::Warnings" => "0.016"
   },
-  "VERSION" => "2.1211",
+  "VERSION" => "2.1300",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",
@@ -121,10 +122,11 @@ my %WriteMakefileArgs = (
     "xs/Method.xs" => "xs/Method.c",
     "xs/Moose.xs" => "xs/Moose.c",
     "xs/Overload.xs" => "xs/Overload.c",
-    "xs/Package.xs" => "xs/Package.c"
+    "xs/Package.xs" => "xs/Package.c",
+    "xs/ToInstance.xs" => "xs/ToInstance.c"
   },
   "clean" => {
-    "FILES" => "xs/Attribute\$(OBJ_EXT) xs/AttributeCore\$(OBJ_EXT) xs/Class\$(OBJ_EXT) xs/Generated\$(OBJ_EXT) xs/HasAttributes\$(OBJ_EXT) xs/HasMethods\$(OBJ_EXT) xs/Inlined\$(OBJ_EXT) xs/Instance\$(OBJ_EXT) xs/Method\$(OBJ_EXT) xs/Moose\$(OBJ_EXT) xs/MOP\$(OBJ_EXT) xs/Overload\$(OBJ_EXT) xs/Package\$(OBJ_EXT) mop\$(OBJ_EXT)"
+    "FILES" => "xs/Attribute\$(OBJ_EXT) xs/AttributeCore\$(OBJ_EXT) xs/Class\$(OBJ_EXT) xs/Generated\$(OBJ_EXT) xs/HasAttributes\$(OBJ_EXT) xs/HasMethods\$(OBJ_EXT) xs/Inlined\$(OBJ_EXT) xs/Instance\$(OBJ_EXT) xs/Method\$(OBJ_EXT) xs/Moose\$(OBJ_EXT) xs/MOP\$(OBJ_EXT) xs/Overload\$(OBJ_EXT) xs/Package\$(OBJ_EXT) xs/ToInstance\$(OBJ_EXT) mop\$(OBJ_EXT)"
   },
   "test" => {
     "TESTS" => "t/*.t t/attributes/*.t t/basics/*.t t/bugs/*.t t/cmop/*.t t/compat/*.t t/examples/*.t t/exceptions/*.t t/immutable/*.t t/metaclasses/*.t t/moose_util/*.t t/native_traits/*.t t/recipes/*.t t/roles/*.t t/test_moose/*.t t/todo_tests/*.t t/type_constraints/*.t"
@@ -160,6 +162,7 @@ my %FallbackPrereqs = (
   "Test::Fatal" => "0.001",
   "Test::More" => "0.88",
   "Test::Requires" => "0.05",
+  "Test::Warnings" => "0.016",
   "Try::Tiny" => "0.02",
   "parent" => "0.223"
 );

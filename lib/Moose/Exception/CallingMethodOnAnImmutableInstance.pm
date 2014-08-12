@@ -2,7 +2,7 @@ package Moose::Exception::CallingMethodOnAnImmutableInstance;
 BEGIN {
   $Moose::Exception::CallingMethodOnAnImmutableInstance::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CallingMethodOnAnImmutableInstance::VERSION = '2.1211';
+$Moose::Exception::CallingMethodOnAnImmutableInstance::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

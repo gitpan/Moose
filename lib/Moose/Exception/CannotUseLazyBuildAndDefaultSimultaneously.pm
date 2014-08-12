@@ -2,7 +2,7 @@ package Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously;
 BEGIN {
   $Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::VERSION = '2.1211';
+$Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

@@ -2,7 +2,7 @@ package Class::MOP::Method::Accessor;
 BEGIN {
   $Class::MOP::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Method::Accessor::VERSION = '2.1211';
+$Class::MOP::Method::Accessor::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 
@@ -277,7 +277,7 @@ Class::MOP::Method::Accessor - Method Meta Object for accessors
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 SYNOPSIS
 

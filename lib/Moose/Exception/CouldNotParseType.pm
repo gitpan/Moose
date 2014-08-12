@@ -2,7 +2,7 @@ package Moose::Exception::CouldNotParseType;
 BEGIN {
   $Moose::Exception::CouldNotParseType::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CouldNotParseType::VERSION = '2.1211';
+$Moose::Exception::CouldNotParseType::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

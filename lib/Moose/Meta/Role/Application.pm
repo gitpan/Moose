@@ -2,10 +2,13 @@ package Moose::Meta::Role::Application;
 BEGIN {
   $Moose::Meta::Role::Application::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Application::VERSION = '2.1211';
+$Moose::Meta::Role::Application::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
+use overload ();
+
+use List::MoreUtils qw( all );
 
 use Moose::Util 'throw_exception';
 
@@ -56,6 +59,7 @@ sub apply {
 
     $self->apply_attributes(@_);
     $self->apply_methods(@_);
+    $self->apply_overloading(@_);
 
     $self->apply_override_method_modifiers(@_);
 
@@ -77,6 +81,46 @@ sub apply_before_method_modifiers   { (shift)->apply_method_modifiers('before' =
 sub apply_around_method_modifiers   { (shift)->apply_method_modifiers('around' => @_) }
 sub apply_after_method_modifiers    { (shift)->apply_method_modifiers('after'  => @_) }
 
+my @overload_ops = map { split /\s+/ } values %overload::ops;
+
+sub apply_overloading {
+    my ( $self, $role, $other ) = @_;
+
+    return unless $role->is_overloaded;
+
+    if ( my $fallback = $role->get_overload_fallback_value ) {
+        if ( $other->is_overloaded ) {
+            my $other_fallback = $other->get_overload_fallback_value;
+            unless (
+                (
+                    ( all {defined} $fallback, $other_fallback )
+                    && $fallback eq $other_fallback
+                )
+                || ( all { !defined } $fallback, $other_fallback )
+                ) {
+
+                $self->_handle_overloading_fallback_conflict(
+                    $role,
+                    $other
+                );
+            }
+        }
+
+        $other->set_overload_fallback_value($fallback);
+    }
+
+    for my $meth ( $role->get_all_overloaded_operators ) {
+        if (   $other->is_overloaded
+            && $other->has_overloaded_operator( $meth->operator ) ) {
+            next
+                if $self->_handle_overloading_operator_conflict( $role,
+                $other, $meth->operator );
+        }
+
+        $other->add_overloaded_operator( $meth->operator => $meth );
+    }
+}
+
 1;
 
 # ABSTRACT: A base class for role application
@@ -93,7 +137,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 DESCRIPTION
 
@@ -131,6 +175,8 @@ consideration, and is intentionally not yet documented.
 =item B<apply_attributes>
 
 =item B<apply_methods>
+
+=item B<apply_overloading>
 
 =item B<apply_method_modifiers>
 

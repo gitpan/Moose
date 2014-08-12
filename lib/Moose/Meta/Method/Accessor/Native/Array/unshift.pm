@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::unshift;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::unshift::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::unshift::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::Array::unshift::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

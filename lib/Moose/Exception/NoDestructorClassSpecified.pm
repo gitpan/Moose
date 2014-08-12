@@ -2,7 +2,7 @@ package Moose::Exception::NoDestructorClassSpecified;
 BEGIN {
   $Moose::Exception::NoDestructorClassSpecified::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::NoDestructorClassSpecified::VERSION = '2.1211';
+$Moose::Exception::NoDestructorClassSpecified::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

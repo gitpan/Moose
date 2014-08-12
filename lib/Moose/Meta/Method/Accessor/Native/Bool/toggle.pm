@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Bool::toggle;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Bool::toggle::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Bool::toggle::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::Bool::toggle::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

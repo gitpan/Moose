@@ -2,7 +2,7 @@ package Moose::Exception::BadOptionFormat;
 BEGIN {
   $Moose::Exception::BadOptionFormat::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::BadOptionFormat::VERSION = '2.1211';
+$Moose::Exception::BadOptionFormat::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

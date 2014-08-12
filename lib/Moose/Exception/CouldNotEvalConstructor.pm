@@ -2,7 +2,7 @@ package Moose::Exception::CouldNotEvalConstructor;
 BEGIN {
   $Moose::Exception::CouldNotEvalConstructor::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CouldNotEvalConstructor::VERSION = '2.1211';
+$Moose::Exception::CouldNotEvalConstructor::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

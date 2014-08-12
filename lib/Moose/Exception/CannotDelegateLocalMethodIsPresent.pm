@@ -2,7 +2,7 @@ package Moose::Exception::CannotDelegateLocalMethodIsPresent;
 BEGIN {
   $Moose::Exception::CannotDelegateLocalMethodIsPresent::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CannotDelegateLocalMethodIsPresent::VERSION = '2.1211';
+$Moose::Exception::CannotDelegateLocalMethodIsPresent::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute', 'Moose::Exception::Role::Method';

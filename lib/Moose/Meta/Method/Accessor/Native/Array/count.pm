@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::count;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::count::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::count::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::Array::count::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

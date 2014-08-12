@@ -2,7 +2,7 @@ package Class::MOP::Class;
 BEGIN {
   $Class::MOP::Class::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Class::VERSION = '2.1211';
+$Class::MOP::Class::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 
@@ -1528,7 +1528,7 @@ Class::MOP::Class - Class Meta Object
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 SYNOPSIS
 
@@ -2034,6 +2034,14 @@ C<< use overload $op => $impl; >>
 =item B<< $metaclass->remove_overloaded_operator($op) >>
 
 Remove overloading for operator C<$op>. Corresponds to C<< no overload $op; >>
+
+=item B<< $metaclass->get_overload_fallback_value >>
+
+Returns the overload C<fallback> setting for the package.
+
+=item B<< $metaclass->set_overload_fallback_value($fallback) >>
+
+Sets the overload C<fallback> setting for the package.
 
 =back
 

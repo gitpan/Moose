@@ -2,7 +2,7 @@ package Moose::Meta::Role::Application::ToRole;
 BEGIN {
   $Moose::Meta::Role::Application::ToRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Role::Application::ToRole::VERSION = '2.1211';
+$Moose::Meta::Role::Application::ToRole::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -181,6 +181,27 @@ sub apply_method_modifiers {
     }
 }
 
+sub _handle_overloading_fallback_conflict {
+    my ( $self, $role1, $role2 ) = @_;
+
+    throw_exception(
+        'OverloadConflictInComposition',
+        role_name               => $role2->name,
+        role_being_applied_name => $role1->name,
+        overloaded_op           => 'fallback',
+    );
+}
+
+sub _handle_overloading_operator_conflict {
+    my ( $self, $role1, $role2, $overloaded_op ) = @_;
+
+    throw_exception(
+        'OverloadConflictInComposition',
+        role_name               => $role2->name,
+        role_being_applied_name => $role1->name,
+        overloaded_op           => $overloaded_op,
+    );
+}
 
 1;
 
@@ -198,7 +219,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 DESCRIPTION
 

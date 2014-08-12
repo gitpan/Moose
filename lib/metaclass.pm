@@ -2,7 +2,7 @@ package metaclass;
 BEGIN {
   $metaclass::AUTHORITY = 'cpan:STEVAN';
 }
-$metaclass::VERSION = '2.1211';
+$metaclass::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 
@@ -62,7 +62,7 @@ metaclass - a pragma for installing and using Class::MOP metaclasses
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 SYNOPSIS
 

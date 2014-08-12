@@ -2,7 +2,7 @@ package Moose::Exception::CanOnlyConsumeRole;
 BEGIN {
   $Moose::Exception::CanOnlyConsumeRole::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CanOnlyConsumeRole::VERSION = '2.1211';
+$Moose::Exception::CanOnlyConsumeRole::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

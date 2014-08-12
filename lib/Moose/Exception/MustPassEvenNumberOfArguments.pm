@@ -2,7 +2,7 @@ package Moose::Exception::MustPassEvenNumberOfArguments;
 BEGIN {
   $Moose::Exception::MustPassEvenNumberOfArguments::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::MustPassEvenNumberOfArguments::VERSION = '2.1211';
+$Moose::Exception::MustPassEvenNumberOfArguments::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

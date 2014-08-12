@@ -13,7 +13,7 @@ Moose::Cookbook::Extending::Debugging_BaseClassRole - Providing a role for the b
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 SYNOPSIS
 

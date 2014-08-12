@@ -2,7 +2,7 @@ package Moose::Exception::UnableToCanonicalizeHandles;
 BEGIN {
   $Moose::Exception::UnableToCanonicalizeHandles::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::UnableToCanonicalizeHandles::VERSION = '2.1211';
+$Moose::Exception::UnableToCanonicalizeHandles::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

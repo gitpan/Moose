@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::shuffle;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::shuffle::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

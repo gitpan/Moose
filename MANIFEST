@@ -275,6 +275,8 @@ lib/Moose/Exception/NoImmutableTraitSpecifiedForClass.pm
 lib/Moose/Exception/NoParentGivenToSubtype.pm
 lib/Moose/Exception/OnlyInstancesCanBeCloned.pm
 lib/Moose/Exception/OperatorIsRequired.pm
+lib/Moose/Exception/OverloadConflictInComposition.pm
+lib/Moose/Exception/OverloadConflictInSummation.pm
 lib/Moose/Exception/OverrideConflictInComposition.pm
 lib/Moose/Exception/OverrideConflictInSummation.pm
 lib/Moose/Exception/PackageDoesNotUseMooseExporter.pm
@@ -791,6 +793,15 @@ t/lib/MyMooseA.pm
 t/lib/MyMooseB.pm
 t/lib/MyMooseObject.pm
 t/lib/NoInlineAttribute.pm
+t/lib/Overloading/ClassConsumesRoleConsumesOverloads.pm
+t/lib/Overloading/ClassWithCombiningRole.pm
+t/lib/Overloading/ClassWithOneRole.pm
+t/lib/Overloading/CombiningClass.pm
+t/lib/Overloading/CombiningRole.pm
+t/lib/Overloading/RoleConsumesOverloads.pm
+t/lib/Overloading/RoleWithOverloads.pm
+t/lib/Overloading/RoleWithoutOverloads.pm
+t/lib/OverloadingTests.pm
 t/lib/Real/Package.pm
 t/lib/Role/BreakOnLoad.pm
 t/lib/Role/Child.pm
@@ -877,7 +888,6 @@ t/roles/anonymous_roles.t
 t/roles/application_toclass.t
 t/roles/apply_role.t
 t/roles/build.t
-t/roles/compose_overloading.t
 t/roles/conflict_many_methods.t
 t/roles/create_role.t
 t/roles/create_role_subclass.t
@@ -893,6 +903,14 @@ t/roles/methods.t
 t/roles/more_alias_and_exclude.t
 t/roles/more_role_edge_cases.t
 t/roles/new_meta_role.t
+t/roles/overloading_combine_to_class.t
+t/roles/overloading_combine_to_instance.t
+t/roles/overloading_combine_to_role.t
+t/roles/overloading_composition_errors.t
+t/roles/overloading_remove_attributes_bug.t
+t/roles/overloading_to_class.t
+t/roles/overloading_to_instance.t
+t/roles/overloading_to_role.t
 t/roles/overriding.t
 t/roles/reinitialize_anon_role.t
 t/roles/role.t
@@ -990,6 +1008,7 @@ xs/Method.xs
 xs/Moose.xs
 xs/Overload.xs
 xs/Package.xs
+xs/ToInstance.xs
 xs/typemap
 xt/author/debugger-duck_type.t
 xt/author/memory_leaks.t

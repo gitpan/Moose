@@ -2,7 +2,7 @@ package Moose::Meta::Method::Accessor::Native::Array::first_index;
 BEGIN {
   $Moose::Meta::Method::Accessor::Native::Array::first_index::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Meta::Method::Accessor::Native::Array::first_index::VERSION = '2.1211';
+$Moose::Meta::Method::Accessor::Native::Array::first_index::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 

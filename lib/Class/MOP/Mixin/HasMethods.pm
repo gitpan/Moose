@@ -2,7 +2,7 @@ package Class::MOP::Mixin::HasMethods;
 BEGIN {
   $Class::MOP::Mixin::HasMethods::AUTHORITY = 'cpan:STEVAN';
 }
-$Class::MOP::Mixin::HasMethods::VERSION = '2.1211';
+$Class::MOP::Mixin::HasMethods::VERSION = '2.1300'; # TRIAL
 use strict;
 use warnings;
 
@@ -232,8 +232,12 @@ sub _full_method_map {
 # overloading
 
 my $overload_operators;
+
 sub overload_operators {
-    $overload_operators ||= [map { split /\s+/ } values %overload::ops];
+    $overload_operators ||= [
+        grep { $_ ne 'fallback' }
+        map  { split /\s+/ } values %overload::ops
+    ];
     return @$overload_operators;
 }
 
@@ -287,18 +291,31 @@ sub get_overloaded_operator {
 sub add_overloaded_operator {
     my $self = shift;
     my ($op, $body) = @_;
+
     $self->name->overload::OVERLOAD($op => $body);
+}
+
+sub get_overload_fallback_value {
+    my $self = shift;
+    my $sym = $self->get_package_symbol('$()');
+    return $sym ? ${$sym} : undef;
+}
+
+sub set_overload_fallback_value {
+    my $self  = shift;
+    my $value = shift;
+
+    $self->name->overload::OVERLOAD( fallback => $value );
 }
 
 sub remove_overloaded_operator {
     my $self = shift;
     my ($op) = @_;
 
-    if ( $] < 5.018 ) {
-        # ugh, overload.pm provides no api for this - but the problem that
-        # makes this necessary has been fixed in 5.18
-        $self->get_or_add_package_symbol('%OVERLOAD')->{dummy}++;
-    }
+    # overload.pm provides no api for this - but the problem that makes this
+    # necessary has been fixed in 5.18
+    $self->get_or_add_package_symbol('%OVERLOAD')->{dummy}++
+        if $] < 5.017000;
 
     $self->remove_package_symbol('&(' . $op);
 }
@@ -336,7 +353,7 @@ Class::MOP::Mixin::HasMethods - Methods for metaclasses which have methods
 
 =head1 VERSION
 
-version 2.1211
+version 2.1300
 
 =head1 DESCRIPTION
 

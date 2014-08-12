@@ -2,7 +2,7 @@ package Moose::Exception::CouldNotEvalDestructor;
 BEGIN {
   $Moose::Exception::CouldNotEvalDestructor::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::CouldNotEvalDestructor::VERSION = '2.1211';
+$Moose::Exception::CouldNotEvalDestructor::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

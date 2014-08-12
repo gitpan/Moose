@@ -2,7 +2,7 @@ package Moose::Exception::UndefinedHashKeysPassedToMethod;
 BEGIN {
   $Moose::Exception::UndefinedHashKeysPassedToMethod::AUTHORITY = 'cpan:STEVAN';
 }
-$Moose::Exception::UndefinedHashKeysPassedToMethod::VERSION = '2.1211';
+$Moose::Exception::UndefinedHashKeysPassedToMethod::VERSION = '2.1300'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 
