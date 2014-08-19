@@ -1,8 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::String::inc;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::String::inc::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Method::Accessor::Native::String::inc::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::String::inc::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 

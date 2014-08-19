@@ -1,8 +1,5 @@
 package Moose::Exception::Role::EitherAttributeOrAttributeName;
-BEGIN {
-  $Moose::Exception::Role::EitherAttributeOrAttributeName::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::Role::EitherAttributeOrAttributeName::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::Role::EitherAttributeOrAttributeName::VERSION = '2.1301'; # TRIAL
 use Moose::Util 'throw_exception';
 use Moose::Role;
 

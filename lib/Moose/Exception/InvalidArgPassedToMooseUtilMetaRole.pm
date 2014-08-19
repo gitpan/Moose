@@ -1,8 +1,5 @@
 package Moose::Exception::InvalidArgPassedToMooseUtilMetaRole;
-BEGIN {
-  $Moose::Exception::InvalidArgPassedToMooseUtilMetaRole::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::InvalidArgPassedToMooseUtilMetaRole::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::InvalidArgPassedToMooseUtilMetaRole::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

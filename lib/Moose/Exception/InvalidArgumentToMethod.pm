@@ -1,8 +1,5 @@
 package Moose::Exception::InvalidArgumentToMethod;
-BEGIN {
-  $Moose::Exception::InvalidArgumentToMethod::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::InvalidArgumentToMethod::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::InvalidArgumentToMethod::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

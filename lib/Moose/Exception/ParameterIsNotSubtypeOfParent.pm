@@ -1,8 +1,5 @@
 package Moose::Exception::ParameterIsNotSubtypeOfParent;
-BEGIN {
-  $Moose::Exception::ParameterIsNotSubtypeOfParent::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::ParameterIsNotSubtypeOfParent::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::ParameterIsNotSubtypeOfParent::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

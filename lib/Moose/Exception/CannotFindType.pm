@@ -1,8 +1,5 @@
 package Moose::Exception::CannotFindType;
-BEGIN {
-  $Moose::Exception::CannotFindType::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CannotFindType::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CannotFindType::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

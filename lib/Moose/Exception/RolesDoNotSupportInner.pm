@@ -1,8 +1,5 @@
 package Moose::Exception::RolesDoNotSupportInner;
-BEGIN {
-  $Moose::Exception::RolesDoNotSupportInner::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::RolesDoNotSupportInner::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::RolesDoNotSupportInner::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

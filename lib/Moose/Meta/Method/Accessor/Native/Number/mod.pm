@@ -1,8 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Number::mod;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Number::mod::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Method::Accessor::Native::Number::mod::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Number::mod::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 

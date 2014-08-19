@@ -1,8 +1,5 @@
 package Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole;
-BEGIN {
-  $Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::RolesListMustBeInstancesOfMooseMetaRole::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

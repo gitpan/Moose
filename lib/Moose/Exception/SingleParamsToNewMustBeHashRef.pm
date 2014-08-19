@@ -1,8 +1,5 @@
 package Moose::Exception::SingleParamsToNewMustBeHashRef;
-BEGIN {
-  $Moose::Exception::SingleParamsToNewMustBeHashRef::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::SingleParamsToNewMustBeHashRef::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::SingleParamsToNewMustBeHashRef::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

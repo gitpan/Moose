@@ -1,8 +1,5 @@
 package Moose::Exception::MustProvideANameForTheAttribute;
-BEGIN {
-  $Moose::Exception::MustProvideANameForTheAttribute::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::MustProvideANameForTheAttribute::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::MustProvideANameForTheAttribute::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

@@ -1,8 +1,5 @@
 package Moose::Exception::CannotOverrideLocalMethodIsPresent;
-BEGIN {
-  $Moose::Exception::CannotOverrideLocalMethodIsPresent::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CannotOverrideLocalMethodIsPresent::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CannotOverrideLocalMethodIsPresent::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Method';

@@ -1,8 +1,5 @@
 package Moose::Exception::CannotAutoDerefWithoutIsa;
-BEGIN {
-  $Moose::Exception::CannotAutoDerefWithoutIsa::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CannotAutoDerefWithoutIsa::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CannotAutoDerefWithoutIsa::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

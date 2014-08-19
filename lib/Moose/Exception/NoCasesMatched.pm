@@ -1,8 +1,5 @@
 package Moose::Exception::NoCasesMatched;
-BEGIN {
-  $Moose::Exception::NoCasesMatched::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::NoCasesMatched::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::NoCasesMatched::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

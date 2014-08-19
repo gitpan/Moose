@@ -1,8 +1,5 @@
 package Moose::Exception::NoImmutableTraitSpecifiedForClass;
-BEGIN {
-  $Moose::Exception::NoImmutableTraitSpecifiedForClass::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::NoImmutableTraitSpecifiedForClass::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::NoImmutableTraitSpecifiedForClass::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

@@ -1,8 +1,5 @@
 package Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass;
-BEGIN {
-  $Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CloneObjectExpectsAnInstanceOfMetaclass::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

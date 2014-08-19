@@ -1,8 +1,5 @@
 package Class::MOP::Method::Generated;
-BEGIN {
-  $Class::MOP::Method::Generated::AUTHORITY = 'cpan:STEVAN';
-}
-$Class::MOP::Method::Generated::VERSION = '2.1300'; # TRIAL
+$Class::MOP::Method::Generated::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 
@@ -78,7 +75,7 @@ Class::MOP::Method::Generated - Abstract base class for generated methods
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

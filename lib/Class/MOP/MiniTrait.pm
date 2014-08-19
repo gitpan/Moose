@@ -1,8 +1,5 @@
 package Class::MOP::MiniTrait;
-BEGIN {
-  $Class::MOP::MiniTrait::AUTHORITY = 'cpan:STEVAN';
-}
-$Class::MOP::MiniTrait::VERSION = '2.1300'; # TRIAL
+$Class::MOP::MiniTrait::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 
@@ -51,7 +48,7 @@ Class::MOP::MiniTrait - Extremely limited trait application
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

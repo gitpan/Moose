@@ -13,7 +13,7 @@ Moose::Manual::Delta - Important Changes in Moose
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 
@@ -358,6 +358,10 @@ developers to try to get conflicts support added to CPAN clients, and if/when
 that happens, the metadata already exists, and so the conflict checking will
 become automatic.
 
+=item The lazy_build attribute feature is discouraged
+
+While not deprecated, we strongly discourage you from using this feature.
+
 =item Most deprecated APIs/features are slated for removal in Moose 2.0200
 
 Most of the deprecated APIs and features in Moose will start throwing an error
@@ -365,10 +369,6 @@ in Moose 2.0200. Some of the features will go away entirely, and some will
 simply throw an error.
 
 The things on the chopping block are:
-
-=item The lazy_build attribute feature is discouraged
-
-While not deprecated, we strongly discourage you from using this feature.
 
 =over 8
 

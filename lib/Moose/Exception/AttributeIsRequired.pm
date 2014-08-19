@@ -1,8 +1,5 @@
 package Moose::Exception::AttributeIsRequired;
-BEGIN {
-  $Moose::Exception::AttributeIsRequired::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::AttributeIsRequired::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::AttributeIsRequired::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

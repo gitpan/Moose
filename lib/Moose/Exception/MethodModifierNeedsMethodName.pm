@@ -1,8 +1,5 @@
 package Moose::Exception::MethodModifierNeedsMethodName;
-BEGIN {
-  $Moose::Exception::MethodModifierNeedsMethodName::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::MethodModifierNeedsMethodName::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::MethodModifierNeedsMethodName::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

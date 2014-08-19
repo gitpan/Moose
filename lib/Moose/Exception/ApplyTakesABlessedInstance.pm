@@ -1,8 +1,5 @@
 package Moose::Exception::ApplyTakesABlessedInstance;
-BEGIN {
-  $Moose::Exception::ApplyTakesABlessedInstance::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::ApplyTakesABlessedInstance::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::ApplyTakesABlessedInstance::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

@@ -1,8 +1,5 @@
 package Moose::Meta::Role::Application;
-BEGIN {
-  $Moose::Meta::Role::Application::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Role::Application::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Role::Application::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -110,12 +107,9 @@ sub apply_overloading {
     }
 
     for my $meth ( $role->get_all_overloaded_operators ) {
-        if (   $other->is_overloaded
-            && $other->has_overloaded_operator( $meth->operator ) ) {
-            next
-                if $self->_handle_overloading_operator_conflict( $role,
-                $other, $meth->operator );
-        }
+        next
+            if $other->is_overloaded
+            && $other->has_overloaded_operator( $meth->operator );
 
         $other->add_overloaded_operator( $meth->operator => $meth );
     }
@@ -137,7 +131,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

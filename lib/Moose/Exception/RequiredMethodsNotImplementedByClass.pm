@@ -1,8 +1,5 @@
 package Moose::Exception::RequiredMethodsNotImplementedByClass;
-BEGIN {
-  $Moose::Exception::RequiredMethodsNotImplementedByClass::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::RequiredMethodsNotImplementedByClass::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::RequiredMethodsNotImplementedByClass::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Role';

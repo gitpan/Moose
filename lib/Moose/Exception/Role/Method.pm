@@ -1,8 +1,5 @@
 package Moose::Exception::Role::Method;
-BEGIN {
-  $Moose::Exception::Role::Method::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::Role::Method::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::Role::Method::VERSION = '2.1301'; # TRIAL
 use Moose::Role;
 
 has 'method' => (

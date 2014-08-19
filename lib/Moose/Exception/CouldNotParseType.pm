@@ -1,8 +1,5 @@
 package Moose::Exception::CouldNotParseType;
-BEGIN {
-  $Moose::Exception::CouldNotParseType::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CouldNotParseType::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CouldNotParseType::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

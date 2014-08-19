@@ -1,8 +1,5 @@
 package Class::MOP::Deprecated;
-BEGIN {
-  $Class::MOP::Deprecated::AUTHORITY = 'cpan:STEVAN';
-}
-$Class::MOP::Deprecated::VERSION = '2.1300'; # TRIAL
+$Class::MOP::Deprecated::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 
@@ -26,7 +23,7 @@ Class::MOP::Deprecated - Manages deprecation warnings for Class::MOP
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

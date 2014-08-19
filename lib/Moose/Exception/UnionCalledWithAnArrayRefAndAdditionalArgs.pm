@@ -1,8 +1,5 @@
 package Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs;
-BEGIN {
-  $Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

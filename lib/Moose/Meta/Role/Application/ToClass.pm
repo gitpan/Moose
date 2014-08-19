@@ -1,8 +1,5 @@
 package Moose::Meta::Role::Application::ToClass;
-BEGIN {
-  $Moose::Meta::Role::Application::ToClass::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Role::Application::ToClass::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Role::Application::ToClass::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -212,13 +209,8 @@ sub apply_method_modifiers {
     }
 }
 
-# Returning a true value for these two methods means that the class's setting
-# wins.
+# Returning a true value means that the class's setting wins.
 sub _handle_overloading_fallback_conflict {
-    return 1;
-}
-
-sub _handle_overloading_operator_conflict {
     return 1;
 }
 
@@ -238,7 +230,7 @@ Moose::Meta::Role::Application::ToClass - Compose a role into a class
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

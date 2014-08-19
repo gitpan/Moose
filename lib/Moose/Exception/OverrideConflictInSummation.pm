@@ -1,8 +1,5 @@
 package Moose::Exception::OverrideConflictInSummation;
-BEGIN {
-  $Moose::Exception::OverrideConflictInSummation::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::OverrideConflictInSummation::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::OverrideConflictInSummation::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 
@@ -55,7 +52,7 @@ sub _build_message {
     if( $self->two_overrides_found ) {
         return "We have encountered an 'override' method conflict ".
                "during composition (Two 'override' methods of the same name encountered). ".
-               "This is fatal error.";
+               "This is a fatal error.";
     }
     else {
         return "Role '$role_names' has encountered an 'override' method conflict " .

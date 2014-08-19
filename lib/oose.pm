@@ -1,8 +1,5 @@
 package oose;
-BEGIN {
-  $oose::AUTHORITY = 'cpan:STEVAN';
-}
-$oose::VERSION = '2.1300'; # TRIAL
+$oose::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 
@@ -36,7 +33,7 @@ oose - syntactic sugar to make Moose one-liners easier
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 SYNOPSIS
 

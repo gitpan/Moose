@@ -1,8 +1,5 @@
 package Moose::Meta::Method::Meta;
-BEGIN {
-  $Moose::Meta::Method::Meta::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Method::Meta::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Method::Meta::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 
@@ -43,7 +40,7 @@ Moose::Meta::Method::Meta - A Moose Method metaclass for C<meta> methods
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

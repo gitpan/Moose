@@ -1,8 +1,5 @@
 package Moose::Exception::NoParentGivenToSubtype;
-BEGIN {
-  $Moose::Exception::NoParentGivenToSubtype::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::NoParentGivenToSubtype::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::NoParentGivenToSubtype::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

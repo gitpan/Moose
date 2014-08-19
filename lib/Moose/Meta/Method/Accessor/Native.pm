@@ -1,8 +1,5 @@
 package Moose::Meta::Method::Accessor::Native;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Method::Accessor::Native::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 

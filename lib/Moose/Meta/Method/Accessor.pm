@@ -1,8 +1,5 @@
 package Moose::Meta::Method::Accessor;
-BEGIN {
-  $Moose::Meta::Method::Accessor::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Method::Accessor::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Method::Accessor::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 
@@ -139,7 +136,7 @@ Moose::Meta::Method::Accessor - A Moose Method metaclass for accessors
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

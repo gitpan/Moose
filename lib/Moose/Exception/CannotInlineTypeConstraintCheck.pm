@@ -1,8 +1,5 @@
 package Moose::Exception::CannotInlineTypeConstraintCheck;
-BEGIN {
-  $Moose::Exception::CannotInlineTypeConstraintCheck::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CannotInlineTypeConstraintCheck::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CannotInlineTypeConstraintCheck::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

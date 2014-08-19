@@ -1,8 +1,5 @@
 package Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion;
-BEGIN {
-  $Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions', 'Moose::Exception::Role::TypeConstraint';

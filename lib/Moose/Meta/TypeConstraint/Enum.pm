@@ -1,8 +1,5 @@
 package Moose::Meta::TypeConstraint::Enum;
-BEGIN {
-  $Moose::Meta::TypeConstraint::Enum::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::TypeConstraint::Enum::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::TypeConstraint::Enum::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -128,7 +125,7 @@ Moose::Meta::TypeConstraint::Enum - Type constraint for enumerated values.
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

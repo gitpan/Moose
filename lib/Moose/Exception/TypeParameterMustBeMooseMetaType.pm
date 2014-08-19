@@ -1,8 +1,5 @@
 package Moose::Exception::TypeParameterMustBeMooseMetaType;
-BEGIN {
-  $Moose::Exception::TypeParameterMustBeMooseMetaType::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::TypeParameterMustBeMooseMetaType::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::TypeParameterMustBeMooseMetaType::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

@@ -1,8 +1,5 @@
 package Moose::Exception::AddParameterizableTypeTakesParameterizableType;
-BEGIN {
-  $Moose::Exception::AddParameterizableTypeTakesParameterizableType::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::AddParameterizableTypeTakesParameterizableType::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::AddParameterizableTypeTakesParameterizableType::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

@@ -1,8 +1,5 @@
 package Moose::Meta::Role::Application::RoleSummation;
-BEGIN {
-  $Moose::Meta::Role::Application::RoleSummation::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -305,7 +302,12 @@ sub apply_overloading {
 
     for my $op_name ( keys %method_map ) {
         my @roles = keys %{ $method_map{$op_name} };
-        if ( @roles > 1 ) {
+        my $body = $method_map{$op_name}{ $roles[0] }->body;
+
+
+        if ( @roles > 1 && !all { $body == $_->body }
+            values %{ $method_map{$op_name} } ) {
+
             throw_exception(
                 'OverloadConflictInSummation',
                 role_names       => [ @roles[ 0, 1 ] ],
@@ -335,7 +337,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 
@@ -381,10 +383,6 @@ bindings and 'disabling' the conflicting bindings
 =item B<apply_override_method_modifiers>
 
 =back
-
-=head1 BUGS
-
-See L<Moose/BUGS> for details on reporting bugs.
 
 =head1 AUTHORS
 

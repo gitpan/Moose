@@ -1,8 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Hash::keys;
-BEGIN {
-  $Moose::Meta::Method::Accessor::Native::Hash::keys::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Method::Accessor::Native::Hash::keys::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Hash::keys::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 

@@ -1,8 +1,5 @@
 package Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass;
-BEGIN {
-  $Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

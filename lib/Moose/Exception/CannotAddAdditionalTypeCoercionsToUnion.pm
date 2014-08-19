@@ -1,8 +1,5 @@
 package Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion;
-BEGIN {
-  $Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

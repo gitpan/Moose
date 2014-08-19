@@ -1,8 +1,5 @@
 package Moose::Exception::CanReblessOnlyIntoASuperclass;
-BEGIN {
-  $Moose::Exception::CanReblessOnlyIntoASuperclass::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::CanReblessOnlyIntoASuperclass::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::CanReblessOnlyIntoASuperclass::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::InstanceClass';

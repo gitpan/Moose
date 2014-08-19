@@ -41,6 +41,7 @@ bin/moose-outdated
 dist.ini
 doc/moosex-compile
 inc/CheckDelta.pm
+inc/CheckReleaseType.pm
 inc/Clean.pm
 inc/ExtractInlineTests.pm
 inc/GenerateDocs.pm
@@ -275,8 +276,8 @@ lib/Moose/Exception/NoImmutableTraitSpecifiedForClass.pm
 lib/Moose/Exception/NoParentGivenToSubtype.pm
 lib/Moose/Exception/OnlyInstancesCanBeCloned.pm
 lib/Moose/Exception/OperatorIsRequired.pm
-lib/Moose/Exception/OverloadConflictInComposition.pm
 lib/Moose/Exception/OverloadConflictInSummation.pm
+lib/Moose/Exception/OverloadFallbackConflictInComposition.pm
 lib/Moose/Exception/OverrideConflictInComposition.pm
 lib/Moose/Exception/OverrideConflictInSummation.pm
 lib/Moose/Exception/PackageDoesNotUseMooseExporter.pm
@@ -1012,6 +1013,7 @@ xs/ToInstance.xs
 xs/typemap
 xt/author/debugger-duck_type.t
 xt/author/memory_leaks.t
+xt/author/no-tabs.t
 xt/author/test-my-dependents.t
 xt/release/00-compile.t
 xt/release/authority.t
@@ -1020,7 +1022,6 @@ xt/release/distmeta.t
 xt/release/eol.t
 xt/release/kwalitee.t
 xt/release/mojibake.t
-xt/release/no-tabs.t
 xt/release/pod-coverage.t
 xt/release/pod-spell.t
 xt/release/pod-syntax.t

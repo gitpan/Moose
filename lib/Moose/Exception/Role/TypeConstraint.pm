@@ -1,8 +1,5 @@
 package Moose::Exception::Role::TypeConstraint;
-BEGIN {
-  $Moose::Exception::Role::TypeConstraint::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::Role::TypeConstraint::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::Role::TypeConstraint::VERSION = '2.1301'; # TRIAL
 use Moose::Role;
 
 has 'type_name' => (

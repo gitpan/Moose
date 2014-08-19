@@ -1,8 +1,5 @@
 package Moose::Meta::Role::Application::ToInstance;
-BEGIN {
-  $Moose::Meta::Role::Application::ToInstance::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1300'; # TRIAL
+$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1301'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -42,8 +39,11 @@ sub apply {
     if ( _NEED_OVERLOAD_HACK_FOR_OBJECTS
         && overload::Overloaded( ref $object ) ) {
 
-        _reset_amagic($object);
+        # need to use $_[2] here to apply to the object in the caller
+        _reset_amagic($_[2]);
     }
+
+    return $object;
 }
 
 1;
@@ -62,7 +62,7 @@ Moose::Meta::Role::Application::ToInstance - Compose a role into an instance
 
 =head1 VERSION
 
-version 2.1300
+version 2.1301
 
 =head1 DESCRIPTION
 

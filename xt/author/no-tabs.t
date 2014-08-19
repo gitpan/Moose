@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::Test::NoTabs 0.08
+# this test was generated with Dist::Zilla::Plugin::Test::NoTabs 0.09
 
 use Test::More 0.88;
 use Test::NoTabs;
@@ -233,8 +233,8 @@ my @files = (
     'lib/Moose/Exception/NoParentGivenToSubtype.pm',
     'lib/Moose/Exception/OnlyInstancesCanBeCloned.pm',
     'lib/Moose/Exception/OperatorIsRequired.pm',
-    'lib/Moose/Exception/OverloadConflictInComposition.pm',
     'lib/Moose/Exception/OverloadConflictInSummation.pm',
+    'lib/Moose/Exception/OverloadFallbackConflictInComposition.pm',
     'lib/Moose/Exception/OverrideConflictInComposition.pm',
     'lib/Moose/Exception/OverrideConflictInSummation.pm',
     'lib/Moose/Exception/PackageDoesNotUseMooseExporter.pm',

@@ -1,8 +1,5 @@
 package Moose::Exception::NeitherTypeNorTypeNameIsGiven;
-BEGIN {
-  $Moose::Exception::NeitherTypeNorTypeNameIsGiven::AUTHORITY = 'cpan:STEVAN';
-}
-$Moose::Exception::NeitherTypeNorTypeNameIsGiven::VERSION = '2.1300'; # TRIAL
+$Moose::Exception::NeitherTypeNorTypeNameIsGiven::VERSION = '2.1301'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 
