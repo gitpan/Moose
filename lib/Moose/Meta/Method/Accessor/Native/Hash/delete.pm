@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Hash::delete;
-$Moose::Meta::Method::Accessor::Native::Hash::delete::VERSION = '2.1301'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Hash::delete::VERSION = '2.1302'; # TRIAL
 use strict;
 use warnings;
 

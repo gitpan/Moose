@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application::ToRole;
-$Moose::Meta::Role::Application::ToRole::VERSION = '2.1301'; # TRIAL
+$Moose::Meta::Role::Application::ToRole::VERSION = '2.1302'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -178,16 +178,6 @@ sub apply_method_modifiers {
     }
 }
 
-sub _handle_overloading_fallback_conflict {
-    my ( $self, $role1, $role2 ) = @_;
-
-    throw_exception(
-        'OverloadFallbackConflictInComposition',
-        role_name               => $role2->name,
-        role_being_applied_name => $role1->name,
-    );
-}
-
 1;
 
 # ABSTRACT: Compose a role into another role
@@ -204,7 +194,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.1301
+version 2.1302
 
 =head1 DESCRIPTION
 

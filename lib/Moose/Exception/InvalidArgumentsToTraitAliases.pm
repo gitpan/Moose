@@ -1,5 +1,5 @@
 package Moose::Exception::InvalidArgumentsToTraitAliases;
-$Moose::Exception::InvalidArgumentsToTraitAliases::VERSION = '2.1301'; # TRIAL
+$Moose::Exception::InvalidArgumentsToTraitAliases::VERSION = '2.1302'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

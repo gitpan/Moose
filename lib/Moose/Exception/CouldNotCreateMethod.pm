@@ -1,5 +1,5 @@
 package Moose::Exception::CouldNotCreateMethod;
-$Moose::Exception::CouldNotCreateMethod::VERSION = '2.1301'; # TRIAL
+$Moose::Exception::CouldNotCreateMethod::VERSION = '2.1302'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

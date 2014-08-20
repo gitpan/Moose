@@ -92,7 +92,7 @@ Moose::Conflicts - Provide information on conflicts for Moose
 
 =head1 VERSION
 
-version 2.1301
+version 2.1302
 
 =head1 AUTHORS
 

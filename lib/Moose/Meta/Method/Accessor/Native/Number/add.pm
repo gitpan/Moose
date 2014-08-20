@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Number::add;
-$Moose::Meta::Method::Accessor::Native::Number::add::VERSION = '2.1301'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Number::add::VERSION = '2.1302'; # TRIAL
 use strict;
 use warnings;
 

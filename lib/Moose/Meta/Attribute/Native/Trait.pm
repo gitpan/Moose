@@ -1,5 +1,5 @@
 package Moose::Meta::Attribute::Native::Trait;
-$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1301'; # TRIAL
+$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1302'; # TRIAL
 use Moose::Role;
 use Module::Runtime 'require_module';
 use List::MoreUtils qw( any uniq );
@@ -179,7 +179,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.1301
+version 2.1302
 
 =head1 BUGS
 

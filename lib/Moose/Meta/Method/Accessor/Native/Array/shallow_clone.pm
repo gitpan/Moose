@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::shallow_clone;
-$Moose::Meta::Method::Accessor::Native::Array::shallow_clone::VERSION = '2.1301'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Array::shallow_clone::VERSION = '2.1302'; # TRIAL
 use strict;
 use warnings;
 

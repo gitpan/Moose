@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application;
-$Moose::Meta::Role::Application::VERSION = '2.1301'; # TRIAL
+$Moose::Meta::Role::Application::VERSION = '2.1302'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -86,24 +86,9 @@ sub apply_overloading {
     return unless $role->is_overloaded;
 
     if ( my $fallback = $role->get_overload_fallback_value ) {
-        if ( $other->is_overloaded ) {
-            my $other_fallback = $other->get_overload_fallback_value;
-            unless (
-                (
-                    ( all {defined} $fallback, $other_fallback )
-                    && $fallback eq $other_fallback
-                )
-                || ( all { !defined } $fallback, $other_fallback )
-                ) {
-
-                $self->_handle_overloading_fallback_conflict(
-                    $role,
-                    $other
-                );
-            }
+        unless ( $other->is_overloaded ) {
+            $other->set_overload_fallback_value($fallback);
         }
-
-        $other->set_overload_fallback_value($fallback);
     }
 
     for my $meth ( $role->get_all_overloaded_operators ) {
@@ -131,7 +116,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.1301
+version 2.1302
 
 =head1 DESCRIPTION
 

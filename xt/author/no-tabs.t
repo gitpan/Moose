@@ -234,7 +234,6 @@ my @files = (
     'lib/Moose/Exception/OnlyInstancesCanBeCloned.pm',
     'lib/Moose/Exception/OperatorIsRequired.pm',
     'lib/Moose/Exception/OverloadConflictInSummation.pm',
-    'lib/Moose/Exception/OverloadFallbackConflictInComposition.pm',
     'lib/Moose/Exception/OverrideConflictInComposition.pm',
     'lib/Moose/Exception/OverrideConflictInSummation.pm',
     'lib/Moose/Exception/PackageDoesNotUseMooseExporter.pm',

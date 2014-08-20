@@ -1,5 +1,5 @@
 package Moose::Exception::BuilderMethodNotSupportedForInlineAttribute;
-$Moose::Exception::BuilderMethodNotSupportedForInlineAttribute::VERSION = '2.1301'; # TRIAL
+$Moose::Exception::BuilderMethodNotSupportedForInlineAttribute::VERSION = '2.1302'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::Class';
