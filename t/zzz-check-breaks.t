@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::Test::CheckBreaks 0.009
+# this test was generated with Dist::Zilla::Plugin::Test::CheckBreaks 0.011
 
-use Test::More;
+use Test::More 0.88;
 
 SKIP: {
     eval 'require Moose::Conflicts; Moose::Conflicts->check_conflicts';
@@ -54,7 +54,7 @@ my $breaks = {
   "MooseX::PrivateSetters" => "<= 0.03",
   "MooseX::Role::Cmd" => "<= 0.06",
   "MooseX::Role::Parameterized" => "<= 1.00",
-  "MooseX::Role::WithOverloading" => "<= 0.14",
+  "MooseX::Role::WithOverloading" => "<= 0.07",
   "MooseX::Runnable" => "<= 0.03",
   "MooseX::Scaffold" => "<= 0.05",
   "MooseX::SemiAffordanceAccessor" => "<= 0.05",
@@ -94,6 +94,5 @@ if (my @breaks = grep { defined $result->{$_} } keys %$result)
     diag "$result->{$_}" for sort @breaks;
     diag "\n", 'You should now update these modules!';
 }
-
 
 done_testing;

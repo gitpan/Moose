@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::splice;
-$Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1302'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Array::splice::VERSION = '2.1212';
 use strict;
 use warnings;
 

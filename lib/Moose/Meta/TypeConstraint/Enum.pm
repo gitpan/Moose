@@ -1,5 +1,5 @@
 package Moose::Meta::TypeConstraint::Enum;
-$Moose::Meta::TypeConstraint::Enum::VERSION = '2.1302'; # TRIAL
+$Moose::Meta::TypeConstraint::Enum::VERSION = '2.1212';
 use strict;
 use warnings;
 use metaclass;
@@ -125,7 +125,7 @@ Moose::Meta::TypeConstraint::Enum - Type constraint for enumerated values.
 
 =head1 VERSION
 
-version 2.1302
+version 2.1212
 
 =head1 DESCRIPTION
 

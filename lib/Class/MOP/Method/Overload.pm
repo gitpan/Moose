@@ -1,5 +1,5 @@
 package Class::MOP::Method::Overload;
-$Class::MOP::Method::Overload::VERSION = '2.1302'; # TRIAL
+$Class::MOP::Method::Overload::VERSION = '2.1212';
 use strict;
 use warnings;
 
@@ -60,7 +60,7 @@ Class::MOP::Method::Overload - Method Meta Object for methods which implement ov
 
 =head1 VERSION
 
-version 2.1302
+version 2.1212
 
 =head1 DESCRIPTION
 

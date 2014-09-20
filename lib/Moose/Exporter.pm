@@ -1,5 +1,5 @@
 package Moose::Exporter;
-$Moose::Exporter::VERSION = '2.1302'; # TRIAL
+$Moose::Exporter::VERSION = '2.1212';
 use strict;
 use warnings;
 
@@ -7,7 +7,7 @@ use Class::Load qw(is_class_loaded);
 use Class::MOP;
 use List::MoreUtils qw( first_index uniq );
 use Moose::Util::MetaRole;
-use Scalar::Util qw(reftype);
+use Scalar::Util 1.11 qw(reftype);
 use Sub::Exporter 0.980;
 use Sub::Name qw(subname);
 
@@ -797,7 +797,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.1302
+version 2.1212
 
 =head1 SYNOPSIS
 

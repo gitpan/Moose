@@ -53,11 +53,10 @@ do { my $x = {
                       'suggests' => {
                                       'Class::Load' => '0',
                                       'Dist::Zilla' => '5',
-                                      'Dist::Zilla::Plugin::Authority' => '0',
                                       'Dist::Zilla::Plugin::CheckChangesHasContent' => '0',
                                       'Dist::Zilla::Plugin::CheckVersionIncrement' => '0',
                                       'Dist::Zilla::Plugin::ConfirmRelease' => '0',
-                                      'Dist::Zilla::Plugin::Conflicts' => '0.13001',
+                                      'Dist::Zilla::Plugin::Conflicts' => '0.16',
                                       'Dist::Zilla::Plugin::EOLTests' => '0',
                                       'Dist::Zilla::Plugin::EnsurePrereqsInstalled' => '0.003',
                                       'Dist::Zilla::Plugin::ExecDir' => '0',
@@ -109,7 +108,8 @@ do { my $x = {
                                       'Pod::Elemental::PerlMunger' => '0.200001',
                                       'Test::Inline' => '0',
                                       'Test::Inline::Extract' => '0',
-                                      'inc::CheckReleaseType' => '0'
+                                      'inc::CheckReleaseType' => '0',
+                                      'inc::SimpleAuthority' => '0'
                                     }
                     },
        'runtime' => {
@@ -128,6 +128,7 @@ do { my $x = {
                                       'List::MoreUtils' => '0.28',
                                       'MRO::Compat' => '0.05',
                                       'Module::Runtime' => '0.014',
+                                      'Module::Runtime::Conflicts' => '0',
                                       'Package::DeprecationManager' => '0.11',
                                       'Package::Stash' => '0.32',
                                       'Package::Stash::XS' => '0.24',
@@ -155,8 +156,7 @@ do { my $x = {
                                    'Test::CleanNamespaces' => '0.13',
                                    'Test::Fatal' => '0.001',
                                    'Test::More' => '0.88',
-                                   'Test::Requires' => '0.05',
-                                   'Test::Warnings' => '0.016'
+                                   'Test::Requires' => '0.05'
                                  }
                  }
      };

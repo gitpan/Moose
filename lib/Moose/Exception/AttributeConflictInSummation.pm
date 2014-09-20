@@ -1,5 +1,5 @@
 package Moose::Exception::AttributeConflictInSummation;
-$Moose::Exception::AttributeConflictInSummation::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::AttributeConflictInSummation::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role', 'Moose::Exception::Role::AttributeName';

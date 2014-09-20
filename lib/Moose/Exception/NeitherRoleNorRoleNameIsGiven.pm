@@ -1,5 +1,5 @@
 package Moose::Exception::NeitherRoleNorRoleNameIsGiven;
-$Moose::Exception::NeitherRoleNorRoleNameIsGiven::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::NeitherRoleNorRoleNameIsGiven::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 

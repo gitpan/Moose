@@ -1,5 +1,5 @@
 package Moose::Exception::InvalidArgPassedToMooseUtilMetaRole;
-$Moose::Exception::InvalidArgPassedToMooseUtilMetaRole::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::InvalidArgPassedToMooseUtilMetaRole::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 

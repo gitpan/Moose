@@ -1,5 +1,5 @@
 package Moose::Exception::SingleParamsToNewMustBeHashRef;
-$Moose::Exception::SingleParamsToNewMustBeHashRef::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::SingleParamsToNewMustBeHashRef::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 

@@ -1,5 +1,5 @@
 package Moose::Exception::MustDefineAMethodName;
-$Moose::Exception::MustDefineAMethodName::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::MustDefineAMethodName::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

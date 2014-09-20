@@ -1,5 +1,5 @@
 package Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes;
-$Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::CreateMOPClassTakesArrayRefOfAttributes::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::RoleForCreateMOPClass';

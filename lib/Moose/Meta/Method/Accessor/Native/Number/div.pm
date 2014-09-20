@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Number::div;
-$Moose::Meta::Method::Accessor::Native::Number::div::VERSION = '2.1302'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Number::div::VERSION = '2.1212';
 use strict;
 use warnings;
 

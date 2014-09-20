@@ -1,5 +1,5 @@
 package Moose::Exception::ExtendsMissingArgs;
-$Moose::Exception::ExtendsMissingArgs::VERSION = '2.1302'; # TRIAL
+$Moose::Exception::ExtendsMissingArgs::VERSION = '2.1212';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Delegation;
-$Moose::Meta::Method::Delegation::VERSION = '2.1302'; # TRIAL
+$Moose::Meta::Method::Delegation::VERSION = '2.1212';
 use strict;
 use warnings;
 
@@ -148,7 +148,7 @@ Moose::Meta::Method::Delegation - A Moose Method metaclass for delegation method
 
 =head1 VERSION
 
-version 2.1302
+version 2.1212
 
 =head1 DESCRIPTION
 

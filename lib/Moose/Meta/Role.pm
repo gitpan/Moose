@@ -1,5 +1,5 @@
 package Moose::Meta::Role;
-$Moose::Meta::Role::VERSION = '2.1302'; # TRIAL
+$Moose::Meta::Role::VERSION = '2.1212';
 use strict;
 use warnings;
 use metaclass;
@@ -752,7 +752,7 @@ Moose::Meta::Role - The Moose Role metaclass
 
 =head1 VERSION
 
-version 2.1302
+version 2.1212
 
 =head1 DESCRIPTION
 
