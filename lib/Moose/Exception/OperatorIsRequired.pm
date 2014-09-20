@@ -1,5 +1,5 @@
 package Moose::Exception::OperatorIsRequired;
-$Moose::Exception::OperatorIsRequired::VERSION = '2.1212';
+$Moose::Exception::OperatorIsRequired::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application::ToInstance;
-$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1212';
+$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1303'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -14,6 +14,8 @@ __PACKAGE__->meta->add_attribute('rebless_params' => (
     default => sub { {} },
     Class::MOP::_definition_context(),
 ));
+
+use constant _NEED_OVERLOAD_HACK_FOR_OBJECTS => $] < 5.008009;
 
 sub apply {
     my ( $self, $role, $object, $args ) = @_;
@@ -33,6 +35,15 @@ sub apply {
     );
 
     $class->rebless_instance( $object, %{ $self->rebless_params } );
+
+    if ( _NEED_OVERLOAD_HACK_FOR_OBJECTS
+        && overload::Overloaded( ref $object ) ) {
+
+        # need to use $_[2] here to apply to the object in the caller
+        _reset_amagic($_[2]);
+    }
+
+    return $object;
 }
 
 1;
@@ -51,7 +62,7 @@ Moose::Meta::Role::Application::ToInstance - Compose a role into an instance
 
 =head1 VERSION
 
-version 2.1212
+version 2.1303
 
 =head1 DESCRIPTION
 

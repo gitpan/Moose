@@ -1,5 +1,5 @@
 package Moose::Meta::Attribute::Native::Trait::Number;
-$Moose::Meta::Attribute::Native::Trait::Number::VERSION = '2.1212';
+$Moose::Meta::Attribute::Native::Trait::Number::VERSION = '2.1303'; # TRIAL
 use Moose::Role;
 with 'Moose::Meta::Attribute::Native::Trait';
 
@@ -23,7 +23,7 @@ Moose::Meta::Attribute::Native::Trait::Number - Helper trait for Num attributes
 
 =head1 VERSION
 
-version 2.1212
+version 2.1303
 
 =head1 SYNOPSIS
 

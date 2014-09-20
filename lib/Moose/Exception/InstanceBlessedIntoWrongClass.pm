@@ -1,5 +1,5 @@
 package Moose::Exception::InstanceBlessedIntoWrongClass;
-$Moose::Exception::InstanceBlessedIntoWrongClass::VERSION = '2.1212';
+$Moose::Exception::InstanceBlessedIntoWrongClass::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Instance';

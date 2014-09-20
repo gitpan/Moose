@@ -1,5 +1,5 @@
 package Moose::Exception::CannotRegisterUnnamedTypeConstraint;
-$Moose::Exception::CannotRegisterUnnamedTypeConstraint::VERSION = '2.1212';
+$Moose::Exception::CannotRegisterUnnamedTypeConstraint::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

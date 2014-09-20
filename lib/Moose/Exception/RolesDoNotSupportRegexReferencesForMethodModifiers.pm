@@ -1,5 +1,5 @@
 package Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers;
-$Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::VERSION = '2.1212';
+$Moose::Exception::RolesDoNotSupportRegexReferencesForMethodModifiers::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

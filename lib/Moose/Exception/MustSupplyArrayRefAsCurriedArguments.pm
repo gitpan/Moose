@@ -1,5 +1,5 @@
 package Moose::Exception::MustSupplyArrayRefAsCurriedArguments;
-$Moose::Exception::MustSupplyArrayRefAsCurriedArguments::VERSION = '2.1212';
+$Moose::Exception::MustSupplyArrayRefAsCurriedArguments::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class';

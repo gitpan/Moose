@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application::ToClass;
-$Moose::Meta::Role::Application::ToClass::VERSION = '2.1212';
+$Moose::Meta::Role::Application::ToClass::VERSION = '2.1303'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -209,6 +209,11 @@ sub apply_method_modifiers {
     }
 }
 
+# Returning a true value means that the class's setting wins.
+sub _handle_overloading_fallback_conflict {
+    return 1;
+}
+
 1;
 
 # ABSTRACT: Compose a role into a class
@@ -225,7 +230,7 @@ Moose::Meta::Role::Application::ToClass - Compose a role into a class
 
 =head1 VERSION
 
-version 2.1212
+version 2.1303
 
 =head1 DESCRIPTION
 

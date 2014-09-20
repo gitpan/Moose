@@ -1,5 +1,5 @@
 package Moose::Exception::CanOnlyConsumeRole;
-$Moose::Exception::CanOnlyConsumeRole::VERSION = '2.1212';
+$Moose::Exception::CanOnlyConsumeRole::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

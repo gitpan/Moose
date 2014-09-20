@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Moose::Manual::Exceptions::Manifest;
 # ABSTRACT: Moose's Exception Types
-$Moose::Manual::Exceptions::Manifest::VERSION = '2.1212';
+$Moose::Manual::Exceptions::Manifest::VERSION = '2.1303'; # TRIAL
 
 __END__
 
@@ -16,7 +16,7 @@ Moose::Manual::Exceptions::Manifest - Moose's Exception Types
 
 =head1 VERSION
 
-version 2.1212
+version 2.1303
 
 =head1 Moose::Exception::AccessorMustReadWrite
 
@@ -6590,6 +6590,47 @@ This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
 
     operator is required
 
+=head1 Moose::Exception::OverloadConflictInSummation
+
+This class is a subclass of L<Moose::Exception>.
+
+=over 4
+
+=back
+
+=head2 ATTRIBUTES
+
+=over 4
+
+=item B<< $exception->message >>
+
+This attribute is read-only and isa Str. It is lazy and has a default value
+'Error'.
+
+=item B<< $exception->overloaded_op >>
+
+This attribute is read-only, isa Str and is required.
+
+=item B<< $exception->role_application >>
+
+This attribute is read-only, isa
+L<Moose::Meta::Role::Application::RoleSummation> and is required.
+
+=item B<< $exception->role_names >>
+
+This attribute is an ArrayRef containing role names, if you want metaobjects
+associated with these role names, then call method roles on the exception object.
+
+
+=item B<< $exception->trace >>
+
+This attribute is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
+ on $exception->message.
+
+=back
+
+=head4 Sample Error Message:
+
 =head1 Moose::Exception::OverrideConflictInComposition
 
 This class is a subclass of L<Moose::Exception> and consumes role
@@ -6638,7 +6679,7 @@ This attribute is read-only, isa Bool, has a default value 0 and is required.
     Role 'Foo6' has encountered an 'override' method conflict during composition
  (A local method of the same name as been found). This is a fatal error.
     Role 'Foo7' has encountered an 'override' method conflict during composition
- (Two 'override' methods of the same name encountered). This is fatal error.
+ (Two 'override' methods of the same name encountered). This is a fatal error.
 
 =head1 Moose::Exception::OverrideConflictInSummation
 
@@ -6689,7 +6730,7 @@ This attribute is read-only, isa Bool, has a default value 0 and is required.
 composition (A local method of the same name has been found). This is a fatal
 error.
     We have encountered an 'override' method conflict during composition (Two
-'override' methods of the same name encountered). This is fatal error.
+'override' methods of the same name encountered). This is a fatal error.
 
 =head1 Moose::Exception::PackageDoesNotUseMooseExporter
 

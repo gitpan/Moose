@@ -1,5 +1,5 @@
 package Moose::Meta::Instance;
-$Moose::Meta::Instance::VERSION = '2.1212';
+$Moose::Meta::Instance::VERSION = '2.1303'; # TRIAL
 use strict;
 use warnings;
 
@@ -25,7 +25,7 @@ Moose::Meta::Instance - The Moose Instance metaclass
 
 =head1 VERSION
 
-version 2.1212
+version 2.1303
 
 =head1 SYNOPSIS
 

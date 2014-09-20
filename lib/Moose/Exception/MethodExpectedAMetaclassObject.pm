@@ -1,5 +1,5 @@
 package Moose::Exception::MethodExpectedAMetaclassObject;
-$Moose::Exception::MethodExpectedAMetaclassObject::VERSION = '2.1212';
+$Moose::Exception::MethodExpectedAMetaclassObject::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

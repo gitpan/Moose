@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Method::Required;
-$Moose::Meta::Role::Method::Required::VERSION = '2.1212';
+$Moose::Meta::Role::Method::Required::VERSION = '2.1303'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -36,7 +36,7 @@ Moose::Meta::Role::Method::Required - A Moose metaclass for required methods in 
 
 =head1 VERSION
 
-version 2.1212
+version 2.1303
 
 =head1 DESCRIPTION
 

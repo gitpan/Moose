@@ -1,5 +1,5 @@
 package Moose::Exception::DoesRequiresRoleName;
-$Moose::Exception::DoesRequiresRoleName::VERSION = '2.1212';
+$Moose::Exception::DoesRequiresRoleName::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

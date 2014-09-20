@@ -1,5 +1,5 @@
 package Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously;
-$Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::VERSION = '2.1212';
+$Moose::Exception::CannotUseLazyBuildAndDefaultSimultaneously::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

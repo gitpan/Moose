@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Hash::values;
-$Moose::Meta::Method::Accessor::Native::Hash::values::VERSION = '2.1212';
+$Moose::Meta::Method::Accessor::Native::Hash::values::VERSION = '2.1303'; # TRIAL
 use strict;
 use warnings;
 

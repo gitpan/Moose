@@ -1,5 +1,5 @@
 package Moose::Exception::MustPassEvenNumberOfAttributeOptions;
-$Moose::Exception::MustPassEvenNumberOfAttributeOptions::VERSION = '2.1212';
+$Moose::Exception::MustPassEvenNumberOfAttributeOptions::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

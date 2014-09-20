@@ -156,7 +156,8 @@ do { my $x = {
                                    'Test::CleanNamespaces' => '0.13',
                                    'Test::Fatal' => '0.001',
                                    'Test::More' => '0.88',
-                                   'Test::Requires' => '0.05'
+                                   'Test::Requires' => '0.05',
+                                   'Test::Warnings' => '0.016'
                                  }
                  }
      };

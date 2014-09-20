@@ -1,5 +1,5 @@
 package Moose::Exception::NeitherAttributeNorAttributeNameIsGiven;
-$Moose::Exception::NeitherAttributeNorAttributeNameIsGiven::VERSION = '2.1212';
+$Moose::Exception::NeitherAttributeNorAttributeNameIsGiven::VERSION = '2.1303'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

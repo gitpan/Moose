@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::String::length;
-$Moose::Meta::Method::Accessor::Native::String::length::VERSION = '2.1212';
+$Moose::Meta::Method::Accessor::Native::String::length::VERSION = '2.1303'; # TRIAL
 use strict;
 use warnings;
 
