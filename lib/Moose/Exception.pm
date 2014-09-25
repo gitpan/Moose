@@ -1,7 +1,7 @@
 package Moose::Exception;
-$Moose::Exception::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::VERSION = '2.1213';
 use Moose;
-use Devel::StackTrace;
+use Devel::StackTrace 1.33;
 
 has 'trace' => (
     is            => 'ro',
@@ -31,9 +31,20 @@ use overload
 
 sub _build_trace {
     my $self = shift;
+
+    # skip frames that are method calls on the exception object, which include
+    # the object itself in the arguments (but Devel::LeakTrace really ought to
+    # be weakening all references in its frames)
+    my $skip = 0;
+    while (my @c = caller(++$skip)) {
+        last if $c[3] =~ /^(.*)::new$/ && $self->isa($1);
+    }
+    $skip++;
+
     Devel::StackTrace->new(
         message => $self->message,
         indent  => 1,
+        skip_frames => $skip,
     );
 }
 
@@ -62,7 +73,7 @@ Moose::Exception - Superclass for Moose internal exceptions
 
 =head1 VERSION
 
-version 2.1303
+version 2.1213
 
 =head1 DESCRIPTION
 

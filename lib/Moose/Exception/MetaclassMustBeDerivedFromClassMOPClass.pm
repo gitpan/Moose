@@ -1,5 +1,5 @@
 package Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass;
-$Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::MetaclassMustBeDerivedFromClassMOPClass::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 

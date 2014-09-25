@@ -1,5 +1,5 @@
 package Moose::Exception::MustHaveAtLeastOneValueToEnumerate;
-$Moose::Exception::MustHaveAtLeastOneValueToEnumerate::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::MustHaveAtLeastOneValueToEnumerate::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

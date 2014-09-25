@@ -122,7 +122,7 @@ do { my $x = {
                                       'Class::Load::XS' => '0.01',
                                       'Data::OptList' => '0.107',
                                       'Devel::GlobalDestruction' => '0',
-                                      'Devel::StackTrace' => '1.30',
+                                      'Devel::StackTrace' => '1.33',
                                       'Dist::CheckConflicts' => '0.02',
                                       'Eval::Closure' => '0.04',
                                       'List::MoreUtils' => '0.28',
@@ -156,8 +156,7 @@ do { my $x = {
                                    'Test::CleanNamespaces' => '0.13',
                                    'Test::Fatal' => '0.001',
                                    'Test::More' => '0.88',
-                                   'Test::Requires' => '0.05',
-                                   'Test::Warnings' => '0.016'
+                                   'Test::Requires' => '0.05'
                                  }
                  }
      };

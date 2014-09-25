@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::String::substr;
-$Moose::Meta::Method::Accessor::Native::String::substr::VERSION = '2.1303'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::String::substr::VERSION = '2.1213';
 use strict;
 use warnings;
 

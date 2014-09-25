@@ -1,5 +1,5 @@
 package Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef;
-$Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::AutoDeRefNeedsArrayRefOrHashRef::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

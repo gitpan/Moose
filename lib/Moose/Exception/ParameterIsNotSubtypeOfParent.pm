@@ -1,5 +1,5 @@
 package Moose::Exception::ParameterIsNotSubtypeOfParent;
-$Moose::Exception::ParameterIsNotSubtypeOfParent::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::ParameterIsNotSubtypeOfParent::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

@@ -1,53 +1,13 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
-2.1303   2014-09-19 (TRIAL RELEASE)
-
-  [TEST FIXES]
-
-  - fix tests that fail on altered warning messages in perl 5.21.4 (RT#98987)
-
-2.1302   2014-08-19 (TRIAL RELEASE)
+2.1213   2014-09-25
 
   [BUG FIXES]
 
-  - When a role consumes another role and they differ in their overloading
-    fallback settings, the consuming role now silently wins instead of
-    throwing an exception. This is consistent with how other
-    role-consumes-role conflicts are handled.
-  - Fixed the docs for overloading conflicts to match reality.  
-
-2.1301   2014-08-19 (TRIAL RELEASE)
-
-  [BUG FIXES]
-
-  - Conflict detection for overloading operators is now more correct. If a
-    class consumed two roles that both had identical overloading methods
-    (because they got them from some other role, for example), this caused an
-    error, but it shouldn't. GH #4. (rjbs)
-  - Similarly, when a role consumes another role, conflicts in overloading
-    operators are now silently resolved in favor of the consuming role, just
-    as they are with methods. Note that conflicts between the fallback setting
-    for roles are still an error.
-
-2.1300   2014-08-11 (TRIAL RELEASE)
-
-  [ENHANCEMENTS]
-
-  - Moose now has core support for overloading in roles. When a role with
-    overloading is applied to classes or other roles, the overloading settings
-    are transferred to the consumer. Conflicts between roles are treated much
-    like method conflicts. This obviates the need for
-    MooseX::Role::WithOverloading. If you are using
-    MooseX::Role::WithOverloading, upgrade to version 0.15+ and it will simply
-    become a no-op when used with this version of Moose.
-
-  [OTHER]
-
-  - The overloading info methods for roles and classes no longer treat
-    "fallback" as an overloaded op. Instead, there are new
-    get_overload_fallback_value() and set_overload_fallback_value() methods to
-    deal with this explicitly. This is arguably a bug fix.
+   - closed a memory leak in Moose exception objects where captured stack
+     trace frames would contain circular references to the exception objects
+     themselves (Graham Knop, PR#81)
 
 2.1212   2014-09-19
 

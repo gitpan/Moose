@@ -1,5 +1,5 @@
 package Moose::Exception::ApplyTakesABlessedInstance;
-$Moose::Exception::ApplyTakesABlessedInstance::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::ApplyTakesABlessedInstance::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

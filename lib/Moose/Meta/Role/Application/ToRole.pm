@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application::ToRole;
-$Moose::Meta::Role::Application::ToRole::VERSION = '2.1303'; # TRIAL
+$Moose::Meta::Role::Application::ToRole::VERSION = '2.1213';
 use strict;
 use warnings;
 use metaclass;
@@ -178,6 +178,7 @@ sub apply_method_modifiers {
     }
 }
 
+
 1;
 
 # ABSTRACT: Compose a role into another role
@@ -194,7 +195,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.1303
+version 2.1213
 
 =head1 DESCRIPTION
 

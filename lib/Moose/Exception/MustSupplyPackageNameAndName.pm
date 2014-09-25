@@ -1,5 +1,5 @@
 package Moose::Exception::MustSupplyPackageNameAndName;
-$Moose::Exception::MustSupplyPackageNameAndName::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::MustSupplyPackageNameAndName::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

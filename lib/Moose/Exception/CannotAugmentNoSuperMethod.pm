@@ -1,5 +1,5 @@
 package Moose::Exception::CannotAugmentNoSuperMethod;
-$Moose::Exception::CannotAugmentNoSuperMethod::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::CannotAugmentNoSuperMethod::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

@@ -1,5 +1,5 @@
 package Moose::Util::MetaRole;
-$Moose::Util::MetaRole::VERSION = '2.1303'; # TRIAL
+$Moose::Util::MetaRole::VERSION = '2.1213';
 use strict;
 use warnings;
 use Scalar::Util 'blessed';
@@ -130,7 +130,7 @@ Moose::Util::MetaRole - Apply roles to any metaclass, as well as the object base
 
 =head1 VERSION
 
-version 2.1303
+version 2.1213
 
 =head1 SYNOPSIS
 

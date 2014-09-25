@@ -1,5 +1,5 @@
 package Moose::Exception::RequiredMethodsNotImplementedByClass;
-$Moose::Exception::RequiredMethodsNotImplementedByClass::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::RequiredMethodsNotImplementedByClass::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Role';

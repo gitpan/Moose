@@ -1,5 +1,5 @@
 package Moose::Meta::TypeConstraint::Class;
-$Moose::Meta::TypeConstraint::Class::VERSION = '2.1303'; # TRIAL
+$Moose::Meta::TypeConstraint::Class::VERSION = '2.1213';
 use strict;
 use warnings;
 use metaclass;
@@ -143,7 +143,7 @@ Moose::Meta::TypeConstraint::Class - Class/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 2.1303
+version 2.1213
 
 =head1 DESCRIPTION
 

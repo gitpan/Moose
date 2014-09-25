@@ -1,5 +1,5 @@
 package Moose::Exception::CannotInitializeMooseMetaRoleComposite;
-$Moose::Exception::CannotInitializeMooseMetaRoleComposite::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::CannotInitializeMooseMetaRoleComposite::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 

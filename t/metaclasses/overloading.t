@@ -15,13 +15,8 @@ my $quote = qr/['`"]/;
 
     ok(!$meta->is_overloaded);
 
-    is_deeply(
-        [ sort $meta->overload_operators ],
-        [
-            sort grep { $_ ne 'fallback' }
-            map       { split /\s+/ } values %overload::ops
-        ]
-    );
+    is_deeply([sort $meta->overload_operators],
+              [sort map { split /\s+/ } values %overload::ops]);
 
     ok(!$meta->has_overloaded_operator('+'));
     ok(!$meta->has_overloaded_operator('-'));

@@ -1,5 +1,5 @@
 package Moose::Exception::AttributeNamesDoNotMatch;
-$Moose::Exception::AttributeNamesDoNotMatch::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::AttributeNamesDoNotMatch::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 

@@ -1,5 +1,5 @@
 package Moose::Exception::CircularReferenceInAlso;
-$Moose::Exception::CircularReferenceInAlso::VERSION = '2.1303'; # TRIAL
+$Moose::Exception::CircularReferenceInAlso::VERSION = '2.1213';
 use Moose;
 extends 'Moose::Exception';
 

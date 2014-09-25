@@ -1,5 +1,5 @@
 package Class::MOP::Package;
-$Class::MOP::Package::VERSION = '2.1303'; # TRIAL
+$Class::MOP::Package::VERSION = '2.1213';
 use strict;
 use warnings;
 
@@ -283,7 +283,7 @@ Class::MOP::Package - Package Meta Object
 
 =head1 VERSION
 
-version 2.1303
+version 2.1213
 
 =head1 DESCRIPTION
 
