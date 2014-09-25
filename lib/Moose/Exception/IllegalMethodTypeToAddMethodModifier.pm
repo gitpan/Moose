@@ -1,5 +1,5 @@
 package Moose::Exception::IllegalMethodTypeToAddMethodModifier;
-$Moose::Exception::IllegalMethodTypeToAddMethodModifier::VERSION = '2.1213';
+$Moose::Exception::IllegalMethodTypeToAddMethodModifier::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

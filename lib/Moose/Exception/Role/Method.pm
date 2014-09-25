@@ -1,5 +1,5 @@
 package Moose::Exception::Role::Method;
-$Moose::Exception::Role::Method::VERSION = '2.1213';
+$Moose::Exception::Role::Method::VERSION = '2.1304'; # TRIAL
 use Moose::Role;
 
 has 'method' => (

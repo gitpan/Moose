@@ -1,5 +1,5 @@
 package Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType;
-$Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::VERSION = '2.1213';
+$Moose::Exception::TypeConstraintCannotBeUsedForAParameterizableType::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

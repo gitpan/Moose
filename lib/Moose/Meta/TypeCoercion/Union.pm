@@ -1,5 +1,5 @@
 package Moose::Meta::TypeCoercion::Union;
-$Moose::Meta::TypeCoercion::Union::VERSION = '2.1213';
+$Moose::Meta::TypeCoercion::Union::VERSION = '2.1304'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -57,7 +57,7 @@ Moose::Meta::TypeCoercion::Union - The Moose Type Coercion metaclass for Unions
 
 =head1 VERSION
 
-version 2.1213
+version 2.1304
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Moose::Exception::CannotDelegateWithoutIsa;
-$Moose::Exception::CannotDelegateWithoutIsa::VERSION = '2.1213';
+$Moose::Exception::CannotDelegateWithoutIsa::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

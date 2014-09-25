@@ -13,7 +13,7 @@ Moose::Manual::Attributes - Object attributes with Moose
 
 =head1 VERSION
 
-version 2.1213
+version 2.1304
 
 =head1 INTRODUCTION
 

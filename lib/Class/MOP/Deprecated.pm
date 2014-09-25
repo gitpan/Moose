@@ -1,5 +1,5 @@
 package Class::MOP::Deprecated;
-$Class::MOP::Deprecated::VERSION = '2.1213';
+$Class::MOP::Deprecated::VERSION = '2.1304'; # TRIAL
 use strict;
 use warnings;
 
@@ -23,7 +23,7 @@ Class::MOP::Deprecated - Manages deprecation warnings for Class::MOP
 
 =head1 VERSION
 
-version 2.1213
+version 2.1304
 
 =head1 DESCRIPTION
 

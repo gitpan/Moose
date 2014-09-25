@@ -1,5 +1,5 @@
 package Class::MOP::Mixin;
-$Class::MOP::Mixin::VERSION = '2.1213';
+$Class::MOP::Mixin::VERSION = '2.1304'; # TRIAL
 use strict;
 use warnings;
 
@@ -32,7 +32,7 @@ Class::MOP::Mixin - Base class for mixin classes
 
 =head1 VERSION
 
-version 2.1213
+version 2.1304
 
 =head1 DESCRIPTION
 

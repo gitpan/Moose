@@ -1,5 +1,5 @@
 package Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion;
-$Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::VERSION = '2.1213';
+$Moose::Exception::CannotAddAdditionalTypeCoercionsToUnion::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

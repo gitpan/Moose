@@ -1,5 +1,5 @@
 package Moose::Exception::ConstructClassInstanceTakesPackageName;
-$Moose::Exception::ConstructClassInstanceTakesPackageName::VERSION = '2.1213';
+$Moose::Exception::ConstructClassInstanceTakesPackageName::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

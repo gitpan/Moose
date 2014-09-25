@@ -1,5 +1,5 @@
 package Moose::Exception::CanExtendOnlyClasses;
-$Moose::Exception::CanExtendOnlyClasses::VERSION = '2.1213';
+$Moose::Exception::CanExtendOnlyClasses::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

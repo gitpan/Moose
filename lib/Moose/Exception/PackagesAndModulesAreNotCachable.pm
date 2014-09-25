@@ -1,5 +1,5 @@
 package Moose::Exception::PackagesAndModulesAreNotCachable;
-$Moose::Exception::PackagesAndModulesAreNotCachable::VERSION = '2.1213';
+$Moose::Exception::PackagesAndModulesAreNotCachable::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

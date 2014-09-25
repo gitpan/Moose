@@ -1,5 +1,5 @@
 package Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion;
-$Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion::VERSION = '2.1213';
+$Moose::Exception::CannotCoerceAttributeWhichHasNoCoercion::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions', 'Moose::Exception::Role::TypeConstraint';

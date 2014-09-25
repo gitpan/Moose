@@ -1,5 +1,5 @@
 package Moose::Exception::MustPassEvenNumberOfArguments;
-$Moose::Exception::MustPassEvenNumberOfArguments::VERSION = '2.1213';
+$Moose::Exception::MustPassEvenNumberOfArguments::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

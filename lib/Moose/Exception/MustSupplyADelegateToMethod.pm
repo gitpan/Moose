@@ -1,5 +1,5 @@
 package Moose::Exception::MustSupplyADelegateToMethod;
-$Moose::Exception::MustSupplyADelegateToMethod::VERSION = '2.1213';
+$Moose::Exception::MustSupplyADelegateToMethod::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

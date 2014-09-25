@@ -1,5 +1,5 @@
 package Moose::Exception::RoleExclusionConflict;
-$Moose::Exception::RoleExclusionConflict::VERSION = '2.1213';
+$Moose::Exception::RoleExclusionConflict::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

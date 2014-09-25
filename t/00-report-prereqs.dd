@@ -90,6 +90,7 @@ do { my $x = {
                                       'Dist::Zilla::Plugin::Prereqs::AuthorDeps' => '0',
                                       'Dist::Zilla::Plugin::PromptIfStale' => '0',
                                       'Dist::Zilla::Plugin::PruneCruft' => '0',
+                                      'Dist::Zilla::Plugin::Run::AfterRelease' => '0',
                                       'Dist::Zilla::Plugin::RunExtraTests' => '0',
                                       'Dist::Zilla::Plugin::ShareDir' => '0',
                                       'Dist::Zilla::Plugin::SurgicalPodWeaver' => '0',
@@ -156,7 +157,8 @@ do { my $x = {
                                    'Test::CleanNamespaces' => '0.13',
                                    'Test::Fatal' => '0.001',
                                    'Test::More' => '0.88',
-                                   'Test::Requires' => '0.05'
+                                   'Test::Requires' => '0.05',
+                                   'Test::Warnings' => '0.016'
                                  }
                  }
      };

@@ -1,5 +1,5 @@
 package Moose::Exception::NoParentGivenToSubtype;
-$Moose::Exception::NoParentGivenToSubtype::VERSION = '2.1213';
+$Moose::Exception::NoParentGivenToSubtype::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

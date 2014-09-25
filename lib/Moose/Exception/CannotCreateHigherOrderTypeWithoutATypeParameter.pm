@@ -1,5 +1,5 @@
 package Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter;
-$Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter::VERSION = '2.1213';
+$Moose::Exception::CannotCreateHigherOrderTypeWithoutATypeParameter::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

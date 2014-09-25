@@ -1,5 +1,5 @@
 package Moose::Exception::CannotApplyBaseClassRolesToRole;
-$Moose::Exception::CannotApplyBaseClassRolesToRole::VERSION = '2.1213';
+$Moose::Exception::CannotApplyBaseClassRolesToRole::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Role';

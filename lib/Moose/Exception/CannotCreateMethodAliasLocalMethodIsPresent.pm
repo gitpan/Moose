@@ -1,5 +1,5 @@
 package Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent;
-$Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent::VERSION = '2.1213';
+$Moose::Exception::CannotCreateMethodAliasLocalMethodIsPresent::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role', 'Moose::Exception::Role::Method';

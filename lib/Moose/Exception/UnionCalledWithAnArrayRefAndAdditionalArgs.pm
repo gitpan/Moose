@@ -1,5 +1,5 @@
 package Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs;
-$Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1213';
+$Moose::Exception::UnionCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

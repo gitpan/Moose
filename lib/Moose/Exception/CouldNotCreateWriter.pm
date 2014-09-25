@@ -1,5 +1,5 @@
 package Moose::Exception::CouldNotCreateWriter;
-$Moose::Exception::CouldNotCreateWriter::VERSION = '2.1213';
+$Moose::Exception::CouldNotCreateWriter::VERSION = '2.1304'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::EitherAttributeOrAttributeName', 'Moose::Exception::Role::Instance';

@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::delete;
-$Moose::Meta::Method::Accessor::Native::Array::delete::VERSION = '2.1213';
+$Moose::Meta::Method::Accessor::Native::Array::delete::VERSION = '2.1304'; # TRIAL
 use strict;
 use warnings;
 
