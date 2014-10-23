@@ -1,5 +1,5 @@
 package Moose::Exception;
-$Moose::Exception::VERSION = '2.1304'; # TRIAL
+$Moose::Exception::VERSION = '2.1305'; # TRIAL
 use Moose;
 use Devel::StackTrace 1.33;
 
@@ -21,13 +21,10 @@ has 'message' => (
                      "It is lazy and has a default value 'Error'."
 );
 
-use overload
-    '""' => sub {
-        my $self = shift;
-        return $self->trace->as_string,
-    },
+use overload(
+    q{""}    => 'as_string',
     fallback => 1,
-;
+);
 
 sub _build_trace {
     my $self = shift;
@@ -57,6 +54,39 @@ sub BUILD {
     $self->trace;
 }
 
+sub as_string {
+    my $self = shift;
+
+    if ( $ENV{MOOSE_FULL_EXCEPTION} ) {
+        return $self->trace->as_string;
+    }
+
+    my @frames;
+    my $last_frame;
+    my $in_moose = 1;
+    for my $frame ( $self->trace->frames ) {
+        if ($in_moose & $frame->package =~ /^(?:Moose|Class::MOP)(?::|$)/) {
+            $last_frame = $frame;
+            next;
+        }
+        elsif ($last_frame) {
+            push @frames, $last_frame;
+            undef $last_frame;
+        }
+
+        $in_moose = 0;
+        push @frames, $frame;
+    }
+
+    # This would be a somewhat pathological case, but who knows
+    return $self->trace->as_string unless @frames;
+
+    my $message = ( shift @frames )->as_string( 1, {} ) . "\n";
+    $message .= join q{}, map { $_->as_string( 0, {} ) . "\n" } @frames;
+
+    return $message;
+}
+
 1;
 
 # ABSTRACT: Superclass for Moose internal exceptions
@@ -73,7 +103,7 @@ Moose::Exception - Superclass for Moose internal exceptions
 
 =head1 VERSION
 
-version 2.1304
+version 2.1305
 
 =head1 DESCRIPTION
 
@@ -90,23 +120,24 @@ for use in user code.
 Of course if you're writing metaclass traits, it would then make sense to
 subclass the relevant Moose exceptions - but only then.
 
-=head1 ATTRIBUTES
+=head1 METHODS
 
-=over 4
+This class provides the following methods:
 
-=item B<< $exception->trace >>
+=head2 $exception->message
 
-This attribute contains the stack trace for the given exception. It
-is read-only and isa L<Devel::StackTrace>. It is lazy & dependent
-on $exception->message.
+This methods returns the exception message.
 
-=item B<< $exception->message >>
+=head2 $exception->trace
 
-This attribute contains the exception message. It is read-only and isa Str.
-It is lazy and has a default value 'Error'. Every subclass of L<Moose::Exception>
-is expected to override _build_message method.
+This method returns the stack trace for the given exception.
 
-=back
+=head2 $exception->as_string
+
+This method returns a stringified form of the exception, including a stack
+trace. By default, this method skips Moose-internal stack frames until it sees
+a caller outside of the Moose core. If the C<MOOSE_FULL_EXCEPTION> environment
+variable is true, these frames are included.
 
 =head1 SEE ALSO
 

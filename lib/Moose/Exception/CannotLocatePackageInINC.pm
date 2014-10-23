@@ -1,5 +1,5 @@
 package Moose::Exception::CannotLocatePackageInINC;
-$Moose::Exception::CannotLocatePackageInINC::VERSION = '2.1304'; # TRIAL
+$Moose::Exception::CannotLocatePackageInINC::VERSION = '2.1305'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

@@ -1,5 +1,5 @@
 package Moose::Util::TypeConstraints;
-$Moose::Util::TypeConstraints::VERSION = '2.1304'; # TRIAL
+$Moose::Util::TypeConstraints::VERSION = '2.1305'; # TRIAL
 use Carp ();
 use List::MoreUtils qw( all any );
 use Scalar::Util qw( blessed reftype );
@@ -770,7 +770,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1304
+version 2.1305
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Moose::Exception::CannotMakeMetaclassCompatible;
-$Moose::Exception::CannotMakeMetaclassCompatible::VERSION = '2.1304'; # TRIAL
+$Moose::Exception::CannotMakeMetaclassCompatible::VERSION = '2.1305'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application::ToInstance;
-$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1304'; # TRIAL
+$Moose::Meta::Role::Application::ToInstance::VERSION = '2.1305'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -62,7 +62,7 @@ Moose::Meta::Role::Application::ToInstance - Compose a role into an instance
 
 =head1 VERSION
 
-version 2.1304
+version 2.1305
 
 =head1 DESCRIPTION
 

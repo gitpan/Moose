@@ -1,5 +1,5 @@
 package Moose::Exception::CannotAssignValueToReadOnlyAccessor;
-$Moose::Exception::CannotAssignValueToReadOnlyAccessor::VERSION = '2.1304'; # TRIAL
+$Moose::Exception::CannotAssignValueToReadOnlyAccessor::VERSION = '2.1305'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::EitherAttributeOrAttributeName';

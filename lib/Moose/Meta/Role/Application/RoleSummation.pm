@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application::RoleSummation;
-$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1304'; # TRIAL
+$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1305'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
@@ -337,7 +337,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.1304
+version 2.1305
 
 =head1 DESCRIPTION
 
