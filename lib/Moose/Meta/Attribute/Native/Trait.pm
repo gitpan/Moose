@@ -1,13 +1,10 @@
 package Moose::Meta::Attribute::Native::Trait;
-$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Attribute::Native::Trait::VERSION = '2.1306'; # TRIAL
 use Moose::Role;
 use Module::Runtime 'require_module';
-use List::MoreUtils qw( any uniq );
 use Moose::Deprecated;
-use Moose::Util;
-use Moose::Util::TypeConstraints;
-
 use Moose::Util 'throw_exception';
+use Moose::Util::TypeConstraints;
 
 requires '_helper_type';
 
@@ -179,7 +176,7 @@ Moose::Meta::Attribute::Native::Trait - Shared role for native delegation traits
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 BUGS
 

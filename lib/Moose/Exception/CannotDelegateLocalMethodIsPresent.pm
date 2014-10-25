@@ -1,5 +1,5 @@
 package Moose::Exception::CannotDelegateLocalMethodIsPresent;
-$Moose::Exception::CannotDelegateLocalMethodIsPresent::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::CannotDelegateLocalMethodIsPresent::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute', 'Moose::Exception::Role::Method';

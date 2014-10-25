@@ -81,10 +81,12 @@ use Dist::CheckConflicts
         Class::Load::XS
         Data::OptList
         Devel::GlobalDestruction
+        Devel::OverloadInfo
         Devel::StackTrace
         Dist::CheckConflicts
         Eval::Closure
         List::MoreUtils
+        List::Util
         MRO::Compat
         Module::Runtime
         Module::Runtime::Conflicts

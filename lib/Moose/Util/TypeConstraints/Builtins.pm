@@ -1,11 +1,11 @@
 package Moose::Util::TypeConstraints::Builtins;
-$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1305'; # TRIAL
+$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 
 use Class::Load qw( is_class_loaded );
-use List::MoreUtils ();
-use Scalar::Util qw( blessed looks_like_number reftype );
+use List::Util 1.33 ();
+use Scalar::Util qw( blessed );
 
 sub type { goto &Moose::Util::TypeConstraints::type }
 sub subtype { goto &Moose::Util::TypeConstraints::subtype }
@@ -222,7 +222,7 @@ sub define_builtins {
                 'do {'
                     . 'my $check = ' . $val . ';'
                     . 'ref($check) eq "ARRAY" '
-                        . '&& &List::MoreUtils::all('
+                        . '&& &List::Util::all('
                             . 'sub { ' . $type_parameter->_inline_check('$_') . ' }, '
                             . '@{$check}'
                         . ')'
@@ -257,7 +257,7 @@ sub define_builtins {
                 'do {'
                     . 'my $check = ' . $val . ';'
                     . 'ref($check) eq "HASH" '
-                        . '&& &List::MoreUtils::all('
+                        . '&& &List::Util::all('
                             . 'sub { ' . $type_parameter->_inline_check('$_') . ' }, '
                             . 'values %{$check}'
                         . ')'

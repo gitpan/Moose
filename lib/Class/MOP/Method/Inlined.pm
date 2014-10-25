@@ -1,9 +1,9 @@
 package Class::MOP::Method::Inlined;
-$Class::MOP::Method::Inlined::VERSION = '2.1305'; # TRIAL
+$Class::MOP::Method::Inlined::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 
-use Scalar::Util 'blessed', 'weaken', 'looks_like_number', 'refaddr';
+use Scalar::Util 'refaddr';
 
 use parent 'Class::MOP::Method::Generated';
 
@@ -118,7 +118,7 @@ Class::MOP::Method::Inlined - Method base class for methods which have been inli
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

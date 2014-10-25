@@ -1,5 +1,5 @@
 package Moose::Meta::Method;
-$Moose::Meta::Method::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Method::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 
@@ -25,7 +25,7 @@ Moose::Meta::Method - A Moose Method metaclass
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

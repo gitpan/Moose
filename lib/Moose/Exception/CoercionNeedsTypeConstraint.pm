@@ -1,5 +1,5 @@
 package Moose::Exception::CoercionNeedsTypeConstraint;
-$Moose::Exception::CoercionNeedsTypeConstraint::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::CoercionNeedsTypeConstraint::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

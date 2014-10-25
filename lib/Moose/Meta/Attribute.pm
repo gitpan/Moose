@@ -1,10 +1,10 @@
 use strict;
 use warnings;
 package Moose::Meta::Attribute;
-$Moose::Meta::Attribute::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Attribute::VERSION = '2.1306'; # TRIAL
 use B ();
-use Scalar::Util 'blessed', 'weaken';
-use List::MoreUtils 'any';
+use Scalar::Util 'blessed';
+use List::Util 1.33 'any';
 use Try::Tiny;
 use overload     ();
 
@@ -1270,7 +1270,7 @@ sub verify_against_type_constraint {
 }
 
 package Moose::Meta::Attribute::Custom::Moose;
-$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Attribute::Custom::Moose::VERSION = '2.1306'; # TRIAL
 sub register_implementation { 'Moose::Meta::Attribute' }
 1;
 
@@ -1288,7 +1288,7 @@ Moose::Meta::Attribute - The Moose attribute metaclass
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

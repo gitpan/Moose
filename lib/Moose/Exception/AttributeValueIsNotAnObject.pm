@@ -1,5 +1,5 @@
 package Moose::Exception::AttributeValueIsNotAnObject;
-$Moose::Exception::AttributeValueIsNotAnObject::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::AttributeValueIsNotAnObject::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance', 'Moose::Exception::Role::Attribute';

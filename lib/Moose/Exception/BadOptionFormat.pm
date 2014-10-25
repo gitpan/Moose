@@ -1,5 +1,5 @@
 package Moose::Exception::BadOptionFormat;
-$Moose::Exception::BadOptionFormat::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::BadOptionFormat::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

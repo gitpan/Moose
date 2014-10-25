@@ -1,12 +1,12 @@
 package Moose::Meta::TypeConstraint::Role;
-$Moose::Meta::TypeConstraint::Role::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::TypeConstraint::Role::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
 
 use B;
-use Scalar::Util 'blessed';
 use Moose::Util::TypeConstraints ();
+use Moose::Util ();
 
 use parent 'Moose::Meta::TypeConstraint';
 
@@ -123,7 +123,7 @@ Moose::Meta::TypeConstraint::Role - Role/TypeConstraint parallel hierarchy
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

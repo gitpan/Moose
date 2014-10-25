@@ -1,16 +1,12 @@
 package Moose::Meta::Role::Composite;
-$Moose::Meta::Role::Composite::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Role::Composite::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
 
 use Scalar::Util 'blessed';
-
-use Moose::Util;
-
-use parent 'Moose::Meta::Role';
-
 use Moose::Util 'throw_exception';
+use parent 'Moose::Meta::Role';
 
 # NOTE:
 # we need to override the ->name
@@ -147,30 +143,16 @@ sub is_overloaded {
 }
 
 sub add_overloaded_operator {
-    my ( $self, $op_name, $method ) = @_;
+    my ( $self, $op_name, $overload ) = @_;
 
     unless ( defined $op_name && $op_name ) {
         throw_exception(
-            'MustDefineAMethodName',
+            'MustDefineAnOverloadOperator',
             instance => $self,
         );
     }
 
-    my $body;
-    if ( blessed($method) ) {
-        $body = $method->body;
-        if ( $method->package_name ne $self->name ) {
-            $method = $method->clone(
-                package_name => $self->name,
-                name         => $op_name
-            ) if $method->can('clone');
-        }
-    }
-    else {
-        $method = $self->_wrap_overload( $op_name, $method );
-    }
-
-    $self->_overload_map->{$op_name} = $method;
+    $self->_overload_map->{$op_name} = $overload;
 }
 
 sub get_overload_fallback_value {
@@ -232,7 +214,7 @@ Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

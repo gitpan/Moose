@@ -1,10 +1,10 @@
 package Moose::Meta::Method::Accessor::Native;
-$Moose::Meta::Method::Accessor::Native::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 
 use Carp qw( confess );
-use Scalar::Util qw( blessed weaken );
+use Scalar::Util qw( blessed );
 
 use Moose::Role;
 

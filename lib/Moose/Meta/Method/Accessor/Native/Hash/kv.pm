@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Hash::kv;
-$Moose::Meta::Method::Accessor::Native::Hash::kv::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Hash::kv::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 

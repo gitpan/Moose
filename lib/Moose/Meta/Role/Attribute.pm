@@ -1,9 +1,9 @@
 package Moose::Meta::Role::Attribute;
-$Moose::Meta::Role::Attribute::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Role::Attribute::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 
-use List::MoreUtils 'all';
+use List::Util 1.33 'all';
 use Scalar::Util 'blessed', 'weaken';
 
 use parent 'Moose::Meta::Mixin::AttributeCore', 'Class::MOP::Object';
@@ -139,7 +139,7 @@ Moose::Meta::Role::Attribute - The Moose attribute metaclass for Roles
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

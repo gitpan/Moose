@@ -1,5 +1,5 @@
 package Moose::Exception::RequiredMethodsImportedByClass;
-$Moose::Exception::RequiredMethodsImportedByClass::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::RequiredMethodsImportedByClass::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::Role';

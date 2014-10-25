@@ -1,5 +1,5 @@
 package Moose::Exception::CreateTakesHashRefOfAttributes;
-$Moose::Exception::CreateTakesHashRefOfAttributes::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::CreateTakesHashRefOfAttributes::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::RoleForCreate';

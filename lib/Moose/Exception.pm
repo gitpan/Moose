@@ -1,5 +1,5 @@
 package Moose::Exception;
-$Moose::Exception::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::VERSION = '2.1306'; # TRIAL
 use Moose;
 use Devel::StackTrace 1.33;
 
@@ -65,7 +65,8 @@ sub as_string {
     my $last_frame;
     my $in_moose = 1;
     for my $frame ( $self->trace->frames ) {
-        if ($in_moose & $frame->package =~ /^(?:Moose|Class::MOP)(?::|$)/) {
+        if ( $in_moose && $frame->package =~ /^(?:Moose|Class::MOP)(?::|$)/ )
+        {
             $last_frame = $frame;
             next;
         }
@@ -103,7 +104,7 @@ Moose::Exception - Superclass for Moose internal exceptions
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

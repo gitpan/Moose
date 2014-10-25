@@ -1,5 +1,5 @@
 package Moose::Exception::RolesDoNotSupportInner;
-$Moose::Exception::RolesDoNotSupportInner::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::RolesDoNotSupportInner::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

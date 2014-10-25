@@ -1,5 +1,5 @@
 package Moose::Exception::CannotFindType;
-$Moose::Exception::CannotFindType::VERSION = '2.1305'; # TRIAL
+$Moose::Exception::CannotFindType::VERSION = '2.1306'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

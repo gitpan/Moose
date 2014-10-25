@@ -1,10 +1,10 @@
 package Moose::Meta::Role::Application::RoleSummation;
-$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Role::Application::RoleSummation::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
 
-use List::MoreUtils qw( all );
+use List::Util 1.33 qw( all );
 use Scalar::Util 'blessed';
 
 use Moose::Meta::Role::Composite;
@@ -293,20 +293,19 @@ sub apply_overloading {
         $c->set_overload_fallback_value( ( values %fallback )[0] );
     }
 
-    my %method_map;
+    my %overload_map;
     for my $role (@overloaded_roles) {
-        for my $meth ( $role->get_all_overloaded_operators ) {
-            $method_map{ $meth->operator }{ $role->name } = $meth;
+        for my $overload ( $role->get_all_overloaded_operators ) {
+            $overload_map{ $overload->operator }{ $role->name } = $overload;
         }
     }
 
-    for my $op_name ( keys %method_map ) {
-        my @roles = keys %{ $method_map{$op_name} };
-        my $body = $method_map{$op_name}{ $roles[0] }->body;
+    for my $op_name ( keys %overload_map ) {
+        my @roles = keys %{ $overload_map{$op_name} };
+        my $overload = $overload_map{$op_name}{ $roles[0] };
 
-
-        if ( @roles > 1 && !all { $body == $_->body }
-            values %{ $method_map{$op_name} } ) {
+        if ( @roles > 1 && !all { $overload->_is_equal_to($_) }
+            values %{ $overload_map{$op_name} } ) {
 
             throw_exception(
                 'OverloadConflictInSummation',
@@ -317,7 +316,7 @@ sub apply_overloading {
         }
 
         $c->add_overloaded_operator(
-            $op_name => $method_map{$op_name}{ $roles[0] } );
+            $op_name => $overload_map{$op_name}{ $roles[0] } );
     }
 }
 
@@ -337,7 +336,7 @@ Moose::Meta::Role::Application::RoleSummation - Combine two or more roles
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

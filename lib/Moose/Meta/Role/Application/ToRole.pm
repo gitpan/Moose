@@ -1,10 +1,8 @@
 package Moose::Meta::Role::Application::ToRole;
-$Moose::Meta::Role::Application::ToRole::VERSION = '2.1305'; # TRIAL
+$Moose::Meta::Role::Application::ToRole::VERSION = '2.1306'; # TRIAL
 use strict;
 use warnings;
 use metaclass;
-
-use Scalar::Util    'blessed';
 
 use parent 'Moose::Meta::Role::Application';
 
@@ -194,7 +192,7 @@ Moose::Meta::Role::Application::ToRole - Compose a role into another role
 
 =head1 VERSION
 
-version 2.1305
+version 2.1306
 
 =head1 DESCRIPTION
 

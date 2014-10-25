@@ -6,7 +6,7 @@ use warnings;
 
 use Test::More 0.94;
 
-plan tests => 358 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+plan tests => 367 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 my @module_files = (
     'Class/MOP.pm',
@@ -16,12 +16,13 @@ my @module_files = (
     'Class/MOP/Method.pm',
     'Class/MOP/Method/Generated.pm',
     'Class/MOP/Method/Meta.pm',
-    'Class/MOP/Method/Overload.pm',
     'Class/MOP/MiniTrait.pm',
     'Class/MOP/Mixin.pm',
     'Class/MOP/Mixin/AttributeCore.pm',
     'Class/MOP/Mixin/HasMethods.pm',
+    'Class/MOP/Mixin/HasOverloads.pm',
     'Class/MOP/Object.pm',
+    'Class/MOP/Overload.pm',
     'Moose.pm',
     'Moose/Conflicts.pm',
     'Moose/Deprecated.pm',
@@ -136,6 +137,7 @@ my @module_files = (
     'Moose/Exception/InvalidHandleValue.pm',
     'Moose/Exception/InvalidHasProvidedInARole.pm',
     'Moose/Exception/InvalidNameForType.pm',
+    'Moose/Exception/InvalidOverloadOperator.pm',
     'Moose/Exception/InvalidRoleApplication.pm',
     'Moose/Exception/InvalidTypeConstraint.pm',
     'Moose/Exception/InvalidTypeGivenToCreateParameterizedTypeConstraint.pm',
@@ -164,6 +166,7 @@ my @module_files = (
     'Moose/Exception/MethodNameNotGiven.pm',
     'Moose/Exception/MustDefineAMethodName.pm',
     'Moose/Exception/MustDefineAnAttributeName.pm',
+    'Moose/Exception/MustDefineAnOverloadOperator.pm',
     'Moose/Exception/MustHaveAtLeastOneValueToEnumerate.pm',
     'Moose/Exception/MustPassAHashOfOptions.pm',
     'Moose/Exception/MustPassAMooseMetaRoleInstanceOrSubclass.pm',
@@ -197,6 +200,12 @@ my @module_files = (
     'Moose/Exception/OnlyInstancesCanBeCloned.pm',
     'Moose/Exception/OperatorIsRequired.pm',
     'Moose/Exception/OverloadConflictInSummation.pm',
+    'Moose/Exception/OverloadRequiresAMetaClass.pm',
+    'Moose/Exception/OverloadRequiresAMetaMethod.pm',
+    'Moose/Exception/OverloadRequiresAMetaOverload.pm',
+    'Moose/Exception/OverloadRequiresAMethodNameOrCoderef.pm',
+    'Moose/Exception/OverloadRequiresAnOperator.pm',
+    'Moose/Exception/OverloadRequiresNamesForCoderef.pm',
     'Moose/Exception/OverrideConflictInComposition.pm',
     'Moose/Exception/OverrideConflictInSummation.pm',
     'Moose/Exception/PackageDoesNotUseMooseExporter.pm',
