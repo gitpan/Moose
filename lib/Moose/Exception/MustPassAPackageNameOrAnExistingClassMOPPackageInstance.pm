@@ -1,5 +1,5 @@
 package Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance;
-$Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance::VERSION = '2.1306'; # TRIAL
+$Moose::Exception::MustPassAPackageNameOrAnExistingClassMOPPackageInstance::VERSION = '2.1307'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

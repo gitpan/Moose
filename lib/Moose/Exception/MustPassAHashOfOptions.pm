@@ -1,5 +1,5 @@
 package Moose::Exception::MustPassAHashOfOptions;
-$Moose::Exception::MustPassAHashOfOptions::VERSION = '2.1306'; # TRIAL
+$Moose::Exception::MustPassAHashOfOptions::VERSION = '2.1307'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

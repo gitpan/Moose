@@ -1,13 +1,27 @@
 Also see Moose::Manual::Delta for more details of, and workarounds
 for, noteworthy changes.
 
+2.1307   2014-10-26 (TRIAL RELEASE)
+
+  [ENHANCEMENTS]
+
+  - Support added to Moose::Exporter for exporting subs by their fully
+    qualified name, as well as coderefs. This avoids internal breakage if some
+    other module has monkey-patched a sub to be exported and left it anonymous
+    (e.g. RT#88669). (Graham Knop, PR#84)
+
+  [BUG FIXES]
+
+  - Further refined the overloading fixes from 2.1306, fixing fallback
+    handling on older perl versions (Dave Rolsky, PR#85)
+
 2.1306   2014-10-25 (TRIAL RELEASE)
 
   [ENHANCEMENTS]
 
   - Rewrote overloading implementation to use a new Class::MOP::Overload
     object. This object properly captures all overloading information. The
-    Class::MOP::Method::Overload class has been removed.
+    Class::MOP::Method::Overload class has been removed. (Dave Rolsky, PR#83)
 
   [BUG FIXES]
 

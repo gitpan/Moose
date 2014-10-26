@@ -1,5 +1,5 @@
 package Moose::Exception::UndefinedHashKeysPassedToMethod;
-$Moose::Exception::UndefinedHashKeysPassedToMethod::VERSION = '2.1306'; # TRIAL
+$Moose::Exception::UndefinedHashKeysPassedToMethod::VERSION = '2.1307'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

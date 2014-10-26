@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Destructor;
-$Moose::Meta::Method::Destructor::VERSION = '2.1306'; # TRIAL
+$Moose::Meta::Method::Destructor::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -144,7 +144,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 package Moose::Exporter;
-$Moose::Exporter::VERSION = '2.1306'; # TRIAL
+$Moose::Exporter::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -291,6 +291,16 @@ sub _make_sub_exporter_params {
                     = Class::MOP::get_code_info($name);
 
                 if ( $coderef_pkg ne $package ) {
+                    $is_reexport->{$coderef_name} = 1;
+                }
+            }
+            elsif ( $name =~ /^(.*)::([^:]+)$/ ) {
+                $sub = $class->_sub_from_package( "$1", "$2" )
+                    or next;
+
+                $coderef_name = "$2";
+
+                if ( $1 ne $package ) {
                     $is_reexport->{$coderef_name} = 1;
                 }
             }
@@ -797,7 +807,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 SYNOPSIS
 
@@ -808,7 +818,7 @@ version 2.1306
 
   Moose::Exporter->setup_import_methods(
       with_meta => [ 'has_rw', 'sugar2' ],
-      as_is     => [ 'sugar3', \&Some::Random::thing ],
+      as_is     => [ 'sugar3', \&Some::Random::thing, 'Other::Random::thing' ],
       also      => 'Moose',
   );
 

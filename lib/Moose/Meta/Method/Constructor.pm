@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Constructor;
-$Moose::Meta::Method::Constructor::VERSION = '2.1306'; # TRIAL
+$Moose::Meta::Method::Constructor::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -69,7 +69,7 @@ Moose::Meta::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 DESCRIPTION
 

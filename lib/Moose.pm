@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Moose;
-$Moose::VERSION = '2.1306'; # TRIAL
+$Moose::VERSION = '2.1307'; # TRIAL
 $Moose::AUTHORITY = 'cpan:STEVAN';
 
 use 5.008003;
@@ -135,8 +135,8 @@ Moose::Exporter->setup_import_methods(
     ],
     as_is => [
         qw( super inner ),
-        \&Carp::confess,
-        \&Scalar::Util::blessed,
+        'Carp::confess',
+        'Scalar::Util::blessed',
     ],
 );
 
@@ -300,7 +300,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 SYNOPSIS
 

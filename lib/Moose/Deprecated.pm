@@ -1,5 +1,5 @@
 package Moose::Deprecated;
-$Moose::Deprecated::VERSION = '2.1306'; # TRIAL
+$Moose::Deprecated::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -26,7 +26,7 @@ Moose::Deprecated - Manages deprecation warnings for Moose
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 DESCRIPTION
 

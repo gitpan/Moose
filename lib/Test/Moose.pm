@@ -1,5 +1,5 @@
 package Test::Moose;
-$Test::Moose::VERSION = '2.1306'; # TRIAL
+$Test::Moose::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -97,7 +97,7 @@ Test::Moose - Test functions for Moose specific features
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 SYNOPSIS
 

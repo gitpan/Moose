@@ -13,7 +13,7 @@ Moose::Cookbook - How to cook a Moose
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 DESCRIPTION
 

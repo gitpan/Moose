@@ -1,5 +1,5 @@
 package Moose::Exception::RoleDoesTheExcludedRole;
-$Moose::Exception::RoleDoesTheExcludedRole::VERSION = '2.1306'; # TRIAL
+$Moose::Exception::RoleDoesTheExcludedRole::VERSION = '2.1307'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

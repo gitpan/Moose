@@ -1,5 +1,5 @@
 package oose;
-$oose::VERSION = '2.1306'; # TRIAL
+$oose::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -33,7 +33,7 @@ oose - syntactic sugar to make Moose one-liners easier
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Attribute;
-$Moose::Meta::Role::Attribute::VERSION = '2.1306'; # TRIAL
+$Moose::Meta::Role::Attribute::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -139,7 +139,7 @@ Moose::Meta::Role::Attribute - The Moose attribute metaclass for Roles
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 DESCRIPTION
 

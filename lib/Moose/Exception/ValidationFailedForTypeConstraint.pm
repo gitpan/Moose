@@ -1,5 +1,5 @@
 package Moose::Exception::ValidationFailedForTypeConstraint;
-$Moose::Exception::ValidationFailedForTypeConstraint::VERSION = '2.1306'; # TRIAL
+$Moose::Exception::ValidationFailedForTypeConstraint::VERSION = '2.1307'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

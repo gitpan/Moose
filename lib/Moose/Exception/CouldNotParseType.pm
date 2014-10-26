@@ -1,5 +1,5 @@
 package Moose::Exception::CouldNotParseType;
-$Moose::Exception::CouldNotParseType::VERSION = '2.1306'; # TRIAL
+$Moose::Exception::CouldNotParseType::VERSION = '2.1307'; # TRIAL
 use Moose;
 extends 'Moose::Exception';
 

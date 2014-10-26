@@ -1,5 +1,5 @@
 package metaclass;
-$metaclass::VERSION = '2.1306'; # TRIAL
+$metaclass::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -55,7 +55,7 @@ metaclass - a pragma for installing and using Class::MOP metaclasses
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 SYNOPSIS
 

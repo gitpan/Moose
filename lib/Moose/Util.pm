@@ -1,5 +1,5 @@
 package Moose::Util;
-$Moose::Util::VERSION = '2.1306'; # TRIAL
+$Moose::Util::VERSION = '2.1307'; # TRIAL
 use strict;
 use warnings;
 
@@ -540,7 +540,7 @@ Moose::Util - Utilities for working with Moose classes
 
 =head1 VERSION
 
-version 2.1306
+version 2.1307
 
 =head1 SYNOPSIS
 
