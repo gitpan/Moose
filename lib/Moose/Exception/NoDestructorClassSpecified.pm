@@ -1,5 +1,5 @@
 package Moose::Exception::NoDestructorClassSpecified;
-$Moose::Exception::NoDestructorClassSpecified::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::NoDestructorClassSpecified::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

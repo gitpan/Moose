@@ -1,5 +1,5 @@
 package Moose::Exception::InstanceMustBeABlessedReference;
-$Moose::Exception::InstanceMustBeABlessedReference::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::InstanceMustBeABlessedReference::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Class';

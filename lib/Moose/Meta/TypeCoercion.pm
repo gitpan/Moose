@@ -1,5 +1,5 @@
 package Moose::Meta::TypeCoercion;
-$Moose::Meta::TypeCoercion::VERSION = '2.1307'; # TRIAL
+$Moose::Meta::TypeCoercion::VERSION = '2.1400';
 use strict;
 use warnings;
 use metaclass;
@@ -115,7 +115,7 @@ Moose::Meta::TypeCoercion - The Moose Type Coercion metaclass
 
 =head1 VERSION
 
-version 2.1307
+version 2.1400
 
 =head1 DESCRIPTION
 

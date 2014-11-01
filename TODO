@@ -91,20 +91,6 @@ this should be submitted to Sub::Identify first.
 
 These are things we think are good ideas, but they need more fleshing out.
 
-### Add overloading support
-
-or at least, don't break existing overloading support
-
-This shouldn't treat the overloading stuff as actual methods, since that's just
-an implementation detail, but we should provide an API for `add_overload`,
-`get_overload`, `get_overload_list`, etc. In particular, this would allow
-namespace::autoclean to not break things.
-
-Also, MooseX::Role::WithOverloading should probably be cored.
-
-This should probably also wait for the metarole unification fix, to avoid the
-::WithOverloading stuff being too insane.
-
 ### Actual API for metaclass extensions
 
 Right now, the only way to bundle multiple metaclass traits is via
@@ -183,12 +169,6 @@ This is a long term goal, but would allow for a lot of things to be cleaned up.
 There's a bunch of stuff that's duplicated, and other stuff that's not
 implemented as well as it could be (Class::MOP::Method::Wrapped should be a
 role, for instance).
-
-### Fix the error system
-
-oh god it's terrible
-
-More specifically, we really want exception objects.
 
 ### Moose::Util::TypeConstraints vs Moose::Meta::Type{Coercion,Constraint}
 
@@ -302,11 +282,6 @@ Renamed imports aren't cleaned on unimport. For instance:
 Special method types can't have method metaroles applied. Applying a method
 metarole to a class doesn't apply that role to things like constructors,
 accessors, etc.
-
-### `t/roles/compose_overloading.t`
-
-Overload methods aren't composed during role composition (this is detailed
-above - Add overloading support).
 
 ### `t/roles/method_modifiers.t`
 

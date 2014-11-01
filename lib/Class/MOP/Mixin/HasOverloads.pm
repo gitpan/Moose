@@ -1,5 +1,5 @@
 package Class::MOP::Mixin::HasOverloads;
-$Class::MOP::Mixin::HasOverloads::VERSION = '2.1307'; # TRIAL
+$Class::MOP::Mixin::HasOverloads::VERSION = '2.1400';
 use strict;
 use warnings;
 
@@ -172,7 +172,7 @@ Class::MOP::Mixin::HasOverloads - Methods for metaclasses which have overloads
 
 =head1 VERSION
 
-version 2.1307
+version 2.1400
 
 =head1 DESCRIPTION
 

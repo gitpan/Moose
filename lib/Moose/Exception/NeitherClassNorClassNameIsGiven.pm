@@ -1,5 +1,5 @@
 package Moose::Exception::NeitherClassNorClassNameIsGiven;
-$Moose::Exception::NeitherClassNorClassNameIsGiven::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::NeitherClassNorClassNameIsGiven::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 

@@ -1,5 +1,5 @@
 package Moose::Exception::MustSupplyAMetaclass;
-$Moose::Exception::MustSupplyAMetaclass::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::MustSupplyAMetaclass::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

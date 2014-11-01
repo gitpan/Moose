@@ -13,7 +13,7 @@ Moose::Cookbook::Snack::Keywords - Restricted "keywords" in Moose
 
 =head1 VERSION
 
-version 2.1307
+version 2.1400
 
 =head1 DESCRIPTION
 

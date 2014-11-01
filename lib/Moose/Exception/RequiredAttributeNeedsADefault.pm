@@ -1,5 +1,5 @@
 package Moose::Exception::RequiredAttributeNeedsADefault;
-$Moose::Exception::RequiredAttributeNeedsADefault::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::RequiredAttributeNeedsADefault::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

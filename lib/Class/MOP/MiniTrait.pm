@@ -1,5 +1,5 @@
 package Class::MOP::MiniTrait;
-$Class::MOP::MiniTrait::VERSION = '2.1307'; # TRIAL
+$Class::MOP::MiniTrait::VERSION = '2.1400';
 use strict;
 use warnings;
 
@@ -48,7 +48,7 @@ Class::MOP::MiniTrait - Extremely limited trait application
 
 =head1 VERSION
 
-version 2.1307
+version 2.1400
 
 =head1 DESCRIPTION
 

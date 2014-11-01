@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::map;
-$Moose::Meta::Method::Accessor::Native::Array::map::VERSION = '2.1307'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Array::map::VERSION = '2.1400';
 use strict;
 use warnings;
 

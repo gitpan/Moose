@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Hash::Writer;
-$Moose::Meta::Method::Accessor::Native::Hash::Writer::VERSION = '2.1307'; # TRIAL
+$Moose::Meta::Method::Accessor::Native::Hash::Writer::VERSION = '2.1400';
 use strict;
 use warnings;
 

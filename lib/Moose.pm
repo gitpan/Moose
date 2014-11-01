@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Moose;
-$Moose::VERSION = '2.1307'; # TRIAL
+$Moose::VERSION = '2.1400';
 $Moose::AUTHORITY = 'cpan:STEVAN';
 
 use 5.008003;
@@ -300,7 +300,7 @@ Moose - A postmodern object system for Perl 5
 
 =head1 VERSION
 
-version 2.1307
+version 2.1400
 
 =head1 SYNOPSIS
 

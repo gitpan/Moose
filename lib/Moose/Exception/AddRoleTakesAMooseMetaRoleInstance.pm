@@ -1,5 +1,5 @@
 package Moose::Exception::AddRoleTakesAMooseMetaRoleInstance;
-$Moose::Exception::AddRoleTakesAMooseMetaRoleInstance::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::AddRoleTakesAMooseMetaRoleInstance::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

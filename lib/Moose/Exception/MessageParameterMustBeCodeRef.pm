@@ -1,5 +1,5 @@
 package Moose::Exception::MessageParameterMustBeCodeRef;
-$Moose::Exception::MessageParameterMustBeCodeRef::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::MessageParameterMustBeCodeRef::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

@@ -1,5 +1,5 @@
 package Moose::Exception::CodeBlockMustBeACodeRef;
-$Moose::Exception::CodeBlockMustBeACodeRef::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::CodeBlockMustBeACodeRef::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash', 'Moose::Exception::Role::Instance';

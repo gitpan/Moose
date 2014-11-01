@@ -1,5 +1,5 @@
 package Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom;
-$Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::CouldNotFindTypeConstraintToCoerceFrom::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

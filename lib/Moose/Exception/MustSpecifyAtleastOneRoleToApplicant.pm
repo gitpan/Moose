@@ -1,5 +1,5 @@
 package Moose::Exception::MustSpecifyAtleastOneRoleToApplicant;
-$Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::VERSION = '2.1307'; # TRIAL
+$Moose::Exception::MustSpecifyAtleastOneRoleToApplicant::VERSION = '2.1400';
 use Moose;
 extends 'Moose::Exception';
 
