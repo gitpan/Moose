@@ -1,5 +1,5 @@
 package Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass;
-$Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::VERSION = '2.1400';
+$Moose::Exception::NoBodyToInitializeInAnAbstractBaseClass::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

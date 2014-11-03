@@ -588,6 +588,7 @@ t/bugs/inheriting_from_roles.t
 t/bugs/inline_reader_bug.t
 t/bugs/instance_application_role_args.t
 t/bugs/lazybuild_required_undef.t
+t/bugs/mark_as_methods_overloading_breakage.t
 t/bugs/moose_exporter_false_circular_reference_rt_63818.t
 t/bugs/moose_octal_defaults.t
 t/bugs/native_trait_handles_bad_value.t

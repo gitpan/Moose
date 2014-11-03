@@ -1,5 +1,5 @@
 package Moose::Exception::IllegalInheritedOptions;
-$Moose::Exception::IllegalInheritedOptions::VERSION = '2.1400';
+$Moose::Exception::IllegalInheritedOptions::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

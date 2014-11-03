@@ -1,5 +1,5 @@
 package Moose::Exception::CoercingWithoutCoercions;
-$Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1400';
+$Moose::Exception::CoercingWithoutCoercions::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

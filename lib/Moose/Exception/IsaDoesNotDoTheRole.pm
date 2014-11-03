@@ -1,5 +1,5 @@
 package Moose::Exception::IsaDoesNotDoTheRole;
-$Moose::Exception::IsaDoesNotDoTheRole::VERSION = '2.1400';
+$Moose::Exception::IsaDoesNotDoTheRole::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

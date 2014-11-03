@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::natatime;
-$Moose::Meta::Method::Accessor::Native::Array::natatime::VERSION = '2.1400';
+$Moose::Meta::Method::Accessor::Native::Array::natatime::VERSION = '2.1401';
 use strict;
 use warnings;
 

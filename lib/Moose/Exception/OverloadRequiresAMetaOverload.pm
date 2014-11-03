@@ -1,5 +1,5 @@
 package Moose::Exception::OverloadRequiresAMetaOverload;
-$Moose::Exception::OverloadRequiresAMetaOverload::VERSION = '2.1400';
+$Moose::Exception::OverloadRequiresAMetaOverload::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

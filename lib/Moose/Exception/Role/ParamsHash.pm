@@ -1,5 +1,5 @@
 package Moose::Exception::Role::ParamsHash;
-$Moose::Exception::Role::ParamsHash::VERSION = '2.1400';
+$Moose::Exception::Role::ParamsHash::VERSION = '2.1401';
 use Moose::Role;
 
 has 'params' => (

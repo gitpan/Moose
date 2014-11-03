@@ -1,5 +1,5 @@
 package Moose::Exception::CannotInlineTypeConstraintCheck;
-$Moose::Exception::CannotInlineTypeConstraintCheck::VERSION = '2.1400';
+$Moose::Exception::CannotInlineTypeConstraintCheck::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::TypeConstraint';

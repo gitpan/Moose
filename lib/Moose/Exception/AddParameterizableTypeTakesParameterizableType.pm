@@ -1,5 +1,5 @@
 package Moose::Exception::AddParameterizableTypeTakesParameterizableType;
-$Moose::Exception::AddParameterizableTypeTakesParameterizableType::VERSION = '2.1400';
+$Moose::Exception::AddParameterizableTypeTakesParameterizableType::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

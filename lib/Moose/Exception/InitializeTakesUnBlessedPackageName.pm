@@ -1,5 +1,5 @@
 package Moose::Exception::InitializeTakesUnBlessedPackageName;
-$Moose::Exception::InitializeTakesUnBlessedPackageName::VERSION = '2.1400';
+$Moose::Exception::InitializeTakesUnBlessedPackageName::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

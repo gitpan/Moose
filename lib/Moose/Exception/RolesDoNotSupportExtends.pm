@@ -1,5 +1,5 @@
 package Moose::Exception::RolesDoNotSupportExtends;
-$Moose::Exception::RolesDoNotSupportExtends::VERSION = '2.1400';
+$Moose::Exception::RolesDoNotSupportExtends::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

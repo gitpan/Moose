@@ -1,5 +1,5 @@
 package Moose::Exception::UnionTakesAtleastTwoTypeNames;
-$Moose::Exception::UnionTakesAtleastTwoTypeNames::VERSION = '2.1400';
+$Moose::Exception::UnionTakesAtleastTwoTypeNames::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

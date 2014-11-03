@@ -1,5 +1,5 @@
 package Moose::Exception::CallingMethodOnAnImmutableInstance;
-$Moose::Exception::CallingMethodOnAnImmutableInstance::VERSION = '2.1400';
+$Moose::Exception::CallingMethodOnAnImmutableInstance::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

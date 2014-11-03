@@ -28,6 +28,7 @@ do { my $x = {
                                       'Locale::US' => '0',
                                       'Module::CPANTS::Analyse' => '0.92',
                                       'Module::Refresh' => '0',
+                                      'MooseX::MarkAsMethods' => '0',
                                       'MooseX::NonMoose' => '0',
                                       'PadWalker' => '0',
                                       'Params::Coerce' => '0',

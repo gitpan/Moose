@@ -1,5 +1,5 @@
 package Moose::Exception::ClassDoesNotHaveInitMeta;
-$Moose::Exception::ClassDoesNotHaveInitMeta::VERSION = '2.1400';
+$Moose::Exception::ClassDoesNotHaveInitMeta::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class';

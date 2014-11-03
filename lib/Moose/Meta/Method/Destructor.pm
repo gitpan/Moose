@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Destructor;
-$Moose::Meta::Method::Destructor::VERSION = '2.1400';
+$Moose::Meta::Method::Destructor::VERSION = '2.1401';
 use strict;
 use warnings;
 
@@ -144,7 +144,7 @@ Moose::Meta::Method::Destructor - Method Meta Object for destructors
 
 =head1 VERSION
 
-version 2.1400
+version 2.1401
 
 =head1 DESCRIPTION
 

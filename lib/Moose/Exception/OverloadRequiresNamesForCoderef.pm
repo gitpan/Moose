@@ -1,5 +1,5 @@
 package Moose::Exception::OverloadRequiresNamesForCoderef;
-$Moose::Exception::OverloadRequiresNamesForCoderef::VERSION = '2.1400';
+$Moose::Exception::OverloadRequiresNamesForCoderef::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

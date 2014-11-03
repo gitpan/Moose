@@ -1,5 +1,5 @@
 package Moose::Exception::CannotOverrideALocalMethod;
-$Moose::Exception::CannotOverrideALocalMethod::VERSION = '2.1400';
+$Moose::Exception::CannotOverrideALocalMethod::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

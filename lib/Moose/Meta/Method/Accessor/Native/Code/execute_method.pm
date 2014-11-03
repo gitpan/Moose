@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Code::execute_method;
-$Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '2.1400';
+$Moose::Meta::Method::Accessor::Native::Code::execute_method::VERSION = '2.1401';
 use strict;
 use warnings;
 

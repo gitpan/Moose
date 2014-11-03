@@ -1,5 +1,5 @@
 package Moose::Exception::TriggerMustBeACodeRef;
-$Moose::Exception::TriggerMustBeACodeRef::VERSION = '2.1400';
+$Moose::Exception::TriggerMustBeACodeRef::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Application;
-$Moose::Meta::Role::Application::VERSION = '2.1400';
+$Moose::Meta::Role::Application::VERSION = '2.1401';
 use strict;
 use warnings;
 use metaclass;
@@ -54,9 +54,9 @@ sub apply {
     $self->check_required_methods(@_);
     $self->check_required_attributes(@_);
 
+    $self->apply_overloading(@_);
     $self->apply_attributes(@_);
     $self->apply_methods(@_);
-    $self->apply_overloading(@_);
 
     $self->apply_override_method_modifiers(@_);
 
@@ -111,7 +111,7 @@ Moose::Meta::Role::Application - A base class for role application
 
 =head1 VERSION
 
-version 2.1400
+version 2.1401
 
 =head1 DESCRIPTION
 

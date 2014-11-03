@@ -1,5 +1,5 @@
 package Moose::Meta::TypeConstraint::DuckType;
-$Moose::Meta::TypeConstraint::DuckType::VERSION = '2.1400';
+$Moose::Meta::TypeConstraint::DuckType::VERSION = '2.1401';
 use strict;
 use warnings;
 use metaclass;
@@ -116,7 +116,7 @@ Moose::Meta::TypeConstraint::DuckType - Type constraint for duck typing
 
 =head1 VERSION
 
-version 2.1400
+version 2.1401
 
 =head1 DESCRIPTION
 

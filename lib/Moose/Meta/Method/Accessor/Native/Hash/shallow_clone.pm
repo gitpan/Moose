@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Hash::shallow_clone;
-$Moose::Meta::Method::Accessor::Native::Hash::shallow_clone::VERSION = '2.1400';
+$Moose::Meta::Method::Accessor::Native::Hash::shallow_clone::VERSION = '2.1401';
 use strict;
 use warnings;
 

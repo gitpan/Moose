@@ -1,5 +1,5 @@
 package Moose::Exception::InvalidOverloadOperator;
-$Moose::Exception::InvalidOverloadOperator::VERSION = '2.1400';
+$Moose::Exception::InvalidOverloadOperator::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 

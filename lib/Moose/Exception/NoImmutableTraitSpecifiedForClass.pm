@@ -1,5 +1,5 @@
 package Moose::Exception::NoImmutableTraitSpecifiedForClass;
-$Moose::Exception::NoImmutableTraitSpecifiedForClass::VERSION = '2.1400';
+$Moose::Exception::NoImmutableTraitSpecifiedForClass::VERSION = '2.1401';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Class', 'Moose::Exception::Role::ParamsHash';

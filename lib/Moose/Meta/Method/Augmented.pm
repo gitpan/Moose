@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Augmented;
-$Moose::Meta::Method::Augmented::VERSION = '2.1400';
+$Moose::Meta::Method::Augmented::VERSION = '2.1401';
 use strict;
 use warnings;
 
@@ -71,7 +71,7 @@ Moose::Meta::Method::Augmented - A Moose Method metaclass for augmented methods
 
 =head1 VERSION
 
-version 2.1400
+version 2.1401
 
 =head1 DESCRIPTION
 
