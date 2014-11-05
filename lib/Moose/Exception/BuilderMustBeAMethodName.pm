@@ -1,5 +1,5 @@
 package Moose::Exception::BuilderMustBeAMethodName;
-$Moose::Exception::BuilderMustBeAMethodName::VERSION = '2.1401';
+$Moose::Exception::BuilderMustBeAMethodName::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::ParamsHash';

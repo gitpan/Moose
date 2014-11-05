@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Composite;
-$Moose::Meta::Role::Composite::VERSION = '2.1401';
+$Moose::Meta::Role::Composite::VERSION = '2.1402';
 use strict;
 use warnings;
 use metaclass;
@@ -214,7 +214,7 @@ Moose::Meta::Role::Composite - An object to represent the set of roles
 
 =head1 VERSION
 
-version 2.1401
+version 2.1402
 
 =head1 DESCRIPTION
 

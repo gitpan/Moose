@@ -1,5 +1,5 @@
 package Moose::Exception::PackageDoesNotUseMooseExporter;
-$Moose::Exception::PackageDoesNotUseMooseExporter::VERSION = '2.1401';
+$Moose::Exception::PackageDoesNotUseMooseExporter::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 

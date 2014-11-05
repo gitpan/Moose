@@ -1,5 +1,5 @@
 package Moose::Exception::MetaclassIsARoleNotASubclassOfGivenMetaclass;
-$Moose::Exception::MetaclassIsARoleNotASubclassOfGivenMetaclass::VERSION = '2.1401';
+$Moose::Exception::MetaclassIsARoleNotASubclassOfGivenMetaclass::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Role';

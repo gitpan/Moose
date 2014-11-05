@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Counter::dec;
-$Moose::Meta::Method::Accessor::Native::Counter::dec::VERSION = '2.1401';
+$Moose::Meta::Method::Accessor::Native::Counter::dec::VERSION = '2.1402';
 use strict;
 use warnings;
 

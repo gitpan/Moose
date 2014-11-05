@@ -1,5 +1,5 @@
 package Moose::Exception::InvalidValueForIs;
-$Moose::Exception::InvalidValueForIs::VERSION = '2.1401';
+$Moose::Exception::InvalidValueForIs::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::InvalidAttributeOptions';

@@ -1,5 +1,5 @@
 package Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs;
-$Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1401';
+$Moose::Exception::EnumCalledWithAnArrayRefAndAdditionalArgs::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 

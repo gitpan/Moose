@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::sort;
-$Moose::Meta::Method::Accessor::Native::Array::sort::VERSION = '2.1401';
+$Moose::Meta::Method::Accessor::Native::Array::sort::VERSION = '2.1402';
 use strict;
 use warnings;
 

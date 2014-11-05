@@ -1,5 +1,5 @@
 package Moose::Exception::NoCasesMatched;
-$Moose::Exception::NoCasesMatched::VERSION = '2.1401';
+$Moose::Exception::NoCasesMatched::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 

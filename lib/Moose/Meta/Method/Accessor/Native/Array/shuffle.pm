@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Array::shuffle;
-$Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.1401';
+$Moose::Meta::Method::Accessor::Native::Array::shuffle::VERSION = '2.1402';
 use strict;
 use warnings;
 

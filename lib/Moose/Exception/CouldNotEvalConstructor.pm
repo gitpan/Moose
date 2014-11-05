@@ -1,5 +1,5 @@
 package Moose::Exception::CouldNotEvalConstructor;
-$Moose::Exception::CouldNotEvalConstructor::VERSION = '2.1401';
+$Moose::Exception::CouldNotEvalConstructor::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 

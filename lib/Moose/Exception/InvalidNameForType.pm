@@ -1,5 +1,5 @@
 package Moose::Exception::InvalidNameForType;
-$Moose::Exception::InvalidNameForType::VERSION = '2.1401';
+$Moose::Exception::InvalidNameForType::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 

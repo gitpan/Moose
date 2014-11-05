@@ -1,5 +1,5 @@
 package Moose::Exception::InvalidTypeConstraint;
-$Moose::Exception::InvalidTypeConstraint::VERSION = '2.1401';
+$Moose::Exception::InvalidTypeConstraint::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 

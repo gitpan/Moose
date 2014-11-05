@@ -1,5 +1,5 @@
 package Moose::Meta::Role::Method;
-$Moose::Meta::Role::Method::VERSION = '2.1401';
+$Moose::Meta::Role::Method::VERSION = '2.1402';
 use strict;
 use warnings;
 
@@ -32,7 +32,7 @@ Moose::Meta::Role::Method - A Moose Method metaclass for Roles
 
 =head1 VERSION
 
-version 2.1401
+version 2.1402
 
 =head1 DESCRIPTION
 

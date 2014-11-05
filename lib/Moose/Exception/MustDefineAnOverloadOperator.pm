@@ -1,5 +1,5 @@
 package Moose::Exception::MustDefineAnOverloadOperator;
-$Moose::Exception::MustDefineAnOverloadOperator::VERSION = '2.1401';
+$Moose::Exception::MustDefineAnOverloadOperator::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Instance';

@@ -1,5 +1,5 @@
 package Moose::Exception::Role::Attribute;
-$Moose::Exception::Role::Attribute::VERSION = '2.1401';
+$Moose::Exception::Role::Attribute::VERSION = '2.1402';
 use Moose::Role;
 
 has 'attribute' => (

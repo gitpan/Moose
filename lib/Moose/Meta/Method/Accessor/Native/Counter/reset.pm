@@ -1,5 +1,5 @@
 package Moose::Meta::Method::Accessor::Native::Counter::reset;
-$Moose::Meta::Method::Accessor::Native::Counter::reset::VERSION = '2.1401';
+$Moose::Meta::Method::Accessor::Native::Counter::reset::VERSION = '2.1402';
 use strict;
 use warnings;
 

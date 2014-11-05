@@ -1,5 +1,5 @@
 package Moose::Exception::CannotFindDelegateMetaclass;
-$Moose::Exception::CannotFindDelegateMetaclass::VERSION = '2.1401';
+$Moose::Exception::CannotFindDelegateMetaclass::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 with 'Moose::Exception::Role::Attribute';

@@ -1,5 +1,5 @@
 package Moose::Exception::CannotCallAnAbstractMethod;
-$Moose::Exception::CannotCallAnAbstractMethod::VERSION = '2.1401';
+$Moose::Exception::CannotCallAnAbstractMethod::VERSION = '2.1402';
 use Moose;
 extends 'Moose::Exception';
 
