@@ -1,5 +1,6 @@
 package Class::MOP::Method::Constructor;
-$Class::MOP::Method::Constructor::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -132,7 +133,7 @@ Class::MOP::Method::Constructor - Method Meta Object for constructors
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 SYNOPSIS
 

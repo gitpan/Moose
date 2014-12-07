@@ -1,5 +1,6 @@
 package Class::MOP::Method::Accessor;
-$Class::MOP::Method::Accessor::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -273,7 +274,7 @@ Class::MOP::Method::Accessor - Method Meta Object for accessors
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 SYNOPSIS
 

@@ -1,7 +1,8 @@
 use strict;
 use warnings;
 package Moose::Role;
-$Moose::Role::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use Scalar::Util ();
 use Carp ();
 use Class::Load  'is_class_loaded';
@@ -179,7 +180,7 @@ Moose::Role - The Moose Role
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 SYNOPSIS
 

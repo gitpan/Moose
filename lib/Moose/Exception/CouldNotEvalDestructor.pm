@@ -1,5 +1,6 @@
 package Moose::Exception::CouldNotEvalDestructor;
-$Moose::Exception::CouldNotEvalDestructor::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use Moose;
 extends 'Moose::Exception';
 

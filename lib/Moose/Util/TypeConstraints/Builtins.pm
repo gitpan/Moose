@@ -1,5 +1,6 @@
 package Moose::Util::TypeConstraints::Builtins;
-$Moose::Util::TypeConstraints::Builtins::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 

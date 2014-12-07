@@ -9,8 +9,9 @@ sub ccflags_dyn {
     my $is_dev = shift;
 
     my $ccflags = q<( $Config::Config{ccflags} || '' ) . ' -I.'>;
-    $ccflags .= q< . ' -Wall -Wdeclaration-after-statement'>
-        if $is_dev;
+    if ($is_dev and ($Config{cc} !~ /^cl\b/i)) {
+        $ccflags .= q< . ' -Wall -Wdeclaration-after-statement'>;
+    }
 
     return $ccflags;
 }
@@ -56,7 +57,7 @@ sub const_cccmd {
     return q{} unless $ret;
 
     if ($Config{cc} =~ /^cl\b/i) {
-        warn 'you are using MSVC... my condolences.';
+        warn 'you are using MSVC... we may not have gotten some options quite right.';
         $ret .= ' /Fo$@';
     }
     else {

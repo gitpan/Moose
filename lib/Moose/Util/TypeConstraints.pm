@@ -1,5 +1,6 @@
 package Moose::Util::TypeConstraints;
-$Moose::Util::TypeConstraints::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use Carp ();
 use Scalar::Util qw( blessed );
 use Moose::Exporter;
@@ -554,7 +555,7 @@ sub _create_type_constraint ($$$;$) {
             if defined $type;
 
         if( $name !~ /^[\w:\.]+$/ ) {
-	    throw_exception( InvalidNameForType => name => $name );
+            throw_exception( InvalidNameForType => name => $name );
         }
     }
 
@@ -769,7 +770,7 @@ Moose::Util::TypeConstraints - Type constraint system for Moose
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 SYNOPSIS
 

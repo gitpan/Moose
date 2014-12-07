@@ -93,7 +93,7 @@ my %WriteMakefileArgs = (
     "Sub::Exporter" => "0.980",
     "Sub::Name" => "0.05",
     "Task::Weaken" => 0,
-    "Try::Tiny" => "0.02",
+    "Try::Tiny" => "0.17",
     "parent" => "0.223",
     "strict" => "1.03",
     "warnings" => "1.03"
@@ -109,7 +109,7 @@ my %WriteMakefileArgs = (
     "Test::Requires" => "0.05",
     "Test::Warnings" => "0.016"
   },
-  "VERSION" => "2.1402",
+  "VERSION" => "2.1403",
   "XS" => {
     "xs/Attribute.xs" => "xs/Attribute.c",
     "xs/AttributeCore.xs" => "xs/AttributeCore.c",
@@ -166,7 +166,7 @@ my %FallbackPrereqs = (
   "Test::More" => "0.88",
   "Test::Requires" => "0.05",
   "Test::Warnings" => "0.016",
-  "Try::Tiny" => "0.02",
+  "Try::Tiny" => "0.17",
   "parent" => "0.223",
   "strict" => "1.03",
   "warnings" => "1.03"
@@ -195,7 +195,7 @@ sub const_cccmd {
     return q{} unless $ret;
 
     if ($Config{cc} =~ /^cl\b/i) {
-        warn 'you are using MSVC... my condolences.';
+        warn 'you are using MSVC... we may not have gotten some options quite right.';
         $ret .= ' /Fo$@';
     }
     else {

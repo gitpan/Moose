@@ -1,5 +1,6 @@
 package Class::MOP;
-$Class::MOP::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -29,7 +30,7 @@ BEGIN {
 
 XSLoader::load(
     'Moose',
-    $Class::MOP::{VERSION} ? ${ $Class::MOP::{VERSION} } : ()
+    $VERSION,
 );
 
 {
@@ -795,7 +796,7 @@ Class::MOP - A Meta Object Protocol for Perl 5
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 DESCRIPTION
 

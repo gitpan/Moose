@@ -1,5 +1,6 @@
 package Moose::Exporter;
-$Moose::Exporter::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -807,7 +808,7 @@ Moose::Exporter - make an import() and unimport() just like Moose.pm
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 SYNOPSIS
 
@@ -815,10 +816,11 @@ version 2.1402
 
   use Moose ();
   use Moose::Exporter;
+  use Some::Random ();
 
   Moose::Exporter->setup_import_methods(
       with_meta => [ 'has_rw', 'sugar2' ],
-      as_is     => [ 'sugar3', \&Some::Random::thing, 'Other::Random::thing' ],
+      as_is     => [ 'sugar3', \&Some::Random::thing, 'Some::Random::other_thing' ],
       also      => 'Moose',
   );
 
@@ -839,6 +841,7 @@ version 2.1402
   has 'name';
   has_rw 'size';
   thing;
+  other_thing;
 
   no MyApp::Moose;
 

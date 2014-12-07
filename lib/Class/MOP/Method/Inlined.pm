@@ -1,5 +1,6 @@
 package Class::MOP::Method::Inlined;
-$Class::MOP::Method::Inlined::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -118,7 +119,7 @@ Class::MOP::Method::Inlined - Method base class for methods which have been inli
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,6 @@
 package Class::MOP::Overload;
-$Class::MOP::Overload::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -140,7 +141,7 @@ Class::MOP::Overload - Overload Meta Object
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 SYNOPSIS
 

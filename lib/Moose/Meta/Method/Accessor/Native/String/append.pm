@@ -1,5 +1,6 @@
 package Moose::Meta::Method::Accessor::Native::String::append;
-$Moose::Meta::Method::Accessor::Native::String::append::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 

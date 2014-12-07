@@ -1,5 +1,6 @@
 package Class::MOP::Class::Immutable::Trait;
-$Class::MOP::Class::Immutable::Trait::VERSION = '2.1402';
+our $VERSION = '2.1403';
+
 use strict;
 use warnings;
 
@@ -106,7 +107,7 @@ Class::MOP::Class::Immutable::Trait - Implements immutability for metaclass obje
 
 =head1 VERSION
 
-version 2.1402
+version 2.1403
 
 =head1 DESCRIPTION
 
